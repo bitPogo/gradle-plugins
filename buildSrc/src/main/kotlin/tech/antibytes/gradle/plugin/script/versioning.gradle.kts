@@ -130,6 +130,12 @@ val versionInfo: Task by tasks.creating {
     }
 }
 
+val setProjectVersion: Task by tasks.creating {
+    doFirst {
+        version = versionName()
+    }
+}
+
 allprojects {
     version = versionName()
 }
