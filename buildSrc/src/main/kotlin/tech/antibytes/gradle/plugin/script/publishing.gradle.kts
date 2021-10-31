@@ -72,6 +72,8 @@ val githubToken = (project.findProperty("gpr.key")
 
 
 val publishPackage: Task by tasks.creating {
+    dependsOn("setProjectVersion")
+
     doLast {
         git = Git.open(File(repository.url))
         gitCommit()
@@ -81,8 +83,6 @@ val publishPackage: Task by tasks.creating {
 
 // Dev
 val cloneDevRepository: Task by tasks.creating {
-    group = taskGroup
-
     doLast {
         repository = Repository(
             "$basePath/$devRepoName",
@@ -97,7 +97,6 @@ val publishDev: Task by tasks.creating {
     group = taskGroup
 
     dependsOn(
-        "versionInfo",
         cloneDevRepository,
         "createMavenDevPackage",
         publishPackage
@@ -107,8 +106,6 @@ val publishDev: Task by tasks.creating {
 
 // snapshot
 val cloneSnapshotRepository: Task by tasks.creating {
-    group = taskGroup
-
     doLast {
         repository = Repository(
             "$basePath/$snapshotRepoName",
@@ -123,7 +120,6 @@ val publishSnapshot: Task by tasks.creating {
     group = taskGroup
 
     dependsOn(
-        "versionInfo",
         cloneSnapshotRepository,
         "createMavenSnapshotPackage",
         publishPackage
@@ -132,8 +128,6 @@ val publishSnapshot: Task by tasks.creating {
 
 // release
 val cloneReleaseRepository: Task by tasks.creating {
-    group = taskGroup
-
     doLast {
         repository = Repository(
             "$basePath/$releaseRepoName",
@@ -148,7 +142,6 @@ val publishRelease: Task by tasks.creating {
     group = taskGroup
 
     dependsOn(
-        "versionInfo",
         cloneReleaseRepository,
         "createMavenReleasePackage",
         publishPackage
