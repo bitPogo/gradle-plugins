@@ -1,0 +1,35 @@
+build:
+  - .github/**/*
+
+scripts:
+  - buildSrc/src/main/kotlin/**/script/**/*.kts
+
+dependencies:
+  - buildSrc/**/*
+
+documentation:
+  - docs/**/*
+  - README.adoc
+  - LICENSE
+  - CHANGELOG.adoc
+  - CODE-OF-CONDUCT.adoc
+  - CONTRIBUTION.adoc
+  - readmeOSS.adoc
+
+# Dependency Plugin
+dependency:
+  - antibytes-dependency/**/*
+
+# Version Plugin
+versioning:
+  - antibytes-versioning/**/*
+
+# Publishing Plugin
+publishing:
+  - antibytes-publishing/**/*
+
+# Sample Apps
+sample-android:
+  - sample-android/**/*
+sample-jvm:
+  - sample-jvm/**/*
