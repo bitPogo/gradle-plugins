@@ -91,23 +91,28 @@ publishing {
 
 val createMavenDevPackage: Task by tasks.creating {
     group = "Publishing"
-    dependsOn("publishAllPublicationsToDevPackagesRepository")
+    dependsOn(
+        "publishAllPublicationsToDevPackagesRepository"
+    )
     doLast { removeRedundantPackage("dev") }
 
 }
 
 val createMavenSnapshotPackage: Task by tasks.creating {
     group = "Publishing"
-    dependsOn("publishAllPublicationsToSnapshotPackagesRepository")
+    dependsOn(
+        "publishAllPublicationsToSnapshotPackagesRepository"
+    )
     doLast { removeRedundantPackage("snapshots") }
 
 }
 
 val createMavenReleasePackage: Task by tasks.creating {
     group = "Publishing"
-    dependsOn("publishAllPublicationsToReleasePackagesRepository")
+    dependsOn(
+        "publishAllPublicationsToReleasePackagesRepository"
+    )
     doLast { removeRedundantPackage("releases") }
-
 }
 
 fun removeRedundantPackage(flavour: String) {
