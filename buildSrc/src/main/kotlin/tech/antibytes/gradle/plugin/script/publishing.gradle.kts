@@ -41,6 +41,9 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
  *
  * This requires publishing-config.gradle.kts!
  */
+plugins {
+    id("tech.antibytes.gradle.plugin.script.versioning")
+}
 
 val taskGroup = "publishing"
 val prefix = "maven"
@@ -53,72 +56,100 @@ val releaseRepoName = "$prefix${separator}releases"
 val basePath = "${rootProject.buildDir}/gitPublish"
 
 lateinit var git: Git
-lateinit var repositoryName: String
-lateinit var repository: String
+lateinit var repository: Repository
 lateinit var flavour: String
 lateinit var suffix: String
+
+data class Repository(
+    val url: String,
+    val name: String
+)
 
 val githubUser = (project.findProperty("gpr.user")
     ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_USERNAME")).toString()
 val githubToken = (project.findProperty("gpr.key")
     ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_TOKEN")).toString()
 
-val cloneRepository: Task by tasks.creating {
-    group = taskGroup
-
-    doLast {
-        gitClone()
-    }
-}
 
 val publishPackage: Task by tasks.creating {
     doLast {
-        git = Git.open(File(repository))
-        gitUpdate()
+        git = Git.open(File(repository.url))
         gitCommit()
         gitPush()
     }
 }
 
 // Dev
+val cloneDevRepository: Task by tasks.creating {
+    group = taskGroup
+
+    doLast {
+        repository = Repository(
+            "$basePath/$devRepoName",
+            devRepoName
+        )
+
+        gitClone()
+    }
+}
+
 val publishDev: Task by tasks.creating {
     group = taskGroup
 
-    repository = "$basePath/$devRepoName"
-    repositoryName = devRepoName
-
     dependsOn(
-        cloneRepository,
+        "versionInfo",
+        cloneDevRepository,
         "createMavenDevPackage",
         publishPackage
     )
-
-
 }
 
+
 // snapshot
+val cloneSnapshotRepository: Task by tasks.creating {
+    group = taskGroup
+
+    doLast {
+        repository = Repository(
+            "$basePath/$snapshotRepoName",
+            snapshotRepoName
+        )
+
+        gitClone()
+    }
+}
+
 val publishSnapshot: Task by tasks.creating {
     group = taskGroup
 
-    repository = "$basePath/$snapshotRepoName"
-    repositoryName = snapshotRepoName
-
     dependsOn(
-        cloneRepository,
+        "versionInfo",
+        cloneSnapshotRepository,
         "createMavenSnapshotPackage",
         publishPackage
     )
 }
 
 // release
+val cloneReleaseRepository: Task by tasks.creating {
+    group = taskGroup
+
+    doLast {
+        repository = Repository(
+            "$basePath/$releaseRepoName",
+            releaseRepoName
+        )
+
+        gitClone()
+    }
+}
+
 val publishRelease: Task by tasks.creating {
     group = taskGroup
 
-    repository = "$basePath/$releaseRepoName"
-    repositoryName = releaseRepoName
-
     dependsOn(
-        cloneRepository,
+        "versionInfo",
+        cloneReleaseRepository,
         "createMavenReleasePackage",
         publishPackage
     )
@@ -130,14 +161,14 @@ fun gitClone() {
         gitUpdate()
     } catch (exception: Exception) {
         Git.cloneRepository()
-            .setURI("https://github.com/bitPogo/$repositoryName.git")
+            .setURI("https://github.com/bitPogo/${repository.name}.git")
             .setCredentialsProvider(
                 UsernamePasswordCredentialsProvider(
                     githubUser,
                     githubToken
                 )
             )
-            .setDirectory(File(repository))
+            .setDirectory(File(repository.url))
             .call()
     }
 }
