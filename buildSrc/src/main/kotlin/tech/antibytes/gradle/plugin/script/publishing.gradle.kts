@@ -56,6 +56,7 @@ lateinit var git: Git
 lateinit var repositoryName: String
 lateinit var repository: String
 lateinit var flavour: String
+lateinit var suffix: String
 
 val githubUser = (project.findProperty("gpr.user")
     ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_USERNAME")).toString()
@@ -70,6 +71,15 @@ val cloneRepository: Task by tasks.creating {
     }
 }
 
+val publishPackage: Task by tasks.creating {
+    doLast {
+        git = Git.open(File(repository))
+        gitUpdate()
+        gitCommit()
+        gitPush()
+    }
+}
+
 // Dev
 val publishDev: Task by tasks.creating {
     group = taskGroup
@@ -79,15 +89,11 @@ val publishDev: Task by tasks.creating {
 
     dependsOn(
         cloneRepository,
-        "createMavenDevPackage"
+        "createMavenDevPackage",
+        publishPackage
     )
 
-    doLast {
-        git = Git.open(File(repository))
-        gitUpdate()
-        gitCommit()
-        gitPush()
-    }
+
 }
 
 // snapshot
@@ -99,15 +105,9 @@ val publishSnapshot: Task by tasks.creating {
 
     dependsOn(
         cloneRepository,
-        "createMavenDevPackage"
+        "createMavenSnapshotPackage",
+        publishPackage
     )
-
-    doLast {
-        git = Git.open(File(repository))
-        gitUpdate()
-        gitCommit()
-        gitPush()
-    }
 }
 
 // release
@@ -119,15 +119,9 @@ val publishRelease: Task by tasks.creating {
 
     dependsOn(
         cloneRepository,
-        "createMavenDevPackage"
+        "createMavenReleasePackage",
+        publishPackage
     )
-
-    doLast {
-        git = Git.open(File(repository))
-        gitUpdate()
-        gitCommit()
-        gitPush()
-    }
 }
 
 // Git calls
