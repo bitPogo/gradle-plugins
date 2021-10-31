@@ -137,5 +137,7 @@ val setProjectVersion: Task by tasks.creating {
 }
 
 allprojects {
-    version = versionName()
+    afterEvaluate {
+        version = versionName()
+    }
 }
