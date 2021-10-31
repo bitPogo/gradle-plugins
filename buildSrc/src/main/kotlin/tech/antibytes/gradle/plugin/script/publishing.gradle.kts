@@ -6,7 +6,6 @@ import org.eclipse.jgit.api.ResetCommand
 import org.eclipse.jgit.transport.PushResult
 import org.eclipse.jgit.transport.RemoteRefUpdate
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
-import org.gradle.internal.impldep.org.apache.http.auth.UsernamePasswordCredentials
 
 /**
  * Publish generated artefacts to our maven-repository using [jGit](https://www.eclipse.org/jgit/)
@@ -63,24 +62,6 @@ val githubUser = (project.findProperty("gpr.user")
 val githubToken = (project.findProperty("gpr.key")
     ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_TOKEN")).toString()
 
-task<Exec>("publishSnapshot") {
-    group = taskGroup
-    dependsOn("gitPublishSnapshotPush")
-}
-
-task<Exec>("publishRelease") {
-    group = taskGroup
-
-    commandLine(
-        "${rootProject.projectDir}/gradlew",
-        "gitPublishReleaseCheckout",
-        "gitPublishReleaseUpdate",
-        "publishAllPublicationsToReleasePackagesRepository",
-        "gitPublishReleaseCommit",
-        "gitPublishReleasePush"
-    )
-}
-
 val cloneRepository: Task by tasks.creating {
     group = taskGroup
 
@@ -109,57 +90,45 @@ val publishDev: Task by tasks.creating {
     }
 }
 
-// Git Checkout
-
-/*
-val gitPublishSnapshotCheckout: Task by tasks.creating {
+// snapshot
+val publishSnapshot: Task by tasks.creating {
     group = taskGroup
-    doLast { gitClone(snapshotRepoName) }
+
+    repository = "$basePath/$snapshotRepoName"
+    repositoryName = snapshotRepoName
+
+    dependsOn(
+        cloneRepository,
+        "createMavenDevPackage"
+    )
+
+    doLast {
+        git = Git.open(File(repository))
+        gitUpdate()
+        gitCommit()
+        gitPush()
+    }
 }
 
-val gitPublishReleaseCheckout: Task by tasks.creating {
+// release
+val publishRelease: Task by tasks.creating {
     group = taskGroup
-    doLast { gitClone(releaseRepoName) }
+
+    repository = "$basePath/$releaseRepoName"
+    repositoryName = releaseRepoName
+
+    dependsOn(
+        cloneRepository,
+        "createMavenDevPackage"
+    )
+
+    doLast {
+        git = Git.open(File(repository))
+        gitUpdate()
+        gitCommit()
+        gitPush()
+    }
 }
-
-// Git Update
-
-
-val gitPublishSnapshotUpdate: Task by tasks.creating {
-    group = taskGroup
-    doLast { gitUpdate() }
-}
-
-val gitPublishReleaseUpdate: Task by tasks.creating() {
-    group = taskGroup
-    doLast { gitUpdate() }
-}
-
-// Git Commit
-
-
-val gitPublishSnapshotCommit: Task by tasks.creating() {
-    group = taskGroup
-    doLast { gitCommit() }
-}
-
-val gitPublishReleaseCommit: Task by tasks.creating() {
-    group = taskGroup
-    doLast { gitCommit() }
-}
-
-// Git Push
-
-
-val gitPublishSnapshotPush: Task by tasks.creating() {
-    group = taskGroup
-    doLast { gitPush() }
-}
-
-val gitPublishReleasePush: Task by tasks.creating() {
-    group = taskGroup
-    doLast { gitPush() }
-}*/
 
 // Git calls
 fun gitClone() {
@@ -205,8 +174,6 @@ fun gitCommit() {
 }
 
 fun gitPush() {
-    println(githubUser)
-    println(githubToken)
     val results: Iterable<PushResult> = git.push()
         .setCredentialsProvider(
             UsernamePasswordCredentialsProvider(

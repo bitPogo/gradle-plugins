@@ -30,9 +30,9 @@ publishing {
             setUrl("https://maven.pkg.github.com/${LibraryConfig.githubOwner}/${LibraryConfig.githubRepository}")
             credentials {
                 username = (project.findProperty("gpr.user")
-                        ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_USERNAME")).toString()
+                    ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_USERNAME")).toString()
                 password = (project.findProperty("gpr.key")
-                        ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_TOKEN")).toString()
+                    ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_TOKEN")).toString()
             }
         }
 
@@ -101,7 +101,7 @@ fun removeRedundantPackage(flavour: String) {
         "${project.rootProject.buildDir}/gitPublish/maven-$flavour/$flavour/antibytes-dependency"
     ).deleteRecursively()
 
-    if(!result) {
+    if (!result) {
         throw RuntimeException("Was not able to delete $flavour redundant package")
     }
 }
