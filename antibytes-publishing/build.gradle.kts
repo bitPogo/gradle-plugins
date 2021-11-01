@@ -13,14 +13,15 @@ group = LibraryConfig.PublishConfig.groupId
 
 object Version {
     const val kotlin = "1.5.31"
-    const val junit = "4.13.2"
+    const val junit = "5.8.1"
 }
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}")
-    testImplementation("junit:junit:${Version.junit}")
+    testImplementation(platform("org.junit:junit-bom:${Version.junit}"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 java {

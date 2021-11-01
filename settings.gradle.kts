@@ -9,7 +9,10 @@ plugins {
     id("com.gradle.enterprise") version("3.7")
 }
 
-include("antibytes-dependency")
+include(
+    ":antibytes-dependency",
+    ":antibytes-publishing"
+)
 
 buildCache {
     local {
