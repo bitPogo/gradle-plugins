@@ -6,14 +6,8 @@
 
 package tech.antibytes.gradle.publishing
 
-import com.palantir.gradle.gitversion.VersionDetails
-import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
-
-data class VersionInfo(
-    val name: String,
-    val details: VersionDetails
-)
+import org.gradle.api.provider.SetProperty
 
 internal interface PublishingContract {
     interface VersioningConfiguration {
@@ -23,12 +17,12 @@ internal interface PublishingContract {
         val issuePattern: Property<Regex?>
 
         val versionPrefix: Property<String>
-        val normalization: ListProperty<String>
+        val normalization: SetProperty<String>
     }
 
     interface Versioning {
         fun versionName(): String
-        fun versionInfo(): VersionInfo
+        fun versionInfo(): PublishingApiContract.VersionInfo
 
         companion object {
             const val SEPARATOR = "-"
@@ -36,5 +30,7 @@ internal interface PublishingContract {
         }
     }
 
-    interface PublishingConfiguration : VersioningConfiguration
+    interface PublishingConfiguration : VersioningConfiguration {
+        val packageRegistries: SetProperty<PublishingApiContract.PackageRegistry>
+    }
 }

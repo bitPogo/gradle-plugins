@@ -6,16 +6,19 @@
 
 package tech.antibytes.gradle.publishing
 
-import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.SetProperty
 
 abstract class AntiBytesPublishingExtension : PublishingContract.PublishingConfiguration {
+    // Versioning
     abstract override val releasePattern: Property<Regex>
     abstract override val featurePattern: Property<Regex>
     abstract override val dependencyBotPattern: Property<Regex>
     abstract override val issuePattern: Property<Regex?>
     abstract override val versionPrefix: Property<String>
-    abstract override val normalization: ListProperty<String>
+    abstract override val normalization: SetProperty<String>
+
+    abstract override val packageRegistries: SetProperty<PublishingApiContract.PackageRegistry>
 
     init {
         releasePattern.convention("main|release/.*".toRegex())
@@ -24,6 +27,8 @@ abstract class AntiBytesPublishingExtension : PublishingContract.PublishingConfi
         issuePattern.convention(null)
 
         versionPrefix.convention("v")
-        normalization.convention(emptyList())
+        normalization.convention(emptySet())
+
+        packageRegistries.convention(emptySet())
     }
 }

@@ -101,7 +101,21 @@ class AntiBytesPublishingExtensionSpec {
 
         assertEquals(
             actual = extension.normalization.get(),
-            expected = emptyList()
+            expected = emptySet()
+        )
+    }
+
+    @Test
+    fun `It has no default PackageRegistry`() {
+        val project = ProjectBuilder.builder().build()
+        val extension = project.extensions.create(
+            "publishing",
+            AntiBytesPublishingExtension::class.java
+        )
+
+        assertEquals(
+            actual = extension.packageRegistries.get(),
+            expected = emptySet()
         )
     }
 }

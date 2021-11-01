@@ -13,8 +13,8 @@ import io.mockk.mockk
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
-import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.SetProperty
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Test
@@ -316,10 +316,10 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-bump-${
-            branchAction
-                .replace("_", "-")
-                .replace("?", "-")
-                .replace("\$", "-")
+                branchAction
+                    .replace("_", "-")
+                    .replace("?", "-")
+                    .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
@@ -420,10 +420,10 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-${
-            branchAction
-                .replace("_", "-")
-                .replace("?", "-")
-                .replace("\$", "-")
+                branchAction
+                    .replace("_", "-")
+                    .replace("?", "-")
+                    .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
@@ -526,21 +526,35 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-${
-            branchAction
-                .replace("_", "-")
-                .replace("?", "-")
-                .replace("\$", "-")
+                branchAction
+                    .replace("_", "-")
+                    .replace("?", "-")
+                    .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
 
     @Test
-    fun `Given versionInfo is called, it returns a VersionInfo, which contains VersionDetails`() {
+    fun `Given versionInfo is called, it returns a VersionInfo, which contains VersionDetails and a VersionName`() {
         // Given
+        val branchName = "main"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = VersionConfiguration(
+            releasePattern = "main|release/.*".toRegex(),
+            versionPrefix = versionPrefix
+        )
+
         val project: Project = mockk()
+
         val extensions: ExtensionContainer = mockk()
         val extraProperties: ExtraPropertiesExtension = mockk()
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(mockk())
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -549,9 +563,14 @@ class VersioningSpec {
 
         every { project.extensions } returns extensions
 
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+
         val versioning = Versioning(
             project,
-            mockk()
+            configuration
         )
 
         // When
@@ -578,7 +597,7 @@ private class VersionConfiguration(
     override val dependencyBotPattern: Property<Regex>
     override val issuePattern: Property<Regex?>
     override val versionPrefix: Property<String>
-    override val normalization: ListProperty<String>
+    override val normalization: SetProperty<String>
 
     init {
         val project = ProjectBuilder.builder().build()
@@ -603,7 +622,7 @@ private class VersionConfiguration(
             it.set(versionPrefix)
         }
 
-        this.normalization = project.objects.listProperty(String::class.java).also {
+        this.normalization = project.objects.setProperty(String::class.java).also {
             it.set(normalization)
         }
     }

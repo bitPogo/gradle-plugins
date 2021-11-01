@@ -124,9 +124,9 @@ internal class Versioning(
         }
     }
 
-    override fun versionInfo(): VersionInfo {
-        return VersionInfo(
-            "",
+    override fun versionInfo(): PublishingApiContract.VersionInfo {
+        return PublishingApiContract.VersionInfo(
+            versionName(),
             versionDetails()
         )
     }
