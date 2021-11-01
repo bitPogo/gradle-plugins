@@ -39,6 +39,20 @@ class AntiBytesPublishingExtensionSpec {
     }
 
     @Test
+    fun `It has a default DependencyBotPattern`() {
+        val project = ProjectBuilder.builder().build()
+        val extension = project.extensions.create(
+            "publishing",
+            AntiBytesPublishingExtension::class.java
+        )
+
+        assertEquals(
+            actual = extension.dependencyBotPattern.get().pattern,
+            expected = "dependabot/(.*)"
+        )
+    }
+
+    @Test
     fun `It has a default ReleasePattern`() {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
@@ -61,5 +75,33 @@ class AntiBytesPublishingExtensionSpec {
         )
 
         assertFalse(extension.issuePattern.isPresent)
+    }
+
+    @Test
+    fun `It has a default VersionPrefix`() {
+        val project = ProjectBuilder.builder().build()
+        val extension = project.extensions.create(
+            "publishing",
+            AntiBytesPublishingExtension::class.java
+        )
+
+        assertEquals(
+            actual = extension.versionPrefix.get(),
+            expected = "v"
+        )
+    }
+
+    @Test
+    fun `It has a default NormalizationList`() {
+        val project = ProjectBuilder.builder().build()
+        val extension = project.extensions.create(
+            "publishing",
+            AntiBytesPublishingExtension::class.java
+        )
+
+        assertEquals(
+            actual = extension.normalization.get(),
+            expected = emptyList()
+        )
     }
 }

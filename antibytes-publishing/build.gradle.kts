@@ -16,6 +16,7 @@ object Version {
     const val junit = "5.8.1"
     const val publishing = "5.11.0.202103091610-r"
     const val versioning = "0.12.3"
+    const val mockk = "1.12.0"
 }
 
 dependencies {
@@ -26,6 +27,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}")
     testImplementation(platform("org.junit:junit-bom:${Version.junit}"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("io.mockk:mockk:${Version.mockk}")
 }
 
 java {
@@ -34,11 +36,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("antibytes-dependency") {
+    plugins.register("antibytes-publishing") {
         group = LibraryConfig.group
-        id = "antibytes-dependency"
-        implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependency"
-        description = "General dependencies for Antibytes projects"
+        id = "tech.antibytes.antibytes-publishing"
+        implementationClass = "tech.antibytes.gradle.dependency.AntiBytesPublishing"
+        description = "Publishing tasks for Antibytes projects"
         version = "0.1.0"
     }
 }
