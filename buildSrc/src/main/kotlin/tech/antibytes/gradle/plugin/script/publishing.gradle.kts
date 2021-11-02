@@ -98,7 +98,7 @@ val publishDev: Task by tasks.creating {
 
     dependsOn(
         cloneDevRepository,
-        "createMavenDevPackage",
+        "publishAllPublicationsToDevPackagesRepository",
         publishPackage
     )
 }
@@ -121,7 +121,7 @@ val publishSnapshot: Task by tasks.creating {
 
     dependsOn(
         cloneSnapshotRepository,
-        "createMavenSnapshotPackage",
+        "publishAllPublicationsToSnapshotPackagesRepository",
         publishPackage
     )
 }
@@ -143,7 +143,7 @@ val publishRelease: Task by tasks.creating {
 
     dependsOn(
         cloneReleaseRepository,
-        "createMavenReleasePackage",
+        "publishAllPublicationsToReleasePackagesRepository",
         publishPackage
     )
 }
