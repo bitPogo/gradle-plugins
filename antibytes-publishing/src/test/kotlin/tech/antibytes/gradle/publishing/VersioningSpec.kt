@@ -316,10 +316,10 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-bump-${
-                branchAction
-                    .replace("_", "-")
-                    .replace("?", "-")
-                    .replace("\$", "-")
+            branchAction
+                .replace("_", "-")
+                .replace("?", "-")
+                .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
@@ -420,10 +420,10 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-${
-                branchAction
-                    .replace("_", "-")
-                    .replace("?", "-")
-                    .replace("\$", "-")
+            branchAction
+                .replace("_", "-")
+                .replace("?", "-")
+                .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
@@ -526,10 +526,10 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-${
-                branchAction
-                    .replace("_", "-")
-                    .replace("?", "-")
-                    .replace("\$", "-")
+            branchAction
+                .replace("_", "-")
+                .replace("?", "-")
+                .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
