@@ -118,4 +118,15 @@ class AntiBytesPublishingExtensionSpec {
             expected = emptySet()
         )
     }
+
+    @Test
+    fun `It has a default DryRun flag`() {
+        val project = ProjectBuilder.builder().build()
+        val extension = project.extensions.create(
+            "publishing",
+            AntiBytesPublishingExtension::class.java
+        )
+
+        assertFalse(extension.dryRun.get())
+    }
 }

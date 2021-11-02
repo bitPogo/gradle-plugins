@@ -30,7 +30,12 @@ internal interface PublishingContract {
         }
     }
 
+    fun interface MavenPublishing {
+        fun configureMavenTask(configuration: PublishingApiContract.PackageRegistry)
+    }
+
     interface PublishingConfiguration : VersioningConfiguration {
+        val dryRun: Property<Boolean>
         val packageRegistries: SetProperty<PublishingApiContract.PackageRegistry>
     }
 }

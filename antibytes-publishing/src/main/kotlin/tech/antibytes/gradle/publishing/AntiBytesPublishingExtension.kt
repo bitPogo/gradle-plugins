@@ -30,5 +30,6 @@ abstract class AntiBytesPublishingExtension : PublishingContract.PublishingConfi
         normalization.convention(emptySet())
 
         packageRegistries.convention(emptySet())
+        dryRun.convention(false)
     }
 }

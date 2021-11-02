@@ -10,6 +10,7 @@ plugins {
 }
 
 include(
+    ":antibytes-plugin-test",
     ":antibytes-dependency",
     ":antibytes-publishing"
 )
