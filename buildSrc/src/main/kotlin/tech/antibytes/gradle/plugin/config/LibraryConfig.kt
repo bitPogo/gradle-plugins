@@ -27,8 +27,8 @@ object LibraryConfig {
         const val developerEmail = "solascriptura001+antibytes@gmail.com"
 
         // LICENSE
-        const val licenseName = "Apache 2.0"
-        const val licenseUrl = "$url/blob/main/LICENSE"
+        const val licenseName = "The Apache License, Version 2.0"
+        const val licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
         const val licenseDistribution = "repo"
 
         // SCM
