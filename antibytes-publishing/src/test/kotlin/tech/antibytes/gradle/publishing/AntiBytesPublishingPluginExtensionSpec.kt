@@ -12,16 +12,16 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class AntiBytesPublishingExtensionSpec {
+class AntiBytesPublishingPluginExtensionSpec {
     @Test
     fun `It fulfils PublishingConfiguration`() {
         val project = ProjectBuilder.builder().build()
         val extension: Any = project.extensions.create(
             "publishing",
-            AntiBytesPublishingExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java
         )
 
-        assertTrue(extension is PublishingContract.PublishingConfiguration)
+        assertTrue(extension is PublishingContract.PublishingPluginConfiguration)
     }
 
     @Test
@@ -29,7 +29,7 @@ class AntiBytesPublishingExtensionSpec {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
             "publishing",
-            AntiBytesPublishingExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java
         )
 
         assertEquals(
@@ -43,7 +43,7 @@ class AntiBytesPublishingExtensionSpec {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
             "publishing",
-            AntiBytesPublishingExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java
         )
 
         assertEquals(
@@ -57,7 +57,7 @@ class AntiBytesPublishingExtensionSpec {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
             "publishing",
-            AntiBytesPublishingExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java
         )
 
         assertEquals(
@@ -71,7 +71,7 @@ class AntiBytesPublishingExtensionSpec {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
             "publishing",
-            AntiBytesPublishingExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java
         )
 
         assertFalse(extension.issuePattern.isPresent)
@@ -82,7 +82,7 @@ class AntiBytesPublishingExtensionSpec {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
             "publishing",
-            AntiBytesPublishingExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java
         )
 
         assertEquals(
@@ -96,7 +96,7 @@ class AntiBytesPublishingExtensionSpec {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
             "publishing",
-            AntiBytesPublishingExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java
         )
 
         assertEquals(
@@ -106,27 +106,13 @@ class AntiBytesPublishingExtensionSpec {
     }
 
     @Test
-    fun `It has no default PackageRegistry`() {
+    fun `It has no default PublishingConfigurations`() {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
             "publishing",
-            AntiBytesPublishingExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java
         )
 
-        assertEquals(
-            actual = extension.packageRegistries.get(),
-            expected = emptySet()
-        )
-    }
-
-    @Test
-    fun `It has a default DryRun flag`() {
-        val project = ProjectBuilder.builder().build()
-        val extension = project.extensions.create(
-            "publishing",
-            AntiBytesPublishingExtension::class.java
-        )
-
-        assertFalse(extension.dryRun.get())
+        assertFalse(extension.publishingConfigurations.isPresent)
     }
 }

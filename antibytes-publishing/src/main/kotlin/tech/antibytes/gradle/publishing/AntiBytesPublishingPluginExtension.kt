@@ -9,7 +9,7 @@ package tech.antibytes.gradle.publishing
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
-abstract class AntiBytesPublishingExtension : PublishingContract.PublishingConfiguration {
+internal abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginConfiguration {
     // Versioning
     abstract override val releasePattern: Property<Regex>
     abstract override val featurePattern: Property<Regex>
@@ -18,7 +18,7 @@ abstract class AntiBytesPublishingExtension : PublishingContract.PublishingConfi
     abstract override val versionPrefix: Property<String>
     abstract override val normalization: SetProperty<String>
 
-    abstract override val packageRegistries: SetProperty<PublishingApiContract.PackageRegistry>
+    abstract override val publishingConfigurations: Property<PublishingApiContract.PublishingConfiguration?>
 
     init {
         releasePattern.convention("main|release/.*".toRegex())
@@ -29,7 +29,6 @@ abstract class AntiBytesPublishingExtension : PublishingContract.PublishingConfi
         versionPrefix.convention("v")
         normalization.convention(emptySet())
 
-        packageRegistries.convention(emptySet())
-        dryRun.convention(false)
+        publishingConfigurations.convention(null)
     }
 }

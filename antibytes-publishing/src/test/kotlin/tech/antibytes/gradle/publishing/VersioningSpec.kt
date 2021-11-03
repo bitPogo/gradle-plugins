@@ -26,10 +26,7 @@ import kotlin.test.assertTrue
 class VersioningSpec {
     @Test
     fun `It fulfils Versioning`() {
-        val versioning: Any = Versioning(
-            mockk(relaxed = true),
-            mockk()
-        )
+        val versioning: Any = Versioning
 
         assertTrue(versioning is PublishingContract.Versioning)
     }
@@ -58,15 +55,13 @@ class VersioningSpec {
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
 
-        val versioning = Versioning(
-            project,
-            configuration
-        )
-
         // Then
         val error = assertFailsWith<PublishingError.VersioningError> {
             // When
-            versioning.versionName()
+            Versioning.versionName(
+                project,
+                configuration
+            )
         }
 
         assertEquals(
@@ -108,13 +103,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -157,13 +150,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns distance
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -205,13 +196,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -254,13 +243,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -304,13 +291,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -358,13 +343,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -408,13 +391,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -463,13 +444,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -514,13 +493,11 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionName(
             project,
             configuration
         )
-
-        // When
-        val result = versioning.versionName()
 
         // Then
         assertEquals(
@@ -568,18 +545,21 @@ class VersioningSpec {
         every { versionDetails.version } returns version
         every { versionDetails.commitDistance } returns 0
 
-        val versioning = Versioning(
+        // When
+        val result = Versioning.versionInfo(
             project,
             configuration
         )
 
-        // When
-        val result = versioning.versionInfo().details
-
         // Then
         assertSame(
-            actual = result,
+            actual = result.details,
             expected = details()
+        )
+
+        assertEquals(
+            actual = result.name,
+            expected = expected
         )
     }
 }

@@ -6,25 +6,20 @@
 package tech.antibytes.gradle.test
 
 import io.mockk.every
-import io.mockk.mockk
 import io.mockk.slot
 import org.gradle.api.Action
 
 inline fun <T, reified R> invokeGradleAction(
     crossinline caller: (Action<T>) -> R,
     probe: T,
-    returnValue: R?
+    returnValue: R
 ) {
     val action = slot<Action<T>>()
     every {
         caller(capture(action))
     } answers {
         action.captured.execute(probe)
-        if (returnValue is R) {
-            returnValue
-        } else {
-            mockk()
-        }
+        returnValue
     }
 }
 

@@ -15,37 +15,8 @@ import org.gradle.api.file.ConfigurableFileTree
 import org.junit.Test
 import java.io.File
 import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class GradleActionSpec {
-    @Test
-    fun `Given invokeGradleAction is called with a caller, a probe and null as result it simulates the execution`() {
-        // Given
-        val project: Project = mockk()
-        val buildDir: File = mockk()
-        val fileTreeProbe: ConfigurableFileTree = mockk()
-        val proof = setOf("")
-
-        every { project.buildDir } returns buildDir
-        every { fileTreeProbe.setExcludes(proof) } returns mockk()
-
-        // When
-        invokeGradleAction(
-            { probe -> project.fileTree(buildDir, probe) },
-            fileTreeProbe,
-            null
-        )
-
-        val result: Any = project.fileTree(project.buildDir) {
-            setExcludes(proof)
-        }
-
-        // Then
-        assertTrue(result is ConfigurableFileTree)
-
-        verify(exactly = 1) { fileTreeProbe.setExcludes(proof) }
-    }
-
     @Test
     fun `Given invokeGradleAction is called with a caller, a probe and result it simulates the execution`() {
         // Given

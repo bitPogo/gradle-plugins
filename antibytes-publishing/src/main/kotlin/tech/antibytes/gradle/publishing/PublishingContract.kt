@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.publishing
 
+import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
@@ -21,8 +22,15 @@ internal interface PublishingContract {
     }
 
     interface Versioning {
-        fun versionName(): String
-        fun versionInfo(): PublishingApiContract.VersionInfo
+        fun versionName(
+            project: Project,
+            configuration: VersioningConfiguration
+        ): String
+
+        fun versionInfo(
+            project: Project,
+            configuration: VersioningConfiguration
+        ): PublishingApiContract.VersionInfo
 
         companion object {
             const val SEPARATOR = "-"
@@ -30,12 +38,22 @@ internal interface PublishingContract {
         }
     }
 
-    fun interface MavenPublishing {
-        fun configureMavenTask(configuration: PublishingApiContract.PackageRegistry)
+    fun interface Configurator {
+        fun configure(
+            project: Project,
+            configuration: PublishingApiContract.PublishingConfiguration
+        )
     }
 
-    interface PublishingConfiguration : VersioningConfiguration {
-        val dryRun: Property<Boolean>
-        val packageRegistries: SetProperty<PublishingApiContract.PackageRegistry>
+    fun interface MavenPublisher : Configurator
+
+    fun interface MavenRepository : Configurator
+
+    fun interface GithubRepository : Configurator
+
+    fun interface PublisherController : Configurator
+
+    interface PublishingPluginConfiguration : VersioningConfiguration {
+        val publishingConfigurations: Property<PublishingApiContract.PublishingConfiguration?>
     }
 }

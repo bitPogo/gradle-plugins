@@ -14,57 +14,59 @@ interface PublishingApiContract {
         val details: VersionDetails
     )
 
-    interface GeneralPackageInformation {
-        val artifactId: String
+    interface PomConfiguration {
         val name: String
-        val groupId: String
         val description: String
         val year: Int
         val url: String
         val additionalInformation: Map<String, String>
     }
 
-    interface DeveloperInformation {
+    interface ContributorConfiguration {
+        val name: String
+        val email: String
+        val url: String?
+        val additionalInformation: Map<String, String>
+    }
+
+    interface DeveloperConfiguration : ContributorConfiguration {
         val id: String
-        val name: String
-        val email: String
-        val url: String?
-        val additionalInformation: Map<String, String>
     }
 
-    interface ContributorInformation {
-        val name: String
-        val email: String
-        val url: String?
-        val additionalInformation: Map<String, String>
-    }
-
-    interface LicenseInformation {
+    interface LicenseConfiguration {
         val name: String
         val url: String
         val distribution: String
     }
 
-    interface SourceControl {
+    interface SourceControlConfiguration {
         val connection: String
         val url: String
         val developerConnection: String
     }
 
     interface PackageConfiguration {
-        val general: GeneralPackageInformation
-        val developers: List<DeveloperInformation>
-        val contributors: List<ContributorInformation>
-        val license: LicenseInformation
-        val scm: SourceControl
+        val artifactId: String?
+        val groupId: String?
+        val version: String?
+        val pom: PomConfiguration
+        val developers: List<DeveloperConfiguration>
+        val contributors: List<ContributorConfiguration>
+        val license: LicenseConfiguration
+        val scm: SourceControlConfiguration
     }
 
-    data class PackageRegistry(
-        val useGitFlow: Boolean,
-        val gitWorkingDirectory: String,
-        val packageRegistryURI: String,
-        val packageRegistryUsername: String,
-        val packageRegistryPassword: String,
+    interface RegistryConfiguration {
+        val useGitFlow: Boolean
+        val gitWorkDirectory: String
+        val packageRegistryUri: String
+        val packageRegistryUsername: String
+        val packageRegistryPassword: String
+    }
+
+    data class PublishingConfiguration(
+        val registryConfiguration: List<RegistryConfiguration>,
         val packageConfiguration: PackageConfiguration,
+        val dryRun: Boolean = false,
     )
 }

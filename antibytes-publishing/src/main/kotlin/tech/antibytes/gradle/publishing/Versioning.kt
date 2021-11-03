@@ -15,11 +15,8 @@ import org.gradle.kotlin.dsl.provideDelegate
 import tech.antibytes.gradle.publishing.PublishingContract.Versioning.Companion.NON_RELEASE_SUFFIX
 import tech.antibytes.gradle.publishing.PublishingContract.Versioning.Companion.SEPARATOR
 
-internal class Versioning(
-    project: Project,
-    private val configuration: PublishingContract.VersioningConfiguration
-) : PublishingContract.Versioning {
-    private val versionDetails: Closure<VersionDetails> by project.extra
+internal object Versioning : PublishingContract.Versioning {
+    lateinit var configuration: PublishingContract.VersioningConfiguration
 
     private fun removeVersionPrefix(version: String): String {
         return version.substringAfter(configuration.versionPrefix.get())
@@ -111,9 +108,7 @@ internal class Versioning(
         return "$versionName$SEPARATOR$infix$SEPARATOR$NON_RELEASE_SUFFIX"
     }
 
-    override fun versionName(): String {
-        val details = versionDetails()
-
+    private fun resolveVersionName(details: VersionDetails): String {
         return when {
             details.branchName.matches(configuration.releasePattern.get()) -> renderReleaseBranch(details)
             details.branchName.matches(configuration.dependencyBotPattern.get()) -> renderDependencyBotBranch(details)
@@ -124,9 +119,25 @@ internal class Versioning(
         }
     }
 
-    override fun versionInfo(): PublishingApiContract.VersionInfo {
+    override fun versionName(
+        project: Project,
+        configuration: PublishingContract.VersioningConfiguration
+    ): String {
+        val versionDetails: Closure<VersionDetails> by project.extra
+        this.configuration = configuration
+
+        return resolveVersionName(versionDetails())
+    }
+
+    override fun versionInfo(
+        project: Project,
+        configuration: PublishingContract.VersioningConfiguration
+    ): PublishingApiContract.VersionInfo {
+        val versionDetails: Closure<VersionDetails> by project.extra
+        this.configuration = configuration
+
         return PublishingApiContract.VersionInfo(
-            versionName(),
+            resolveVersionName(versionDetails()),
             versionDetails()
         )
     }

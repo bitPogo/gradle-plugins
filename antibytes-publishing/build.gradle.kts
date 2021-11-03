@@ -17,6 +17,7 @@ object Version {
     const val publishing = "5.11.0.202103091610-r"
     const val versioning = "0.12.3"
     const val mockk = "1.12.0"
+    const val fixture = "1.2.0"
 }
 
 dependencies {
@@ -28,6 +29,8 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:${Version.junit}"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.mockk:mockk:${Version.mockk}")
+    testImplementation("com.appmattus.fixture:fixture:${Version.fixture}")
+    testImplementation(project(":antibytes-plugin-test"))
 }
 
 java {
