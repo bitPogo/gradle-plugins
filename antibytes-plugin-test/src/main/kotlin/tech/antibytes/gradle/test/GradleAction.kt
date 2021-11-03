@@ -9,7 +9,7 @@ import io.mockk.every
 import io.mockk.slot
 import org.gradle.api.Action
 
-inline fun <T, reified R> invokeGradleAction(
+inline fun <T : Any, reified R> invokeGradleAction(
     crossinline caller: (Action<T>) -> R,
     probe: T,
     returnValue: R
@@ -23,7 +23,7 @@ inline fun <T, reified R> invokeGradleAction(
     }
 }
 
-inline fun <T> invokeGradleAction(
+inline fun <T : Any> invokeGradleAction(
     crossinline caller: (Action<T>) -> Unit,
     probe: T
 ) {

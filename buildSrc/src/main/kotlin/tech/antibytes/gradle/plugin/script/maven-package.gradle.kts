@@ -36,7 +36,7 @@ publishing {
             }
         }
 
-        val target = "file://${project.rootProject.buildDir}/gitPublish"
+        val target = "file://${project.rootProject.buildDir.absolutePath}/gitPublish"
 
         maven {
             name = "ReleasePackages"

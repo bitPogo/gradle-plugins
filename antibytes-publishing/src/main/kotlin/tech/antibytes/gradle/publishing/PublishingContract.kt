@@ -38,20 +38,31 @@ internal interface PublishingContract {
         }
     }
 
-    fun interface Configurator {
+    fun interface MavenPublisher {
+        fun configure(
+            project: Project,
+            configuration: PublishingApiContract.PackageConfiguration
+        )
+    }
+
+    fun interface RegistryConfigurator {
+        fun configure(
+            project: Project,
+            configuration: List<PublishingApiContract.RegistryConfiguration>,
+            dryRun: Boolean
+        )
+    }
+
+    fun interface MavenRegistry : RegistryConfigurator
+
+    fun interface GithubRepository : RegistryConfigurator
+
+    fun interface PublisherController {
         fun configure(
             project: Project,
             configuration: PublishingApiContract.PublishingConfiguration
         )
     }
-
-    fun interface MavenPublisher : Configurator
-
-    fun interface MavenRepository : Configurator
-
-    fun interface GithubRepository : Configurator
-
-    fun interface PublisherController : Configurator
 
     interface PublishingPluginConfiguration : VersioningConfiguration {
         val publishingConfigurations: Property<PublishingApiContract.PublishingConfiguration?>

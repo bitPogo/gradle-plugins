@@ -71,13 +71,7 @@ class MavenPublisherSpec {
         )
 
         // When
-        MavenPublisher.configure(
-            project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = configuration
-            )
-        )
+        MavenPublisher.configure(project, configuration)
 
         // Then
         verify(exactly = 0) { publication.artifactId = any() }
@@ -123,13 +117,7 @@ class MavenPublisherSpec {
         )
 
         // When
-        MavenPublisher.configure(
-            project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = configuration
-            )
-        )
+        MavenPublisher.configure(project, configuration)
 
         // Then
         verify(exactly = 1) { publication.artifactId = artifactId }
@@ -191,13 +179,7 @@ class MavenPublisherSpec {
         )
 
         // When
-        MavenPublisher.configure(
-            project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = configuration
-            )
-        )
+        MavenPublisher.configure(project, configuration)
 
         // Then
         verify(exactly = 1) { pom.name.set(name) }
@@ -263,11 +245,8 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = TestRegistryConfig(
-                    developers = listOf(devConfiguration, devConfiguration)
-                )
+            TestRegistryConfig(
+                developers = listOf(devConfiguration, devConfiguration)
             )
         )
 
@@ -335,11 +314,8 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = TestRegistryConfig(
-                    developers = listOf(devConfiguration, devConfiguration)
-                )
+            TestRegistryConfig(
+                developers = listOf(devConfiguration, devConfiguration)
             )
         )
 
@@ -402,11 +378,8 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = TestRegistryConfig(
-                    contributors = listOf(contribConfiguration, contribConfiguration)
-                )
+            TestRegistryConfig(
+                contributors = listOf(contribConfiguration, contribConfiguration)
             )
         )
 
@@ -472,11 +445,8 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = TestRegistryConfig(
-                    contributors = listOf(contribConfiguration, contribConfiguration)
-                )
+            TestRegistryConfig(
+                contributors = listOf(contribConfiguration, contribConfiguration)
             )
         )
 
@@ -538,10 +508,7 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = TestRegistryConfig(license = licenseConfiguration)
-            )
+            TestRegistryConfig(license = licenseConfiguration)
         )
 
         // Then
@@ -598,10 +565,7 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            PublishingApiContract.PublishingConfiguration(
-                registryConfiguration = mockk(),
-                packageConfiguration = TestRegistryConfig(scm = sourceControlConfiguration)
-            )
+            TestRegistryConfig(scm = sourceControlConfiguration)
         )
 
         // Then

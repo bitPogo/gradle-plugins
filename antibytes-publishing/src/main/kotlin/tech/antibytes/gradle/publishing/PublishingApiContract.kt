@@ -57,16 +57,17 @@ interface PublishingApiContract {
     }
 
     interface RegistryConfiguration {
-        val useGitFlow: Boolean
+        val name: String
+        val useGit: Boolean
         val gitWorkDirectory: String
-        val packageRegistryUri: String
-        val packageRegistryUsername: String
-        val packageRegistryPassword: String
+        val url: String
+        val username: String?
+        val password: String?
     }
 
-    data class PublishingConfiguration(
-        val registryConfiguration: List<RegistryConfiguration>,
-        val packageConfiguration: PackageConfiguration,
-        val dryRun: Boolean = false,
-    )
+    interface PublishingConfiguration {
+        val registryConfiguration: List<RegistryConfiguration>
+        val packageConfiguration: PackageConfiguration
+        val dryRun: Boolean
+    }
 }

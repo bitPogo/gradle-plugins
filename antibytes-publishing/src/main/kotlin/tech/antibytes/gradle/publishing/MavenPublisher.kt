@@ -109,33 +109,33 @@ internal object MavenPublisher : PublishingContract.MavenPublisher {
 
     override fun configure(
         project: Project,
-        configuration: PublishingApiContract.PublishingConfiguration
+        configuration: PublishingApiContract.PackageConfiguration
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             publications {
                 withType(MavenPublication::class.java) {
                     setPublicationProperties(
                         this,
-                        configuration.packageConfiguration
+                        configuration
                     )
 
                     pom {
                         setPomProperties(
                             this,
-                            configuration.packageConfiguration.pom
+                            configuration.pom
                         )
 
                         developers {
                             setDevelopers(
                                 this,
-                                configuration.packageConfiguration.developers
+                                configuration.developers
                             )
                         }
 
                         contributors {
                             setContributors(
                                 this,
-                                configuration.packageConfiguration.contributors
+                                configuration.contributors
                             )
                         }
 
@@ -143,7 +143,7 @@ internal object MavenPublisher : PublishingContract.MavenPublisher {
                             license {
                                 setLicense(
                                     this,
-                                    configuration.packageConfiguration.license
+                                    configuration.license
                                 )
                             }
                         }
@@ -151,7 +151,7 @@ internal object MavenPublisher : PublishingContract.MavenPublisher {
                         scm {
                             setSourceControlManagement(
                                 this,
-                                configuration.packageConfiguration.scm
+                                configuration.scm
                             )
                         }
                     }
