@@ -11,7 +11,6 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import java.util.UUID
 
 internal object MavenRegistry : MavenContract.MavenRegistry {
     private fun setRepositories(
@@ -47,8 +46,8 @@ internal object MavenRegistry : MavenContract.MavenRegistry {
         configuration: PublishingApiContract.RegistryConfiguration,
         dryRun: Boolean
     ): String {
-        return if (dryRun && !configuration.useGit) {
-            "file://${project.rootProject.buildDir.absolutePath}/${UUID.randomUUID()}"
+        return if (dryRun || configuration.useGit) {
+            "file://${project.rootProject.buildDir.absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
         } else {
             configuration.url
         }

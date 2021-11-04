@@ -11,11 +11,9 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingError
 
 internal object GitRepository : GitContract.GitRepository {
-    private fun configureTasks(
+    private fun configureCloneTask(
         project: Project,
-        configuration: PublishingApiContract.RegistryConfiguration,
-        version: String,
-        dryRun: Boolean
+        configuration: PublishingApiContract.RegistryConfiguration
     ) {
         project.tasks.create("clone${configuration.name.capitalize()}") {
             doLast {
@@ -25,7 +23,14 @@ internal object GitRepository : GitContract.GitRepository {
                 )
             }
         }
+    }
 
+    private fun configurePushTask(
+        project: Project,
+        configuration: PublishingApiContract.RegistryConfiguration,
+        version: String,
+        dryRun: Boolean
+    ) {
         project.tasks.create("push${configuration.name.capitalize()}") {
             dependsOn(
                 "publishAllPublicationsTo${configuration.name.capitalize()}PackagesRepository"
@@ -48,7 +53,21 @@ internal object GitRepository : GitContract.GitRepository {
         }
     }
 
-    override fun configure(
+    override fun configureCloneTasks(
+        project: Project,
+        configurations: List<PublishingApiContract.RegistryConfiguration>
+    ) {
+        configurations.forEach { configuration ->
+            if (configuration.useGit) {
+                configureCloneTask(
+                    project,
+                    configuration,
+                )
+            }
+        }
+    }
+
+    override fun configurePushTasks(
         project: Project,
         configurations: List<PublishingApiContract.RegistryConfiguration>,
         version: String,
@@ -56,7 +75,7 @@ internal object GitRepository : GitContract.GitRepository {
     ) {
         configurations.forEach { configuration ->
             if (configuration.useGit) {
-                configureTasks(
+                configurePushTask(
                     project,
                     configuration,
                     version,

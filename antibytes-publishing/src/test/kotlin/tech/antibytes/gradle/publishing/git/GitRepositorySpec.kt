@@ -60,11 +60,9 @@ class GitRepositorySpec {
         )
 
         // When
-        GitRepository.configure(
+        GitRepository.configureCloneTasks(
             project,
             listOf(configuration),
-            fixture(),
-            false
         )
 
         // Then
@@ -107,14 +105,11 @@ class GitRepositorySpec {
         )
 
         every { GitActions.checkout(project, configuration) } just Runs
-        every { GitActions.push(any(), any(), any(), any()) } returns true
 
         // When
-        GitRepository.configure(
+        GitRepository.configureCloneTasks(
             project,
             listOf(configuration),
-            fixture(),
-            fixture(),
         )
 
         // Then
@@ -163,7 +158,6 @@ class GitRepositorySpec {
             )
         } returns task
 
-        every { GitActions.checkout(any(), any()) } just Runs
         every {
             GitActions.push(
                 project,
@@ -174,7 +168,7 @@ class GitRepositorySpec {
         } returns true
 
         // When
-        GitRepository.configure(
+        GitRepository.configurePushTasks(
             project,
             listOf(configuration),
             version,
@@ -239,7 +233,6 @@ class GitRepositorySpec {
             )
         } returns task
 
-        every { GitActions.checkout(any(), any()) } just Runs
         every {
             GitActions.push(
                 project,
@@ -252,7 +245,7 @@ class GitRepositorySpec {
         // Then
         val error = assertFailsWith<PublishingError.GitRejectedCommitError> {
             // When
-            GitRepository.configure(
+            GitRepository.configurePushTasks(
                 project,
                 listOf(configuration),
                 version,

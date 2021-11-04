@@ -23,6 +23,7 @@ import org.junit.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.test.invokeGradleAction
 import java.io.File
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class MavenRegistrySpec {
@@ -280,6 +281,7 @@ class MavenRegistrySpec {
         val repository: MavenArtifactRepository = mockk(relaxed = true)
         val credentials: PasswordCredentials = mockk(relaxed = true)
 
+        every { project.rootProject.buildDir } returns File(fixture<String>())
         every { project.extensions } returns extensions
         every { publishingExtension.repositories } returns repositoryContainer
         invokeGradleAction(
@@ -371,10 +373,11 @@ class MavenRegistrySpec {
     @Test
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it replaces the given URL with a location in the RootProjects build directory if DryRun is true and UseGit is false`() {
         // Given
+        val dryRun = true
         val configuration = TestConfiguration(
             name = fixture(),
             useGit = false,
-            gitWorkDirectory = "",
+            gitWorkDirectory = fixture(),
             url = fixture(),
             username = fixture(),
             password = fixture()
@@ -419,12 +422,137 @@ class MavenRegistrySpec {
         MavenRegistry.configure(
             project,
             listOf(configuration),
-            true
+            dryRun
         )
 
         // Then
-        assertTrue(
-            url.captured.startsWith("file://${File(rootBuildDir).absolutePath}/")
+        assertEquals(
+            actual = url.captured,
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
+        )
+    }
+
+    @Test
+    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it replaces the given URL with a location in the RootProjects build directory if DryRun is false and UseGit is true`() {
+        // Given
+        val dryRun = false
+        val configuration = TestConfiguration(
+            name = fixture(),
+            useGit = true,
+            gitWorkDirectory = fixture(),
+            url = fixture(),
+            username = fixture(),
+            password = fixture()
+        )
+        val rootBuildDir = "somewhere"
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val repositoryContainer: RepositoryHandler = mockk()
+        val repository: MavenArtifactRepository = mockk(relaxed = true)
+        val credentials: PasswordCredentials = mockk(relaxed = true)
+        val url = slot<String>()
+
+        every { project.extensions } returns extensions
+        every { project.rootProject.buildDir } returns File("somewhere")
+        every { publishingExtension.repositories } returns repositoryContainer
+
+        every { repository.setUrl(capture(url)) } just Runs
+
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.repositories(probe) },
+            repositoryContainer,
+            mockk()
+        )
+        invokeGradleAction(
+            { probe -> repositoryContainer.maven(probe) },
+            repository,
+            mockk()
+        )
+        invokeGradleAction(
+            { probe -> repository.credentials(probe) },
+            credentials,
+            mockk()
+        )
+
+        // When
+        MavenRegistry.configure(
+            project,
+            listOf(configuration),
+            dryRun
+        )
+
+        // Then
+        assertEquals(
+            actual = url.captured,
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
+        )
+    }
+
+    @Test
+    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it replaces the given URL with a location in the RootProjects build directory if DryRun is true and UseGit is true`() {
+        // Given
+        val dryRun = true
+        val configuration = TestConfiguration(
+            name = fixture(),
+            useGit = true,
+            gitWorkDirectory = fixture(),
+            url = fixture(),
+            username = fixture(),
+            password = fixture()
+        )
+        val rootBuildDir = "somewhere"
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val repositoryContainer: RepositoryHandler = mockk()
+        val repository: MavenArtifactRepository = mockk(relaxed = true)
+        val credentials: PasswordCredentials = mockk(relaxed = true)
+        val url = slot<String>()
+
+        every { project.extensions } returns extensions
+        every { project.rootProject.buildDir } returns File("somewhere")
+        every { publishingExtension.repositories } returns repositoryContainer
+
+        every { repository.setUrl(capture(url)) } just Runs
+
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.repositories(probe) },
+            repositoryContainer,
+            mockk()
+        )
+        invokeGradleAction(
+            { probe -> repositoryContainer.maven(probe) },
+            repository,
+            mockk()
+        )
+        invokeGradleAction(
+            { probe -> repository.credentials(probe) },
+            credentials,
+            mockk()
+        )
+
+        // When
+        MavenRegistry.configure(
+            project,
+            listOf(configuration),
+            dryRun
+        )
+
+        // Then
+        assertEquals(
+            actual = url.captured,
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
         )
     }
 }
