@@ -12,4 +12,5 @@ sealed class PublishingError(
     override val message: String
 ) : GradleException(message) {
     class VersioningError(override val message: String) : PublishingError(message)
+    class GitTooManyRepositoriesError(override val message: String) : PublishingError(message)
 }

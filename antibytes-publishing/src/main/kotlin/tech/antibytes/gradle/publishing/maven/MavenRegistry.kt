@@ -4,15 +4,16 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.publishing
+package tech.antibytes.gradle.publishing.maven
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
+import tech.antibytes.gradle.publishing.PublishingApiContract
 import java.util.UUID
 
-internal object MavenRegistry : PublishingContract.MavenRegistry {
+internal object MavenRegistry : MavenContract.MavenRegistry {
     private fun setRepositories(
         project: Project,
         repositories: RepositoryHandler,

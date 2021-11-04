@@ -77,7 +77,6 @@ val publishPackage: Task by tasks.creating {
     doLast {
         git = Git.open(File(repository.url))
         gitCommit()
-        println("push")
         gitPush()
     }
 }
@@ -177,6 +176,7 @@ fun gitUpdate() {
                 githubToken
             )
         )
+        .setDryRun(true)
         .call()
 
     git.reset()

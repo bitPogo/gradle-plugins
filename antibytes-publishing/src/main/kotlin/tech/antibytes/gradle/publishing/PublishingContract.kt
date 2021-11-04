@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Project
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
@@ -38,13 +39,6 @@ internal interface PublishingContract {
         }
     }
 
-    fun interface MavenPublisher {
-        fun configure(
-            project: Project,
-            configuration: PublishingApiContract.PackageConfiguration
-        )
-    }
-
     fun interface RegistryConfigurator {
         fun configure(
             project: Project,
@@ -53,18 +47,20 @@ internal interface PublishingContract {
         )
     }
 
-    fun interface MavenRegistry : RegistryConfigurator
-
-    fun interface GithubRepository : RegistryConfigurator
+    interface PublishingConfiguration {
+        val registryConfiguration: ListProperty<PublishingApiContract.RegistryConfiguration>
+        val packageConfiguration: Property<PublishingApiContract.PackageConfiguration>
+        val dryRun: Property<Boolean>
+    }
 
     fun interface PublisherController {
         fun configure(
             project: Project,
-            configuration: PublishingApiContract.PublishingConfiguration
+            configuration: PublishingConfiguration
         )
     }
 
-    interface PublishingPluginConfiguration : VersioningConfiguration {
-        val publishingConfigurations: Property<PublishingApiContract.PublishingConfiguration?>
+    interface PublishingPluginConfiguration : VersioningConfiguration, PublishingConfiguration {
+        val excludeProjects: SetProperty<String>
     }
 }

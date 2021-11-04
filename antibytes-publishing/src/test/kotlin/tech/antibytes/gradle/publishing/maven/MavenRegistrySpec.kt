@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.publishing
+package tech.antibytes.gradle.publishing.maven
 
 import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.Runs
@@ -20,6 +20,7 @@ import org.gradle.api.artifacts.repositories.PasswordCredentials
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.publish.PublishingExtension
 import org.junit.Test
+import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.test.invokeGradleAction
 import java.io.File
 import kotlin.test.assertTrue
@@ -31,7 +32,7 @@ class MavenRegistrySpec {
     fun `It fulfils MavenRegistry`() {
         val registry: Any = MavenRegistry
 
-        assertTrue(registry is PublishingContract.MavenRegistry)
+        assertTrue(registry is MavenContract.MavenRegistry)
     }
 
     @Test

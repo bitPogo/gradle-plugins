@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.publishing
+package tech.antibytes.gradle.publishing.maven
 
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -16,8 +16,9 @@ import org.gradle.api.publish.maven.MavenPomDeveloperSpec
 import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
+import tech.antibytes.gradle.publishing.PublishingApiContract
 
-internal object MavenPublisher : PublishingContract.MavenPublisher {
+internal object MavenPublisher : MavenContract.MavenPublisher {
     private fun setPublicationProperties(
         publication: MavenPublication,
         configuration: PublishingApiContract.PackageConfiguration

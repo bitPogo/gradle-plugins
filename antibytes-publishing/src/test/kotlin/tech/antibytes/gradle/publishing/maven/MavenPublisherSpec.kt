@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.publishing
+package tech.antibytes.gradle.publishing.maven
 
 import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
@@ -24,6 +24,7 @@ import org.gradle.api.publish.maven.MavenPomLicenseSpec
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import org.junit.Test
+import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
@@ -34,7 +35,7 @@ class MavenPublisherSpec {
     fun `It fulfils MavenPublisher`() {
         val publisher: Any = MavenPublisher
 
-        assertTrue(publisher is PublishingContract.MavenPublisher)
+        assertTrue(publisher is MavenContract.MavenPublisher)
     }
 
     @Test

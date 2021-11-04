@@ -106,13 +106,52 @@ class AntiBytesPublishingPluginExtensionSpec {
     }
 
     @Test
-    fun `It has no default PublishingConfigurations`() {
+    fun `It has false as default DryRun`() {
         val project = ProjectBuilder.builder().build()
         val extension = project.extensions.create(
             "publishing",
             AntiBytesPublishingPluginExtension::class.java
         )
 
-        assertFalse(extension.publishingConfigurations.isPresent)
+        assertFalse(extension.dryRun.get())
+    }
+
+    @Test
+    fun `It has an empty list as default DryRun`() {
+        val project = ProjectBuilder.builder().build()
+        val extension = project.extensions.create(
+            "publishing",
+            AntiBytesPublishingPluginExtension::class.java
+        )
+
+        assertEquals(
+            actual = extension.registryConfiguration.get(),
+            expected = emptyList()
+        )
+    }
+
+    @Test
+    fun `It has no default PackageConfigurations`() {
+        val project = ProjectBuilder.builder().build()
+        val extension = project.extensions.create(
+            "publishing",
+            AntiBytesPublishingPluginExtension::class.java
+        )
+
+        assertFalse(extension.packageConfiguration.isPresent)
+    }
+
+    @Test
+    fun `It has an empty set as default ExcludeProjects`() {
+        val project = ProjectBuilder.builder().build()
+        val extension = project.extensions.create(
+            "publishing",
+            AntiBytesPublishingPluginExtension::class.java
+        )
+
+        assertEquals(
+            actual = extension.excludeProjects.get(),
+            expected = emptySet<String>()
+        )
     }
 }

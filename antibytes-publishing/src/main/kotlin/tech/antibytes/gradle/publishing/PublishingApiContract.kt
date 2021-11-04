@@ -56,18 +56,18 @@ interface PublishingApiContract {
         val scm: SourceControlConfiguration
     }
 
-    interface RegistryConfiguration {
-        val name: String
-        val useGit: Boolean
-        val gitWorkDirectory: String
-        val url: String
+    interface Credentials {
         val username: String?
         val password: String?
     }
 
-    interface PublishingConfiguration {
-        val registryConfiguration: List<RegistryConfiguration>
-        val packageConfiguration: PackageConfiguration
-        val dryRun: Boolean
+    interface RepositoryConfiguration : Credentials {
+        val name: String
+        val url: String
+    }
+
+    interface RegistryConfiguration : RepositoryConfiguration {
+        val useGit: Boolean
+        val gitWorkDirectory: String
     }
 }
