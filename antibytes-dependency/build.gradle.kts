@@ -3,9 +3,6 @@ import tech.antibytes.gradle.plugin.config.LibraryConfig
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
-
-    id("tech.antibytes.gradle.plugin.script.maven-package")
-    id("tech.antibytes.gradle.plugin.script.publishing")
 }
 
 // To make it available as direct dependency

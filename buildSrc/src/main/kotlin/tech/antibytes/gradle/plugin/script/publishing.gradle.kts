@@ -75,11 +75,10 @@ val publishPackage: Task by tasks.creating {
     dependsOn("setProjectVersion")
 
     doLast {
-        if (project.name == "antibytes-publishing") {
-            git = Git.open(File(repository.url))
-            gitCommit()
-            gitPush()
-        }
+        git = Git.open(File(repository.url))
+        gitCommit()
+        println("push")
+        gitPush()
     }
 }
 
