@@ -75,9 +75,11 @@ val publishPackage: Task by tasks.creating {
     dependsOn("setProjectVersion")
 
     doLast {
-        git = Git.open(File(repository.url))
-        gitCommit()
-        gitPush()
+        if (project.name == "antibytes-publishing") {
+            git = Git.open(File(repository.url))
+            gitCommit()
+            gitPush()
+        }
     }
 }
 
@@ -151,6 +153,7 @@ val publishRelease: Task by tasks.creating {
 // Git calls
 fun gitClone() {
     try {
+        git = Git.open(File(repository.url))
         gitUpdate()
     } catch (exception: Exception) {
         Git.cloneRepository()
@@ -215,3 +218,4 @@ fun gitPush() {
         }
     }
 }
+
