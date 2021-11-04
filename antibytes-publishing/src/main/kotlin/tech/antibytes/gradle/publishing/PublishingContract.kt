@@ -39,14 +39,6 @@ internal interface PublishingContract {
         }
     }
 
-    fun interface RegistryConfigurator {
-        fun configure(
-            project: Project,
-            configuration: List<PublishingApiContract.RegistryConfiguration>,
-            dryRun: Boolean
-        )
-    }
-
     interface PublishingConfiguration {
         val registryConfiguration: ListProperty<PublishingApiContract.RegistryConfiguration>
         val packageConfiguration: Property<PublishingApiContract.PackageConfiguration>

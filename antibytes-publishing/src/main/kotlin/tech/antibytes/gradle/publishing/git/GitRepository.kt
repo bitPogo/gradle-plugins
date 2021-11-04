@@ -10,11 +10,52 @@ import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
 
 internal object GitRepository : GitContract.GitRepository {
-    override fun configure(
+    private fun configureTasks(
         project: Project,
-        configuration: List<PublishingApiContract.RegistryConfiguration>,
+        configuration: PublishingApiContract.RegistryConfiguration,
+        version: String,
         dryRun: Boolean
     ) {
-        /* Do Nothing */
+        project.tasks.create("clone${configuration.name.capitalize()}") {
+            doLast {
+                GitActions.checkout(
+                    project,
+                    configuration
+                )
+            }
+        }
+
+        project.tasks.create("push${configuration.name.capitalize()}") {
+            dependsOn(
+                "publishAllPublicationsTo${configuration.name.capitalize()}PackagesRepository"
+            )
+
+            doLast {
+                GitActions.push(
+                    project,
+                    configuration,
+                    version,
+                    dryRun
+                )
+            }
+        }
+    }
+
+    override fun configure(
+        project: Project,
+        configurations: List<PublishingApiContract.RegistryConfiguration>,
+        version: String,
+        dryRun: Boolean
+    ) {
+        configurations.forEach { configuration ->
+            if (configuration.useGit) {
+                configureTasks(
+                    project,
+                    configuration,
+                    version,
+                    dryRun
+                )
+            }
+        }
     }
 }

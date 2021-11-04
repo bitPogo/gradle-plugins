@@ -8,7 +8,6 @@ package tech.antibytes.gradle.publishing.maven
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingContract
 
 internal interface MavenContract {
     fun interface MavenPublisher {
@@ -18,5 +17,11 @@ internal interface MavenContract {
         )
     }
 
-    fun interface MavenRegistry : PublishingContract.RegistryConfigurator
+    fun interface MavenRegistry {
+        fun configure(
+            project: Project,
+            configurations: List<PublishingApiContract.RegistryConfiguration>,
+            dryRun: Boolean
+        )
+    }
 }

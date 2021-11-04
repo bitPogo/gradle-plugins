@@ -49,7 +49,7 @@ internal object GitActions : GitContract.GitActions {
     private fun updateAndReset(
         targetDirectory: File,
         repository: PublishingApiContract.RepositoryConfiguration
-    ): Git {
+    ) {
         val git = Git.open(targetDirectory)
 
         update(
@@ -60,13 +60,13 @@ internal object GitActions : GitContract.GitActions {
 
         hardReset(git)
 
-        return git
+        git.close()
     }
 
     private fun clone(
         targetDirectory: File,
         repository: PublishingApiContract.RepositoryConfiguration
-    ): Git {
+    ) {
         val clone = Git.cloneRepository()
             .setURI(repository.url)
 
@@ -78,17 +78,15 @@ internal object GitActions : GitContract.GitActions {
 
         clone.setDirectory(targetDirectory)
             .call()
-
-        return Git.open(targetDirectory)
     }
 
     override fun checkout(
         project: Project,
         repository: PublishingApiContract.RepositoryConfiguration
-    ): Git {
+    ) {
         val targetDirectory = File("${project.rootProject.buildDir.absolutePath}/${repository.name}")
 
-        return try {
+        try {
             updateAndReset(targetDirectory, repository)
         } catch (_: Throwable) {
             clone(targetDirectory, repository)
@@ -117,11 +115,11 @@ internal object GitActions : GitContract.GitActions {
     }
 
     private fun push(
-        repository: Git,
+        git: Git,
         credentials: PublishingApiContract.Credentials,
         dryRun: Boolean
     ): Boolean {
-        val push = repository.push().setDryRun(dryRun)
+        val push = git.push().setDryRun(dryRun)
         if (useCredentials(credentials.username, credentials.password)) {
             push.setCredentialsProvider(
                 UsernamePasswordCredentialsProvider(credentials.username, credentials.password)
@@ -131,13 +129,31 @@ internal object GitActions : GitContract.GitActions {
         return parsePushResult(push.call())
     }
 
-    override fun push(
-        repository: Git,
+    private fun push(
+        git: Git,
         credentials: PublishingApiContract.Credentials,
         commitMessage: String,
         dryRun: Boolean
     ): Boolean {
-        commit(repository, commitMessage)
-        return push(repository, credentials, dryRun)
+        commit(git, commitMessage)
+        return push(git, credentials, dryRun)
+    }
+
+    override fun push(
+        project: Project,
+        repository: PublishingApiContract.RepositoryConfiguration,
+        commitMessage: String,
+        dryRun: Boolean
+    ): Boolean {
+        val git = Git.open(
+            File("${project.rootProject.buildDir.absolutePath}/${repository.name}")
+        )
+
+        return push(
+            git,
+            repository,
+            commitMessage,
+            dryRun
+        ).also { git.close() }
     }
 }

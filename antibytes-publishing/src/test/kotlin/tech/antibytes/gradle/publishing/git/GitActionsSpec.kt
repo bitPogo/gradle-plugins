@@ -7,7 +7,9 @@
 package tech.antibytes.gradle.publishing.git
 
 import com.appmattus.kotlinfixture.kotlinFixture
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.slot
@@ -27,15 +29,28 @@ import org.eclipse.jgit.transport.RemoteRefUpdate
 import org.eclipse.jgit.transport.URIish
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.gradle.api.Project
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class GitActionsSpec {
     private val fixture = kotlinFixture()
+
+    @Before
+    fun setUp() {
+        mockkStatic(Git::class)
+    }
+
+    @After
+    fun tearDown() {
+        unmockkStatic(Git::class)
+    }
 
     @Test
     fun `It fulfils GitActions`() {
@@ -46,8 +61,6 @@ class GitActionsSpec {
 
     @Test
     fun `Given checkout is called with a GitRepositoryConfiguration, it updates and resets the repository if it already exists locally`() {
-        mockkStatic(Git::class)
-
         // Given
         val buildDir = File(fixture<String>())
         val name: String = fixture()
@@ -74,12 +87,14 @@ class GitActionsSpec {
         every { reset.setRef("origin/main") } returns reset
         every { reset.call() } returns mockk()
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.checkout(project, configuration)
 
         // Then
         assertSame(
-            actual = git,
+            actual = Unit,
             expected = result
         )
 
@@ -87,19 +102,18 @@ class GitActionsSpec {
             git.fetch()
             fetch.isForceUpdate = true
             fetch.call()
+
             git.reset()
             reset.setMode(ResetCommand.ResetType.HARD)
             reset.setRef("origin/main")
             reset.call()
-        }
 
-        unmockkStatic(Git::class)
+            git.close()
+        }
     }
 
     @Test
     fun `Given checkout is called with a GitRepositoryConfiguration, it sets the Credentials for the update, if username and password were given`() {
-        mockkStatic(Git::class)
-
         // Given
         val buildDir = File(fixture<String>())
         val name: String = fixture()
@@ -134,12 +148,14 @@ class GitActionsSpec {
         every { reset.setRef("origin/main") } returns reset
         every { reset.call() } returns mockk()
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.checkout(project, configuration)
 
         // Then
         assertSame(
-            actual = git,
+            actual = Unit,
             expected = result
         )
 
@@ -169,15 +185,13 @@ class GitActionsSpec {
             reset.setMode(ResetCommand.ResetType.HARD)
             reset.setRef("origin/main")
             reset.call()
-        }
 
-        unmockkStatic(Git::class)
+            git.close()
+        }
     }
 
     @Test
     fun `Given checkout is called with a GitRepositoryConfiguration, it will not sets the Credentials for the update, if only the username was given`() {
-        mockkStatic(Git::class)
-
         // Given
         val buildDir = File(fixture<String>())
         val name: String = fixture()
@@ -206,12 +220,14 @@ class GitActionsSpec {
         every { reset.setRef("origin/main") } returns reset
         every { reset.call() } returns mockk()
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.checkout(project, configuration)
 
         // Then
         assertSame(
-            actual = git,
+            actual = Unit,
             expected = result
         )
 
@@ -226,15 +242,13 @@ class GitActionsSpec {
             reset.setMode(ResetCommand.ResetType.HARD)
             reset.setRef("origin/main")
             reset.call()
-        }
 
-        unmockkStatic(Git::class)
+            git.close()
+        }
     }
 
     @Test
     fun `Given checkout is called with a GitRepositoryConfiguration, it sets the Credentials for the update, if only password was given`() {
-        mockkStatic(Git::class)
-
         // Given
         val buildDir = File(fixture<String>())
         val name: String = fixture()
@@ -263,12 +277,14 @@ class GitActionsSpec {
         every { reset.setRef("origin/main") } returns reset
         every { reset.call() } returns mockk()
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.checkout(project, configuration)
 
         // Then
         assertSame(
-            actual = git,
+            actual = Unit,
             expected = result
         )
 
@@ -283,15 +299,13 @@ class GitActionsSpec {
             reset.setMode(ResetCommand.ResetType.HARD)
             reset.setRef("origin/main")
             reset.call()
-        }
 
-        unmockkStatic(Git::class)
+            git.close()
+        }
     }
 
     @Test
     fun `Given checkout is called with a GitRepositoryConfiguration, it clones the repository to Rootprojects BuildDir with the given name`() {
-        mockkStatic(Git::class)
-
         // Given
         val buildDir = File(fixture<String>())
         val url: String = fixture()
@@ -328,7 +342,7 @@ class GitActionsSpec {
 
         // Then
         assertSame(
-            actual = git,
+            actual = Unit,
             expected = result
         )
 
@@ -337,14 +351,10 @@ class GitActionsSpec {
             clone.setDirectory(File("${buildDir.absolutePath}/$name"))
             clone.call()
         }
-
-        unmockkStatic(Git::class)
     }
 
     @Test
     fun `Given checkout is called with a GitRepositoryConfiguration, it sets the credentials for clone if username and password were given`() {
-        mockkStatic(Git::class)
-
         // Given
         val buildDir = File(fixture<String>())
         val url: String = fixture()
@@ -404,7 +414,7 @@ class GitActionsSpec {
         )
 
         assertSame(
-            actual = git,
+            actual = Unit,
             expected = result
         )
 
@@ -414,14 +424,10 @@ class GitActionsSpec {
             clone.setDirectory(File("${buildDir.absolutePath}/$name"))
             clone.call()
         }
-
-        unmockkStatic(Git::class)
     }
 
     @Test
     fun `Given checkout is called with a GitRepositoryConfiguration, it will not set the credentials for clone if only the username was given`() {
-        mockkStatic(Git::class)
-
         // Given
         val buildDir = File(fixture<String>())
         val url: String = fixture()
@@ -460,7 +466,7 @@ class GitActionsSpec {
 
         // Then
         assertSame(
-            actual = git,
+            actual = Unit,
             expected = result
         )
 
@@ -471,18 +477,14 @@ class GitActionsSpec {
             clone.setDirectory(File("${buildDir.absolutePath}/$name"))
             clone.call()
         }
-
-        unmockkStatic(Git::class)
     }
 
     @Test
     fun `Given checkout is called with a GitRepositoryConfiguration, it will not set the credentials for clone if only the password was given`() {
-        mockkStatic(Git::class)
-
         // Given
         val buildDir = File(fixture<String>())
-        val url: String = fixture()
         val name: String = fixture()
+        val url: String = fixture()
         val password: String = fixture()
 
         var firstOpen = true
@@ -517,7 +519,7 @@ class GitActionsSpec {
 
         // Then
         assertSame(
-            actual = git,
+            actual = Unit,
             expected = result
         )
 
@@ -528,27 +530,31 @@ class GitActionsSpec {
             clone.setDirectory(File("${buildDir.absolutePath}/$name"))
             clone.call()
         }
-
-        unmockkStatic(Git::class)
     }
 
     @Test
     fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it commits and pushs all files in the given repository`() {
         // Given
+        val buildDir = File(fixture<String>())
+        val name: String = fixture()
         val message: String = fixture()
-        val dryRun = false
+        val dryRun: Boolean = fixture()
 
         val configuration = TestRepositoryConfiguration(
-            name = fixture(),
+            name = name,
             url = fixture(),
         )
 
+        val project: Project = mockk()
         val git: Git = mockk()
         val add: AddCommand = mockk()
         val commit: CommitCommand = mockk()
         val push: PushCommand = mockk()
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
+
+        every { project.rootProject.buildDir } returns buildDir
+        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
         every { add.addFilepattern(".") } returns add
@@ -566,9 +572,11 @@ class GitActionsSpec {
         every { pushResult.remoteUpdates } returns listOf(referenceResult)
         every { referenceResult.status } returns RemoteRefUpdate.Status.OK
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.push(
-            git,
+            project,
             configuration,
             message,
             dryRun
@@ -594,26 +602,34 @@ class GitActionsSpec {
 
             pushResult.remoteUpdates
             referenceResult.status
+
+            git.close()
         }
     }
 
     @Test
     fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it respects only the first PushResult`() {
         // Given
+        val buildDir = File(fixture<String>())
+        val name: String = fixture()
         val message: String = fixture()
-        val dryRun = false
+        val dryRun: Boolean = fixture()
 
         val configuration = TestRepositoryConfiguration(
-            name = fixture(),
+            name = name,
             url = fixture(),
         )
 
+        val project: Project = mockk()
         val git: Git = mockk()
         val add: AddCommand = mockk()
         val commit: CommitCommand = mockk()
         val push: PushCommand = mockk()
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
+
+        every { project.rootProject.buildDir } returns buildDir
+        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
         every { add.addFilepattern(".") } returns add
@@ -631,9 +647,11 @@ class GitActionsSpec {
         every { pushResult.remoteUpdates } returns listOf(referenceResult)
         every { referenceResult.status } returns RemoteRefUpdate.Status.OK
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.push(
-            git,
+            project,
             configuration,
             message,
             dryRun
@@ -660,26 +678,34 @@ class GitActionsSpec {
 
             pushResult.remoteUpdates
             referenceResult.status
+
+            git.close()
         }
     }
 
     @Test
     fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it respects only the first RemoteRefUpdate`() {
         // Given
+        val buildDir = File(fixture<String>())
+        val name: String = fixture()
         val message: String = fixture()
-        val dryRun = true
+        val dryRun: Boolean = fixture()
 
         val configuration = TestRepositoryConfiguration(
-            name = fixture(),
+            name = name,
             url = fixture(),
         )
 
+        val project: Project = mockk()
         val git: Git = mockk()
         val add: AddCommand = mockk()
         val commit: CommitCommand = mockk()
         val push: PushCommand = mockk()
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
+
+        every { project.rootProject.buildDir } returns buildDir
+        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
         every { add.addFilepattern(".") } returns add
@@ -697,9 +723,11 @@ class GitActionsSpec {
         every { pushResult.remoteUpdates } returns listOf(referenceResult, referenceResult)
         every { referenceResult.status } returns RemoteRefUpdate.Status.OK
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.push(
-            git,
+            project,
             configuration,
             message,
             dryRun
@@ -721,24 +749,28 @@ class GitActionsSpec {
             commit.call()
 
             git.push()
-            push.setDryRun(dryRun)
+            push.isDryRun = dryRun
             push.call()
 
             pushResult.remoteUpdates
             referenceResult.status
+
+            git.close()
         }
     }
 
     @Test
     fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it sets given credentials`() {
         // Given
-        val dryRun = true
+        val dryRun: Boolean = fixture()
+        val buildDir = File(fixture<String>())
+        val name: String = fixture()
         val message: String = fixture()
         val username: String = fixture()
         val password: String = fixture()
 
         val configuration = TestRepositoryConfiguration(
-            name = fixture(),
+            name = name,
             url = fixture(),
             username = username,
             password = password
@@ -746,12 +778,16 @@ class GitActionsSpec {
 
         val credentialsProvider = slot<UsernamePasswordCredentialsProvider>()
 
+        val project: Project = mockk()
         val git: Git = mockk()
         val add: AddCommand = mockk()
         val commit: CommitCommand = mockk()
         val push: PushCommand = mockk()
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
+
+        every { project.rootProject.buildDir } returns buildDir
+        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
         every { add.addFilepattern(".") } returns add
@@ -770,9 +806,11 @@ class GitActionsSpec {
         every { pushResult.remoteUpdates } returns listOf(referenceResult)
         every { referenceResult.status } returns RemoteRefUpdate.Status.OK
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.push(
-            git,
+            project,
             configuration,
             message,
             dryRun
@@ -814,28 +852,36 @@ class GitActionsSpec {
 
             pushResult.remoteUpdates
             referenceResult.status
+
+            git.close()
         }
     }
 
     @Test
     fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it will not set credentials if only a username was given`() {
         // Given
-        val dryRun = false
+        val dryRun: Boolean = fixture()
+        val buildDir = File(fixture<String>())
+        val name: String = fixture()
         val message: String = fixture()
         val username: String = fixture()
 
         val configuration = TestRepositoryConfiguration(
-            name = fixture(),
+            name = name,
             url = fixture(),
             username = username,
         )
 
+        val project: Project = mockk()
         val git: Git = mockk()
         val add: AddCommand = mockk()
         val commit: CommitCommand = mockk()
         val push: PushCommand = mockk()
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
+
+        every { project.rootProject.buildDir } returns buildDir
+        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
         every { add.addFilepattern(".") } returns add
@@ -853,9 +899,11 @@ class GitActionsSpec {
         every { pushResult.remoteUpdates } returns listOf(referenceResult)
         every { referenceResult.status } returns RemoteRefUpdate.Status.OK
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.push(
-            git,
+            project,
             configuration,
             message,
             dryRun
@@ -877,33 +925,41 @@ class GitActionsSpec {
             commit.call()
 
             git.push()
-            push.setDryRun(dryRun)
+            push.isDryRun = dryRun
             push.call()
 
             pushResult.remoteUpdates
             referenceResult.status
+
+            git.close()
         }
     }
 
     @Test
     fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it will not set credentials if only a password was given`() {
         // Given
-        val dryRun = false
+        val dryRun: Boolean = fixture()
+        val buildDir = File(fixture<String>())
+        val name: String = fixture()
         val message: String = fixture()
         val password: String = fixture()
 
         val configuration = TestRepositoryConfiguration(
-            name = fixture(),
+            name = name,
             url = fixture(),
             password = password,
         )
 
+        val project: Project = mockk()
         val git: Git = mockk()
         val add: AddCommand = mockk()
         val commit: CommitCommand = mockk()
         val push: PushCommand = mockk()
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
+
+        every { project.rootProject.buildDir } returns buildDir
+        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
         every { add.addFilepattern(".") } returns add
@@ -921,9 +977,11 @@ class GitActionsSpec {
         every { pushResult.remoteUpdates } returns listOf(referenceResult)
         every { referenceResult.status } returns RemoteRefUpdate.Status.OK
 
+        every { git.close() } just Runs
+
         // When
         val result = GitActions.push(
-            git,
+            project,
             configuration,
             message,
             dryRun
@@ -945,11 +1003,81 @@ class GitActionsSpec {
             commit.call()
 
             git.push()
-            push.setDryRun(dryRun)
+            push.isDryRun = dryRun
             push.call()
 
             pushResult.remoteUpdates
             referenceResult.status
+
+            git.close()
+        }
+    }
+
+    @Test
+    fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it returns false if the Rejected status`() {
+        // Given
+        val dryRun: Boolean = fixture()
+        val buildDir = File(fixture<String>())
+        val name: String = fixture()
+        val message: String = fixture()
+        val password: String = fixture()
+
+        val rejections = listOf(
+            RemoteRefUpdate.Status.REJECTED_NODELETE,
+            RemoteRefUpdate.Status.REJECTED_NONFASTFORWARD,
+            RemoteRefUpdate.Status.REJECTED_OTHER_REASON,
+            RemoteRefUpdate.Status.REJECTED_REMOTE_CHANGED
+        )
+
+        val configuration = TestRepositoryConfiguration(
+            name = name,
+            url = fixture(),
+            password = password,
+        )
+
+        val project: Project = mockk()
+        val git: Git = mockk()
+        val add: AddCommand = mockk()
+        val commit: CommitCommand = mockk()
+        val push: PushCommand = mockk()
+        val pushResult: PushResult = mockk()
+        val referenceResult: RemoteRefUpdate = mockk()
+
+        every { project.rootProject.buildDir } returns buildDir
+        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
+
+        every { git.add() } returns add
+        every { add.addFilepattern(".") } returns add
+        every { add.call() } returns mockk()
+
+        every { git.commit() } returns commit
+        every { commit.setMessage(message) } returns commit
+        every { commit.setSign(false) } returns commit
+        every { commit.call() } returns mockk()
+
+        every { git.push() } returns push
+        every { push.setDryRun(dryRun) } returns push
+        every { push.call() } returns listOf(pushResult)
+
+        every { pushResult.remoteUpdates } returns listOf(referenceResult)
+        every { referenceResult.status } returnsMany rejections
+
+        every { git.close() } just Runs
+
+        rejections.forEach { status ->
+            // When
+            val result = GitActions.push(
+                project,
+                configuration,
+                message,
+                dryRun
+            )
+
+            // Then
+            assertFalse(
+                result,
+                message = "Failed at ${status.name}"
+            )
         }
     }
 }
@@ -958,6 +1086,6 @@ private data class TestRepositoryConfiguration(
     override val name: String,
     override val url: String,
     override val username: String? = null,
-    override val password: String? = null,
+    override val password: String? = null
 
 ) : PublishingApiContract.RepositoryConfiguration

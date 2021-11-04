@@ -79,7 +79,7 @@ internal object MavenRegistry : MavenContract.MavenRegistry {
 
     override fun configure(
         project: Project,
-        configuration: List<PublishingApiContract.RegistryConfiguration>,
+        configurations: List<PublishingApiContract.RegistryConfiguration>,
         dryRun: Boolean
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
@@ -87,7 +87,7 @@ internal object MavenRegistry : MavenContract.MavenRegistry {
                 setRepositories(
                     project,
                     this,
-                    configuration,
+                    configurations,
                     dryRun
                 )
             }
