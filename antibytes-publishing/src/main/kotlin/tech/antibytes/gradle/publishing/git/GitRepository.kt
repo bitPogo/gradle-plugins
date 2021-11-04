@@ -8,6 +8,7 @@ package tech.antibytes.gradle.publishing.git
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingError
 
 internal object GitRepository : GitContract.GitRepository {
     private fun configureTasks(
@@ -31,12 +32,18 @@ internal object GitRepository : GitContract.GitRepository {
             )
 
             doLast {
-                GitActions.push(
+                val succeeded = GitActions.push(
                     project,
                     configuration,
                     version,
                     dryRun
                 )
+
+                if (!succeeded) {
+                    throw PublishingError.GitRejectedCommitError(
+                        "Something went wrong while pushing, please manually check the repository."
+                    )
+                }
             }
         }
     }
