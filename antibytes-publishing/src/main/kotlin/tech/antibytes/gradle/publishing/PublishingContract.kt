@@ -48,7 +48,8 @@ internal interface PublishingContract {
     fun interface PublisherController {
         fun configure(
             project: Project,
-            configuration: PublishingConfiguration
+            configuration: PublishingConfiguration,
+            version: String
         )
     }
 

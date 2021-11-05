@@ -319,6 +319,7 @@ class MavenRegistrySpec {
     @Test
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it will not set credentials if DryRun is true`() {
         // Given
+        val dryRun = true
         val configuration = TestConfiguration(
             name = fixture(),
             useGit = false,
@@ -362,7 +363,7 @@ class MavenRegistrySpec {
         MavenRegistry.configure(
             project,
             listOf(configuration),
-            true
+            dryRun
         )
 
         // Then

@@ -49,7 +49,7 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it does nothing if useGit is false`() {
+    fun `Given configureCloneTask is called with a Project and a RegistryConfiguration it does nothing if useGit is false`() {
         // Given
         val project: Project = mockk()
         val configuration = TestConfiguration(
@@ -70,7 +70,7 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it adds a clone task`() {
+    fun `Given configureCloneTasks is called with a Project and a RegistryConfiguration it adds a clone task`() {
         // Given
         val name: String = fixture()
 
@@ -117,7 +117,34 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it adds a push task`() {
+    fun `Given configurePushTask is called with a Project, RegistryConfiguration, Version and a DryRunFlag, it does nothing if useGit is false`() {
+        // Given
+        val useGit = false
+        val version: String = fixture()
+        val dryRun: Boolean = fixture()
+
+        val project: Project = mockk()
+        val configuration = TestConfiguration(
+            name = fixture(),
+            useGit = useGit,
+            gitWorkDirectory = fixture(),
+            url = fixture()
+        )
+
+        // When
+        GitRepository.configurePushTasks(
+            project,
+            listOf(configuration),
+            version,
+            dryRun
+        )
+
+        // Then
+        verify(exactly = 0) { project.tasks }
+    }
+
+    @Test
+    fun `Given configureCloneTasks is called with a Project, RegistryConfiguration, Version and a DryRunFlag it adds a push task`() {
         // Given
         val name: String = fixture()
         val version: String = fixture()
@@ -192,7 +219,7 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it adds a push task, which fails if the GitAction returns false`() {
+    fun `Given configure is called with a Project, RegistryConfiguration, Version and a DryRunFlag, it adds a push task, which fails if the GitAction returns false`() {
         // Given
         val name: String = fixture()
         val version: String = fixture()

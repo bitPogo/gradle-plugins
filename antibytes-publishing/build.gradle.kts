@@ -3,6 +3,11 @@ import tech.antibytes.gradle.plugin.config.LibraryConfig
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
+    jacoco
+}
+
+jacoco {
+    version = "0.8.7"
 }
 
 // To make it available as direct dependency
@@ -15,6 +20,7 @@ object Version {
     const val versioning = "0.12.3"
     const val mockk = "1.12.0"
     const val fixture = "1.2.0"
+    const val jacoco = "0.8.7"
 }
 
 dependencies {
@@ -44,4 +50,47 @@ gradlePlugin {
         description = "Publishing tasks for Antibytes projects"
         version = "0.1.0"
     }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.named("test"))
+
+    reports {
+        html.isEnabled = true
+        xml.isEnabled = true
+        csv.isEnabled = true
+
+        html.destination =
+            layout.buildDirectory.dir("reports/jacoco/test/${project.name}").get().asFile
+        csv.destination =
+            layout.buildDirectory.file("reports/jacoco/test/${project.name}.csv").get().asFile
+        xml.destination =
+            layout.buildDirectory.file("reports/jacoco/test/${project.name}.xml").get().asFile
+    }
+}
+
+tasks.jacocoTestCoverageVerification {
+    dependsOn(tasks.named("jacocoTestReport"))
+    violationRules {
+        rule {
+            enabled = false
+            limit {
+                counter = "BRANCH"
+                value = "COVEREDRATIO"
+                minimum = BigDecimal(1.0)
+            }
+        }
+        rule {
+            enabled = false
+            limit {
+                counter = "INSTRUCTION"
+                value = "COVEREDRATIO"
+                minimum = BigDecimal( 0.95)
+            }
+        }
+    }
+}
+
+tasks.check {
+    dependsOn("jacocoTestCoverageVerification")
 }
