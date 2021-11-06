@@ -20,7 +20,7 @@ object Version {
     const val kotlin = "1.5.31"
     const val junit = "5.8.1"
     const val publishing = "5.11.0.202103091610-r"
-    const val versioning = "0.12.3"
+    const val versioning = "0.12.2" // see: https://github.com/palantir/gradle-git-version/issues/353
     const val mockk = "1.12.0"
     const val fixture = "1.2.0"
     const val jacoco = "0.8.7"
@@ -80,7 +80,7 @@ tasks.jacocoTestCoverageVerification {
             limit {
                 counter = "BRANCH"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal(0.96)
+                minimum = BigDecimal(0.95)
             }
         }
         rule {

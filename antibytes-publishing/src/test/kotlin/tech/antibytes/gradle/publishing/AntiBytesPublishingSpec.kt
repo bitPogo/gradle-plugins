@@ -10,6 +10,7 @@ import io.mockk.verify
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
+import org.gradle.api.plugins.PluginContainer
 import org.junit.Test
 import kotlin.test.assertTrue
 
@@ -22,15 +23,22 @@ class AntiBytesPublishingSpec {
     }
 
     @Test
-    fun `Given apply is called  with a Project, it creates the PluginExtension and delegates it to the Publishing Controller`() {
+    fun `Given apply is called  with a Project, it creates the PluginExtension, apply the plugin dependencies and delegates it to the Publishing Controller`() {
         mockkObject(PublisherController)
         // Given
         val project: Project = mockk()
+        val plugins: PluginContainer = mockk()
         val extensionContainer: ExtensionContainer = mockk()
         val extension: AntiBytesPublishingPluginExtension = mockk()
 
         every { project.extensions } returns extensionContainer
-        every { project.plugins.apply("com.palantir.git-version") } returns mockk()
+        every { project.plugins } returns plugins
+
+        every { plugins.hasPlugin("com.palantir.git-version") } returns false
+        every { plugins.hasPlugin("maven-publish") } returns false
+        every { plugins.apply("com.palantir.git-version") } returns mockk()
+        every { plugins.apply("maven-publish") } returns mockk()
+
         every {
             extensionContainer.create(
                 "antiBytesPublishing",
@@ -50,7 +58,50 @@ class AntiBytesPublishingSpec {
             )
         }
         verify(exactly = 1) { PublisherController.configure(project, extension) }
-        verify(exactly = 1) { project.plugins.apply("com.palantir.git-version") }
+        verify(exactly = 1) { plugins.apply("com.palantir.git-version") }
+        verify(exactly = 1) { plugins.apply("maven-publish") }
+
+        unmockkObject(PublisherController)
+    }
+
+    @Test
+    fun `Given apply is called  with a Project, it creates the PluginExtension, ignores apply the plugin dependencies, if they already are applied and delegates it to the Publishing Controller`() {
+        mockkObject(PublisherController)
+        // Given
+        val project: Project = mockk()
+        val plugins: PluginContainer = mockk()
+        val extensionContainer: ExtensionContainer = mockk()
+        val extension: AntiBytesPublishingPluginExtension = mockk()
+
+        every { project.extensions } returns extensionContainer
+        every { project.plugins } returns plugins
+
+        every { plugins.hasPlugin("com.palantir.git-version") } returns true
+        every { plugins.hasPlugin("maven-publish") } returns true
+        every { plugins.apply("com.palantir.git-version") } returns mockk()
+        every { plugins.apply("maven-publish") } returns mockk()
+
+        every {
+            extensionContainer.create(
+                "antiBytesPublishing",
+                AntiBytesPublishingPluginExtension::class.java
+            )
+        } returns extension
+        every { PublisherController.configure(project, extension) } just Runs
+
+        // When
+        AntiBytesPublishing().apply(project)
+
+        // Then
+        verify(exactly = 1) {
+            extensionContainer.create(
+                "antiBytesPublishing",
+                AntiBytesPublishingPluginExtension::class.java
+            )
+        }
+        verify(exactly = 1) { PublisherController.configure(project, extension) }
+        verify(exactly = 0) { plugins.apply("com.palantir.git-version") }
+        verify(exactly = 0) { plugins.apply("maven-publish") }
 
         unmockkObject(PublisherController)
     }

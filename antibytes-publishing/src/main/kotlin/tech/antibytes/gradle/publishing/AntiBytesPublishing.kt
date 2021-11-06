@@ -10,7 +10,13 @@ class AntiBytesPublishing : Plugin<Project> {
             AntiBytesPublishingPluginExtension::class.java
         )
 
-        target.plugins.apply("com.palantir.git-version")
+        if (!target.plugins.hasPlugin("com.palantir.git-version")) {
+            target.plugins.apply("com.palantir.git-version")
+        }
+        if (!target.plugins.hasPlugin("maven-publish")) {
+            target.plugins.apply("maven-publish")
+        }
+
         PublisherController.configure(target, extension)
     }
 }
