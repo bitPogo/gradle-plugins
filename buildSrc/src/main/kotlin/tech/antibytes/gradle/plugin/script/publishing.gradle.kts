@@ -176,7 +176,6 @@ fun gitUpdate() {
                 githubToken
             )
         )
-        .setDryRun(true)
         .call()
 
     git.reset()
