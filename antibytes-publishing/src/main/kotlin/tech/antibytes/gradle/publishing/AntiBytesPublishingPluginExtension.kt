@@ -9,7 +9,7 @@ package tech.antibytes.gradle.publishing
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
-internal abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginConfiguration {
+abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginConfiguration {
     // Versioning
     abstract override val versioning: Property<PublishingApiContract.VersioningConfiguration>
 
