@@ -15,28 +15,19 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 import java.io.File
 
 internal object GitActions : GitContract.GitActions {
-    private fun useCredentials(
-        username: String?,
-        password: String?
-    ): Boolean {
-        return username is String && password is String
-    }
-
     private fun update(
         git: Git,
-        username: String?,
-        password: String?
+        credentials: PublishingApiContract.Credentials
     ) {
-        val fetch = git.fetch()
+        git.fetch()
             .setForceUpdate(true)
-
-        if (useCredentials(username, password)) {
-            fetch.setCredentialsProvider(
-                UsernamePasswordCredentialsProvider(username, password)
+            .setCredentialsProvider(
+                UsernamePasswordCredentialsProvider(
+                    credentials.username,
+                    credentials.password
+                )
             )
-        }
-
-        fetch.call()
+            .call()
     }
 
     private fun hardReset(git: Git) {
@@ -52,11 +43,7 @@ internal object GitActions : GitContract.GitActions {
     ) {
         val git = Git.open(targetDirectory)
 
-        update(
-            git,
-            repository.username,
-            repository.password
-        )
+        update(git, repository)
 
         hardReset(git)
 
@@ -67,16 +54,15 @@ internal object GitActions : GitContract.GitActions {
         targetDirectory: File,
         repository: PublishingApiContract.RepositoryConfiguration
     ) {
-        val clone = Git.cloneRepository()
+        Git.cloneRepository()
             .setURI(repository.url)
-
-        if (useCredentials(repository.username, repository.password)) {
-            clone.setCredentialsProvider(
-                UsernamePasswordCredentialsProvider(repository.username, repository.password)
+            .setCredentialsProvider(
+                UsernamePasswordCredentialsProvider(
+                    repository.username,
+                    repository.password
+                )
             )
-        }
-
-        clone.setDirectory(targetDirectory)
+            .setDirectory(targetDirectory)
             .call()
     }
 
@@ -119,12 +105,14 @@ internal object GitActions : GitContract.GitActions {
         credentials: PublishingApiContract.Credentials,
         dryRun: Boolean
     ): Boolean {
-        val push = git.push().setDryRun(dryRun)
-        if (useCredentials(credentials.username, credentials.password)) {
-            push.setCredentialsProvider(
-                UsernamePasswordCredentialsProvider(credentials.username, credentials.password)
+        val push = git.push()
+            .setDryRun(dryRun)
+            .setCredentialsProvider(
+                UsernamePasswordCredentialsProvider(
+                    credentials.username,
+                    credentials.password
+                )
             )
-        }
 
         return parsePushResult(push.call())
     }

@@ -80,6 +80,7 @@ class GitActionsSpec {
 
         every { git.fetch() } returns fetch
         every { fetch.setForceUpdate(true) } returns fetch
+        every { fetch.setCredentialsProvider(any()) } returns fetch
         every { fetch.call() } returns mockk()
 
         every { git.reset() } returns reset
@@ -101,6 +102,7 @@ class GitActionsSpec {
         verifyOrder {
             git.fetch()
             fetch.isForceUpdate = true
+            fetch.setCredentialsProvider(any())
             fetch.call()
 
             git.reset()
@@ -191,121 +193,7 @@ class GitActionsSpec {
     }
 
     @Test
-    fun `Given checkout is called with a GitRepositoryConfiguration, it will not sets the Credentials for the update, if only the username was given`() {
-        // Given
-        val buildDir = File(fixture<String>())
-        val name: String = fixture()
-        val username: String = fixture()
-
-        val project: Project = mockk()
-        val git: Git = mockk()
-        val fetch: FetchCommand = mockk()
-        val reset: ResetCommand = mockk()
-
-        val configuration = TestRepositoryConfiguration(
-            name = name,
-            url = fixture(),
-            username = username
-        )
-
-        every { project.rootProject.buildDir } returns buildDir
-        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
-
-        every { git.fetch() } returns fetch
-        every { fetch.setForceUpdate(true) } returns fetch
-        every { fetch.call() } returns mockk()
-
-        every { git.reset() } returns reset
-        every { reset.setMode(ResetCommand.ResetType.HARD) } returns reset
-        every { reset.setRef("origin/main") } returns reset
-        every { reset.call() } returns mockk()
-
-        every { git.close() } just Runs
-
-        // When
-        val result = GitActions.checkout(project, configuration)
-
-        // Then
-        assertSame(
-            actual = Unit,
-            expected = result
-        )
-
-        verify(exactly = 0) { fetch.setCredentialsProvider(any()) }
-
-        verifyOrder {
-            git.fetch()
-            fetch.isForceUpdate = true
-            fetch.call()
-
-            git.reset()
-            reset.setMode(ResetCommand.ResetType.HARD)
-            reset.setRef("origin/main")
-            reset.call()
-
-            git.close()
-        }
-    }
-
-    @Test
-    fun `Given checkout is called with a GitRepositoryConfiguration, it sets the Credentials for the update, if only password was given`() {
-        // Given
-        val buildDir = File(fixture<String>())
-        val name: String = fixture()
-        val password: String = fixture()
-
-        val project: Project = mockk()
-        val git: Git = mockk()
-        val fetch: FetchCommand = mockk()
-        val reset: ResetCommand = mockk()
-
-        val configuration = TestRepositoryConfiguration(
-            name = name,
-            url = fixture(),
-            password = password
-        )
-
-        every { project.rootProject.buildDir } returns buildDir
-        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
-
-        every { git.fetch() } returns fetch
-        every { fetch.setForceUpdate(true) } returns fetch
-        every { fetch.call() } returns mockk()
-
-        every { git.reset() } returns reset
-        every { reset.setMode(ResetCommand.ResetType.HARD) } returns reset
-        every { reset.setRef("origin/main") } returns reset
-        every { reset.call() } returns mockk()
-
-        every { git.close() } just Runs
-
-        // When
-        val result = GitActions.checkout(project, configuration)
-
-        // Then
-        assertSame(
-            actual = Unit,
-            expected = result
-        )
-
-        verify(exactly = 0) { fetch.setCredentialsProvider(any()) }
-
-        verifyOrder {
-            git.fetch()
-            fetch.isForceUpdate = true
-            fetch.call()
-
-            git.reset()
-            reset.setMode(ResetCommand.ResetType.HARD)
-            reset.setRef("origin/main")
-            reset.call()
-
-            git.close()
-        }
-    }
-
-    @Test
-    fun `Given checkout is called with a GitRepositoryConfiguration, it clones the repository to Rootprojects BuildDir with the given name`() {
+    fun `Given checkout is called with a GitRepositoryConfiguration, it clones the repository to RootProjects BuildDir with the given name`() {
         // Given
         val buildDir = File(fixture<String>())
         val url: String = fixture()
@@ -335,6 +223,7 @@ class GitActionsSpec {
         every { Git.cloneRepository() } returns clone
         every { clone.setURI(url) } returns clone
         every { clone.setDirectory(File("${buildDir.absolutePath}/$name")) } returns clone
+        every { clone.setCredentialsProvider(any()) } returns clone
         every { clone.call() } returns mockk()
 
         // When
@@ -348,6 +237,7 @@ class GitActionsSpec {
 
         verifyOrder {
             clone.setURI(url)
+            clone.setCredentialsProvider(any())
             clone.setDirectory(File("${buildDir.absolutePath}/$name"))
             clone.call()
         }
@@ -427,113 +317,7 @@ class GitActionsSpec {
     }
 
     @Test
-    fun `Given checkout is called with a GitRepositoryConfiguration, it will not set the credentials for clone if only the username was given`() {
-        // Given
-        val buildDir = File(fixture<String>())
-        val url: String = fixture()
-        val name: String = fixture()
-        val username: String = fixture()
-
-        var firstOpen = true
-
-        val project: Project = mockk()
-        val git: Git = mockk()
-        val clone: CloneCommand = mockk()
-
-        val configuration = TestRepositoryConfiguration(
-            name = name,
-            url = url,
-            username = username
-        )
-
-        every { project.rootProject.buildDir } returns buildDir
-        every { Git.open(File("${buildDir.absolutePath}/$name")) } answers {
-            if (!firstOpen) {
-                firstOpen = false
-                throw Exception("not there")
-            } else {
-                git
-            }
-        }
-
-        every { Git.cloneRepository() } returns clone
-        every { clone.setURI(url) } returns clone
-        every { clone.setDirectory(File("${buildDir.absolutePath}/$name")) } returns clone
-        every { clone.call() } returns mockk()
-
-        // When
-        val result = GitActions.checkout(project, configuration)
-
-        // Then
-        assertSame(
-            actual = Unit,
-            expected = result
-        )
-
-        verify(exactly = 0) { clone.setCredentialsProvider(any()) }
-
-        verifyOrder {
-            clone.setURI(url)
-            clone.setDirectory(File("${buildDir.absolutePath}/$name"))
-            clone.call()
-        }
-    }
-
-    @Test
-    fun `Given checkout is called with a GitRepositoryConfiguration, it will not set the credentials for clone if only the password was given`() {
-        // Given
-        val buildDir = File(fixture<String>())
-        val name: String = fixture()
-        val url: String = fixture()
-        val password: String = fixture()
-
-        var firstOpen = true
-
-        val project: Project = mockk()
-        val git: Git = mockk()
-        val clone: CloneCommand = mockk()
-
-        val configuration = TestRepositoryConfiguration(
-            name = name,
-            url = url,
-            password = password
-        )
-
-        every { project.rootProject.buildDir } returns buildDir
-        every { Git.open(File("${buildDir.absolutePath}/$name")) } answers {
-            if (!firstOpen) {
-                firstOpen = false
-                throw Exception("not there")
-            } else {
-                git
-            }
-        }
-
-        every { Git.cloneRepository() } returns clone
-        every { clone.setURI(url) } returns clone
-        every { clone.setDirectory(File("${buildDir.absolutePath}/$name")) } returns clone
-        every { clone.call() } returns mockk()
-
-        // When
-        val result = GitActions.checkout(project, configuration)
-
-        // Then
-        assertSame(
-            actual = Unit,
-            expected = result
-        )
-
-        verify(exactly = 0) { clone.setCredentialsProvider(any()) }
-
-        verifyOrder {
-            clone.setURI(url)
-            clone.setDirectory(File("${buildDir.absolutePath}/$name"))
-            clone.call()
-        }
-    }
-
-    @Test
-    fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it commits and pushs all files in the given repository`() {
+    fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it commits and pushes all files in the given repository`() {
         // Given
         val buildDir = File(fixture<String>())
         val name: String = fixture()
@@ -567,6 +351,7 @@ class GitActionsSpec {
 
         every { git.push() } returns push
         every { push.setDryRun(dryRun) } returns push
+        every { push.setCredentialsProvider(any()) } returns push
         every { push.call() } returns listOf(pushResult)
 
         every { pushResult.remoteUpdates } returns listOf(referenceResult)
@@ -598,6 +383,7 @@ class GitActionsSpec {
 
             git.push()
             push.isDryRun = dryRun
+            push.setCredentialsProvider(any())
             push.call()
 
             pushResult.remoteUpdates
@@ -642,6 +428,7 @@ class GitActionsSpec {
 
         every { git.push() } returns push
         every { push.setDryRun(dryRun) } returns push
+        every { push.setCredentialsProvider(any()) } returns push
         every { push.call() } returns listOf(pushResult, pushResult)
 
         every { pushResult.remoteUpdates } returns listOf(referenceResult)
@@ -674,6 +461,7 @@ class GitActionsSpec {
 
             git.push()
             push.isDryRun = dryRun
+            push.setCredentialsProvider(any())
             push.call()
 
             pushResult.remoteUpdates
@@ -718,6 +506,7 @@ class GitActionsSpec {
 
         every { git.push() } returns push
         every { push.setDryRun(dryRun) } returns push
+        every { push.setCredentialsProvider(any()) } returns push
         every { push.call() } returns listOf(pushResult)
 
         every { pushResult.remoteUpdates } returns listOf(referenceResult, referenceResult)
@@ -750,6 +539,7 @@ class GitActionsSpec {
 
             git.push()
             push.isDryRun = dryRun
+            push.setCredentialsProvider(any())
             push.call()
 
             pushResult.remoteUpdates
@@ -858,162 +648,6 @@ class GitActionsSpec {
     }
 
     @Test
-    fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it will not set credentials if only a username was given`() {
-        // Given
-        val dryRun: Boolean = fixture()
-        val buildDir = File(fixture<String>())
-        val name: String = fixture()
-        val message: String = fixture()
-        val username: String = fixture()
-
-        val configuration = TestRepositoryConfiguration(
-            name = name,
-            url = fixture(),
-            username = username,
-        )
-
-        val project: Project = mockk()
-        val git: Git = mockk()
-        val add: AddCommand = mockk()
-        val commit: CommitCommand = mockk()
-        val push: PushCommand = mockk()
-        val pushResult: PushResult = mockk()
-        val referenceResult: RemoteRefUpdate = mockk()
-
-        every { project.rootProject.buildDir } returns buildDir
-        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
-
-        every { git.add() } returns add
-        every { add.addFilepattern(".") } returns add
-        every { add.call() } returns mockk()
-
-        every { git.commit() } returns commit
-        every { commit.setMessage(message) } returns commit
-        every { commit.setSign(false) } returns commit
-        every { commit.call() } returns mockk()
-
-        every { git.push() } returns push
-        every { push.setDryRun(dryRun) } returns push
-        every { push.call() } returns listOf(pushResult)
-
-        every { pushResult.remoteUpdates } returns listOf(referenceResult)
-        every { referenceResult.status } returns RemoteRefUpdate.Status.OK
-
-        every { git.close() } just Runs
-
-        // When
-        val result = GitActions.push(
-            project,
-            configuration,
-            message,
-            dryRun
-        )
-
-        // Then
-        assertTrue(result)
-
-        verify(exactly = 0) { push.setCredentialsProvider(any()) }
-
-        verifyOrder {
-            git.add()
-            add.addFilepattern(".")
-            add.call()
-
-            git.commit()
-            commit.message = message
-            commit.setSign(false)
-            commit.call()
-
-            git.push()
-            push.isDryRun = dryRun
-            push.call()
-
-            pushResult.remoteUpdates
-            referenceResult.status
-
-            git.close()
-        }
-    }
-
-    @Test
-    fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it will not set credentials if only a password was given`() {
-        // Given
-        val dryRun: Boolean = fixture()
-        val buildDir = File(fixture<String>())
-        val name: String = fixture()
-        val message: String = fixture()
-        val password: String = fixture()
-
-        val configuration = TestRepositoryConfiguration(
-            name = name,
-            url = fixture(),
-            password = password,
-        )
-
-        val project: Project = mockk()
-        val git: Git = mockk()
-        val add: AddCommand = mockk()
-        val commit: CommitCommand = mockk()
-        val push: PushCommand = mockk()
-        val pushResult: PushResult = mockk()
-        val referenceResult: RemoteRefUpdate = mockk()
-
-        every { project.rootProject.buildDir } returns buildDir
-        every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
-
-        every { git.add() } returns add
-        every { add.addFilepattern(".") } returns add
-        every { add.call() } returns mockk()
-
-        every { git.commit() } returns commit
-        every { commit.setMessage(message) } returns commit
-        every { commit.setSign(false) } returns commit
-        every { commit.call() } returns mockk()
-
-        every { git.push() } returns push
-        every { push.setDryRun(dryRun) } returns push
-        every { push.call() } returns listOf(pushResult)
-
-        every { pushResult.remoteUpdates } returns listOf(referenceResult)
-        every { referenceResult.status } returns RemoteRefUpdate.Status.OK
-
-        every { git.close() } just Runs
-
-        // When
-        val result = GitActions.push(
-            project,
-            configuration,
-            message,
-            dryRun
-        )
-
-        // Then
-        assertTrue(result)
-
-        verify(exactly = 0) { push.setCredentialsProvider(any()) }
-
-        verifyOrder {
-            git.add()
-            add.addFilepattern(".")
-            add.call()
-
-            git.commit()
-            commit.message = message
-            commit.setSign(false)
-            commit.call()
-
-            git.push()
-            push.isDryRun = dryRun
-            push.call()
-
-            pushResult.remoteUpdates
-            referenceResult.status
-
-            git.close()
-        }
-    }
-
-    @Test
     fun `Given push is called with a GitRepository, Credentials, a CommitMessage, and a DryRun flag, it returns false if the Rejected status`() {
         // Given
         val dryRun: Boolean = fixture()
@@ -1057,6 +691,7 @@ class GitActionsSpec {
 
         every { git.push() } returns push
         every { push.setDryRun(dryRun) } returns push
+        every { push.setCredentialsProvider(any()) } returns push
         every { push.call() } returns listOf(pushResult)
 
         every { pushResult.remoteUpdates } returns listOf(referenceResult)
@@ -1085,7 +720,6 @@ class GitActionsSpec {
 private data class TestRepositoryConfiguration(
     override val name: String,
     override val url: String,
-    override val username: String? = null,
-    override val password: String? = null
-
+    override val username: String = "",
+    override val password: String = ""
 ) : PublishingApiContract.RepositoryConfiguration

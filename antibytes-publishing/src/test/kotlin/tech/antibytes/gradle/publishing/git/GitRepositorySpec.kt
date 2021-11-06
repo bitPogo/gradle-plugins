@@ -281,6 +281,6 @@ private data class TestConfiguration(
     override val useGit: Boolean,
     override val gitWorkDirectory: String,
     override val url: String,
-    override val username: String? = null,
-    override val password: String? = null
+    override val username: String = "",
+    override val password: String = ""
 ) : PublishingApiContract.RegistryConfiguration

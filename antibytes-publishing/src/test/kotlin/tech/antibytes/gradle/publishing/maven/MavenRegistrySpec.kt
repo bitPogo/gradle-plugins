@@ -44,8 +44,8 @@ class MavenRegistrySpec {
             useGit = false,
             gitWorkDirectory = "",
             url = fixture(),
-            username = fixture<String>(),
-            password = fixture<String>()
+            username = fixture(),
+            password = fixture()
         )
 
         val project: Project = mockk()
@@ -90,161 +90,6 @@ class MavenRegistrySpec {
 
         verify(exactly = 1) { credentials.username = configuration.username }
         verify(exactly = 1) { credentials.password = configuration.password }
-    }
-
-    @Test
-    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it will not set credentials if the Username and Password was not given`() {
-        // Given
-        val configuration = TestConfiguration(
-            name = fixture(),
-            useGit = false,
-            gitWorkDirectory = "",
-            url = fixture(),
-        )
-
-        val project: Project = mockk()
-        val extensions: ExtensionContainer = mockk()
-        val publishingExtension: PublishingExtension = mockk()
-        val repositoryContainer: RepositoryHandler = mockk()
-        val repository: MavenArtifactRepository = mockk(relaxed = true)
-        val credentials: PasswordCredentials = mockk(relaxed = true)
-
-        every { project.extensions } returns extensions
-        every { publishingExtension.repositories } returns repositoryContainer
-        invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
-            repositoryContainer,
-            mockk()
-        )
-        invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
-            repository,
-            mockk()
-        )
-        invokeGradleAction(
-            { probe -> repository.credentials(probe) },
-            credentials,
-            mockk()
-        )
-
-        // When
-        MavenRegistry.configure(
-            project,
-            configuration,
-            false
-        )
-
-        // Then
-        verify(exactly = 0) { credentials.username = any() }
-        verify(exactly = 0) { credentials.password = any() }
-    }
-
-    @Test
-    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it will not set credentials if the Username was not given`() {
-        // Given
-        val configuration = TestConfiguration(
-            name = fixture(),
-            useGit = false,
-            gitWorkDirectory = "",
-            url = fixture(),
-            password = fixture()
-        )
-
-        val project: Project = mockk()
-        val extensions: ExtensionContainer = mockk()
-        val publishingExtension: PublishingExtension = mockk()
-        val repositoryContainer: RepositoryHandler = mockk()
-        val repository: MavenArtifactRepository = mockk(relaxed = true)
-        val credentials: PasswordCredentials = mockk(relaxed = true)
-
-        every { project.extensions } returns extensions
-        every { publishingExtension.repositories } returns repositoryContainer
-        invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
-            repositoryContainer,
-            mockk()
-        )
-        invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
-            repository,
-            mockk()
-        )
-        invokeGradleAction(
-            { probe -> repository.credentials(probe) },
-            credentials,
-            mockk()
-        )
-
-        // When
-        MavenRegistry.configure(
-            project,
-            configuration,
-            false
-        )
-
-        // Then
-        verify(exactly = 0) { credentials.username = any() }
-        verify(exactly = 0) { credentials.password = any() }
-    }
-
-    @Test
-    fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it will not set credentials if the Password was not given`() {
-        // Given
-        val configuration = TestConfiguration(
-            name = fixture(),
-            useGit = false,
-            gitWorkDirectory = "",
-            url = fixture(),
-            username = fixture()
-        )
-
-        val project: Project = mockk()
-        val extensions: ExtensionContainer = mockk()
-        val publishingExtension: PublishingExtension = mockk()
-        val repositoryContainer: RepositoryHandler = mockk()
-        val repository: MavenArtifactRepository = mockk(relaxed = true)
-        val credentials: PasswordCredentials = mockk(relaxed = true)
-
-        every { project.extensions } returns extensions
-        every { publishingExtension.repositories } returns repositoryContainer
-        invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
-            repositoryContainer,
-            mockk()
-        )
-        invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
-            repository,
-            mockk()
-        )
-        invokeGradleAction(
-            { probe -> repository.credentials(probe) },
-            credentials,
-            mockk()
-        )
-
-        // When
-        MavenRegistry.configure(
-            project,
-            configuration,
-            false
-        )
-
-        // Then
-        verify(exactly = 0) { credentials.username = any() }
-        verify(exactly = 0) { credentials.password = any() }
     }
 
     @Test
@@ -548,6 +393,6 @@ private data class TestConfiguration(
     override val useGit: Boolean,
     override val gitWorkDirectory: String,
     override val url: String,
-    override val username: String? = null,
-    override val password: String? = null
+    override val username: String = "",
+    override val password: String = ""
 ) : PublishingApiContract.RegistryConfiguration
