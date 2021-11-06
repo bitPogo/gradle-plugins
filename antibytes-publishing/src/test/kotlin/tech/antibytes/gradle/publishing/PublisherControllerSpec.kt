@@ -7,7 +7,6 @@
 package tech.antibytes.gradle.publishing
 
 import com.appmattus.kotlinfixture.kotlinFixture
-import com.palantir.gradle.gitversion.VersionDetails
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -147,15 +146,7 @@ class PublisherControllerSpec {
         val versionTask: Task = mockk()
         val info = PublishingApiContract.VersionInfo(
             name = fixture(),
-            details = object : VersionDetails {
-                override fun getBranchName(): String = fixture()
-                override fun getGitHashFull(): String = fixture()
-                override fun getGitHash(): String = fixture()
-                override fun getLastTag(): String = fixture()
-                override fun getCommitDistance(): Int = fixture()
-                override fun getIsCleanTag(): Boolean = fixture()
-                override fun getVersion(): String = fixture()
-            }
+            details = mockk()
         )
 
         every { project.name } returns fixture()
@@ -163,6 +154,14 @@ class PublisherControllerSpec {
 
         every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
         every { tasks.named(any(), any<Action<Task>>()) } returns mockk()
+
+        every { info.details.branchName } returns fixture()
+        every { info.details.gitHashFull } returns fixture()
+        every { info.details.gitHash } returns fixture()
+        every { info.details.lastTag } returns fixture()
+        every { info.details.commitDistance } returns fixture()
+        every { info.details.isCleanTag } returns fixture()
+        every { info.details.version } returns fixture()
 
         every { Versioning.versionName(project, versioningConfiguration) } returns version
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
