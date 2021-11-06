@@ -11,76 +11,44 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingError
 
 internal object GitRepository : GitContract.GitRepository {
-    private fun configureCloneTask(
+    override fun configureCloneTask(
         project: Project,
         configuration: PublishingApiContract.RegistryConfiguration
     ) {
-        project.tasks.create("clone${configuration.name.capitalize()}") {
-            doLast {
-                GitActions.checkout(
-                    project,
-                    configuration
-                )
-            }
-        }
-    }
-
-    private fun configurePushTask(
-        project: Project,
-        configuration: PublishingApiContract.RegistryConfiguration,
-        version: String,
-        dryRun: Boolean
-    ) {
-        project.tasks.create("push${configuration.name.capitalize()}") {
-            dependsOn(
-                "publishAllPublicationsTo${configuration.name.capitalize()}PackagesRepository"
-            )
-
-            doLast {
-                val succeeded = GitActions.push(
-                    project,
-                    configuration,
-                    version,
-                    dryRun
-                )
-
-                if (!succeeded) {
-                    throw PublishingError.GitRejectedCommitError(
-                        "Something went wrong while pushing, please manually check the repository."
+        if (configuration.useGit) {
+            project.tasks.create("clone${configuration.name.capitalize()}") {
+                doLast {
+                    GitActions.checkout(
+                        project,
+                        configuration
                     )
                 }
             }
         }
     }
 
-    override fun configureCloneTasks(
+    override fun configurePushTask(
         project: Project,
-        configurations: List<PublishingApiContract.RegistryConfiguration>
-    ) {
-        configurations.forEach { configuration ->
-            if (configuration.useGit) {
-                configureCloneTask(
-                    project,
-                    configuration,
-                )
-            }
-        }
-    }
-
-    override fun configurePushTasks(
-        project: Project,
-        configurations: List<PublishingApiContract.RegistryConfiguration>,
+        configuration: PublishingApiContract.RegistryConfiguration,
         version: String,
         dryRun: Boolean
     ) {
-        configurations.forEach { configuration ->
-            if (configuration.useGit) {
-                configurePushTask(
-                    project,
-                    configuration,
-                    version,
-                    dryRun
-                )
+        if (configuration.useGit) {
+            project.tasks.create("push${configuration.name.capitalize()}") {
+                doLast {
+                    val succeeded = GitActions.push(
+                        project,
+                        configuration,
+                        version,
+                        dryRun
+                    )
+
+                    if (!succeeded) {
+                        throw PublishingError.GitRejectedCommitError(
+                            "Something went wrong while pushing, please manually check the repository."
+                        )
+                    }
+                }
             }
         }
     }

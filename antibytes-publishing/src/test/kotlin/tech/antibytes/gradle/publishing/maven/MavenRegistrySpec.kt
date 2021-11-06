@@ -39,16 +39,7 @@ class MavenRegistrySpec {
     @Test
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it setups up the RepositoryConfiguration`() {
         // Given
-        val configuration1 = TestConfiguration(
-            name = fixture(),
-            useGit = false,
-            gitWorkDirectory = "",
-            url = fixture(),
-            username = fixture<String>(),
-            password = fixture<String>()
-        )
-
-        val configuration2 = TestConfiguration(
+        val configuration = TestConfiguration(
             name = fixture(),
             useGit = false,
             gitWorkDirectory = "",
@@ -89,22 +80,16 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration1, configuration2),
+            configuration,
             false
         )
 
         // Then
-        verify(exactly = 1) { repository.name = configuration1.name }
-        verify(exactly = 1) { repository.setUrl(configuration1.url) }
+        verify(exactly = 1) { repository.name = configuration.name.capitalize() }
+        verify(exactly = 1) { repository.setUrl(configuration.url) }
 
-        verify(exactly = 1) { credentials.username = configuration1.username }
-        verify(exactly = 1) { credentials.password = configuration1.password }
-
-        verify(exactly = 1) { repository.name = configuration2.name }
-        verify(exactly = 1) { repository.setUrl(configuration2.url) }
-
-        verify(exactly = 1) { credentials.username = configuration2.username }
-        verify(exactly = 1) { credentials.password = configuration2.password }
+        verify(exactly = 1) { credentials.username = configuration.username }
+        verify(exactly = 1) { credentials.password = configuration.password }
     }
 
     @Test
@@ -149,7 +134,7 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration),
+            configuration,
             false
         )
 
@@ -201,7 +186,7 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration),
+            configuration,
             false
         )
 
@@ -253,7 +238,7 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration),
+            configuration,
             false
         )
 
@@ -307,7 +292,7 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration),
+            configuration,
             false
         )
 
@@ -362,7 +347,7 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration),
+            configuration,
             dryRun
         )
 
@@ -422,7 +407,7 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration),
+            configuration,
             dryRun
         )
 
@@ -484,7 +469,7 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration),
+            configuration,
             dryRun
         )
 
@@ -546,7 +531,7 @@ class MavenRegistrySpec {
         // When
         MavenRegistry.configure(
             project,
-            listOf(configuration),
+            configuration,
             dryRun
         )
 

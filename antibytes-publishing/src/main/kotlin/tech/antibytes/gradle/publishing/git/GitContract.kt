@@ -25,14 +25,14 @@ internal interface GitContract {
     }
 
     interface GitRepository {
-        fun configureCloneTasks(
+        fun configureCloneTask(
             project: Project,
-            configurations: List<PublishingApiContract.RegistryConfiguration>
+            configuration: PublishingApiContract.RegistryConfiguration
         )
 
-        fun configurePushTasks(
+        fun configurePushTask(
             project: Project,
-            configurations: List<PublishingApiContract.RegistryConfiguration>,
+            configuration: PublishingApiContract.RegistryConfiguration,
             version: String,
             dryRun: Boolean
         )

@@ -60,9 +60,9 @@ class GitRepositorySpec {
         )
 
         // When
-        GitRepository.configureCloneTasks(
+        GitRepository.configureCloneTask(
             project,
-            listOf(configuration),
+            configuration,
         )
 
         // Then
@@ -107,9 +107,9 @@ class GitRepositorySpec {
         every { GitActions.checkout(project, configuration) } just Runs
 
         // When
-        GitRepository.configureCloneTasks(
+        GitRepository.configureCloneTask(
             project,
-            listOf(configuration),
+            configuration,
         )
 
         // Then
@@ -132,9 +132,9 @@ class GitRepositorySpec {
         )
 
         // When
-        GitRepository.configurePushTasks(
+        GitRepository.configurePushTask(
             project,
-            listOf(configuration),
+            configuration,
             version,
             dryRun
         )
@@ -180,12 +180,6 @@ class GitRepositorySpec {
         )
 
         every {
-            task.dependsOn(
-                "publishAllPublicationsTo${configuration.name.capitalize()}PackagesRepository"
-            )
-        } returns task
-
-        every {
             GitActions.push(
                 project,
                 configuration,
@@ -195,9 +189,9 @@ class GitRepositorySpec {
         } returns true
 
         // When
-        GitRepository.configurePushTasks(
+        GitRepository.configurePushTask(
             project,
-            listOf(configuration),
+            configuration,
             version,
             dryRun,
         )
@@ -209,11 +203,6 @@ class GitRepositorySpec {
                 configuration,
                 version,
                 dryRun
-            )
-        }
-        verify(exactly = 1) {
-            task.dependsOn(
-                "publishAllPublicationsTo${configuration.name.capitalize()}PackagesRepository"
             )
         }
     }
@@ -272,9 +261,9 @@ class GitRepositorySpec {
         // Then
         val error = assertFailsWith<PublishingError.GitRejectedCommitError> {
             // When
-            GitRepository.configurePushTasks(
+            GitRepository.configurePushTask(
                 project,
-                listOf(configuration),
+                configuration,
                 version,
                 dryRun,
             )

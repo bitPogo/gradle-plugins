@@ -13,14 +13,15 @@ internal interface MavenContract {
     fun interface MavenPublisher {
         fun configure(
             project: Project,
-            configuration: PublishingApiContract.PackageConfiguration
+            configuration: PublishingApiContract.PackageConfiguration,
+            version: String
         )
     }
 
     fun interface MavenRegistry {
         fun configure(
             project: Project,
-            configurations: List<PublishingApiContract.RegistryConfiguration>,
+            configuration: PublishingApiContract.RegistryConfiguration,
             dryRun: Boolean
         )
     }

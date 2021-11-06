@@ -12,6 +12,7 @@ object Version {
     const val kotlin = "1.5.31"
     const val junit = "5.8.1"
     const val mockk = "1.12.0"
+    const val fixture = "1.2.0"
 }
 
 dependencies {
@@ -21,6 +22,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}")
     testImplementation(platform("org.junit:junit-bom:${Version.junit}"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("com.appmattus.fixture:fixture:${Version.fixture}")
 }
 
 java {

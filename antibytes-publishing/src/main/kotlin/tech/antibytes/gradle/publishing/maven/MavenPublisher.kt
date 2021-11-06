@@ -21,7 +21,8 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 internal object MavenPublisher : MavenContract.MavenPublisher {
     private fun setPublicationProperties(
         publication: MavenPublication,
-        configuration: PublishingApiContract.PackageConfiguration
+        configuration: PublishingApiContract.PackageConfiguration,
+        version: String
     ) {
         if (configuration.groupId is String) {
             publication.groupId = configuration.groupId
@@ -31,9 +32,7 @@ internal object MavenPublisher : MavenContract.MavenPublisher {
             publication.artifactId = configuration.artifactId
         }
 
-        if (configuration.version is String) {
-            publication.version = configuration.version
-        }
+        publication.version = version
     }
 
     private fun setPomProperties(
@@ -110,14 +109,16 @@ internal object MavenPublisher : MavenContract.MavenPublisher {
 
     override fun configure(
         project: Project,
-        configuration: PublishingApiContract.PackageConfiguration
+        configuration: PublishingApiContract.PackageConfiguration,
+        version: String
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             publications {
                 withType(MavenPublication::class.java) {
                     setPublicationProperties(
                         this,
-                        configuration
+                        configuration,
+                        version
                     )
 
                     pom {

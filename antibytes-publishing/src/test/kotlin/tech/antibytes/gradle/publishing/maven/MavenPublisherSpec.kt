@@ -67,17 +67,15 @@ class MavenPublisherSpec {
 
         val configuration = TestRegistryConfig(
             artifactId = null,
-            groupId = null,
-            version = null
+            groupId = null
         )
 
         // When
-        MavenPublisher.configure(project, configuration)
+        MavenPublisher.configure(project, configuration, fixture())
 
         // Then
         verify(exactly = 0) { publication.artifactId = any() }
         verify(exactly = 0) { publication.groupId = any() }
-        verify(exactly = 0) { publication.version = any() }
     }
 
     @Test
@@ -114,11 +112,10 @@ class MavenPublisherSpec {
         val configuration = TestRegistryConfig(
             artifactId = artifactId,
             groupId = groupId,
-            version = version
         )
 
         // When
-        MavenPublisher.configure(project, configuration)
+        MavenPublisher.configure(project, configuration, version)
 
         // Then
         verify(exactly = 1) { publication.artifactId = artifactId }
@@ -180,7 +177,7 @@ class MavenPublisherSpec {
         )
 
         // When
-        MavenPublisher.configure(project, configuration)
+        MavenPublisher.configure(project, configuration, fixture())
 
         // Then
         verify(exactly = 1) { pom.name.set(name) }
@@ -248,7 +245,8 @@ class MavenPublisherSpec {
             project,
             TestRegistryConfig(
                 developers = listOf(devConfiguration, devConfiguration)
-            )
+            ),
+            fixture()
         )
 
         // Then
@@ -317,7 +315,8 @@ class MavenPublisherSpec {
             project,
             TestRegistryConfig(
                 developers = listOf(devConfiguration, devConfiguration)
-            )
+            ),
+            fixture()
         )
 
         // Then
@@ -381,7 +380,8 @@ class MavenPublisherSpec {
             project,
             TestRegistryConfig(
                 contributors = listOf(contribConfiguration, contribConfiguration)
-            )
+            ),
+            fixture()
         )
 
         // Then
@@ -448,7 +448,8 @@ class MavenPublisherSpec {
             project,
             TestRegistryConfig(
                 contributors = listOf(contribConfiguration, contribConfiguration)
-            )
+            ),
+            fixture()
         )
 
         // Then
@@ -509,7 +510,8 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            TestRegistryConfig(license = licenseConfiguration)
+            TestRegistryConfig(license = licenseConfiguration),
+            fixture()
         )
 
         // Then
@@ -566,7 +568,8 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            TestRegistryConfig(scm = sourceControlConfiguration)
+            TestRegistryConfig(scm = sourceControlConfiguration),
+            fixture()
         )
 
         // Then
@@ -579,7 +582,6 @@ class MavenPublisherSpec {
 private data class TestRegistryConfig(
     override val artifactId: String? = null,
     override val groupId: String? = null,
-    override val version: String? = null,
     override val pom: PublishingApiContract.PomConfiguration = mockk(relaxed = true),
     override val developers: List<PublishingApiContract.DeveloperConfiguration> = mockk(),
     override val contributors: List<PublishingApiContract.ContributorConfiguration> = mockk(),

@@ -16,10 +16,10 @@ import tech.antibytes.gradle.publishing.PublishingContract.Versioning.Companion.
 import tech.antibytes.gradle.publishing.PublishingContract.Versioning.Companion.SEPARATOR
 
 internal object Versioning : PublishingContract.Versioning {
-    lateinit var configuration: PublishingContract.VersioningConfiguration
+    lateinit var configuration: PublishingApiContract.VersioningConfiguration
 
     private fun removeVersionPrefix(version: String): String {
-        return version.substringAfter(configuration.versionPrefix.get())
+        return version.substringAfter(configuration.versionPrefix)
     }
 
     private fun cleanVersionName(
@@ -51,7 +51,7 @@ internal object Versioning : PublishingContract.Versioning {
     private fun normalize(name: String): String {
         var normalized = name
 
-        configuration.normalization.get().forEach { dangled ->
+        configuration.normalization.forEach { dangled ->
             normalized = normalized.replace(dangled, SEPARATOR)
         }
 
@@ -66,7 +66,7 @@ internal object Versioning : PublishingContract.Versioning {
     private fun renderDependencyBotBranch(details: VersionDetails): String {
         val infix = normalize(
             extractBranchName(
-                configuration.dependencyBotPattern.get(),
+                configuration.dependencyBotPattern,
                 details.branchName
             )
         )
@@ -83,13 +83,13 @@ internal object Versioning : PublishingContract.Versioning {
 
     private fun renderFeatureBranch(details: VersionDetails): String {
         var infix = extractBranchName(
-            configuration.featurePattern.get(),
+            configuration.featurePattern,
             details.branchName
         )
 
-        infix = if (configuration.issuePattern.isPresent && configuration.issuePattern.get().matches(infix)) {
+        infix = if (configuration.issuePattern is Regex && configuration.issuePattern!!.matches(infix)) {
             extractBranchName(
-                configuration.issuePattern.get(),
+                configuration.issuePattern!!,
                 infix
             )
         } else {
@@ -110,9 +110,9 @@ internal object Versioning : PublishingContract.Versioning {
 
     private fun resolveVersionName(details: VersionDetails): String {
         return when {
-            details.branchName.matches(configuration.releasePattern.get()) -> renderReleaseBranch(details)
-            details.branchName.matches(configuration.dependencyBotPattern.get()) -> renderDependencyBotBranch(details)
-            details.branchName.matches(configuration.featurePattern.get()) -> renderFeatureBranch(details)
+            details.branchName.matches(configuration.releasePattern) -> renderReleaseBranch(details)
+            details.branchName.matches(configuration.dependencyBotPattern) -> renderDependencyBotBranch(details)
+            details.branchName.matches(configuration.featurePattern) -> renderFeatureBranch(details)
             else -> throw PublishingError.VersioningError(
                 "Ill named branch name (${details.branchName})! Please adjust it to match the project settings."
             )
@@ -121,7 +121,7 @@ internal object Versioning : PublishingContract.Versioning {
 
     override fun versionName(
         project: Project,
-        configuration: PublishingContract.VersioningConfiguration
+        configuration: PublishingApiContract.VersioningConfiguration
     ): String {
         val versionDetails: Closure<VersionDetails> by project.extra
         this.configuration = configuration
@@ -131,7 +131,7 @@ internal object Versioning : PublishingContract.Versioning {
 
     override fun versionInfo(
         project: Project,
-        configuration: PublishingContract.VersioningConfiguration
+        configuration: PublishingApiContract.VersioningConfiguration
     ): PublishingApiContract.VersionInfo {
         val versionDetails: Closure<VersionDetails> by project.extra
         this.configuration = configuration

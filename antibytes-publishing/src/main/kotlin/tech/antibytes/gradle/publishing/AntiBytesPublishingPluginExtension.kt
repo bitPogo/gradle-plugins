@@ -6,39 +6,27 @@
 
 package tech.antibytes.gradle.publishing
 
-import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
 internal abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginConfiguration {
     // Versioning
-    abstract override val releasePattern: Property<Regex>
-    abstract override val featurePattern: Property<Regex>
-    abstract override val dependencyBotPattern: Property<Regex>
-    abstract override val issuePattern: Property<Regex?>
-    abstract override val versionPrefix: Property<String>
-    abstract override val normalization: SetProperty<String>
+    abstract override val versioning: Property<PublishingApiContract.VersioningConfiguration>
 
     // Publishing
     abstract override val dryRun: Property<Boolean>
     abstract override val packageConfiguration: Property<PublishingApiContract.PackageConfiguration>
-    abstract override val registryConfiguration: ListProperty<PublishingApiContract.RegistryConfiguration>
+    abstract override val registryConfiguration: SetProperty<PublishingApiContract.RegistryConfiguration>
 
     // General
     abstract override val excludeProjects: SetProperty<String>
 
     init {
-        releasePattern.convention("main|release/.*".toRegex())
-        featurePattern.convention("feature/(.*)".toRegex())
-        dependencyBotPattern.convention("dependabot/(.*)".toRegex())
-        issuePattern.convention(null)
-
-        versionPrefix.convention("v")
-        normalization.convention(emptySet())
+        versioning.convention(PublishingApiContract.VersioningConfigurationContainer())
 
         dryRun.convention(false)
         packageConfiguration.convention(null)
-        registryConfiguration.convention(emptyList())
+        registryConfiguration.convention(emptySet())
 
         excludeProjects.convention(emptySet())
     }

@@ -9,10 +9,29 @@ package tech.antibytes.gradle.publishing
 import com.palantir.gradle.gitversion.VersionDetails
 
 interface PublishingApiContract {
+    interface VersioningConfiguration {
+        val releasePattern: Regex
+        val featurePattern: Regex
+        val dependencyBotPattern: Regex
+        val issuePattern: Regex?
+
+        val versionPrefix: String
+        val normalization: Set<String>
+    }
+
     data class VersionInfo(
         val name: String,
         val details: VersionDetails
     )
+
+    data class VersioningConfigurationContainer(
+        override val releasePattern: Regex = "main|release/.*".toRegex(),
+        override val featurePattern: Regex = "feature/(.*)".toRegex(),
+        override val dependencyBotPattern: Regex = "dependabot/(.*)".toRegex(),
+        override val issuePattern: Regex? = null,
+        override val versionPrefix: String = "v",
+        override val normalization: Set<String> = emptySet()
+    ) : VersioningConfiguration
 
     interface PomConfiguration {
         val name: String
@@ -48,7 +67,6 @@ interface PublishingApiContract {
     interface PackageConfiguration {
         val artifactId: String?
         val groupId: String?
-        val version: String?
         val pom: PomConfiguration
         val developers: List<DeveloperConfiguration>
         val contributors: List<ContributorConfiguration>

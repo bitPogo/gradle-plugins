@@ -13,10 +13,7 @@ import io.mockk.mockk
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
-import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
 import org.gradle.kotlin.dsl.invoke
-import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -267,7 +264,7 @@ class VersioningSpec {
         val configuration = VersionConfiguration(
             dependencyBotPattern = "dependabot/(.*)".toRegex(),
             versionPrefix = versionPrefix,
-            normalization = listOf("_", "?", "\$")
+            normalization = setOf("_", "?", "\$")
         )
 
         val project: Project = mockk()
@@ -367,7 +364,7 @@ class VersioningSpec {
         val configuration = VersionConfiguration(
             featurePattern = "feature/(.*)".toRegex(),
             versionPrefix = versionPrefix,
-            normalization = listOf("_", "?", "\$")
+            normalization = setOf("_", "?", "\$")
         )
 
         val project: Project = mockk()
@@ -517,7 +514,7 @@ class VersioningSpec {
             featurePattern = "feature/(.*)".toRegex(),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
-            normalization = listOf("_", "?", "\$")
+            normalization = setOf("_", "?", "\$")
         )
 
         val project: Project = mockk()
@@ -612,46 +609,11 @@ class VersioningSpec {
     }
 }
 
-private class VersionConfiguration(
-    releasePattern: Regex = "xxx".toRegex(),
-    featurePattern: Regex = "xxx".toRegex(),
-    dependencyBotPattern: Regex = "xxx".toRegex(),
-    issuePattern: Regex? = null,
-    versionPrefix: String = "xxx",
-    normalization: List<String> = emptyList()
-) : PublishingContract.VersioningConfiguration {
-    override val releasePattern: Property<Regex>
-    override val featurePattern: Property<Regex>
-    override val dependencyBotPattern: Property<Regex>
-    override val issuePattern: Property<Regex?>
-    override val versionPrefix: Property<String>
-    override val normalization: SetProperty<String>
-
-    init {
-        val project = ProjectBuilder.builder().build()
-
-        this.releasePattern = project.objects.property(Regex::class.java).also {
-            it.set(releasePattern)
-        }
-
-        this.featurePattern = project.objects.property(Regex::class.java).also {
-            it.set(featurePattern)
-        }
-
-        this.dependencyBotPattern = project.objects.property(Regex::class.java).also {
-            it.set(dependencyBotPattern)
-        }
-
-        this.issuePattern = project.objects.property(Regex::class.java).also {
-            it.set(issuePattern)
-        }
-
-        this.versionPrefix = project.objects.property(String::class.java).also {
-            it.set(versionPrefix)
-        }
-
-        this.normalization = project.objects.setProperty(String::class.java).also {
-            it.set(normalization)
-        }
-    }
-}
+private data class VersionConfiguration(
+    override val releasePattern: Regex = "xxx".toRegex(),
+    override val featurePattern: Regex = "xxx".toRegex(),
+    override val dependencyBotPattern: Regex = "xxx".toRegex(),
+    override val issuePattern: Regex? = null,
+    override val versionPrefix: String = "xxx",
+    override val normalization: Set<String> = emptySet()
+) : PublishingApiContract.VersioningConfiguration

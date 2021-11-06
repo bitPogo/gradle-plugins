@@ -7,30 +7,11 @@
 package tech.antibytes.gradle.publishing.maven
 
 import org.gradle.api.Project
-import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
 import tech.antibytes.gradle.publishing.PublishingApiContract
 
 internal object MavenRegistry : MavenContract.MavenRegistry {
-    private fun setRepositories(
-        project: Project,
-        repositories: RepositoryHandler,
-        configurations: List<PublishingApiContract.RegistryConfiguration>,
-        dryRun: Boolean
-    ) {
-        configurations.forEach { configuration ->
-            repositories.maven {
-                setRepository(
-                    project,
-                    this,
-                    configuration,
-                    dryRun
-                )
-            }
-        }
-    }
-
     private fun useCredentials(
         configuration: PublishingApiContract.RegistryConfiguration,
         dryRun: Boolean
@@ -59,7 +40,7 @@ internal object MavenRegistry : MavenContract.MavenRegistry {
         configuration: PublishingApiContract.RegistryConfiguration,
         dryRun: Boolean
     ) {
-        repository.name = configuration.name
+        repository.name = configuration.name.capitalize()
         repository.setUrl(
             getUrl(
                 project,
@@ -78,17 +59,19 @@ internal object MavenRegistry : MavenContract.MavenRegistry {
 
     override fun configure(
         project: Project,
-        configurations: List<PublishingApiContract.RegistryConfiguration>,
+        configuration: PublishingApiContract.RegistryConfiguration,
         dryRun: Boolean
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             repositories {
-                setRepositories(
-                    project,
-                    this,
-                    configurations,
-                    dryRun
-                )
+                repositories.maven {
+                    setRepository(
+                        project,
+                        this,
+                        configuration,
+                        dryRun
+                    )
+                }
             }
         }
     }
