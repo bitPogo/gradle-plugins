@@ -9,6 +9,7 @@ package tech.antibytes.gradle.publishing
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
+import tech.antibytes.gradle.publishing.publicApi.VersionInfo
 
 internal interface PublishingContract {
     interface Versioning {
@@ -20,7 +21,7 @@ internal interface PublishingContract {
         fun versionInfo(
             project: Project,
             configuration: PublishingApiContract.VersioningConfiguration
-        ): PublishingApiContract.VersionInfo
+        ): VersionInfo
 
         companion object {
             const val SEPARATOR = "-"

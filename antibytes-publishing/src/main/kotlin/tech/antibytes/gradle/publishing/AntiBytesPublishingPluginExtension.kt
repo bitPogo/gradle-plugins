@@ -8,6 +8,7 @@ package tech.antibytes.gradle.publishing
 
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
+import tech.antibytes.gradle.publishing.publicApi.VersioningConfigurationContainer
 
 abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginConfiguration {
     // Versioning
@@ -22,7 +23,7 @@ abstract class AntiBytesPublishingPluginExtension : PublishingContract.Publishin
     abstract override val excludeProjects: SetProperty<String>
 
     init {
-        versioning.convention(PublishingApiContract.VersioningConfigurationContainer())
+        versioning.convention(VersioningConfigurationContainer())
 
         dryRun.convention(false)
         packageConfiguration.convention(null)

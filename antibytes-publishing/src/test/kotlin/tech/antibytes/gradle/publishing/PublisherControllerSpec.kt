@@ -31,6 +31,7 @@ import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfigur
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRegistry
+import tech.antibytes.gradle.publishing.publicApi.VersionInfo
 import tech.antibytes.gradle.test.GradlePropertyBuilder
 import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
@@ -144,7 +145,7 @@ class PublisherControllerSpec {
         val version: String = fixture()
         val tasks: TaskContainer = mockk()
         val versionTask: Task = mockk()
-        val info = PublishingApiContract.VersionInfo(
+        val info = VersionInfo(
             name = fixture(),
             details = mockk()
         )
@@ -691,8 +692,8 @@ private data class TestConfig(
 ) : PublishingContract.PublishingPluginConfiguration
 
 private data class TestRegistryConfiguration(
-    override val username: String? = "",
-    override val password: String? = "",
+    override val username: String = "",
+    override val password: String = "",
     override val name: String = "",
     override val url: String = "",
     override val useGit: Boolean = false,

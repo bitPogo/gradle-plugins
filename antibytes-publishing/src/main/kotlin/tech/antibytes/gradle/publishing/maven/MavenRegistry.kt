@@ -16,10 +16,7 @@ internal object MavenRegistry : MavenContract.MavenRegistry {
         configuration: PublishingApiContract.RegistryConfiguration,
         dryRun: Boolean
     ): Boolean {
-        return configuration.username is String &&
-            configuration.password is String &&
-            !configuration.useGit &&
-            !dryRun
+        return !configuration.useGit && !dryRun
     }
 
     private fun getUrl(
