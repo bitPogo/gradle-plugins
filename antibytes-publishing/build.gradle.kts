@@ -46,7 +46,7 @@ gradlePlugin {
         group = LibraryConfig.group
         id = "${LibraryConfig.group}.antibytes-publishing"
         displayName = "${id}.gradle.plugin"
-        implementationClass = "tech.antibytes.gradle.AntiBytesPublishing"
+        implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
         description = "Publishing tasks for Antibytes projects"
         version = "0.1.0"
     }
