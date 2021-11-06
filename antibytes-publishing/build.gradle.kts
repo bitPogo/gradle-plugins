@@ -4,6 +4,8 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
     jacoco
+
+    id("tech.antibytes.gradle.plugin.script.maven-package")
 }
 
 jacoco {

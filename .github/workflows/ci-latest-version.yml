@@ -25,10 +25,10 @@ jobs:
         with:
           distribution: 'adopt' # See 'Supported distributions' for available options
           java-version: '11'
+      - name: Validate Plugins
+        run: ./gradlew validatePlugins
       - name: Cleanup
         run: ./gradlew clean
-      - name: Version
-        run: ./gradlew versionInfo
       - name: Build
         run: ./gradlew build
       - name: Publish snapshot package
