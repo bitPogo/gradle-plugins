@@ -36,7 +36,7 @@ publishing {
             }
         }
 
-        val target = "file://${project.rootProject.buildDir}/gitPublish"
+        val target = "file://${project.rootProject.buildDir.absolutePath}/gitPublish"
 
         maven {
             name = "ReleasePackages"
@@ -89,38 +89,14 @@ publishing {
     }
 }
 
-val createMavenDevPackage: Task by tasks.creating {
-    group = "Publishing"
-    dependsOn(
-        "publishAllPublicationsToDevPackagesRepository"
-    )
-    doLast { removeRedundantPackage("dev") }
-
+tasks.named("publishAllPublicationsToDevPackagesRepository") {
+    dependsOn("cloneDevRepository")
 }
 
-val createMavenSnapshotPackage: Task by tasks.creating {
-    group = "Publishing"
-    dependsOn(
-        "publishAllPublicationsToSnapshotPackagesRepository"
-    )
-    doLast { removeRedundantPackage("snapshots") }
-
+tasks.named("publishAllPublicationsToSnapshotPackagesRepository") {
+    dependsOn("cloneSnapshotRepository")
 }
 
-val createMavenReleasePackage: Task by tasks.creating {
-    group = "Publishing"
-    dependsOn(
-        "publishAllPublicationsToReleasePackagesRepository"
-    )
-    doLast { removeRedundantPackage("releases") }
-}
-
-fun removeRedundantPackage(flavour: String) {
-    val result = File(
-        "${project.rootProject.buildDir}/gitPublish/maven-$flavour/$flavour/antibytes-dependency"
-    ).deleteRecursively()
-
-    if (!result) {
-        throw RuntimeException("Was not able to delete $flavour redundant package")
-    }
+tasks.named("publishAllPublicationsToReleasePackagesRepository") {
+    dependsOn("cloneReleaseRepository")
 }

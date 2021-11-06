@@ -112,7 +112,7 @@ fun versionNameWithQualifier(
     details: VersionDetails,
     qualifierName: String? = null
 ): String {
-    val version = if (!details.isCleanTag) {
+    val version = if (!details.isCleanTag || details.commitDistance > 0) {
         cleanVersionName(details, qualifierName)
     } else {
         details.version

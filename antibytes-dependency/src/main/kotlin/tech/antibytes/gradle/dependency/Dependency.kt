@@ -41,8 +41,10 @@ object Dependency {
             val kotest = Kotest
 
             object Kotest {
-                const val common = "io.kotest:kotest-assertions-core:${Version.kotlinTest.kotest}"
-                const val commonProperties = "io.kotest:kotest-assertions-core:${Version.kotlinTest.kotest}"
+                const val jvm = "io.kotest:kotest-runner-junit5:${Version.kotlinTest.kotest}"
+                const val js = "io.kotest:kotest-framework-engine:${Version.kotlinTest.kotest}"
+                const val commonAssertion = "io.kotest:kotest-assertions-core:${Version.kotlinTest.kotest}"
+                const val commonProperties = "io.kotest:kotest-property:${Version.kotlinTest.kotest}"
             }
         }
     }

@@ -9,7 +9,11 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
+
+    // Coverage
+    implementation("org.jacoco:org.jacoco.core:0.8.7")
+    // CVE
     implementation("org.owasp:dependency-check-gradle:6.4.1")
 
     // dependency-updates.gradle.kts
@@ -18,7 +22,7 @@ dependencies {
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.11.0.202103091610-r")
     // Versioning
     implementation("com.palantir.gradle.gitversion:gradle-git-version:0.12.3")
-    // quality-spotless.gradle.kts
+    // spotless
     implementation("com.diffplug.spotless:spotless-plugin-gradle:5.14.3")
     implementation("com.pinterest:ktlint:0.42.1")
 }

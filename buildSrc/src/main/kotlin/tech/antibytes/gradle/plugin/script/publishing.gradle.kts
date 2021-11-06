@@ -98,7 +98,7 @@ val publishDev: Task by tasks.creating {
 
     dependsOn(
         cloneDevRepository,
-        "createMavenDevPackage",
+        "publishAllPublicationsToDevPackagesRepository",
         publishPackage
     )
 }
@@ -121,7 +121,7 @@ val publishSnapshot: Task by tasks.creating {
 
     dependsOn(
         cloneSnapshotRepository,
-        "createMavenSnapshotPackage",
+        "publishAllPublicationsToSnapshotPackagesRepository",
         publishPackage
     )
 }
@@ -143,7 +143,7 @@ val publishRelease: Task by tasks.creating {
 
     dependsOn(
         cloneReleaseRepository,
-        "createMavenReleasePackage",
+        "publishAllPublicationsToReleasePackagesRepository",
         publishPackage
     )
 }
@@ -151,6 +151,7 @@ val publishRelease: Task by tasks.creating {
 // Git calls
 fun gitClone() {
     try {
+        git = Git.open(File(repository.url))
         gitUpdate()
     } catch (exception: Exception) {
         Git.cloneRepository()
@@ -175,6 +176,7 @@ fun gitUpdate() {
                 githubToken
             )
         )
+        .setDryRun(true)
         .call()
 
     git.reset()
@@ -215,3 +217,4 @@ fun gitPush() {
         }
     }
 }
+
