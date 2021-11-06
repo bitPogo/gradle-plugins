@@ -20,6 +20,25 @@ internal object PublisherController : PublishingContract.PublisherController {
             !configuration.excludeProjects.get().contains(projectName)
     }
 
+    private fun addVersionTask(
+        project: Project,
+        configuration: PublishingApiContract.VersioningConfiguration
+    ) {
+        project.tasks.create("versionInfo") {
+            group = "Versioning"
+            description = "Displays the current version"
+
+            doLast {
+                val info = Versioning.versionInfo(project, configuration)
+                println("version: ${info.name}")
+                println("last tag: ${info.details.lastTag}")
+                println("distance from last tag: ${info.details.commitDistance}")
+                println("clean: ${info.details.isCleanTag}")
+                println("hash: ${info.details.gitHashFull}")
+            }
+        }
+    }
+
     private fun addPublishingTask(
         project: Project,
         configuration: PublishingApiContract.RegistryConfiguration
@@ -56,11 +75,14 @@ internal object PublisherController : PublishingContract.PublisherController {
                 val dryRun = configuration.dryRun.get()
                 val registryConfigurations = configuration.registryConfiguration.get()
                 val packageConfiguration = configuration.packageConfiguration.get()
+                val versioningConfiguration = configuration.versioning.get()
 
                 val version = Versioning.versionName(
                     project,
-                    configuration.versioning.get()
+                    versioningConfiguration
                 )
+
+                addVersionTask(project, versioningConfiguration)
 
                 MavenPublisher.configure(
                     project,

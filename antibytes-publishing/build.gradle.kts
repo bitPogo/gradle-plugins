@@ -73,19 +73,19 @@ tasks.jacocoTestCoverageVerification {
     dependsOn(tasks.named("jacocoTestReport"))
     violationRules {
         rule {
-            enabled = false
+            enabled = true
             limit {
                 counter = "BRANCH"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal(1.0)
+                minimum = BigDecimal(0.98)
             }
         }
         rule {
-            enabled = false
+            enabled = true
             limit {
                 counter = "INSTRUCTION"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.95)
+                minimum = BigDecimal( 0.96)
             }
         }
     }

@@ -6,6 +6,11 @@ import org.gradle.api.Project
 class AntiBytesPublishing : Plugin<Project> {
 
     override fun apply(target: Project) {
-        // nothing to do
+        val extension = target.extensions.create(
+            "antiBytesPublishing",
+            AntiBytesPublishingPluginExtension::class.java
+        )
+
+        PublisherController.configure(target, extension)
     }
 }

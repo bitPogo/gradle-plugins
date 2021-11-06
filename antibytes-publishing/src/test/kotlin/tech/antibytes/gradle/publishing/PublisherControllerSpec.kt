@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.publishing
 
 import com.appmattus.kotlinfixture.kotlinFixture
+import com.palantir.gradle.gitversion.VersionDetails
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -107,6 +108,105 @@ class PublisherControllerSpec {
 
         // Then
         verify(exactly = 0) { Versioning.versionName(any(), any()) }
+    }
+
+    @Test
+    fun `Given configure is called with a Project and PublishingPluginConfiguration, it adds a version Task`() {
+        // Given
+        val project: Project = mockk()
+        val dryRun: Boolean = fixture()
+
+        val packageConfiguration: PackageConfiguration = mockk()
+        val versioningConfiguration: VersioningConfiguration = mockk()
+
+        val config = TestConfig(
+            registryConfiguration = GradlePropertyBuilder.makeSetProperty(
+                RegistryConfiguration::class.java,
+                setOf(mockk(relaxed = true))
+            ),
+            packageConfiguration = GradlePropertyBuilder.makeProperty(
+                PackageConfiguration::class.java,
+                packageConfiguration
+            ),
+            dryRun = GradlePropertyBuilder.makeProperty(
+                Boolean::class.java,
+                dryRun
+            ),
+            excludeProjects = GradlePropertyBuilder.makeSetProperty(
+                String::class.java,
+                emptySet()
+            ),
+            versioning = GradlePropertyBuilder.makeProperty(
+                VersioningConfiguration::class.java,
+                versioningConfiguration
+            ),
+        )
+
+        val version: String = fixture()
+        val tasks: TaskContainer = mockk()
+        val versionTask: Task = mockk()
+        val info = PublishingApiContract.VersionInfo(
+            name = fixture(),
+            details = object : VersionDetails {
+                override fun getBranchName(): String = fixture()
+                override fun getGitHashFull(): String = fixture()
+                override fun getGitHash(): String = fixture()
+                override fun getLastTag(): String = fixture()
+                override fun getCommitDistance(): Int = fixture()
+                override fun getIsCleanTag(): Boolean = fixture()
+                override fun getVersion(): String = fixture()
+            }
+        )
+
+        every { project.name } returns fixture()
+        every { project.tasks } returns tasks
+
+        every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
+        every { tasks.named(any(), any<Action<Task>>()) } returns mockk()
+
+        every { Versioning.versionName(project, versioningConfiguration) } returns version
+        every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
+        every { MavenRegistry.configure(project, any(), dryRun) } just Runs
+        every { GitRepository.configureCloneTask(project, any()) } just Runs
+        every { GitRepository.configurePushTask(project, any(), version, dryRun) } just Runs
+
+        every { versionTask.group = "Versioning" } just Runs
+        every { versionTask.description = any() } just Runs
+
+        invokeGradleAction(
+            { probe -> project.afterEvaluate(probe) },
+            project,
+            mockk()
+        )
+
+        invokeGradleAction(
+            { probe -> tasks.create("versionInfo", probe) },
+            versionTask,
+            mockk()
+        )
+
+        invokeGradleAction(
+            { probe -> versionTask.doLast(probe) },
+            versionTask,
+            mockk()
+        )
+
+        every {
+            Versioning.versionInfo(
+                project,
+                config.versioning.get()
+            )
+        } returns info
+
+        // When
+        PublisherController.configure(
+            project,
+            config
+        )
+
+        // Then
+        verify(exactly = 1) { versionTask.group = "Versioning" }
+        verify(exactly = 1) { versionTask.description = "Displays the current version" }
     }
 
     @Test
@@ -313,6 +413,7 @@ class PublisherControllerSpec {
         every { project.name } returns fixture()
         every { project.tasks } returns tasks
 
+        every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
         every { tasks.named(any(), any<Action<Task>>()) } returns mockk()
 
         every { Versioning.versionName(project, versioningConfiguration) } returns version
