@@ -30,6 +30,7 @@ class AntiBytesPublishingSpec {
         val extension: AntiBytesPublishingPluginExtension = mockk()
 
         every { project.extensions } returns extensionContainer
+        every { project.plugins.apply("com.palantir.git-version") } returns mockk()
         every {
             extensionContainer.create(
                 "antiBytesPublishing",
@@ -49,6 +50,7 @@ class AntiBytesPublishingSpec {
             )
         }
         verify(exactly = 1) { PublisherController.configure(project, extension) }
+        verify(exactly = 1) { project.plugins.apply("com.palantir.git-version") }
 
         unmockkObject(PublisherController)
     }

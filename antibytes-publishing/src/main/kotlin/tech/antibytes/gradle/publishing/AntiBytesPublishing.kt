@@ -4,13 +4,13 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 class AntiBytesPublishing : Plugin<Project> {
-
     override fun apply(target: Project) {
         val extension = target.extensions.create(
             "antiBytesPublishing",
             AntiBytesPublishingPluginExtension::class.java
         )
 
+        target.plugins.apply("com.palantir.git-version")
         PublisherController.configure(target, extension)
     }
 }
