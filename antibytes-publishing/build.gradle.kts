@@ -6,6 +6,7 @@ plugins {
     jacoco
 
     id("tech.antibytes.gradle.plugin.script.maven-package")
+    id("tech.antibytes.gradle.plugin.script.publishing")
 }
 
 jacoco {
