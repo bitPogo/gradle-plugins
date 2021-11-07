@@ -15,12 +15,22 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.kotlin.dsl.invoke
 import org.junit.Test
+import tech.antibytes.gradle.publishing.publicApi.VersioningConfiguration
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class VersioningSpec {
+    private val versionTestConfiguration = VersioningConfiguration(
+        releasePattern = "xxx".toRegex(),
+        featurePattern = "xxx".toRegex(),
+        dependencyBotPattern = "xxx".toRegex(),
+        issuePattern = null,
+        versionPrefix = "xxx",
+        normalization = emptySet()
+    )
+
     @Test
     fun `It fulfils Versioning`() {
         val versioning: Any = Versioning
@@ -32,7 +42,7 @@ class VersioningSpec {
     fun `Given versionName is called, it fails if no pattern matches`() {
         val branchName = "illegal"
 
-        val configuration = VersionConfiguration()
+        val configuration = versionTestConfiguration.copy()
 
         val project: Project = mockk()
 
@@ -74,7 +84,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected.dirty"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             releasePattern = "main|release/.*".toRegex(),
             versionPrefix = versionPrefix
         )
@@ -121,7 +131,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected-19-g24a885d.dirty"
         val distance = 19
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             releasePattern = "main|release/.*".toRegex(),
             versionPrefix = versionPrefix
         )
@@ -167,7 +177,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             releasePattern = "main|release/.*".toRegex(),
             versionPrefix = versionPrefix
         )
@@ -214,7 +224,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             dependencyBotPattern = "dependabot/(.*)".toRegex(),
             versionPrefix = versionPrefix
         )
@@ -261,7 +271,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             dependencyBotPattern = "dependabot/(.*)".toRegex(),
             versionPrefix = versionPrefix,
             normalization = setOf("_", "?", "\$")
@@ -314,7 +324,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             featurePattern = "feature/(.*)".toRegex(),
             versionPrefix = versionPrefix
         )
@@ -361,7 +371,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             featurePattern = "feature/(.*)".toRegex(),
             versionPrefix = versionPrefix,
             normalization = setOf("_", "?", "\$")
@@ -414,7 +424,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             featurePattern = "feature/(.*)".toRegex(),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
@@ -462,7 +472,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             featurePattern = "feature/(.*)".toRegex(),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
@@ -510,7 +520,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             featurePattern = "feature/(.*)".toRegex(),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
@@ -564,7 +574,7 @@ class VersioningSpec {
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
-        val configuration = VersionConfiguration(
+        val configuration = versionTestConfiguration.copy(
             releasePattern = "main|release/.*".toRegex(),
             versionPrefix = versionPrefix
         )
@@ -608,12 +618,3 @@ class VersioningSpec {
         )
     }
 }
-
-private data class VersionConfiguration(
-    override val releasePattern: Regex = "xxx".toRegex(),
-    override val featurePattern: Regex = "xxx".toRegex(),
-    override val dependencyBotPattern: Regex = "xxx".toRegex(),
-    override val issuePattern: Regex? = null,
-    override val versionPrefix: String = "xxx",
-    override val normalization: Set<String> = emptySet()
-) : PublishingApiContract.VersioningConfiguration

@@ -3,7 +3,7 @@
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
-package tech.antibytes.gradle.test
+package tech.antibytes.gradle.publishing
 
 import io.mockk.Runs
 import io.mockk.every

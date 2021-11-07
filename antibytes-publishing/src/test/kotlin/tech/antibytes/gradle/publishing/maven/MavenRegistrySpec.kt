@@ -20,8 +20,8 @@ import org.gradle.api.artifacts.repositories.PasswordCredentials
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.publish.PublishingExtension
 import org.junit.Test
-import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.publishing.publicApi.RegistryConfiguration
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -39,7 +39,7 @@ class MavenRegistrySpec {
     @Test
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it setups up the RepositoryConfiguration`() {
         // Given
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = fixture(),
             useGit = false,
             gitWorkDirectory = "",
@@ -95,7 +95,7 @@ class MavenRegistrySpec {
     @Test
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it will not set credentials if UseGitHub is true`() {
         // Given
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = fixture(),
             useGit = true,
             gitWorkDirectory = "",
@@ -150,7 +150,7 @@ class MavenRegistrySpec {
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it will not set credentials if DryRun is true`() {
         // Given
         val dryRun = true
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = fixture(),
             useGit = false,
             gitWorkDirectory = "",
@@ -205,7 +205,7 @@ class MavenRegistrySpec {
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it replaces the given URL with a location in the RootProjects build directory if DryRun is true and UseGit is false`() {
         // Given
         val dryRun = true
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = fixture(),
             useGit = false,
             gitWorkDirectory = fixture(),
@@ -267,7 +267,7 @@ class MavenRegistrySpec {
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it replaces the given URL with a location in the RootProjects build directory if DryRun is false and UseGit is true`() {
         // Given
         val dryRun = false
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = fixture(),
             useGit = true,
             gitWorkDirectory = fixture(),
@@ -329,7 +329,7 @@ class MavenRegistrySpec {
     fun `Given configure is called with a Project, RegistryConfiguration and a DryRun flag, it replaces the given URL with a location in the RootProjects build directory if DryRun is true and UseGit is true`() {
         // Given
         val dryRun = true
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = fixture(),
             useGit = true,
             gitWorkDirectory = fixture(),
@@ -387,12 +387,3 @@ class MavenRegistrySpec {
         )
     }
 }
-
-private data class TestConfiguration(
-    override val name: String,
-    override val useGit: Boolean,
-    override val gitWorkDirectory: String,
-    override val url: String,
-    override val username: String = "",
-    override val password: String = ""
-) : PublishingApiContract.RegistryConfiguration
