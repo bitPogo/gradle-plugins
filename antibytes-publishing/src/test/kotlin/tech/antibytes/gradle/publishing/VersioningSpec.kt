@@ -15,7 +15,7 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.kotlin.dsl.invoke
 import org.junit.Test
-import tech.antibytes.gradle.publishing.publicApi.VersioningConfiguration
+import tech.antibytes.gradle.publishing.api.VersioningConfiguration
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertSame

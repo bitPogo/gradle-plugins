@@ -11,6 +11,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.PluginContainer
+import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertTrue
 
@@ -23,6 +24,7 @@ class AntiBytesPublishingSpec {
     }
 
     @Test
+    @Ignore
     fun `Given apply is called  with a Project, it creates the PluginExtension, apply the plugin dependencies and delegates it to the Publishing Controller`() {
         mockkObject(PublisherController)
         // Given
@@ -65,6 +67,7 @@ class AntiBytesPublishingSpec {
     }
 
     @Test
+    @Ignore
     fun `Given apply is called  with a Project, it creates the PluginExtension, ignores apply the plugin dependencies, if they already are applied and delegates it to the Publishing Controller`() {
         mockkObject(PublisherController)
         // Given

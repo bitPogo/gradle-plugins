@@ -18,8 +18,6 @@ import io.mockk.verifyOrder
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 import org.junit.After
@@ -27,11 +25,11 @@ import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfiguration
+import tech.antibytes.gradle.publishing.api.RegistryConfiguration
+import tech.antibytes.gradle.publishing.api.VersionInfo
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRegistry
-import tech.antibytes.gradle.publishing.publicApi.RegistryConfiguration
-import tech.antibytes.gradle.publishing.publicApi.VersionInfo
 import kotlin.test.assertTrue
 
 class PublisherControllerSpec {
@@ -69,32 +67,50 @@ class PublisherControllerSpec {
     }
 
     @Test
+    fun `Given configure is called with a Project and PublishingPluginConfiguration, it does nothing if no PackageConfiguration was given`() {
+        // Given
+        val name: String = fixture()
+
+        val project: Project = mockk()
+        val config = TestConfig(
+            registryConfiguration = setOf(mockk()),
+            packageConfiguration = null,
+            dryRun = false,
+            excludeProjects = setOf(name),
+            versioning = mockk(),
+        )
+
+        every { project.name } returns name
+        every { Versioning.versionName(any(), any()) } returns fixture()
+
+        invokeGradleAction(
+            { probe -> project.afterEvaluate(probe) },
+            project,
+            mockk()
+        )
+
+        // When
+        PublisherController.configure(
+            project,
+            config
+        )
+
+        // Then
+        verify(exactly = 0) { Versioning.versionName(any(), any()) }
+    }
+
+    @Test
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it does nothing if the project was excludes`() {
         // Given
         val name: String = fixture()
 
         val project: Project = mockk()
         val config = TestConfig(
-            registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                PublishingApiContract.RegistryConfiguration::class.java,
-                setOf(mockk())
-            ),
-            packageConfiguration = GradlePropertyBuilder.makeProperty(
-                PackageConfiguration::class.java,
-                mockk()
-            ),
-            dryRun = GradlePropertyBuilder.makeProperty(
-                Boolean::class.java,
-                false
-            ),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(
-                String::class.java,
-                setOf(name)
-            ),
-            versioning = GradlePropertyBuilder.makeProperty(
-                VersioningConfiguration::class.java,
-                mockk()
-            ),
+            registryConfiguration = setOf(mockk()),
+            packageConfiguration = mockk(),
+            dryRun = false,
+            excludeProjects = setOf(name),
+            versioning = mockk(),
         )
 
         every { project.name } returns name
@@ -126,26 +142,11 @@ class PublisherControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                PublishingApiContract.RegistryConfiguration::class.java,
-                setOf(mockk(relaxed = true))
-            ),
-            packageConfiguration = GradlePropertyBuilder.makeProperty(
-                PackageConfiguration::class.java,
-                packageConfiguration
-            ),
-            dryRun = GradlePropertyBuilder.makeProperty(
-                Boolean::class.java,
-                dryRun
-            ),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(
-                String::class.java,
-                emptySet()
-            ),
-            versioning = GradlePropertyBuilder.makeProperty(
-                VersioningConfiguration::class.java,
-                versioningConfiguration
-            ),
+            registryConfiguration = setOf(mockk(relaxed = true)),
+            packageConfiguration = packageConfiguration,
+            dryRun = dryRun,
+            excludeProjects = emptySet(),
+            versioning = versioningConfiguration,
         )
 
         val version: String = fixture()
@@ -200,7 +201,7 @@ class PublisherControllerSpec {
         every {
             Versioning.versionInfo(
                 project,
-                config.versioning.get()
+                config.versioning
             )
         } returns info
 
@@ -220,26 +221,11 @@ class PublisherControllerSpec {
         // Given
         val project: Project = mockk()
         val config = TestConfig(
-            registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                PublishingApiContract.RegistryConfiguration::class.java,
-                emptySet()
-            ),
-            packageConfiguration = GradlePropertyBuilder.makeProperty(
-                PackageConfiguration::class.java,
-                mockk()
-            ),
-            dryRun = GradlePropertyBuilder.makeProperty(
-                Boolean::class.java,
-                false
-            ),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(
-                String::class.java,
-                emptySet()
-            ),
-            versioning = GradlePropertyBuilder.makeProperty(
-                VersioningConfiguration::class.java,
-                mockk()
-            ),
+            registryConfiguration = emptySet(),
+            packageConfiguration = mockk(),
+            dryRun = false,
+            excludeProjects = emptySet(),
+            versioning = mockk(),
         )
 
         every { project.name } returns fixture()
@@ -275,26 +261,11 @@ class PublisherControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                PublishingApiContract.RegistryConfiguration::class.java,
-                registryConfiguration
-            ),
-            packageConfiguration = GradlePropertyBuilder.makeProperty(
-                PackageConfiguration::class.java,
-                packageConfiguration
-            ),
-            dryRun = GradlePropertyBuilder.makeProperty(
-                Boolean::class.java,
-                dryRun
-            ),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(
-                String::class.java,
-                emptySet()
-            ),
-            versioning = GradlePropertyBuilder.makeProperty(
-                VersioningConfiguration::class.java,
-                versioningConfiguration
-            ),
+            registryConfiguration = registryConfiguration,
+            packageConfiguration = packageConfiguration,
+            dryRun = dryRun,
+            excludeProjects = emptySet(),
+            versioning = versioningConfiguration,
         )
 
         val version: String = fixture()
@@ -390,26 +361,11 @@ class PublisherControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                PublishingApiContract.RegistryConfiguration::class.java,
-                registryConfiguration
-            ),
-            packageConfiguration = GradlePropertyBuilder.makeProperty(
-                PackageConfiguration::class.java,
-                packageConfiguration
-            ),
-            dryRun = GradlePropertyBuilder.makeProperty(
-                Boolean::class.java,
-                dryRun
-            ),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(
-                String::class.java,
-                emptySet()
-            ),
-            versioning = GradlePropertyBuilder.makeProperty(
-                VersioningConfiguration::class.java,
-                versioningConfiguration
-            ),
+            registryConfiguration = registryConfiguration,
+            packageConfiguration = packageConfiguration,
+            dryRun = dryRun,
+            excludeProjects = emptySet(),
+            versioning = versioningConfiguration,
         )
 
         val version: String = fixture()
@@ -473,26 +429,11 @@ class PublisherControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                PublishingApiContract.RegistryConfiguration::class.java,
-                registryConfiguration
-            ),
-            packageConfiguration = GradlePropertyBuilder.makeProperty(
-                PackageConfiguration::class.java,
-                packageConfiguration
-            ),
-            dryRun = GradlePropertyBuilder.makeProperty(
-                Boolean::class.java,
-                dryRun
-            ),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(
-                String::class.java,
-                emptySet()
-            ),
-            versioning = GradlePropertyBuilder.makeProperty(
-                VersioningConfiguration::class.java,
-                versioningConfiguration
-            ),
+            registryConfiguration = registryConfiguration,
+            packageConfiguration = packageConfiguration,
+            dryRun = dryRun,
+            excludeProjects = emptySet(),
+            versioning = versioningConfiguration,
         )
 
         val version: String = fixture()
@@ -588,26 +529,11 @@ class PublisherControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                PublishingApiContract.RegistryConfiguration::class.java,
-                registryConfiguration
-            ),
-            packageConfiguration = GradlePropertyBuilder.makeProperty(
-                PackageConfiguration::class.java,
-                packageConfiguration
-            ),
-            dryRun = GradlePropertyBuilder.makeProperty(
-                Boolean::class.java,
-                dryRun
-            ),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(
-                String::class.java,
-                emptySet()
-            ),
-            versioning = GradlePropertyBuilder.makeProperty(
-                VersioningConfiguration::class.java,
-                versioningConfiguration
-            ),
+            registryConfiguration = registryConfiguration,
+            packageConfiguration = packageConfiguration,
+            dryRun = dryRun,
+            excludeProjects = emptySet(),
+            versioning = versioningConfiguration,
         )
 
         val version: String = fixture()
@@ -651,7 +577,7 @@ class PublisherControllerSpec {
         verifyOrder {
             Versioning.versionName(
                 project,
-                config.versioning.get()
+                config.versioning
             )
 
             MavenPublisher.configure(
@@ -690,9 +616,9 @@ class PublisherControllerSpec {
 }
 
 private data class TestConfig(
-    override val registryConfiguration: SetProperty<PublishingApiContract.RegistryConfiguration>,
-    override val packageConfiguration: Property<PackageConfiguration>,
-    override val dryRun: Property<Boolean>,
-    override val excludeProjects: SetProperty<String>,
-    override val versioning: Property<VersioningConfiguration>
+    override var registryConfiguration: Set<PublishingApiContract.RegistryConfiguration>,
+    override var packageConfiguration: PackageConfiguration?,
+    override var dryRun: Boolean,
+    override var excludeProjects: Set<String>,
+    override var versioning: VersioningConfiguration
 ) : PublishingContract.PublishingPluginConfiguration

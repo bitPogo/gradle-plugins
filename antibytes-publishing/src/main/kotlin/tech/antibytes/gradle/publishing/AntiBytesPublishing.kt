@@ -17,6 +17,13 @@ class AntiBytesPublishing : Plugin<Project> {
             target.plugins.apply("maven-publish")
         }
 
+        if (target == target.rootProject) {
+            target.evaluationDependsOnChildren()
+            target.afterEvaluate {
+                target.subprojects.forEach { sub -> sub.tasks.forEach { println(it) } }
+            }
+        }
+
         PublisherController.configure(target, extension)
     }
 }

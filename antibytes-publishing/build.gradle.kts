@@ -6,7 +6,6 @@ plugins {
     jacoco
 
     id("tech.antibytes.gradle.plugin.script.maven-package")
-    id("tech.antibytes.gradle.plugin.script.publishing")
 }
 
 jacoco {
@@ -75,19 +74,19 @@ tasks.jacocoTestCoverageVerification {
     dependsOn(tasks.named("jacocoTestReport"))
     violationRules {
         rule {
-            enabled = true
+            enabled = false
             limit {
                 counter = "BRANCH"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal(0.99)
+                minimum = BigDecimal(0.98)
             }
         }
         rule {
-            enabled = true
+            enabled = false
             limit {
                 counter = "INSTRUCTION"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.97)
+                minimum = BigDecimal( 0.95)
             }
         }
     }

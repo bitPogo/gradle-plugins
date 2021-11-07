@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.publishing.publicApi
+package tech.antibytes.gradle.publishing.api
 
 import com.palantir.gradle.gitversion.VersionDetails
 

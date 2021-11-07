@@ -51,8 +51,6 @@ internal object DependencyUpdate : DependencyContract.Update {
             candidate = candidate.toUpperCase()
         )
 
-        println(indicator)
-
         val versionRegex = configuration.versionRegex.get()
 
         return !isStable(current, versionRegex, indicator.current) &&

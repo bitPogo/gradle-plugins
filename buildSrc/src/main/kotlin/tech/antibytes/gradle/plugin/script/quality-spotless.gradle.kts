@@ -20,10 +20,10 @@ package tech.antibytes.gradle.plugin.script
  *     gradlePluginPortal()
  * }
  *
- * Now just add id("tech.antibytes.gradle.banana.script.quality-spotless") to your rootProject build.gradle.kts plugins
+ * Now just add id("tech.antibytes.gradle.plugin.script.quality-spotless") to your rootProject build.gradle.kts plugins
  *
  * plugins {
- *     id("tech.antibytes.gradle.banana.script.quality-spotless")
+ *     id("tech.antibytes.gradle.plugin.script.quality-spotless")
  * }
  */
 plugins {

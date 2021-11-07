@@ -88,15 +88,3 @@ publishing {
         }
     }
 }
-
-tasks.named("publishAllPublicationsToDevPackagesRepository") {
-    dependsOn("cloneDevRepository")
-}
-
-tasks.named("publishAllPublicationsToSnapshotPackagesRepository") {
-    dependsOn("cloneSnapshotRepository")
-}
-
-tasks.named("publishAllPublicationsToReleasePackagesRepository") {
-    dependsOn("cloneReleaseRepository")
-}

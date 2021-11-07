@@ -16,8 +16,9 @@ internal object PublisherController : PublishingContract.PublisherController {
         projectName: String,
         configuration: PublishingContract.PublishingPluginConfiguration
     ): Boolean {
-        return configuration.registryConfiguration.get().isNotEmpty() &&
-            !configuration.excludeProjects.get().contains(projectName)
+        return configuration.registryConfiguration.isNotEmpty() &&
+            !configuration.excludeProjects.contains(projectName) &&
+            configuration.packageConfiguration is PublishingApiContract.PackageConfiguration
     }
 
     private fun addVersionTask(
@@ -72,10 +73,10 @@ internal object PublisherController : PublishingContract.PublisherController {
     ) {
         project.afterEvaluate {
             if (isApplicable(project.name, configuration)) {
-                val dryRun = configuration.dryRun.get()
-                val registryConfigurations = configuration.registryConfiguration.get()
-                val packageConfiguration = configuration.packageConfiguration.get()
-                val versioningConfiguration = configuration.versioning.get()
+                val dryRun = configuration.dryRun
+                val registryConfigurations = configuration.registryConfiguration
+                val packageConfiguration = configuration.packageConfiguration as PublishingApiContract.PackageConfiguration
+                val versioningConfiguration = configuration.versioning
 
                 val version = Versioning.versionName(
                     project,
@@ -90,14 +91,14 @@ internal object PublisherController : PublishingContract.PublisherController {
                     version
                 )
 
-                registryConfigurations.forEach { configuration ->
-                    MavenRegistry.configure(project, configuration, dryRun)
+                registryConfigurations.forEach { registry ->
+                    MavenRegistry.configure(project, registry, dryRun)
 
-                    GitRepository.configureCloneTask(project, configuration)
-                    GitRepository.configurePushTask(project, configuration, version, dryRun)
+                    GitRepository.configureCloneTask(project, registry)
+                    GitRepository.configurePushTask(project, registry, version, dryRun)
 
-                    addPublishingTask(project, configuration)
-                    wireDependencies(project, configuration)
+                    addPublishingTask(project, registry)
+                    wireDependencies(project, registry)
                 }
             }
         }

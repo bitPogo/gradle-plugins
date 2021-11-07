@@ -6,29 +6,17 @@
 
 package tech.antibytes.gradle.publishing
 
-import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
-import tech.antibytes.gradle.publishing.publicApi.VersioningConfiguration
+import tech.antibytes.gradle.publishing.api.VersioningConfiguration
 
 abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginConfiguration {
     // Versioning
-    abstract override val versioning: Property<PublishingApiContract.VersioningConfiguration>
+    override var versioning: PublishingApiContract.VersioningConfiguration = VersioningConfiguration()
 
     // Publishing
-    abstract override val dryRun: Property<Boolean>
-    abstract override val packageConfiguration: Property<PublishingApiContract.PackageConfiguration>
-    abstract override val registryConfiguration: SetProperty<PublishingApiContract.RegistryConfiguration>
+    override var dryRun: Boolean = false
+    override var packageConfiguration: PublishingApiContract.PackageConfiguration? = null
+    override var registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = emptySet()
 
     // General
-    abstract override val excludeProjects: SetProperty<String>
-
-    init {
-        versioning.convention(VersioningConfiguration())
-
-        dryRun.convention(false)
-        packageConfiguration.convention(null)
-        registryConfiguration.convention(emptySet())
-
-        excludeProjects.convention(emptySet())
-    }
+    override var excludeProjects: Set<String> = emptySet()
 }
