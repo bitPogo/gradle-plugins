@@ -21,9 +21,9 @@ import org.gradle.api.tasks.TaskContainer
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingError
-import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.publishing.publicApi.RegistryConfiguration
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
@@ -52,11 +52,13 @@ class GitRepositorySpec {
     fun `Given configureCloneTask is called with a Project and a RegistryConfiguration it does nothing if useGit is false`() {
         // Given
         val project: Project = mockk()
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = fixture(),
             useGit = false,
             gitWorkDirectory = fixture(),
-            url = fixture()
+            url = fixture(),
+            username = "",
+            password = ""
         )
 
         // When
@@ -75,11 +77,13 @@ class GitRepositorySpec {
         val name: String = fixture()
 
         val project: Project = mockk()
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = name,
             useGit = true,
             gitWorkDirectory = fixture(),
-            url = fixture()
+            url = fixture(),
+            username = "",
+            password = ""
         )
 
         val taskContainer: TaskContainer = mockk()
@@ -124,11 +128,13 @@ class GitRepositorySpec {
         val dryRun: Boolean = fixture()
 
         val project: Project = mockk()
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = fixture(),
             useGit = useGit,
             gitWorkDirectory = fixture(),
-            url = fixture()
+            url = fixture(),
+            username = "",
+            password = ""
         )
 
         // When
@@ -151,11 +157,13 @@ class GitRepositorySpec {
         val dryRun: Boolean = fixture()
 
         val project: Project = mockk()
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = name,
             useGit = true,
             gitWorkDirectory = fixture(),
-            url = fixture()
+            url = fixture(),
+            username = "",
+            password = ""
         )
 
         val taskContainer: TaskContainer = mockk(relaxed = true)
@@ -215,11 +223,13 @@ class GitRepositorySpec {
         val dryRun: Boolean = fixture()
 
         val project: Project = mockk()
-        val configuration = TestConfiguration(
+        val configuration = RegistryConfiguration(
             name = name,
             useGit = true,
             gitWorkDirectory = fixture(),
-            url = fixture()
+            url = fixture(),
+            username = "",
+            password = ""
         )
 
         val taskContainer: TaskContainer = mockk(relaxed = true)
@@ -275,12 +285,3 @@ class GitRepositorySpec {
         )
     }
 }
-
-private data class TestConfiguration(
-    override val name: String,
-    override val useGit: Boolean,
-    override val gitWorkDirectory: String,
-    override val url: String,
-    override val username: String = "",
-    override val password: String = ""
-) : PublishingApiContract.RegistryConfiguration

@@ -24,12 +24,27 @@ import org.gradle.api.publish.maven.MavenPomLicenseSpec
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import org.junit.Test
-import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.publishing.publicApi.ContributorConfiguration
+import tech.antibytes.gradle.publishing.publicApi.DeveloperConfiguration
+import tech.antibytes.gradle.publishing.publicApi.LicenseConfiguration
+import tech.antibytes.gradle.publishing.publicApi.PackageConfiguration
+import tech.antibytes.gradle.publishing.publicApi.PomConfiguration
+import tech.antibytes.gradle.publishing.publicApi.SourceControlConfiguration
 import kotlin.test.assertTrue
 
 class MavenPublisherSpec {
     private val fixture = kotlinFixture()
+
+    private val registryTestConfig = PackageConfiguration(
+        artifactId = null,
+        groupId = null,
+        pom = mockk(relaxed = true),
+        developers = mockk(),
+        contributors = mockk(),
+        license = mockk(),
+        scm = mockk(),
+    )
 
     @Test
     fun `It fulfils MavenPublisher`() {
@@ -65,7 +80,7 @@ class MavenPublisherSpec {
             mockk()
         )
 
-        val configuration = TestRegistryConfig(
+        val configuration = registryTestConfig.copy(
             artifactId = null,
             groupId = null
         )
@@ -109,7 +124,7 @@ class MavenPublisherSpec {
             mockk()
         )
 
-        val configuration = TestRegistryConfig(
+        val configuration = registryTestConfig.copy(
             artifactId = artifactId,
             groupId = groupId,
         )
@@ -134,6 +149,14 @@ class MavenPublisherSpec {
         val url = "http://example.org/${fixture<String>()}"
         val additionalProperties = fixture<Map<String, String>>()
 
+        val pomConfiguration = PomConfiguration(
+            name = name,
+            description = description,
+            year = year,
+            url = url,
+            additionalInformation = additionalProperties
+        )
+
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
         val publishingExtension: PublishingExtension = mockk()
@@ -164,16 +187,10 @@ class MavenPublisherSpec {
             mockk()
         )
 
-        val configuration = TestRegistryConfig(
+        val configuration = registryTestConfig.copy(
             artifactId = artifactId,
             groupId = groupId,
-            pom = object : PublishingApiContract.PomConfiguration {
-                override val name = name
-                override val description: String = description
-                override val year = year
-                override val url: String = url
-                override val additionalInformation = additionalProperties
-            }
+            pom = pomConfiguration
         )
 
         // When
@@ -190,13 +207,13 @@ class MavenPublisherSpec {
     @Test
     fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the Developer configuration`() {
         // Given
-        val devConfiguration = object : PublishingApiContract.DeveloperConfiguration {
-            override val id: String = fixture()
-            override val name: String = fixture()
-            override val email: String = fixture()
-            override val url: String = fixture()
-            override val additionalInformation: Map<String, String> = fixture()
-        }
+        val devConfiguration = DeveloperConfiguration(
+            id = fixture(),
+            name = fixture(),
+            email = fixture(),
+            url = fixture<String>(),
+            additionalInformation = fixture()
+        )
 
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
@@ -243,7 +260,7 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            TestRegistryConfig(
+            registryTestConfig.copy(
                 developers = listOf(devConfiguration, devConfiguration)
             ),
             fixture()
@@ -260,13 +277,13 @@ class MavenPublisherSpec {
     @Test
     fun `Given configureMavenTask is called with a Project and a PackageRegistry, it ignores optional Developer configuration, if they are not set`() {
         // Given
-        val devConfiguration = object : PublishingApiContract.DeveloperConfiguration {
-            override val id: String = fixture()
-            override val name: String = fixture()
-            override val email: String = fixture()
-            override val url: String? = null
-            override val additionalInformation: Map<String, String> = fixture()
-        }
+        val devConfiguration = DeveloperConfiguration(
+            id = fixture(),
+            name = fixture(),
+            email = fixture(),
+            url = null,
+            additionalInformation = fixture()
+        )
 
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
@@ -313,7 +330,7 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            TestRegistryConfig(
+            registryTestConfig.copy(
                 developers = listOf(devConfiguration, devConfiguration)
             ),
             fixture()
@@ -326,12 +343,12 @@ class MavenPublisherSpec {
     @Test
     fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the Contributor configuration`() {
         // Given
-        val contribConfiguration = object : PublishingApiContract.ContributorConfiguration {
-            override val name: String = fixture()
-            override val email: String = fixture()
-            override val url: String = fixture()
-            override val additionalInformation: Map<String, String> = fixture()
-        }
+        val contribConfiguration = ContributorConfiguration(
+            name = fixture(),
+            email = fixture(),
+            url = fixture<String>(),
+            additionalInformation = fixture(),
+        )
 
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
@@ -378,7 +395,7 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            TestRegistryConfig(
+            registryTestConfig.copy(
                 contributors = listOf(contribConfiguration, contribConfiguration)
             ),
             fixture()
@@ -394,12 +411,12 @@ class MavenPublisherSpec {
     @Test
     fun `Given configureMavenTask is called with a Project and a PackageRegistry, it ignores optional Contributor configuration, if they are not set`() {
         // Given
-        val contribConfiguration = object : PublishingApiContract.ContributorConfiguration {
-            override val name: String = fixture()
-            override val email: String = fixture()
-            override val url: String? = null
-            override val additionalInformation: Map<String, String> = fixture()
-        }
+        val contribConfiguration = ContributorConfiguration(
+            name = fixture(),
+            email = fixture(),
+            url = null,
+            additionalInformation = fixture(),
+        )
 
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
@@ -446,7 +463,7 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            TestRegistryConfig(
+            registryTestConfig.copy(
                 contributors = listOf(contribConfiguration, contribConfiguration)
             ),
             fixture()
@@ -459,11 +476,11 @@ class MavenPublisherSpec {
     @Test
     fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the License configuration`() {
         // Given
-        val licenseConfiguration = object : PublishingApiContract.LicenseConfiguration {
-            override val name: String = fixture()
-            override val url: String = fixture()
-            override val distribution: String = fixture()
-        }
+        val licenseConfiguration = LicenseConfiguration(
+            name = fixture(),
+            url = fixture(),
+            distribution = fixture()
+        )
 
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
@@ -510,7 +527,7 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            TestRegistryConfig(license = licenseConfiguration),
+            registryTestConfig.copy(license = licenseConfiguration),
             fixture()
         )
 
@@ -523,11 +540,11 @@ class MavenPublisherSpec {
     @Test
     fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the Source Control configuration`() {
         // Given
-        val sourceControlConfiguration = object : PublishingApiContract.SourceControlConfiguration {
-            override val connection: String = fixture()
-            override val url: String = fixture()
-            override val developerConnection: String = fixture()
-        }
+        val sourceControlConfiguration = SourceControlConfiguration(
+            connection = fixture(),
+            url = fixture(),
+            developerConnection = fixture(),
+        )
 
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
@@ -568,7 +585,7 @@ class MavenPublisherSpec {
         // When
         MavenPublisher.configure(
             project,
-            TestRegistryConfig(scm = sourceControlConfiguration),
+            registryTestConfig.copy(scm = sourceControlConfiguration),
             fixture()
         )
 
@@ -578,13 +595,3 @@ class MavenPublisherSpec {
         verify(exactly = 1) { scm.url.set(sourceControlConfiguration.url) }
     }
 }
-
-private data class TestRegistryConfig(
-    override val artifactId: String? = null,
-    override val groupId: String? = null,
-    override val pom: PublishingApiContract.PomConfiguration = mockk(relaxed = true),
-    override val developers: List<PublishingApiContract.DeveloperConfiguration> = mockk(),
-    override val contributors: List<PublishingApiContract.ContributorConfiguration> = mockk(),
-    override val license: PublishingApiContract.LicenseConfiguration = mockk(),
-    override val scm: PublishingApiContract.SourceControlConfiguration = mockk(),
-) : PublishingApiContract.PackageConfiguration

@@ -26,18 +26,24 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
-import tech.antibytes.gradle.publishing.PublishingApiContract.RegistryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfiguration
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRegistry
+import tech.antibytes.gradle.publishing.publicApi.RegistryConfiguration
 import tech.antibytes.gradle.publishing.publicApi.VersionInfo
-import tech.antibytes.gradle.test.GradlePropertyBuilder
-import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class PublisherControllerSpec {
     private val fixture = kotlinFixture()
+    private val registryTestConfig = RegistryConfiguration(
+        username = "",
+        password = "",
+        name = "",
+        url = "",
+        useGit = false,
+        gitWorkDirectory = ""
+    )
 
     @Before
     fun setUp() {
@@ -70,7 +76,7 @@ class PublisherControllerSpec {
         val project: Project = mockk()
         val config = TestConfig(
             registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                RegistryConfiguration::class.java,
+                PublishingApiContract.RegistryConfiguration::class.java,
                 setOf(mockk())
             ),
             packageConfiguration = GradlePropertyBuilder.makeProperty(
@@ -121,7 +127,7 @@ class PublisherControllerSpec {
 
         val config = TestConfig(
             registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                RegistryConfiguration::class.java,
+                PublishingApiContract.RegistryConfiguration::class.java,
                 setOf(mockk(relaxed = true))
             ),
             packageConfiguration = GradlePropertyBuilder.makeProperty(
@@ -215,7 +221,7 @@ class PublisherControllerSpec {
         val project: Project = mockk()
         val config = TestConfig(
             registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                RegistryConfiguration::class.java,
+                PublishingApiContract.RegistryConfiguration::class.java,
                 emptySet()
             ),
             packageConfiguration = GradlePropertyBuilder.makeProperty(
@@ -260,17 +266,17 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it distributes the configurations`() {
         // Given
         val project: Project = mockk()
-        val registry1 = TestRegistryConfiguration(name = "a")
-        val registry2 = TestRegistryConfiguration(name = "b")
+        val registry1 = registryTestConfig.copy(name = "a")
+        val registry2 = registryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<RegistryConfiguration> = setOf(registry1, registry2)
+        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
             registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                RegistryConfiguration::class.java,
+                PublishingApiContract.RegistryConfiguration::class.java,
                 registryConfiguration
             ),
             packageConfiguration = GradlePropertyBuilder.makeProperty(
@@ -375,8 +381,8 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it adds a publishing Task`() {
         // Given
         val project: Project = mockk()
-        val registry1 = TestRegistryConfiguration(name = "a")
-        val registry2 = TestRegistryConfiguration(name = "b")
+        val registry1 = registryTestConfig.copy(name = "a")
+        val registry2 = registryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
         val registryConfiguration: Set<RegistryConfiguration> = setOf(registry1, registry2)
@@ -385,7 +391,7 @@ class PublisherControllerSpec {
 
         val config = TestConfig(
             registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                RegistryConfiguration::class.java,
+                PublishingApiContract.RegistryConfiguration::class.java,
                 registryConfiguration
             ),
             packageConfiguration = GradlePropertyBuilder.makeProperty(
@@ -458,17 +464,17 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it wires the dependencies`() {
         // Given
         val project: Project = mockk()
-        val registry1 = TestRegistryConfiguration(name = "a")
-        val registry2 = TestRegistryConfiguration(name = "b")
+        val registry1 = registryTestConfig.copy(name = "a")
+        val registry2 = registryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<RegistryConfiguration> = setOf(registry1, registry2)
+        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
             registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                RegistryConfiguration::class.java,
+                PublishingApiContract.RegistryConfiguration::class.java,
                 registryConfiguration
             ),
             packageConfiguration = GradlePropertyBuilder.makeProperty(
@@ -573,17 +579,17 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it runs the tasks in order`() {
         // Given
         val project: Project = mockk()
-        val registry1 = TestRegistryConfiguration(name = "a")
-        val registry2 = TestRegistryConfiguration(name = "b")
+        val registry1 = registryTestConfig.copy(name = "a")
+        val registry2 = registryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<RegistryConfiguration> = setOf(registry1, registry2)
+        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
             registryConfiguration = GradlePropertyBuilder.makeSetProperty(
-                RegistryConfiguration::class.java,
+                PublishingApiContract.RegistryConfiguration::class.java,
                 registryConfiguration
             ),
             packageConfiguration = GradlePropertyBuilder.makeProperty(
@@ -684,18 +690,9 @@ class PublisherControllerSpec {
 }
 
 private data class TestConfig(
-    override val registryConfiguration: SetProperty<RegistryConfiguration>,
+    override val registryConfiguration: SetProperty<PublishingApiContract.RegistryConfiguration>,
     override val packageConfiguration: Property<PackageConfiguration>,
     override val dryRun: Property<Boolean>,
     override val excludeProjects: SetProperty<String>,
     override val versioning: Property<VersioningConfiguration>
 ) : PublishingContract.PublishingPluginConfiguration
-
-private data class TestRegistryConfiguration(
-    override val username: String = "",
-    override val password: String = "",
-    override val name: String = "",
-    override val url: String = "",
-    override val useGit: Boolean = false,
-    override val gitWorkDirectory: String = ""
-) : RegistryConfiguration

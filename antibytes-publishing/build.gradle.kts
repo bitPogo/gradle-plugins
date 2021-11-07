@@ -23,7 +23,6 @@ object Version {
     const val versioning = "0.12.2" // see: https://github.com/palantir/gradle-git-version/issues/353
     const val mockk = "1.12.0"
     const val fixture = "1.2.0"
-    const val jacoco = "0.8.7"
 }
 
 dependencies {
@@ -88,7 +87,7 @@ tasks.jacocoTestCoverageVerification {
             limit {
                 counter = "INSTRUCTION"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.85)
+                minimum = BigDecimal( 0.97)
             }
         }
     }

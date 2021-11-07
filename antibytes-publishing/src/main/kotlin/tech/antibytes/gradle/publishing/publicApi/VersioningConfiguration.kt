@@ -8,7 +8,7 @@ package tech.antibytes.gradle.publishing.publicApi
 
 import tech.antibytes.gradle.publishing.PublishingApiContract
 
-data class VersioningConfigurationContainer(
+data class VersioningConfiguration(
     override val releasePattern: Regex = "main|release/.*".toRegex(),
     override val featurePattern: Regex = "feature/(.*)".toRegex(),
     override val dependencyBotPattern: Regex = "dependabot/(.*)".toRegex(),

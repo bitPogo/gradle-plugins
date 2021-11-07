@@ -18,11 +18,11 @@ object Version {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
     implementation("io.mockk:mockk:${Version.mockk}")
+    implementation("com.appmattus.fixture:fixture:${Version.fixture}")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}")
     testImplementation(platform("org.junit:junit-bom:${Version.junit}"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("com.appmattus.fixture:fixture:${Version.fixture}")
 }
 
 java {
