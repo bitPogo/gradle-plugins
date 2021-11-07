@@ -17,7 +17,8 @@ internal object PublisherController : PublishingContract.PublisherController {
         configuration: PublishingContract.PublishingPluginConfiguration
     ): Boolean {
         return configuration.registryConfiguration.get().isNotEmpty() &&
-            !configuration.excludeProjects.get().contains(projectName)
+            !configuration.excludeProjects.get().contains(projectName) &&
+            configuration.packageConfiguration.isPresent
     }
 
     private fun addVersionTask(
@@ -70,35 +71,33 @@ internal object PublisherController : PublishingContract.PublisherController {
         project: Project,
         configuration: PublishingContract.PublishingPluginConfiguration
     ) {
-        project.afterEvaluate {
-            if (isApplicable(project.name, configuration)) {
-                val dryRun = configuration.dryRun.get()
-                val registryConfigurations = configuration.registryConfiguration.get()
-                val packageConfiguration = configuration.packageConfiguration.get()
-                val versioningConfiguration = configuration.versioning.get()
+        if (isApplicable(project.name, configuration)) {
+            val dryRun = configuration.dryRun.get()
+            val registryConfigurations = configuration.registryConfiguration.get()
+            val packageConfiguration = configuration.packageConfiguration.get()
+            val versioningConfiguration = configuration.versioning.get()
 
-                val version = Versioning.versionName(
-                    project,
-                    versioningConfiguration
-                )
+            val version = Versioning.versionName(
+                project,
+                versioningConfiguration
+            )
 
-                addVersionTask(project, versioningConfiguration)
+            addVersionTask(project, versioningConfiguration)
 
-                MavenPublisher.configure(
-                    project,
-                    packageConfiguration,
-                    version
-                )
+            MavenPublisher.configure(
+                project,
+                packageConfiguration,
+                version
+            )
 
-                registryConfigurations.forEach { configuration ->
-                    MavenRegistry.configure(project, configuration, dryRun)
+            registryConfigurations.forEach { registry ->
+                MavenRegistry.configure(project, registry, dryRun)
 
-                    GitRepository.configureCloneTask(project, configuration)
-                    GitRepository.configurePushTask(project, configuration, version, dryRun)
+                GitRepository.configureCloneTask(project, registry)
+                GitRepository.configurePushTask(project, registry, version, dryRun)
 
-                    addPublishingTask(project, configuration)
-                    wireDependencies(project, configuration)
-                }
+                addPublishingTask(project, registry)
+                wireDependencies(project, registry)
             }
         }
     }

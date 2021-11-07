@@ -100,12 +100,6 @@ class PublisherControllerSpec {
         every { project.name } returns name
         every { Versioning.versionName(any(), any()) } returns fixture()
 
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-            mockk()
-        )
-
         // When
         PublisherController.configure(
             project,
@@ -180,12 +174,6 @@ class PublisherControllerSpec {
         every { versionTask.description = any() } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-            mockk()
-        )
-
-        invokeGradleAction(
             { probe -> tasks.create("versionInfo", probe) },
             versionTask,
             mockk()
@@ -246,12 +234,6 @@ class PublisherControllerSpec {
         every { project.tasks } returns mockk()
         every { Versioning.versionName(any(), any()) } returns fixture()
 
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-            mockk()
-        )
-
         // When
         PublisherController.configure(
             project,
@@ -311,12 +293,6 @@ class PublisherControllerSpec {
         every { MavenRegistry.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } just Runs
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } just Runs
-
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-            mockk()
-        )
 
         // When
         PublisherController.configure(
@@ -432,12 +408,6 @@ class PublisherControllerSpec {
         every { publishingTask.description = any() } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-            mockk()
-        )
-
-        invokeGradleAction(
             { probe -> tasks.create("publish${registry1.name.capitalize()}", probe) },
             publishingTask,
             mockk()
@@ -514,12 +484,6 @@ class PublisherControllerSpec {
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } just Runs
 
         every { mavenTask.dependsOn(any()) } returns mavenTask
-
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-            mockk()
-        )
 
         invokeGradleAction(
             { probe -> tasks.named("publishAllPublicationsTo${registry1.name.capitalize()}Repository", probe) },
@@ -630,12 +594,6 @@ class PublisherControllerSpec {
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } just Runs
 
         every { mavenTask.dependsOn(any()) } returns mavenTask
-
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-            mockk()
-        )
 
         every { mavenTask.dependsOn(any()) } returns mavenTask
         every { gitPushTask.dependsOn(any()) } returns gitPushTask

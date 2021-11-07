@@ -79,7 +79,7 @@ tasks.jacocoTestCoverageVerification {
             limit {
                 counter = "BRANCH"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal(0.99)
+                minimum = BigDecimal(0.98)
             }
         }
         rule {
@@ -87,7 +87,7 @@ tasks.jacocoTestCoverageVerification {
             limit {
                 counter = "INSTRUCTION"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.97)
+                minimum = BigDecimal( 0.96)
             }
         }
     }
