@@ -17,8 +17,9 @@ import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
-internal object MavenPublisher : MavenContract.MavenPublisher {
+internal object MavenPublisher : PublisherContract.MavenPublisher {
     private fun setPublicationProperties(
         publication: MavenPublication,
         configuration: PublishingApiContract.PackageConfiguration,

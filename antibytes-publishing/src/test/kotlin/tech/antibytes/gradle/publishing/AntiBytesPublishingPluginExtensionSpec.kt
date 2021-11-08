@@ -64,7 +64,7 @@ class AntiBytesPublishingPluginExtensionSpec {
     }
 
     @Test
-    fun `It has an empty list as default DryRun`() {
+    fun `It has an empty list as default RegistryConfiguration`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
         assertEquals(
@@ -88,5 +88,12 @@ class AntiBytesPublishingPluginExtensionSpec {
             actual = extension.excludeProjects,
             expected = emptySet()
         )
+    }
+
+    @Test
+    fun `It has true as default Standalone`() {
+        val extension: AntiBytesPublishingPluginExtension = createExtension()
+
+        assertTrue(extension.standalone)
     }
 }

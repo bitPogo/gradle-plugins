@@ -24,6 +24,7 @@ import org.junit.Test
 import tech.antibytes.gradle.publishing.PublishingError
 import tech.antibytes.gradle.publishing.api.RegistryConfiguration
 import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
@@ -45,7 +46,7 @@ class GitRepositorySpec {
     fun `It fulfils GitRepository`() {
         val repository: Any = GitRepository
 
-        assertTrue(repository is GitContract.GitRepository)
+        assertTrue(repository is PublisherContract.GitRepository)
     }
 
     @Test

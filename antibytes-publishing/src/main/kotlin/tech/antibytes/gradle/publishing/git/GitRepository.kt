@@ -7,15 +7,17 @@
 package tech.antibytes.gradle.publishing.git
 
 import org.gradle.api.Project
+import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingError
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
-internal object GitRepository : GitContract.GitRepository {
+internal object GitRepository : PublisherContract.GitRepository {
     override fun configureCloneTask(
         project: Project,
         configuration: PublishingApiContract.RegistryConfiguration
-    ) {
-        if (configuration.useGit) {
+    ): Task? {
+        return if (configuration.useGit) {
             project.tasks.create("clone${configuration.name.capitalize()}") {
                 doLast {
                     GitActions.checkout(
@@ -24,6 +26,8 @@ internal object GitRepository : GitContract.GitRepository {
                     )
                 }
             }
+        } else {
+            null
         }
     }
 
@@ -32,8 +36,8 @@ internal object GitRepository : GitContract.GitRepository {
         configuration: PublishingApiContract.RegistryConfiguration,
         version: String,
         dryRun: Boolean
-    ) {
-        if (configuration.useGit) {
+    ): Task? {
+        return if (configuration.useGit) {
             project.tasks.create("push${configuration.name.capitalize()}") {
                 doLast {
                     val succeeded = GitActions.push(
@@ -50,6 +54,8 @@ internal object GitRepository : GitContract.GitRepository {
                     }
                 }
             }
+        } else {
+            null
         }
     }
 }

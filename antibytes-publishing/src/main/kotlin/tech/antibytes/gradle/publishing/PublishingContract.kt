@@ -33,6 +33,7 @@ internal interface PublishingContract {
         var registryConfiguration: Set<PublishingApiContract.RegistryConfiguration>
         var packageConfiguration: PublishingApiContract.PackageConfiguration?
         var dryRun: Boolean
+        var standalone: Boolean
     }
 
     fun interface PublisherController {

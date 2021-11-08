@@ -31,6 +31,7 @@ import tech.antibytes.gradle.publishing.api.PackageConfiguration
 import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import kotlin.test.assertTrue
 
 class MavenPublisherSpec {
@@ -50,7 +51,7 @@ class MavenPublisherSpec {
     fun `It fulfils MavenPublisher`() {
         val publisher: Any = MavenPublisher
 
-        assertTrue(publisher is MavenContract.MavenPublisher)
+        assertTrue(publisher is PublisherContract.MavenPublisher)
     }
 
     @Test

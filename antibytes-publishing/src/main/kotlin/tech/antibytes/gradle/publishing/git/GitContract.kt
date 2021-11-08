@@ -23,18 +23,4 @@ internal interface GitContract {
             dryRun: Boolean
         ): Boolean
     }
-
-    interface GitRepository {
-        fun configureCloneTask(
-            project: Project,
-            configuration: PublishingApiContract.RegistryConfiguration
-        )
-
-        fun configurePushTask(
-            project: Project,
-            configuration: PublishingApiContract.RegistryConfiguration,
-            version: String,
-            dryRun: Boolean
-        )
-    }
 }
