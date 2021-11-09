@@ -12,8 +12,8 @@ import org.gradle.kotlin.dsl.named
 
 internal object DependencyUpdate : DependencyContract.Update {
     private data class StabilityIndicator(
-        val current: Boolean = true,
-        val candidate: Boolean = true
+        val current: Boolean = false,
+        val candidate: Boolean = false
     )
 
     private fun resolveStabilityIndicator(
@@ -24,8 +24,8 @@ internal object DependencyUpdate : DependencyContract.Update {
         var stability = StabilityIndicator()
         configuration.keywords.get().forEach { keyword ->
             stability = stability.copy(
-                current = current.contains(keyword),
-                candidate = candidate.contains(keyword)
+                current = current.contains(keyword, false) || stability.current,
+                candidate = candidate.contains(keyword, false) || stability.candidate
             )
         }
 
@@ -40,7 +40,7 @@ internal object DependencyUpdate : DependencyContract.Update {
         return regex.matches(version) || hasStableIndicator
     }
 
-    private fun isApplicable(
+    private fun isRejectable(
         configuration: DependencyContract.Extension,
         current: String,
         candidate: String
@@ -53,8 +53,8 @@ internal object DependencyUpdate : DependencyContract.Update {
 
         val versionRegex = configuration.versionRegex.get()
 
-        return !isStable(current, versionRegex, indicator.current) &&
-            isStable(candidate, versionRegex, indicator.candidate)
+        return isStable(current, versionRegex, indicator.current) &&
+            !isStable(candidate, versionRegex, indicator.candidate)
     }
 
     override fun configure(
@@ -65,7 +65,7 @@ internal object DependencyUpdate : DependencyContract.Update {
             resolutionStrategy {
                 componentSelection {
                     all {
-                        if (!isApplicable(configuration, currentVersion, candidate.version)) {
+                        if (isRejectable(configuration, currentVersion, candidate.version)) {
                             reject("Release candidate")
                         }
                     }
