@@ -24,13 +24,14 @@ import org.gradle.api.publish.maven.MavenPomLicenseSpec
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import org.junit.Test
+import tech.antibytes.gradle.publishing.api.ContributorConfiguration
+import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
+import tech.antibytes.gradle.publishing.api.LicenseConfiguration
+import tech.antibytes.gradle.publishing.api.PackageConfiguration
+import tech.antibytes.gradle.publishing.api.PomConfiguration
+import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.invokeGradleAction
-import tech.antibytes.gradle.publishing.publicApi.ContributorConfiguration
-import tech.antibytes.gradle.publishing.publicApi.DeveloperConfiguration
-import tech.antibytes.gradle.publishing.publicApi.LicenseConfiguration
-import tech.antibytes.gradle.publishing.publicApi.PackageConfiguration
-import tech.antibytes.gradle.publishing.publicApi.PomConfiguration
-import tech.antibytes.gradle.publishing.publicApi.SourceControlConfiguration
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import kotlin.test.assertTrue
 
 class MavenPublisherSpec {
@@ -50,7 +51,7 @@ class MavenPublisherSpec {
     fun `It fulfils MavenPublisher`() {
         val publisher: Any = MavenPublisher
 
-        assertTrue(publisher is MavenContract.MavenPublisher)
+        assertTrue(publisher is PublisherContract.MavenPublisher)
     }
 
     @Test

@@ -7,8 +7,10 @@
 package tech.antibytes.gradle.publishing
 
 import org.junit.Test
+import tech.antibytes.gradle.publishing.api.VersioningConfiguration
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class AntiBytesPublishingPluginExtensionSpec {
@@ -23,22 +25,50 @@ class AntiBytesPublishingPluginExtensionSpec {
     fun `It has a default VersioningConfiguration`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertTrue(extension.versioning.isPresent)
+        assertEquals(
+            actual = extension.versioning.releasePattern.pattern,
+            expected = VersioningConfiguration().releasePattern.pattern
+        )
+
+        assertEquals(
+            actual = extension.versioning.normalization,
+            expected = VersioningConfiguration().normalization
+        )
+
+        assertEquals(
+            actual = extension.versioning.versionPrefix,
+            expected = VersioningConfiguration().versionPrefix
+        )
+
+        assertEquals(
+            actual = extension.versioning.featurePattern.pattern,
+            expected = VersioningConfiguration().featurePattern.pattern
+        )
+
+        assertEquals(
+            actual = extension.versioning.issuePattern,
+            expected = VersioningConfiguration().issuePattern
+        )
+
+        assertEquals(
+            actual = extension.versioning.dependencyBotPattern.pattern,
+            expected = VersioningConfiguration().dependencyBotPattern.pattern
+        )
     }
 
     @Test
     fun `It has false as default DryRun`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertFalse(extension.dryRun.get())
+        assertFalse(extension.dryRun)
     }
 
     @Test
-    fun `It has an empty list as default DryRun`() {
+    fun `It has an empty list as default RegistryConfiguration`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
         assertEquals(
-            actual = extension.registryConfiguration.get(),
+            actual = extension.registryConfiguration,
             expected = emptySet()
         )
     }
@@ -47,7 +77,7 @@ class AntiBytesPublishingPluginExtensionSpec {
     fun `It has no default PackageConfigurations`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertFalse(extension.packageConfiguration.isPresent)
+        assertNull(extension.packageConfiguration)
     }
 
     @Test
@@ -55,8 +85,15 @@ class AntiBytesPublishingPluginExtensionSpec {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
         assertEquals(
-            actual = extension.excludeProjects.get(),
-            expected = emptySet<String>()
+            actual = extension.excludeProjects,
+            expected = emptySet()
         )
+    }
+
+    @Test
+    fun `It has true as default Standalone`() {
+        val extension: AntiBytesPublishingPluginExtension = createExtension()
+
+        assertTrue(extension.standalone)
     }
 }

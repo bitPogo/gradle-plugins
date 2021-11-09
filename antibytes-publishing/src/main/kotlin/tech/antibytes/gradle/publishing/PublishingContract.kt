@@ -7,9 +7,7 @@
 package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Project
-import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
-import tech.antibytes.gradle.publishing.publicApi.VersionInfo
+import tech.antibytes.gradle.publishing.api.VersionInfo
 
 internal interface PublishingContract {
     interface Versioning {
@@ -30,11 +28,12 @@ internal interface PublishingContract {
     }
 
     interface PublishingPluginConfiguration {
-        val excludeProjects: SetProperty<String>
-        val versioning: Property<PublishingApiContract.VersioningConfiguration>
-        val registryConfiguration: SetProperty<PublishingApiContract.RegistryConfiguration>
-        val packageConfiguration: Property<PublishingApiContract.PackageConfiguration>
-        val dryRun: Property<Boolean>
+        var excludeProjects: Set<String>
+        var versioning: PublishingApiContract.VersioningConfiguration
+        var registryConfiguration: Set<PublishingApiContract.RegistryConfiguration>
+        var packageConfiguration: PublishingApiContract.PackageConfiguration?
+        var dryRun: Boolean
+        var standalone: Boolean
     }
 
     fun interface PublisherController {

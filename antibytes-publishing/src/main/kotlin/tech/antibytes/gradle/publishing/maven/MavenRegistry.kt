@@ -10,8 +10,9 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
 import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
-internal object MavenRegistry : MavenContract.MavenRegistry {
+internal object MavenRegistry : PublisherContract.MavenRegistry {
     private fun useCredentials(
         configuration: PublishingApiContract.RegistryConfiguration,
         dryRun: Boolean

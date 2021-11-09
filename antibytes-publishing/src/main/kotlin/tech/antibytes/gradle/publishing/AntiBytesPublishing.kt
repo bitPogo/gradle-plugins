@@ -2,6 +2,7 @@ package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import tech.antibytes.gradle.publishing.publisher.PublisherStandaloneController
 
 class AntiBytesPublishing : Plugin<Project> {
     override fun apply(target: Project) {
@@ -17,6 +18,6 @@ class AntiBytesPublishing : Plugin<Project> {
             target.plugins.apply("maven-publish")
         }
 
-        PublisherController.configure(target, extension)
+        PublisherStandaloneController.configure(target, extension)
     }
 }

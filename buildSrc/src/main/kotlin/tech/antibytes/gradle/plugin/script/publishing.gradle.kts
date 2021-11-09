@@ -70,17 +70,6 @@ val githubUser = (project.findProperty("gpr.user")
 val githubToken = (project.findProperty("gpr.key")
     ?: System.getenv("PACKAGE_REGISTRY_UPLOAD_TOKEN")).toString()
 
-
-val publishPackage: Task by tasks.creating {
-    dependsOn("setProjectVersion")
-
-    doLast {
-        git = Git.open(File(repository.url))
-        gitCommit()
-        gitPush()
-    }
-}
-
 // Dev
 val cloneDevRepository: Task by tasks.creating {
     doLast {
@@ -96,11 +85,12 @@ val cloneDevRepository: Task by tasks.creating {
 val publishDev: Task by tasks.creating {
     group = taskGroup
 
-    dependsOn(
-        cloneDevRepository,
-        "publishAllPublicationsToDevPackagesRepository",
-        publishPackage
-    )
+    dependsOn("setProjectVersion")
+    doLast {
+        git = Git.open(File("$basePath/$devRepoName"))
+        gitCommit()
+        gitPush()
+    }
 }
 
 
@@ -119,11 +109,12 @@ val cloneSnapshotRepository: Task by tasks.creating {
 val publishSnapshot: Task by tasks.creating {
     group = taskGroup
 
-    dependsOn(
-        cloneSnapshotRepository,
-        "publishAllPublicationsToSnapshotPackagesRepository",
-        publishPackage
-    )
+    dependsOn("setProjectVersion")
+    doLast {
+        git = Git.open(File("$basePath/$snapshotRepoName"))
+        gitCommit()
+        gitPush()
+    }
 }
 
 // release
@@ -140,12 +131,47 @@ val cloneReleaseRepository: Task by tasks.creating {
 
 val publishRelease: Task by tasks.creating {
     group = taskGroup
+    dependsOn("setProjectVersion")
+    doLast {
+        git = Git.open(File("$basePath/$releaseRepoName"))
+        gitCommit()
+        gitPush()
+    }
+}
 
-    dependsOn(
-        cloneReleaseRepository,
-        "publishAllPublicationsToReleasePackagesRepository",
-        publishPackage
-    )
+// Relations
+project.evaluationDependsOnChildren()
+project.afterEvaluate {
+    val dev = mutableListOf<Task>()
+    val snapshot = mutableListOf<Task>()
+    val release = mutableListOf<Task>()
+
+    project.subprojects.forEach { subproject ->
+        subproject.tasks.findByName("publishAllPublicationsToDevPackagesRepository").apply {
+            if (this is Task) {
+                this.dependsOn(cloneDevRepository)
+                dev.add(this)
+            }
+        }
+
+        subproject.tasks.findByName("publishAllPublicationsToSnapshotPackagesRepository").apply {
+            if (this is Task) {
+                this.dependsOn(cloneSnapshotRepository)
+                snapshot.add(this)
+            }
+        }
+
+        subproject.tasks.findByName("publishAllPublicationsToReleasePackagesRepository").apply {
+            if (this is Task) {
+                this.dependsOn(cloneReleaseRepository)
+                release.add(this)
+            }
+        }
+    }
+
+    publishDev.dependsOn(dev)
+    publishSnapshot.dependsOn(snapshot)
+    publishRelease.dependsOn(release)
 }
 
 // Git calls

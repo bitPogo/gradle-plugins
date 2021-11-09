@@ -14,7 +14,7 @@ import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.provideDelegate
 import tech.antibytes.gradle.publishing.PublishingContract.Versioning.Companion.NON_RELEASE_SUFFIX
 import tech.antibytes.gradle.publishing.PublishingContract.Versioning.Companion.SEPARATOR
-import tech.antibytes.gradle.publishing.publicApi.VersionInfo
+import tech.antibytes.gradle.publishing.api.VersionInfo
 
 internal object Versioning : PublishingContract.Versioning {
     lateinit var configuration: PublishingApiContract.VersioningConfiguration

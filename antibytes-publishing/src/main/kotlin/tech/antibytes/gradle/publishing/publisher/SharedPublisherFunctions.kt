@@ -1,0 +1,38 @@
+/*
+ * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ *
+ * Use of this source code is governed by Apache License, Version 2.0
+ */
+
+package tech.antibytes.gradle.publishing.publisher
+
+import org.gradle.api.Project
+import org.gradle.api.Task
+import tech.antibytes.gradle.publishing.PublishingApiContract
+
+internal fun addPublishingTask(
+    project: Project,
+    configuration: PublishingApiContract.RegistryConfiguration
+): Task {
+    return project.tasks.create("publish${configuration.name.capitalize()}") {
+        group = "Publishing"
+        description = "Publish ${configuration.name.capitalize()}"
+    }
+}
+
+internal fun wireDependencies(
+    cloneTask: Task?,
+    mavenTasks: List<Task>,
+    pushTask: Task?,
+    publishingTask: Task,
+) {
+    if (pushTask is Task) {
+        mavenTasks.forEach { task ->
+            task.dependsOn(cloneTask)
+        }
+        pushTask.dependsOn(mavenTasks)
+        publishingTask.dependsOn(pushTask)
+    } else {
+        publishingTask.dependsOn(mavenTasks)
+    }
+}

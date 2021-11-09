@@ -20,8 +20,9 @@ import org.gradle.api.artifacts.repositories.PasswordCredentials
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.publish.PublishingExtension
 import org.junit.Test
+import tech.antibytes.gradle.publishing.api.RegistryConfiguration
 import tech.antibytes.gradle.publishing.invokeGradleAction
-import tech.antibytes.gradle.publishing.publicApi.RegistryConfiguration
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -33,7 +34,7 @@ class MavenRegistrySpec {
     fun `It fulfils MavenRegistry`() {
         val registry: Any = MavenRegistry
 
-        assertTrue(registry is MavenContract.MavenRegistry)
+        assertTrue(registry is PublisherContract.MavenRegistry)
     }
 
     @Test

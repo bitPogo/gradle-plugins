@@ -1,6 +1,7 @@
 plugins {
     id("tech.antibytes.gradle.plugin.script.quality-spotless")
     id("tech.antibytes.gradle.plugin.script.versioning")
+    id("tech.antibytes.gradle.plugin.script.publishing")
     id("org.owasp.dependencycheck")
 }
 
