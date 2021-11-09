@@ -7,9 +7,14 @@
 package tech.antibytes.gradle.coverage
 
 import org.gradle.api.Plugin
-import org.gradle.api.Project
+import org.junit.Test
+import kotlin.test.assertTrue
 
-class AntiBytesCoverage : Plugin<Project> {
-    override fun apply(target: Project) {
+class AntiBytesCoverageSpec {
+    @Test
+    fun `It fulfils Plugin`() {
+        val plugin: Any = AntiBytesCoverage()
+
+        assertTrue(plugin is Plugin<*>)
     }
 }

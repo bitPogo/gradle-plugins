@@ -10,17 +10,17 @@ import org.gradle.api.file.ConfigurableFileTree
 import java.io.File
 import java.math.BigDecimal
 
-interface AntiBytesCoverageApiContract {
+interface CoverageApiContract {
     interface Agent
 
     interface JacocoAgent : Agent
 
-    interface Reporter
+    interface ReporterSettings
 
-    interface JacocoReporter : Reporter, JacocoAgent {
-        val useHTML: Boolean
-        val useCSV: Boolean
-        val useXML: Boolean
+    interface JacocoReporterSettings : ReporterSettings, JacocoAgent {
+        val useHtml: Boolean
+        val useCsv: Boolean
+        val useXml: Boolean
     }
 
     interface VerificationRule
@@ -38,12 +38,12 @@ interface AntiBytesCoverageApiContract {
         METHOD
     }
 
-    enum class JacocoMeasurement {
-        LINE,
-        BRANCH,
-        CLASS,
-        INSTRUCTION,
-        METHOD
+    enum class JacocoMeasurement(value: String) {
+        COVERED_RATION("COVEREDRATIO"),
+        COVERED_COUNT("COVEREDCOUNT"),
+        MISSED_RATIO("MISSEDRATIO"),
+        MISSED_COUNT("MISSEDCOUNT"),
+        TOTAL_COUNT("TOTALCOUNT")
     }
 
     interface JacocoVerificationRule : VerificationRule, JacocoAgent {
@@ -62,9 +62,9 @@ interface AntiBytesCoverageApiContract {
     }
 
     interface JacocoCoverageConfiguration : CoverageConfiguration, JacocoAgent {
-        val reportSettings: JacocoReporter
+        val reportSettings: JacocoReporterSettings
         var testDependencies: Set<String>
-        var classBase: Set<String>
+        var classPattern: Set<String>
         var classFilter: Set<String>
         var sources: Set<File>
         var additionalSources: Set<ConfigurableFileTree>
