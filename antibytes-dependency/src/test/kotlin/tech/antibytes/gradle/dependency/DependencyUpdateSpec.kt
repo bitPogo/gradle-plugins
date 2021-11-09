@@ -34,10 +34,10 @@ class DependencyUpdateSpec {
     }
 
     @Test
-    fun `Given configure is called with a Project and DependencyExtension, it reconfigures the DependencyUpdater so that it accepts if the current version is stable and the candidate version is not`() {
+    fun `Given configure is called with a Project and DependencyExtension, it rejects if the current version is stable and the candidate version is not`() {
         // Given
-        val currentVersion = "xyz-Y"
-        val candidateVersion = "abc-Y"
+        val currentVersion = "xyz-C"
+        val candidateVersion = "lmp-X"
 
         val config = object : DependencyContract.Extension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
@@ -46,7 +46,7 @@ class DependencyUpdateSpec {
             )
             override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
                 Regex::class.java,
-                "xyz".toRegex()
+                "xyz.*".toRegex()
             )
         }
         val project: Project = mockk()
@@ -97,14 +97,14 @@ class DependencyUpdateSpec {
         )
 
         // Then
-        verify(exactly = 0) { selection.reject(any()) }
+        verify(exactly = 1) { selection.reject(any()) }
     }
 
     @Test
-    fun `Given configure is called with a Project and DependencyExtension, it reconfigures the DependencyUpdater so that it rejects if the current version and the candidate version are stable`() {
+    fun `Given configure is called with a Project and DependencyExtension, it accepts if the current version and the candidate version are stable`() {
         // Given
-        val currentVersion = "abc-B"
-        val candidateVersion = "abc-B"
+        val currentVersion = "lmp-B"
+        val candidateVersion = "xyz-Y"
 
         val config = object : DependencyContract.Extension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
@@ -113,7 +113,7 @@ class DependencyUpdateSpec {
             )
             override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
                 Regex::class.java,
-                "xyz".toRegex()
+                "xyz.*".toRegex()
             )
         }
         val project: Project = mockk()
@@ -164,13 +164,13 @@ class DependencyUpdateSpec {
         )
 
         // Then
-        verify(exactly = 1) { selection.reject("Release candidate") }
+        verify(exactly = 0) { selection.reject("Release candidate") }
     }
 
     @Test
-    fun `Given configure is called with a Project and DependencyExtension, it reconfigures the DependencyUpdater so that it rejects if the current version is not stable and the candidate is`() {
+    fun `Given configure is called with a Project and DependencyExtension, it accepts if the current version is not stable and the candidate is`() {
         // Given
-        val currentVersion = "abc-Y"
+        val currentVersion = "lmp-Y"
         val candidateVersion = "xyz-B"
 
         val config = object : DependencyContract.Extension {
@@ -180,7 +180,7 @@ class DependencyUpdateSpec {
             )
             override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
                 Regex::class.java,
-                "xyz".toRegex()
+                "xyz.*".toRegex()
             )
         }
         val project: Project = mockk()
@@ -231,14 +231,14 @@ class DependencyUpdateSpec {
         )
 
         // Then
-        verify(exactly = 1) { selection.reject("Release candidate") }
+        verify(exactly = 0) { selection.reject("Release candidate") }
     }
 
     @Test
-    fun `Given configure is called with a Project and DependencyExtension, it reconfigures the DependencyUpdater so that it rejects if the current and candidate version is not stable`() {
+    fun `Given configure is called with a Project and DependencyExtension, it accepts if the current and candidate version are not stable`() {
         // Given
-        val currentVersion = "abc-Y"
-        val candidateVersion = "abc-Y"
+        val currentVersion = "lmp-Y"
+        val candidateVersion = "lmp-Y"
 
         val config = object : DependencyContract.Extension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
@@ -247,7 +247,7 @@ class DependencyUpdateSpec {
             )
             override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
                 Regex::class.java,
-                "xyz".toRegex()
+                "xyz.*".toRegex()
             )
         }
         val project: Project = mockk()
@@ -298,6 +298,6 @@ class DependencyUpdateSpec {
         )
 
         // Then
-        verify(exactly = 1) { selection.reject("Release candidate") }
+        verify(exactly = 0) { selection.reject("Release candidate") }
     }
 }

@@ -57,16 +57,19 @@ tasks.jacocoTestReport {
     dependsOn(tasks.named("test"))
 
     reports {
-        html.isEnabled = true
-        xml.isEnabled = true
-        csv.isEnabled = true
+        html.required.set(true)
+        xml.required.set(true)
+        csv.required.set(true)
 
-        html.destination =
+        html.outputLocation.set(
             layout.buildDirectory.dir("reports/jacoco/test/${project.name}").get().asFile
-        csv.destination =
+        )
+        csv.outputLocation.set(
             layout.buildDirectory.file("reports/jacoco/test/${project.name}.csv").get().asFile
-        xml.destination =
+        )
+        xml.outputLocation.set(
             layout.buildDirectory.file("reports/jacoco/test/${project.name}.xml").get().asFile
+        )
     }
 }
 
