@@ -41,4 +41,10 @@ internal interface ConfigurationContract {
             context: PlatformContext
         ): CoverageApiContract.CoverageConfiguration
     }
+
+    companion object CONSTANTS {
+        const val DEFAULT_ANDROID_VARIANT = "debug"
+        const val DEFAULT_ANDROID_FLAVOUR = ""
+        val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_VARIANT.capitalize() + DEFAULT_ANDROID_FLAVOUR.capitalize()
+    }
 }

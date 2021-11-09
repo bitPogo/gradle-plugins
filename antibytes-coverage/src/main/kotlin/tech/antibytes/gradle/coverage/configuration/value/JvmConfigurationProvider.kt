@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage.configuration.default
+package tech.antibytes.gradle.coverage.configuration.value
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract
