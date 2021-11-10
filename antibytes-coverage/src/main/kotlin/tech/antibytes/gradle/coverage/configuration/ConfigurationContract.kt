@@ -35,11 +35,15 @@ internal interface ConfigurationContract {
         fun resolveSources(project: Project, context: PlatformContext): Set<File>
     }
 
-    interface DefaultPlatformConfigurationProvider {
+    fun interface DefaultPlatformConfigurationProvider {
         fun createDefaultCoverageConfiguration(
             project: Project,
             context: PlatformContext
         ): CoverageApiContract.CoverageConfiguration
+    }
+
+    fun interface AndroidExtensionConfigurator {
+        fun configure(project: Project, configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration)
     }
 
     companion object CONSTANTS {

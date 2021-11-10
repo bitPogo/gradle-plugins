@@ -22,6 +22,7 @@ jacoco {
 group = LibraryConfig.PublishConfig.groupId
 
 object Version {
+    const val android = "7.0.2"
     const val kotlin = "1.5.31"
     const val junit = "5.8.1"
     const val mockk = "1.12.0"
@@ -31,6 +32,7 @@ object Version {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
+    implementation("com.android.tools.build:gradle:${Version.android}")
     implementation("org.jacoco:org.jacoco.core:${Version.jacoco}")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}")
