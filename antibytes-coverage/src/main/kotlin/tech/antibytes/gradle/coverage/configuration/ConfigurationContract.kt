@@ -17,12 +17,11 @@ internal interface ConfigurationContract {
         ANDROID_LIBRARY("android"),
         ANDROID_LIBRARY_KMP("android"),
         JVM("jvm"),
-        JVM_KMP("jvm"),
-        UNKNOWN("")
+        JVM_KMP("jvm")
     }
 
     interface PlatformContextResolver {
-        fun getType(project: Project): PlatformContext
+        fun getType(project: Project): Set<PlatformContext>
         fun isKmp(context: PlatformContext): Boolean
     }
 
@@ -35,15 +34,15 @@ internal interface ConfigurationContract {
         fun resolveSources(project: Project, context: PlatformContext): Set<File>
     }
 
+    fun interface AndroidExtensionConfigurator {
+        fun configure(project: Project, configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration)
+    }
+
     fun interface DefaultPlatformConfigurationProvider {
         fun createDefaultCoverageConfiguration(
             project: Project,
             context: PlatformContext
         ): CoverageApiContract.CoverageConfiguration
-    }
-
-    fun interface AndroidExtensionConfigurator {
-        fun configure(project: Project, configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration)
     }
 
     companion object CONSTANTS {

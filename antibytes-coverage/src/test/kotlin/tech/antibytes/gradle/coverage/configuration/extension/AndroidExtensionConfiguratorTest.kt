@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage.configuration.task
+package tech.antibytes.gradle.coverage.configuration.extension
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.BuildType

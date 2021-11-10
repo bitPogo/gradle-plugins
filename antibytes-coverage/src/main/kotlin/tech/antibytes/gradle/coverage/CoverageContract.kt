@@ -6,13 +6,15 @@
 
 package tech.antibytes.gradle.coverage
 
+import org.gradle.api.Project
+
 internal interface CoverageContract {
     interface Extension {
         var jacocoVersion: String
-        val platforms: MutableMap<String, CoverageApiContract.CoverageConfiguration>
+        val coverageConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration>
     }
 
-    interface DefaultConfigurationProvider {
-        fun createDefaultCoverageConfiguration(): CoverageApiContract.CoverageConfiguration
+    fun interface DefaultConfigurationProvider {
+        fun createDefaultCoverageConfiguration(project: Project): MutableMap<String, CoverageApiContract.CoverageConfiguration>
     }
 }
