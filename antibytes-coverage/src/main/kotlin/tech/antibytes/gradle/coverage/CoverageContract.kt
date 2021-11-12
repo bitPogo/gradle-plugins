@@ -17,4 +17,14 @@ internal interface CoverageContract {
     fun interface DefaultConfigurationProvider {
         fun createDefaultCoverageConfiguration(project: Project): MutableMap<String, CoverageApiContract.CoverageConfiguration>
     }
+
+    fun interface TaskController {
+        fun configure(project: Project, configurations: MutableMap<String, CoverageApiContract.CoverageConfiguration>)
+    }
+
+    companion object CONSTANTS {
+        const val DEFAULT_ANDROID_VARIANT = "debug"
+        const val DEFAULT_ANDROID_FLAVOUR = ""
+        val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_VARIANT.capitalize() + DEFAULT_ANDROID_FLAVOUR.capitalize()
+    }
 }

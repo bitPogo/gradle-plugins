@@ -49,9 +49,6 @@ class DefaultCoverageProviderSpec {
         // Given
         val project: Project = mockk()
 
-        val configAndroid: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
-        val configJvm: CoverageApiContract.JacocoCoverageConfiguration = mockk()
-
         every { PlatformContextResolver.getType(project) } returns emptySet()
 
         // When

@@ -34,20 +34,10 @@ internal interface ConfigurationContract {
         fun resolveSources(project: Project, context: PlatformContext): Set<File>
     }
 
-    fun interface AndroidExtensionConfigurator {
-        fun configure(project: Project, configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration)
-    }
-
     fun interface DefaultPlatformConfigurationProvider {
         fun createDefaultCoverageConfiguration(
             project: Project,
             context: PlatformContext
         ): CoverageApiContract.CoverageConfiguration
-    }
-
-    companion object CONSTANTS {
-        const val DEFAULT_ANDROID_VARIANT = "debug"
-        const val DEFAULT_ANDROID_FLAVOUR = ""
-        val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_VARIANT.capitalize() + DEFAULT_ANDROID_FLAVOUR.capitalize()
     }
 }

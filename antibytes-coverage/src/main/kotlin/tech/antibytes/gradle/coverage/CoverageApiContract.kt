@@ -38,7 +38,7 @@ interface CoverageApiContract {
         METHOD
     }
 
-    enum class JacocoMeasurement(value: String) {
+    enum class JacocoMeasurement(val value: String) {
         COVERED_RATION("COVEREDRATIO"),
         COVERED_COUNT("COVEREDCOUNT"),
         MISSED_RATIO("MISSEDRATIO"),
@@ -57,9 +57,7 @@ interface CoverageApiContract {
         val excludes: Set<String>?
     }
 
-    interface CoverageConfiguration {
-        val aggregate: Boolean
-    }
+    interface CoverageConfiguration
 
     interface JacocoCoverageConfiguration : CoverageConfiguration, JacocoAgent {
         val reportSettings: JacocoReporterSettings
@@ -73,7 +71,7 @@ interface CoverageApiContract {
     }
 
     interface AndroidJacocoCoverageConfiguration : JacocoCoverageConfiguration {
-        var instrumentedTests: Set<String>
+        var instrumentedTestDependencies: Set<String>
         var variant: String
         var flavour: String
     }

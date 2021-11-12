@@ -86,7 +86,7 @@ class AndroidConfigurationProviderSpec {
 
         // Then
         assertEquals(
-            actual = config.instrumentedTests,
+            actual = config.instrumentedTestDependencies,
             expected = setOf(),
         )
     }
@@ -103,7 +103,7 @@ class AndroidConfigurationProviderSpec {
 
         // Then
         assertEquals(
-            actual = config.instrumentedTests,
+            actual = config.instrumentedTestDependencies,
             expected = setOf(),
         )
     }
@@ -120,7 +120,7 @@ class AndroidConfigurationProviderSpec {
 
         // Then
         assertEquals(
-            actual = config.instrumentedTests,
+            actual = config.instrumentedTestDependencies,
             expected = setOf("connectedDebugAndroidTest"),
         )
     }

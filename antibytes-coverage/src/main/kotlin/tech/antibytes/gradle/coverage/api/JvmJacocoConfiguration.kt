@@ -11,7 +11,6 @@ import tech.antibytes.gradle.coverage.CoverageApiContract
 import java.io.File
 
 data class JvmJacocoConfiguration(
-    override val aggregate: Boolean,
     override val reportSettings: CoverageApiContract.JacocoReporterSettings,
     override var testDependencies: Set<String>,
     override var classPattern: Set<String>,

@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage.configuration.extension
+package tech.antibytes.gradle.coverage.task.extension
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
@@ -13,9 +13,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract
-import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
+import tech.antibytes.gradle.coverage.task.TaskContract
 
-internal object AndroidExtensionConfigurator : ConfigurationContract.AndroidExtensionConfigurator {
+internal object AndroidExtensionConfigurator : TaskContract.AndroidExtensionConfigurator {
     private fun resolveAndroidExtension(
         project: Project,
         action: (CommonExtension<*, *, *, *>) -> Unit

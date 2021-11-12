@@ -11,7 +11,6 @@ import tech.antibytes.gradle.coverage.CoverageApiContract
 import java.io.File
 
 data class AndroidJacocoConfiguration(
-    override val aggregate: Boolean,
     override val reportSettings: CoverageApiContract.JacocoReporterSettings,
     override var testDependencies: Set<String>,
     override var classPattern: Set<String>,
@@ -20,7 +19,7 @@ data class AndroidJacocoConfiguration(
     override var additionalSources: Set<ConfigurableFileTree>,
     override var additionalClasses: Set<ConfigurableFileTree>,
     override var violationRules: Set<CoverageApiContract.VerificationRule>,
-    override var instrumentedTests: Set<String>,
+    override var instrumentedTestDependencies: Set<String>,
     override var variant: String,
     override var flavour: String
 ) : CoverageApiContract.AndroidJacocoCoverageConfiguration

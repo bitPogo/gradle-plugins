@@ -63,7 +63,6 @@ internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatform
         context: ConfigurationContract.PlatformContext
     ): CoverageApiContract.JacocoCoverageConfiguration {
         return JvmJacocoConfiguration(
-            aggregate = false,
             reportSettings = JacocoReporterSettings(),
             testDependencies = resolveTestDependency(context),
             classPattern = resolveClassPattern(context),

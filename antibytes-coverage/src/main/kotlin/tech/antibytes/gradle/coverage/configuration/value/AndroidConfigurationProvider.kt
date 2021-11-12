@@ -8,12 +8,12 @@ package tech.antibytes.gradle.coverage.configuration.value
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract
+import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_FLAVOUR
+import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_MARKER
+import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_VARIANT
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
-import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.CONSTANTS.DEFAULT_ANDROID_FLAVOUR
-import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.CONSTANTS.DEFAULT_ANDROID_MARKER
-import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.CONSTANTS.DEFAULT_ANDROID_VARIANT
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.PlatformContext
 import tech.antibytes.gradle.coverage.configuration.makePath
 import tech.antibytes.gradle.coverage.source.SourceHelper
@@ -54,7 +54,6 @@ internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlat
         context: PlatformContext
     ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
         return AndroidJacocoConfiguration(
-            aggregate = false,
             reportSettings = JacocoReporterSettings(),
             testDependencies = resolveTestDependency(),
             classPattern = resolveClassPattern(),
@@ -63,7 +62,7 @@ internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlat
             additionalClasses = emptySet(),
             additionalSources = emptySet(),
             violationRules = emptySet(),
-            instrumentedTests = resolveInstrumentedTestTasks(context),
+            instrumentedTestDependencies = resolveInstrumentedTestTasks(context),
             variant = DEFAULT_ANDROID_VARIANT,
             flavour = DEFAULT_ANDROID_FLAVOUR
         )

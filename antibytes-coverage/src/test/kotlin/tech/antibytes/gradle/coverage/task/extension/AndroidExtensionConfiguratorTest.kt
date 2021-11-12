@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage.configuration.extension
+package tech.antibytes.gradle.coverage.task.extension
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.BuildType
@@ -25,7 +25,7 @@ import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import org.junit.Test
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
-import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
+import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.publishing.invokeGradleAction
 import java.io.File
 import kotlin.test.assertTrue
@@ -38,7 +38,7 @@ class AndroidExtensionConfiguratorTest {
     fun `It fulfils AndroidExtensionConfigurator`() {
         val configurator: Any = AndroidExtensionConfigurator
 
-        assertTrue(configurator is ConfigurationContract.AndroidExtensionConfigurator)
+        assertTrue(configurator is TaskContract.AndroidExtensionConfigurator)
     }
 
     @Test
@@ -48,7 +48,6 @@ class AndroidExtensionConfiguratorTest {
         val variant: String = fixture()
 
         val configuration = AndroidJacocoConfiguration(
-            aggregate = fixture(),
             reportSettings = JacocoReporterSettings(),
             testDependencies = emptySet(),
             classPattern = emptySet(),
@@ -57,7 +56,7 @@ class AndroidExtensionConfiguratorTest {
             additionalSources = emptySet(),
             additionalClasses = emptySet(),
             violationRules = emptySet(),
-            instrumentedTests = emptySet(),
+            instrumentedTestDependencies = emptySet(),
             variant = variant,
             flavour = fixture()
         )
@@ -140,7 +139,6 @@ class AndroidExtensionConfiguratorTest {
         val variant: String = fixture()
 
         val configuration = AndroidJacocoConfiguration(
-            aggregate = fixture(),
             reportSettings = JacocoReporterSettings(),
             testDependencies = emptySet(),
             classPattern = emptySet(),
@@ -149,7 +147,7 @@ class AndroidExtensionConfiguratorTest {
             additionalSources = emptySet(),
             additionalClasses = emptySet(),
             violationRules = emptySet(),
-            instrumentedTests = emptySet(),
+            instrumentedTestDependencies = emptySet(),
             variant = variant,
             flavour = fixture()
         )
@@ -232,7 +230,6 @@ class AndroidExtensionConfiguratorTest {
         val variant: String = fixture()
 
         val configuration = AndroidJacocoConfiguration(
-            aggregate = fixture(),
             reportSettings = JacocoReporterSettings(),
             testDependencies = emptySet(),
             classPattern = emptySet(),
@@ -241,7 +238,7 @@ class AndroidExtensionConfiguratorTest {
             additionalSources = emptySet(),
             additionalClasses = emptySet(),
             violationRules = emptySet(),
-            instrumentedTests = emptySet(),
+            instrumentedTestDependencies = emptySet(),
             variant = variant,
             flavour = fixture()
         )
@@ -289,7 +286,6 @@ class AndroidExtensionConfiguratorTest {
         val variant: String = fixture()
 
         val configuration = AndroidJacocoConfiguration(
-            aggregate = fixture(),
             reportSettings = JacocoReporterSettings(),
             testDependencies = emptySet(),
             classPattern = emptySet(),
@@ -298,7 +294,7 @@ class AndroidExtensionConfiguratorTest {
             additionalSources = emptySet(),
             additionalClasses = emptySet(),
             violationRules = emptySet(),
-            instrumentedTests = emptySet(),
+            instrumentedTestDependencies = emptySet(),
             variant = variant,
             flavour = fixture()
         )
