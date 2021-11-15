@@ -13,7 +13,7 @@ import tech.antibytes.gradle.coverage.CoverageContract
 internal object TaskController : CoverageContract.TaskController {
     override fun configure(
         project: Project,
-        configurations: MutableMap<String, CoverageApiContract.CoverageConfiguration>
+        configurations: Map<String, CoverageApiContract.CoverageConfiguration>
     ) {
         TODO("Not yet implemented")
     }

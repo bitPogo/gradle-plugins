@@ -55,7 +55,7 @@ class AndroidExtensionConfiguratorTest {
             sources = emptySet(),
             additionalSources = emptySet(),
             additionalClasses = emptySet(),
-            violationRules = emptySet(),
+            verificationRules = emptySet(),
             instrumentedTestDependencies = emptySet(),
             variant = variant,
             flavour = fixture()
@@ -146,7 +146,7 @@ class AndroidExtensionConfiguratorTest {
             sources = emptySet(),
             additionalSources = emptySet(),
             additionalClasses = emptySet(),
-            violationRules = emptySet(),
+            verificationRules = emptySet(),
             instrumentedTestDependencies = emptySet(),
             variant = variant,
             flavour = fixture()
@@ -237,7 +237,7 @@ class AndroidExtensionConfiguratorTest {
             sources = emptySet(),
             additionalSources = emptySet(),
             additionalClasses = emptySet(),
-            violationRules = emptySet(),
+            verificationRules = emptySet(),
             instrumentedTestDependencies = emptySet(),
             variant = variant,
             flavour = fixture()
@@ -293,7 +293,7 @@ class AndroidExtensionConfiguratorTest {
             sources = emptySet(),
             additionalSources = emptySet(),
             additionalClasses = emptySet(),
-            violationRules = emptySet(),
+            verificationRules = emptySet(),
             instrumentedTestDependencies = emptySet(),
             variant = variant,
             flavour = fixture()

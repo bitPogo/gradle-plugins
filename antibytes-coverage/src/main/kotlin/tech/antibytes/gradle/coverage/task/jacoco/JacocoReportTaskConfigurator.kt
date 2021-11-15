@@ -11,10 +11,9 @@ import org.gradle.api.Task
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.task.TaskContract
-import java.io.File
 
 internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurator, JacocoTaskBase() {
-    private fun setupReport(
+    private fun configureOutput(
         project: Project,
         contextName: String,
         reportSettings: CoverageApiContract.JacocoReporterSettings,
@@ -43,7 +42,7 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
         }
     }
 
-    private fun configureReport(
+    private fun addReportTask(
         project: Project,
         contextName: String,
         dependencies: Set<Task>,
@@ -58,14 +57,14 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
             this.description = "Generate coverage reports for ${contextName.capitalize()}."
             this.setDependsOn(dependencies)
 
-            setupJacocoCoverageBase(
+            configureJacocoCoverageBase(
                 configuration,
                 executionFiles,
                 project,
                 this
             )
 
-            setupReport(
+            configureOutput(
                 project,
                 contextName,
                 configuration.reportSettings,
@@ -89,75 +88,29 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
         return dependencies
     }
 
-    private fun determineJvmExecutionFiles(
-        contextName: Set<String>
-    ): Set<String> = contextName.map { name -> "jacoco${File.separator}$name.exec" }.toSet()
-
-    private fun resolveAndroidExecutionsFiles(
-        configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration
-    ): Set<String> {
-        val execs = determineJvmExecutionFiles(configuration.testDependencies).toMutableSet()
-        val infix = "${configuration.flavour}${configuration.variant.capitalize()}AndroidTest".decapitalize()
-
-        execs.add("outputs${File.separator}code_coverage${File.separator}$infix${File.separator}**${File.separator}*coverage.ec")
-        execs.add("jacoco${File.separator}jacoco.exec")
-
-        return execs
-    }
-
-    private fun configureJvmReport(
-        project: Project,
-        contextName: String,
-        configuration: CoverageApiContract.JacocoCoverageConfiguration
-    ): JacocoReport {
-        return configureReport(
-            project,
-            contextName,
-            determineTestDependencies(project, configuration.testDependencies),
-            determineJvmExecutionFiles(configuration.testDependencies),
-            configuration
-        )
-    }
-
-    private fun configureAndroidReport(
-        project: Project,
-        contextName: String,
-        configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration
-    ): JacocoReport {
-        return configureReport(
-            project,
-            contextName,
-            determineTestDependencies(
-                project,
-                configuration.testDependencies,
-                configuration.instrumentedTestDependencies
-            ),
-            resolveAndroidExecutionsFiles(configuration),
-            configuration
-        )
-    }
-
     override fun configure(
         project: Project,
         contextName: String,
         configuration: CoverageApiContract.CoverageConfiguration
-    ): TaskContract.CoverageTasks {
-        return if (configuration is CoverageApiContract.AndroidJacocoCoverageConfiguration) {
-            TaskContract.CoverageTasks(
-                configureAndroidReport(
-                    project,
-                    contextName,
-                    configuration
-                )
+    ): Task {
+        configuration as CoverageApiContract.JacocoCoverageConfiguration
+
+        val testDependencies = if (configuration is CoverageApiContract.AndroidJacocoCoverageConfiguration) {
+            determineTestDependencies(
+                project,
+                configuration.testDependencies,
+                configuration.instrumentedTestDependencies
             )
         } else {
-            TaskContract.CoverageTasks(
-                configureJvmReport(
-                    project,
-                    contextName,
-                    configuration as CoverageApiContract.JacocoCoverageConfiguration
-                )
-            )
+            determineTestDependencies(project, configuration.testDependencies)
         }
+
+        return addReportTask(
+            project,
+            contextName,
+            testDependencies,
+            determineExecutionsFiles(configuration),
+            configuration
+        )
     }
 }

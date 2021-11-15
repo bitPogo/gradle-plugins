@@ -18,7 +18,7 @@ data class AndroidJacocoConfiguration(
     override var sources: Set<File>,
     override var additionalSources: Set<ConfigurableFileTree>,
     override var additionalClasses: Set<ConfigurableFileTree>,
-    override var violationRules: Set<CoverageApiContract.VerificationRule>,
+    override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
     override var instrumentedTestDependencies: Set<String>,
     override var variant: String,
     override var flavour: String

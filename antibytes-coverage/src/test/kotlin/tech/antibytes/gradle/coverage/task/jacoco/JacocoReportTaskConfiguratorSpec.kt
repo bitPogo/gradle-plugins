@@ -34,20 +34,21 @@ import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.publishing.invokeGradleAction
 import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class JacocoReportTaskConfiguratorSpec {
     private val fixture = kotlinFixture()
 
     @Test
-    fun `It fulfils TaskConfigurator`() {
+    fun `It fulfils ReportTaskConfigurator`() {
         val configurator: Any = JacocoReportTaskConfigurator
 
         assertTrue(configurator is TaskContract.ReportTaskConfigurator)
     }
 
     @Test
-    fun `Given configure is called with a Project, ContextName and Configuration, it adds a CoverageTask for JVM`() {
+    fun `Given configure is called with a Project, ContextName and Configuration, it adds a CoverageTask for JVM and returns it`() {
         // Given
         val project: Project = mockk()
         val projectName: String = fixture()
@@ -64,7 +65,7 @@ class JacocoReportTaskConfiguratorSpec {
             sources = mockk(),
             additionalSources = mockk(),
             additionalClasses = mockk(),
-            violationRules = emptySet()
+            verificationRules = emptySet()
         )
 
         val tasks: TaskContainer = mockk()
@@ -193,9 +194,14 @@ class JacocoReportTaskConfiguratorSpec {
         } returns xmlFile
 
         // When
-        JacocoReportTaskConfigurator.configure(project, contextName, configuration)
+        val task = JacocoReportTaskConfigurator.configure(project, contextName, configuration)
 
         // Then
+        assertSame(
+            actual = task,
+            expected = jacocoTask
+        )
+
         verify(exactly = 1) { tasks.create("${contextName}Coverage", JacocoReport::class.java, any()) }
 
         assertEquals(
@@ -238,7 +244,7 @@ class JacocoReportTaskConfiguratorSpec {
             sources = mockk(),
             additionalSources = mockk(),
             additionalClasses = mockk(),
-            violationRules = emptySet()
+            verificationRules = emptySet()
         )
 
         val tasks: TaskContainer = mockk()
@@ -292,7 +298,7 @@ class JacocoReportTaskConfiguratorSpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, ContextName and Configuration, it adds a CoverageTask for Android`() {
+    fun `Given configure is called with a Project, ContextName and Configuration, it adds a CoverageTask for Android and returns it`() {
         // Given
         val project: Project = mockk()
         val projectName: String = fixture()
@@ -310,7 +316,7 @@ class JacocoReportTaskConfiguratorSpec {
             sources = mockk(),
             additionalSources = mockk(),
             additionalClasses = mockk(),
-            violationRules = emptySet(),
+            verificationRules = emptySet(),
             flavour = fixture(),
             variant = fixture()
         )
@@ -454,9 +460,14 @@ class JacocoReportTaskConfiguratorSpec {
         } returns xmlFile
 
         // When
-        JacocoReportTaskConfigurator.configure(project, contextName, configuration)
+        val task = JacocoReportTaskConfigurator.configure(project, contextName, configuration)
 
         // Then
+        assertSame(
+            actual = task,
+            expected = jacocoTask
+        )
+
         verify(exactly = 1) { tasks.create("${contextName}Coverage", JacocoReport::class.java, any()) }
 
         assertEquals(
@@ -500,7 +511,7 @@ class JacocoReportTaskConfiguratorSpec {
             sources = mockk(),
             additionalSources = mockk(),
             additionalClasses = mockk(),
-            violationRules = emptySet(),
+            verificationRules = emptySet(),
             flavour = fixture(),
             variant = fixture()
         )

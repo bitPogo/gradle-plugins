@@ -19,7 +19,7 @@ internal interface CoverageContract {
     }
 
     fun interface TaskController {
-        fun configure(project: Project, configurations: MutableMap<String, CoverageApiContract.CoverageConfiguration>)
+        fun configure(project: Project, configurations: Map<String, CoverageApiContract.CoverageConfiguration>)
     }
 
     companion object CONSTANTS {

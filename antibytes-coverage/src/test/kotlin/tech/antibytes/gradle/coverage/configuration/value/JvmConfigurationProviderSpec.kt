@@ -257,7 +257,7 @@ class JvmConfigurationProviderSpec {
 
         // Then
         assertEquals(
-            actual = config.violationRules,
+            actual = config.verificationRules,
             expected = emptySet(),
         )
     }

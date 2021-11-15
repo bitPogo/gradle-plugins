@@ -70,7 +70,7 @@ internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatform
             sources = SourceHelper.resolveSources(project, context),
             additionalClasses = emptySet(),
             additionalSources = emptySet(),
-            violationRules = emptySet()
+            verificationRules = emptySet()
         )
     }
 }

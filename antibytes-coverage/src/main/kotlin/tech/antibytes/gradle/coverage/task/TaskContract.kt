@@ -11,11 +11,6 @@ import org.gradle.api.Task
 import tech.antibytes.gradle.coverage.CoverageApiContract
 
 internal interface TaskContract {
-    data class CoverageTasks(
-        val report: Task,
-        val verifier: Task? = null
-    )
-
     fun interface AndroidExtensionConfigurator {
         fun configure(project: Project, configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration)
     }
@@ -25,6 +20,14 @@ internal interface TaskContract {
             project: Project,
             contextName: String,
             configuration: CoverageApiContract.CoverageConfiguration
-        ): CoverageTasks
+        ): Task
+    }
+
+    fun interface VerificationTaskConfigurator {
+        fun configure(
+            project: Project,
+            contextName: String,
+            configuration: CoverageApiContract.CoverageConfiguration
+        ): Task?
     }
 }

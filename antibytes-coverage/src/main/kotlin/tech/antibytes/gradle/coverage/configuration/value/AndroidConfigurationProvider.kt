@@ -61,7 +61,7 @@ internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlat
             sources = SourceHelper.resolveSources(project, context),
             additionalClasses = emptySet(),
             additionalSources = emptySet(),
-            violationRules = emptySet(),
+            verificationRules = emptySet(),
             instrumentedTestDependencies = resolveInstrumentedTestTasks(context),
             variant = DEFAULT_ANDROID_VARIANT,
             flavour = DEFAULT_ANDROID_FLAVOUR

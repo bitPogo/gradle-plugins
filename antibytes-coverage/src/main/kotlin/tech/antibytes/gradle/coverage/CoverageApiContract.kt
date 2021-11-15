@@ -25,9 +25,10 @@ interface CoverageApiContract {
 
     interface VerificationRule
 
-    enum class JacocoElement {
+    enum class JacocoScope {
         CLASS,
-        METHOD
+        METHOD,
+        BUNDLE
     }
 
     enum class JacocoCounter {
@@ -39,7 +40,7 @@ interface CoverageApiContract {
     }
 
     enum class JacocoMeasurement(val value: String) {
-        COVERED_RATION("COVEREDRATIO"),
+        COVERED_RATIO("COVEREDRATIO"),
         COVERED_COUNT("COVEREDCOUNT"),
         MISSED_RATIO("MISSEDRATIO"),
         MISSED_COUNT("MISSEDCOUNT"),
@@ -47,14 +48,14 @@ interface CoverageApiContract {
     }
 
     interface JacocoVerificationRule : VerificationRule, JacocoAgent {
-        val element: JacocoElement?
-        val enable: Boolean?
-        val counter: JacocoCounter?
-        val measurement: JacocoMeasurement?
+        val scope: JacocoScope
+        val enable: Boolean
+        val counter: JacocoCounter
+        val measurement: JacocoMeasurement
         val minimum: BigDecimal?
         val maximum: BigDecimal?
-        val includes: Set<String>?
-        val excludes: Set<String>?
+        val includes: Set<String>
+        val excludes: Set<String>
     }
 
     interface CoverageConfiguration
@@ -67,7 +68,7 @@ interface CoverageApiContract {
         var sources: Set<File>
         var additionalSources: Set<ConfigurableFileTree>
         var additionalClasses: Set<ConfigurableFileTree>
-        var violationRules: Set<VerificationRule>
+        var verificationRules: Set<JacocoVerificationRule>
     }
 
     interface AndroidJacocoCoverageConfiguration : JacocoCoverageConfiguration {
