@@ -9,7 +9,7 @@ package tech.antibytes.gradle.coverage.api
 import tech.antibytes.gradle.coverage.CoverageApiContract
 
 data class JacocoReporterSettings(
-    override val useHtml: Boolean = true,
-    override val useCsv: Boolean = true,
-    override val useXml: Boolean = true
+    override var useHtml: Boolean = true,
+    override var useCsv: Boolean = true,
+    override var useXml: Boolean = true
 ) : CoverageApiContract.JacocoReporterSettings

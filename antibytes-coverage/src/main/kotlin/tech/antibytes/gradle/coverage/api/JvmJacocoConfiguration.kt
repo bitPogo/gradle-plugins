@@ -18,5 +18,5 @@ data class JvmJacocoConfiguration(
     override var sources: Set<File>,
     override var additionalSources: Set<ConfigurableFileTree>,
     override var additionalClasses: Set<ConfigurableFileTree>,
-    override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+    override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
 ) : CoverageApiContract.JacocoCoverageConfiguration

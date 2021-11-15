@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage.configuration
+package tech.antibytes.gradle.coverage
 
 import io.mockk.every
 import io.mockk.mockk
@@ -21,7 +21,7 @@ class PlatformContextResolverSpec {
     fun `It fulfils PlatformTypeResolver`() {
         val types: Any = PlatformContextResolver
 
-        assertTrue(types is ConfigurationContract.PlatformContextResolver)
+        assertTrue(types is CoverageContract.PlatformContextResolver)
     }
 
     @Test

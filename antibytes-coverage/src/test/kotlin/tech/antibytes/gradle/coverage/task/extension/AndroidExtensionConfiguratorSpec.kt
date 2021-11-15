@@ -31,7 +31,7 @@ import java.io.File
 import kotlin.test.assertTrue
 import org.gradle.api.tasks.testing.Test as GradleTest
 
-class AndroidExtensionConfiguratorTest {
+class AndroidExtensionConfiguratorSpec {
     private val fixture = kotlinFixture()
 
     @Test

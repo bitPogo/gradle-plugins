@@ -18,9 +18,9 @@ interface CoverageApiContract {
     interface ReporterSettings
 
     interface JacocoReporterSettings : ReporterSettings, JacocoAgent {
-        val useHtml: Boolean
-        val useCsv: Boolean
-        val useXml: Boolean
+        var useHtml: Boolean
+        var useCsv: Boolean
+        var useXml: Boolean
     }
 
     interface VerificationRule

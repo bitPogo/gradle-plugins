@@ -8,10 +8,10 @@ package tech.antibytes.gradle.coverage.configuration.value
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract
+import tech.antibytes.gradle.coverage.PlatformContextResolver
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
-import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver
 import tech.antibytes.gradle.coverage.configuration.makePath
 import tech.antibytes.gradle.coverage.source.SourceHelper
 

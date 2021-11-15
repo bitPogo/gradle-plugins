@@ -21,5 +21,5 @@ data class AndroidJacocoConfiguration(
     override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
     override var instrumentedTestDependencies: Set<String>,
     override var variant: String,
-    override var flavour: String
+    override var flavour: String,
 ) : CoverageApiContract.AndroidJacocoCoverageConfiguration

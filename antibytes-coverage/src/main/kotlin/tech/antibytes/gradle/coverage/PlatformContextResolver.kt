@@ -4,18 +4,14 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage.configuration
+package tech.antibytes.gradle.coverage
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.PlatformContext
 
-internal object PlatformContextResolver : ConfigurationContract.PlatformContextResolver {
-    private fun isKmp(project: Project): Boolean {
-        return project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") is Plugin<*>
-    }
-
+internal object PlatformContextResolver : CoverageContract.PlatformContextResolver {
     private fun isAndroidApplication(project: Project): Boolean {
         return project.plugins.findPlugin("com.android.application") is Plugin<*>
     }
@@ -72,5 +68,9 @@ internal object PlatformContextResolver : ConfigurationContract.PlatformContextR
             PlatformContext.JVM_KMP -> true
             else -> false
         }
+    }
+
+    override fun isKmp(project: Project): Boolean {
+        return project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") is Plugin<*>
     }
 }

@@ -134,7 +134,7 @@ class JacocoVerificationTaskConfiguratorSpec {
             additionalClasses = mockk(),
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(0.5)
+                    minimum = fixture<BigDecimal>()
                 )
             )
         )
@@ -270,7 +270,7 @@ class JacocoVerificationTaskConfiguratorSpec {
             additionalClasses = mockk(),
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(0.5)
+                    maximum = fixture<BigDecimal>()
                 )
             ),
             flavour = fixture(),

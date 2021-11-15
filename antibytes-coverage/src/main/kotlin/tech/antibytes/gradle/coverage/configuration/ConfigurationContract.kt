@@ -20,11 +20,6 @@ internal interface ConfigurationContract {
         JVM_KMP("jvm")
     }
 
-    interface PlatformContextResolver {
-        fun getType(project: Project): Set<PlatformContext>
-        fun isKmp(context: PlatformContext): Boolean
-    }
-
     data class SourceContainer(
         val platform: File,
         val common: File? = null,

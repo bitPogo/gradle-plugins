@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.coverage
 
 import org.gradle.api.Project
+import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 
 internal interface CoverageContract {
     interface Extension {
@@ -19,12 +20,19 @@ internal interface CoverageContract {
     }
 
     fun interface TaskController {
-        fun configure(project: Project, configurations: Map<String, CoverageApiContract.CoverageConfiguration>)
+        fun configure(project: Project, extension: AntiBytesCoverageExtension)
     }
 
     companion object CONSTANTS {
+        const val JACOCO_VERSION = "0.8.7"
         const val DEFAULT_ANDROID_VARIANT = "debug"
         const val DEFAULT_ANDROID_FLAVOUR = ""
         val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_VARIANT.capitalize() + DEFAULT_ANDROID_FLAVOUR.capitalize()
+    }
+
+    interface PlatformContextResolver {
+        fun getType(project: Project): Set<ConfigurationContract.PlatformContext>
+        fun isKmp(context: ConfigurationContract.PlatformContext): Boolean
+        fun isKmp(project: Project): Boolean
     }
 }

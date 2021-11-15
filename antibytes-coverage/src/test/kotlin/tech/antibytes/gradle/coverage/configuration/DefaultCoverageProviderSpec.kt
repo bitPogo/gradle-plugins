@@ -16,6 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageContract
+import tech.antibytes.gradle.coverage.PlatformContextResolver
 import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationProvider
 import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
 import kotlin.test.assertEquals

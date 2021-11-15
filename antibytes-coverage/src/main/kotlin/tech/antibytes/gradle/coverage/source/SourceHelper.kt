@@ -7,8 +7,8 @@
 package tech.antibytes.gradle.coverage.source
 
 import org.gradle.api.Project
+import tech.antibytes.gradle.coverage.PlatformContextResolver
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
-import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver
 import tech.antibytes.gradle.coverage.configuration.makePath
 import java.io.File
 
