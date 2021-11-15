@@ -4,13 +4,14 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage
+package tech.antibytes.gradle.coverage.configuration
 
 import io.mockk.every
 import io.mockk.mockk
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.junit.Test
+import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.PlatformContext
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

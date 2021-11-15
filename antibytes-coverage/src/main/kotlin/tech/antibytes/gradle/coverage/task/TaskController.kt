@@ -13,7 +13,7 @@ import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCoverageConfiguration
 import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.CoverageError
-import tech.antibytes.gradle.coverage.PlatformContextResolver.isKmp
+import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver.isKmp
 import tech.antibytes.gradle.coverage.task.extension.AndroidExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.extension.JacocoExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
@@ -33,13 +33,14 @@ internal object TaskController : CoverageContract.TaskController {
 
     private fun configureJacocoExtensions(
         project: Project,
+        contextName: String,
         extension: AntiBytesCoverageExtension,
-        configuration: JacocoCoverageConfiguration
     ) {
         JacocoExtensionConfigurator.configure(project, extension)
+        val configuration = extension.coverageConfigurations[contextName]
 
         if (configuration is CoverageApiContract.AndroidJacocoCoverageConfiguration) {
-            AndroidExtensionConfigurator.configure(project, configuration)
+            AndroidExtensionConfigurator.configure(project)
         }
     }
 
@@ -88,7 +89,7 @@ internal object TaskController : CoverageContract.TaskController {
         extension.coverageConfigurations.forEach { (contextName, configuration) ->
             val (reporter, verification) = when (configuration) {
                 is JacocoCoverageConfiguration -> configureJacocoTask(project, contextName, configuration).also {
-                    configureJacocoExtensions(project, extension, configuration)
+                    configureJacocoExtensions(project, contextName, extension)
                 }
                 else -> throw CoverageError.UnknownPlatformConfiguration()
             }

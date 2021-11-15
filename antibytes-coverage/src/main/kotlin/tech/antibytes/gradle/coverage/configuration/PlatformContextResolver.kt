@@ -4,11 +4,12 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage
+package tech.antibytes.gradle.coverage.configuration
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.PlatformContext
 
 internal object PlatformContextResolver : CoverageContract.PlatformContextResolver {

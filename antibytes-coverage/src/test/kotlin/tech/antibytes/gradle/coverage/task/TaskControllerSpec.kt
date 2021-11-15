@@ -25,7 +25,7 @@ import tech.antibytes.gradle.coverage.AntiBytesCoverageExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.CoverageError
-import tech.antibytes.gradle.coverage.PlatformContextResolver
+import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver
 import tech.antibytes.gradle.coverage.task.extension.AndroidExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.extension.JacocoExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
@@ -112,14 +112,15 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextName: String = fixture()
+        val reporter: Task = mockk()
         val extension: AntiBytesCoverageExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
 
         every { extension.coverageConfigurations } returns mutableMapOf(contextName to configuration)
-        every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
+        every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns reporter
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
-        every { AndroidExtensionConfigurator.configure(any(), any()) } just Runs
+        every { AndroidExtensionConfigurator.configure(any()) } just Runs
 
         // When
         TaskController.configure(project, extension)
@@ -128,7 +129,7 @@ class TaskControllerSpec {
         verify(exactly = 1) { JacocoReportTaskConfigurator.configure(project, contextName, configuration) }
         verify(exactly = 1) { JacocoVerificationTaskConfigurator.configure(project, contextName, configuration) }
         verify(exactly = 1) { JacocoExtensionConfigurator.configure(project, extension) }
-        verify(exactly = 1) { AndroidExtensionConfigurator.configure(project, configuration) }
+        verify(exactly = 1) { AndroidExtensionConfigurator.configure(project) }
 
         unmockkObject(JacocoReportTaskConfigurator)
         unmockkObject(JacocoVerificationTaskConfigurator)
@@ -156,7 +157,7 @@ class TaskControllerSpec {
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns jacocoReporterTask
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
-        every { AndroidExtensionConfigurator.configure(any(), any()) } just Runs
+        every { AndroidExtensionConfigurator.configure(any()) } just Runs
 
         every { PlatformContextResolver.isKmp(project) } returns true
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
@@ -200,7 +201,7 @@ class TaskControllerSpec {
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
-        every { AndroidExtensionConfigurator.configure(any(), any()) } just Runs
+        every { AndroidExtensionConfigurator.configure(any()) } just Runs
 
         every { PlatformContextResolver.isKmp(project) } returns true
         every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
@@ -237,7 +238,7 @@ class TaskControllerSpec {
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns jacocoVerificationTask
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
-        every { AndroidExtensionConfigurator.configure(any(), any()) } just Runs
+        every { AndroidExtensionConfigurator.configure(any()) } just Runs
 
         every { PlatformContextResolver.isKmp(project) } returns true
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()

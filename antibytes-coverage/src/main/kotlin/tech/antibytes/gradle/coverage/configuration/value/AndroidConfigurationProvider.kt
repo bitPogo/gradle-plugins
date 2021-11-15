@@ -31,8 +31,8 @@ internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlat
 
     private fun resolveClassPattern(): Set<String> {
         return setOf(
-            makePath("build", "intermediates", "javac", DEFAULT_ANDROID_VARIANT, "**", "*.class"),
-            makePath("build", "tmp", "kotlin-classes", DEFAULT_ANDROID_VARIANT, "**", "*.class")
+            makePath("build", "intermediates", "javac", DEFAULT_ANDROID_MARKER.decapitalize(), "**", "*.class"),
+            makePath("build", "tmp", "kotlin-classes", DEFAULT_ANDROID_MARKER.decapitalize(), "**", "*.class"),
         )
     }
 

@@ -12,11 +12,8 @@ import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 internal interface CoverageContract {
     interface Extension {
         var jacocoVersion: String
+        var appendKmpJvmTask: Boolean
         val coverageConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration>
-    }
-
-    fun interface DefaultConfigurationProvider {
-        fun createDefaultCoverageConfiguration(project: Project): MutableMap<String, CoverageApiContract.CoverageConfiguration>
     }
 
     fun interface TaskController {
@@ -27,12 +24,16 @@ internal interface CoverageContract {
         const val JACOCO_VERSION = "0.8.7"
         const val DEFAULT_ANDROID_VARIANT = "debug"
         const val DEFAULT_ANDROID_FLAVOUR = ""
-        val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_VARIANT.capitalize() + DEFAULT_ANDROID_FLAVOUR.capitalize()
+        val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_FLAVOUR.capitalize() + DEFAULT_ANDROID_VARIANT.capitalize()
     }
 
     interface PlatformContextResolver {
         fun getType(project: Project): Set<ConfigurationContract.PlatformContext>
         fun isKmp(context: ConfigurationContract.PlatformContext): Boolean
         fun isKmp(project: Project): Boolean
+    }
+
+    fun interface DefaultConfigurationProvider {
+        fun createDefaultCoverageConfiguration(project: Project): MutableMap<String, CoverageApiContract.CoverageConfiguration>
     }
 }

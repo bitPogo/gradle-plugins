@@ -409,8 +409,12 @@ class JacocoReportTaskConfiguratorSpec {
                     .toMutableSet()
                     .also {
                         it.add(
+                            "outputs/unit_test_code_coverage/${configuration.flavour}${configuration.variant.capitalize()}UnitTest/test${configuration.flavour.capitalize()}${configuration.variant.capitalize()}UnitTest.exec"
+                        )
+                        it.add(
                             "outputs/code_coverage/${configuration.flavour}${configuration.variant.capitalize()}AndroidTest/**/*coverage.ec"
                         )
+                        it.add("jacoco/${configuration.flavour}${configuration.variant.capitalize()}.exec")
                         it.add("jacoco/jacoco.exec")
                     }
             )

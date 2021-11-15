@@ -273,7 +273,7 @@ class JacocoVerificationTaskConfiguratorSpec {
                     maximum = fixture<BigDecimal>()
                 )
             ),
-            flavour = fixture(),
+            flavour = "",
             variant = fixture()
         )
 
@@ -344,12 +344,16 @@ class JacocoVerificationTaskConfiguratorSpec {
         every {
             fileTreeExecutionFiles.setIncludes(
                 configuration.testDependencies
-                    .map { name -> "jacoco${File.separator}$name.exec" }
+                    .map { name -> "jacoco/$name.exec" }
                     .toMutableSet()
                     .also {
                         it.add(
-                            "outputs/code_coverage/${configuration.flavour}${configuration.variant.capitalize()}AndroidTest/**/*coverage.ec"
+                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec"
                         )
+                        it.add(
+                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec"
+                        )
+                        it.add("jacoco/${configuration.variant}.exec")
                         it.add("jacoco/jacoco.exec")
                     }
             )

@@ -12,8 +12,8 @@ import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
-import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.task.TaskContract
+import java.io.File
 
 internal object AndroidExtensionConfigurator : TaskContract.AndroidExtensionConfigurator {
     private fun resolveAndroidExtension(
@@ -31,58 +31,40 @@ internal object AndroidExtensionConfigurator : TaskContract.AndroidExtensionConf
         }
     }
 
-    private fun setupAndroidTest(
+    private fun <T : CommonExtension<*, *, *, *>> setupAndroidTest(
         project: Project,
-        extension: CommonExtension<*, *, *, *>
+        extension: T,
     ) {
         extension.testOptions {
             unitTests {
                 all {
-                    // see: https://stackoverflow.com/questions/48945710/after-upgrade-of-gradle-to-the-version-3-0-1-something-generates-redundant-jacoc
-                    it.systemProperty(
-                        "jacoco-agent.destfile",
-                        "${project.buildDir.path}/jacoco/jacoco.exec"
-                    )
                     // see: https://github.com/gradle/kotlin-dsl-samples/issues/440
                     it.jvmArgs("-noverify", "-ea")
 
-                    val testExtension = it.extensions.getByType(JacocoTaskExtension::class.java)
+                    val jacocoTaskExtension = it.extensions.getByType(JacocoTaskExtension::class.java)
+                    // see: https://stackoverflow.com/questions/48945710/after-upgrade-of-gradle-to-the-version-3-0-1-something-generates-redundant-jacoc
+                    // AGP 7.0.x location: "outputs/unit_test_code_coverage/${configuration.flavour}${configuration.variant.capitalize()}UnitTest/test${configuration.flavour.capitalize()}${configuration.variant.capitalize()}UnitTest.exec"
+                    // AGP 4.2.x location: "../jacoco/jacoco.exec"
+                    val infix = it.name.removePrefix("test").removeSuffix("UnitTest").decapitalize()
+                    jacocoTaskExtension.setDestinationFile(
+                        File("${project.buildDir.path}${File.separatorChar}jacoco${File.separatorChar}$infix.exec")
+                    )
 
-                    testExtension.isIncludeNoLocationClasses = true
+                    jacocoTaskExtension.isIncludeNoLocationClasses = true
 
                     // see: https://issuetracker.google.com/issues/178015739?pli=1
-                    testExtension.excludes = listOf("jdk.internal.*", "kotlin.*", "com.library.*")
-                    testExtension.includes = listOf("com.application.*")
+                    jacocoTaskExtension.excludes = listOf("jdk.internal.*", "kotlin.*", "com.library.*")
                 }
             }
         }
     }
 
-    private fun configureAndroidTests(project: Project) {
+    override fun configure(project: Project) {
         resolveAndroidExtension(project) { extension ->
-            setupAndroidTest(project, extension)
+            setupAndroidTest(
+                project = project,
+                extension = extension,
+            )
         }
-    }
-
-    private fun setupBuildTypes(
-        buildType: String,
-        extension: CommonExtension<*, *, *, *>
-    ) {
-        extension.buildTypes {
-            getByName(buildType) {
-                isTestCoverageEnabled = true
-            }
-        }
-    }
-
-    private fun configureAndroidBuildType(project: Project, buildType: String) {
-        resolveAndroidExtension(project) { extension ->
-            setupBuildTypes(buildType, extension)
-        }
-    }
-
-    override fun configure(project: Project, configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration) {
-        configureAndroidBuildType(project, configuration.variant)
-        configureAndroidTests(project)
     }
 }

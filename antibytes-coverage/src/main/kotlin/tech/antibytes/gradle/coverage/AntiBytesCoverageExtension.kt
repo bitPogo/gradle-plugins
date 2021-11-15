@@ -9,9 +9,10 @@ package tech.antibytes.gradle.coverage
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract.CoverageConfiguration
 import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.JACOCO_VERSION
-import tech.antibytes.gradle.coverage.configuration.DefaultCoverageProvider
+import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 
 abstract class AntiBytesCoverageExtension(project: Project) : CoverageContract.Extension {
-    override val coverageConfigurations: MutableMap<String, CoverageConfiguration> = DefaultCoverageProvider.createDefaultCoverageConfiguration(project)
+    override val coverageConfigurations: MutableMap<String, CoverageConfiguration> = DefaultConfigurationProvider.createDefaultCoverageConfiguration(project)
     override var jacocoVersion: String = JACOCO_VERSION
+    override var appendKmpJvmTask: Boolean = true
 }

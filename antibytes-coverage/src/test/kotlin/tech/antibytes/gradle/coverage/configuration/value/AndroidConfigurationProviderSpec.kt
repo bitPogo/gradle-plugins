@@ -140,7 +140,7 @@ class AndroidConfigurationProviderSpec {
             actual = config.classPattern,
             expected = setOf(
                 "build/intermediates/javac/debug/**/*.class",
-                "build/tmp/kotlin-classes/debug/**/*.class"
+                "build/tmp/kotlin-classes/debug/**/*.class",
             ),
         )
     }

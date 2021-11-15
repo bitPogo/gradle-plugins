@@ -21,9 +21,11 @@ internal abstract class JacocoTaskBase {
         configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration
     ): Set<String> {
         val execs = executionFiles.toMutableSet()
-        val infix = "${configuration.flavour}${configuration.variant.capitalize()}AndroidTest".decapitalize()
+        val infix = "${configuration.flavour}${configuration.variant.capitalize()}".decapitalize()
 
-        execs.add("outputs${File.separator}code_coverage${File.separator}$infix${File.separator}**${File.separator}*coverage.ec")
+        execs.add("outputs${File.separator}unit_test_code_coverage${File.separator}${infix}UnitTest${File.separator}test${infix.capitalize()}UnitTest.exec")
+        execs.add("outputs${File.separator}code_coverage${File.separator}${infix}AndroidTest${File.separator}**${File.separator}*coverage.ec")
+        execs.add("jacoco${File.separator}$infix.exec")
         execs.add("jacoco${File.separator}jacoco.exec")
 
         return execs

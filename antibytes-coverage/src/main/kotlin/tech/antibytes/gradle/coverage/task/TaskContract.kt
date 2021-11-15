@@ -17,7 +17,7 @@ internal interface TaskContract {
     }
 
     fun interface AndroidExtensionConfigurator {
-        fun configure(project: Project, configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration)
+        fun configure(project: Project)
     }
 
     fun interface ReportTaskConfigurator {

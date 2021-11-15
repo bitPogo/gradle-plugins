@@ -23,7 +23,7 @@ jacoco {
 group = LibraryConfig.PublishConfig.groupId
 
 object Version {
-    const val android = "7.0.2"
+    const val android = "7.0.3"
     const val kotlin = "1.5.31"
     const val junit = "5.8.1"
     const val mockk = "1.12.0"

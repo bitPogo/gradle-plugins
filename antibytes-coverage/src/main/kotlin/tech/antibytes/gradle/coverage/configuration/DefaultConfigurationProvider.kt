@@ -9,11 +9,10 @@ package tech.antibytes.gradle.coverage.configuration
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageContract
-import tech.antibytes.gradle.coverage.PlatformContextResolver
 import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationProvider
 import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
 
-internal object DefaultCoverageProvider : CoverageContract.DefaultConfigurationProvider {
+internal object DefaultConfigurationProvider : CoverageContract.DefaultConfigurationProvider {
     private fun fetchConfiguration(
         project: Project,
         context: ConfigurationContract.PlatformContext
