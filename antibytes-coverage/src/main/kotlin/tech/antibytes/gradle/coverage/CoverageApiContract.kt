@@ -76,4 +76,15 @@ interface CoverageApiContract {
         var variant: String
         var flavour: String
     }
+
+    interface JacocoAggregationConfiguration : CoverageConfiguration, JacocoAgent {
+        val reportSettings: JacocoReporterSettings
+        var exclude: Set<String>
+        var verificationRules: Set<JacocoVerificationRule>
+    }
+
+    interface AndroidJacocoAggregationConfiguration : JacocoAggregationConfiguration {
+        var variant: String
+        var flavour: String
+    }
 }

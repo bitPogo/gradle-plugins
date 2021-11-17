@@ -61,10 +61,10 @@ class JacocoVerificationTaskConfiguratorSpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, ContextName and Configuration, it does nothing if no VerificationRules had been given`() {
+    fun `Given configure is called with a Project, ContextId and Configuration, it does nothing if no VerificationRules had been given`() {
         // Given
         val project: Project = mockk()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val configuration = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
@@ -81,17 +81,17 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
 
         // When
-        val task = JacocoVerificationTaskConfigurator.configure(project, contextName, configuration)
+        val task = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertNull(task)
     }
 
     @Test
-    fun `Given configure is called with a Project, ContextName and Configuration, it fitlers invalid VerificationRules`() {
+    fun `Given configure is called with a Project, ContextId and Configuration, it fitlers invalid VerificationRules`() {
         // Given
         val project: Project = mockk()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val configuration = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
@@ -108,18 +108,18 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
 
         // When
-        val task = JacocoVerificationTaskConfigurator.configure(project, contextName, configuration)
+        val task = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertNull(task)
     }
 
     @Test
-    fun `Given configure is called with a Project, ContextName and Configuration, it adds a CoverageVerificationTask for JVM`() {
+    fun `Given configure is called with a Project, ContextId and Configuration, it adds a CoverageVerificationTask for JVM`() {
         // Given
         val project: Project = mockk()
         val projectName: String = fixture()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val configuration = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
@@ -164,12 +164,12 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { project.projectDir } returns projectDir
         every { project.name } returns projectName
 
-        every { tasks.getByName("${contextName}Coverage") } returns reportTask
+        every { tasks.getByName("${contextId}Coverage") } returns reportTask
 
         invokeGradleAction(
             { probe ->
                 tasks.create(
-                    "${contextName}CoverageVerification",
+                    "${contextId}CoverageVerification",
                     JacocoCoverageVerification::class.java,
                     probe
                 )
@@ -205,7 +205,7 @@ class JacocoVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                configuration.testDependencies.map { name -> "jacoco${File.separator}$name.exec" }.toSet()
+                configuration.testDependencies.map { name -> "jacoco/$name.exec" }.toSet()
             )
         } returns mockk()
 
@@ -218,7 +218,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val task = JacocoVerificationTaskConfigurator.configure(project, contextName, configuration)
+        val task = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -227,7 +227,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
 
         verify(exactly = 1) {
-            tasks.create("${contextName}CoverageVerification", JacocoCoverageVerification::class.java, any())
+            tasks.create("${contextId}CoverageVerification", JacocoCoverageVerification::class.java, any())
         }
 
         assertEquals(
@@ -236,7 +236,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
         verify(exactly = 1) { jacocoTask.group = "Verification" }
         verify(exactly = 1) {
-            jacocoTask.description = "Verifies the coverage reports against a given set of rules for ${contextName.capitalize()}."
+            jacocoTask.description = "Verifies the coverage reports against a given set of rules for ${contextId.capitalize()}."
         }
 
         verify(exactly = 1) { classDirectories.setFrom(classFiles) }
@@ -250,11 +250,11 @@ class JacocoVerificationTaskConfiguratorSpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, ContextName and Configuration, it adds a CoverageVerificationTask for Android`() {
+    fun `Given configure is called with a Project, ContextId and Configuration, it adds a CoverageVerificationTask for Android`() {
         // Given
         val project: Project = mockk()
         val projectName: String = fixture()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val configuration = AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
@@ -302,12 +302,12 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { project.projectDir } returns projectDir
         every { project.name } returns projectName
 
-        every { tasks.getByName("${contextName}Coverage") } returns reportTask
+        every { tasks.getByName("${contextId}Coverage") } returns reportTask
 
         invokeGradleAction(
             { probe ->
                 tasks.create(
-                    "${contextName}CoverageVerification",
+                    "${contextId}CoverageVerification",
                     JacocoCoverageVerification::class.java,
                     probe
                 )
@@ -368,7 +368,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val task = JacocoVerificationTaskConfigurator.configure(project, contextName, configuration)
+        val task = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -377,7 +377,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
 
         verify(exactly = 1) {
-            tasks.create("${contextName}CoverageVerification", JacocoCoverageVerification::class.java, any())
+            tasks.create("${contextId}CoverageVerification", JacocoCoverageVerification::class.java, any())
         }
 
         assertEquals(
@@ -386,7 +386,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
         verify(exactly = 1) { jacocoTask.group = "Verification" }
         verify(exactly = 1) {
-            jacocoTask.description = "Verifies the coverage reports against a given set of rules for ${contextName.capitalize()}."
+            jacocoTask.description = "Verifies the coverage reports against a given set of rules for ${contextId.capitalize()}."
         }
 
         verify(exactly = 1) { classDirectories.setFrom(classFiles) }

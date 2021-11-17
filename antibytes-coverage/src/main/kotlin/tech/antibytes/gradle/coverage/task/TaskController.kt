@@ -9,37 +9,40 @@ package tech.antibytes.gradle.coverage.task
 import org.gradle.api.Project
 import org.gradle.api.Task
 import tech.antibytes.gradle.coverage.AntiBytesCoverageExtension
-import tech.antibytes.gradle.coverage.CoverageApiContract
+import tech.antibytes.gradle.coverage.CoverageApiContract.AndroidJacocoCoverageConfiguration
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCoverageConfiguration
 import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.CoverageError
 import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver.isKmp
+import tech.antibytes.gradle.coverage.isRoot
 import tech.antibytes.gradle.coverage.task.extension.AndroidExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.extension.JacocoExtensionConfigurator
+import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
 
 internal object TaskController : CoverageContract.TaskController {
     private fun configureJacocoTask(
         project: Project,
-        contextName: String,
+        contextId: String,
         configuration: JacocoCoverageConfiguration
     ): Pair<Task, Task?> {
         return Pair(
-            JacocoReportTaskConfigurator.configure(project, contextName, configuration),
-            JacocoVerificationTaskConfigurator.configure(project, contextName, configuration)
+            JacocoReportTaskConfigurator.configure(project, contextId, configuration),
+            JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
         )
     }
 
     private fun configureJacocoExtensions(
         project: Project,
-        contextName: String,
+        contextId: String,
         extension: AntiBytesCoverageExtension,
     ) {
         JacocoExtensionConfigurator.configure(project, extension)
-        val configuration = extension.coverageConfigurations[contextName]
+        val configuration = extension.configurations[contextId]
 
-        if (configuration is CoverageApiContract.AndroidJacocoCoverageConfiguration) {
+        if (configuration is AndroidJacocoCoverageConfiguration) {
             AndroidExtensionConfigurator.configure(project)
         }
     }
@@ -81,15 +84,15 @@ internal object TaskController : CoverageContract.TaskController {
         }
     }
 
-    override fun configure(
+    private fun configureModule(
         project: Project,
         extension: AntiBytesCoverageExtension
     ) {
         val tasks = mutableMapOf<Task, Task?>()
-        extension.coverageConfigurations.forEach { (contextName, configuration) ->
+        extension.configurations.forEach { (contextId, configuration) ->
             val (reporter, verification) = when (configuration) {
-                is JacocoCoverageConfiguration -> configureJacocoTask(project, contextName, configuration).also {
-                    configureJacocoExtensions(project, contextName, extension)
+                is JacocoCoverageConfiguration -> configureJacocoTask(project, contextId, configuration).also {
+                    configureJacocoExtensions(project, contextId, extension)
                 }
                 else -> throw CoverageError.UnknownPlatformConfiguration()
             }
@@ -99,6 +102,39 @@ internal object TaskController : CoverageContract.TaskController {
 
         if (isKmp(project)) {
             addMultiplatformTasks(project, tasks)
+        }
+    }
+
+    private fun configureJacocoAggregation(
+        project: Project,
+        contextId: String,
+        configuration: JacocoAggregationConfiguration
+    ) {
+        JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
+    }
+
+    private fun configureAggregation(
+        project: Project,
+        extension: AntiBytesCoverageExtension
+    ) {
+        extension.configurations.forEach { (contextId, configuration) ->
+            when (configuration) {
+                is JacocoAggregationConfiguration -> configureJacocoAggregation(project, contextId, configuration).also {
+                    JacocoExtensionConfigurator.configure(project, extension)
+                }
+                else -> throw CoverageError.UnknownPlatformConfiguration()
+            }
+        }
+    }
+
+    override fun configure(
+        project: Project,
+        extension: AntiBytesCoverageExtension
+    ) {
+        if (project.isRoot()) {
+            configureAggregation(project, extension)
+        } else {
+            configureModule(project, extension)
         }
     }
 }

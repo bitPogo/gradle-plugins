@@ -10,4 +10,4 @@ import java.io.File
 
 internal fun makePath(vararg path: String): String = makePath(path.toList())
 
-internal fun makePath(path: List<String>): String = path.joinToString(File.separatorChar.toString())
+internal fun makePath(path: List<String>): String = path.joinToString(File.separator.toString())

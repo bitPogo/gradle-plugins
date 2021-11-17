@@ -47,7 +47,7 @@ internal object AndroidExtensionConfigurator : TaskContract.AndroidExtensionConf
                     // AGP 4.2.x location: "../jacoco/jacoco.exec"
                     val infix = it.name.removePrefix("test").removeSuffix("UnitTest").decapitalize()
                     jacocoTaskExtension.setDestinationFile(
-                        File("${project.buildDir.path}${File.separatorChar}jacoco${File.separatorChar}$infix.exec")
+                        File("${project.buildDir.path}${File.separator}jacoco${File.separator}$infix.exec")
                     )
 
                     jacocoTaskExtension.isIncludeNoLocationClasses = true

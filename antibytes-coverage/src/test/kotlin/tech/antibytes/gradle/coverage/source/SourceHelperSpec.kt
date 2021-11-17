@@ -35,7 +35,7 @@ class SourceHelperSpec {
         parent: File,
         child: String
     ): File {
-        return File("${parent.absolutePath}${File.separatorChar}$child").also {
+        return File("${parent.absolutePath}${File.separator}$child").also {
             it.mkdir()
         }
     }
@@ -58,13 +58,13 @@ class SourceHelperSpec {
         val platform = addProjectDirStructure(makeDir(source, "main"))
 
         val kmpFile = File(
-            "${kmpPlatform.absolutePath}${File.separatorChar}${fixture<String>()}.kt"
+            "${kmpPlatform.absolutePath}${File.separator}${fixture<String>()}.kt"
         ).also { it.createNewFile() }
         val commonFile = File(
-            "${common.absolutePath}${File.separatorChar}${fixture<String>()}.kt"
+            "${common.absolutePath}${File.separator}${fixture<String>()}.kt"
         ).also { it.createNewFile() }
         val vanillaFile = File(
-            "${platform.absolutePath}${File.separatorChar}${fixture<String>()}.kt"
+            "${platform.absolutePath}${File.separator}${fixture<String>()}.kt"
         ).also { it.createNewFile() }
 
         return TestFiles(

@@ -16,6 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.publishing.createExtension
+import kotlin.test.assertEquals
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
@@ -34,14 +35,14 @@ class AntiBytesCoverageExtensionSpec {
     fun `It fulfils Extension`() {
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns mockk()
 
-        val extension: Any = createExtension<AntiBytesCoverageExtension>(mockk<Project>())
+        val extension: Any = createExtension<AntiBytesCoverageExtension>(mockk<Project>(relaxed = true))
 
         assertTrue(extension is CoverageContract.Extension)
     }
 
     @Test
-    fun `It has the default provided Configuration`() {
-        val project: Project = mockk()
+    fun `It has a default Configuration if it is not the RootProject`() {
+        val project: Project = mockk(relaxed = true)
         val config: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mockk()
 
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(project) } returns config
@@ -49,8 +50,24 @@ class AntiBytesCoverageExtensionSpec {
         val extension = createExtension<AntiBytesCoverageExtension>(project)
 
         assertSame(
-            actual = extension.coverageConfigurations,
+            actual = extension.configurations,
             expected = config
+        )
+    }
+
+    @Test
+    fun `It has no default Configuration if the RootProject`() {
+        val project: Project = mockk()
+        val config: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mockk()
+
+        every { project.rootProject } returns project
+        every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(project) } returns config
+
+        val extension = createExtension<AntiBytesCoverageExtension>(project)
+
+        assertEquals(
+            actual = extension.configurations,
+            expected = emptyMap()
         )
     }
 
@@ -58,7 +75,7 @@ class AntiBytesCoverageExtensionSpec {
     fun `It has a default Jacoco version`() {
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns mockk()
 
-        val extension = createExtension<AntiBytesCoverageExtension>(mockk<Project>())
+        val extension = createExtension<AntiBytesCoverageExtension>(mockk<Project>(relaxed = true))
 
         assertSame(
             actual = extension.jacocoVersion,
@@ -70,7 +87,7 @@ class AntiBytesCoverageExtensionSpec {
     fun `It has a default Jvm append policy`() {
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns mockk()
 
-        val extension = createExtension<AntiBytesCoverageExtension>(mockk<Project>())
+        val extension = createExtension<AntiBytesCoverageExtension>(mockk<Project>(relaxed = true))
 
         assertTrue(extension.appendKmpJvmTask)
     }

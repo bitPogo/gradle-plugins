@@ -20,24 +20,24 @@ internal object JacocoVerificationTaskConfigurator : TaskContract.VerificationTa
 
     private fun addVerificationTask(
         project: Project,
-        contextName: String,
+        contextId: String,
         configuration: CoverageApiContract.JacocoCoverageConfiguration
     ): Task {
         return project.tasks.create(
-            "${contextName}CoverageVerification",
+            "${contextId}CoverageVerification",
             JacocoCoverageVerification::class.java
         ) {
             group = "Verification"
-            description = "Verifies the coverage reports against a given set of rules for ${contextName.capitalize()}."
+            description = "Verifies the coverage reports against a given set of rules for ${contextId.capitalize()}."
             setDependsOn(
-                setOf(project.tasks.getByName("${contextName}Coverage"))
+                setOf(project.tasks.getByName("${contextId}Coverage"))
             )
 
             configureJacocoCoverageBase(
+                project,
+                this,
                 configuration,
                 determineExecutionsFiles(configuration),
-                project,
-                this
             )
 
             violationRules {
@@ -49,14 +49,14 @@ internal object JacocoVerificationTaskConfigurator : TaskContract.VerificationTa
 
     override fun configure(
         project: Project,
-        contextName: String,
+        contextId: String,
         configuration: CoverageApiContract.CoverageConfiguration
     ): Task? {
         val rules = (configuration as CoverageApiContract.JacocoCoverageConfiguration).verificationRules
             .filter { rule -> isValidRule(rule) }
 
         return if (rules.isNotEmpty()) {
-            addVerificationTask(project, contextName, configuration)
+            addVerificationTask(project, contextId, configuration)
         } else {
             null
         }

@@ -7,14 +7,15 @@
 package tech.antibytes.gradle.coverage.task.jacoco
 
 import org.gradle.api.Project
+import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.JacocoReportBase
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import java.io.File
 
 internal abstract class JacocoTaskBase {
     private fun determineJvmExecutionFiles(
-        contextName: Set<String>
-    ): Set<String> = contextName.map { name -> "jacoco${File.separator}$name.exec" }.toSet()
+        contextId: Set<String>
+    ): Set<String> = contextId.map { name -> "jacoco${File.separator}$name.exec" }.toSet()
 
     private fun determineAndroidExecutionsFiles(
         executionFiles: Set<String>,
@@ -44,10 +45,10 @@ internal abstract class JacocoTaskBase {
     }
 
     protected fun configureJacocoCoverageBase(
+        project: Project,
+        task: JacocoReportBase,
         configuration: CoverageApiContract.JacocoCoverageConfiguration,
         executionFiles: Set<String>,
-        project: Project,
-        task: JacocoReportBase
     ) {
         task.sourceDirectories.setFrom(configuration.sources)
         task.classDirectories.setFrom(
@@ -64,5 +65,34 @@ internal abstract class JacocoTaskBase {
                 setIncludes(executionFiles)
             }
         )
+    }
+
+    protected fun configureOutput(
+        project: Project,
+        contextId: String,
+        reportSettings: CoverageApiContract.JacocoReporterSettings,
+        task: JacocoReport
+    ) {
+        task.reports {
+            html.required.set(reportSettings.useHtml)
+            xml.required.set(reportSettings.useXml)
+            csv.required.set(reportSettings.useCsv)
+
+            html.outputLocation.set(
+                project.layout.buildDirectory.dir(
+                    "reports/jacoco/$contextId/${project.name}"
+                ).get().asFile
+            )
+            csv.outputLocation.set(
+                project.layout.buildDirectory.file(
+                    "reports/jacoco/$contextId/${project.name}.csv"
+                ).get().asFile
+            )
+            xml.outputLocation.set(
+                project.layout.buildDirectory.file(
+                    "reports/jacoco/$contextId/${project.name}.xml"
+                ).get().asFile
+            )
+        }
     }
 }

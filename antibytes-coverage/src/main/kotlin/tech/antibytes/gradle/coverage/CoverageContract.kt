@@ -13,18 +13,11 @@ internal interface CoverageContract {
     interface Extension {
         var jacocoVersion: String
         var appendKmpJvmTask: Boolean
-        val coverageConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration>
+        val configurations: MutableMap<String, CoverageApiContract.CoverageConfiguration>
     }
 
     fun interface TaskController {
         fun configure(project: Project, extension: AntiBytesCoverageExtension)
-    }
-
-    companion object CONSTANTS {
-        const val JACOCO_VERSION = "0.8.7"
-        const val DEFAULT_ANDROID_VARIANT = "debug"
-        const val DEFAULT_ANDROID_FLAVOUR = ""
-        val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_FLAVOUR.capitalize() + DEFAULT_ANDROID_VARIANT.capitalize()
     }
 
     interface PlatformContextResolver {
@@ -35,5 +28,13 @@ internal interface CoverageContract {
 
     fun interface DefaultConfigurationProvider {
         fun createDefaultCoverageConfiguration(project: Project): MutableMap<String, CoverageApiContract.CoverageConfiguration>
+    }
+
+    companion object CONSTANTS {
+        const val EXTENSION_ID = "antiBytesCoverage"
+        const val JACOCO_VERSION = "0.8.7"
+        const val DEFAULT_ANDROID_VARIANT = "debug"
+        const val DEFAULT_ANDROID_FLAVOUR = ""
+        val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_FLAVOUR.capitalize() + DEFAULT_ANDROID_VARIANT.capitalize()
     }
 }

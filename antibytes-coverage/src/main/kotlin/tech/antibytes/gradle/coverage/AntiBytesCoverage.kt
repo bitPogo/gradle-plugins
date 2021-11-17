@@ -8,6 +8,7 @@ package tech.antibytes.gradle.coverage
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.EXTENSION_ID
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver.isKmp
 import tech.antibytes.gradle.coverage.task.TaskController
@@ -19,7 +20,7 @@ class AntiBytesCoverage : Plugin<Project> {
         }
 
         val extension = target.extensions.create(
-            "antiBytesCoverage",
+            EXTENSION_ID,
             AntiBytesCoverageExtension::class.java,
             target
         )
@@ -29,7 +30,7 @@ class AntiBytesCoverage : Plugin<Project> {
         target.afterEvaluate {
             if (isKmp(target) && extension.appendKmpJvmTask) {
                 DefaultConfigurationProvider.createDefaultCoverageConfiguration(target)["jvm"]?.also {
-                    extension.coverageConfigurations.putIfAbsent("jvm", it)
+                    extension.configurations.putIfAbsent("jvm", it)
                 }
             }
 

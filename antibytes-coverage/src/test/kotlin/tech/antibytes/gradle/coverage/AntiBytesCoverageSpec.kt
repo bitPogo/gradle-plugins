@@ -130,7 +130,7 @@ class AntiBytesCoverageSpec {
         every { extension.appendKmpJvmTask } returns true
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
-        every { extension.coverageConfigurations } returns actualConfigurations
+        every { extension.configurations } returns actualConfigurations
 
         // When
         AntiBytesCoverage().apply(project)
@@ -184,7 +184,7 @@ class AntiBytesCoverageSpec {
         every { extension.appendKmpJvmTask } returns true
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
-        every { extension.coverageConfigurations } returns actualConfigurations
+        every { extension.configurations } returns actualConfigurations
 
         // When
         AntiBytesCoverage().apply(project)
@@ -236,7 +236,7 @@ class AntiBytesCoverageSpec {
         every { extension.appendKmpJvmTask } returns true
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
-        every { extension.coverageConfigurations } returns actualConfigurations
+        every { extension.configurations } returns actualConfigurations
 
         // When
         AntiBytesCoverage().apply(project)
@@ -290,7 +290,7 @@ class AntiBytesCoverageSpec {
         every { extension.appendKmpJvmTask } returns false
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
-        every { extension.coverageConfigurations } returns actualConfigurations
+        every { extension.configurations } returns actualConfigurations
 
         // When
         AntiBytesCoverage().apply(project)

@@ -28,6 +28,7 @@ import tech.antibytes.gradle.coverage.CoverageError
 import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver
 import tech.antibytes.gradle.coverage.task.extension.AndroidExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.extension.JacocoExtensionConfigurator
+import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
 import tech.antibytes.gradle.publishing.invokeGradleAction
@@ -63,7 +64,8 @@ class TaskControllerSpec {
         val extension: AntiBytesCoverageExtension = mockk()
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
-        every { extension.coverageConfigurations } returns mutableMapOf("unknown" to configuration)
+        every { project.rootProject } returns mockk()
+        every { extension.configurations } returns mutableMapOf("unknown" to configuration)
 
         // Then
         assertFailsWith<CoverageError.UnknownPlatformConfiguration> {
@@ -80,11 +82,12 @@ class TaskControllerSpec {
 
         // Given
         val project: Project = mockk()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val extension: AntiBytesCoverageExtension = mockk()
         val configuration: CoverageApiContract.JacocoCoverageConfiguration = mockk()
 
-        every { extension.coverageConfigurations } returns mutableMapOf(contextName to configuration)
+        every { project.rootProject } returns mockk()
+        every { extension.configurations } returns mutableMapOf(contextId to configuration)
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -93,8 +96,8 @@ class TaskControllerSpec {
         TaskController.configure(project, extension)
 
         // Then
-        verify(exactly = 1) { JacocoReportTaskConfigurator.configure(project, contextName, configuration) }
-        verify(exactly = 1) { JacocoVerificationTaskConfigurator.configure(project, contextName, configuration) }
+        verify(exactly = 1) { JacocoReportTaskConfigurator.configure(project, contextId, configuration) }
+        verify(exactly = 1) { JacocoVerificationTaskConfigurator.configure(project, contextId, configuration) }
         verify(exactly = 1) { JacocoExtensionConfigurator.configure(project, extension) }
 
         unmockkObject(JacocoReportTaskConfigurator)
@@ -111,12 +114,13 @@ class TaskControllerSpec {
 
         // Given
         val project: Project = mockk()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val reporter: Task = mockk()
         val extension: AntiBytesCoverageExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
 
-        every { extension.coverageConfigurations } returns mutableMapOf(contextName to configuration)
+        every { project.rootProject } returns mockk()
+        every { extension.configurations } returns mutableMapOf(contextId to configuration)
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns reporter
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -126,8 +130,8 @@ class TaskControllerSpec {
         TaskController.configure(project, extension)
 
         // Then
-        verify(exactly = 1) { JacocoReportTaskConfigurator.configure(project, contextName, configuration) }
-        verify(exactly = 1) { JacocoVerificationTaskConfigurator.configure(project, contextName, configuration) }
+        verify(exactly = 1) { JacocoReportTaskConfigurator.configure(project, contextId, configuration) }
+        verify(exactly = 1) { JacocoVerificationTaskConfigurator.configure(project, contextId, configuration) }
         verify(exactly = 1) { JacocoExtensionConfigurator.configure(project, extension) }
         verify(exactly = 1) { AndroidExtensionConfigurator.configure(project) }
 
@@ -146,14 +150,15 @@ class TaskControllerSpec {
 
         // Given
         val project: Project = mockk()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val extension: AntiBytesCoverageExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
         val jacocoReporterTask: Task = mockk()
 
         val kmpReporterTask: Task = mockk(relaxed = true)
 
-        every { extension.coverageConfigurations } returns mutableMapOf(contextName to configuration)
+        every { project.rootProject } returns mockk()
+        every { extension.configurations } returns mutableMapOf(contextId to configuration)
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns jacocoReporterTask
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -192,12 +197,13 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val tasks: TaskContainer = mockk()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val extension: AntiBytesCoverageExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
 
+        every { project.rootProject } returns mockk()
         every { project.tasks } returns tasks
-        every { extension.coverageConfigurations } returns mutableMapOf(contextName to configuration)
+        every { extension.configurations } returns mutableMapOf(contextId to configuration)
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -227,14 +233,15 @@ class TaskControllerSpec {
 
         // Given
         val project: Project = mockk()
-        val contextName: String = fixture()
+        val contextId: String = fixture()
         val extension: AntiBytesCoverageExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
         val jacocoVerificationTask: Task = mockk()
 
         val kmpVerificationTask: Task = mockk(relaxed = true)
 
-        every { extension.coverageConfigurations } returns mutableMapOf(contextName to configuration)
+        every { project.rootProject } returns mockk()
+        every { extension.configurations } returns mutableMapOf(contextId to configuration)
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns jacocoVerificationTask
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -261,5 +268,49 @@ class TaskControllerSpec {
         unmockkObject(JacocoVerificationTaskConfigurator)
         unmockkObject(JacocoExtensionConfigurator)
         unmockkObject(AndroidExtensionConfigurator)
+    }
+
+    @Test
+    fun `Given configure is called with a Project, which is the ProjectRoot and AntiBytesCoverageExtension, it fails if the the map contains a unknown CoverageConfigurations Type`() {
+        // Given
+        val project: Project = mockk()
+        val extension: AntiBytesCoverageExtension = mockk()
+        val configuration: CoverageApiContract.CoverageConfiguration = mockk()
+
+        every { project.rootProject } returns project
+        every { extension.configurations } returns mutableMapOf("unknown" to configuration)
+
+        // Then
+        assertFailsWith<CoverageError.UnknownPlatformConfiguration> {
+            // When
+            TaskController.configure(project, extension)
+        }
+    }
+
+    @Test
+    fun `Given configure is called with a Project, which is the ProjectRoot and AntiBytesCoverageExtension, which contains a JacocoConfiguration it configures the coverage and verification task and extension`() {
+        mockkObject(JacocoAggregationReportTaskConfigurator)
+        mockkObject(JacocoExtensionConfigurator)
+
+        // Given
+        val project: Project = mockk()
+        val contextId: String = fixture()
+        val extension: AntiBytesCoverageExtension = mockk()
+        val configuration: CoverageApiContract.JacocoAggregationConfiguration = mockk()
+
+        every { project.rootProject } returns project
+        every { extension.configurations } returns mutableMapOf(contextId to configuration)
+        every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
+        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
+
+        // When
+        TaskController.configure(project, extension)
+
+        // Then
+        verify(exactly = 1) { JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration) }
+        verify(exactly = 1) { JacocoExtensionConfigurator.configure(project, extension) }
+
+        unmockkObject(JacocoAggregationReportTaskConfigurator)
+        unmockkObject(JacocoExtensionConfigurator)
     }
 }
