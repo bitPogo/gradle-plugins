@@ -12,27 +12,24 @@ import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.task.TaskContract
 
-internal object JacocoVerificationTaskConfigurator : TaskContract.VerificationTaskConfigurator, JacocoTaskBase() {
+internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.VerificationTaskConfigurator, JacocoAggregationBase() {
     private fun addVerificationTask(
         project: Project,
         contextId: String,
-        configuration: CoverageApiContract.JacocoCoverageConfiguration
+        aggregation: AggregationData,
+        configuration: CoverageApiContract.JacocoAggregationConfiguration
     ): Task {
         return project.tasks.create(
-            "${contextId}CoverageVerification",
+            "${contextId}AggregationVerification",
             JacocoCoverageVerification::class.java
         ) {
             group = "Verification"
-            description = "Verifies the coverage reports against a given set of rules for ${contextId.capitalize()}."
-            setDependsOn(
-                setOf(project.tasks.getByName("${contextId}Coverage"))
-            )
+            description = "Verifies the aggregated coverage reports against a given set of rules for ${contextId.capitalize()}."
+            setDependsOn(aggregation.dependencies)
 
-            configureJacocoCoverageBase(
-                project,
+            configureJacocoAggregationBase(
                 this,
-                configuration,
-                determineExecutionsFiles(configuration),
+                aggregation
             )
 
             violationRules {
@@ -47,11 +44,22 @@ internal object JacocoVerificationTaskConfigurator : TaskContract.VerificationTa
         contextId: String,
         configuration: CoverageApiContract.CoverageConfiguration
     ): Task? {
-        val rules = (configuration as CoverageApiContract.JacocoCoverageConfiguration).verificationRules
+        val rules = (configuration as CoverageApiContract.JacocoAggregationConfiguration).verificationRules
             .filter { rule -> rule.isValidRule() }
 
-        return if (rules.isNotEmpty()) {
-            addVerificationTask(project, contextId, configuration)
+        val aggregator = aggregate(
+            project,
+            contextId,
+            configuration
+        )
+
+        return if (rules.isNotEmpty() && aggregator.dependencies.isNotEmpty()) {
+            addVerificationTask(
+                project,
+                contextId,
+                aggregator,
+                configuration
+            )
         } else {
             null
         }

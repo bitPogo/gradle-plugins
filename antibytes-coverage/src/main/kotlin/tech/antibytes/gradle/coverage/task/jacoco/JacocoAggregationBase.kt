@@ -22,10 +22,10 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
     protected data class AggregationData(
         val dependencies: MutableSet<JacocoReport> = mutableSetOf(),
         val executionFiles: MutableSet<ConfigurableFileTree> = mutableSetOf(),
-        var classes: MutableSet<ConfigurableFileTree> = mutableSetOf(),
-        var sources: MutableSet<File> = mutableSetOf(),
-        var additionalSources: MutableSet<ConfigurableFileTree> = mutableSetOf(),
-        var additionalClasses: MutableSet<ConfigurableFileTree> = mutableSetOf(),
+        val classes: MutableSet<ConfigurableFileTree> = mutableSetOf(),
+        val sources: MutableSet<File> = mutableSetOf(),
+        val additionalSources: MutableSet<ConfigurableFileTree> = mutableSetOf(),
+        val additionalClasses: MutableSet<ConfigurableFileTree> = mutableSetOf(),
     )
 
     private fun resolveSubproject(
@@ -74,7 +74,7 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
             subprojectConfiguration.variant == aggregationConfiguration.variant
     }
 
-    protected fun filterAndResolveSubprojectConfiguration(
+    private fun filterAndResolveSubprojectConfiguration(
         subproject: Project,
         contextId: String,
         aggregationConfiguration: JacocoAggregationConfiguration,
@@ -105,11 +105,34 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         }
     }
 
+    protected fun aggregate(
+        project: Project,
+        contextId: String,
+        configuration: JacocoAggregationConfiguration
+    ): AggregationData {
+        val aggregator = AggregationData()
+        project.subprojects.forEach { subproject ->
+            val extension = subproject.extensions.findByType(AntiBytesCoverageExtension::class.java)
+
+            if (extension is AntiBytesCoverageExtension && !configuration.exclude.contains(subproject.name)) {
+                filterAndResolveSubprojectConfiguration(
+                    subproject,
+                    contextId,
+                    configuration,
+                    extension,
+                    aggregator
+                )
+            }
+        }
+
+        return aggregator
+    }
+
     protected fun configureJacocoAggregationBase(
         task: JacocoReportBase,
         aggregator: AggregationData
     ) {
-        task.sourceDirectories.setFrom(aggregator.sources).also { println("a") }
+        task.sourceDirectories.setFrom(aggregator.sources)
         task.classDirectories.setFrom(aggregator.classes)
 
         task.additionalSourceDirs.setFrom(aggregator.additionalSources)

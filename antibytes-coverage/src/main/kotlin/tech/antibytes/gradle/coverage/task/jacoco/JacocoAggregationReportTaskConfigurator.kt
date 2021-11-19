@@ -9,7 +9,6 @@ package tech.antibytes.gradle.coverage.task.jacoco
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.testing.jacoco.tasks.JacocoReport
-import tech.antibytes.gradle.coverage.AntiBytesCoverageExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.task.TaskContract
 
@@ -46,27 +45,14 @@ internal object JacocoAggregationReportTaskConfigurator : TaskContract.ReportTas
         contextId: String,
         configuration: CoverageApiContract.CoverageConfiguration
     ): Task {
-        configuration as CoverageApiContract.JacocoAggregationConfiguration
-
-        val aggregator = AggregationData()
-        project.subprojects.forEach { subproject ->
-            val extension = subproject.extensions.findByType(AntiBytesCoverageExtension::class.java)
-
-            if (extension is AntiBytesCoverageExtension && !configuration.exclude.contains(subproject.name)) {
-                filterAndResolveSubprojectConfiguration(
-                    subproject,
-                    contextId,
-                    configuration,
-                    extension,
-                    aggregator
-                )
-            }
-        }
-
         return addReportTask(
             project,
             contextId,
-            aggregator,
+            aggregate(
+                project,
+                contextId,
+                (configuration as CoverageApiContract.JacocoAggregationConfiguration)
+            ),
             configuration
         )
     }

@@ -19,6 +19,7 @@ import tech.antibytes.gradle.coverage.isRoot
 import tech.antibytes.gradle.coverage.task.extension.AndroidExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.extension.JacocoExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationReportTaskConfigurator
+import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationVerificationTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
 
@@ -31,6 +32,17 @@ internal object TaskController : CoverageContract.TaskController {
         return Pair(
             JacocoReportTaskConfigurator.configure(project, contextId, configuration),
             JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        )
+    }
+
+    private fun configureAggregationJacocoTask(
+        project: Project,
+        contextId: String,
+        configuration: JacocoAggregationConfiguration
+    ): Pair<Task, Task?> {
+        return Pair(
+            JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration),
+            JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
         )
     }
 
@@ -105,25 +117,24 @@ internal object TaskController : CoverageContract.TaskController {
         }
     }
 
-    private fun configureJacocoAggregation(
-        project: Project,
-        contextId: String,
-        configuration: JacocoAggregationConfiguration
-    ) {
-        JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
-    }
-
     private fun configureAggregation(
         project: Project,
         extension: AntiBytesCoverageExtension
     ) {
+        val tasks = mutableMapOf<Task, Task?>()
         extension.configurations.forEach { (contextId, configuration) ->
-            when (configuration) {
-                is JacocoAggregationConfiguration -> configureJacocoAggregation(project, contextId, configuration).also {
+            val (reporter, verification) = when (configuration) {
+                is JacocoAggregationConfiguration -> configureAggregationJacocoTask(project, contextId, configuration).also {
                     JacocoExtensionConfigurator.configure(project, extension)
                 }
                 else -> throw CoverageError.UnknownPlatformConfiguration()
             }
+
+            tasks[reporter] = verification
+        }
+
+        if (tasks.size > 1) {
+            addMultiplatformTasks(project, tasks)
         }
     }
 

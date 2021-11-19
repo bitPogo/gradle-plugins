@@ -81,14 +81,14 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
 
         // When
-        val task = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
-        assertNull(task)
+        assertNull(verificator)
     }
 
     @Test
-    fun `Given configure is called with a Project, ContextId and Configuration, it fitlers invalid VerificationRules`() {
+    fun `Given configure is called with a Project, ContextId and Configuration, it filters invalid VerificationRules`() {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
@@ -108,10 +108,10 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
 
         // When
-        val task = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
-        assertNull(task)
+        assertNull(verificator)
     }
 
     @Test
@@ -218,11 +218,11 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val task = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertSame(
-            actual = task,
+            actual = verificator,
             expected = jacocoTask
         )
 
@@ -368,11 +368,11 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val task = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertSame(
-            actual = task,
+            actual = verificator,
             expected = jacocoTask
         )
 

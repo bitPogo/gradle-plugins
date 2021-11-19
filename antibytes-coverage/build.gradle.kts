@@ -5,7 +5,6 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `kotlin-dsl`
@@ -50,9 +49,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.antibytes-coverage") {
+    plugins.register("${LibraryConfig.group}.coverage") {
         group = LibraryConfig.group
-        id = "${LibraryConfig.group}.antibytes-coverage"
+        id = "${LibraryConfig.group}.coverage"
         displayName = "${id}.gradle.plugin"
         implementationClass = "tech.antibytes.gradle.coverage.AntiBytesCoverage"
         description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes"
@@ -84,7 +83,7 @@ tasks.jacocoTestCoverageVerification {
     dependsOn(tasks.named("jacocoTestReport"))
     violationRules {
         rule {
-            enabled = false
+            enabled = true
             limit {
                 counter = "BRANCH"
                 value = "COVEREDRATIO"
@@ -92,11 +91,11 @@ tasks.jacocoTestCoverageVerification {
             }
         }
         rule {
-            enabled = false
+            enabled = true
             limit {
                 counter = "INSTRUCTION"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.97)
+                minimum = BigDecimal( 0.95)
             }
         }
     }

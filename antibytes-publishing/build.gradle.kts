@@ -49,9 +49,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.antibytes-publishing") {
+    plugins.register("${LibraryConfig.group}.publishing") {
         group = LibraryConfig.group
-        id = "${LibraryConfig.group}.antibytes-publishing"
+        id = "${LibraryConfig.group}.publishing"
         displayName = "${id}.gradle.plugin"
         implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
         description = "Publishing tasks for Antibytes projects"

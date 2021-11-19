@@ -194,11 +194,11 @@ class JacocoReportTaskConfiguratorSpec {
         } returns xmlFile
 
         // When
-        val task = JacocoReportTaskConfigurator.configure(project, contextId, configuration)
+        val reporter = JacocoReportTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertSame(
-            actual = task,
+            actual = reporter,
             expected = jacocoTask
         )
 
@@ -464,11 +464,11 @@ class JacocoReportTaskConfiguratorSpec {
         } returns xmlFile
 
         // When
-        val task = JacocoReportTaskConfigurator.configure(project, contextId, configuration)
+        val reporter = JacocoReportTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertSame(
-            actual = task,
+            actual = reporter,
             expected = jacocoTask
         )
 
@@ -721,11 +721,11 @@ class JacocoReportTaskConfiguratorSpec {
         } returns xmlFile
 
         // When
-        val task = JacocoReportTaskConfigurator.configure(project, contextId, configuration)
+        val reporter = JacocoReportTaskConfigurator.configure(project, contextId, configuration)
 
         // Then
         assertSame(
-            actual = task,
+            actual = reporter,
             expected = jacocoTask
         )
 
