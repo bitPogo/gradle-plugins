@@ -82,7 +82,27 @@ internal object Versioning : PublishingContract.Versioning {
         return "$versionName${SEPARATOR}bump$SEPARATOR$infix$SEPARATOR$NON_RELEASE_SUFFIX"
     }
 
-    private fun renderFeatureBranch(details: VersionDetails): String {
+    private fun createFeatureVersionName(
+        details: VersionDetails,
+        useGitHash: Boolean,
+        versionName: String,
+        infix: String
+    ): String {
+        val version = mutableListOf(
+            versionName,
+            infix
+        )
+
+        if (useGitHash) {
+            version.add(details.gitHash)
+        }
+
+        version.add(NON_RELEASE_SUFFIX)
+
+        return version.joinToString(SEPARATOR)
+    }
+
+    private fun renderFeatureBranch(details: VersionDetails, useGitHash: Boolean): String {
         var infix = extractBranchName(
             configuration.featurePattern,
             details.branchName
@@ -97,23 +117,24 @@ internal object Versioning : PublishingContract.Versioning {
             infix
         }
 
-        infix = normalize(infix)
-
-        val versionName = cleanVersionName(
-            details.version,
-            details.commitDistance
-        )
-
         // Schema:
-        // version '-' infix '-' 'SNAPSHOT'
-        return "$versionName$SEPARATOR$infix$SEPARATOR$NON_RELEASE_SUFFIX"
+        // version '-' infix [- gitHash ] '-' 'SNAPSHOT'
+        return createFeatureVersionName(
+            details,
+            useGitHash,
+            cleanVersionName(
+                details.version,
+                details.commitDistance
+            ),
+            normalize(infix)
+        )
     }
 
     private fun resolveVersionName(details: VersionDetails): String {
         return when {
             details.branchName.matches(configuration.releasePattern) -> renderReleaseBranch(details)
             details.branchName.matches(configuration.dependencyBotPattern) -> renderDependencyBotBranch(details)
-            details.branchName.matches(configuration.featurePattern) -> renderFeatureBranch(details)
+            details.branchName.matches(configuration.featurePattern) -> renderFeatureBranch(details, configuration.useGitHashFeatureSuffix)
             else -> throw PublishingError.VersioningError(
                 "Ill named branch name (${details.branchName})! Please adjust it to match the project settings."
             )
