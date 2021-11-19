@@ -5,6 +5,9 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
+import tech.antibytes.gradle.plugin.dependency.Version
+import tech.antibytes.gradle.plugin.dependency.Dependency
+
 
 plugins {
     `kotlin-dsl`
@@ -15,31 +18,22 @@ plugins {
 }
 
 jacoco {
-    version = "0.8.7"
+    version = Version.gradle.jacoco
 }
 
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
-object Version {
-    const val kotlin = "1.5.31"
-    const val junit = "5.8.1"
-    const val publishing = "5.11.0.202103091610-r"
-    const val versioning = "0.12.2" // see: https://github.com/palantir/gradle-git-version/issues/353
-    const val mockk = "1.12.0"
-    const val fixture = "1.2.0"
-}
-
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
-    implementation("org.eclipse.jgit:org.eclipse.jgit:${Version.publishing}")
-    implementation("com.palantir.gradle.gitversion:gradle-git-version:${Version.versioning}")
+    implementation(Dependency.gradle.kotlin)
+    implementation(Dependency.gradle.publishing)
+    implementation(Dependency.gradle.versioning)
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}")
-    testImplementation(platform("org.junit:junit-bom:${Version.junit}"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("io.mockk:mockk:${Version.mockk}")
-    testImplementation("com.appmattus.fixture:fixture:${Version.fixture}")
+    testImplementation(Dependency.test.kotlinTest)
+    testImplementation(platform(Dependency.test.junit))
+    testImplementation(Dependency.test.jupiter)
+    testImplementation(Dependency.test.mockk)
+    testImplementation(Dependency.test.fixture)
     testImplementation(project(":antibytes-plugin-test"))
 }
 

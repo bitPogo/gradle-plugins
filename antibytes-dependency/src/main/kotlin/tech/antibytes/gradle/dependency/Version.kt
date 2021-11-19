@@ -16,7 +16,7 @@ object Version {
         /**
          * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
          */
-        const val android = "7.0.2"
+        const val android = "7.0.3"
 
         /**
          * [OWASP](https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/index.html)
@@ -84,9 +84,14 @@ object Version {
 
     object JvmTest {
         /**
+         * [JUnit](https://github.com/junit-team/junit5/)
+         */
+        const val junit = "5.8.1"
+
+        /**
          * [JUnit](https://github.com/junit-team/junit4/)
          */
-        const val junit = "4.13.2"
+        const val junit4 = "4.13.2"
     }
 
     val androidTest = AndroidTest
@@ -116,13 +121,8 @@ object Version {
 
     object KotlinTest {
         /**
-         * [Kotest](https://github.com/kotest/kotest)
-         */
-        const val kotest = "4.6.3"
-
-        /**
          * [mockk](http://mockk.io)
          */
-        const val mockk = "1.12.0"
+        const val mockk = "1.12.1"
     }
 }

@@ -15,13 +15,11 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
-
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
     // Coverage
     implementation("org.jacoco:org.jacoco.core:0.8.7")
     // CVE
     implementation("org.owasp:dependency-check-gradle:6.4.1")
-
     // dependency-updates.gradle.kts
     implementation("com.github.ben-manes:gradle-versions-plugin:0.39.0")
     // publishing.gradle.kts

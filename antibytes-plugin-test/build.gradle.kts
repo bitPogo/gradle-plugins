@@ -5,6 +5,7 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
+import tech.antibytes.gradle.plugin.dependency.Dependency
 
 plugins {
     `kotlin-dsl`
@@ -14,21 +15,14 @@ plugins {
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
-object Version {
-    const val kotlin = "1.5.31"
-    const val junit = "5.8.1"
-    const val mockk = "1.12.0"
-    const val fixture = "1.2.0"
-}
-
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
-    implementation("io.mockk:mockk:${Version.mockk}")
-    implementation("com.appmattus.fixture:fixture:${Version.fixture}")
+    implementation(Dependency.gradle.kotlin)
+    implementation(Dependency.test.mockk)
+    implementation(Dependency.test.fixture)
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}")
-    testImplementation(platform("org.junit:junit-bom:${Version.junit}"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(Dependency.test.kotlinTest)
+    testImplementation(platform(Dependency.test.junit))
+    testImplementation(Dependency.test.jupiter)
 }
 
 java {

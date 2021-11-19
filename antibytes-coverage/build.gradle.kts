@@ -5,6 +5,8 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
+import tech.antibytes.gradle.plugin.dependency.Version
+import tech.antibytes.gradle.plugin.dependency.Dependency
 
 plugins {
     `kotlin-dsl`
@@ -15,31 +17,22 @@ plugins {
 }
 
 jacoco {
-    version = "0.8.7"
+    version = Version.gradle.jacoco
 }
 
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
-object Version {
-    const val android = "7.0.3"
-    const val kotlin = "1.5.31"
-    const val junit = "5.8.1"
-    const val mockk = "1.12.0"
-    const val fixture = "1.2.0"
-    const val jacoco = "0.8.7"
-}
-
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
-    implementation("com.android.tools.build:gradle:${Version.android}")
-    implementation("org.jacoco:org.jacoco.core:${Version.jacoco}")
+    implementation(Dependency.gradle.kotlin)
+    implementation(Dependency.gradle.android)
+    implementation(Dependency.gradle.jacoco)
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}")
-    testImplementation(platform("org.junit:junit-bom:${Version.junit}"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("io.mockk:mockk:${Version.mockk}")
-    testImplementation("com.appmattus.fixture:fixture:${Version.fixture}")
+    testImplementation(Dependency.test.kotlinTest)
+    testImplementation(platform(Dependency.test.junit))
+    testImplementation(Dependency.test.jupiter)
+    testImplementation(Dependency.test.mockk)
+    testImplementation(Dependency.test.fixture)
     testImplementation(project(":antibytes-plugin-test"))
 }
 
