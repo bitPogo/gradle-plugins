@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.publishing
 
+import com.appmattus.kotlinfixture.kotlinFixture
 import com.palantir.gradle.gitversion.VersionDetails
 import groovy.lang.Closure
 import io.mockk.every
@@ -22,6 +23,7 @@ import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class VersioningSpec {
+    private val fixture = kotlinFixture()
     private val versionTestConfiguration = VersioningConfiguration(
         releasePattern = "xxx".toRegex(),
         featurePattern = "xxx".toRegex(),
@@ -417,6 +419,56 @@ class VersioningSpec {
     }
 
     @Test
+    fun `Given versionName is called, it renders a feature branch with suffix, if the useGitHashFeatureSuffix is true`() {
+        val branchAction = "test"
+        val branchName = "feature/$branchAction"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+        val hash: String = fixture()
+
+        val configuration = versionTestConfiguration.copy(
+            featurePattern = "feature/(.*)".toRegex(),
+            versionPrefix = versionPrefix,
+            useGitHashFeatureSuffix = true
+        )
+
+        val project: Project = mockk()
+
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+        every { versionDetails.gitHash } returns hash
+
+        // When
+        val result = Versioning.versionName(
+            project,
+            configuration
+        )
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-$branchAction-$hash-SNAPSHOT"
+        )
+    }
+
+    @Test
     fun `Given versionName is called, it renders a feature branch with a issue number`() {
         val branchAction = "test"
         val branchName = "feature/issue-123/$branchAction"
@@ -461,6 +513,57 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-$branchAction-SNAPSHOT"
+        )
+    }
+
+    @Test
+    fun `Given versionName is called, it renders a feature branch with a issue number and suffix, if the useGitHashFeatureSuffix is true `() {
+        val branchAction = "test"
+        val branchName = "feature/issue-123/$branchAction"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+        val hash: String = fixture()
+
+        val configuration = versionTestConfiguration.copy(
+            featurePattern = "feature/(.*)".toRegex(),
+            issuePattern = "issue-[0-9]+/(.*)".toRegex(),
+            versionPrefix = versionPrefix,
+            useGitHashFeatureSuffix = true
+        )
+
+        val project: Project = mockk()
+
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { versionDetails.gitHash } returns hash
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+
+        // When
+        val result = Versioning.versionName(
+            project,
+            configuration
+        )
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-$branchAction-$hash-SNAPSHOT"
         )
     }
 

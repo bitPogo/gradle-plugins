@@ -13,6 +13,7 @@ data class VersioningConfiguration(
     override val featurePattern: Regex = "feature/(.*)".toRegex(),
     override val dependencyBotPattern: Regex = "dependabot/(.*)".toRegex(),
     override val issuePattern: Regex? = null,
+    override val useGitHashFeatureSuffix: Boolean = false,
     override val versionPrefix: String = "v",
     override val normalization: Set<String> = emptySet()
 ) : PublishingApiContract.VersioningConfiguration
