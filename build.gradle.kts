@@ -5,6 +5,8 @@
  */
 
 plugins {
+    id("tech.antibytes.gradle.plugin.dependency")
+    id("tech.antibytes.gradle.plugin.script.dependency-update")
     id("tech.antibytes.gradle.plugin.script.quality-spotless")
     id("tech.antibytes.gradle.plugin.script.versioning")
     id("tech.antibytes.gradle.plugin.script.publishing")

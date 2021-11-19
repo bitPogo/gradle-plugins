@@ -42,15 +42,7 @@ object Dependency {
 
             object Mockk {
                 const val junit = "io.mockk:mockk:${Version.kotlinTest.mockk}"
-            }
-
-            val kotest = Kotest
-
-            object Kotest {
-                const val jvm = "io.kotest:kotest-runner-junit5:${Version.kotlinTest.kotest}"
-                const val js = "io.kotest:kotest-framework-engine:${Version.kotlinTest.kotest}"
-                const val commonAssertion = "io.kotest:kotest-assertions-core:${Version.kotlinTest.kotest}"
-                const val commonProperties = "io.kotest:kotest-property:${Version.kotlinTest.kotest}"
+                const val jupiter = "org.junit.jupiter:junit-jupiter"
             }
         }
     }
@@ -58,7 +50,11 @@ object Dependency {
     val jvmTest = JvmTest
 
     object JvmTest {
-        const val junit = "junit:junit:${Version.jvmTest.junit}"
+        const val junit = "org.junit.jupiter:junit-jupiter-api:${Version.jvmTest.junit}"
+        const val junitParameterized = "org.junit.jupiter:junit-jupiter-params:${Version.jvmTest.junit}"
+
+        const val junit4 = "junit:junit:${Version.jvmTest.junit4}"
+        const val junit4LegacyEngine = "org.junit.vintage:junit-vintage-engine:${Version.jvmTest.junit}"
     }
 
     val android = Android

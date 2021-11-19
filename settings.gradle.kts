@@ -11,6 +11,8 @@ pluginManagement {
     }
 }
 
+includeBuild("localPlugin/dependency")
+
 plugins {
     id("com.gradle.enterprise") version("3.7")
 }
