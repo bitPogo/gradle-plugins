@@ -11,11 +11,19 @@ import org.gradle.testfixtures.ProjectBuilder
 
 val extensionFixture = kotlinFixture()
 
-inline fun <reified T : Any> createExtension(): T {
+inline fun <reified T : Any> createExtension(vararg constructorArguments: Any): T {
     val project = ProjectBuilder.builder().build()
 
-    return project.extensions.create(
-        extensionFixture(),
-        T::class.java
-    )
+    return if (constructorArguments.isEmpty()) {
+        project.extensions.create(
+            extensionFixture(),
+            T::class.java
+        )
+    } else {
+        project.extensions.create(
+            extensionFixture(),
+            T::class.java,
+            *constructorArguments
+        )
+    }
 }

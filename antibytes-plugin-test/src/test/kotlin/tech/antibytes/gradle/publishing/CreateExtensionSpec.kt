@@ -24,12 +24,36 @@ class CreateExtensionSpec {
             expected = "test"
         )
     }
+
+    @Test
+    fun `Given createExtension is called with arguments it creates an Extension`() {
+        // Given
+        val arg = "test"
+
+        // When
+        val extension: Any = createExtension<TestExtensionWithArgs>(arg)
+
+        // Then
+        assertTrue(extension is TestExtensionWithArgs)
+        assertEquals(
+            actual = extension.test.get(),
+            expected = arg
+        )
+    }
 }
 
-abstract class TestExtension {
+private abstract class TestExtension {
     abstract val test: Property<String>
 
     init {
         test.convention("test")
+    }
+}
+
+private abstract class TestExtensionWithArgs(arg: String) {
+    abstract val test: Property<String>
+
+    init {
+        test.convention(arg)
     }
 }

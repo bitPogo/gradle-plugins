@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ *
+ * Use of this source code is governed by Apache License, Version 2.0
+ */
+
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 
 plugins {
@@ -43,9 +49,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.antibytes-publishing") {
+    plugins.register("${LibraryConfig.group}.publishing") {
         group = LibraryConfig.group
-        id = "${LibraryConfig.group}.antibytes-publishing"
+        id = "${LibraryConfig.group}.publishing"
         displayName = "${id}.gradle.plugin"
         implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
         description = "Publishing tasks for Antibytes projects"

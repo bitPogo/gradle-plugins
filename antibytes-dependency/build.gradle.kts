@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ *
+ * Use of this source code is governed by Apache License, Version 2.0
+ */
+
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 
 plugins {
@@ -37,9 +43,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.antibytes-dependency") {
+    plugins.register("${LibraryConfig.group}.dependency") {
         group = LibraryConfig.group
-        id = "${LibraryConfig.group}.antibytes-dependency"
+        id = "${LibraryConfig.group}.dependency"
         displayName = "${id}.gradle.plugin"
         implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependency"
         description = "General dependencies for Antibytes projects"
