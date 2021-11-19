@@ -42,7 +42,6 @@ object Dependency {
 
             object Mockk {
                 const val junit = "io.mockk:mockk:${Version.kotlinTest.mockk}"
-                const val jupiter = "org.junit.jupiter:junit-jupiter"
             }
         }
     }
@@ -50,11 +49,8 @@ object Dependency {
     val jvmTest = JvmTest
 
     object JvmTest {
-        const val junit = "org.junit.jupiter:junit-jupiter-api:${Version.jvmTest.junit}"
-        const val junitParameterized = "org.junit.jupiter:junit-jupiter-params:${Version.jvmTest.junit}"
-
-        const val junit4 = "junit:junit:${Version.jvmTest.junit4}"
-        const val junit4LegacyEngine = "org.junit.vintage:junit-vintage-engine:${Version.jvmTest.junit}"
+        const val junit = "org.junit:junit-bom:${Version.jvmTest.junit}"
+        const val jupiter = "org.junit.jupiter:junit-jupiter"
     }
 
     val android = Android
@@ -80,6 +76,12 @@ object Dependency {
         const val rules = "androidx.test:rules:${Version.androidTest.test}"
 
         const val junit = "androidx.test.ext:junit:${Version.androidTest.test}"
+
+        const val junit5 = "org.junit.jupiter:junit-jupiter-api:${Version.jvmTest.junit}"
+        const val junit5Parameterized = "org.junit.jupiter:junit-jupiter-params:${Version.jvmTest.junit}"
+
+        const val junit4 = "junit:junit:${Version.jvmTest.junit4}"
+        const val junit4LegacyEngine = "org.junit.vintage:junit-vintage-engine:${Version.jvmTest.junit}"
 
         const val espressoCore = "androidx.test.espresso:espresso-core:${Version.androidTest.espresso}"
         const val espressoIntents = "androidx.test.espresso:espresso-intents:${Version.androidTest.espresso}"
