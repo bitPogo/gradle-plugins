@@ -59,22 +59,14 @@
   color: e56992
 
 # Library
-- name: dependency
+- name: dependency-plugin
   description: dependency changes
   color: 000080
 
-- name: versioning
-  description: versioning changes
+- name: coverage-plugin
+  description: coverage changes
   color: 000080
 
-- name: publishing
+- name: publishing-plugin
   description: versioning changes
   color: 000080
-
-# Sample Apps
-- name: sample-android
-  description: Sample App Android
-  color: 4514b7
-- name: sample-jvm
-  description: Sample App JVM
-  color: 4514b7

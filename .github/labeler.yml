@@ -6,6 +6,7 @@ scripts:
 
 dependencies:
   - buildSrc/**/*
+  - localPlugin/dependency/**/*
 
 documentation:
   - docs/**/*
@@ -17,19 +18,13 @@ documentation:
   - readmeOSS.adoc
 
 # Dependency Plugin
-dependency:
+dependency-plugin:
   - antibytes-dependency/**/*
 
 # Version Plugin
-versioning:
-  - antibytes-versioning/**/*
+coverage-plugin:
+  - antibytes-coverage/**/*
 
 # Publishing Plugin
-publishing:
+publishing-plugin:
   - antibytes-publishing/**/*
-
-# Sample Apps
-sample-android:
-  - sample-android/**/*
-sample-jvm:
-  - sample-jvm/**/*
