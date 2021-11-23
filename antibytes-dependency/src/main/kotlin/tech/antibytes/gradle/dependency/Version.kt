@@ -11,17 +11,10 @@ object Version {
     val gradle = Gradle
 
     object Gradle {
-        const val kotlin = Version.kotlin.stdlib
-
         /**
-         * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
+         * [KTLint](https://github.com/pinterest/ktlint/releases)
          */
-        const val android = "7.0.3"
-
-        /**
-         * [OWASP](https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/index.html)
-         */
-        const val owasp = "6.4.1"
+        const val ktLint = "0.43.0"
     }
 
     // Kotlin

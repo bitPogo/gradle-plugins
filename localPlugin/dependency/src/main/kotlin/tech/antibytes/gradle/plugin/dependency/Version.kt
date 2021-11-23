@@ -8,22 +8,71 @@ package tech.antibytes.gradle.plugin.dependency
 
 object Version {
     const val kotlin = "1.5.31"
-    const val android = "7.0.3"
 
     val gradle = GradlePlugin
     val test = Test
 
     object GradlePlugin {
+        /**
+         * [Gradle Versions](https://github.com/ben-manes/gradle-versions-plugin)
+         */
         const val dependencyUpdate = "0.39.0"
+
+        /**
+         * [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
+         */
+        const val owasp = "6.5.0.1"
+
+        /**
+         * [Jacoco](https://github.com/jacoco/jacoco/releases)
+         */
         const val jacoco = "0.8.7"
+
+        /**
+         * [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
+         */
         const val publishing = "5.13.0.202109080827-r"
+
+        /**
+         * [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
+         */
         const val versioning = "0.12.2" // see: https://github.com/palantir/gradle-git-version/issues/353
+
+        /**
+         * [Kotlin](https://kotlinlang.org/docs/releases.html)
+         */
+        const val kotlin = "1.5.31"
+
+        /**
+         * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
+         */
+        const val android = "7.0.3"
+
+        /**
+         * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
+         */
+        const val spotless = "5.14.3"
+
+        /**
+         * [KTLint](https://github.com/pinterest/ktlint)
+         */
+        const val ktlint = "0.43.0"
     }
 
     object Test {
-        const val jacoco = "0.8.7"
+        /**
+         * [JUnit](https://github.com/junit-team/junit5/)
+         */
         const val junit = "5.8.1"
+
+        /**
+         * [mockk](http://mockk.io)
+         */
         const val mockk = "1.12.1"
+
+        /**
+         * [kotlinFixture](https://github.com/appmattus/kotlinfixture)
+         */
         const val fixture = "1.2.0"
     }
 }

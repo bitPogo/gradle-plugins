@@ -10,21 +10,24 @@ object Dependency {
     val gradle = GradlePlugin
 
     object GradlePlugin {
-        val android = "com.android.tools.build:gradle:${Version.android}"
-        val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
-        val dependencyUpdate = "com.github.ben-manes:gradle-versions-plugin:${Version.gradle.dependencyUpdate}"
-        val jacoco = "org.jacoco:org.jacoco.core:${Version.gradle.jacoco}"
-        val publishing = "org.eclipse.jgit:org.eclipse.jgit:${Version.gradle.publishing}"
-        val versioning = "com.palantir.gradle.gitversion:gradle-git-version:${Version.gradle.versioning}"
+        const val android = "com.android.tools.build:gradle:${Version.gradle.android}"
+        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.gradle.kotlin}"
+        const val owasp = "org.owasp:dependency-check-gradle:${Version.gradle.owasp}"
+        const val dependencyUpdate = "com.github.ben-manes:gradle-versions-plugin:${Version.gradle.dependencyUpdate}"
+        const val jacoco = "org.jacoco:org.jacoco.core:${Version.gradle.jacoco}"
+        const val publishing = "org.eclipse.jgit:org.eclipse.jgit:${Version.gradle.publishing}"
+        const val versioning = "com.palantir.gradle.gitversion:gradle-git-version:${Version.gradle.versioning}"
+        const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Version.gradle.spotless}"
+        const val ktlint = "com.pinterest:ktlint:${Version.gradle.ktlint}"
     }
 
     val test = Test
 
     object Test {
-        val kotlinTest = "org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}"
-        val junit = "org.junit:junit-bom:${Version.test.junit}"
-        val jupiter = "org.junit.jupiter:junit-jupiter"
-        val mockk = "io.mockk:mockk:${Version.test.mockk}"
-        val fixture = "com.appmattus.fixture:fixture:${Version.test.fixture}"
+        const val kotlinTest = "org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin}"
+        const val junit = "org.junit:junit-bom:${Version.test.junit}"
+        const val jupiter = "org.junit.jupiter:junit-jupiter"
+        const val mockk = "io.mockk:mockk:${Version.test.mockk}"
+        const val fixture = "com.appmattus.fixture:fixture:${Version.test.fixture}"
     }
 }
