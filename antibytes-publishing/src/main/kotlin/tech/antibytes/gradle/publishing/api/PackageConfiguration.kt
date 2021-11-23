@@ -9,11 +9,11 @@ package tech.antibytes.gradle.publishing.api
 import tech.antibytes.gradle.publishing.PublishingApiContract
 
 data class PackageConfiguration(
-    override val artifactId: String?,
-    override val groupId: String?,
+    override val artifactId: String? = null,
+    override val groupId: String? = null,
     override val pom: PublishingApiContract.PomConfiguration,
     override val developers: List<PublishingApiContract.DeveloperConfiguration>,
-    override val contributors: List<PublishingApiContract.ContributorConfiguration>,
+    override val contributors: List<PublishingApiContract.ContributorConfiguration> = emptyList(),
     override val license: PublishingApiContract.LicenseConfiguration,
     override val scm: PublishingApiContract.SourceControlConfiguration
 ) : PublishingApiContract.PackageConfiguration
