@@ -21,15 +21,9 @@ dependency:
   - antibytes-dependency/**/*
 
 # Version Plugin
-versioning:
-  - antibytes-versioning/**/*
+coverage:
+  - antibytes-coverage/**/*
 
 # Publishing Plugin
 publishing:
   - antibytes-publishing/**/*
-
-# Sample Apps
-sample-android:
-  - sample-android/**/*
-sample-jvm:
-  - sample-jvm/**/*

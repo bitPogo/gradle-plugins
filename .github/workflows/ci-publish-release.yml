@@ -30,5 +30,3 @@ jobs:
         run: ./gradlew clean
       - name: Build
         run: ./gradlew build
-      - name: Build project
-        run: ./gradlew build
