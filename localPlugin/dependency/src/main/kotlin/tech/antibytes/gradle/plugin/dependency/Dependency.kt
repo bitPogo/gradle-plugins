@@ -10,13 +10,15 @@ object Dependency {
     val gradle = GradlePlugin
 
     object GradlePlugin {
-        const val android = "com.android.tools.build:gradle:${Version.android}"
-        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
+        const val android = "com.android.tools.build:gradle:${Version.gradle.android}"
+        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.gradle.kotlin}"
         const val owasp = "org.owasp:dependency-check-gradle:${Version.gradle.owasp}"
         const val dependencyUpdate = "com.github.ben-manes:gradle-versions-plugin:${Version.gradle.dependencyUpdate}"
         const val jacoco = "org.jacoco:org.jacoco.core:${Version.gradle.jacoco}"
         const val publishing = "org.eclipse.jgit:org.eclipse.jgit:${Version.gradle.publishing}"
         const val versioning = "com.palantir.gradle.gitversion:gradle-git-version:${Version.gradle.versioning}"
+        const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Version.gradle.spotless}"
+        const val ktlint = "com.pinterest:ktlint:${Version.gradle.ktlint}"
     }
 
     val test = Test

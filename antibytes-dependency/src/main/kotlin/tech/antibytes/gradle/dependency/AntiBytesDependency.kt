@@ -10,19 +10,27 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 class AntiBytesDependency : Plugin<Project> {
+    private val plugins = listOf(
+        "com.github.ben-manes.versions",
+        "org.owasp.dependencycheck",
+        "com.diffplug.spotless"
+    )
+
+    private fun applyDependencyPlugins(project: Project) {
+        plugins.forEach { pluginName ->
+            if (!project.plugins.hasPlugin(pluginName)) {
+                project.plugins.apply(pluginName)
+            }
+        }
+    }
+
     override fun apply(target: Project) {
         val extension = target.extensions.create(
             "antiBytesDependency",
             AntiBytesDependencyExtension::class.java
         )
 
-        if (!target.plugins.hasPlugin("com.github.ben-manes.versions")) {
-            target.plugins.apply("com.github.ben-manes.versions")
-        }
-
-        if (!target.plugins.hasPlugin("org.owasp.dependencycheck")) {
-            target.plugins.apply("org.owasp.dependencycheck")
-        }
+        applyDependencyPlugins(target)
 
         DependencyUpdate.configure(target, extension)
     }

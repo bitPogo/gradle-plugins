@@ -95,6 +95,34 @@ class AntiBytesDependencySpec {
     }
 
     @Test
+    fun `Given apply is called with a Project it invokes the dependency update plugin and applies the Spotless plugin`() {
+        // Given
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val plugins: PluginContainer = mockk()
+        val extension: AntiBytesDependencyExtension = mockk()
+
+        every { project.extensions } returns extensions
+        every {
+            extensions.create("antiBytesDependency", any<Class<*>>())
+        } returns extension
+
+        every { project.plugins } returns plugins
+
+        every { plugins.hasPlugin(any<String>()) } returns true
+        every { DependencyUpdate.configure(any(), any()) } just Runs
+
+        every { plugins.hasPlugin("com.diffplug.spotless") } returns false
+        every { plugins.apply("com.diffplug.spotless") } returns mockk()
+
+        // When
+        AntiBytesDependency().apply(project)
+
+        // Then
+        verify(atLeast = 1) { plugins.apply("com.diffplug.spotless") }
+    }
+
+    @Test
     fun `Given apply is called with a Project it invokes the dependency update plugin and applies the OWASP plugin`() {
         // Given
         val project: Project = mockk()
@@ -146,6 +174,7 @@ class AntiBytesDependencySpec {
         // Then
         verify(exactly = 0) { plugins.apply("com.github.ben-manes.versions") }
         verify(exactly = 0) { plugins.apply("org.owasp.dependencycheck") }
+        verify(exactly = 0) { plugins.apply("com.diffplug.spotless") }
         verify(exactly = 1) { DependencyUpdate.configure(project, extension) }
     }
 }

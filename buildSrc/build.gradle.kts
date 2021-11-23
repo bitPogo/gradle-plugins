@@ -28,5 +28,5 @@ dependencies {
     implementation("com.palantir.gradle.gitversion:gradle-git-version:0.12.3")
     // spotless
     implementation("com.diffplug.spotless:spotless-plugin-gradle:5.14.3")
-    implementation("com.pinterest:ktlint:0.42.1")
+    implementation("com.pinterest:ktlint:0.43.0")
 }

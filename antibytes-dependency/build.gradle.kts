@@ -25,8 +25,11 @@ group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(Dependency.gradle.kotlin)
+    implementation(Dependency.gradle.android)
     implementation(Dependency.gradle.dependencyUpdate)
     implementation(Dependency.gradle.owasp)
+    implementation(Dependency.gradle.ktlint)
+    // TODO Add spotless 6.x when it works with newer version of ktlint
 
     testImplementation(Dependency.test.kotlinTest)
     testImplementation(platform(Dependency.test.junit))
