@@ -31,5 +31,5 @@ jobs:
         run: ./gradlew clean
       - name: Build
         run: ./gradlew build
-      - name: Publish snapshot package
+      - name: Publish to Snapshot Repository
         run: ./gradlew publishSnapshot

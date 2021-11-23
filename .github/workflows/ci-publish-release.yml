@@ -30,3 +30,5 @@ jobs:
         run: ./gradlew clean
       - name: Build
         run: ./gradlew build
+      - name: Publish to Release Repository
+        run: ./gradlew publishRelease

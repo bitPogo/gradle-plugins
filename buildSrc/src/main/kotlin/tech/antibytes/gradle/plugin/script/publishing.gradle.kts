@@ -88,7 +88,7 @@ val cloneDevRepository: Task by tasks.creating {
     }
 }
 
-val publishDev: Task by tasks.creating {
+val publishDevelopment: Task by tasks.creating {
     group = taskGroup
 
     dependsOn("setProjectVersion")
@@ -175,7 +175,7 @@ project.afterEvaluate {
         }
     }
 
-    publishDev.dependsOn(dev)
+    publishDevelopment.dependsOn(dev)
     publishSnapshot.dependsOn(snapshot)
     publishRelease.dependsOn(release)
 }
