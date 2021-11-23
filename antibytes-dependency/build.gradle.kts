@@ -41,10 +41,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.dependency") {
+    plugins.register("${LibraryConfig.group}.gradle.dependency") {
         group = LibraryConfig.group
-        id = "${LibraryConfig.group}.dependency"
+        id = "${LibraryConfig.group}.gradle.dependency"
         implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependency"
+        displayName = "${id}.gradle.plugin"
         description = "General dependencies for Antibytes projects"
         version = "0.1.0"
     }

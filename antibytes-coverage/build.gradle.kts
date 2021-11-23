@@ -44,7 +44,7 @@ java {
 gradlePlugin {
     plugins.register("${LibraryConfig.group}.coverage") {
         group = LibraryConfig.group
-        id = "${LibraryConfig.group}.coverage"
+        id = "${LibraryConfig.group}.gradle.coverage"
         displayName = "${id}.gradle.plugin"
         implementationClass = "tech.antibytes.gradle.coverage.AntiBytesCoverage"
         description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes"
