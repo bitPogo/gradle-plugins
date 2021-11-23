@@ -59,14 +59,14 @@
   color: e56992
 
 # Library
-- name: dependency
+- name: dependency-plugin
   description: dependency changes
   color: 000080
 
-- name: coverage
+- name: coverage-plugin
   description: coverage changes
   color: 000080
 
-- name: publishing
+- name: publishing-plugin
   description: versioning changes
   color: 000080
