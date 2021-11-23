@@ -15,6 +15,7 @@ object Version {
 
     object GradlePlugin {
         const val dependencyUpdate = "0.39.0"
+        const val owasp = "6.5.0.1"
         const val jacoco = "0.8.7"
         const val publishing = "5.13.0.202109080827-r"
         const val versioning = "0.12.2" // see: https://github.com/palantir/gradle-git-version/issues/353

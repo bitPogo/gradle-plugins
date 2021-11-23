@@ -26,6 +26,7 @@ group = LibraryConfig.PublishConfig.groupId
 dependencies {
     implementation(Dependency.gradle.kotlin)
     implementation(Dependency.gradle.dependencyUpdate)
+    implementation(Dependency.gradle.owasp)
 
     testImplementation(Dependency.test.kotlinTest)
     testImplementation(platform(Dependency.test.junit))

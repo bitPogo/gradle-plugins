@@ -20,6 +20,10 @@ class AntiBytesDependency : Plugin<Project> {
             target.plugins.apply("com.github.ben-manes.versions")
         }
 
+        if (!target.plugins.hasPlugin("org.owasp.dependencycheck")) {
+            target.plugins.apply("org.owasp.dependencycheck")
+        }
+
         DependencyUpdate.configure(target, extension)
     }
 }
