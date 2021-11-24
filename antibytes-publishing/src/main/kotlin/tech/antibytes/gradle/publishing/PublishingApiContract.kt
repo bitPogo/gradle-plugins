@@ -8,9 +8,9 @@ package tech.antibytes.gradle.publishing
 
 interface PublishingApiContract {
     interface VersioningConfiguration {
-        val releasePattern: Regex
-        val featurePattern: Regex
-        val dependencyBotPattern: Regex
+        val releasePrefixes: List<String>
+        val featurePrefixes: List<String>
+        val dependencyBotPrefixes: List<String>
         val issuePattern: Regex?
         val useGitHashFeatureSuffix: Boolean
 

@@ -26,8 +26,8 @@ class AntiBytesPublishingPluginExtensionSpec {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
         assertEquals(
-            actual = extension.versioning.releasePattern.pattern,
-            expected = VersioningConfiguration().releasePattern.pattern
+            actual = extension.versioning.releasePrefixes,
+            expected = VersioningConfiguration().releasePrefixes
         )
 
         assertEquals(
@@ -41,8 +41,8 @@ class AntiBytesPublishingPluginExtensionSpec {
         )
 
         assertEquals(
-            actual = extension.versioning.featurePattern.pattern,
-            expected = VersioningConfiguration().featurePattern.pattern
+            actual = extension.versioning.featurePrefixes,
+            expected = VersioningConfiguration().featurePrefixes
         )
 
         assertEquals(
@@ -51,8 +51,8 @@ class AntiBytesPublishingPluginExtensionSpec {
         )
 
         assertEquals(
-            actual = extension.versioning.dependencyBotPattern.pattern,
-            expected = VersioningConfiguration().dependencyBotPattern.pattern
+            actual = extension.versioning.dependencyBotPrefixes,
+            expected = VersioningConfiguration().dependencyBotPrefixes
         )
     }
 

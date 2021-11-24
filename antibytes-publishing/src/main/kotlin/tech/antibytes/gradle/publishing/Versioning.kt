@@ -59,15 +59,25 @@ internal object Versioning : PublishingContract.Versioning {
         return normalized
     }
 
+    private fun resolveSnapshotPattern(prefixes: List<String>): Regex {
+        val prefixPattern = prefixes.joinToString("|")
+
+        return "($prefixPattern)/(.*)".toRegex()
+    }
+
     private fun extractBranchName(
-        pattern: Regex,
+        prefixes: List<String>,
         name: String
-    ): String = pattern.matchEntire(name)!!.groups[1]!!.value
+    ): String {
+        val pattern = resolveSnapshotPattern(prefixes)
+
+        return pattern.matchEntire(name)!!.groups[2]!!.value
+    }
 
     private fun renderDependencyBotBranch(details: VersionDetails): String {
         val infix = normalize(
             extractBranchName(
-                configuration.dependencyBotPattern,
+                configuration.dependencyBotPrefixes,
                 details.branchName
             )
         )
@@ -102,14 +112,19 @@ internal object Versioning : PublishingContract.Versioning {
         return version.joinToString(SEPARATOR)
     }
 
+    private fun extractIssue(
+        pattern: Regex,
+        name: String
+    ): String = pattern.matchEntire(name)!!.groups[1]!!.value
+
     private fun renderFeatureBranch(details: VersionDetails, useGitHash: Boolean): String {
         var infix = extractBranchName(
-            configuration.featurePattern,
+            configuration.featurePrefixes,
             details.branchName
         )
 
         infix = if (configuration.issuePattern is Regex && configuration.issuePattern!!.matches(infix)) {
-            extractBranchName(
+            extractIssue(
                 configuration.issuePattern!!,
                 infix
             )
@@ -130,11 +145,21 @@ internal object Versioning : PublishingContract.Versioning {
         )
     }
 
+    private fun resolveReleaseBranchPattern(releaseBranchNames: List<String>): Regex {
+        val branchNames = releaseBranchNames.joinToString("|")
+
+        return "$branchNames/.*".toRegex()
+    }
+
     private fun resolveVersionName(details: VersionDetails): String {
+        val releaseBranchPattern = resolveReleaseBranchPattern(configuration.releasePrefixes)
+        val dependencyBotPattern = resolveSnapshotPattern(configuration.dependencyBotPrefixes)
+        val featureBranchPattern = resolveSnapshotPattern(configuration.featurePrefixes)
+
         return when {
-            details.branchName.matches(configuration.releasePattern) -> renderReleaseBranch(details)
-            details.branchName.matches(configuration.dependencyBotPattern) -> renderDependencyBotBranch(details)
-            details.branchName.matches(configuration.featurePattern) -> renderFeatureBranch(details, configuration.useGitHashFeatureSuffix)
+            details.branchName.matches(releaseBranchPattern) -> renderReleaseBranch(details)
+            details.branchName.matches(dependencyBotPattern) -> renderDependencyBotBranch(details)
+            details.branchName.matches(featureBranchPattern) -> renderFeatureBranch(details, configuration.useGitHashFeatureSuffix)
             else -> throw PublishingError.VersioningError(
                 "Ill named branch name (${details.branchName})! Please adjust it to match the project settings."
             )

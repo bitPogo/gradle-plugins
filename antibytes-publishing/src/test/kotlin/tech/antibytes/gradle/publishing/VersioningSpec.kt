@@ -25,9 +25,9 @@ import kotlin.test.assertTrue
 class VersioningSpec {
     private val fixture = kotlinFixture()
     private val versionTestConfiguration = VersioningConfiguration(
-        releasePattern = "xxx".toRegex(),
-        featurePattern = "xxx".toRegex(),
-        dependencyBotPattern = "xxx".toRegex(),
+        releasePrefixes = listOf("xxx"),
+        featurePrefixes = listOf("xxx"),
+        dependencyBotPrefixes = listOf("xxx"),
         issuePattern = null,
         versionPrefix = "xxx",
         normalization = emptySet()
@@ -87,7 +87,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected.dirty"
 
         val configuration = versionTestConfiguration.copy(
-            releasePattern = "main|release/.*".toRegex(),
+            releasePrefixes = listOf("main", "release"),
             versionPrefix = versionPrefix
         )
 
@@ -134,7 +134,7 @@ class VersioningSpec {
         val distance = 19
 
         val configuration = versionTestConfiguration.copy(
-            releasePattern = "main|release/.*".toRegex(),
+            releasePrefixes = listOf("main", "release"),
             versionPrefix = versionPrefix
         )
 
@@ -180,7 +180,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            releasePattern = "main|release/.*".toRegex(),
+            releasePrefixes = listOf("main", "release"),
             versionPrefix = versionPrefix
         )
 
@@ -227,7 +227,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            dependencyBotPattern = "dependabot/(.*)".toRegex(),
+            dependencyBotPrefixes = listOf("dependabot"),
             versionPrefix = versionPrefix
         )
 
@@ -274,7 +274,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            dependencyBotPattern = "dependabot/(.*)".toRegex(),
+            dependencyBotPrefixes = listOf("dependabot"),
             versionPrefix = versionPrefix,
             normalization = setOf("_", "?", "\$")
         )
@@ -327,7 +327,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            featurePattern = "feature/(.*)".toRegex(),
+            featurePrefixes = listOf("feature", "newStuff"),
             versionPrefix = versionPrefix
         )
 
@@ -368,13 +368,13 @@ class VersioningSpec {
     @Test
     fun `Given versionName is called, it renders and normalizes a feature branch`() {
         val branchAction = "test_abc?dfg\$asd"
-        val branchName = "feature/$branchAction"
+        val branchName = "newStuff/$branchAction"
         val expected = "1.15.1"
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            featurePattern = "feature/(.*)".toRegex(),
+            featurePrefixes = listOf("feature", "newStuff"),
             versionPrefix = versionPrefix,
             normalization = setOf("_", "?", "\$")
         )
@@ -428,7 +428,7 @@ class VersioningSpec {
         val hash: String = fixture()
 
         val configuration = versionTestConfiguration.copy(
-            featurePattern = "feature/(.*)".toRegex(),
+            featurePrefixes = listOf("feature", "newStuff"),
             versionPrefix = versionPrefix,
             useGitHashFeatureSuffix = true
         )
@@ -477,7 +477,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            featurePattern = "feature/(.*)".toRegex(),
+            featurePrefixes = listOf("feature", "newStuff"),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
         )
@@ -519,14 +519,14 @@ class VersioningSpec {
     @Test
     fun `Given versionName is called, it renders a feature branch with a issue number and suffix, if the useGitHashFeatureSuffix is true `() {
         val branchAction = "test"
-        val branchName = "feature/issue-123/$branchAction"
+        val branchName = "newStuff/issue-123/$branchAction"
         val expected = "1.15.1"
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
         val hash: String = fixture()
 
         val configuration = versionTestConfiguration.copy(
-            featurePattern = "feature/(.*)".toRegex(),
+            featurePrefixes = listOf("feature", "newStuff"),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
             useGitHashFeatureSuffix = true
@@ -570,13 +570,13 @@ class VersioningSpec {
     @Test
     fun `Given versionName is called, it renders a feature branch and ignores the issue number if the pattern does not matches`() {
         val branchAction = "test"
-        val branchName = "feature/sue-123/$branchAction"
+        val branchName = "newStuff/sue-123/$branchAction"
         val expected = "1.15.1"
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            featurePattern = "feature/(.*)".toRegex(),
+            featurePrefixes = listOf("feature", "newStuff"),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
         )
@@ -611,7 +611,7 @@ class VersioningSpec {
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-${branchName.substringAfter("feature/")}-SNAPSHOT"
+            expected = "$expected-${branchName.substringAfter("newStuff/")}-SNAPSHOT"
         )
     }
 
@@ -624,7 +624,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            featurePattern = "feature/(.*)".toRegex(),
+            featurePrefixes = listOf("feature", "newStuff"),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
             normalization = setOf("_", "?", "\$")
@@ -678,7 +678,7 @@ class VersioningSpec {
         val version = "$versionPrefix$expected"
 
         val configuration = versionTestConfiguration.copy(
-            releasePattern = "main|release/.*".toRegex(),
+            releasePrefixes = listOf("main", "release"),
             versionPrefix = versionPrefix
         )
 

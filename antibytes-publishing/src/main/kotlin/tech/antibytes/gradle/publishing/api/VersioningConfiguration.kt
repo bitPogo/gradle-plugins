@@ -9,9 +9,9 @@ package tech.antibytes.gradle.publishing.api
 import tech.antibytes.gradle.publishing.PublishingApiContract
 
 data class VersioningConfiguration(
-    override val releasePattern: Regex = "main|release/.*".toRegex(),
-    override val featurePattern: Regex = "feature/(.*)".toRegex(),
-    override val dependencyBotPattern: Regex = "dependabot/(.*)".toRegex(),
+    override val releasePrefixes: List<String> = listOf("main", "release"),
+    override val featurePrefixes: List<String> = listOf("feature"),
+    override val dependencyBotPrefixes: List<String> = listOf("dependabot"),
     override val issuePattern: Regex? = null,
     override val useGitHashFeatureSuffix: Boolean = false,
     override val versionPrefix: String = "v",
