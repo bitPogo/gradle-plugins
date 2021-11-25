@@ -11,13 +11,14 @@ import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
-import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver
 import tech.antibytes.gradle.coverage.configuration.makePath
 import tech.antibytes.gradle.coverage.source.SourceHelper
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
+import tech.antibytes.gradle.util.PlatformContextResolver
 
 internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatformConfigurationProvider {
     private fun resolveTestDependency(
-        context: ConfigurationContract.PlatformContext
+        context: PlatformContext
     ): Set<String> {
         return if (PlatformContextResolver.isKmp(context)) {
             setOf("${context.prefix}Test")
@@ -27,7 +28,7 @@ internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatform
     }
 
     private fun resolveClassPattern(
-        context: ConfigurationContract.PlatformContext
+        context: PlatformContext
     ): Set<String> {
         return if (PlatformContextResolver.isKmp(context)) {
             setOf(
@@ -43,7 +44,7 @@ internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatform
     }
 
     private fun resolveClassFilter(
-        context: ConfigurationContract.PlatformContext
+        context: PlatformContext
     ): Set<String> {
         return if (PlatformContextResolver.isKmp(context)) {
             setOf(
@@ -60,7 +61,7 @@ internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatform
 
     override fun createDefaultCoverageConfiguration(
         project: Project,
-        context: ConfigurationContract.PlatformContext
+        context: PlatformContext
     ): CoverageApiContract.JacocoCoverageConfiguration {
         return JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(),

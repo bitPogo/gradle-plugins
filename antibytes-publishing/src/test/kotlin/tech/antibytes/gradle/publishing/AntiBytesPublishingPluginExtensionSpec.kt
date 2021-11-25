@@ -18,7 +18,7 @@ class AntiBytesPublishingPluginExtensionSpec {
     fun `It fulfils PublishingConfiguration`() {
         val extension: Any = createExtension<AntiBytesPublishingPluginExtension>()
 
-        assertTrue(extension is PublishingContract.PublishingPluginConfiguration)
+        assertTrue(extension is PublishingContract.PublishingPluginExtension)
     }
 
     @Test

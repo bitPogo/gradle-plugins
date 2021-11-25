@@ -11,17 +11,17 @@ import tech.antibytes.gradle.publishing.createExtension
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class AntiBytesDependencyExtensionSpec {
+class AntiBytesDependencyPluginExtensionSpec {
     @Test
-    fun `It fulfils DependencyExtension`() {
-        val extension: Any = createExtension<AntiBytesDependencyExtension>()
+    fun `It fulfils DependencyPluginExtension`() {
+        val extension: Any = createExtension<AntiBytesDependencyPluginExtension>()
 
-        assertTrue(extension is DependencyContract.Extension)
+        assertTrue(extension is DependencyContract.DependencyPluginExtension)
     }
 
     @Test
     fun `It has default Keywords`() {
-        val extension: AntiBytesDependencyExtension = createExtension()
+        val extension: AntiBytesDependencyPluginExtension = createExtension()
 
         assertEquals(
             actual = extension.keywords.get(),
@@ -31,7 +31,7 @@ class AntiBytesDependencyExtensionSpec {
 
     @Test
     fun `It has default StableRegex`() {
-        val extension: AntiBytesDependencyExtension = createExtension()
+        val extension: AntiBytesDependencyPluginExtension = createExtension()
 
         assertEquals(
             actual = extension.versionRegex.get().pattern,

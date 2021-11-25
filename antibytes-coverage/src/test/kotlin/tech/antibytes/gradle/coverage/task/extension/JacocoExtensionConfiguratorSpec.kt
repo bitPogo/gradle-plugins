@@ -15,7 +15,7 @@ import io.mockk.verify
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.junit.Test
-import tech.antibytes.gradle.coverage.AntiBytesCoverageExtension
+import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.task.TaskContract
 import kotlin.test.assertTrue
 
@@ -34,7 +34,7 @@ class JacocoExtensionConfiguratorSpec {
         // Given
         val version: String = fixture()
         val project: Project = mockk()
-        val configuration: AntiBytesCoverageExtension = mockk()
+        val configuration: AntiBytesCoveragePluginExtension = mockk()
 
         val jacocoExtension: JacocoPluginExtension = mockk()
 

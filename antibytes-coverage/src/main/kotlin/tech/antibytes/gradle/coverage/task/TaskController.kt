@@ -8,20 +8,20 @@ package tech.antibytes.gradle.coverage.task
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.coverage.AntiBytesCoverageExtension
+import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract.AndroidJacocoCoverageConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCoverageConfiguration
 import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.CoverageError
-import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver.isKmp
-import tech.antibytes.gradle.coverage.isRoot
 import tech.antibytes.gradle.coverage.task.extension.AndroidExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.extension.JacocoExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationVerificationTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
+import tech.antibytes.gradle.util.PlatformContextResolver.isKmp
+import tech.antibytes.gradle.util.isRoot
 
 internal object TaskController : CoverageContract.TaskController {
     private fun configureJacocoTask(
@@ -49,7 +49,7 @@ internal object TaskController : CoverageContract.TaskController {
     private fun configureJacocoExtensions(
         project: Project,
         contextId: String,
-        extension: AntiBytesCoverageExtension,
+        extension: AntiBytesCoveragePluginExtension,
     ) {
         JacocoExtensionConfigurator.configure(project, extension)
         val configuration = extension.configurations[contextId]
@@ -98,7 +98,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     private fun configureModule(
         project: Project,
-        extension: AntiBytesCoverageExtension
+        extension: AntiBytesCoveragePluginExtension
     ) {
         val tasks = mutableMapOf<Task, Task?>()
         extension.configurations.forEach { (contextId, configuration) ->
@@ -119,7 +119,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     private fun configureAggregation(
         project: Project,
-        extension: AntiBytesCoverageExtension
+        extension: AntiBytesCoveragePluginExtension
     ) {
         val tasks = mutableMapOf<Task, Task?>()
         extension.configurations.forEach { (contextId, configuration) ->
@@ -140,7 +140,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     override fun configure(
         project: Project,
-        extension: AntiBytesCoverageExtension
+        extension: AntiBytesCoveragePluginExtension
     ) {
         if (project.isRoot()) {
             configureAggregation(project, extension)

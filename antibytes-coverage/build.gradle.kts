@@ -27,6 +27,7 @@ dependencies {
     implementation(Dependency.gradle.kotlin)
     implementation(Dependency.gradle.android)
     implementation(Dependency.gradle.jacoco)
+    implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(Dependency.test.kotlinTest)
     testImplementation(platform(Dependency.test.junit))

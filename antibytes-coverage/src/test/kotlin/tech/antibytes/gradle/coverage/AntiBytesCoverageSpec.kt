@@ -21,9 +21,9 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
-import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver
 import tech.antibytes.gradle.coverage.task.TaskController
 import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.util.PlatformContextResolver
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -54,15 +54,15 @@ class AntiBytesCoverageSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -81,7 +81,7 @@ class AntiBytesCoverageSpec {
         verify(exactly = 1) {
             project.extensions.create(
                 "antiBytesCoverage",
-                AntiBytesCoverageExtension::class.java,
+                AntiBytesCoveragePluginExtension::class.java,
                 project
             )
         }
@@ -97,7 +97,7 @@ class AntiBytesCoverageSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
@@ -110,11 +110,11 @@ class AntiBytesCoverageSpec {
         val actualConfigurations = givenConfigurations.toMutableMap()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -151,7 +151,7 @@ class AntiBytesCoverageSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
@@ -164,11 +164,11 @@ class AntiBytesCoverageSpec {
         val actualConfigurations = givenConfigurations.toMutableMap()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -205,7 +205,7 @@ class AntiBytesCoverageSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf()
         val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
@@ -216,11 +216,11 @@ class AntiBytesCoverageSpec {
         val actualConfigurations = givenConfigurations.toMutableMap()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -259,7 +259,7 @@ class AntiBytesCoverageSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf()
         val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
@@ -270,11 +270,11 @@ class AntiBytesCoverageSpec {
         val actualConfigurations = givenConfigurations.toMutableMap()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -309,15 +309,15 @@ class AntiBytesCoverageSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns mockk()
+        every { plugins.hasPlugin("jacoco") } returns true
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs

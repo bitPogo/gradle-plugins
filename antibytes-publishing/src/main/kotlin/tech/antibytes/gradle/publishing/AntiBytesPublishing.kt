@@ -8,21 +8,19 @@ package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import tech.antibytes.gradle.publishing.PublishingContract.Companion.DEPENDENCIES
+import tech.antibytes.gradle.publishing.PublishingContract.Companion.EXTENSION_ID
 import tech.antibytes.gradle.publishing.publisher.PublisherController
+import tech.antibytes.gradle.util.applyIfNotExists
 
 class AntiBytesPublishing : Plugin<Project> {
     override fun apply(target: Project) {
         val extension = target.extensions.create(
-            "antiBytesPublishing",
+            EXTENSION_ID,
             AntiBytesPublishingPluginExtension::class.java
         )
 
-        if (!target.plugins.hasPlugin("com.palantir.git-version")) {
-            target.plugins.apply("com.palantir.git-version")
-        }
-        if (!target.plugins.hasPlugin("maven-publish")) {
-            target.plugins.apply("maven-publish")
-        }
+        target.applyIfNotExists(*DEPENDENCIES.toTypedArray())
 
         PublisherController.configure(target, extension)
     }

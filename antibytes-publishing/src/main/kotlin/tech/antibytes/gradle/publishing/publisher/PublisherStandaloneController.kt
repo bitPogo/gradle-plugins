@@ -17,10 +17,10 @@ import tech.antibytes.gradle.publishing.maven.MavenRegistry
 
 internal object PublisherStandaloneController : PublishingContract.PublisherController {
     private fun isApplicable(
-        configuration: PublishingContract.PublishingPluginConfiguration
+        extension: PublishingContract.PublishingPluginExtension
     ): Boolean {
-        return configuration.registryConfiguration.isNotEmpty() &&
-            configuration.packageConfiguration is PublishingApiContract.PackageConfiguration
+        return extension.registryConfiguration.isNotEmpty() &&
+            extension.packageConfiguration is PublishingApiContract.PackageConfiguration
     }
 
     private fun wireDependencies(
@@ -44,13 +44,13 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
 
     override fun configure(
         project: Project,
-        configuration: PublishingContract.PublishingPluginConfiguration
+        extension: PublishingContract.PublishingPluginExtension
     ) {
-        if (isApplicable(configuration)) {
-            val dryRun = configuration.dryRun
-            val registryConfigurations = configuration.registryConfiguration
-            val packageConfiguration = configuration.packageConfiguration as PublishingApiContract.PackageConfiguration
-            val versioningConfiguration = configuration.versioning
+        if (isApplicable(extension)) {
+            val dryRun = extension.dryRun
+            val registryConfigurations = extension.registryConfiguration
+            val packageConfiguration = extension.packageConfiguration as PublishingApiContract.PackageConfiguration
+            val versioningConfiguration = extension.versioning
 
             val version = Versioning.versionName(
                 project,

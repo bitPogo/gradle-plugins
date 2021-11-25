@@ -4,15 +4,14 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage.configuration
+package tech.antibytes.gradle.util
 
 import io.mockk.every
 import io.mockk.mockk
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.junit.Test
-import tech.antibytes.gradle.coverage.CoverageContract
-import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.PlatformContext
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -22,7 +21,7 @@ class PlatformContextResolverSpec {
     fun `It fulfils PlatformTypeResolver`() {
         val types: Any = PlatformContextResolver
 
-        assertTrue(types is CoverageContract.PlatformContextResolver)
+        assertTrue(types is GradleUtilApiContract.PlatformContextResolver)
     }
 
     @Test

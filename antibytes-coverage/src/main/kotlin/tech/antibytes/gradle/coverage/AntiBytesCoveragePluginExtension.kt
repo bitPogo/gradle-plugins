@@ -10,8 +10,9 @@ import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract.CoverageConfiguration
 import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.JACOCO_VERSION
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
+import tech.antibytes.gradle.util.isRoot
 
-abstract class AntiBytesCoverageExtension(project: Project) : CoverageContract.Extension {
+abstract class AntiBytesCoveragePluginExtension(project: Project) : CoverageContract.CoveragePluginExtension {
     override val configurations: MutableMap<String, CoverageConfiguration> = if (project.isRoot()) {
         mutableMapOf()
     } else {

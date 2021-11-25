@@ -27,7 +27,7 @@ internal interface PublishingContract {
         }
     }
 
-    interface PublishingPluginConfiguration {
+    interface PublishingPluginExtension {
         var excludeProjects: Set<String>
         var versioning: PublishingApiContract.VersioningConfiguration
         var registryConfiguration: Set<PublishingApiContract.RegistryConfiguration>
@@ -39,7 +39,15 @@ internal interface PublishingContract {
     fun interface PublisherController {
         fun configure(
             project: Project,
-            configuration: PublishingPluginConfiguration
+            extension: PublishingPluginExtension
+        )
+    }
+
+    companion object {
+        const val EXTENSION_ID = "antiBytesPublishing"
+        val DEPENDENCIES = listOf(
+            "com.palantir.git-version",
+            "maven-publish"
         )
     }
 }

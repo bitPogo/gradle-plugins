@@ -17,6 +17,7 @@ import org.junit.Test
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.source.SourceHelper
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
@@ -47,7 +48,7 @@ class JvmConfigurationProviderSpec {
         // When
         val config = JvmConfigurationProvider.createDefaultCoverageConfiguration(
             mockk(),
-            ConfigurationContract.PlatformContext.JVM
+            PlatformContext.JVM
         )
 
         // Then
@@ -60,7 +61,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, which does not indicate KMP, it returns a CoverageConfiguration, which contains the dependencies for TestTask`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM
+        val context = PlatformContext.JVM
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -77,7 +78,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, which indicates KMP, it returns a CoverageConfiguration, which contains the dependencies for TestTask`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM_KMP
+        val context = PlatformContext.JVM_KMP
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -94,7 +95,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, which indicates non KMP, it returns a CoverageConfiguration, which contains the default class pattern`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM
+        val context = PlatformContext.JVM
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -114,7 +115,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, which indicates KMP, it returns a CoverageConfiguration, which contains the default class pattern`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM_KMP
+        val context = PlatformContext.JVM_KMP
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -134,7 +135,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, which indicates non KMP, it returns a CoverageConfiguration, which contains the default class filter`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM
+        val context = PlatformContext.JVM
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -154,7 +155,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, which indicates KMP, it returns a CoverageConfiguration, which contains the default class filter`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM_KMP
+        val context = PlatformContext.JVM_KMP
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -174,7 +175,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains the default class filter`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM_KMP
+        val context = PlatformContext.JVM_KMP
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -194,7 +195,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains the sources`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM
+        val context = PlatformContext.JVM
 
         val project: Project = mockk()
         val sources: Set<File> = mockk()
@@ -214,7 +215,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains no additional classes`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM_KMP
+        val context = PlatformContext.JVM_KMP
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -231,7 +232,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains no additional sources`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM_KMP
+        val context = PlatformContext.JVM_KMP
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -248,7 +249,7 @@ class JvmConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains no violation rules`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.JVM_KMP
+        val context = PlatformContext.JVM_KMP
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 

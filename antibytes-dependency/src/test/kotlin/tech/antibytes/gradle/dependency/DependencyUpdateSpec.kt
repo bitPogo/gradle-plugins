@@ -39,7 +39,7 @@ class DependencyUpdateSpec {
         val currentVersion = "xyz-C"
         val candidateVersion = "lmp-X"
 
-        val config = object : DependencyContract.Extension {
+        val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C")
@@ -106,7 +106,7 @@ class DependencyUpdateSpec {
         val currentVersion = "lmp-B"
         val candidateVersion = "xyz-Y"
 
-        val config = object : DependencyContract.Extension {
+        val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C")
@@ -173,7 +173,7 @@ class DependencyUpdateSpec {
         val currentVersion = "lmp-Y"
         val candidateVersion = "xyz-B"
 
-        val config = object : DependencyContract.Extension {
+        val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C")
@@ -240,7 +240,7 @@ class DependencyUpdateSpec {
         val currentVersion = "lmp-Y"
         val candidateVersion = "lmp-Y"
 
-        val config = object : DependencyContract.Extension {
+        val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C")

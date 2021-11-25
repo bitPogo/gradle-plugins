@@ -14,15 +14,16 @@ import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
-import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.PlatformContext
 import tech.antibytes.gradle.coverage.configuration.makePath
 import tech.antibytes.gradle.coverage.source.SourceHelper
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
+import tech.antibytes.gradle.util.isAndroidLibrary
 
 internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlatformConfigurationProvider {
     private fun resolveTestDependency(): Set<String> = setOf("test${DEFAULT_ANDROID_MARKER}UnitTest")
 
     private fun resolveInstrumentedTestTasks(context: PlatformContext): Set<String> {
-        return if (context == PlatformContext.ANDROID_LIBRARY || context == PlatformContext.ANDROID_LIBRARY_KMP) {
+        return if (context.isAndroidLibrary()) {
             emptySet()
         } else {
             setOf("connected${DEFAULT_ANDROID_MARKER}AndroidTest")

@@ -4,15 +4,14 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.coverage.configuration
+package tech.antibytes.gradle.util
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import tech.antibytes.gradle.coverage.CoverageContract
-import tech.antibytes.gradle.coverage.configuration.ConfigurationContract.PlatformContext
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 
-internal object PlatformContextResolver : CoverageContract.PlatformContextResolver {
+object PlatformContextResolver : GradleUtilApiContract.PlatformContextResolver {
     private fun isAndroidApplication(project: Project): Boolean {
         return project.plugins.findPlugin("com.android.application") is Plugin<*>
     }

@@ -11,6 +11,7 @@ import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
+import tech.antibytes.gradle.util.isRoot
 
 internal object PublisherController : PublishingContract.PublisherController {
     private fun addVersionTask(
@@ -36,21 +37,20 @@ internal object PublisherController : PublishingContract.PublisherController {
 
     override fun configure(
         project: Project,
-        configuration: PublishingContract.PublishingPluginConfiguration,
+        extension: PublishingContract.PublishingPluginExtension,
     ) {
-        val isRoot = project.rootProject == project
-        if (isRoot) {
+        if (project.isRoot()) {
             project.evaluationDependsOnChildren()
         }
 
         project.afterEvaluate {
-            addVersionTask(project, configuration.versioning)
+            addVersionTask(project, extension.versioning)
 
             when {
-                configuration.excludeProjects.contains(project.name) -> { /* Do nothing */ }
-                configuration.standalone -> PublisherStandaloneController.configure(project, configuration)
-                isRoot -> PublisherRootProjectController.configure(project, configuration)
-                else -> PublisherSubProjectController.configure(project, configuration)
+                extension.excludeProjects.contains(project.name) -> { /* Do nothing */ }
+                extension.standalone -> PublisherStandaloneController.configure(project, extension)
+                project.isRoot() -> PublisherRootProjectController.configure(project, extension)
+                else -> PublisherSubProjectController.configure(project, extension)
             }
         }
     }

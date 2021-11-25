@@ -8,7 +8,7 @@ package tech.antibytes.gradle.publishing
 
 import tech.antibytes.gradle.publishing.api.VersioningConfiguration
 
-abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginConfiguration {
+abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginExtension {
     // Versioning
     override var versioning: PublishingApiContract.VersioningConfiguration = VersioningConfiguration()
 

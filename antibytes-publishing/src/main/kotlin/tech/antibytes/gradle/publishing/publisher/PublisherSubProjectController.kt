@@ -15,33 +15,33 @@ import tech.antibytes.gradle.publishing.maven.MavenRegistry
 
 internal object PublisherSubProjectController : PublishingContract.PublisherController {
     private fun isApplicable(
-        configuration: PublishingContract.PublishingPluginConfiguration
+        extension: PublishingContract.PublishingPluginExtension
     ): Boolean {
-        return configuration.registryConfiguration.isNotEmpty() &&
-            configuration.packageConfiguration is PublishingApiContract.PackageConfiguration
+        return extension.registryConfiguration.isNotEmpty() &&
+            extension.packageConfiguration is PublishingApiContract.PackageConfiguration
     }
 
     override fun configure(
         project: Project,
-        configuration: PublishingContract.PublishingPluginConfiguration
+        extension: PublishingContract.PublishingPluginExtension
     ) {
-        if (isApplicable(configuration)) {
+        if (isApplicable(extension)) {
             val version = Versioning.versionName(
                 project,
-                configuration.versioning
+                extension.versioning
             )
 
             MavenPublisher.configure(
                 project,
-                configuration.packageConfiguration as PublishingApiContract.PackageConfiguration,
+                extension.packageConfiguration as PublishingApiContract.PackageConfiguration,
                 version
             )
 
-            configuration.registryConfiguration.forEach { registry ->
+            extension.registryConfiguration.forEach { registry ->
                 MavenRegistry.configure(
                     project,
                     registry,
-                    configuration.dryRun
+                    extension.dryRun
                 )
             }
         }

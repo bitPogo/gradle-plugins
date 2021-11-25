@@ -46,7 +46,7 @@ class AntiBytesDependencySpec {
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
         val plugins: PluginContainer = mockk()
-        val extension: AntiBytesDependencyExtension = mockk()
+        val extension: AntiBytesDependencyPluginExtension = mockk()
 
         every { project.extensions } returns extensions
         every {
@@ -71,7 +71,7 @@ class AntiBytesDependencySpec {
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
         val plugins: PluginContainer = mockk()
-        val extension: AntiBytesDependencyExtension = mockk()
+        val extension: AntiBytesDependencyPluginExtension = mockk()
 
         every { project.extensions } returns extensions
         every {
@@ -100,7 +100,7 @@ class AntiBytesDependencySpec {
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
         val plugins: PluginContainer = mockk()
-        val extension: AntiBytesDependencyExtension = mockk()
+        val extension: AntiBytesDependencyPluginExtension = mockk()
 
         every { project.extensions } returns extensions
         every {
@@ -128,7 +128,7 @@ class AntiBytesDependencySpec {
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
         val plugins: PluginContainer = mockk()
-        val extension: AntiBytesDependencyExtension = mockk()
+        val extension: AntiBytesDependencyPluginExtension = mockk()
 
         every { project.extensions } returns extensions
         every {
@@ -156,7 +156,7 @@ class AntiBytesDependencySpec {
         val project: Project = mockk()
         val extensions: ExtensionContainer = mockk()
         val plugins: PluginContainer = mockk()
-        val extension: AntiBytesDependencyExtension = mockk()
+        val extension: AntiBytesDependencyPluginExtension = mockk()
 
         every { project.extensions } returns extensions
         every {

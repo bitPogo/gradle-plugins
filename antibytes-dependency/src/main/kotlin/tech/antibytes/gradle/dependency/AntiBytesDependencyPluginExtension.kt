@@ -9,7 +9,7 @@ package tech.antibytes.gradle.dependency
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
-abstract class AntiBytesDependencyExtension : DependencyContract.Extension {
+abstract class AntiBytesDependencyPluginExtension : DependencyContract.DependencyPluginExtension {
     abstract override val keywords: SetProperty<String>
     abstract override val versionRegex: Property<Regex>
 

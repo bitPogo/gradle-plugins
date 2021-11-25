@@ -11,7 +11,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
 internal interface DependencyContract {
-    interface Extension {
+    interface DependencyPluginExtension {
         val keywords: SetProperty<String>
         val versionRegex: Property<Regex>
     }
@@ -19,7 +19,16 @@ internal interface DependencyContract {
     interface Update {
         fun configure(
             project: Project,
-            configuration: Extension
+            configuration: DependencyPluginExtension
+        )
+    }
+
+    companion object {
+        const val EXTENSION_ID = "antiBytesDependency"
+        val DEPENDENCIES = listOf(
+            "com.github.ben-manes.versions",
+            "org.owasp.dependencycheck",
+            "com.diffplug.spotless"
         )
     }
 }

@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -91,7 +92,7 @@ class SourceHelperSpec {
         every { project.projectDir } returns files.projectDir
 
         // When
-        val resolved = SourceHelper.resolveSources(project, ConfigurationContract.PlatformContext.JVM)
+        val resolved = SourceHelper.resolveSources(project, PlatformContext.JVM)
 
         // Then
         assertEquals(
@@ -117,7 +118,7 @@ class SourceHelperSpec {
         every { project.projectDir } returns files.projectDir
 
         // When
-        val resolved = SourceHelper.resolveSources(project, ConfigurationContract.PlatformContext.JVM_KMP)
+        val resolved = SourceHelper.resolveSources(project, PlatformContext.JVM_KMP)
 
         // Then
         assertEquals(
