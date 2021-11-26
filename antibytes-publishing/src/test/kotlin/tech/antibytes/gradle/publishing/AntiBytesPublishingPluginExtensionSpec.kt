@@ -8,6 +8,7 @@ package tech.antibytes.gradle.publishing
 
 import org.junit.Test
 import tech.antibytes.gradle.publishing.api.VersioningConfiguration
+import tech.antibytes.gradle.test.createExtension
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
@@ -18,7 +19,7 @@ class AntiBytesPublishingPluginExtensionSpec {
     fun `It fulfils PublishingConfiguration`() {
         val extension: Any = createExtension<AntiBytesPublishingPluginExtension>()
 
-        assertTrue(extension is PublishingContract.PublishingPluginConfiguration)
+        assertTrue(extension is PublishingContract.PublishingPluginExtension)
     }
 
     @Test

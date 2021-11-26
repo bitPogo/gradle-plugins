@@ -19,9 +19,11 @@ plugins {
 
 include(
     ":antibytes-coverage",
-    ":antibytes-plugin-test",
+    ":antibytes-test-utils",
     ":antibytes-dependency",
-    ":antibytes-publishing"
+    ":antibytes-publishing",
+    ":antibytes-configuration",
+    ":antibytes-gradle-utils"
 )
 
 buildCache {

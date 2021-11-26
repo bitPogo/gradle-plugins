@@ -27,13 +27,14 @@ dependencies {
     implementation(Dependency.gradle.kotlin)
     implementation(Dependency.gradle.android)
     implementation(Dependency.gradle.jacoco)
+    implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(Dependency.test.kotlinTest)
     testImplementation(platform(Dependency.test.junit))
     testImplementation(Dependency.test.jupiter)
     testImplementation(Dependency.test.mockk)
     testImplementation(Dependency.test.fixture)
-    testImplementation(project(":antibytes-plugin-test"))
+    testImplementation(project(":antibytes-test-utils"))
 }
 
 java {

@@ -41,21 +41,21 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
 
     override fun configure(
         project: Project,
-        configuration: PublishingContract.PublishingPluginConfiguration
+        extension: PublishingContract.PublishingPluginExtension
     ) {
-        if (configuration.registryConfiguration.isNotEmpty()) {
+        if (extension.registryConfiguration.isNotEmpty()) {
             val version = Versioning.versionName(
                 project,
-                configuration.versioning
+                extension.versioning
             )
 
-            configuration.registryConfiguration.forEach { registry ->
+            extension.registryConfiguration.forEach { registry ->
                 val cloneTask = GitRepository.configureCloneTask(project, registry)
                 val pushTask = GitRepository.configurePushTask(
                     project,
                     registry,
                     version,
-                    configuration.dryRun
+                    extension.dryRun
                 )
 
                 val publishTask = addPublishingTask(project, registry)

@@ -8,29 +8,18 @@ package tech.antibytes.gradle.dependency
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import tech.antibytes.gradle.dependency.DependencyContract.Companion.DEPENDENCIES
+import tech.antibytes.gradle.dependency.DependencyContract.Companion.EXTENSION_ID
+import tech.antibytes.gradle.util.applyIfNotExists
 
 class AntiBytesDependency : Plugin<Project> {
-    private val plugins = listOf(
-        "com.github.ben-manes.versions",
-        "org.owasp.dependencycheck",
-        "com.diffplug.spotless"
-    )
-
-    private fun applyDependencyPlugins(project: Project) {
-        plugins.forEach { pluginName ->
-            if (!project.plugins.hasPlugin(pluginName)) {
-                project.plugins.apply(pluginName)
-            }
-        }
-    }
-
     override fun apply(target: Project) {
         val extension = target.extensions.create(
-            "antiBytesDependency",
-            AntiBytesDependencyExtension::class.java
+            EXTENSION_ID,
+            AntiBytesDependencyPluginExtension::class.java
         )
 
-        applyDependencyPlugins(target)
+        target.applyIfNotExists(*DEPENDENCIES.toTypedArray())
 
         DependencyUpdate.configure(target, extension)
     }

@@ -19,39 +19,24 @@ import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
-import tech.antibytes.gradle.coverage.AntiBytesCoverageExtension
+import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.CoverageError
-import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver
 import tech.antibytes.gradle.coverage.task.extension.AndroidExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.extension.JacocoExtensionConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationVerificationTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
-import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 class TaskControllerSpec {
     private val fixture = kotlinFixture()
-
-    @Before
-    fun setup() {
-        mockkObject(PlatformContextResolver)
-
-        every { PlatformContextResolver.isKmp(any<Project>()) } returns false
-    }
-
-    @After
-    fun tearDown() {
-        unmockkObject(PlatformContextResolver)
-    }
 
     @Test
     fun `It fulfils TaskController`() {
@@ -64,11 +49,12 @@ class TaskControllerSpec {
     fun `Given configure is called with a Project and AntiBytesCoverageExtension, it fails if the the map contains a unknown CoverageConfigurations Type`() {
         // Given
         val project: Project = mockk()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
         every { extension.configurations } returns mutableMapOf("unknown" to configuration)
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         // Then
         assertFailsWith<CoverageError.UnknownPlatformConfiguration> {
@@ -86,10 +72,11 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.JacocoCoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { extension.configurations } returns mutableMapOf(contextId to configuration)
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
@@ -119,10 +106,11 @@ class TaskControllerSpec {
         val project: Project = mockk()
         val contextId: String = fixture()
         val reporter: Task = mockk()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { extension.configurations } returns mutableMapOf(contextId to configuration)
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns reporter
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
@@ -154,7 +142,7 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
         val jacocoReporterTask: Task = mockk()
 
@@ -167,7 +155,7 @@ class TaskControllerSpec {
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
         every { AndroidExtensionConfigurator.configure(any()) } just Runs
 
-        every { PlatformContextResolver.isKmp(project) } returns true
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         invokeGradleAction(
@@ -201,7 +189,7 @@ class TaskControllerSpec {
         val project: Project = mockk()
         val tasks: TaskContainer = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
@@ -212,7 +200,7 @@ class TaskControllerSpec {
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
         every { AndroidExtensionConfigurator.configure(any()) } just Runs
 
-        every { PlatformContextResolver.isKmp(project) } returns true
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         // When
@@ -237,7 +225,7 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
         val jacocoVerificationTask: Task = mockk()
 
@@ -250,7 +238,7 @@ class TaskControllerSpec {
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
         every { AndroidExtensionConfigurator.configure(any()) } just Runs
 
-        every { PlatformContextResolver.isKmp(project) } returns true
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         invokeGradleAction(
@@ -277,11 +265,12 @@ class TaskControllerSpec {
     fun `Given configure is called with a Project, which is the ProjectRoot and AntiBytesCoverageExtension, it fails if the the map contains a unknown CoverageConfigurations Type`() {
         // Given
         val project: Project = mockk()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
         every { project.rootProject } returns project
         every { extension.configurations } returns mutableMapOf("unknown" to configuration)
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         // Then
         assertFailsWith<CoverageError.UnknownPlatformConfiguration> {
@@ -299,10 +288,11 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.JacocoAggregationConfiguration = mockk()
 
         every { project.rootProject } returns project
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { extension.configurations } returns mutableMapOf(contextId to configuration)
         every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
@@ -331,7 +321,7 @@ class TaskControllerSpec {
         val project: Project = mockk()
         val contextId1: String = fixture()
         val contextId2: String = fixture()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val configuration1: CoverageApiContract.AndroidJacocoAggregationConfiguration = mockk()
         val configuration2: CoverageApiContract.AndroidJacocoAggregationConfiguration = mockk()
         val task1: Task = mockk()
@@ -341,6 +331,7 @@ class TaskControllerSpec {
         val dependencies = slot<Set<Task>>()
 
         every { project.rootProject } returns project
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { extension.configurations } returns mutableMapOf(
             contextId1 to configuration1,
             contextId2 to configuration2
@@ -389,7 +380,7 @@ class TaskControllerSpec {
         val tasks: TaskContainer = mockk()
         val contextId1: String = fixture()
         val contextId2: String = fixture()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
 
         val configuration1: CoverageApiContract.AndroidJacocoAggregationConfiguration = mockk()
         val configuration2: CoverageApiContract.AndroidJacocoAggregationConfiguration = mockk()
@@ -400,6 +391,7 @@ class TaskControllerSpec {
         val dependencies = slot<Set<Task>>()
 
         every { project.rootProject } returns project
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { project.tasks } returns tasks
         every { extension.configurations } returns mutableMapOf(
             contextId1 to configuration1,
@@ -442,7 +434,7 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val tasks: TaskContainer = mockk()
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
 
         val contextId1: String = fixture()
         val contextId2: String = fixture()
@@ -457,6 +449,7 @@ class TaskControllerSpec {
         val verificationTask2: Task = mockk()
 
         every { project.rootProject } returns project
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { project.tasks } returns tasks
         every { extension.configurations } returns mutableMapOf(
             contextId1 to configuration1,

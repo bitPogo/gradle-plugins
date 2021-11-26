@@ -8,17 +8,10 @@ package tech.antibytes.gradle.coverage.configuration
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract
+import tech.antibytes.gradle.util.GradleUtilApiContract
 import java.io.File
 
 internal interface ConfigurationContract {
-    enum class PlatformContext(val prefix: String) {
-        ANDROID_APPLICATION("android"),
-        ANDROID_APPLICATION_KMP("android"),
-        ANDROID_LIBRARY("android"),
-        ANDROID_LIBRARY_KMP("android"),
-        JVM("jvm"),
-        JVM_KMP("jvm")
-    }
 
     data class SourceContainer(
         val platform: File,
@@ -26,13 +19,13 @@ internal interface ConfigurationContract {
     )
 
     fun interface SourceHelper {
-        fun resolveSources(project: Project, context: PlatformContext): Set<File>
+        fun resolveSources(project: Project, context: GradleUtilApiContract.PlatformContext): Set<File>
     }
 
     fun interface DefaultPlatformConfigurationProvider {
         fun createDefaultCoverageConfiguration(
             project: Project,
-            context: PlatformContext
+            context: GradleUtilApiContract.PlatformContext
         ): CoverageApiContract.CoverageConfiguration
     }
 }

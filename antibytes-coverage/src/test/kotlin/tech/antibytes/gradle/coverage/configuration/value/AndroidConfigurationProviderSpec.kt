@@ -17,6 +17,7 @@ import org.junit.Test
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.source.SourceHelper
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
@@ -47,7 +48,7 @@ class AndroidConfigurationProviderSpec {
         // When
         val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(
             mockk(),
-            ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+            PlatformContext.ANDROID_LIBRARY
         )
 
         // Then
@@ -60,7 +61,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains the dependencies for TestTask`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -77,7 +78,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, which indicates a Android Library, it returns a CoverageConfiguration, which has no InstrumentedTestTask`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -94,7 +95,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, which indicates a Android Library for KMP, it returns a CoverageConfiguration, which has no InstrumentedTestTask`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY_KMP
+        val context = PlatformContext.ANDROID_LIBRARY_KMP
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -111,7 +112,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which has a InstrumentedTestTask`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_APPLICATION
+        val context = PlatformContext.ANDROID_APPLICATION
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -128,7 +129,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains the default class pattern`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -148,7 +149,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains the default class filter`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -174,7 +175,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains the sources`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         val project: Project = mockk()
         val sources: Set<File> = mockk()
@@ -194,7 +195,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains no additional classes`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -211,7 +212,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains no additional sources`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -228,7 +229,7 @@ class AndroidConfigurationProviderSpec {
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains no violation rules`() {
         // Given
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -244,7 +245,7 @@ class AndroidConfigurationProviderSpec {
 
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration which contains the default variant`() {
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 
@@ -260,7 +261,7 @@ class AndroidConfigurationProviderSpec {
 
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration which contains the default flavour`() {
-        val context = ConfigurationContract.PlatformContext.ANDROID_LIBRARY
+        val context = PlatformContext.ANDROID_LIBRARY
 
         every { SourceHelper.resolveSources(any(), any()) } returns mockk()
 

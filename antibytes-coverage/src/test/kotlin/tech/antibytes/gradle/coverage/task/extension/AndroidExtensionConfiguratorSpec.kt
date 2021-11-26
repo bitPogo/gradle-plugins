@@ -22,7 +22,7 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import org.junit.Test
 import tech.antibytes.gradle.coverage.task.TaskContract
-import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.test.invokeGradleAction
 import java.io.File
 import kotlin.test.assertTrue
 import org.gradle.api.tasks.testing.Test as GradleTest

@@ -29,9 +29,9 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.api.RegistryConfiguration
 import tech.antibytes.gradle.publishing.git.GitRepository
-import tech.antibytes.gradle.publishing.invokeGradleAction
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRegistry
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class PublisherStandaloneControllerSpec {

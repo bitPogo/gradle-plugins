@@ -17,7 +17,7 @@ internal object DependencyUpdate : DependencyContract.Update {
     )
 
     private fun resolveStabilityIndicator(
-        configuration: DependencyContract.Extension,
+        configuration: DependencyContract.DependencyPluginExtension,
         current: String,
         candidate: String
     ): StabilityIndicator {
@@ -41,7 +41,7 @@ internal object DependencyUpdate : DependencyContract.Update {
     }
 
     private fun isRejectable(
-        configuration: DependencyContract.Extension,
+        configuration: DependencyContract.DependencyPluginExtension,
         current: String,
         candidate: String
     ): Boolean {
@@ -59,7 +59,7 @@ internal object DependencyUpdate : DependencyContract.Update {
 
     override fun configure(
         project: Project,
-        configuration: DependencyContract.Extension
+        configuration: DependencyContract.DependencyPluginExtension
     ) {
         project.tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
             resolutionStrategy {

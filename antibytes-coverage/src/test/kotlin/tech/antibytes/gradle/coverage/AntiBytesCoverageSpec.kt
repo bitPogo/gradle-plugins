@@ -21,9 +21,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
-import tech.antibytes.gradle.coverage.configuration.PlatformContextResolver
 import tech.antibytes.gradle.coverage.task.TaskController
-import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -31,15 +30,13 @@ class AntiBytesCoverageSpec {
     @Before
     fun setup() {
         mockkObject(TaskController)
-        mockkObject(PlatformContextResolver)
-
-        every { PlatformContextResolver.isKmp(any<Project>()) } returns false
+        mockkObject(DefaultConfigurationProvider)
     }
 
     @After
     fun tearDown() {
         unmockkObject(TaskController)
-        unmockkObject(PlatformContextResolver)
+        unmockkObject(DefaultConfigurationProvider)
     }
 
     @Test
@@ -54,15 +51,16 @@ class AntiBytesCoverageSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -81,7 +79,7 @@ class AntiBytesCoverageSpec {
         verify(exactly = 1) {
             project.extensions.create(
                 "antiBytesCoverage",
-                AntiBytesCoverageExtension::class.java,
+                AntiBytesCoveragePluginExtension::class.java,
                 project
             )
         }
@@ -92,12 +90,10 @@ class AntiBytesCoverageSpec {
 
     @Test
     fun `Given apply is called with a Project, it applies the JacocoPlugin, creates the Extension and will not override an existing contexts`() {
-        mockkObject(DefaultConfigurationProvider)
-
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
@@ -110,11 +106,11 @@ class AntiBytesCoverageSpec {
         val actualConfigurations = givenConfigurations.toMutableMap()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -126,7 +122,7 @@ class AntiBytesCoverageSpec {
 
         every { TaskController.configure(any(), any()) } just Runs
 
-        every { PlatformContextResolver.isKmp(project) } returns true
+        every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { extension.appendKmpJvmTask } returns true
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
@@ -140,18 +136,14 @@ class AntiBytesCoverageSpec {
             actual = actualConfigurations,
             expected = givenConfigurations
         )
-
-        unmockkObject(DefaultConfigurationProvider)
     }
 
     @Test
     fun `Given apply is called with a Project, it applies the JacocoPlugin, creates the Extension and will not override an existing jvm contexts`() {
-        mockkObject(DefaultConfigurationProvider)
-
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
@@ -164,11 +156,11 @@ class AntiBytesCoverageSpec {
         val actualConfigurations = givenConfigurations.toMutableMap()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -180,7 +172,7 @@ class AntiBytesCoverageSpec {
 
         every { TaskController.configure(any(), any()) } just Runs
 
-        every { PlatformContextResolver.isKmp(project) } returns true
+        every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { extension.appendKmpJvmTask } returns true
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
@@ -194,18 +186,14 @@ class AntiBytesCoverageSpec {
             actual = actualConfigurations,
             expected = givenConfigurations
         )
-
-        unmockkObject(DefaultConfigurationProvider)
     }
 
     @Test
     fun `Given apply is called with a Project, it applies the JacocoPlugin, creates the Extension and adds missing the jvm contexts, if the project is KMP and has no preset jvm`() {
-        mockkObject(DefaultConfigurationProvider)
-
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf()
         val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
@@ -216,11 +204,11 @@ class AntiBytesCoverageSpec {
         val actualConfigurations = givenConfigurations.toMutableMap()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -232,7 +220,7 @@ class AntiBytesCoverageSpec {
 
         every { TaskController.configure(any(), any()) } just Runs
 
-        every { PlatformContextResolver.isKmp(project) } returns true
+        every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { extension.appendKmpJvmTask } returns true
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
@@ -248,18 +236,14 @@ class AntiBytesCoverageSpec {
                 it["jvm"] = defaultConfigurations["jvm"]!!
             }
         )
-
-        unmockkObject(DefaultConfigurationProvider)
     }
 
     @Test
     fun `Given apply is called with a Project, it applies the JacocoPlugin, creates the Extension and will not add a jvm contexts, if the append policy is false`() {
-        mockkObject(DefaultConfigurationProvider)
-
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf()
         val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
@@ -270,11 +254,11 @@ class AntiBytesCoverageSpec {
         val actualConfigurations = givenConfigurations.toMutableMap()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns null
+        every { plugins.hasPlugin("jacoco") } returns false
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs
@@ -286,7 +270,7 @@ class AntiBytesCoverageSpec {
 
         every { TaskController.configure(any(), any()) } just Runs
 
-        every { PlatformContextResolver.isKmp(project) } returns true
+        every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { extension.appendKmpJvmTask } returns false
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
@@ -300,8 +284,6 @@ class AntiBytesCoverageSpec {
             actual = actualConfigurations,
             expected = givenConfigurations
         )
-
-        unmockkObject(DefaultConfigurationProvider)
     }
 
     @Test
@@ -309,15 +291,15 @@ class AntiBytesCoverageSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesCoverageExtension = mockk()
+        val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoverageExtension::class.java, any())
+            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
-        every { plugins.findPlugin("jacoco") } returns mockk()
+        every { plugins.hasPlugin("jacoco") } returns true
         every { plugins.apply(any()) } returns mockk()
 
         every { project.evaluationDependsOnChildren() } just Runs

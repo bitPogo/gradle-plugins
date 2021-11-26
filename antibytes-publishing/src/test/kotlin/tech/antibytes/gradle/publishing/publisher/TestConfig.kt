@@ -16,4 +16,4 @@ data class TestConfig(
     override var excludeProjects: Set<String>,
     override var versioning: PublishingApiContract.VersioningConfiguration,
     override var standalone: Boolean
-) : PublishingContract.PublishingPluginConfiguration
+) : PublishingContract.PublishingPluginExtension

@@ -11,11 +11,13 @@ import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationProvider
 import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
+import tech.antibytes.gradle.util.PlatformContextResolver
 
 internal object DefaultConfigurationProvider : CoverageContract.DefaultConfigurationProvider {
     private fun fetchConfiguration(
         project: Project,
-        context: ConfigurationContract.PlatformContext
+        context: PlatformContext
     ): CoverageApiContract.CoverageConfiguration {
         return if (context.prefix == "jvm") {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(

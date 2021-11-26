@@ -21,8 +21,8 @@ import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 import org.junit.Test
-import tech.antibytes.gradle.publishing.GradlePropertyBuilder
-import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.test.GradlePropertyBuilder
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class DependencyUpdateSpec {
@@ -39,7 +39,7 @@ class DependencyUpdateSpec {
         val currentVersion = "xyz-C"
         val candidateVersion = "lmp-X"
 
-        val config = object : DependencyContract.Extension {
+        val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C")
@@ -106,7 +106,7 @@ class DependencyUpdateSpec {
         val currentVersion = "lmp-B"
         val candidateVersion = "xyz-Y"
 
-        val config = object : DependencyContract.Extension {
+        val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C")
@@ -173,7 +173,7 @@ class DependencyUpdateSpec {
         val currentVersion = "lmp-Y"
         val candidateVersion = "xyz-B"
 
-        val config = object : DependencyContract.Extension {
+        val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C")
@@ -240,7 +240,7 @@ class DependencyUpdateSpec {
         val currentVersion = "lmp-Y"
         val candidateVersion = "lmp-Y"
 
-        val config = object : DependencyContract.Extension {
+        val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C")
