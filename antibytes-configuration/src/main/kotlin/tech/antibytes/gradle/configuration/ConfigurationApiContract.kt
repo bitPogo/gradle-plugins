@@ -60,4 +60,8 @@ interface ConfigurationApiContract {
          */
         var androidTest: TestSource?
     }
+
+    companion object {
+        const val ANDROID_SHARED_PREFIX = "antibytes_"
+    }
 }
