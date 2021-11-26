@@ -11,8 +11,9 @@ import tech.antibytes.gradle.plugin.dependency.Version
 plugins {
     `kotlin-dsl`
     `java-library`
-
     jacoco
+
+    id("tech.antibytes.gradle.plugin.script.maven-package")
 }
 
 // To make it available as direct dependency
