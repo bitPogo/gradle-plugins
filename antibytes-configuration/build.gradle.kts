@@ -34,7 +34,7 @@ dependencies {
     testImplementation(Dependency.test.jupiter)
     testImplementation(Dependency.test.mockk)
     testImplementation(Dependency.test.fixture)
-    testImplementation(project(":antibytes-plugin-test"))
+    testImplementation(project(":antibytes-test-utils"))
 }
 
 java {

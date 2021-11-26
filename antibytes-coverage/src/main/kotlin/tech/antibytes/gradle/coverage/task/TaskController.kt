@@ -20,7 +20,7 @@ import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationReportTaskCon
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationVerificationTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
-import tech.antibytes.gradle.util.PlatformContextResolver.isKmp
+import tech.antibytes.gradle.util.isKmp
 import tech.antibytes.gradle.util.isRoot
 
 internal object TaskController : CoverageContract.TaskController {
@@ -112,7 +112,7 @@ internal object TaskController : CoverageContract.TaskController {
             tasks[reporter] = verification
         }
 
-        if (isKmp(project)) {
+        if (project.isKmp()) {
             addMultiplatformTasks(project, tasks)
         }
     }

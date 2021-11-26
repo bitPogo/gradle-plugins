@@ -10,7 +10,7 @@ import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.configuration.makePath
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
-import tech.antibytes.gradle.util.PlatformContextResolver
+import tech.antibytes.gradle.util.isKmp
 import java.io.File
 
 internal object SourceHelper : ConfigurationContract.SourceHelper {
@@ -66,7 +66,7 @@ internal object SourceHelper : ConfigurationContract.SourceHelper {
             "src"
         )
 
-        val sourceSets = if (PlatformContextResolver.isKmp(context)) {
+        val sourceSets = if (context.isKmp()) {
             ConfigurationContract.SourceContainer(
                 platform = resolvePlatformSourceKmp(context, platform),
                 common = resolveCommon(platform)

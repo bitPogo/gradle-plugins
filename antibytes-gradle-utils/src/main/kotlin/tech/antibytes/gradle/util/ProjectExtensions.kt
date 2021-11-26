@@ -17,3 +17,11 @@ fun Project.applyIfNotExists(vararg pluginNames: String) {
         }
     }
 }
+
+fun Project.isKmp(): Boolean {
+    return this.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
+}
+
+fun Project.isAndroidLibrary(): Boolean {
+    return this.plugins.hasPlugin("com.android.library")
+}

@@ -19,7 +19,7 @@ plugins {
 
 include(
     ":antibytes-coverage",
-    ":antibytes-plugin-test",
+    ":antibytes-test-utils",
     ":antibytes-dependency",
     ":antibytes-publishing",
     ":antibytes-configuration",

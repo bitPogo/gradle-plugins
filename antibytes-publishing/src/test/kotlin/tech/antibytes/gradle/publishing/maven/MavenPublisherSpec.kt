@@ -30,8 +30,8 @@ import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.PackageConfiguration
 import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
-import tech.antibytes.gradle.publishing.invokeGradleAction
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class MavenPublisherSpec {

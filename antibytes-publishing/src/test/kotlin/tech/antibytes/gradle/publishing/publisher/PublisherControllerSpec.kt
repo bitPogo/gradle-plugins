@@ -23,7 +23,7 @@ import org.junit.Test
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.api.VersionInfo
-import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class PublisherControllerSpec {

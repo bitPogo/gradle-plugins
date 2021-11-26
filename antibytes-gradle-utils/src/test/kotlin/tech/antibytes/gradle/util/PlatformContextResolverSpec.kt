@@ -13,7 +13,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.junit.Test
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class PlatformContextResolverSpec {
@@ -25,67 +24,13 @@ class PlatformContextResolverSpec {
     }
 
     @Test
-    fun `Given isKmp is called with ANDROID_APPLICATION it return false`() {
-        assertFalse(
-            PlatformContextResolver.isKmp(
-                PlatformContext.ANDROID_APPLICATION
-            )
-        )
-    }
-
-    @Test
-    fun `Given isKmp is called with ANDROID_LIBRARY it return false`() {
-        assertFalse(
-            PlatformContextResolver.isKmp(
-                PlatformContext.ANDROID_LIBRARY
-            )
-        )
-    }
-
-    @Test
-    fun `Given isKmp is called with ANDROID_JVM it return false`() {
-        assertFalse(
-            PlatformContextResolver.isKmp(
-                PlatformContext.JVM
-            )
-        )
-    }
-
-    @Test
-    fun `Given isKmp is called with ANDROID_APPLICATION_KMP it return false`() {
-        assertTrue(
-            PlatformContextResolver.isKmp(
-                PlatformContext.ANDROID_APPLICATION_KMP
-            )
-        )
-    }
-
-    @Test
-    fun `Given isKmp is called with ANDROID_LIBRARY_KMP it return false`() {
-        assertTrue(
-            PlatformContextResolver.isKmp(
-                PlatformContext.ANDROID_LIBRARY_KMP
-            )
-        )
-    }
-
-    @Test
-    fun `Given isKmp is called with JVM_KMP it return false`() {
-        assertTrue(
-            PlatformContextResolver.isKmp(
-                PlatformContext.JVM_KMP
-            )
-        )
-    }
-
-    @Test
     fun `Given getType is called with a Project, it returns a Set which contains only JVM context if the project is vanilla Java`() {
         // Given
         val project: Project = mockk()
 
-        every { project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") } returns null
-        every { project.plugins.findPlugin("com.android.application") } returns null
-        every { project.plugins.findPlugin("com.android.library") } returns null
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
+        every { project.plugins.hasPlugin("com.android.application") } returns false
+        every { project.plugins.hasPlugin("com.android.library") } returns false
 
         // When
         val result = PlatformContextResolver.getType(project)
@@ -104,9 +49,9 @@ class PlatformContextResolverSpec {
 
         val kotlinExtension: KotlinMultiplatformExtension = mockk()
 
-        every { project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") } returns mockk()
-        every { project.plugins.findPlugin("com.android.library") } returns null
-        every { project.plugins.findPlugin("com.android.application") } returns null
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
+        every { project.plugins.hasPlugin("com.android.library") } returns false
+        every { project.plugins.hasPlugin("com.android.application") } returns false
 
         every { project.extensions.getByName("kotlin") } returns kotlinExtension
         every { kotlinExtension.targets.asMap } returns sortedMapOf("jvm" to mockk())
@@ -126,9 +71,9 @@ class PlatformContextResolverSpec {
         // Given
         val project: Project = mockk()
 
-        every { project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") } returns null
-        every { project.plugins.findPlugin("com.android.application") } returns null
-        every { project.plugins.findPlugin("com.android.library") } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
+        every { project.plugins.hasPlugin("com.android.application") } returns false
+        every { project.plugins.hasPlugin("com.android.library") } returns true
 
         // When
         val result = PlatformContextResolver.getType(project)
@@ -147,9 +92,9 @@ class PlatformContextResolverSpec {
 
         val kotlinExtension: KotlinMultiplatformExtension = mockk()
 
-        every { project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") } returns mockk()
-        every { project.plugins.findPlugin("com.android.application") } returns null
-        every { project.plugins.findPlugin("com.android.library") } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
+        every { project.plugins.hasPlugin("com.android.application") } returns false
+        every { project.plugins.hasPlugin("com.android.library") } returns true
 
         every { project.extensions.getByName("kotlin") } returns kotlinExtension
         every { kotlinExtension.targets.asMap } returns sortedMapOf("android" to mockk())
@@ -169,9 +114,9 @@ class PlatformContextResolverSpec {
         // Given
         val project: Project = mockk()
 
-        every { project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") } returns null
-        every { project.plugins.findPlugin("com.android.application") } returns mockk()
-        every { project.plugins.findPlugin("com.android.library") } returns null
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
+        every { project.plugins.hasPlugin("com.android.application") } returns true
+        every { project.plugins.hasPlugin("com.android.library") } returns false
 
         // When
         val result = PlatformContextResolver.getType(project)
@@ -190,9 +135,9 @@ class PlatformContextResolverSpec {
 
         val kotlinExtension: KotlinMultiplatformExtension = mockk()
 
-        every { project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") } returns mockk()
-        every { project.plugins.findPlugin("com.android.application") } returns mockk()
-        every { project.plugins.findPlugin("com.android.library") } returns null
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
+        every { project.plugins.hasPlugin("com.android.application") } returns true
+        every { project.plugins.hasPlugin("com.android.library") } returns false
 
         every { project.extensions.getByName("kotlin") } returns kotlinExtension
         every { kotlinExtension.targets.asMap } returns sortedMapOf("android" to mockk())
@@ -214,9 +159,9 @@ class PlatformContextResolverSpec {
 
         val kotlinExtension: KotlinMultiplatformExtension = mockk()
 
-        every { project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") } returns mockk()
-        every { project.plugins.findPlugin("com.android.application") } returns mockk()
-        every { project.plugins.findPlugin("com.android.library") } returns null
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
+        every { project.plugins.hasPlugin("com.android.application") } returns true
+        every { project.plugins.hasPlugin("com.android.library") } returns false
 
         every { project.extensions.getByName("kotlin") } returns kotlinExtension
         every { kotlinExtension.targets.asMap } returns sortedMapOf(
@@ -245,9 +190,9 @@ class PlatformContextResolverSpec {
 
         val kotlinExtension: KotlinMultiplatformExtension = mockk()
 
-        every { project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") } returns mockk()
-        every { project.plugins.findPlugin("com.android.application") } returns null
-        every { project.plugins.findPlugin("com.android.library") } returns null
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
+        every { project.plugins.hasPlugin("com.android.application") } returns false
+        every { project.plugins.hasPlugin("com.android.library") } returns false
 
         every { project.extensions.getByName("kotlin") } returns kotlinExtension
         every { kotlinExtension.targets.asMap } returns sortedMapOf(

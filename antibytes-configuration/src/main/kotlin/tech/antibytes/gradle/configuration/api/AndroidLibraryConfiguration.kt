@@ -10,9 +10,7 @@ import tech.antibytes.gradle.configuration.ConfigurationApiContract
 
 data class AndroidLibraryConfiguration(
     override var minSdkVersion: Int,
-    override var compileSdkVersion: Int,
     override var targetSdkVersion: Int,
-    override var projectInfix: String,
     override var compatibilityTargets: ConfigurationApiContract.Compatibility,
     override var fallbacks: Map<String, Set<String>>,
     override var mainSource: ConfigurationApiContract.MainSource,

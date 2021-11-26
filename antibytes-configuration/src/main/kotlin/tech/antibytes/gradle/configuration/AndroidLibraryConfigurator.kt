@@ -9,15 +9,14 @@ package tech.antibytes.gradle.configuration
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import tech.antibytes.gradle.util.PlatformContextResolver.isKmp
+import tech.antibytes.gradle.configuration.ConfigurationContract.Companion.COMPILE_SDK_VERSION
+import tech.antibytes.gradle.util.isKmp
 
 internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibraryConfigurator {
     private fun setupAndroidExtension(
         extension: LibraryExtension,
         configuration: ConfigurationApiContract.AndroidLibraryConfiguration
     ) {
-        extension.compileSdk = configuration.compileSdkVersion
-        extension.resourcePrefix = configuration.prefix
 
         extension.defaultConfig {
             minSdk = configuration.minSdkVersion
@@ -61,6 +60,12 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
         }
     }
 
+    override fun setCompileSDK(project: Project) {
+        project.extensions.configure(LibraryExtension::class.java) {
+            compileSdk = COMPILE_SDK_VERSION
+        }
+    }
+
     override fun configure(
         project: Project,
         configuration: ConfigurationApiContract.AndroidLibraryConfiguration
@@ -69,7 +74,7 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
             setupAndroidExtension(this, configuration)
         }
 
-        if (isKmp(project)) {
+        if (project.isKmp()) {
             setupKmp(project, configuration)
         }
     }

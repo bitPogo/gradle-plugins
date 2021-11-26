@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.dependency
 
 import org.junit.Test
-import tech.antibytes.gradle.publishing.createExtension
+import tech.antibytes.gradle.test.createExtension
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 

@@ -79,3 +79,7 @@ tasks.jacocoTestCoverageVerification {
         }
     }
 }
+
+tasks.check {
+    dependsOn("jacocoTestCoverageVerification")
+}

@@ -16,8 +16,6 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.invoke
 import io.mockk.mockk
-import io.mockk.mockkObject
-import io.mockk.unmockkObject
 import io.mockk.verify
 import org.gradle.api.JavaVersion
 import org.gradle.api.NamedDomainObjectContainer
@@ -25,32 +23,18 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.configuration.api.AndroidLibraryConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource
 import tech.antibytes.gradle.configuration.api.TestRunner
 import tech.antibytes.gradle.configuration.api.TestSource
-import tech.antibytes.gradle.publishing.invokeGradleAction
-import tech.antibytes.gradle.util.PlatformContextResolver
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class AndroidLibraryConfiguratorSpec {
     private val fixture = kotlinFixture()
-
-    @Before
-    fun setup() {
-        mockkObject(PlatformContextResolver)
-        every { PlatformContextResolver.isKmp(any<Project>()) } returns false
-    }
-
-    @After
-    fun tearDown() {
-        unmockkObject(PlatformContextResolver)
-    }
 
     @Test
     fun `It fulfils AndroidLibraryConfigurator`() {
@@ -60,35 +44,9 @@ class AndroidLibraryConfiguratorSpec {
     }
 
     @Test
-    fun `Given configure is called with a Project and a AndroidLibraryConfiguration, it setups up the AndroidExtension`() {
+    fun `Given setCompileSDK is called with a Project, it sets the CompileSDK Version`() {
         // Given
         val project: Project = mockk()
-        val configuration = AndroidLibraryConfiguration(
-            minSdkVersion = fixture(),
-            targetSdkVersion = fixture(),
-            compileSdkVersion = fixture(),
-            projectInfix = fixture(),
-            publishVariants = emptySet(),
-            compatibilityTargets = Compatibility(
-                target = JavaVersion.VERSION_1_8,
-                source = JavaVersion.VERSION_1_8
-            ),
-            fallbacks = mapOf(fixture<String>() to fixture()),
-            mainSource = MainSource(
-                manifest = fixture(),
-                sourceDirectories = fixture(),
-                resourceDirectories = fixture()
-            ),
-            unitTestSource = TestSource(
-                sourceDirectories = fixture(),
-                resourceDirectories = fixture()
-            ),
-            androidTest = null,
-            testRunner = TestRunner(
-                runner = fixture(),
-                arguments = fixture()
-            )
-        )
 
         val extensions: ExtensionContainer = mockk()
         val libraryExtension: LibraryExtension = mockk(relaxed = true)
@@ -102,11 +60,10 @@ class AndroidLibraryConfiguratorSpec {
         )
 
         // When
-        AndroidLibraryConfigurator.configure(project, configuration)
+        AndroidLibraryConfigurator.setCompileSDK(project)
 
         // Then
-        verify(exactly = 1) { libraryExtension.compileSdk = configuration.compileSdkVersion }
-        verify(exactly = 1) { libraryExtension.resourcePrefix = configuration.prefix }
+        verify(exactly = 1) { libraryExtension.compileSdk = 30 }
     }
 
     @Test
@@ -116,8 +73,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
-            compileSdkVersion = fixture(),
-            projectInfix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -147,6 +102,7 @@ class AndroidLibraryConfiguratorSpec {
 
         every { project.extensions } returns extensions
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         invokeGradleAction(
             { probe -> extensions.configure(LibraryExtension::class.java, probe) },
@@ -179,8 +135,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
-            compileSdkVersion = fixture(),
-            projectInfix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -209,6 +163,7 @@ class AndroidLibraryConfiguratorSpec {
 
         every { project.extensions } returns extensions
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         invokeGradleAction(
             { probe -> extensions.configure(LibraryExtension::class.java, probe) },
@@ -234,8 +189,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
-            compileSdkVersion = fixture(),
-            projectInfix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -272,6 +225,7 @@ class AndroidLibraryConfiguratorSpec {
 
         every { project.extensions } returns extensions
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         invokeGradleAction(
             { probe -> extensions.configure(LibraryExtension::class.java, probe) },
@@ -319,8 +273,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
-            compileSdkVersion = fixture(),
-            projectInfix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -364,6 +316,7 @@ class AndroidLibraryConfiguratorSpec {
 
         every { project.extensions } returns extensions
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         invokeGradleAction(
             { probe -> extensions.configure(LibraryExtension::class.java, probe) },
@@ -410,8 +363,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
-            compileSdkVersion = fixture(),
-            projectInfix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -442,6 +393,7 @@ class AndroidLibraryConfiguratorSpec {
         every { project.extensions } returns extensions
 
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         // When
         AndroidLibraryConfigurator.configure(project, configuration)
@@ -457,8 +409,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
-            compileSdkVersion = fixture(),
-            projectInfix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -488,7 +438,7 @@ class AndroidLibraryConfiguratorSpec {
         val kmpExtension: KotlinMultiplatformExtension = mockk()
         val androidTarget: KotlinAndroidTarget = mockk(relaxUnitFun = true)
 
-        every { PlatformContextResolver.isKmp(project) } returns true
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { project.extensions } returns extensions
 
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()

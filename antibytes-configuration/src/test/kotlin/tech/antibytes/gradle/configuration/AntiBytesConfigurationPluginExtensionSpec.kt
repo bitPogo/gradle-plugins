@@ -15,7 +15,7 @@ import org.gradle.api.Project
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import tech.antibytes.gradle.publishing.createExtension
+import tech.antibytes.gradle.test.createExtension
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
@@ -23,7 +23,7 @@ class AntiBytesConfigurationPluginExtensionSpec {
     @Before
     fun setUp() {
         mockkObject(DefaultAndroidLibraryConfigurationProvider)
-        every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns null
+        every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
     }
 
     @After
@@ -51,7 +51,7 @@ class AntiBytesConfigurationPluginExtensionSpec {
 
         // Then
         assertSame(
-            actual = extension.android,
+            actual = extension.androidLibrary,
             expected = config
         )
 

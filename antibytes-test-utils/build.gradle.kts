@@ -72,8 +72,12 @@ tasks.jacocoTestCoverageVerification {
             limit {
                 counter = "INSTRUCTION"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.99)
+                minimum = BigDecimal( 0.45)
             }
         }
     }
+}
+
+tasks.check {
+    dependsOn("jacocoTestCoverageVerification")
 }

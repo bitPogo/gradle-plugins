@@ -20,7 +20,7 @@ class ProjectExtensionSpec {
     private val fixture = kotlinFixture()
 
     @Test
-    fun `Given isRoot is called with a RootProject it returns true`() {
+    fun `Given isRoot is called on a RootProject it returns true`() {
         // Given
         val project: Project = mockk()
 
@@ -34,7 +34,7 @@ class ProjectExtensionSpec {
     }
 
     @Test
-    fun `Given isRoot is called with a SubProject it returns false`() {
+    fun `Given isRoot is called on a SubProject it returns false`() {
         // Given
         val project: Project = mockk()
 
@@ -42,6 +42,34 @@ class ProjectExtensionSpec {
 
         // When
         val result = project.isRoot()
+
+        // Then
+        assertFalse(result)
+    }
+
+    @Test
+    fun `Given isKmp is called on a Project which has the Multiplatform plugin it returns true`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
+
+        // When
+        val result = project.isKmp()
+
+        // Then
+        assertTrue(result)
+    }
+
+    @Test
+    fun `Given isKmp is called on a Project which has not the Multiplatform plugin it returns false`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
+
+        // When
+        val result = project.isKmp()
 
         // Then
         assertFalse(result)

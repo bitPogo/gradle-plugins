@@ -23,7 +23,6 @@ import tech.antibytes.gradle.configuration.api.TestSource
 import tech.antibytes.gradle.util.GradleUtilApiContract
 import tech.antibytes.gradle.util.PlatformContextResolver
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class DefaultAndroidLibraryConfigurationProviderSpec {
@@ -45,19 +44,6 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
     }
 
     @Test
-    fun `Given createDefaultConfiguration is called with a Project it returns null if the project contains no AndroidLibrary`() {
-        // Given
-        val project: Project = mockk()
-
-        every { PlatformContextResolver.getType(any()) } returns setOf(GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION)
-        // When
-        val result = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
-
-        // Then
-        assertNull(result)
-    }
-
-    @Test
     fun `Given createDefaultConfiguration is called with a Project it returns a AndroidLibraryConfiguration with default settings, if it is an AndroidLibrary`() {
         // Given
         val project: Project = mockk()
@@ -67,14 +53,11 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
         val result = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
 
         // Then
-        assertTrue(result is ConfigurationApiContract.AndroidLibraryConfiguration)
         assertEquals(
             actual = result,
             expected = AndroidLibraryConfiguration(
                 minSdkVersion = 23,
                 targetSdkVersion = 30,
-                compileSdkVersion = 30,
-                projectInfix = "",
                 publishVariants = emptySet(),
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
@@ -109,14 +92,11 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
         val result = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
 
         // Then
-        assertTrue(result is ConfigurationApiContract.AndroidLibraryConfiguration)
         assertEquals(
             actual = result,
             expected = AndroidLibraryConfiguration(
                 minSdkVersion = 23,
                 targetSdkVersion = 30,
-                compileSdkVersion = 30,
-                projectInfix = "",
                 publishVariants = setOf("release", "debug"),
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,

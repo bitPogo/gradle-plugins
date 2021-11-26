@@ -33,7 +33,7 @@ import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.api.JvmJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.task.TaskContract
-import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.test.invokeGradleAction
 import java.io.File
 import kotlin.test.assertSame
 import kotlin.test.assertTrue

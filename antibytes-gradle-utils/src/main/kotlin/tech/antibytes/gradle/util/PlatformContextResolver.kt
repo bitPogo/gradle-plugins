@@ -6,24 +6,19 @@
 
 package tech.antibytes.gradle.util
 
-import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 
 object PlatformContextResolver : GradleUtilApiContract.PlatformContextResolver {
     private fun isAndroidApplication(project: Project): Boolean {
-        return project.plugins.findPlugin("com.android.application") is Plugin<*>
-    }
-
-    private fun isAndroidLibrary(project: Project): Boolean {
-        return project.plugins.findPlugin("com.android.library") is Plugin<*>
+        return project.plugins.hasPlugin("com.android.application")
     }
 
     private fun determineContext(project: Project): Set<PlatformContext> {
         val context = when {
             isAndroidApplication(project) -> PlatformContext.ANDROID_APPLICATION
-            isAndroidLibrary(project) -> PlatformContext.ANDROID_LIBRARY
+            project.isAndroidLibrary() -> PlatformContext.ANDROID_LIBRARY
             else -> PlatformContext.JVM
         }
 
@@ -46,7 +41,7 @@ object PlatformContextResolver : GradleUtilApiContract.PlatformContextResolver {
             contexts.add(PlatformContext.ANDROID_APPLICATION_KMP)
         }
 
-        if (isAndroidLibrary(project)) {
+        if (project.isAndroidLibrary()) {
             contexts.add(PlatformContext.ANDROID_LIBRARY_KMP)
         }
 
@@ -54,23 +49,10 @@ object PlatformContextResolver : GradleUtilApiContract.PlatformContextResolver {
     }
 
     override fun getType(project: Project): Set<PlatformContext> {
-        return if (isKmp(project)) {
+        return if (project.isKmp()) {
             determineKmpContext(project)
         } else {
             determineContext(project)
         }
-    }
-
-    override fun isKmp(context: PlatformContext): Boolean {
-        return when (context) {
-            PlatformContext.ANDROID_APPLICATION_KMP -> true
-            PlatformContext.ANDROID_LIBRARY_KMP -> true
-            PlatformContext.JVM_KMP -> true
-            else -> false
-        }
-    }
-
-    override fun isKmp(project: Project): Boolean {
-        return project.plugins.findPlugin("org.jetbrains.kotlin.multiplatform") is Plugin<*>
     }
 }

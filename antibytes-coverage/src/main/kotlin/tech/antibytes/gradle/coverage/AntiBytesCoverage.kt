@@ -12,8 +12,8 @@ import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEPENDENCIES
 import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.EXTENSION_ID
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.coverage.task.TaskController
-import tech.antibytes.gradle.util.PlatformContextResolver.isKmp
 import tech.antibytes.gradle.util.applyIfNotExists
+import tech.antibytes.gradle.util.isKmp
 
 class AntiBytesCoverage : Plugin<Project> {
     override fun apply(target: Project) {
@@ -27,7 +27,7 @@ class AntiBytesCoverage : Plugin<Project> {
         target.evaluationDependsOnChildren()
 
         target.afterEvaluate {
-            if (isKmp(target) && extension.appendKmpJvmTask) {
+            if (target.isKmp() && extension.appendKmpJvmTask) {
                 DefaultConfigurationProvider.createDefaultCoverageConfiguration(target)["jvm"]?.also {
                     extension.configurations.putIfAbsent("jvm", it)
                 }

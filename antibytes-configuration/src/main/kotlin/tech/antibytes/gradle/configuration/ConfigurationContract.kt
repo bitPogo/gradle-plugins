@@ -10,14 +10,16 @@ import org.gradle.api.Project
 
 internal interface ConfigurationContract {
     interface ConfigurationPluginExtension {
-        val android: ConfigurationApiContract.AndroidBaseConfiguration?
+        val androidLibrary: ConfigurationApiContract.AndroidBaseConfiguration
     }
 
     fun interface DefaultAndroidLibraryConfigurationProvider {
-        fun createDefaultConfiguration(project: Project): ConfigurationApiContract.AndroidLibraryConfiguration?
+        fun createDefaultConfiguration(project: Project): ConfigurationApiContract.AndroidLibraryConfiguration
     }
 
-    fun interface AndroidLibraryConfigurator {
+    interface AndroidLibraryConfigurator {
+        fun setCompileSDK(project: Project)
+
         fun configure(
             project: Project,
             configuration: ConfigurationApiContract.AndroidLibraryConfiguration
@@ -26,5 +28,6 @@ internal interface ConfigurationContract {
 
     companion object {
         const val EXTENSION_ID = "antibytesProjectConfiguration"
+        const val COMPILE_SDK_VERSION = 30
     }
 }

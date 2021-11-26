@@ -18,9 +18,7 @@ interface GradleUtilApiContract {
         JVM_KMP("jvm")
     }
 
-    interface PlatformContextResolver {
+    fun interface PlatformContextResolver {
         fun getType(project: Project): Set<PlatformContext>
-        fun isKmp(context: PlatformContext): Boolean
-        fun isKmp(project: Project): Boolean
     }
 }

@@ -21,8 +21,8 @@ import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 import org.junit.Test
-import tech.antibytes.gradle.publishing.GradlePropertyBuilder
-import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.test.GradlePropertyBuilder
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class DependencyUpdateSpec {

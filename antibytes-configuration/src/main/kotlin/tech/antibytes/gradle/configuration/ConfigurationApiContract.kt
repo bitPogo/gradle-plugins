@@ -31,15 +31,15 @@ interface ConfigurationApiContract {
     }
 
     interface AndroidBaseConfiguration {
-        var minSdkVersion: Int
-        var compileSdkVersion: Int
-        var targetSdkVersion: Int
-        var projectInfix: String
+        /**
+         * The Android SDK version which the target is compiled against
+         * Note: This property will not influence the SDK Version in use and is meant for informational purpose
+         */
+        val compileSdkVersion: Int
+            get() = ConfigurationContract.COMPILE_SDK_VERSION
 
-        val prefix: String
-            get() {
-                return "antibytes_${this.projectInfix}"
-            }
+        var minSdkVersion: Int
+        var targetSdkVersion: Int
 
         var compatibilityTargets: Compatibility
         var fallbacks: Map<String, Set<String>>

@@ -9,6 +9,7 @@ package tech.antibytes.gradle.configuration
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import tech.antibytes.gradle.configuration.ConfigurationContract.Companion.EXTENSION_ID
+import tech.antibytes.gradle.util.isAndroidLibrary
 
 class AntiBytesConfiguration : Plugin<Project> {
     override fun apply(target: Project) {
@@ -18,11 +19,13 @@ class AntiBytesConfiguration : Plugin<Project> {
             target
         )
 
-        target.afterEvaluate {
-            if (extension.android is ConfigurationApiContract.AndroidLibraryConfiguration) {
+        if (target.isAndroidLibrary()) {
+            AndroidLibraryConfigurator.setCompileSDK(target)
+
+            target.afterEvaluate {
                 AndroidLibraryConfigurator.configure(
                     target,
-                    extension.android as ConfigurationApiContract.AndroidLibraryConfiguration
+                    extension.androidLibrary as ConfigurationApiContract.AndroidLibraryConfiguration
                 )
             }
         }

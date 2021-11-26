@@ -9,5 +9,5 @@ package tech.antibytes.gradle.configuration
 import org.gradle.api.Project
 
 abstract class AntiBytesConfigurationPluginExtension(project: Project) : ConfigurationContract.ConfigurationPluginExtension {
-    override val android: ConfigurationApiContract.AndroidBaseConfiguration? = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
+    override val androidLibrary: ConfigurationApiContract.AndroidBaseConfiguration = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
 }

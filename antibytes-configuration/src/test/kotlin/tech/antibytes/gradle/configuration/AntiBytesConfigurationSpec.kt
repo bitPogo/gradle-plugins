@@ -13,14 +13,25 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
-import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
-import tech.antibytes.gradle.publishing.invokeGradleAction
+import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class AntiBytesConfigurationSpec {
+    @Before
+    fun setup() {
+        mockkObject(AndroidLibraryConfigurator)
+    }
+
+    @After
+    fun tearDown() {
+        mockkObject(AndroidLibraryConfigurator)
+    }
+
     @Test
     fun `It fulfils Plugin`() {
         val plugin: Any = AntiBytesConfiguration()
@@ -41,7 +52,7 @@ class AntiBytesConfigurationSpec {
                 project
             )
         } returns mockk()
-        every { project.afterEvaluate(any<Action<Project>>()) } returns mockk()
+        every { project.plugins.hasPlugin("com.android.library") } returns false
 
         AntiBytesConfiguration().apply(project)
 
@@ -71,8 +82,11 @@ class AntiBytesConfigurationSpec {
             )
         } returns extension
 
-        every { extension.android } returns null
+        every { project.plugins.hasPlugin("com.android.library") } returns false
+
+        every { extension.androidLibrary } returns mockk()
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
+        every { AndroidLibraryConfigurator.setCompileSDK(any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -89,7 +103,6 @@ class AntiBytesConfigurationSpec {
 
     @Test
     fun `Given apply is called with a Project, it will delegate the AndroidConfiguration if it is a Library`() {
-        mockkObject(AndroidLibraryConfigurator)
         // Given
         val project: Project = mockk()
 
@@ -104,8 +117,10 @@ class AntiBytesConfigurationSpec {
             )
         } returns extension
 
-        every { extension.android } returns androidConfig
+        every { extension.androidLibrary } returns androidConfig
+        every { project.plugins.hasPlugin("com.android.library") } returns true
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
+        every { AndroidLibraryConfigurator.setCompileSDK(any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -115,8 +130,7 @@ class AntiBytesConfigurationSpec {
         AntiBytesConfiguration().apply(project)
 
         // Then
+        verify(exactly = 1) { AndroidLibraryConfigurator.setCompileSDK(project) }
         verify(exactly = 1) { AndroidLibraryConfigurator.configure(project, androidConfig) }
-
-        unmockkObject(AndroidLibraryConfigurator)
     }
 }
