@@ -8,7 +8,7 @@ package tech.antibytes.gradle.configuration.api
 
 import tech.antibytes.gradle.configuration.ConfigurationApiContract
 
-data class MainSource(
+internal data class MainSource(
     override val manifest: String,
     override val sourceDirectories: Set<String>,
     override val resourceDirectories: Set<String>

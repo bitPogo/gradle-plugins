@@ -8,7 +8,7 @@ package tech.antibytes.gradle.configuration
 
 import org.gradle.api.JavaVersion
 
-interface ConfigurationApiContract {
+internal interface ConfigurationApiContract {
     interface TestSource {
         val sourceDirectories: Set<String>
         val resourceDirectories: Set<String>
@@ -31,26 +31,22 @@ interface ConfigurationApiContract {
     }
 
     interface AndroidBaseConfiguration {
-        /**
-         * The Android SDK version which the target is compiled against
-         * Note: This property will not influence the SDK Version in use and is meant for informational purpose
-         */
         val compileSdkVersion: Int
-            get() = ConfigurationContract.COMPILE_SDK_VERSION
+        val minSdkVersion: Int
+        val targetSdkVersion: Int
 
-        var minSdkVersion: Int
-        var targetSdkVersion: Int
+        val prefix: String
 
-        var compatibilityTargets: Compatibility
-        var fallbacks: Map<String, Set<String>>
+        val compatibilityTargets: Compatibility
+        val fallbacks: Map<String, Set<String>>
 
-        var mainSource: MainSource
-        var unitTestSource: TestSource
-        var testRunner: TestRunner
+        val mainSource: MainSource
+        val unitTestSource: TestSource
+        val testRunner: TestRunner
     }
 
     interface AndroidLibraryConfiguration : AndroidBaseConfiguration {
-        var publishVariants: Set<String>
+        val publishVariants: Set<String>
 
         /**
          * TestSource for AndroidTest (UI-Test)
@@ -58,10 +54,11 @@ interface ConfigurationApiContract {
          * This will add an android UI-test folder to the configuration, which is typically not needed for functional libraries and just a thing for apps
          * Note: The established pattern for this is to set value of unitTestSource to `androidUnitTest` and so this may can take over the name of `androidTest` and avoids `androidAndroidTest`
          */
-        var androidTest: TestSource?
+        val androidTest: TestSource?
     }
 
     companion object {
-        const val ANDROID_SHARED_PREFIX = "antibytes_"
+        const val ANDROID_PREFIX = "antibytes"
+        const val ANDROID_PREFIX_SEPARATOR = "_"
     }
 }

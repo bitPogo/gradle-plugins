@@ -44,15 +44,42 @@ class AndroidLibraryConfiguratorSpec {
     }
 
     @Test
-    fun `Given setCompileSDK is called with a Project, it sets the CompileSDK Version`() {
+    fun `Given configure is called with a Project, it sets the CompileSDK Version and Prefix`() {
         // Given
         val project: Project = mockk()
+        val configuration = AndroidLibraryConfiguration(
+            compileSdkVersion = fixture(),
+            minSdkVersion = fixture(),
+            targetSdkVersion = fixture(),
+            prefix = fixture(),
+            publishVariants = emptySet(),
+            compatibilityTargets = Compatibility(
+                target = JavaVersion.VERSION_1_8,
+                source = JavaVersion.VERSION_1_8
+            ),
+            fallbacks = mapOf(fixture<String>() to fixture()),
+            mainSource = MainSource(
+                manifest = fixture(),
+                sourceDirectories = fixture(),
+                resourceDirectories = fixture()
+            ),
+            unitTestSource = TestSource(
+                sourceDirectories = fixture(),
+                resourceDirectories = fixture()
+            ),
+            androidTest = null,
+            testRunner = TestRunner(
+                runner = fixture(),
+                arguments = fixture()
+            )
+        )
 
         val extensions: ExtensionContainer = mockk()
         val libraryExtension: LibraryExtension = mockk(relaxed = true)
 
         every { project.extensions } returns extensions
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns fixture()
 
         invokeGradleAction(
             { probe -> extensions.configure(LibraryExtension::class.java, probe) },
@@ -60,10 +87,11 @@ class AndroidLibraryConfiguratorSpec {
         )
 
         // When
-        AndroidLibraryConfigurator.setCompileSDK(project)
+        AndroidLibraryConfigurator.configure(project, configuration)
 
         // Then
-        verify(exactly = 1) { libraryExtension.compileSdk = 30 }
+        verify(exactly = 1) { libraryExtension.compileSdk = configuration.compileSdkVersion }
+        verify(exactly = 1) { libraryExtension.resourcePrefix = configuration.prefix }
     }
 
     @Test
@@ -71,8 +99,10 @@ class AndroidLibraryConfiguratorSpec {
         // Given
         val project: Project = mockk()
         val configuration = AndroidLibraryConfiguration(
+            compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
+            prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -133,8 +163,10 @@ class AndroidLibraryConfiguratorSpec {
         // Given
         val project: Project = mockk()
         val configuration = AndroidLibraryConfiguration(
+            compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
+            prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -187,8 +219,10 @@ class AndroidLibraryConfiguratorSpec {
         // Given
         val project: Project = mockk()
         val configuration = AndroidLibraryConfiguration(
+            compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
+            prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -271,8 +305,10 @@ class AndroidLibraryConfiguratorSpec {
         // Given
         val project: Project = mockk()
         val configuration = AndroidLibraryConfiguration(
+            compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
+            prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -361,8 +397,10 @@ class AndroidLibraryConfiguratorSpec {
         // Given
         val project: Project = mockk()
         val configuration = AndroidLibraryConfiguration(
+            compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
+            prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
@@ -407,8 +445,10 @@ class AndroidLibraryConfiguratorSpec {
         // Given
         val project: Project = mockk()
         val configuration = AndroidLibraryConfiguration(
+            compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
             targetSdkVersion = fixture(),
+            prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
