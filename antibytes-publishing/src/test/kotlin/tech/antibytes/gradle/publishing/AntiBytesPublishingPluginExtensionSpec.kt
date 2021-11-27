@@ -69,7 +69,7 @@ class AntiBytesPublishingPluginExtensionSpec {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
         assertEquals(
-            actual = extension.registryConfiguration,
+            actual = extension.repositoryConfiguration,
             expected = emptySet()
         )
     }
@@ -95,6 +95,6 @@ class AntiBytesPublishingPluginExtensionSpec {
     fun `It has true as default Standalone`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertTrue(extension.standalone)
+        assertFalse(extension.standalone)
     }
 }

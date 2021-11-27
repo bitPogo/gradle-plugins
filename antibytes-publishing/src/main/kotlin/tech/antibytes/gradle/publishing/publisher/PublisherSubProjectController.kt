@@ -11,13 +11,13 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
-import tech.antibytes.gradle.publishing.maven.MavenRegistry
+import tech.antibytes.gradle.publishing.maven.MavenRepository
 
 internal object PublisherSubProjectController : PublishingContract.PublisherController {
     private fun isApplicable(
         extension: PublishingContract.PublishingPluginExtension
     ): Boolean {
-        return extension.registryConfiguration.isNotEmpty() &&
+        return extension.repositoryConfiguration.isNotEmpty() &&
             extension.packageConfiguration is PublishingApiContract.PackageConfiguration
     }
 
@@ -37,8 +37,8 @@ internal object PublisherSubProjectController : PublishingContract.PublisherCont
                 version
             )
 
-            extension.registryConfiguration.forEach { registry ->
-                MavenRegistry.configure(
+            extension.repositoryConfiguration.forEach { registry ->
+                MavenRepository.configure(
                     project,
                     registry,
                     extension.dryRun

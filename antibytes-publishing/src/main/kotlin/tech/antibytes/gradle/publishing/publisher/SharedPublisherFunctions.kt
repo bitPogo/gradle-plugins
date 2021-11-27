@@ -10,29 +10,31 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract
 
-internal fun addPublishingTask(
-    project: Project,
-    configuration: PublishingApiContract.RegistryConfiguration
-): Task {
-    return project.tasks.create("publish${configuration.name.capitalize()}") {
-        group = "Publishing"
-        description = "Publish ${configuration.name.capitalize()}"
-    }
-}
-
-internal fun wireDependencies(
-    cloneTask: Task?,
-    mavenTasks: List<Task>,
-    pushTask: Task?,
-    publishingTask: Task,
-) {
-    if (pushTask is Task) {
-        mavenTasks.forEach { task ->
-            task.dependsOn(cloneTask)
+internal abstract class SharedPublisherFunctions {
+    protected fun addPublishingTask(
+        project: Project,
+        configuration: PublishingApiContract.RepositoryConfiguration
+    ): Task {
+        return project.tasks.create("publish${configuration.name.capitalize()}") {
+            group = "Publishing"
+            description = "Publish ${configuration.name.capitalize()}"
         }
-        pushTask.dependsOn(mavenTasks)
-        publishingTask.dependsOn(pushTask)
-    } else {
-        publishingTask.dependsOn(mavenTasks)
+    }
+
+    protected fun wireDependencies(
+        cloneTask: Task?,
+        mavenTasks: List<Task>,
+        pushTask: Task?,
+        publishingTask: Task,
+    ) {
+        if (pushTask is Task) {
+            mavenTasks.forEach { task ->
+                task.dependsOn(cloneTask)
+            }
+            pushTask.dependsOn(mavenTasks)
+            publishingTask.dependsOn(pushTask)
+        } else {
+            publishingTask.dependsOn(mavenTasks)
+        }
     }
 }

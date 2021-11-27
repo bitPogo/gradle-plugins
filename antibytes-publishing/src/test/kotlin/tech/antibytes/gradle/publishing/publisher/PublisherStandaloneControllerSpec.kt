@@ -22,34 +22,40 @@ import org.gradle.api.tasks.TaskContainer
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
-import tech.antibytes.gradle.publishing.api.RegistryConfiguration
+import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
-import tech.antibytes.gradle.publishing.maven.MavenRegistry
+import tech.antibytes.gradle.publishing.maven.MavenRepository
 import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class PublisherStandaloneControllerSpec {
     private val fixture = kotlinFixture()
-    private val registryTestConfig = RegistryConfiguration(
+    private val gitRegistryTestConfig = GitRepositoryConfiguration(
         username = "",
         password = "",
         name = "",
         url = "",
-        useGit = false,
         gitWorkDirectory = ""
+    )
+    private val mavenRegistryTestConfig = MavenRepositoryConfiguration(
+        username = "",
+        password = "",
+        name = "",
+        url = "",
     )
 
     @Before
     fun setUp() {
         mockkObject(Versioning)
         mockkObject(MavenPublisher)
-        mockkObject(MavenRegistry)
+        mockkObject(MavenRepository)
         mockkObject(GitRepository)
     }
 
@@ -57,7 +63,7 @@ class PublisherStandaloneControllerSpec {
     fun tearDown() {
         unmockkObject(Versioning)
         unmockkObject(MavenPublisher)
-        unmockkObject(MavenRegistry)
+        unmockkObject(MavenRepository)
         unmockkObject(GitRepository)
     }
 
@@ -73,7 +79,7 @@ class PublisherStandaloneControllerSpec {
         // Given
         val project: Project = mockk()
         val config = TestConfig(
-            registryConfiguration = setOf(mockk()),
+            repositoryConfiguration = setOf(mockk()),
             packageConfiguration = null,
             dryRun = false,
             excludeProjects = setOf(),
@@ -96,7 +102,7 @@ class PublisherStandaloneControllerSpec {
         // Given
         val project: Project = mockk()
         val config = TestConfig(
-            registryConfiguration = emptySet(),
+            repositoryConfiguration = emptySet(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = emptySet(),
@@ -119,16 +125,16 @@ class PublisherStandaloneControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it distributes the configurations`() {
         // Given
         val project: Project = mockk()
-        val registry1 = registryTestConfig.copy(name = "a")
-        val registry2 = registryTestConfig.copy(name = "b")
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
+        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = registryConfiguration,
+            repositoryConfiguration = repositoryConfiguration,
             packageConfiguration = packageConfiguration,
             dryRun = dryRun,
             excludeProjects = emptySet(),
@@ -149,7 +155,7 @@ class PublisherStandaloneControllerSpec {
 
         every { Versioning.versionName(project, versioningConfiguration) } returns version
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
-        every { MavenRegistry.configure(project, any(), dryRun) } just Runs
+        every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns task
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns task
 
@@ -161,7 +167,7 @@ class PublisherStandaloneControllerSpec {
         verify(exactly = 1) { MavenPublisher.configure(project, packageConfiguration, version) }
 
         verify(exactly = 1) {
-            MavenRegistry.configure(
+            MavenRepository.configure(
                 project,
                 registry1,
                 dryRun
@@ -185,7 +191,7 @@ class PublisherStandaloneControllerSpec {
         }
 
         verify(exactly = 1) {
-            MavenRegistry.configure(
+            MavenRepository.configure(
                 project,
                 registry2,
                 dryRun
@@ -213,16 +219,16 @@ class PublisherStandaloneControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it adds a publishing Task`() {
         // Given
         val project: Project = mockk()
-        val registry1 = registryTestConfig.copy(name = "a")
-        val registry2 = registryTestConfig.copy(name = "b")
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<RegistryConfiguration> = setOf(registry1, registry2)
+        val registryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = registryConfiguration,
+            repositoryConfiguration = registryConfiguration,
             packageConfiguration = packageConfiguration,
             dryRun = dryRun,
             excludeProjects = emptySet(),
@@ -245,7 +251,7 @@ class PublisherStandaloneControllerSpec {
 
         every { Versioning.versionName(project, versioningConfiguration) } returns version
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
-        every { MavenRegistry.configure(project, any(), dryRun) } just Runs
+        every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns task
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns task
 
@@ -276,16 +282,16 @@ class PublisherStandaloneControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it wires the dependencies`() {
         // Given
         val project: Project = mockk()
-        val registry1 = registryTestConfig.copy(name = "a")
-        val registry2 = registryTestConfig.copy(name = "b")
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
+        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = registryConfiguration,
+            repositoryConfiguration = repositoryConfiguration,
             packageConfiguration = packageConfiguration,
             dryRun = dryRun,
             excludeProjects = emptySet(),
@@ -316,7 +322,7 @@ class PublisherStandaloneControllerSpec {
         every { Versioning.versionName(project, versioningConfiguration) } returns version
 
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
-        every { MavenRegistry.configure(project, any(), dryRun) } just Runs
+        every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns gitCloneTask
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns gitPushTask
 
@@ -346,16 +352,16 @@ class PublisherStandaloneControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it runs the tasks in order`() {
         // Given
         val project: Project = mockk()
-        val registry1 = registryTestConfig.copy(name = "a")
-        val registry2 = registryTestConfig.copy(name = "b")
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
+        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = registryConfiguration,
+            repositoryConfiguration = repositoryConfiguration,
             packageConfiguration = packageConfiguration,
             dryRun = dryRun,
             excludeProjects = emptySet(),
@@ -385,7 +391,7 @@ class PublisherStandaloneControllerSpec {
 
         every { Versioning.versionName(project, versioningConfiguration) } returns version
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
-        every { MavenRegistry.configure(project, any(), dryRun) } just Runs
+        every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns gitCloneTask
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns gitPushTask
 
@@ -411,7 +417,7 @@ class PublisherStandaloneControllerSpec {
                 version
             )
 
-            MavenRegistry.configure(project, registry1, dryRun)
+            MavenRepository.configure(project, registry1, dryRun)
 
             GitRepository.configureCloneTask(project, registry1)
             GitRepository.configurePushTask(project, registry1, version, dryRun)
@@ -423,7 +429,7 @@ class PublisherStandaloneControllerSpec {
             gitPushTask.dependsOn(listOf(maven1Task))
             publishingTask.dependsOn(gitPushTask)
 
-            MavenRegistry.configure(project, registry2, dryRun)
+            MavenRepository.configure(project, registry2, dryRun)
 
             GitRepository.configureCloneTask(project, registry2)
             GitRepository.configurePushTask(project, registry2, version, dryRun)
@@ -441,16 +447,16 @@ class PublisherStandaloneControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it wires the dependencies while Git is not in use`() {
         // Given
         val project: Project = mockk()
-        val registry1 = registryTestConfig.copy(name = "a")
-        val registry2 = registryTestConfig.copy(name = "b")
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
+        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = registryConfiguration,
+            repositoryConfiguration = repositoryConfiguration,
             packageConfiguration = packageConfiguration,
             dryRun = dryRun,
             excludeProjects = emptySet(),
@@ -479,7 +485,7 @@ class PublisherStandaloneControllerSpec {
         every { Versioning.versionName(project, versioningConfiguration) } returns version
 
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
-        every { MavenRegistry.configure(project, any(), dryRun) } just Runs
+        every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns null
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns null
 
@@ -500,16 +506,16 @@ class PublisherStandaloneControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it runs the tasks in order while Git is not in use`() {
         // Given
         val project: Project = mockk()
-        val registry1 = registryTestConfig.copy(name = "a")
-        val registry2 = registryTestConfig.copy(name = "b")
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
+        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = registryConfiguration,
+            repositoryConfiguration = repositoryConfiguration,
             packageConfiguration = packageConfiguration,
             dryRun = dryRun,
             excludeProjects = emptySet(),
@@ -537,7 +543,7 @@ class PublisherStandaloneControllerSpec {
 
         every { Versioning.versionName(project, versioningConfiguration) } returns version
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
-        every { MavenRegistry.configure(project, any(), dryRun) } just Runs
+        every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns null
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns null
 
@@ -559,7 +565,7 @@ class PublisherStandaloneControllerSpec {
                 version
             )
 
-            MavenRegistry.configure(project, registry1, dryRun)
+            MavenRepository.configure(project, registry1, dryRun)
 
             GitRepository.configureCloneTask(project, registry1)
             GitRepository.configurePushTask(project, registry1, version, dryRun)
@@ -569,7 +575,7 @@ class PublisherStandaloneControllerSpec {
 
             publishingTask.dependsOn(listOf(maven1Task))
 
-            MavenRegistry.configure(project, registry2, dryRun)
+            MavenRepository.configure(project, registry2, dryRun)
 
             GitRepository.configureCloneTask(project, registry2)
             GitRepository.configurePushTask(project, registry2, version, dryRun)

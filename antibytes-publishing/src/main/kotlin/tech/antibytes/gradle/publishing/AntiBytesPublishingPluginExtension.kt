@@ -14,9 +14,9 @@ abstract class AntiBytesPublishingPluginExtension : PublishingContract.Publishin
 
     // Publishing
     override var dryRun: Boolean = false
-    override var standalone: Boolean = true
+    override var standalone: Boolean = false
     override var packageConfiguration: PublishingApiContract.PackageConfiguration? = null
-    override var registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = emptySet()
+    override var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration> = emptySet()
 
     // General
     override var excludeProjects: Set<String> = emptySet()

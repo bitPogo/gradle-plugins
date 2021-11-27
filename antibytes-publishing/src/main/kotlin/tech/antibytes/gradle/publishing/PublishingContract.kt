@@ -30,7 +30,7 @@ internal interface PublishingContract {
     interface PublishingPluginExtension {
         var excludeProjects: Set<String>
         var versioning: PublishingApiContract.VersioningConfiguration
-        var registryConfiguration: Set<PublishingApiContract.RegistryConfiguration>
+        var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration>
         var packageConfiguration: PublishingApiContract.PackageConfiguration?
         var dryRun: Boolean
         var standalone: Boolean

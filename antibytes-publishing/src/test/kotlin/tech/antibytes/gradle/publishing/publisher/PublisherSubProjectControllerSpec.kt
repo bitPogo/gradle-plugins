@@ -18,37 +18,45 @@ import org.gradle.api.Project
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
-import tech.antibytes.gradle.publishing.api.RegistryConfiguration
+import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
-import tech.antibytes.gradle.publishing.maven.MavenRegistry
+import tech.antibytes.gradle.publishing.maven.MavenRepository
 import kotlin.test.assertTrue
 
 class PublisherSubProjectControllerSpec {
     private val fixture = kotlinFixture()
-    private val registryTestConfig = RegistryConfiguration(
+    private val gitRegistryTestConfig = GitRepositoryConfiguration(
         username = "",
         password = "",
         name = "",
         url = "",
-        useGit = false,
         gitWorkDirectory = ""
+    )
+    private val mavenRegistryTestConfig = MavenRepositoryConfiguration(
+        username = "",
+        password = "",
+        name = "",
+        url = "",
     )
 
     @Before
     fun setUp() {
         mockkObject(Versioning)
         mockkObject(MavenPublisher)
-        mockkObject(MavenRegistry)
+        mockkObject(MavenRepository)
     }
 
     @After
     fun tearDown() {
         unmockkObject(Versioning)
         unmockkObject(MavenPublisher)
-        unmockkObject(MavenRegistry)
+        unmockkObject(MavenRepository)
     }
 
     @Test
@@ -63,7 +71,7 @@ class PublisherSubProjectControllerSpec {
         // Given
         val project: Project = mockk()
         val config = TestConfig(
-            registryConfiguration = setOf(mockk()),
+            repositoryConfiguration = setOf(mockk()),
             packageConfiguration = null,
             dryRun = false,
             excludeProjects = setOf(),
@@ -86,7 +94,7 @@ class PublisherSubProjectControllerSpec {
         // Given
         val project: Project = mockk()
         val config = TestConfig(
-            registryConfiguration = emptySet(),
+            repositoryConfiguration = emptySet(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = emptySet(),
@@ -109,16 +117,16 @@ class PublisherSubProjectControllerSpec {
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it distributes the configurations`() {
         // Given
         val project: Project = mockk()
-        val registry1 = registryTestConfig.copy(name = "a")
-        val registry2 = registryTestConfig.copy(name = "b")
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
 
-        val registryConfiguration: Set<PublishingApiContract.RegistryConfiguration> = setOf(registry1, registry2)
-        val packageConfiguration: PublishingApiContract.PackageConfiguration = mockk()
-        val versioningConfiguration: PublishingApiContract.VersioningConfiguration = mockk()
+        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val packageConfiguration: PackageConfiguration = mockk()
+        val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            registryConfiguration = registryConfiguration,
+            repositoryConfiguration = repositoryConfiguration,
             packageConfiguration = packageConfiguration,
             dryRun = dryRun,
             excludeProjects = emptySet(),
@@ -130,7 +138,7 @@ class PublisherSubProjectControllerSpec {
 
         every { Versioning.versionName(project, versioningConfiguration) } returns version
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
-        every { MavenRegistry.configure(project, or(registry1, registry2), dryRun) } just Runs
+        every { MavenRepository.configure(project, or(registry1, registry2), dryRun) } just Runs
 
         // When
         PublisherSubProjectController.configure(project, config)
@@ -140,7 +148,7 @@ class PublisherSubProjectControllerSpec {
         verify(exactly = 1) { MavenPublisher.configure(project, packageConfiguration, version) }
 
         verify(exactly = 1) {
-            MavenRegistry.configure(
+            MavenRepository.configure(
                 project,
                 registry1,
                 dryRun
@@ -148,7 +156,7 @@ class PublisherSubProjectControllerSpec {
         }
 
         verify(exactly = 1) {
-            MavenRegistry.configure(
+            MavenRepository.configure(
                 project,
                 registry2,
                 dryRun

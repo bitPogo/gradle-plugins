@@ -58,7 +58,7 @@ class PublisherControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
-            registryConfiguration = mockk(),
+            repositoryConfiguration = mockk(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = setOf(name),
@@ -117,7 +117,7 @@ class PublisherControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
-            registryConfiguration = mockk(),
+            repositoryConfiguration = mockk(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = setOf(name),
@@ -176,7 +176,7 @@ class PublisherControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
-            registryConfiguration = mockk(),
+            repositoryConfiguration = mockk(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = setOf(name),
@@ -216,7 +216,7 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and the Configuration, it delegates the parameter to the Standalone Configuration, if it is configured as Standalone`() {
         // Given
         val config = TestConfig(
-            registryConfiguration = mockk(),
+            repositoryConfiguration = mockk(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = setOf(),
@@ -257,7 +257,7 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and the Configuration, it delegates the parameter to the SubProjectPublisher, if it is configured as non Standalone and the target is not root`() {
         // Given
         val config = TestConfig(
-            registryConfiguration = mockk(),
+            repositoryConfiguration = mockk(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = setOf(),
@@ -298,7 +298,7 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and the Configuration, it sets up the evaluation dependencies if the target is root`() {
         // Given
         val config = TestConfig(
-            registryConfiguration = mockk(),
+            repositoryConfiguration = mockk(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = setOf(),
@@ -336,7 +336,7 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and the Configuration, it delegates the parameter to the RootProjectPublisher if the target is root and it is configured as non Standalone `() {
         // Given
         val config = TestConfig(
-            registryConfiguration = mockk(),
+            repositoryConfiguration = mockk(),
             packageConfiguration = mockk(),
             dryRun = false,
             excludeProjects = setOf(),
