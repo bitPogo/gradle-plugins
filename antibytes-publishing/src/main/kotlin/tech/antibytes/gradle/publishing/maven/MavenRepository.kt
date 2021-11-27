@@ -12,30 +12,32 @@ import org.gradle.api.publish.PublishingExtension
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
-internal object MavenRegistry : PublisherContract.MavenRegistry {
+internal object MavenRepository : PublisherContract.MavenRepository {
     private fun useCredentials(
-        configuration: PublishingApiContract.RegistryConfiguration,
+        configuration: PublishingApiContract.RepositoryConfiguration,
         dryRun: Boolean
     ): Boolean {
-        return !configuration.useGit && !dryRun
+        return configuration is PublishingApiContract.MavenRepositoryConfiguration && !dryRun
     }
 
     private fun getUrl(
         project: Project,
-        configuration: PublishingApiContract.RegistryConfiguration,
+        configuration: PublishingApiContract.RepositoryConfiguration,
         dryRun: Boolean
     ): String {
-        return if (dryRun || configuration.useGit) {
-            "file://${project.rootProject.buildDir.absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
-        } else {
-            configuration.url
+        val localBasePath = "file://${project.rootProject.buildDir.absolutePath}/${configuration.name}"
+
+        return when {
+            configuration is PublishingApiContract.GitRepositoryConfiguration -> "$localBasePath/${configuration.gitWorkDirectory}"
+            dryRun -> "$localBasePath/dryRun"
+            else -> configuration.url
         }
     }
 
     private fun setRepository(
         project: Project,
         repository: MavenArtifactRepository,
-        configuration: PublishingApiContract.RegistryConfiguration,
+        configuration: PublishingApiContract.RepositoryConfiguration,
         dryRun: Boolean
     ) {
         repository.name = configuration.name.capitalize()
@@ -57,7 +59,7 @@ internal object MavenRegistry : PublisherContract.MavenRegistry {
 
     override fun configure(
         project: Project,
-        configuration: PublishingApiContract.RegistryConfiguration,
+        configuration: PublishingApiContract.RepositoryConfiguration,
         dryRun: Boolean
     ) {
         project.extensions.configure(PublishingExtension::class.java) {

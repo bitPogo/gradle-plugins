@@ -69,8 +69,9 @@ interface PublishingApiContract {
         val url: String
     }
 
-    interface RegistryConfiguration : RepositoryConfiguration {
-        val useGit: Boolean
+    interface GitRepositoryConfiguration : RepositoryConfiguration {
         val gitWorkDirectory: String
     }
+
+    interface MavenRepositoryConfiguration : RepositoryConfiguration
 }

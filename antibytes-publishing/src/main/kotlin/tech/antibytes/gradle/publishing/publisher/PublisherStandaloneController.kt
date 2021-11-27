@@ -13,13 +13,13 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
-import tech.antibytes.gradle.publishing.maven.MavenRegistry
+import tech.antibytes.gradle.publishing.maven.MavenRepository
 
-internal object PublisherStandaloneController : PublishingContract.PublisherController {
+internal object PublisherStandaloneController : PublishingContract.PublisherController, SharedPublisherFunctions() {
     private fun isApplicable(
         extension: PublishingContract.PublishingPluginExtension
     ): Boolean {
-        return extension.registryConfiguration.isNotEmpty() &&
+        return extension.repositoryConfiguration.isNotEmpty() &&
             extension.packageConfiguration is PublishingApiContract.PackageConfiguration
     }
 
@@ -48,7 +48,7 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
     ) {
         if (isApplicable(extension)) {
             val dryRun = extension.dryRun
-            val registryConfigurations = extension.registryConfiguration
+            val registryConfigurations = extension.repositoryConfiguration
             val packageConfiguration = extension.packageConfiguration as PublishingApiContract.PackageConfiguration
             val versioningConfiguration = extension.versioning
 
@@ -64,7 +64,7 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
             )
 
             registryConfigurations.forEach { registry ->
-                MavenRegistry.configure(project, registry, dryRun)
+                MavenRepository.configure(project, registry, dryRun)
 
                 val clone = GitRepository.configureCloneTask(project, registry)
                 val push = GitRepository.configurePushTask(project, registry, version, dryRun)

@@ -12,7 +12,7 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.git.GitRepository
 
-internal object PublisherRootProjectController : PublishingContract.PublisherController {
+internal object PublisherRootProjectController : PublishingContract.PublisherController, SharedPublisherFunctions() {
     private fun wireDependencies(
         project: Project,
         cloneTask: Task?,
@@ -43,13 +43,13 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
         project: Project,
         extension: PublishingContract.PublishingPluginExtension
     ) {
-        if (extension.registryConfiguration.isNotEmpty()) {
+        if (extension.repositoryConfiguration.isNotEmpty()) {
             val version = Versioning.versionName(
                 project,
                 extension.versioning
             )
 
-            extension.registryConfiguration.forEach { registry ->
+            extension.repositoryConfiguration.forEach { registry ->
                 val cloneTask = GitRepository.configureCloneTask(project, registry)
                 val pushTask = GitRepository.configurePushTask(
                     project,

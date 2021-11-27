@@ -22,7 +22,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import tech.antibytes.gradle.publishing.PublishingError
-import tech.antibytes.gradle.publishing.api.RegistryConfiguration
+import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertEquals
@@ -50,13 +51,11 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configureCloneTask is called with a Project and a RegistryConfiguration it does nothing if useGit is false`() {
+    fun `Given configureCloneTask is called with a Project and a GitRepositoryConfiguration it does nothing if the given configuration is not a GitRepositoryConfiguration`() {
         // Given
         val project: Project = mockk()
-        val configuration = RegistryConfiguration(
+        val configuration = MavenRepositoryConfiguration(
             name = fixture(),
-            useGit = false,
-            gitWorkDirectory = fixture(),
             url = fixture(),
             username = "",
             password = ""
@@ -73,14 +72,13 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configureCloneTasks is called with a Project and a RegistryConfiguration it adds a clone task`() {
+    fun `Given configureCloneTasks is called with a Project and a GitRepositoryConfiguration it adds a clone task`() {
         // Given
         val name: String = fixture()
 
         val project: Project = mockk()
-        val configuration = RegistryConfiguration(
+        val configuration = GitRepositoryConfiguration(
             name = name,
-            useGit = true,
             gitWorkDirectory = fixture(),
             url = fixture(),
             username = "",
@@ -122,17 +120,14 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configurePushTask is called with a Project, RegistryConfiguration, Version and a DryRunFlag, it does nothing if useGit is false`() {
+    fun `Given configurePushTask is called with a Project, GitRepositoryConfiguration, Version and a DryRunFlag, it does nothing if the given configuration is not a GitRepositoryConfiguration`() {
         // Given
-        val useGit = false
         val version: String = fixture()
         val dryRun: Boolean = fixture()
 
         val project: Project = mockk()
-        val configuration = RegistryConfiguration(
+        val configuration = MavenRepositoryConfiguration(
             name = fixture(),
-            useGit = useGit,
-            gitWorkDirectory = fixture(),
             url = fixture(),
             username = "",
             password = ""
@@ -151,16 +146,15 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configureCloneTasks is called with a Project, RegistryConfiguration, Version and a DryRunFlag it adds a push task`() {
+    fun `Given configureCloneTasks is called with a Project, GitRepositoryConfiguration, Version and a DryRunFlag it adds a push task`() {
         // Given
         val name: String = fixture()
         val version: String = fixture()
         val dryRun: Boolean = fixture()
 
         val project: Project = mockk()
-        val configuration = RegistryConfiguration(
+        val configuration = GitRepositoryConfiguration(
             name = name,
-            useGit = true,
             gitWorkDirectory = fixture(),
             url = fixture(),
             username = "",
@@ -217,16 +211,15 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, RegistryConfiguration, Version and a DryRunFlag, it adds a push task, which fails if the GitAction returns false`() {
+    fun `Given configure is called with a Project, GitRepositoryConfiguration, Version and a DryRunFlag, it adds a push task, which fails if the GitAction returns false`() {
         // Given
         val name: String = fixture()
         val version: String = fixture()
         val dryRun: Boolean = fixture()
 
         val project: Project = mockk()
-        val configuration = RegistryConfiguration(
+        val configuration = GitRepositoryConfiguration(
             name = name,
-            useGit = true,
             gitWorkDirectory = fixture(),
             url = fixture(),
             username = "",

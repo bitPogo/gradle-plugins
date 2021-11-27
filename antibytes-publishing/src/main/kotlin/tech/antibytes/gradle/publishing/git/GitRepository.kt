@@ -15,9 +15,9 @@ import tech.antibytes.gradle.publishing.publisher.PublisherContract
 internal object GitRepository : PublisherContract.GitRepository {
     override fun configureCloneTask(
         project: Project,
-        configuration: PublishingApiContract.RegistryConfiguration
+        configuration: PublishingApiContract.RepositoryConfiguration
     ): Task? {
-        return if (configuration.useGit) {
+        return if (configuration is PublishingApiContract.GitRepositoryConfiguration) {
             project.tasks.create("clone${configuration.name.capitalize()}") {
                 doLast {
                     GitActions.checkout(
@@ -33,11 +33,11 @@ internal object GitRepository : PublisherContract.GitRepository {
 
     override fun configurePushTask(
         project: Project,
-        configuration: PublishingApiContract.RegistryConfiguration,
+        configuration: PublishingApiContract.RepositoryConfiguration,
         version: String,
         dryRun: Boolean
     ): Task? {
-        return if (configuration.useGit) {
+        return if (configuration is PublishingApiContract.GitRepositoryConfiguration) {
             project.tasks.create("push${configuration.name.capitalize()}") {
                 doLast {
                     val succeeded = GitActions.push(

@@ -10,7 +10,7 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
 
 data class TestConfig(
-    override var registryConfiguration: Set<PublishingApiContract.RegistryConfiguration>,
+    override var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration>,
     override var packageConfiguration: PublishingApiContract.PackageConfiguration?,
     override var dryRun: Boolean,
     override var excludeProjects: Set<String>,
