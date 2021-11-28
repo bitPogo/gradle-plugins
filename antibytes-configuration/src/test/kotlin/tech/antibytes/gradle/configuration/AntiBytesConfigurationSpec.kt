@@ -18,18 +18,19 @@ import org.gradle.api.Project
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
 class AntiBytesConfigurationSpec {
     @Before
     fun setup() {
         mockkObject(AndroidLibraryConfigurator)
+        mockkObject(DefaultAndroidLibraryConfigurationProvider)
     }
 
     @After
     fun tearDown() {
-        mockkObject(AndroidLibraryConfigurator)
+        unmockkObject(AndroidLibraryConfigurator)
+        unmockkObject(DefaultAndroidLibraryConfigurationProvider)
     }
 
     @Test
@@ -40,58 +41,15 @@ class AntiBytesConfigurationSpec {
     }
 
     @Test
-    fun `Given apply is called with a Project it creates a Extension`() {
-        // Given
-        val project: Project = mockk()
-
-        // When
-        every {
-            project.extensions.create(
-                "antibytesProjectConfiguration",
-                AntiBytesConfigurationPluginExtension::class.java,
-                project
-            )
-        } returns mockk()
-        every { project.plugins.hasPlugin("com.android.library") } returns false
-
-        AntiBytesConfiguration().apply(project)
-
-        // Then
-        verify(exactly = 1) {
-            project.extensions.create(
-                "antibytesProjectConfiguration",
-                AntiBytesConfigurationPluginExtension::class.java,
-                project
-            )
-        }
-    }
-
-    @Test
     fun `Given apply is called with a Project, it will not delegate the AndroidConfiguration if it is not a Library`() {
         mockkObject(AndroidLibraryConfigurator)
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesConfigurationPluginExtension = mockk(relaxed = true)
-        // When
-        every {
-            project.extensions.create(
-                "antibytesProjectConfiguration",
-                AntiBytesConfigurationPluginExtension::class.java,
-                project
-            )
-        } returns extension
-
         every { project.plugins.hasPlugin("com.android.library") } returns false
 
-        every { extension.androidLibrary } returns mockk()
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
-        every { AndroidLibraryConfigurator.setCompileSDK(any()) } just Runs
-
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project
-        )
+        every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
 
         AntiBytesConfiguration().apply(project)
 
@@ -106,31 +64,17 @@ class AntiBytesConfigurationSpec {
         // Given
         val project: Project = mockk()
 
-        val extension: AntiBytesConfigurationPluginExtension = mockk()
         val androidConfig: ConfigurationApiContract.AndroidLibraryConfiguration = mockk()
-        // When
-        every {
-            project.extensions.create(
-                "antibytesProjectConfiguration",
-                AntiBytesConfigurationPluginExtension::class.java,
-                project
-            )
-        } returns extension
 
-        every { extension.androidLibrary } returns androidConfig
         every { project.plugins.hasPlugin("com.android.library") } returns true
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
-        every { AndroidLibraryConfigurator.setCompileSDK(any()) } just Runs
+        every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns androidConfig
 
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project
-        )
-
+        // When
         AntiBytesConfiguration().apply(project)
 
         // Then
-        verify(exactly = 1) { AndroidLibraryConfigurator.setCompileSDK(project) }
+        verify(exactly = 1) { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project) }
         verify(exactly = 1) { AndroidLibraryConfigurator.configure(project, androidConfig) }
     }
 }

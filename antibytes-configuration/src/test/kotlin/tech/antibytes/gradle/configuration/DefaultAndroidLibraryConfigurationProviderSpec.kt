@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.configuration
 
+import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
@@ -26,6 +27,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class DefaultAndroidLibraryConfigurationProviderSpec {
+    private val fixture = kotlinFixture()
+
     @Before
     fun setup() {
         mockkObject(PlatformContextResolver)
@@ -47,8 +50,10 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
     fun `Given createDefaultConfiguration is called with a Project it returns a AndroidLibraryConfiguration with default settings, if it is an AndroidLibrary`() {
         // Given
         val project: Project = mockk()
+        val projectName: String = fixture()
 
         every { PlatformContextResolver.getType(any()) } returns setOf(GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY)
+        every { project.name } returns projectName
         // When
         val result = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
 
@@ -56,8 +61,10 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
         assertEquals(
             actual = result,
             expected = AndroidLibraryConfiguration(
+                compileSdkVersion = 30,
                 minSdkVersion = 23,
                 targetSdkVersion = 30,
+                prefix = "antibytes_${projectName.replace("-", "_")}_",
                 publishVariants = emptySet(),
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
@@ -65,13 +72,13 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
                 ),
                 fallbacks = mapOf("debug" to setOf("release")),
                 mainSource = MainSource(
-                    manifest = "src/androidMain/AndroidManifest.xml",
-                    sourceDirectories = setOf("src/androidMain/kotlin"),
-                    resourceDirectories = setOf("src/androidMain/res")
+                    manifest = "src/main/AndroidManifest.xml",
+                    sourceDirectories = setOf("src/main/kotlin"),
+                    resourceDirectories = setOf("src/main/res")
                 ),
                 unitTestSource = TestSource(
-                    sourceDirectories = setOf("src/androidTest/kotlin"),
-                    resourceDirectories = setOf("src/androidTest/res")
+                    sourceDirectories = setOf("src/test/kotlin"),
+                    resourceDirectories = setOf("src/test/res")
                 ),
                 androidTest = null,
                 testRunner = TestRunner(
@@ -86,8 +93,11 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
     fun `Given createDefaultConfiguration is called with a Project it returns a AndroidLibraryConfiguration with default settings, if it is an AndroidLibrary in KMP Context`() {
         // Given
         val project: Project = mockk()
+        val projectName: String = fixture()
 
         every { PlatformContextResolver.getType(any()) } returns setOf(GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP)
+        every { project.name } returns projectName
+
         // When
         val result = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
 
@@ -95,9 +105,11 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
         assertEquals(
             actual = result,
             expected = AndroidLibraryConfiguration(
+                compileSdkVersion = 30,
                 minSdkVersion = 23,
                 targetSdkVersion = 30,
-                publishVariants = setOf("release", "debug"),
+                publishVariants = setOf("release"),
+                prefix = "antibytes_${projectName.replace("-", "_")}_",
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
                     source = JavaVersion.VERSION_1_8

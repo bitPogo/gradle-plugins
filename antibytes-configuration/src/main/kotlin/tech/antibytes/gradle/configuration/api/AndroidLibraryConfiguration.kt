@@ -8,14 +8,16 @@ package tech.antibytes.gradle.configuration.api
 
 import tech.antibytes.gradle.configuration.ConfigurationApiContract
 
-data class AndroidLibraryConfiguration(
-    override var minSdkVersion: Int,
-    override var targetSdkVersion: Int,
-    override var compatibilityTargets: ConfigurationApiContract.Compatibility,
-    override var fallbacks: Map<String, Set<String>>,
-    override var mainSource: ConfigurationApiContract.MainSource,
-    override var unitTestSource: ConfigurationApiContract.TestSource,
-    override var publishVariants: Set<String>,
-    override var androidTest: ConfigurationApiContract.TestSource?,
-    override var testRunner: ConfigurationApiContract.TestRunner
+internal data class AndroidLibraryConfiguration(
+    override val compileSdkVersion: Int,
+    override val minSdkVersion: Int,
+    override val targetSdkVersion: Int,
+    override val prefix: String,
+    override val compatibilityTargets: ConfigurationApiContract.Compatibility,
+    override val fallbacks: Map<String, Set<String>>,
+    override val mainSource: ConfigurationApiContract.MainSource,
+    override val unitTestSource: ConfigurationApiContract.TestSource,
+    override val publishVariants: Set<String>,
+    override val androidTest: ConfigurationApiContract.TestSource?,
+    override val testRunner: ConfigurationApiContract.TestRunner
 ) : ConfigurationApiContract.AndroidLibraryConfiguration

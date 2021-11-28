@@ -9,7 +9,6 @@ package tech.antibytes.gradle.configuration
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import tech.antibytes.gradle.configuration.ConfigurationContract.Companion.COMPILE_SDK_VERSION
 import tech.antibytes.gradle.util.isKmp
 
 internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibraryConfigurator {
@@ -17,6 +16,8 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
         extension: LibraryExtension,
         configuration: ConfigurationApiContract.AndroidLibraryConfiguration
     ) {
+        extension.compileSdk = configuration.compileSdkVersion
+        extension.resourcePrefix = configuration.prefix
 
         extension.defaultConfig {
             minSdk = configuration.minSdkVersion
@@ -57,12 +58,6 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
     ) {
         project.extensions.configure(KotlinMultiplatformExtension::class.java) {
             android().publishLibraryVariants(*configuration.publishVariants.toTypedArray())
-        }
-    }
-
-    override fun setCompileSDK(project: Project) {
-        project.extensions.configure(LibraryExtension::class.java) {
-            compileSdk = COMPILE_SDK_VERSION
         }
     }
 
