@@ -23,7 +23,8 @@ include(
     ":antibytes-dependency",
     ":antibytes-publishing",
     ":antibytes-configuration",
-    ":antibytes-gradle-utils"
+    ":antibytes-gradle-utils",
+    ":antibytes-jflex"
 )
 
 buildCache {

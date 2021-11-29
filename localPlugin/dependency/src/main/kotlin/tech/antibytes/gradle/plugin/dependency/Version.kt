@@ -57,6 +57,11 @@ object Version {
          * [KTLint](https://github.com/pinterest/ktlint)
          */
         const val ktlint = "0.43.0"
+
+        /**
+         * [JFlex](https://jflex.de/)
+         */
+        const val jflex = "1.8.2"
     }
 
     object Test {
