@@ -11,6 +11,10 @@ import org.gradle.testfixtures.ProjectBuilder
 
 val extensionFixture = kotlinFixture()
 
+/**
+ * Creates an Gradle Extension
+ * @params Any: arguments which are needed to instantiate the Extension
+ */
 inline fun <reified T : Any> createExtension(vararg constructorArguments: Any): T {
     val project = ProjectBuilder.builder().build()
 
