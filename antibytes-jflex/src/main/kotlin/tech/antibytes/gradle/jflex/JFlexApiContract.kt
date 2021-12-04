@@ -6,8 +6,10 @@
 
 package tech.antibytes.gradle.jflex
 
+import org.gradle.api.Task
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
@@ -19,9 +21,9 @@ import org.gradle.api.tasks.TaskAction
 import kotlin.jvm.Throws
 
 interface JFlexApiContract {
-    interface JflexTask {
+    interface JflexTask : Task {
         /**
-         * The grammar file to processed
+         * The grammar file to be processed
          * This property is required
          */
         @get:InputFile
@@ -128,8 +130,59 @@ interface JFlexApiContract {
         @get:Input
         val progressDots: Property<Boolean>
 
+        /**
+         * Generates a Java file of the provided grammar and parameters to the provided target location
+         * @throws MissingFlexFileError if no valid grammar file was provided
+         * @throws MissingOutputDirectoryError if no output directory was provided
+         * @throws CodeGenerationRuntimeError if flex fails generate any output
+         */
         @TaskAction
         @Throws(JFlexTaskError::class)
         fun generate()
+    }
+
+    interface PostConverterTask : Task {
+        /**
+         * The file to be processed
+         * This property is required
+         */
+        @get:InputFile
+        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        val targetFile: RegularFileProperty
+
+        /**
+         * Replacements which rely on plain Strings
+         * The default is emptyList
+         */
+        @get:Input
+        val replaceWithString: ListProperty<Pair<String, String>>
+
+        /**
+         * Replacements which rely on RegularExpressions
+         * The default is emptyList
+         */
+        @get:Input
+        val replaceWithRegEx: ListProperty<Pair<Regex, String>>
+
+        /**
+         * Deletions which rely on plain Strings
+         * The default is emptyList
+         */
+        @get:Input
+        val deleteWithString: ListProperty<String>
+
+        /**
+         * Deletions which rely on RegularExpressions
+         * The default is emptyList
+         */
+        @get:Input
+        val deleteWithRegEx: ListProperty<Regex>
+
+        /**
+         * Cleans the provided target with the given provided up
+         * @throws TargetFileNotFound if no valid target file was not provided
+         */
+        @TaskAction
+        fun cleanUp()
     }
 }

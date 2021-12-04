@@ -16,7 +16,7 @@ import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class JFlexTaskIntegration {
+class JFlexTasksIntegration {
     @JvmField
     @Rule
     val testDir: TemporaryFolder = TemporaryFolder()
@@ -35,7 +35,7 @@ class JFlexTaskIntegration {
 
         outputDir = File(testProjectDir, "output").also { it.mkdir() }
 
-        val settingsFileContent = JFlexTaskIntegration::class.java.getResource(
+        val settingsFileContent = JFlexTasksIntegration::class.java.getResource(
             "/sample.settings.gradle.kts.txt"
         )?.readText()
 
@@ -45,9 +45,9 @@ class JFlexTaskIntegration {
     @Test
     fun `Given a JFlex task is executed it generates a Java file`() {
         // Given
-        val flexFile = JFlexTaskIntegration::class.java.getResource("/Simple.flex")?.path!!
-        val buildFileContent = JFlexTaskIntegration::class.java.getResource("/sample.build.gradle.kts.txt")?.readText()!!
-        val expected = JFlexTaskIntegration::class.java.getResource("/LexerClassName.java.txt")?.readText()!!
+        val flexFile = JFlexTasksIntegration::class.java.getResource("/Simple.flex")?.path!!
+        val buildFileContent = JFlexTasksIntegration::class.java.getResource("/sample.build.jflex.gradle.kts.txt")?.readText()!!
+        val expected = JFlexTasksIntegration::class.java.getResource("/LexerClassName.java.txt")?.readText()!!
 
         buildFile.writeText(
             buildFileContent.replace(
@@ -77,6 +77,45 @@ class JFlexTaskIntegration {
         assertEquals(
             actual = generatedFile.readText(),
             expected = expected
+        )
+    }
+
+    @Test
+    fun `Given a PostConverter task is executed it cleans up a file`() {
+        // Given
+        val file = File(testProjectDir, "dirtyFile.txt")
+        file.writeText("abcTestabc")
+
+        val buildFileContent = JFlexTasksIntegration::class.java.getResource("/sample.build.postprocess.gradle.kts.txt")?.readText()!!
+
+        buildFile.writeText(
+            buildFileContent.replace(
+                "\$FLEX_CONVERTED_FILE",
+                file.absolutePath
+            ).replace(
+                "\$FLEX_CONVERTED_REPLACEMENT_PATTERN",
+                "[a-c]+"
+            ).replace(
+                "\$FLEX_CONVERTED_REPLACEMENT_VALUE",
+                "x "
+            )
+        )
+
+        // When
+        val result = GradleRunner.create()
+            .withProjectDir(testProjectDir)
+            .withArguments("postProcessJFlex")
+            .withPluginClasspath()
+            .build()
+
+        assertEquals(
+            actual = result.task(":postProcessJFlex")?.outcome,
+            expected = SUCCESS
+        )
+
+        assertEquals(
+            actual = file.readText(),
+            expected = "x Testx "
         )
     }
 }

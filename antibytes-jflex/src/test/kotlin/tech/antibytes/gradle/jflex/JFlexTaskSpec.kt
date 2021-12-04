@@ -23,7 +23,6 @@ import jflex.logging.Out
 import jflex.option.Options
 import jflex.skeleton.Skeleton
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.testfixtures.ProjectBuilder
@@ -46,14 +45,7 @@ class JFlexTaskSpec {
     }
 
     @Test
-    fun `It fulfils Task`() {
-        val task: Any = project.tasks.create("sut", JFlexTask::class.java) {}
-
-        assertTrue(task is Task)
-    }
-
-    @Test
-    fun `It fulfils JflexTaskParameters`() {
+    fun `It fulfils JFlexTask`() {
         val task: Any = project.tasks.create("sut", JFlexTask::class.java) {}
 
         assertTrue(task is JFlexApiContract.JflexTask)
