@@ -15,5 +15,10 @@ class JFlexPlugin : Plugin<Project> {
             group = "Code Generation"
             description = "Generate a scanner from an (Java)FlexFile"
         }
+
+        target.tasks.create("postProcessJFlex", PostConverterTask::class.java) {
+            group = "Code Generation"
+            description = "Cleans up generated JFlex files, after they had been converted to Kotlin"
+        }
     }
 }
