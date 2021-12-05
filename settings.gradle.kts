@@ -24,7 +24,7 @@ include(
     ":antibytes-publishing",
     ":antibytes-configuration",
     ":antibytes-gradle-utils",
-    ":antibytes-jflex"
+    ":antibytes-grammar-tools"
 )
 
 buildCache {

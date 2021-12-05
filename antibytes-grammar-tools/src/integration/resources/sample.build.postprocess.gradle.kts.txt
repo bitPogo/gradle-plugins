@@ -1,0 +1,18 @@
+/*
+ * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ *
+ * Use of this source code is governed by LGPL v2.1
+ */
+import tech.antibytes.gradle.grammar.PostConverterTask
+
+plugins {
+    id("tech.antibytes.gradle.grammar")
+}
+
+tasks.withType(PostConverterTask::class.java) {
+    val replacements = listOf(
+        "$FLEX_CONVERTED_REPLACEMENT_PATTERN".toRegex() to "$FLEX_CONVERTED_REPLACEMENT_VALUE"
+    )
+    targetFile.set(project.file("$FLEX_CONVERTED_FILE"))
+    replaceWithRegEx.set(replacements)
+}
