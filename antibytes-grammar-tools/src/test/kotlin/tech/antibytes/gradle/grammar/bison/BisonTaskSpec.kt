@@ -46,7 +46,10 @@ class BisonTaskSpec {
     fun `It has no default Executable`() {
         val task = project.tasks.create("sut", BisonTask::class.java) {}
 
-        assertFalse(task.executable.isPresent)
+        assertEquals(
+            actual = task.executable.get().asFile.absolutePath,
+            expected = "/usr/bin/bison"
+        )
     }
 
     @Test
@@ -251,6 +254,7 @@ class BisonTaskSpec {
         // Given
         val task = project.tasks.create("sut", BisonTask::class.java) {}
 
+        task.executable.convention(null)
         val logger: Logger = mockk(relaxUnitFun = true)
         every { Logging.getLogger(BisonTask::class.java) } returns logger
 

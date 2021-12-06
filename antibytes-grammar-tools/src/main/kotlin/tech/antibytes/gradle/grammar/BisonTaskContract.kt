@@ -6,12 +6,12 @@
 
 package tech.antibytes.gradle.grammar
 
-import org.gradle.api.tasks.Input
 import org.gradle.api.Task
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
@@ -227,10 +227,12 @@ interface BisonTaskContract : Task {
 
     /**
      * Location of Bison
+     * The default location is '/usr/bin/bison'
      * This property is required
      */
     @get:InputFile
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    @get:Optional
     val executable: RegularFileProperty
 
     /**
@@ -276,7 +278,7 @@ interface BisonTaskContract : Task {
      * deprecated by 'define.get().add(api.prefix, {PREFIX})'
      * This property is optional
      */
-    @Deprecated("deprecated by 'define.get().add(api.prefix, {PREFIX})'")
+    @Deprecated("deprecated by 'define.get().add(prefix, {PREFIX})'")
     @get:Optional
     @get:Input
     val namePrefix: Property<String>

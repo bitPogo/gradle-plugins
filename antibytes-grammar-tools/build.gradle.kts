@@ -98,13 +98,17 @@ tasks.jacocoTestCoverageVerification {
 
 val provideBisonExec by tasks.creating(Task::class.java) {
     doFirst {
+        val exec = project.findProperty("bison.exec")
         val bisonExec = File("${projectDir.absolutePath.trimEnd('/')}/src/integration/resources/bisonExec")
-
         if (!bisonExec.exists()) {
             bisonExec.createNewFile()
         }
 
-        bisonExec.writeText(project.findProperty("bison.exec") as String)
+        if (exec is String) {
+            bisonExec.writeText(exec)
+        } else {
+            bisonExec.writeText("/usr/bin/bison")
+        }
     }
 }
 

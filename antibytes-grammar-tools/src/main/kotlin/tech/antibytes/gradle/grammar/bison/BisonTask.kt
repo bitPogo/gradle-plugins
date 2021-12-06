@@ -14,8 +14,9 @@ import org.gradle.api.tasks.TaskAction
 import tech.antibytes.gradle.grammar.BisonTaskContract
 import kotlin.jvm.Throws
 
-abstract class BisonTask : BisonTaskContract, DefaultTask(){
+abstract class BisonTask : BisonTaskContract, DefaultTask() {
     init {
+        executable.convention { project.file("/usr/bin/bison") }
         debug.convention(false)
         locations.convention(false)
         noLines.convention(false)
@@ -168,7 +169,6 @@ abstract class BisonTask : BisonTaskContract, DefaultTask(){
             warnings += ",$errors"
         }
 
-
         if (warnings.isNotEmpty()) {
             arguments.add("--warning=${warnings.trimStart(',')}")
         }
@@ -204,8 +204,8 @@ abstract class BisonTask : BisonTaskContract, DefaultTask(){
                 arguments = assembleArgument()
             )
         } catch (error: Exception) {
-            logger.error("${BisonTaskError.CODE_GENERATION_RUNTIME_ERROR}\n${error.cause?.message}")
-            throw BisonTaskError.CodeGenerationRuntimeError(error.cause?.message)
+            logger.error("${BisonTaskError.CODE_GENERATION_RUNTIME_ERROR}\n${error.cause!!.message}")
+            throw BisonTaskError.CodeGenerationRuntimeError(error.cause!!.message)
         }
 
         logger.info(

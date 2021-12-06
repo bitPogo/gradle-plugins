@@ -66,6 +66,9 @@ object Version {
          */
         const val jflex = "1.8.2"
 
+        /**
+         * [Turtle](https://github.com/lordcodes/turtle)
+         */
         const val turtle = "0.6.0"
     }
 
