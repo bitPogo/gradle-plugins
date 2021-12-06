@@ -10,6 +10,7 @@ object Version {
     const val kotlin = "1.5.31"
 
     val gradle = GradlePlugin
+    val library = Library
     val test = Test
 
     object GradlePlugin {
@@ -57,11 +58,15 @@ object Version {
          * [KTLint](https://github.com/pinterest/ktlint)
          */
         const val ktlint = "0.43.0"
+    }
 
+    object Library {
         /**
          * [JFlex](https://jflex.de/)
          */
         const val jflex = "1.8.2"
+
+        const val turtle = "0.6.0"
     }
 
     object Test {

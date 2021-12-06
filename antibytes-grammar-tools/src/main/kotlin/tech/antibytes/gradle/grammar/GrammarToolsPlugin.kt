@@ -14,12 +14,17 @@ class GrammarToolsPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         target.tasks.create("jflex", JFlexTask::class.java) {
             group = "Code Generation"
-            description = "Generate a scanner from an (Java)FlexFile"
+            description = "Generates a scanner from an (Java)FlexFile"
         }
 
         target.tasks.create("postProcessJFlex", PostConverterTask::class.java) {
             group = "Code Generation"
             description = "Cleans up generated JFlex files, after they had been converted to Kotlin"
+        }
+
+        target.tasks.create("bison", PostConverterTask::class.java) {
+            group = "Code Generation"
+            description = "Generates a scanner from an (Java)FlexFile"
         }
     }
 }

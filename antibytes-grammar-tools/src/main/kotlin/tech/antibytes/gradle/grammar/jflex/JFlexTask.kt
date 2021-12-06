@@ -15,7 +15,7 @@ import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.TaskAction
-import tech.antibytes.gradle.grammar.JflexTaskContract
+import tech.antibytes.gradle.grammar.JFlexTaskContract
 import tech.antibytes.gradle.grammar.jflex.JFlexTaskError.Companion.MISSING_FLEX_FILE
 import tech.antibytes.gradle.grammar.jflex.JFlexTaskError.Companion.MISSING_OUTPUT_DIRECTORY
 import java.io.File
@@ -23,7 +23,7 @@ import java.nio.charset.Charset
 import kotlin.jvm.Throws
 
 @CacheableTask
-abstract class JFlexTask : JflexTaskContract, DefaultTask() {
+abstract class JFlexTask : JFlexTaskContract, DefaultTask() {
     init {
         backup.convention(false)
         disableUnusedWarning.convention(false)

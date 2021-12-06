@@ -28,7 +28,7 @@ import org.gradle.api.logging.Logging
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
 import org.junit.Test
-import tech.antibytes.gradle.grammar.JflexTaskContract
+import tech.antibytes.gradle.grammar.JFlexTaskContract
 import java.io.File
 import java.nio.charset.Charset
 import kotlin.test.assertEquals
@@ -49,18 +49,18 @@ class JFlexTaskSpec {
     fun `It fulfils JFlexTask`() {
         val task: Any = project.tasks.create("sut", JFlexTask::class.java) {}
 
-        assertTrue(task is JflexTaskContract)
+        assertTrue(task is JFlexTaskContract)
     }
 
     @Test
-    fun `It has no default flexFile`() {
+    fun `It has no default FlexFile`() {
         val task = project.tasks.create("sut", JFlexTask::class.java) {}
 
         assertFalse(task.flexFile.isPresent)
     }
 
     @Test
-    fun `It has no default outputFile`() {
+    fun `It has no default OutputDirectory`() {
         val task = project.tasks.create("sut", JFlexTask::class.java) {}
 
         assertFalse(task.outputDirectory.isPresent)

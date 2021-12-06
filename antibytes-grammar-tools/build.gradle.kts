@@ -44,7 +44,8 @@ fun DependencyHandler.integrationTestImplementation(dependencyNotation: Any): De
 
 dependencies {
     implementation(AntibytesDependency.gradle.kotlin)
-    implementation(AntibytesDependency.gradle.jflex)
+    implementation(AntibytesDependency.library.jflex)
+    implementation(AntibytesDependency.library.turtle)
 
     testImplementation(AntibytesDependency.test.kotlinTest)
     testImplementation(platform(AntibytesDependency.test.junit))

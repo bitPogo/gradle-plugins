@@ -20,7 +20,7 @@ import org.gradle.api.tasks.TaskAction
 import tech.antibytes.gradle.grammar.jflex.JFlexTaskError
 import kotlin.jvm.Throws
 
-interface JflexTaskContract : Task {
+interface JFlexTaskContract : Task {
     /**
      * The grammar file to be processed
      * This property is required
