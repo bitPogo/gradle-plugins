@@ -60,13 +60,33 @@
 
 # Library
 - name: dependency-plugin
-  description: dependency changes
+  description: dependency plugin changes
   color: 000080
 
 - name: coverage-plugin
-  description: coverage changes
+  description: coverage plugin changes
   color: 000080
 
 - name: publishing-plugin
-  description: versioning changes
+  description: versioning plugin changes
+  color: 000080
+
+-name: grammar-tools-plugin
+  description: grammar tools plugin changes
+  color: 000080
+
+-name: configuration-plugin
+  description: configuration plugin changes
+  color: 000080
+
+-name: configuration-plugin
+  description: configuration plugin changes
+  color: 000080
+
+-name: gradle-utils-plugin
+   description: gradle utils plugin changes
+   color: 000080
+
+-name: gradle-test-utils-plugin
+  description: gradle test utils plugin changes
   color: 000080

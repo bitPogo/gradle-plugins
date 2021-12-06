@@ -19,7 +19,13 @@ object Dependency {
         const val versioning = "com.palantir.gradle.gitversion:gradle-git-version:${Version.gradle.versioning}"
         const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Version.gradle.spotless}"
         const val ktlint = "com.pinterest:ktlint:${Version.gradle.ktlint}"
-        const val jflex = "de.jflex:jflex:${Version.gradle.jflex}"
+    }
+
+    val library = Library
+
+    object Library {
+        const val jflex = "de.jflex:jflex:${Version.library.jflex}"
+        const val turtle = "com.lordcodes.turtle:turtle:${Version.library.turtle}"
     }
 
     val test = Test
