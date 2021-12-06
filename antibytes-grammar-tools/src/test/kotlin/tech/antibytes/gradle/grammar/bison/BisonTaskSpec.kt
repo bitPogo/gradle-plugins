@@ -371,6 +371,43 @@ class BisonTaskSpec {
     }
 
     @Test
+    fun `Given generate is called and all required parameter are set, it fails if the Bison command fails, while the nested error was null`() {
+        mockkStatic(Logging::class)
+        mockkStatic("com.lordcodes.turtle.ShellKt")
+
+        val task = project.tasks.create("sut", BisonTask::class.java) {}
+
+        val bisonExec = project.file("somewhere/bison")
+        val grammarFile = project.file("somewhere/something.y")
+        val outputFile = project.file("somewhere/somekotlin.kt")
+
+        task.executable.set(bisonExec)
+        task.grammarFile.set(grammarFile)
+        task.outputFile.set(outputFile)
+
+        val logger: Logger = mockk(relaxUnitFun = true)
+        every { Logging.getLogger(BisonTask::class.java) } returns logger
+
+        every { shellRun(any<String>(), any()) } throws RuntimeException()
+
+        // Then
+        val error = assertFailsWith<BisonTaskError.CodeGenerationRuntimeError> {
+            // When
+            task.generate()
+        }
+
+        val message = "Something went wrong during code generation:\nnull"
+        assertEquals(
+            actual = error.message,
+            expected = message
+        )
+        verify(exactly = 1) { logger.error(message) }
+
+        unmockkStatic(Logging::class)
+        unmockkStatic("com.lordcodes.turtle.ShellKt")
+    }
+
+    @Test
     fun `Given generate is called and all required parameter are set, it executes the Bison command`() {
         mockkStatic(Logging::class)
         mockkStatic("com.lordcodes.turtle.ShellKt")
