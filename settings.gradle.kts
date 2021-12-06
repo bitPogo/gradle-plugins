@@ -19,7 +19,7 @@ plugins {
 
 include(
     ":antibytes-coverage",
-    ":antibytes-test-utils",
+    ":antibytes-gradle-test-utils",
     ":antibytes-dependency",
     ":antibytes-publishing",
     ":antibytes-configuration",

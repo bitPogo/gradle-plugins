@@ -53,7 +53,7 @@ dependencies {
     testImplementation(AntibytesDependency.test.jupiter)
     testImplementation(AntibytesDependency.test.mockk)
     testImplementation(AntibytesDependency.test.fixture)
-    testImplementation(project(":antibytes-test-utils"))
+    testImplementation(project(":antibytes-gradle-test-utils"))
     // Note: this is not necessary for tests itself, only for ide support of integrationTests
     testImplementation(gradleTestKit())
 

@@ -25,6 +25,22 @@ dependency-plugin:
 coverage-plugin:
   - antibytes-coverage/**/*
 
+# Grammar Tools Plugin
+grammar-tools-plugin:
+  - antibytes-grammar-tools/**/*
+
 # Publishing Plugin
 publishing-plugin:
   - antibytes-publishing/**/*
+
+# Configuration Plugin
+configuration-plugin:
+  - antibytes-configuration/**/*
+
+# Gradle Utils Plugin
+gradle-utils-plugin:
+  - antibytes-gradle-utils/**/*
+
+# Gradle test utils Plugin
+gradle-test-utils-plugin:
+  - antibytes-gradle-test-utils/**/*
