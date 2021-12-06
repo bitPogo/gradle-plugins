@@ -23,6 +23,7 @@ captures/
 .DS_Store
 
 # generated
+antibytes-grammar-tools/src/integration/resources/bisonExec
 
 # Editors
 *.suo

@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.grammar
 
+import org.gradle.api.tasks.Input
 import org.gradle.api.Task
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.MapProperty
@@ -260,12 +261,14 @@ interface BisonTaskContract : Task {
      * Defines the macro YYDEBUG to 1 if it is not already defined, so that the debugging facilities are compiled.
      * Default is false
      */
+    @get:Input
     val debug: Property<Boolean>
 
     /**
      * Pretend that %locations was specified
      * Default is false
      */
+    @get:Input
     val locations: Property<Boolean>
 
     /**
@@ -275,24 +278,28 @@ interface BisonTaskContract : Task {
      */
     @Deprecated("deprecated by 'define.get().add(api.prefix, {PREFIX})'")
     @get:Optional
+    @get:Input
     val namePrefix: Property<String>
 
     /**
      * Don't put any #line preprocessor commands in the parser file.
      * Default is false
      */
+    @get:Input
     val noLines: Property<Boolean>
 
     /**
      * apply fixes to the source grammar file and exit
      * Default is false
      */
+    @get:Input
     val update: Property<Boolean>
 
     /**
      * Pretend that %token-table was specified
      * Default is false
      */
+    @get:Input
     val tokenTable: Property<Boolean>
 
     /**
@@ -307,12 +314,14 @@ interface BisonTaskContract : Task {
      * similar to '%define NAME VALUE'
      * Default is a empty Map
      */
+    @get:Input
     val define: MapProperty<String, String>
 
     /**
      * override '%define NAME VALUE'
      * Default is a empty Map
      */
+    @get:Input
     val forceDefine: MapProperty<String, String>
 
     /**
@@ -320,6 +329,7 @@ interface BisonTaskContract : Task {
      * This property is optional
      */
     @get:Optional
+    @get:Input
     val filePrefix: Property<String>
 
     /**
@@ -327,6 +337,7 @@ interface BisonTaskContract : Task {
      * @see Report for the particular options
      * Default is an empty set
      */
+    @get:Input
     val report: SetProperty<Report>
 
     /**
@@ -341,6 +352,7 @@ interface BisonTaskContract : Task {
      * Pretend that %verbose was specified, i.e, write an extra output file containing verbose descriptions of the grammar and parser.
      * Default is false
      */
+    @get:Input
     val verbose: Property<Boolean>
 
     /**
@@ -363,12 +375,15 @@ interface BisonTaskContract : Task {
      * Replace prefix old with new when writing file paths in output files.
      * Default is a empty Map
      */
+    @get:Input
     val filePrefixMap: MapProperty<String, String>
 
     /**
      * specify the output programming language
      * This property is optional
      */
+    @get:Optional
+    @get:Input
     val language: Property<String>
 
     /**
@@ -376,6 +391,7 @@ interface BisonTaskContract : Task {
      * @see Features
      * Default is a empty Set
      */
+    @get:Input
     val features: SetProperty<Features>
 
     /**
@@ -384,6 +400,7 @@ interface BisonTaskContract : Task {
      * @see ErrorCategory
      * Default is a empty Set
      */
+    @get:Input
     val warnings: SetProperty<ErrorCategory>
 
     /**
@@ -391,12 +408,15 @@ interface BisonTaskContract : Task {
      * @see ErrorCategory
      * Default is a empty Set
      */
+    @get:Input
     val errors: SetProperty<ErrorCategory>
 
     /**
      * whether to colorize the diagnostics
      * This property is optional
      */
+    @get:Input
+    @get:Optional
     val color: Property<When>
 
     /**

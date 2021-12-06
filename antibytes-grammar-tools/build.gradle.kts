@@ -5,6 +5,7 @@
  */
 import tech.antibytes.gradle.plugin.dependency.Dependency as AntibytesDependency
 import tech.antibytes.gradle.plugin.config.LibraryConfig
+import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 
 plugins {
     `kotlin-dsl`
@@ -95,6 +96,21 @@ tasks.jacocoTestCoverageVerification {
     }
 }
 
+val provideBisonExec by tasks.creating(Task::class.java) {
+    doFirst {
+        val bisonExec = File("${projectDir.absolutePath.trimEnd('/')}/src/integration/resources/bisonExec")
+
+        if (!bisonExec.exists()) {
+            bisonExec.createNewFile()
+        }
+
+        bisonExec.writeText(project.findProperty("bison.exec") as String)
+    }
+}
+
+tasks.withType(KotlinCompile::class.java) {
+    dependsOn(provideBisonExec)
+}
 
 val integrationTests by tasks.creating(Test::class.java) {
     description = "Run integration tests"

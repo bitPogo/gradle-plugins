@@ -8,6 +8,7 @@ package tech.antibytes.gradle.grammar
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import tech.antibytes.gradle.grammar.bison.BisonTask
 import tech.antibytes.gradle.grammar.jflex.JFlexTask
 
 class GrammarToolsPlugin : Plugin<Project> {
@@ -17,14 +18,9 @@ class GrammarToolsPlugin : Plugin<Project> {
             description = "Generates a scanner from an (Java)FlexFile"
         }
 
-        target.tasks.create("postProcessJFlex", PostConverterTask::class.java) {
+        target.tasks.create("bison", BisonTask::class.java) {
             group = "Code Generation"
-            description = "Cleans up generated JFlex files, after they had been converted to Kotlin"
-        }
-
-        target.tasks.create("bison", PostConverterTask::class.java) {
-            group = "Code Generation"
-            description = "Generates a scanner from an (Java)FlexFile"
+            description = "Generates a parser from an Grammar File"
         }
     }
 }

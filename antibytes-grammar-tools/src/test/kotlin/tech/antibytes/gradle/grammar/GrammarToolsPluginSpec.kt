@@ -12,6 +12,7 @@ import io.mockk.verify
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.junit.Test
+import tech.antibytes.gradle.grammar.bison.BisonTask
 import tech.antibytes.gradle.grammar.jflex.JFlexTask
 import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
@@ -36,36 +37,37 @@ class GrammarToolsPluginSpec {
             jflexTask,
             jflexTask
         )
-        every { project.tasks.create(any(), PostConverterTask::class.java, any()) } returns mockk()
+
+        every { project.tasks.create(any(), BisonTask::class.java, any()) } returns mockk()
+
         // When
         GrammarToolsPlugin().apply(project)
 
         // Then
         verify(exactly = 1) { jflexTask.group = "Code Generation" }
-        verify(exactly = 1) { jflexTask.description = "Generate a scanner from an (Java)FlexFile" }
+        verify(exactly = 1) { jflexTask.description = "Generates a scanner from an (Java)FlexFile" }
     }
 
     @Test
-    fun `Given apply is called with a project it adds a plain JFlex Cleanup Task`() {
+    fun `Given apply is called with a project it adds a plain Bison Task`() {
         // Given
         val project: Project = mockk()
 
-        val cleanUpTask: PostConverterTask = mockk(relaxed = true)
+        val bisonTask: BisonTask = mockk(relaxed = true)
 
         invokeGradleAction(
-            { probe -> project.tasks.create("postProcessJFlex", PostConverterTask::class.java, probe) },
-            cleanUpTask,
-            cleanUpTask
+            { probe -> project.tasks.create("bison", BisonTask::class.java, probe) },
+            bisonTask,
+            bisonTask
         )
 
         every { project.tasks.create(any(), JFlexTask::class.java, any()) } returns mockk()
+
         // When
         GrammarToolsPlugin().apply(project)
 
         // Then
-        verify(exactly = 1) { cleanUpTask.group = "Code Generation" }
-        verify(exactly = 1) {
-            cleanUpTask.description = "Cleans up generated JFlex files, after they had been converted to Kotlin"
-        }
+        verify(exactly = 1) { bisonTask.group = "Code Generation" }
+        verify(exactly = 1) { bisonTask.description = "Generates a parser from an Grammar File" }
     }
 }

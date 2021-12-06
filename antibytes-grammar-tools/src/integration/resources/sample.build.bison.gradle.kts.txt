@@ -1,0 +1,11 @@
+import tech.antibytes.gradle.grammar.bison.BisonTask
+
+plugins {
+    id("tech.antibytes.gradle.grammar")
+}
+
+tasks.withType(BisonTask::class.java) {
+    executable.set(project.file("$BISON_EXEC"))
+    grammarFile.set(project.file("$GRAMMAR_FILE"))
+    outputFile.set(project.file("$OUTPUT_FILE"))
+}
