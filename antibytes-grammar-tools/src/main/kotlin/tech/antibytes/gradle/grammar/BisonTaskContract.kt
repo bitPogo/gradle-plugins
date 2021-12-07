@@ -278,7 +278,7 @@ interface BisonTaskContract : Task {
      * deprecated by 'define.get().add(api.prefix, {PREFIX})'
      * This property is optional
      */
-    @Deprecated("deprecated by 'define.get().add(prefix, {PREFIX})'")
+    @Deprecated("deprecated by 'define.get().add(api.prefix, {PREFIX})'")
     @get:Optional
     @get:Input
     val namePrefix: Property<String>
