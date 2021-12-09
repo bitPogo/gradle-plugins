@@ -390,7 +390,7 @@ class JacocoCoverageConfigurationProviderSpec {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
-        val additionalSources: Set<ConfigurableFileTree> = setOf(mockk())
+        val additionalSources: Set<File> = fixture()
 
         every { JvmConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
@@ -419,7 +419,7 @@ class JacocoCoverageConfigurationProviderSpec {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
-        val additionalSources: Set<ConfigurableFileTree> = setOf(mockk())
+        val additionalSources: Set<File> = fixture()
 
         every { JvmConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
@@ -448,7 +448,7 @@ class JacocoCoverageConfigurationProviderSpec {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
-        val additionalClasses: Set<ConfigurableFileTree> = setOf(mockk())
+        val additionalClasses: ConfigurableFileTree = mockk()
 
         every { JvmConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
@@ -477,7 +477,7 @@ class JacocoCoverageConfigurationProviderSpec {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
-        val additionalClasses: Set<ConfigurableFileTree> = setOf(mockk())
+        val additionalClasses: ConfigurableFileTree = mockk()
 
         every { JvmConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
@@ -567,7 +567,7 @@ class JacocoCoverageConfigurationProviderSpec {
             emptySet(),
             emptySet(),
             emptySet(),
-            emptySet(),
+            mockk(),
             emptySet(),
         )
     }

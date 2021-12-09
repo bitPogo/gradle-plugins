@@ -8,6 +8,7 @@ package tech.antibytes.gradle.coverage.task.jacoco
 
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
+import org.gradle.api.file.FileTree
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.JacocoReportBase
 import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
@@ -24,8 +25,8 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         val executionFiles: MutableSet<ConfigurableFileTree> = mutableSetOf(),
         val classes: MutableSet<ConfigurableFileTree> = mutableSetOf(),
         val sources: MutableSet<File> = mutableSetOf(),
-        val additionalSources: MutableSet<ConfigurableFileTree> = mutableSetOf(),
-        val additionalClasses: MutableSet<ConfigurableFileTree> = mutableSetOf(),
+        val additionalSources: MutableSet<File> = mutableSetOf(),
+        var additionalClasses: MutableList<ConfigurableFileTree> = mutableListOf()
     )
 
     private fun resolveSubproject(
@@ -50,7 +51,11 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
 
         aggregator.sources.addAll(configuration.sources)
         aggregator.additionalSources.addAll(configuration.additionalSources)
-        aggregator.additionalClasses.addAll(configuration.additionalClasses)
+
+        if (configuration.additionalClasses is ConfigurableFileTree) {
+            aggregator.additionalClasses.add(configuration.additionalClasses!!)
+        }
+
         aggregator.dependencies.add(
             subproject.tasks.getByName("${contextId}Coverage") as JacocoReport
         )
@@ -128,6 +133,17 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         return aggregator
     }
 
+    private fun resolveAdditionalClasses(
+        aggregatedAdditionalClasses: MutableList<ConfigurableFileTree>
+    ): FileTree {
+        var additionalClassFileTree: FileTree = aggregatedAdditionalClasses.removeAt(0)
+        aggregatedAdditionalClasses.forEach { subTree ->
+            additionalClassFileTree = additionalClassFileTree.plus(subTree)
+        }
+
+        return additionalClassFileTree
+    }
+
     protected fun configureJacocoAggregationBase(
         task: JacocoReportBase,
         aggregator: AggregationData
@@ -136,7 +152,14 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         task.classDirectories.setFrom(aggregator.classes)
 
         task.additionalSourceDirs.setFrom(aggregator.additionalSources)
-        task.additionalClassDirs.setFrom(aggregator.additionalClasses)
+
+        val aggregatedAdditionalClasses = if (aggregator.additionalClasses.isEmpty()) {
+            emptySet<File>()
+        } else {
+            resolveAdditionalClasses(aggregator.additionalClasses)
+        }
+
+        task.additionalClassDirs.setFrom(aggregatedAdditionalClasses)
         task.executionData.setFrom(aggregator.executionFiles)
     }
 }

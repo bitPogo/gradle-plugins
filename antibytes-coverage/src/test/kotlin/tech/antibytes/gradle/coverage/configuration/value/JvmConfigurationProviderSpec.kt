@@ -20,6 +20,7 @@ import tech.antibytes.gradle.coverage.source.SourceHelper
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
@@ -223,10 +224,7 @@ class JvmConfigurationProviderSpec {
         val config = JvmConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
-        assertEquals(
-            actual = config.additionalClasses,
-            expected = emptySet(),
-        )
+        assertNull(config.additionalClasses)
     }
 
     @Test

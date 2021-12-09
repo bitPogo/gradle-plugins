@@ -71,6 +71,8 @@ tasks.jacocoTestReport {
             layout.buildDirectory.file("reports/jacoco/test/${project.name}.xml").get().asFile
         )
     }
+
+    additionalClassDirs.setFrom(null)
 }
 
 tasks.jacocoTestCoverageVerification {

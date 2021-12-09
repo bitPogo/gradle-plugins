@@ -115,7 +115,7 @@ class JacocoVerificationTaskConfiguratorSpec {
     }
 
     @Test
-    fun `Given configure is called with a Project, ContextId and Configuration, it adds a CoverageVerificationTask for JVM`() {
+    fun `Given configure is called with a Project, ContextId and Configuration, it adds a CoverageVerificationTask for Jvm`() {
         // Given
         val project: Project = mockk()
         val projectName: String = fixture()

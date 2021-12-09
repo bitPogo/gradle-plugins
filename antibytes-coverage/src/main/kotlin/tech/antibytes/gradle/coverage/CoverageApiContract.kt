@@ -68,8 +68,8 @@ interface CoverageApiContract {
         var classPattern: Set<String>
         var classFilter: Set<String>
         var sources: Set<File>
-        var additionalSources: Set<ConfigurableFileTree>
-        var additionalClasses: Set<ConfigurableFileTree>
+        var additionalSources: Set<File>
+        var additionalClasses: ConfigurableFileTree?
         var verificationRules: Set<JacocoVerificationRule>
     }
 
@@ -81,8 +81,8 @@ interface CoverageApiContract {
             classPattern: Set<String> = emptySet(),
             classFilter: Set<String> = emptySet(),
             sources: Set<File> = emptySet(),
-            additionalSources: Set<ConfigurableFileTree> = emptySet(),
-            additionalClasses: Set<ConfigurableFileTree> = emptySet(),
+            additionalSources: Set<File> = emptySet(),
+            additionalClasses: ConfigurableFileTree? = null,
             verificationRules: Set<JacocoVerificationRule> = emptySet()
         ): JacocoCoverageConfiguration
 
@@ -93,8 +93,8 @@ interface CoverageApiContract {
             classPattern: Set<String> = emptySet(),
             classFilter: Set<String> = emptySet(),
             sources: Set<File> = emptySet(),
-            additionalSources: Set<ConfigurableFileTree> = emptySet(),
-            additionalClasses: Set<ConfigurableFileTree> = emptySet(),
+            additionalSources: Set<File> = emptySet(),
+            additionalClasses: ConfigurableFileTree? = null,
             verificationRules: Set<JacocoVerificationRule> = emptySet()
         ): JacocoCoverageConfiguration
     }

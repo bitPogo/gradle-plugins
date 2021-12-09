@@ -20,8 +20,8 @@ data class JvmJacocoConfiguration(
     override var classPattern: Set<String>,
     override var classFilter: Set<String>,
     override var sources: Set<File>,
-    override var additionalSources: Set<ConfigurableFileTree>,
-    override var additionalClasses: Set<ConfigurableFileTree>,
+    override var additionalSources: Set<File>,
+    override var additionalClasses: ConfigurableFileTree?,
     override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
 ) : CoverageApiContract.JacocoCoverageConfiguration {
     companion object : CoverageApiContract.JacocoCoverageConfigurationProvider {
@@ -32,8 +32,8 @@ data class JvmJacocoConfiguration(
             classPattern: Set<String>,
             classFilter: Set<String>,
             sources: Set<File>,
-            additionalSources: Set<ConfigurableFileTree>,
-            additionalClasses: Set<ConfigurableFileTree>,
+            additionalSources: Set<File>,
+            additionalClasses: ConfigurableFileTree?,
             verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
         ): JvmJacocoConfiguration {
             if (testDependencies.isNotEmpty()) {
@@ -56,7 +56,7 @@ data class JvmJacocoConfiguration(
                 configuration.additionalSources = additionalSources
             }
 
-            if (additionalClasses.isNotEmpty()) {
+            if (additionalClasses is ConfigurableFileTree) {
                 configuration.additionalClasses = additionalClasses
             }
 
@@ -79,8 +79,8 @@ data class JvmJacocoConfiguration(
             classPattern: Set<String>,
             classFilter: Set<String>,
             sources: Set<File>,
-            additionalSources: Set<ConfigurableFileTree>,
-            additionalClasses: Set<ConfigurableFileTree>,
+            additionalSources: Set<File>,
+            additionalClasses: ConfigurableFileTree?,
             verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
         ): JvmJacocoConfiguration {
             val config = JvmConfigurationProvider.createDefaultCoverageConfiguration(
@@ -108,8 +108,8 @@ data class JvmJacocoConfiguration(
             classPattern: Set<String>,
             classFilter: Set<String>,
             sources: Set<File>,
-            additionalSources: Set<ConfigurableFileTree>,
-            additionalClasses: Set<ConfigurableFileTree>,
+            additionalSources: Set<File>,
+            additionalClasses: ConfigurableFileTree?,
             verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
         ): JvmJacocoConfiguration {
             return createConfiguration(
@@ -133,8 +133,8 @@ data class JvmJacocoConfiguration(
             classPattern: Set<String>,
             classFilter: Set<String>,
             sources: Set<File>,
-            additionalSources: Set<ConfigurableFileTree>,
-            additionalClasses: Set<ConfigurableFileTree>,
+            additionalSources: Set<File>,
+            additionalClasses: ConfigurableFileTree?,
             verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
         ): JvmJacocoConfiguration {
             return createConfiguration(
