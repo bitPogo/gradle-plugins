@@ -125,5 +125,5 @@ val integrationTests by tasks.creating(Test::class.java) {
 }
 
 tasks.check {
-    dependsOn("jacocoTestCoverageVerification")
+    dependsOn(integrationTests, "jacocoTestCoverageVerification")
 }

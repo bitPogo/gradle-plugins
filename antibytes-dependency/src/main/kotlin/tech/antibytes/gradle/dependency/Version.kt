@@ -79,7 +79,7 @@ object Version {
         /**
          * [JUnit](https://github.com/junit-team/junit5/)
          */
-        const val junit = "5.8.1"
+        const val junit = "5.8.2"
 
         /**
          * [JUnit](https://github.com/junit-team/junit4/)
