@@ -338,7 +338,6 @@ class BisonTaskSpec {
         mockkStatic("com.lordcodes.turtle.ShellKt")
 
         val task = project.tasks.create("sut", BisonTask::class.java) {}
-        val nestedError = RuntimeException("test")
 
         val bisonExec = project.file("somewhere/bison")
         val grammarFile = project.file("somewhere/something.y")
@@ -351,7 +350,7 @@ class BisonTaskSpec {
         val logger: Logger = mockk(relaxUnitFun = true)
         every { Logging.getLogger(BisonTask::class.java) } returns logger
 
-        every { shellRun(any<String>(), any()) } throws ShellFailedException(nestedError)
+        every { shellRun(any<String>(), any()) } throws ShellFailedException(RuntimeException("test"))
 
         // Then
         val error = assertFailsWith<BisonTaskError.CodeGenerationRuntimeError> {
@@ -359,7 +358,7 @@ class BisonTaskSpec {
             task.generate()
         }
 
-        val message = "Something went wrong during code generation:\n${nestedError.message}"
+        val message = "Something went wrong during code generation:\nRunning shell command failed"
         assertEquals(
             actual = error.message,
             expected = message

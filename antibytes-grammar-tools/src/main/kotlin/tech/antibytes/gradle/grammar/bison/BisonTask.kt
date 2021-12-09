@@ -204,8 +204,8 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
                 arguments = assembleArgument()
             )
         } catch (error: Exception) {
-            logger.error("${BisonTaskError.CODE_GENERATION_RUNTIME_ERROR}\n${error.cause?.message}")
-            throw BisonTaskError.CodeGenerationRuntimeError(error.cause?.message)
+            logger.error("${BisonTaskError.CODE_GENERATION_RUNTIME_ERROR}\n${error.message}")
+            throw BisonTaskError.CodeGenerationRuntimeError(error.message)
         }
 
         logger.info(
