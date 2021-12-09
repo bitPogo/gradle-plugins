@@ -6,6 +6,7 @@
 import tech.antibytes.gradle.plugin.dependency.Dependency as AntibytesDependency
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     `kotlin-dsl`
@@ -126,4 +127,10 @@ val integrationTests by tasks.creating(Test::class.java) {
 
 tasks.check {
     dependsOn(integrationTests, "jacocoTestCoverageVerification")
+}
+
+tasks.withType(Test::class.java) {
+    testLogging {
+        events(TestLogEvent.FAILED)
+    }
 }
