@@ -41,7 +41,11 @@ val ktlintVersion = "0.42.1"
 spotless {
     kotlin {
         target("**/*.kt")
-        targetExclude("buildSrc/build/", "**/buildSrc/build/")
+        targetExclude(
+            "buildSrc/build/",
+            "**/buildSrc/build/",
+            "antibytes-grammar-tools/bison/skeleton/"
+        )
         ktlint(ktlintVersion).userData(
             mapOf(
                 "disabled_rules" to "no-wildcard-imports",
@@ -60,7 +64,14 @@ spotless {
         endWithNewline()
     }
     format("misc") {
-        target("**/*.adoc", "**/*.md", "**/.gitignore", ".java-version")
+        target(
+            "**/*.adoc",
+            "**/*.md",
+            "**/.gitignore",
+            ".java-version",
+            "**/*.m4",
+            "**/*.skel",
+        )
 
         trimTrailingWhitespace()
         indentWithSpaces()
