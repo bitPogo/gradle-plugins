@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.coverage
 
+import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import java.io.File
 import java.math.BigDecimal
@@ -59,6 +60,7 @@ interface CoverageApiContract {
     }
 
     interface CoverageConfiguration
+    interface CoverageConfigurationProvider
 
     interface JacocoCoverageConfiguration : CoverageConfiguration, JacocoAgent {
         val reportSettings: JacocoReporterSettings
@@ -69,6 +71,32 @@ interface CoverageApiContract {
         var additionalSources: Set<ConfigurableFileTree>
         var additionalClasses: Set<ConfigurableFileTree>
         var verificationRules: Set<JacocoVerificationRule>
+    }
+
+    interface JacocoCoverageConfigurationProvider : CoverageConfigurationProvider {
+        fun createJvmOnlyConfiguration(
+            project: Project,
+            reportSettings: JacocoReporterSettings? = null,
+            testDependencies: Set<String> = emptySet(),
+            classPattern: Set<String> = emptySet(),
+            classFilter: Set<String> = emptySet(),
+            sources: Set<File> = emptySet(),
+            additionalSources: Set<ConfigurableFileTree> = emptySet(),
+            additionalClasses: Set<ConfigurableFileTree> = emptySet(),
+            verificationRules: Set<JacocoVerificationRule> = emptySet()
+        ): JacocoCoverageConfiguration
+
+        fun createJvmKmpConfiguration(
+            project: Project,
+            reportSettings: JacocoReporterSettings? = null,
+            testDependencies: Set<String> = emptySet(),
+            classPattern: Set<String> = emptySet(),
+            classFilter: Set<String> = emptySet(),
+            sources: Set<File> = emptySet(),
+            additionalSources: Set<ConfigurableFileTree> = emptySet(),
+            additionalClasses: Set<ConfigurableFileTree> = emptySet(),
+            verificationRules: Set<JacocoVerificationRule> = emptySet()
+        ): JacocoCoverageConfiguration
     }
 
     interface AndroidJacocoCoverageConfiguration : JacocoCoverageConfiguration {

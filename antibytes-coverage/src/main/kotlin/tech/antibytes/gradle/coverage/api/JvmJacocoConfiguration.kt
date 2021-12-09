@@ -6,12 +6,16 @@
 
 package tech.antibytes.gradle.coverage.api
 
+import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import tech.antibytes.gradle.coverage.CoverageApiContract
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoReporterSettings
+import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
+import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import java.io.File
 
 data class JvmJacocoConfiguration(
-    override val reportSettings: CoverageApiContract.JacocoReporterSettings,
+    override val reportSettings: JacocoReporterSettings,
     override var testDependencies: Set<String>,
     override var classPattern: Set<String>,
     override var classFilter: Set<String>,
@@ -19,4 +23,132 @@ data class JvmJacocoConfiguration(
     override var additionalSources: Set<ConfigurableFileTree>,
     override var additionalClasses: Set<ConfigurableFileTree>,
     override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
-) : CoverageApiContract.JacocoCoverageConfiguration
+) : CoverageApiContract.JacocoCoverageConfiguration {
+    companion object : CoverageApiContract.JacocoCoverageConfigurationProvider {
+        private fun overrideDefaults(
+            configuration: JvmJacocoConfiguration,
+            reportSettings: JacocoReporterSettings?,
+            testDependencies: Set<String>,
+            classPattern: Set<String>,
+            classFilter: Set<String>,
+            sources: Set<File>,
+            additionalSources: Set<ConfigurableFileTree>,
+            additionalClasses: Set<ConfigurableFileTree>,
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+        ): JvmJacocoConfiguration {
+            if (testDependencies.isNotEmpty()) {
+                configuration.testDependencies = testDependencies
+            }
+
+            if (classPattern.isNotEmpty()) {
+                configuration.classPattern = classPattern
+            }
+
+            if (classFilter.isNotEmpty()) {
+                configuration.classFilter = classFilter
+            }
+
+            if (sources.isNotEmpty()) {
+                configuration.sources = sources
+            }
+
+            if (additionalSources.isNotEmpty()) {
+                configuration.additionalSources = additionalSources
+            }
+
+            if (additionalClasses.isNotEmpty()) {
+                configuration.additionalClasses = additionalClasses
+            }
+
+            if (verificationRules.isNotEmpty()) {
+                configuration.verificationRules = verificationRules
+            }
+
+            return if (reportSettings is JacocoReporterSettings) {
+                configuration.copy(reportSettings = reportSettings)
+            } else {
+                configuration
+            }
+        }
+
+        private fun createConfiguration(
+            project: Project,
+            context: PlatformContext,
+            reportSettings: JacocoReporterSettings?,
+            testDependencies: Set<String>,
+            classPattern: Set<String>,
+            classFilter: Set<String>,
+            sources: Set<File>,
+            additionalSources: Set<ConfigurableFileTree>,
+            additionalClasses: Set<ConfigurableFileTree>,
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+        ): JvmJacocoConfiguration {
+            val config = JvmConfigurationProvider.createDefaultCoverageConfiguration(
+                project,
+                context
+            )
+
+            return overrideDefaults(
+                config as JvmJacocoConfiguration,
+                reportSettings,
+                testDependencies,
+                classPattern,
+                classFilter,
+                sources,
+                additionalSources,
+                additionalClasses,
+                verificationRules
+            )
+        }
+
+        override fun createJvmOnlyConfiguration(
+            project: Project,
+            reportSettings: JacocoReporterSettings?,
+            testDependencies: Set<String>,
+            classPattern: Set<String>,
+            classFilter: Set<String>,
+            sources: Set<File>,
+            additionalSources: Set<ConfigurableFileTree>,
+            additionalClasses: Set<ConfigurableFileTree>,
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+        ): JvmJacocoConfiguration {
+            return createConfiguration(
+                project,
+                PlatformContext.JVM,
+                reportSettings,
+                testDependencies,
+                classPattern,
+                classFilter,
+                sources,
+                additionalSources,
+                additionalClasses,
+                verificationRules
+            )
+        }
+
+        override fun createJvmKmpConfiguration(
+            project: Project,
+            reportSettings: JacocoReporterSettings?,
+            testDependencies: Set<String>,
+            classPattern: Set<String>,
+            classFilter: Set<String>,
+            sources: Set<File>,
+            additionalSources: Set<ConfigurableFileTree>,
+            additionalClasses: Set<ConfigurableFileTree>,
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+        ): JvmJacocoConfiguration {
+            return createConfiguration(
+                project,
+                PlatformContext.JVM_KMP,
+                reportSettings,
+                testDependencies,
+                classPattern,
+                classFilter,
+                sources,
+                additionalSources,
+                additionalClasses,
+                verificationRules
+            )
+        }
+    }
+}
