@@ -76,7 +76,7 @@ object Version {
         /**
          * [JUnit](https://github.com/junit-team/junit5/)
          */
-        const val junit = "5.8.1"
+        const val junit = "5.8.2"
 
         /**
          * [mockk](http://mockk.io)
