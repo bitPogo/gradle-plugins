@@ -4,7 +4,7 @@ plugins {
     id("tech.antibytes.gradle.grammar")
 }
 
-tasks.withType(JFlexTask::class.java) {
+val jflex by tasks.creating(JFlexTask::class.java) {
     flexFile.set(project.file("$FLEX_FILE"))
     outputDirectory.set(project.file("$OUTPUT_DIR"))
 }
