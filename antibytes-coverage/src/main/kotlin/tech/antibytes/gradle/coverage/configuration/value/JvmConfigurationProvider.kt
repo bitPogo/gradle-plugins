@@ -69,7 +69,7 @@ internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatform
             classPattern = resolveClassPattern(context),
             classFilter = resolveClassFilter(context),
             sources = SourceHelper.resolveSources(project, context),
-            additionalClasses = emptySet(),
+            additionalClasses = null,
             additionalSources = emptySet(),
             verificationRules = emptySet()
         )

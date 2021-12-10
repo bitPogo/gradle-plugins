@@ -60,7 +60,7 @@ internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlat
             classPattern = resolveClassPattern(),
             classFilter = resolveClassFilter(),
             sources = SourceHelper.resolveSources(project, context),
-            additionalClasses = emptySet(),
+            additionalClasses = null,
             additionalSources = emptySet(),
             verificationRules = emptySet(),
             instrumentedTestDependencies = resolveInstrumentedTestTasks(context),
