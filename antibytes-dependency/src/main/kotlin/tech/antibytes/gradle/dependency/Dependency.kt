@@ -65,6 +65,7 @@ object Dependency {
         const val ktx = "androidx.core:core-ktx:${Version.android.ktx}"
         const val appCompat = "androidx.appcompat:appcompat:${Version.android.appCompat}"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.android.constraintLayout}"
+        const val constraintLayoutCompose = "androidx.constraintlayout:constraintlayout-compose:${Version.android.constraintLayoutCompose}"
 
         // Material
         const val material = "com.google.android.material:material:${Version.android.material}"

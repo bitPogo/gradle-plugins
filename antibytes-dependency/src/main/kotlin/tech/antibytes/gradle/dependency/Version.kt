@@ -54,17 +54,18 @@ object Version {
         /**
          * [AndroidX Core](https://developer.android.com/kotlin/ktx)
          */
-        const val ktx = "1.6.0"
+        const val ktx = "1.7.0"
 
         /**
-         * [AppCompact]()https://developer.android.com/jetpack/androidx/releases/appcompat
+         * [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
          */
-        const val appCompat = "1.3.1"
+        const val appCompat = "1.4.0"
 
         /**
          * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
          */
-        const val constraintLayout = "2.1.1"
+        const val constraintLayout = "2.1.2"
+        const val constraintLayoutCompose = "1.0.0-rc02"
 
         // Material
         /**
