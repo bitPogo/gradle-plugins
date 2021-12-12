@@ -29,7 +29,7 @@ dependencies {
     implementation(Dependency.gradle.dependencyUpdate)
     implementation(Dependency.gradle.owasp)
     implementation(Dependency.gradle.ktlint)
-    // TODO Add spotless 6.x when it works with newer version of ktlint
+    implementation(Dependency.gradle.spotless)
     implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(Dependency.test.kotlinTest)

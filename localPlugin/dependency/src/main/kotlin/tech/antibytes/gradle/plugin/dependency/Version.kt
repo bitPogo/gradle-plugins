@@ -32,7 +32,7 @@ object Version {
         /**
          * [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
          */
-        const val publishing = "5.13.0.202109080827-r"
+        const val publishing = "6.0.0.202111291000-r"
 
         /**
          * [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
@@ -52,7 +52,7 @@ object Version {
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
          */
-        const val spotless = "5.14.3"
+        const val spotless = "6.0.4"
 
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
