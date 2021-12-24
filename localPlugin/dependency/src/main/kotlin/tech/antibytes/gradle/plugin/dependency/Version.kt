@@ -22,7 +22,7 @@ object Version {
         /**
          * [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
          */
-        const val owasp = "6.5.0.1"
+        const val owasp = "6.5.1"
 
         /**
          * [Jacoco](https://github.com/jacoco/jacoco/releases)
@@ -52,12 +52,12 @@ object Version {
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
          */
-        const val spotless = "6.0.4"
+        const val spotless = "6.1.0"
 
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
          */
-        const val ktlint = "0.43.0"
+        const val ktlint = "0.43.2"
     }
 
     object Library {
