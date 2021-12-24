@@ -14,7 +14,7 @@ object Version {
         /**
          * [KTLint](https://github.com/pinterest/ktlint/releases)
          */
-        const val ktLint = "0.43.0"
+        const val ktLint = "0.43.2"
     }
 
     // Kotlin
@@ -71,7 +71,7 @@ object Version {
         /**
          * [Material Android](https://github.com/material-components/material-components-android)
          */
-        const val material = "1.4.0"
+        const val material = "1.5.0-rc01"
     }
 
     val jvmTest = JvmTest
@@ -101,7 +101,8 @@ object Version {
         const val espresso = "3.4.0"
 
         /**
-         * [Android UITest Automation](https://developer.android.com/training/testing/ui-testing/uiautomator-testing)
+         * [Android UITest Automation explained](https://developer.android.com/training/testing/ui-testing/uiautomator-testing)
+         * [Android UITest Automation](https://androidx.tech/artifacts/test.uiautomator/uiautomator/)
          */
         const val uiAutomator = "2.2.0"
 
