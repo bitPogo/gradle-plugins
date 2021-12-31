@@ -57,6 +57,12 @@ object Dependency {
 
             const val fixture = "com.appmattus.fixture:fixture:${Version.kotlinTest.fixture}"
         }
+
+        val koinTest = KoinTest
+
+        object KoinTest {
+            val koinTest = "io.insert-koin:koin-test:${Version.kotlin.koin}"
+        }
     }
 
     val jvmTest = JvmTest
