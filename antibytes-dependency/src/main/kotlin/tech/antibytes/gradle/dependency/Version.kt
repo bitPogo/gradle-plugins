@@ -24,7 +24,7 @@ object Version {
         /**
          * [Kotlin](https://github.com/JetBrains/kotlin)
          */
-        const val stdlib = "1.5.31"
+        const val stdlib = "1.5.32"
 
         /**
          * [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
@@ -34,7 +34,7 @@ object Version {
         /**
          * [Koin](https://github.com/InsertKoinIO/koin)
          */
-        const val koin = "3.1.2"
+        const val koin = "3.1.5"
     }
 
     val android = Android
