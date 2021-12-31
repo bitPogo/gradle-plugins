@@ -42,7 +42,7 @@ object Version {
         /**
          * [Kotlin](https://kotlinlang.org/docs/releases.html)
          */
-        const val kotlin = "1.5.31"
+        const val kotlin = "1.5.32"
 
         /**
          * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
