@@ -34,7 +34,7 @@ object Version {
         /**
          * [Koin](https://github.com/InsertKoinIO/koin)
          */
-        const val koin = "3.1.2"
+        const val koin = "3.1.5"
     }
 
     val android = Android

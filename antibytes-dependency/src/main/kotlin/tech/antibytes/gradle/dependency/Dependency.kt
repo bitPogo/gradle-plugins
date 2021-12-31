@@ -30,6 +30,17 @@ object Dependency {
             const val js = "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:${Version.kotlin.coroutines}"
         }
 
+        val koin = Koin
+
+        object Koin {
+            const val core = "io.insert-koin:koin-core:${Version.kotlin.koin}"
+            const val android = "io.insert-koin:koin-android:${Version.kotlin.koin}"
+            const val androidAppCompact = "io.insert-koin:koin-android-compat:${Version.kotlin.koin}"
+            const val jetpackWorkmanager = "io.insert-koin:koin-androidx-workmanager:${Version.kotlin.koin}"
+            const val jetpackNavigation = "io.insert-koin:koin-androidx-navigation:${Version.kotlin.koin}"
+            const val jetpackCompose = "io.insert-koin:koin-androidx-compose:${Version.kotlin.koin}"
+        }
+
         val test = Test
 
         object Test {

@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.plugin.dependency
 
 object Version {
-    const val kotlin = "1.5.31"
+    const val kotlin = "1.5.32"
 
     val gradle = GradlePlugin
     val library = Library
