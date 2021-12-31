@@ -81,7 +81,7 @@ object Version {
         /**
          * [mockk](http://mockk.io)
          */
-        const val mockk = "1.12.1"
+        const val mockk = "1.12.2"
 
         /**
          * [kotlinFixture](https://github.com/appmattus/kotlinfixture)
