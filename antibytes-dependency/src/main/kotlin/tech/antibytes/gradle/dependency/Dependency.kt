@@ -41,6 +41,43 @@ object Dependency {
             const val jetpackCompose = "io.insert-koin:koin-androidx-compose:${Version.kotlin.koin}"
         }
 
+        object Ktor {
+            const val commonCore = "io.ktor:ktor-client-core:${Version.kotlin.ktor}"
+            const val commonJson = "io.ktor:ktor-client-json:${Version.kotlin.ktor}"
+            const val jvmCore = "io.ktor:ktor-client-core-jvm:${Version.kotlin.ktor}"
+            const val androidCore = "io.ktor:ktor-client-android:${Version.kotlin.ktor}"
+            const val jvmJson = "io.ktor:ktor-client-json-jvm:${Version.kotlin.ktor}"
+            const val ios = "io.ktor:ktor-client-ios:${Version.kotlin.ktor}"
+            const val iosCore = "io.ktor:ktor-client-core:${Version.kotlin.ktor}"
+            const val iosJson = "io.ktor:ktor-client-json-native:${Version.kotlin.ktor}"
+            const val commonSerialization = "io.ktor:ktor-client-serialization:${Version.kotlin.ktor}"
+            const val androidSerialization = "io.ktor:ktor-client-serialization-jvm:${Version.kotlin.ktor}"
+            const val iosSerialization = "io.ktor:ktor-client-serialization-native:${Version.kotlin.ktor}"
+
+            // Logger
+            const val logger = "io.ktor:ktor-client-logging:${Version.kotlin.ktor}"
+
+            // Testing
+            const val mock = "io.ktor:ktor-client-mock:${Version.kotlin.ktor}"
+            const val jvmMock = "io.ktor:ktor-client-mock-jvm:${Version.kotlin.ktor}"
+            const val nativeMock = "io.ktor:ktor-client-mock-native:${Version.kotlin.ktor}"
+        }
+
+        val serialization = Serialization
+
+        object Serialization {
+            const val common =
+                "org.jetbrains.kotlinx:kotlinx-serialization-core:${Version.kotlin.serialization}"
+            const val android =
+                "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:${Version.kotlin.serialization}"
+            const val protobuf =
+                "org.jetbrains.kotlinx:kotlinx-serialization-protobuf:${Version.kotlin.serialization}"
+        }
+
+        const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Version.kotlin.dateTime}"
+
+        const val uuid = "com.benasher44:uuid:${Version.kotlin.uuid}"
+
         val test = Test
 
         object Test {
