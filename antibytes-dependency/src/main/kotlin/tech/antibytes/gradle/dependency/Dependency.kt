@@ -41,6 +41,8 @@ object Dependency {
             const val jetpackCompose = "io.insert-koin:koin-androidx-compose:${Version.kotlin.koin}"
         }
 
+        val ktor = Ktor
+
         object Ktor {
             val common = Common
 
