@@ -41,6 +41,76 @@ object Dependency {
             const val jetpackCompose = "io.insert-koin:koin-androidx-compose:${Version.kotlin.koin}"
         }
 
+        object Ktor {
+            val common = Common
+
+            object Common {
+                const val core = "io.ktor:ktor-client-core:${Version.kotlin.ktor}"
+                const val serialization = "io.ktor:ktor-client-serialization:${Version.kotlin.ktor}"
+            }
+
+            val jvm = Jvm
+
+            object Jvm {
+                const val core = "io.ktor:ktor-client-java:${Version.kotlin.ktor}"
+                const val jetty = "io.ktor:ktor-client-jetty:${Version.kotlin.ktor}"
+                const val apache = "io.ktor:ktor-client-apache:${Version.kotlin.ktor}"
+                const val cio = "io.ktor:ktor-client-cio:${Version.kotlin.ktor}"
+                const val serialization = "io.ktor:ktor-client-serialization-jvm:${Version.kotlin.ktor}"
+            }
+
+            val android = Android
+
+            object Android {
+                const val client = "io.ktor:ktor-client-android:${Version.kotlin.ktor}"
+                const val okhttp = "io.ktor:ktor-client-okhttp:${Version.kotlin.ktor}"
+                const val serialization = "io.ktor:ktor-client-serialization-jvm:${Version.kotlin.ktor}"
+            }
+
+            val ios = Ios
+
+            object Ios {
+                const val client = "io.ktor:ktor-client-ios:${Version.kotlin.ktor}"
+                const val clientDarwin = "io.ktor:ktor-client-darwin:${Version.kotlin.ktor}"
+                const val serialization = "io.ktor:ktor-client-serialization-native:${Version.kotlin.ktor}"
+            }
+
+            val js = JS
+
+            object JS {
+                const val client = "io.ktor:ktor-client-js:${Version.kotlin.ktor}"
+                const val serialization = "io.ktor:ktor-client-serialization-js:${Version.kotlin.ktor}"
+            }
+
+            val native = Native
+
+            object Native {
+                const val client = "io.ktor:ktor-client-curl:${Version.kotlin.ktor}"
+                const val serialization = "io.ktor:ktor-client-serialization-native:${Version.kotlin.ktor}"
+            }
+
+            // Logger
+            const val logger = "io.ktor:ktor-client-logging:${Version.kotlin.ktor}"
+
+            // Testing
+            const val mock = "io.ktor:ktor-client-mock:${Version.kotlin.ktor}"
+        }
+
+        val serialization = Serialization
+
+        object Serialization {
+            const val common =
+                "org.jetbrains.kotlinx:kotlinx-serialization-core:${Version.kotlin.serialization}"
+            const val android =
+                "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:${Version.kotlin.serialization}"
+            const val protobuf =
+                "org.jetbrains.kotlinx:kotlinx-serialization-protobuf:${Version.kotlin.serialization}"
+        }
+
+        const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Version.kotlin.dateTime}"
+
+        const val uuid = "com.benasher44:uuid:${Version.kotlin.uuid}"
+
         val test = Test
 
         object Test {

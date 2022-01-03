@@ -35,6 +35,26 @@ object Version {
          * [Koin](https://github.com/InsertKoinIO/koin)
          */
         const val koin = "3.1.4"
+
+        /**
+         * [Ktor](https://github.com/ktorio/ktor)
+         */
+        const val ktor = "1.6.3"
+
+        /**
+         * [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
+         */
+        const val serialization = "1.3.1"
+
+        /**
+         * [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
+         */
+        const val dateTime = "0.3.1"
+
+        /**
+         * [UUID](https://github.com/benasher44/uuid)
+         */
+        const val uuid = "0.3.1"
     }
 
     val android = Android
