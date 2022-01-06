@@ -126,8 +126,6 @@ object Dependency {
             object Mockk {
                 const val junit = "io.mockk:mockk:${Version.kotlinTest.mockk}"
             }
-
-            const val fixture = "com.appmattus.fixture:fixture:${Version.kotlinTest.fixture}"
         }
 
         val koinTest = KoinTest
