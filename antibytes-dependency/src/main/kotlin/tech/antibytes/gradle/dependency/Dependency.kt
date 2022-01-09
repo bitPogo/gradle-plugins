@@ -113,6 +113,15 @@ object Dependency {
 
         const val uuid = "com.benasher44:uuid:${Version.kotlin.uuid}"
 
+        val stately = Stately
+
+        object Stately {
+            const val isolate = "co.touchlab:stately-isolate:${Version.kotlin.stately}"
+            const val freeze = "co.touchlab:stately-common:${Version.kotlin.stately}"
+            const val concurrency = "co.touchlab:stately-concurrency:${Version.kotlin.stately}"
+            const val collections = "co.touchlab:stately-iso-collections:${Version.kotlin.stately}"
+        }
+
         val test = Test
 
         object Test {

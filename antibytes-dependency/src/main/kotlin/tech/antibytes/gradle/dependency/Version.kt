@@ -55,6 +55,11 @@ object Version {
          * [UUID](https://github.com/benasher44/uuid)
          */
         const val uuid = "0.3.1"
+
+        /**
+         * [Stately](https://github.com/touchlab/Stately)
+         */
+        const val stately = "1.1.10"
     }
 
     val android = Android
