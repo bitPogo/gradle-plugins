@@ -60,6 +60,15 @@ object Version {
          * [Stately](https://github.com/touchlab/Stately)
          */
         const val stately = "1.1.10"
+
+        val test = Test
+
+        object Test {
+            /**
+             * [mockk](http://mockk.io)
+             */
+            const val mockk = "1.12.1"
+        }
     }
 
     val android = Android
@@ -97,54 +106,49 @@ object Version {
          * [Material Android](https://github.com/material-components/material-components-android)
          */
         const val material = "1.5.0-rc01"
+
+        val test = Test
+
+        object Test {
+            /**
+             * [Android Testing](https://developer.android.com/testing)
+             */
+            /**
+             * [Android Testing Releases](https://developer.android.com/jetpack/androidx/releases/test)
+             */
+            const val test = "1.4.0"
+            const val espresso = "3.4.0"
+            const val orchestrator = "1.4.1"
+            const val junit = "1.1.3"
+
+            /**
+             * [Android UITest Automation explained](https://developer.android.com/training/testing/ui-testing/uiautomator-testing)
+             * [Android UITest Automation](https://androidx.tech/artifacts/test.uiautomator/uiautomator/)
+             */
+            const val uiAutomator = "2.2.0"
+
+            /**
+             * [Robolectric](https://github.com/robolectric/robolectric)
+             */
+            const val robolectric = "4.7.3"
+        }
     }
 
-    val jvmTest = JvmTest
+    val jvm = Jvm
 
-    object JvmTest {
-        /**
-         * [JUnit](https://github.com/junit-team/junit5/)
-         */
-        const val junit = "5.8.2"
+    object Jvm {
+        val test = Test
 
-        /**
-         * [JUnit](https://github.com/junit-team/junit4/)
-         */
-        const val junit4 = "4.13.2"
-    }
+        object Test {
+            /**
+             * [JUnit](https://github.com/junit-team/junit5/)
+             */
+            const val junit = "5.8.2"
 
-    val androidTest = AndroidTest
-
-    object AndroidTest {
-        /**
-         * [Android Testing](https://developer.android.com/testing)
-         */
-        /**
-         * [Android Testing Releases](https://developer.android.com/jetpack/androidx/releases/test)
-         */
-        const val test = "1.4.0"
-        const val espresso = "3.4.0"
-        const val orchestrator = "1.4.1"
-        const val junit = "1.1.3"
-
-        /**
-         * [Android UITest Automation explained](https://developer.android.com/training/testing/ui-testing/uiautomator-testing)
-         * [Android UITest Automation](https://androidx.tech/artifacts/test.uiautomator/uiautomator/)
-         */
-        const val uiAutomator = "2.2.0"
-
-        /**
-         * [Robolectric](https://github.com/robolectric/robolectric)
-         */
-        const val robolectric = "4.7.3"
-    }
-
-    val kotlinTest = KotlinTest
-
-    object KotlinTest {
-        /**
-         * [mockk](http://mockk.io)
-         */
-        const val mockk = "1.12.1"
+            /**
+             * [JUnit](https://github.com/junit-team/junit4/)
+             */
+            const val junit4 = "4.13.2"
+        }
     }
 }
