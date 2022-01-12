@@ -171,10 +171,12 @@ object Dependency {
 
     object AndroidTest {
         const val core = "androidx.test:core:${Version.androidTest.test}"
+        const val ktx = "androidx.test:core-ktx:${Version.androidTest.test}"
         const val runner = "androidx.test:runner:${Version.androidTest.test}"
         const val rules = "androidx.test:rules:${Version.androidTest.test}"
 
-        const val junit = "androidx.test.ext:junit:${Version.androidTest.test}"
+        const val junit = "androidx.test.ext:junit:${Version.androidTest.junit}"
+        const val junitKtx = "androidx.test.ext:junit-ktx:${Version.androidTest.junit}"
 
         const val junit5 = "org.junit.jupiter:junit-jupiter-api:${Version.jvmTest.junit}"
         const val junit5Parameterized = "org.junit.jupiter:junit-jupiter-params:${Version.jvmTest.junit}"
