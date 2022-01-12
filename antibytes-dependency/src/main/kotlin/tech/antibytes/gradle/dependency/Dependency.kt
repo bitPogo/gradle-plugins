@@ -101,12 +101,10 @@ object Dependency {
         val serialization = Serialization
 
         object Serialization {
-            const val common =
-                "org.jetbrains.kotlinx:kotlinx-serialization-core:${Version.kotlin.serialization}"
-            const val android =
-                "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:${Version.kotlin.serialization}"
-            const val protobuf =
-                "org.jetbrains.kotlinx:kotlinx-serialization-protobuf:${Version.kotlin.serialization}"
+            const val common = "org.jetbrains.kotlinx:kotlinx-serialization-core:${Version.kotlin.serialization}"
+            const val android = "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:${Version.kotlin.serialization}"
+            const val protobuf = "org.jetbrains.kotlinx:kotlinx-serialization-protobuf:${Version.kotlin.serialization}"
+            const val json = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Version.kotlin.serialization}"
         }
 
         const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Version.kotlin.dateTime}"
@@ -133,7 +131,7 @@ object Dependency {
             val mockk = Mockk
 
             object Mockk {
-                const val junit = "io.mockk:mockk:${Version.kotlinTest.mockk}"
+                const val junit = "io.mockk:mockk:${Version.kotlin.test.mockk}"
             }
         }
 
@@ -144,11 +142,15 @@ object Dependency {
         }
     }
 
-    val jvmTest = JvmTest
+    val jvm = Jvm
 
-    object JvmTest {
-        const val junit = "org.junit:junit-bom:${Version.jvmTest.junit}"
-        const val jupiter = "org.junit.jupiter:junit-jupiter"
+    object Jvm {
+        val test = Test
+
+        object Test {
+            const val junit = "org.junit:junit-bom:${Version.jvm.test.junit}"
+            const val jupiter = "org.junit.jupiter:junit-jupiter"
+        }
     }
 
     val android = Android
@@ -165,31 +167,31 @@ object Dependency {
 
         // Material
         const val material = "com.google.android.material:material:${Version.android.material}"
-    }
 
-    val androidTest = AndroidTest
+        val test = Test
 
-    object AndroidTest {
-        const val core = "androidx.test:core:${Version.androidTest.test}"
-        const val ktx = "androidx.test:core-ktx:${Version.androidTest.test}"
-        const val runner = "androidx.test:runner:${Version.androidTest.test}"
-        const val rules = "androidx.test:rules:${Version.androidTest.test}"
+        object Test {
+            const val core = "androidx.test:core:${Version.android.test.test}"
+            const val ktx = "androidx.test:core-ktx:${Version.android.test.test}"
+            const val runner = "androidx.test:runner:${Version.android.test.test}"
+            const val rules = "androidx.test:rules:${Version.android.test.test}"
 
-        const val junit = "androidx.test.ext:junit:${Version.androidTest.junit}"
-        const val junitKtx = "androidx.test.ext:junit-ktx:${Version.androidTest.junit}"
+            const val junit = "androidx.test.ext:junit:${Version.android.test.junit}"
+            const val junitKtx = "androidx.test.ext:junit-ktx:${Version.android.test.junit}"
 
-        const val junit5 = "org.junit.jupiter:junit-jupiter-api:${Version.jvmTest.junit}"
-        const val junit5Parameterized = "org.junit.jupiter:junit-jupiter-params:${Version.jvmTest.junit}"
+            const val junit5 = "org.junit.jupiter:junit-jupiter-api:${Version.jvm.test.junit}"
+            const val junit5Parameterized = "org.junit.jupiter:junit-jupiter-params:${Version.jvm.test.junit}"
 
-        const val junit4 = "junit:junit:${Version.jvmTest.junit4}"
-        const val junit4LegacyEngine = "org.junit.vintage:junit-vintage-engine:${Version.jvmTest.junit}"
+            const val junit4 = "junit:junit:${Version.jvm.test.junit4}"
+            const val junit4LegacyEngine = "org.junit.vintage:junit-vintage-engine:${Version.jvm.test.junit}"
 
-        const val espressoCore = "androidx.test.espresso:espresso-core:${Version.androidTest.espresso}"
-        const val espressoIntents = "androidx.test.espresso:espresso-intents:${Version.androidTest.espresso}"
-        const val espressoWeb = "androidx.test.espresso:espresso-web:${Version.androidTest.espresso}"
+            const val espressoCore = "androidx.test.espresso:espresso-core:${Version.android.test.espresso}"
+            const val espressoIntents = "androidx.test.espresso:espresso-intents:${Version.android.test.espresso}"
+            const val espressoWeb = "androidx.test.espresso:espresso-web:${Version.android.test.espresso}"
 
-        const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Version.androidTest.uiAutomator}"
+            const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Version.android.test.uiAutomator}"
 
-        const val robolectric = "org.robolectric:robolectric:${Version.androidTest.robolectric}"
+            const val robolectric = "org.robolectric:robolectric:${Version.android.test.robolectric}"
+        }
     }
 }
