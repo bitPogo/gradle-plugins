@@ -25,6 +25,7 @@ group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(Dependency.gradle.kotlin)
+    implementation(Dependency.gradle.kotlinReflection)
     implementation(Dependency.gradle.android)
     implementation(Dependency.gradle.dependencyUpdate)
     implementation(Dependency.gradle.owasp)

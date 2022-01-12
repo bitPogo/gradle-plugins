@@ -124,6 +124,8 @@ object Version {
          */
         const val test = "1.4.0"
         const val espresso = "3.4.0"
+        const val orchestrator = "1.4.1"
+        const val junit = "1.1.3"
 
         /**
          * [Android UITest Automation explained](https://developer.android.com/training/testing/ui-testing/uiautomator-testing)
