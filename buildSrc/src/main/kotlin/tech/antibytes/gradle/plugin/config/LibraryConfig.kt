@@ -19,7 +19,7 @@ object LibraryConfig {
         const val groupId = "tech.antibytes.gradle-plugins"
         const val description = "Plugins for gradle to ease project configurations."
 
-        const val year = "2021"
+        const val year = "2022"
 
         // URL
         const val host = "github.com"
