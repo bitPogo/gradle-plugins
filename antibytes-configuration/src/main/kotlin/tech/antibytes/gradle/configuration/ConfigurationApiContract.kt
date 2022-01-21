@@ -57,6 +57,10 @@ internal interface ConfigurationApiContract {
         val androidTest: TestSource?
     }
 
+    interface AndroidApplicationConfiguration : AndroidBaseConfiguration {
+        val androidTest: TestSource
+    }
+
     companion object {
         const val ANDROID_PREFIX = "antibytes"
         const val ANDROID_PREFIX_SEPARATOR = "_"
