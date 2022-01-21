@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
@@ -115,5 +115,61 @@ class ProjectExtensionSpec {
             verify(exactly = 1) { plugins.hasPlugin(pluginName) }
             verify(exactly = 0) { plugins.apply(pluginName) }
         }
+    }
+
+    @Test
+    fun `Given isAndroidLibrary is called on a Project which is not a AndroidLibrary plugin it returns false`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("com.android.library") } returns false
+
+        // When
+        val result = project.isAndroidLibrary()
+
+        // Then
+        assertFalse(result)
+    }
+
+    @Test
+    fun `Given isAndroidLibrary is called on a Project which is a AndroidLibrary plugin it returns true`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("com.android.library") } returns true
+
+        // When
+        val result = project.isAndroidLibrary()
+
+        // Then
+        assertTrue(result)
+    }
+
+    @Test
+    fun `Given isAndroidLibrary is called on a Project which is not a AndroidApplication plugin it returns false`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("com.android.application") } returns false
+
+        // When
+        val result = project.isAndroidApplication()
+
+        // Then
+        assertFalse(result)
+    }
+
+    @Test
+    fun `Given isAndroidLibrary is called on a Project which is a AndroidApplication plugin it returns true`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("com.android.application") } returns true
+
+        // When
+        val result = project.isAndroidApplication()
+
+        // Then
+        assertTrue(result)
     }
 }

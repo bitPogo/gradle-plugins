@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
@@ -24,4 +24,8 @@ fun Project.isKmp(): Boolean {
 
 fun Project.isAndroidLibrary(): Boolean {
     return this.plugins.hasPlugin("com.android.library")
+}
+
+fun Project.isAndroidApplication(): Boolean {
+    return this.plugins.hasPlugin("com.android.application")
 }

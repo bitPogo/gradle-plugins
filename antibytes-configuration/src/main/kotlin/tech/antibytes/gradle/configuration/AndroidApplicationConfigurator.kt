@@ -6,18 +6,15 @@
 
 package tech.antibytes.gradle.configuration
 
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import tech.antibytes.gradle.util.isKmp
 
-internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibraryConfigurator {
+internal object AndroidApplicationConfigurator : ConfigurationContract.AndroidApplicationConfigurator {
     private fun setupAndroidExtension(
-        extension: LibraryExtension,
-        configuration: ConfigurationApiContract.AndroidLibraryConfiguration
+        extension: ApplicationExtension,
+        configuration: ConfigurationApiContract.AndroidApplicationConfiguration
     ) {
         extension.compileSdk = configuration.compileSdkVersion
-        extension.resourcePrefix = configuration.prefix
 
         extension.defaultConfig {
             minSdk = configuration.minSdkVersion
@@ -44,33 +41,18 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
             test.java.setSrcDirs(configuration.unitTestSource.sourceDirectories)
             test.res.setSrcDirs(configuration.unitTestSource.resourceDirectories)
 
-            if (configuration.androidTest is ConfigurationApiContract.TestSource) {
-                val androidTest = getByName("androidTest")
-                androidTest.java.setSrcDirs(configuration.androidTest!!.sourceDirectories)
-                androidTest.res.setSrcDirs(configuration.androidTest!!.resourceDirectories)
-            }
-        }
-    }
-
-    private fun setupKmp(
-        project: Project,
-        configuration: ConfigurationApiContract.AndroidLibraryConfiguration
-    ) {
-        project.extensions.configure(KotlinMultiplatformExtension::class.java) {
-            android().publishLibraryVariants(*configuration.publishVariants.toTypedArray())
+            val androidTest = getByName("androidTest")
+            androidTest.java.setSrcDirs(configuration.androidTest.sourceDirectories)
+            androidTest.res.setSrcDirs(configuration.androidTest.resourceDirectories)
         }
     }
 
     override fun configure(
         project: Project,
-        configuration: ConfigurationApiContract.AndroidLibraryConfiguration
+        configuration: ConfigurationApiContract.AndroidApplicationConfiguration
     ) {
-        project.extensions.configure(LibraryExtension::class.java) {
+        project.extensions.configure(ApplicationExtension::class.java) {
             setupAndroidExtension(this, configuration)
-        }
-
-        if (project.isKmp()) {
-            setupKmp(project, configuration)
         }
     }
 }
