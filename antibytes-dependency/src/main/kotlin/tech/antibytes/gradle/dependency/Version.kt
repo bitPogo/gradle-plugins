@@ -24,22 +24,22 @@ object Version {
         /**
          * [Kotlin](https://github.com/JetBrains/kotlin)
          */
-        const val stdlib = "1.5.32"
+        const val stdlib = "1.6.10"
 
         /**
          * [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
          */
-        const val coroutines = "1.5.2-native-mt"
+        const val coroutines = "1.6.0-native-mt"
 
         /**
          * [Koin](https://github.com/InsertKoinIO/koin)
          */
-        const val koin = "3.1.4"
+        const val koin = "3.1.5"
 
         /**
          * [Ktor](https://github.com/ktorio/ktor)
          */
-        const val ktor = "1.6.3"
+        const val ktor = "1.6.5"
 
         /**
          * [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
@@ -49,17 +49,17 @@ object Version {
         /**
          * [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
          */
-        const val dateTime = "0.3.1"
+        const val dateTime = "0.3.2"
 
         /**
          * [UUID](https://github.com/benasher44/uuid)
          */
-        const val uuid = "0.3.1"
+        const val uuid = "0.4.0"
 
         /**
          * [Stately](https://github.com/touchlab/Stately)
          */
-        const val stately = "1.1.10"
+        const val stately = "1.2.1"
 
         val test = Test
 
@@ -67,7 +67,7 @@ object Version {
             /**
              * [mockk](http://mockk.io)
              */
-            const val mockk = "1.12.1"
+            const val mockk = "1.12.2"
         }
     }
 
@@ -93,19 +93,19 @@ object Version {
         /**
          * [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
          */
-        const val appCompat = "1.4.0"
+        const val appCompat = "1.4.1"
 
         /**
          * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
          */
-        const val constraintLayout = "2.1.2"
-        const val constraintLayoutCompose = "1.0.0-rc02"
+        const val constraintLayout = "2.1.3"
+        const val constraintLayoutCompose = "1.0.0"
 
         // Material
         /**
          * [Material Android](https://github.com/material-components/material-components-android)
          */
-        const val material = "1.5.0-rc01"
+        const val material = "1.5.0"
 
         val test = Test
 
