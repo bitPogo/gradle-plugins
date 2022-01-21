@@ -33,7 +33,7 @@ import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class AndroidLibraryConfiguratorSpec {
+class AndroidLibraryApplicationSpec {
     private val fixture = kotlinFixture()
 
     @Test

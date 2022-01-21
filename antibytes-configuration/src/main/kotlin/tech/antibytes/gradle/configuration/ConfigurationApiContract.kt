@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
@@ -35,8 +35,6 @@ internal interface ConfigurationApiContract {
         val minSdkVersion: Int
         val targetSdkVersion: Int
 
-        val prefix: String
-
         val compatibilityTargets: Compatibility
         val fallbacks: Map<String, Set<String>>
 
@@ -47,6 +45,8 @@ internal interface ConfigurationApiContract {
 
     interface AndroidLibraryConfiguration : AndroidBaseConfiguration {
         val publishVariants: Set<String>
+
+        val prefix: String
 
         /**
          * TestSource for AndroidTest (UI-Test)

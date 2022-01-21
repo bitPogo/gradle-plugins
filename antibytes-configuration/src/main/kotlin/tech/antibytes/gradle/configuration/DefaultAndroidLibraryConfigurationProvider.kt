@@ -1,12 +1,11 @@
 /*
- * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
 package tech.antibytes.gradle.configuration
 
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.ANDROID_PREFIX
 import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.ANDROID_PREFIX_SEPARATOR
@@ -25,6 +24,16 @@ import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import tech.antibytes.gradle.util.PlatformContextResolver
 
 internal object DefaultAndroidLibraryConfigurationProvider : ConfigurationContract.DefaultAndroidLibraryConfigurationProvider {
+    private fun determineTestSource(sourceDir: String): TestSource {
+        return TestSource(
+            sourceDirectories = setOf("src/$sourceDir/kotlin"),
+            resourceDirectories = setOf(
+                "src/$sourceDir/res",
+                "src/$sourceDir/resources",
+            )
+        )
+    }
+
     private fun isAndroidKmpLibrary(contexts: Set<PlatformContext>): Boolean {
         return contexts.any { context -> context == PlatformContext.ANDROID_LIBRARY_KMP }
     }
@@ -42,28 +51,28 @@ internal object DefaultAndroidLibraryConfigurationProvider : ConfigurationContra
             MainSource(
                 manifest = "src/androidMain/AndroidManifest.xml",
                 sourceDirectories = setOf("src/androidMain/kotlin"),
-                resourceDirectories = setOf("src/androidMain/res")
+                resourceDirectories = setOf(
+                    "src/androidMain/res",
+                    "src/androidMain/resources"
+                )
             )
         } else {
             MainSource(
                 manifest = "src/main/AndroidManifest.xml",
                 sourceDirectories = setOf("src/main/kotlin"),
-                resourceDirectories = setOf("src/main/res")
+                resourceDirectories = setOf(
+                    "src/main/res",
+                    "src/main/resources"
+                )
             )
         }
     }
 
     private fun determineTestSource(contexts: Set<PlatformContext>): TestSource {
         return if (isAndroidKmpLibrary(contexts)) {
-            TestSource(
-                sourceDirectories = setOf("src/androidTest/kotlin"),
-                resourceDirectories = setOf("src/androidTest/res")
-            )
+            determineTestSource("androidTest")
         } else {
-            TestSource(
-                sourceDirectories = setOf("src/test/kotlin"),
-                resourceDirectories = setOf("src/test/res")
-            )
+            determineTestSource("test")
         }
     }
 

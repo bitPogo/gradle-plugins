@@ -12,7 +12,6 @@ internal data class AndroidApplicationConfiguration(
     override val compileSdkVersion: Int,
     override val minSdkVersion: Int,
     override val targetSdkVersion: Int,
-    override val prefix: String,
     override val compatibilityTargets: ConfigurationApiContract.Compatibility,
     override val fallbacks: Map<String, Set<String>>,
     override val mainSource: ConfigurationApiContract.MainSource,

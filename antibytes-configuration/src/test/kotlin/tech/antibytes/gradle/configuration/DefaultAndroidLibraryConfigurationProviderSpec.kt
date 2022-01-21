@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
@@ -74,11 +74,17 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
                 mainSource = MainSource(
                     manifest = "src/main/AndroidManifest.xml",
                     sourceDirectories = setOf("src/main/kotlin"),
-                    resourceDirectories = setOf("src/main/res")
+                    resourceDirectories = setOf(
+                        "src/main/res",
+                        "src/main/resources",
+                    )
                 ),
                 unitTestSource = TestSource(
                     sourceDirectories = setOf("src/test/kotlin"),
-                    resourceDirectories = setOf("src/test/res")
+                    resourceDirectories = setOf(
+                        "src/test/res",
+                        "src/test/resources",
+                    )
                 ),
                 androidTest = null,
                 testRunner = TestRunner(
@@ -118,11 +124,17 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
                 mainSource = MainSource(
                     manifest = "src/androidMain/AndroidManifest.xml",
                     sourceDirectories = setOf("src/androidMain/kotlin"),
-                    resourceDirectories = setOf("src/androidMain/res")
+                    resourceDirectories = setOf(
+                        "src/androidMain/res",
+                        "src/androidMain/resources",
+                    )
                 ),
                 unitTestSource = TestSource(
                     sourceDirectories = setOf("src/androidTest/kotlin"),
-                    resourceDirectories = setOf("src/androidTest/res")
+                    resourceDirectories = setOf(
+                        "src/androidTest/res",
+                        "src/androidTest/resources",
+                    )
                 ),
                 androidTest = null,
                 testRunner = TestRunner(
