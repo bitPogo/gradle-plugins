@@ -23,4 +23,11 @@ internal interface ConfigurationContract {
             configuration: ConfigurationApiContract.AndroidLibraryConfiguration
         )
     }
+
+    interface AndroidApplicationConfigurator {
+        fun configure(
+            project: Project,
+            configuration: ConfigurationApiContract.AndroidApplicationConfiguration
+        )
+    }
 }
