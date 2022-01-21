@@ -88,7 +88,18 @@ object Version {
         /**
          * [AndroidX Core](https://developer.android.com/kotlin/ktx)
          */
-        const val ktx = "1.7.0"
+        val ktx = Ktx
+        object Ktx {
+            const val core = "1.7.0"
+            const val collections = "1.2.0"
+            const val lifecycle = "2.4.0"
+            const val fragment = "1.4.0"
+            const val livedata = "2.4.0"
+            const val navigation = "2.3.5"
+            const val palette = "1.0.0"
+            const val viewmodel = "2.4.0"
+            const val workmanager = "2.7.1"
+        }
 
         /**
          * [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
