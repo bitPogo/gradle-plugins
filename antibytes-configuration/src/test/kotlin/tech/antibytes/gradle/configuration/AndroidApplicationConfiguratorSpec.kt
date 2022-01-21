@@ -300,7 +300,7 @@ class AndroidApplicationConfiguratorSpec {
 
         // Then
         verify(exactly = 1) { sourceSets.getByName("androidTest") }
-        verify(exactly = 1) { androidTestSourceDirectories.setSrcDirs(configuration.androidTest!!.sourceDirectories) }
-        verify(exactly = 1) { androidTestResourceDirectories.setSrcDirs(configuration.androidTest!!.resourceDirectories) }
+        verify(exactly = 1) { androidTestSourceDirectories.setSrcDirs(configuration.androidTest.sourceDirectories) }
+        verify(exactly = 1) { androidTestResourceDirectories.setSrcDirs(configuration.androidTest.resourceDirectories) }
     }
 }

@@ -89,6 +89,7 @@ object Version {
          * [AndroidX Core](https://developer.android.com/kotlin/ktx)
          */
         val ktx = Ktx
+
         object Ktx {
             const val core = "1.7.0"
             const val collections = "1.2.0"
@@ -109,14 +110,31 @@ object Version {
         /**
          * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
          */
-        const val constraintLayout = "2.1.3"
-        const val constraintLayoutCompose = "1.0.0"
+        val constraintLayout = "2.1.3"
+        object ConstraintLayout {
+            const val compose = "1.0.0"
+        }
 
         // Material
         /**
          * [Material Android](https://github.com/material-components/material-components-android)
          */
         const val material = "1.5.0"
+
+        /**
+         * [Jetpack Compose](https://developer.android.com/jetpack/androidx/releases/compose)
+         * [Release Notes](https://developer.android.com/jetpack/androidx/versions/all-channel)
+         * [Compatibility Notes](https://developer.android.com/jetpack/androidx/releases/compose-kotlin)
+         */
+
+        val compose = Compose
+        object Compose {
+            const val core = "1.1.0-rc01"
+            const val compiler = "1.1.0-rc02"
+            const val constraintLayout = "1.0.0"
+            const val activity = "1.3.1"
+            const val viewmodel = "1.0.0-alpha07"
+        }
 
         val test = Test
 
