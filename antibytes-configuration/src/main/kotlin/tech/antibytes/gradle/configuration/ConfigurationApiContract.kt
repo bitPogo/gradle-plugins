@@ -60,5 +60,11 @@ internal interface ConfigurationApiContract {
     companion object {
         const val ANDROID_PREFIX = "antibytes"
         const val ANDROID_PREFIX_SEPARATOR = "_"
+        const val TARGET_SDK = 31
+        const val MIN_SDK = 23
+        val FALLBACKS = mapOf("debug" to setOf("release"))
+        val COMPATIBILITY_TARGETS = JavaVersion.VERSION_1_8
+        const val TEST_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
+        val TEST_RUNNER_ARGUMENTS = mapOf("clearPackageData" to "true")
     }
 }

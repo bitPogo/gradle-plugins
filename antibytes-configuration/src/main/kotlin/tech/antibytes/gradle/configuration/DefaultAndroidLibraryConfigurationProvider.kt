@@ -10,6 +10,12 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.ANDROID_PREFIX
 import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.ANDROID_PREFIX_SEPARATOR
+import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.COMPATIBILITY_TARGETS
+import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.FALLBACKS
+import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.MIN_SDK
+import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.TARGET_SDK
+import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.TEST_RUNNER
+import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.TEST_RUNNER_ARGUMENTS
 import tech.antibytes.gradle.configuration.api.AndroidLibraryConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource
@@ -73,22 +79,22 @@ internal object DefaultAndroidLibraryConfigurationProvider : ConfigurationContra
         val contexts = PlatformContextResolver.getType(project)
 
         return AndroidLibraryConfiguration(
-            compileSdkVersion = 30,
-            minSdkVersion = 23,
-            targetSdkVersion = 30,
+            compileSdkVersion = TARGET_SDK,
+            minSdkVersion = MIN_SDK,
+            targetSdkVersion = TARGET_SDK,
             prefix = determinePrefix(project),
             publishVariants = determinePublishingVariants(contexts),
             compatibilityTargets = Compatibility(
-                target = JavaVersion.VERSION_1_8,
-                source = JavaVersion.VERSION_1_8
+                target = COMPATIBILITY_TARGETS,
+                source = COMPATIBILITY_TARGETS
             ),
-            fallbacks = mapOf("debug" to setOf("release")),
+            fallbacks = FALLBACKS,
             mainSource = determineMainSource(contexts),
             unitTestSource = determineTestSource(contexts),
             androidTest = null,
             testRunner = TestRunner(
-                runner = "androidx.test.runner.AndroidJUnitRunner",
-                arguments = mapOf("clearPackageData" to "true")
+                runner = TEST_RUNNER,
+                arguments = TEST_RUNNER_ARGUMENTS
             )
         )
     }
