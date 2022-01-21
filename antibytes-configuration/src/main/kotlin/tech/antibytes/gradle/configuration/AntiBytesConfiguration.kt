@@ -8,6 +8,7 @@ package tech.antibytes.gradle.configuration
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import tech.antibytes.gradle.util.isAndroidApplication
 import tech.antibytes.gradle.util.isAndroidLibrary
 
 class AntiBytesConfiguration : Plugin<Project> {
@@ -16,6 +17,13 @@ class AntiBytesConfiguration : Plugin<Project> {
             AndroidLibraryConfigurator.configure(
                 target,
                 DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(target)
+            )
+        }
+
+        if (target.isAndroidApplication()) {
+            AndroidApplicationConfigurator.configure(
+                target,
+                DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(target)
             )
         }
     }

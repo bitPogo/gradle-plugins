@@ -24,12 +24,16 @@ class AntiBytesConfigurationSpec {
     @Before
     fun setup() {
         mockkObject(AndroidLibraryConfigurator)
+        mockkObject(AndroidApplicationConfigurator)
+        mockkObject(DefaultAndroidApplicationConfigurationProvider)
         mockkObject(DefaultAndroidLibraryConfigurationProvider)
     }
 
     @After
     fun tearDown() {
         unmockkObject(AndroidLibraryConfigurator)
+        unmockkObject(AndroidApplicationConfigurator)
+        unmockkObject(DefaultAndroidApplicationConfigurationProvider)
         unmockkObject(DefaultAndroidLibraryConfigurationProvider)
     }
 
@@ -41,12 +45,13 @@ class AntiBytesConfigurationSpec {
     }
 
     @Test
-    fun `Given apply is called with a Project, it will not delegate the AndroidConfiguration if it is not a Library`() {
+    fun `Given apply is called with a Project, it will not delegate the AndroidConfiguration if it is not a Library or Application`() {
         mockkObject(AndroidLibraryConfigurator)
         // Given
         val project: Project = mockk()
 
         every { project.plugins.hasPlugin("com.android.library") } returns false
+        every { project.plugins.hasPlugin("com.android.application") } returns false
 
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
@@ -66,6 +71,7 @@ class AntiBytesConfigurationSpec {
 
         val androidConfig: ConfigurationApiContract.AndroidLibraryConfiguration = mockk()
 
+        every { project.plugins.hasPlugin("com.android.application") } returns false
         every { project.plugins.hasPlugin("com.android.library") } returns true
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns androidConfig
@@ -76,5 +82,25 @@ class AntiBytesConfigurationSpec {
         // Then
         verify(exactly = 1) { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project) }
         verify(exactly = 1) { AndroidLibraryConfigurator.configure(project, androidConfig) }
+    }
+
+    @Test
+    fun `Given apply is called with a Project, it will delegate the AndroidConfiguration if it is a Application`() {
+        // Given
+        val project: Project = mockk()
+
+        val androidConfig: ConfigurationApiContract.AndroidApplicationConfiguration = mockk()
+
+        every { project.plugins.hasPlugin("com.android.library") } returns false
+        every { project.plugins.hasPlugin("com.android.application") } returns true
+        every { AndroidApplicationConfigurator.configure(any(), any()) } just Runs
+        every { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(any()) } returns androidConfig
+
+        // When
+        AntiBytesConfiguration().apply(project)
+
+        // Then
+        verify(exactly = 1) { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(project) }
+        verify(exactly = 1) { AndroidApplicationConfigurator.configure(project, androidConfig) }
     }
 }

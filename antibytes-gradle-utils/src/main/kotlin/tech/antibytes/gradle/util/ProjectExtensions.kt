@@ -25,3 +25,7 @@ fun Project.isKmp(): Boolean {
 fun Project.isAndroidLibrary(): Boolean {
     return this.plugins.hasPlugin("com.android.library")
 }
+
+fun Project.isAndroidApplication(): Boolean {
+    return this.plugins.hasPlugin("com.android.application")
+}
