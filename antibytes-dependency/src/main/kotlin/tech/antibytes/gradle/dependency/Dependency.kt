@@ -133,12 +133,12 @@ object Dependency {
             object Mockk {
                 const val junit = "io.mockk:mockk:${Version.kotlin.test.mockk}"
             }
-        }
 
-        val koinTest = KoinTest
+            val koin = Koin
 
-        object KoinTest {
-            val koinTest = "io.insert-koin:koin-test:${Version.kotlin.koin}"
+            object Koin {
+                val jvm = "io.insert-koin:koin-test:${Version.kotlin.koin}"
+            }
         }
     }
 
@@ -160,13 +160,48 @@ object Dependency {
         const val desugar = "com.android.tools:desugar_jdk_libs:${Version.android.desugar}"
 
         // AndroidX
-        const val ktx = "androidx.core:core-ktx:${Version.android.ktx}"
-        const val appCompat = "androidx.appcompat:appcompat:${Version.android.appCompat}"
-        const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.android.constraintLayout}"
-        const val constraintLayoutCompose = "androidx.constraintlayout:constraintlayout-compose:${Version.android.constraintLayoutCompose}"
+        val ktx = Ktx
+
+        object Ktx {
+            const val core = "androidx.core:core-ktx:${Version.android.ktx.core}"
+            const val collections = "androidx.collection:collection-ktx:${Version.android.ktx.collections}"
+            const val fragment = "androidx.fragment:fragment-ktx:${Version.android.ktx.fragment}"
+            const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.android.ktx.lifecycle}"
+            const val navigationRuntime = "androidx.navigation:navigation-runtime-ktx:${Version.android.ktx.navigation}"
+            const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.android.ktx.navigation}"
+            const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Version.android.ktx.navigation}"
+            const val palette = "androidx.palette:palette-ktx:${Version.android.ktx.palette}"
+            const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
+            const val viewmodelSaver = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Version.android.ktx.viewmodel}"
+            const val workmanager = "androidx.work:work-runtime-ktx:${Version.android.ktx.workmanager}"
+        }
+
+        val appCompact = AppCompact
+
+        object AppCompact {
+            const val core = "androidx.appcompat:appcompat:${Version.android.appCompat}"
+            const val resources = "androidx.appcompat:appcompat-resources:${Version.android.appCompat}"
+        }
+
+        val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.android.constraintLayout}"
 
         // Material
         const val material = "com.google.android.material:material:${Version.android.material}"
+
+        val compose = Compose
+
+        // see: https://developer.android.com/jetpack/compose/setup
+        object Compose {
+            const val ui = "androidx.compose.ui:ui:${Version.android.compose.core}"
+            const val uiTooling = "androidx.compose.ui:ui-tooling:${Version.android.compose.core}"
+            const val foundation = "androidx.compose.foundation:foundation:${Version.android.compose.core}"
+            const val material = "androidx.compose.material:material:${Version.android.compose.core}"
+            const val materialIcons = "androidx.compose.material:material-icons-core:${Version.android.compose.core}"
+            const val materialIconsExtended = "androidx.compose.material:material-icons-extended:${Version.android.compose.core}"
+            const val activity = "androidx.activity:activity-compose:${Version.android.compose.activity}"
+            const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Version.android.compose.viewmodel}"
+            const val constrainLayout = "androidx.constraintlayout:constraintlayout-compose:${Version.android.compose.constraintLayout}"
+        }
 
         val test = Test
 
@@ -188,6 +223,8 @@ object Dependency {
             const val espressoCore = "androidx.test.espresso:espresso-core:${Version.android.test.espresso}"
             const val espressoIntents = "androidx.test.espresso:espresso-intents:${Version.android.test.espresso}"
             const val espressoWeb = "androidx.test.espresso:espresso-web:${Version.android.test.espresso}"
+
+            const val composeJunit4 = "androidx.compose.ui:ui-test-junit4:${Version.android.compose.core}"
 
             const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Version.android.test.uiAutomator}"
 

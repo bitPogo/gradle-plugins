@@ -93,7 +93,7 @@ tasks.jacocoTestCoverageVerification {
             limit {
                 counter = "INSTRUCTION"
                 value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.50)
+                minimum = BigDecimal( 0.4)
             }
         }
     }
