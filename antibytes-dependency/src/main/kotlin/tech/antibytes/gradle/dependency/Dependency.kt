@@ -194,6 +194,7 @@ object Dependency {
         object Compose {
             const val ui = "androidx.compose.ui:ui:${Version.android.compose.core}"
             const val uiTooling = "androidx.compose.ui:ui-tooling:${Version.android.compose.core}"
+            const val uiManifest = "androidx.compose.ui:ui-test-manifest:${Version.android.compose.core}"
             const val foundation = "androidx.compose.foundation:foundation:${Version.android.compose.core}"
             const val material = "androidx.compose.material:material:${Version.android.compose.core}"
             const val materialIcons = "androidx.compose.material:material-icons-core:${Version.android.compose.core}"
