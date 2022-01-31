@@ -39,12 +39,12 @@ object Version {
         /**
          * [Ktor](https://github.com/ktorio/ktor)
          */
-        const val ktor = "1.6.5"
+        const val ktor = "1.6.7"
 
         /**
          * [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
          */
-        const val serialization = "1.3.1"
+        const val serialization = "1.3.2"
 
         /**
          * [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
@@ -94,9 +94,9 @@ object Version {
             const val core = "1.7.0"
             const val collections = "1.2.0"
             const val lifecycle = "2.4.0"
-            const val fragment = "1.4.0"
+            const val fragment = "1.4.1"
             const val livedata = "2.4.0"
-            const val navigation = "2.3.5"
+            const val navigation = "2.4.0"
             const val palette = "1.0.0"
             const val viewmodel = "2.4.0"
             const val workmanager = "2.7.1"
@@ -111,9 +111,6 @@ object Version {
          * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
          */
         val constraintLayout = "2.1.3"
-        object ConstraintLayout {
-            const val compose = "1.0.0"
-        }
 
         // Material
         /**
@@ -129,8 +126,8 @@ object Version {
 
         val compose = Compose
         object Compose {
-            const val core = "1.1.0-rc01"
-            const val compiler = "1.1.0-rc02"
+            const val core = "1.1.0-rc03"
+            const val compiler = "1.1.0-rc03"
             const val constraintLayout = "1.0.0"
             const val activity = "1.3.1"
             const val viewmodel = "1.0.0-alpha07"
