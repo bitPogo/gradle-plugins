@@ -173,6 +173,7 @@ object Dependency {
             const val palette = "androidx.palette:palette-ktx:${Version.android.ktx.palette}"
             const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
             const val viewmodelSaver = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Version.android.ktx.viewmodel}"
+            const val viewmodelCoroutine = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
             const val workmanager = "androidx.work:work-runtime-ktx:${Version.android.ktx.workmanager}"
         }
 
