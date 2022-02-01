@@ -92,6 +92,7 @@ object Version {
 
         object Ktx {
             const val core = "1.7.0"
+            const val activity = "1.4.0"
             const val collections = "1.2.0"
             const val lifecycle = "2.4.0"
             const val fragment = "1.4.1"
