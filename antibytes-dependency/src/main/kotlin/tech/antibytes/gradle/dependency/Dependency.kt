@@ -164,6 +164,7 @@ object Dependency {
 
         object Ktx {
             const val core = "androidx.core:core-ktx:${Version.android.ktx.core}"
+            const val activity = "androidx.activity:activity-ktx:${Version.android.ktx.activity}"
             const val collections = "androidx.collection:collection-ktx:${Version.android.ktx.collections}"
             const val fragment = "androidx.fragment:fragment-ktx:${Version.android.ktx.fragment}"
             const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.android.ktx.lifecycle}"
