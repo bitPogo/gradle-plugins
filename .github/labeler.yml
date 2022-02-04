@@ -6,7 +6,7 @@ scripts:
 
 dependencies:
   - buildSrc/**/*
-  - localPlugin/dependency/**/*
+  - localPlugin/**/*
 
 documentation:
   - docs/**/*
