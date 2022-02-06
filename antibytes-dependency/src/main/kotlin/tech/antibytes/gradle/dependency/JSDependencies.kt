@@ -7,10 +7,6 @@
 package tech.antibytes.gradle.dependency
 
 object JSDependencies {
-    val gradle = mapOf(
-        "org.jetbrains.kotlinx:kotlinx-nodejs" to "0.0.7"
-    )
-
     val npm = Npm
     object Npm {
         val build = Build
