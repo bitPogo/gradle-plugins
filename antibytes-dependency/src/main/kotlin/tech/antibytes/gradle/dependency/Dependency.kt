@@ -125,6 +125,7 @@ object Dependency {
         object Test {
             const val common = "org.jetbrains.kotlin:kotlin-test-common:${Version.kotlin.stdlib}"
             const val annotations = "org.jetbrains.kotlin:kotlin-test-annotations-common:${Version.kotlin.stdlib}"
+            const val js = "org.jetbrains.kotlin:kotlin-test-js:${Version.kotlin.stdlib}"
             const val jvm = "org.jetbrains.kotlin:kotlin-test:${Version.kotlin.stdlib}"
             const val junit = "org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin.stdlib}"
 
@@ -233,6 +234,18 @@ object Dependency {
             const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Version.android.test.uiAutomator}"
 
             const val robolectric = "org.robolectric:robolectric:${Version.android.test.robolectric}"
+        }
+    }
+
+    val js = JS
+
+    object JS {
+        val nodejs = "org.jetbrains.kotlinx:kotlinx-nodejs:${Version.js.nodeJs}"
+
+        val test = Test
+
+        object Test {
+            const val js = "org.jetbrains.kotlin:kotlin-test-js:${Version.kotlin.stdlib}"
         }
     }
 }

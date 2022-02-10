@@ -178,4 +178,19 @@ object Version {
             const val junit4 = "4.13.2"
         }
     }
+
+    val js = JS
+
+    object JS {
+        /**
+         * [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
+         */
+        const val nodeJs = "0.0.7"
+
+        val test = Test
+
+        object Test {
+
+        }
+    }
 }
