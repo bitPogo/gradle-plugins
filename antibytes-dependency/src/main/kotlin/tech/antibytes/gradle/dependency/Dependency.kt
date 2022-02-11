@@ -124,6 +124,7 @@ object Dependency {
 
         object Test {
             const val common = "org.jetbrains.kotlin:kotlin-test-common:${Version.kotlin.stdlib}"
+            const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.kotlin.coroutines}"
             const val annotations = "org.jetbrains.kotlin:kotlin-test-annotations-common:${Version.kotlin.stdlib}"
             const val js = "org.jetbrains.kotlin:kotlin-test-js:${Version.kotlin.stdlib}"
             const val jvm = "org.jetbrains.kotlin:kotlin-test:${Version.kotlin.stdlib}"
