@@ -129,12 +129,6 @@ object Dependency {
             const val js = "org.jetbrains.kotlin:kotlin-test-js:${Version.kotlin.stdlib}"
             const val jvm = "org.jetbrains.kotlin:kotlin-test:${Version.kotlin.stdlib}"
             const val junit = "org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin.stdlib}"
-
-            val koin = Koin
-
-            object Koin {
-                val jvm = "io.insert-koin:koin-test:${Version.kotlin.koin}"
-            }
         }
     }
 
@@ -148,6 +142,7 @@ object Dependency {
             const val jupiter = "org.junit.jupiter:junit-jupiter"
 
             val mockk = "io.mockk:mockk:${Version.kotlin.test.mockk}"
+            val koin = "io.insert-koin:koin-test:${Version.kotlin.koin}"
         }
     }
 
