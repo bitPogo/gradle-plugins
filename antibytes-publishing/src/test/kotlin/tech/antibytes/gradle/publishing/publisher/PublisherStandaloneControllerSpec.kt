@@ -53,7 +53,6 @@ class PublisherStandaloneControllerSpec {
 
     @BeforeEach
     fun setUp() {
-        mockkObject(Versioning)
         mockkObject(MavenPublisher)
         mockkObject(MavenRepository)
         mockkObject(GitRepository)
@@ -61,7 +60,6 @@ class PublisherStandaloneControllerSpec {
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(Versioning)
         unmockkObject(MavenPublisher)
         unmockkObject(MavenRepository)
         unmockkObject(GitRepository)
@@ -88,13 +86,17 @@ class PublisherStandaloneControllerSpec {
         )
 
         every { project.name } returns fixture()
-        every { Versioning.versionName(any(), any()) } returns fixture()
 
         // When
-        PublisherStandaloneController.configure(project, config)
+        PublisherStandaloneController.configure(
+            project,
+            "version",
+            config,
+        )
 
         // Then
-        verify(exactly = 0) { Versioning.versionName(any(), any()) }
+        verify(exactly = 0) { GitRepository.configureCloneTask(project, any()) }
+        verify(exactly = 0) { MavenRepository.configure(project, any(), any()) }
     }
 
     @Test
@@ -112,13 +114,17 @@ class PublisherStandaloneControllerSpec {
 
         every { project.name } returns fixture()
         every { project.tasks } returns mockk()
-        every { Versioning.versionName(any(), any()) } returns fixture()
 
         // When
-        PublisherStandaloneController.configure(project, config)
+        PublisherStandaloneController.configure(
+            project,
+            "version",
+            config,
+        )
 
         // Then
-        verify(exactly = 0) { Versioning.versionName(any(), any()) }
+        verify(exactly = 0) { GitRepository.configureCloneTask(project, any()) }
+        verify(exactly = 0) { MavenRepository.configure(project, any(), any()) }
     }
 
     @Test
@@ -128,6 +134,7 @@ class PublisherStandaloneControllerSpec {
         val registry1 = gitRegistryTestConfig.copy(name = "a")
         val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
+        val version: String = fixture()
 
         val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
@@ -141,8 +148,7 @@ class PublisherStandaloneControllerSpec {
             versioning = versioningConfiguration,
             standalone = true
         )
-
-        val version: String = fixture()
+        
         val tasks: TaskContainer = mockk()
         val task: Task = mockk()
 
@@ -152,18 +158,20 @@ class PublisherStandaloneControllerSpec {
         every { task.dependsOn(any()) } returns task
 
         every { tasks.create(any(), any<Action<Task>>()) } returns task
-
-        every { Versioning.versionName(project, versioningConfiguration) } returns version
+        
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns task
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns task
 
         // When
-        PublisherStandaloneController.configure(project, config)
+        PublisherStandaloneController.configure(
+            project,
+            version,
+            config,
+        )
 
         // Then
-        verify(exactly = 1) { Versioning.versionName(project, versioningConfiguration) }
         verify(exactly = 1) { MavenPublisher.configure(project, packageConfiguration, version) }
 
         verify(exactly = 1) {
@@ -222,6 +230,7 @@ class PublisherStandaloneControllerSpec {
         val registry1 = gitRegistryTestConfig.copy(name = "a")
         val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
+        val version: String = fixture()
 
         val registryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
@@ -235,8 +244,7 @@ class PublisherStandaloneControllerSpec {
             versioning = versioningConfiguration,
             standalone = true
         )
-
-        val version: String = fixture()
+        
         val tasks: TaskContainer = mockk()
         val publishingTask: Task = mockk()
         val task: Task = mockk()
@@ -248,8 +256,7 @@ class PublisherStandaloneControllerSpec {
         every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
         every { tasks.findByName(any()) } returns task
         every { task.dependsOn(any()) } returns task
-
-        every { Versioning.versionName(project, versioningConfiguration) } returns version
+        
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns task
@@ -270,7 +277,11 @@ class PublisherStandaloneControllerSpec {
         )
 
         // When
-        PublisherStandaloneController.configure(project, config)
+        PublisherStandaloneController.configure(
+            project,
+            version,
+            config,
+        )
 
         // Then
         verify(exactly = 2) { publishingTask.group = "Publishing" }
@@ -285,6 +296,7 @@ class PublisherStandaloneControllerSpec {
         val registry1 = gitRegistryTestConfig.copy(name = "a")
         val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
+        val version: String = fixture()
 
         val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
@@ -298,8 +310,7 @@ class PublisherStandaloneControllerSpec {
             versioning = versioningConfiguration,
             standalone = true
         )
-
-        val version: String = fixture()
+        
         val tasks: TaskContainer = mockk()
 
         val gitCloneTask: Task = mockk()
@@ -319,8 +330,6 @@ class PublisherStandaloneControllerSpec {
             tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository")
         } returns maven2Task
 
-        every { Versioning.versionName(project, versioningConfiguration) } returns version
-
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns gitCloneTask
@@ -333,7 +342,11 @@ class PublisherStandaloneControllerSpec {
         every { publishingTask.dependsOn(any()) } returns publishingTask
 
         // When
-        PublisherStandaloneController.configure(project, config)
+        PublisherStandaloneController.configure(
+            project,
+            version,
+            config,
+        )
 
         // Then
         verify(exactly = 1) { tasks.findByName("publishAllPublicationsTo${registry1.name.capitalize()}Repository") }
@@ -355,6 +368,7 @@ class PublisherStandaloneControllerSpec {
         val registry1 = gitRegistryTestConfig.copy(name = "a")
         val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
+        val version: String = fixture()
 
         val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
@@ -368,8 +382,7 @@ class PublisherStandaloneControllerSpec {
             versioning = versioningConfiguration,
             standalone = true
         )
-
-        val version: String = fixture()
+        
         val tasks: TaskContainer = mockk()
 
         val gitCloneTask: Task = mockk()
@@ -388,8 +401,7 @@ class PublisherStandaloneControllerSpec {
         every {
             tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository")
         } returns maven2Task
-
-        every { Versioning.versionName(project, versioningConfiguration) } returns version
+        
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns gitCloneTask
@@ -402,15 +414,14 @@ class PublisherStandaloneControllerSpec {
         every { publishingTask.dependsOn(any()) } returns publishingTask
 
         // When
-        PublisherStandaloneController.configure(project, config)
+        PublisherStandaloneController.configure(
+            project,
+            version,
+            config,
+        )
 
         // Then
         verifyOrder {
-            Versioning.versionName(
-                project,
-                config.versioning
-            )
-
             MavenPublisher.configure(
                 project,
                 packageConfiguration,
@@ -450,6 +461,7 @@ class PublisherStandaloneControllerSpec {
         val registry1 = gitRegistryTestConfig.copy(name = "a")
         val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
+        val version: String = fixture()
 
         val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
@@ -464,7 +476,6 @@ class PublisherStandaloneControllerSpec {
             standalone = true
         )
 
-        val version: String = fixture()
         val tasks: TaskContainer = mockk()
 
         val maven1Task: Task = mockk()
@@ -482,8 +493,6 @@ class PublisherStandaloneControllerSpec {
             tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository")
         } returns maven2Task
 
-        every { Versioning.versionName(project, versioningConfiguration) } returns version
-
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns null
@@ -492,7 +501,11 @@ class PublisherStandaloneControllerSpec {
         every { publishingTask.dependsOn(any()) } returns publishingTask
 
         // When
-        PublisherStandaloneController.configure(project, config)
+        PublisherStandaloneController.configure(
+            project,
+            version,
+            config,
+        )
 
         // Then
         verify(exactly = 1) { tasks.findByName("publishAllPublicationsTo${registry1.name.capitalize()}Repository") }
@@ -509,6 +522,7 @@ class PublisherStandaloneControllerSpec {
         val registry1 = gitRegistryTestConfig.copy(name = "a")
         val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
+        val version: String = fixture()
 
         val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
@@ -523,7 +537,6 @@ class PublisherStandaloneControllerSpec {
             standalone = true
         )
 
-        val version: String = fixture()
         val tasks: TaskContainer = mockk()
 
         val maven1Task: Task = mockk()
@@ -541,7 +554,6 @@ class PublisherStandaloneControllerSpec {
             tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository")
         } returns maven2Task
 
-        every { Versioning.versionName(project, versioningConfiguration) } returns version
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns null
@@ -550,15 +562,14 @@ class PublisherStandaloneControllerSpec {
         every { publishingTask.dependsOn(any()) } returns publishingTask
 
         // When
-        PublisherStandaloneController.configure(project, config)
+        PublisherStandaloneController.configure(
+            project,
+            version,
+            config,
+        )
 
         // Then
         verifyOrder {
-            Versioning.versionName(
-                project,
-                config.versioning
-            )
-
             MavenPublisher.configure(
                 project,
                 packageConfiguration,

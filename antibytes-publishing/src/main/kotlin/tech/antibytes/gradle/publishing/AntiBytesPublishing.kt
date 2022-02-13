@@ -22,6 +22,6 @@ class AntiBytesPublishing : Plugin<Project> {
 
         target.applyIfNotExists(*DEPENDENCIES.toTypedArray())
 
-        PublisherController.configure(target, extension)
+        PublisherController.configure(project = target, extension = extension)
     }
 }

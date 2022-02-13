@@ -23,14 +23,10 @@ internal object PublisherSubProjectController : PublishingContract.PublisherCont
 
     override fun configure(
         project: Project,
+        version: String,
         extension: PublishingContract.PublishingPluginExtension
     ) {
         if (isApplicable(extension)) {
-            val version = Versioning.versionName(
-                project,
-                extension.versioning
-            )
-
             MavenPublisher.configure(
                 project,
                 extension.packageConfiguration as PublishingApiContract.PackageConfiguration,

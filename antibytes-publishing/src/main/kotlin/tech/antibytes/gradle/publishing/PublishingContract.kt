@@ -36,9 +36,10 @@ internal interface PublishingContract {
         var standalone: Boolean
     }
 
-    fun interface PublisherController {
+    interface PublisherController {
         fun configure(
             project: Project,
+            version: String = "",
             extension: PublishingPluginExtension
         )
     }

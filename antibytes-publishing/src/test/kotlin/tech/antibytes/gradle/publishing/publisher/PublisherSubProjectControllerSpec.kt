@@ -47,14 +47,12 @@ class PublisherSubProjectControllerSpec {
 
     @BeforeEach
     fun setUp() {
-        mockkObject(Versioning)
         mockkObject(MavenPublisher)
         mockkObject(MavenRepository)
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(Versioning)
         unmockkObject(MavenPublisher)
         unmockkObject(MavenRepository)
     }
@@ -80,13 +78,16 @@ class PublisherSubProjectControllerSpec {
         )
 
         every { project.name } returns fixture()
-        every { Versioning.versionName(any(), any()) } returns fixture()
 
         // When
-        PublisherSubProjectController.configure(project, config)
+        PublisherSubProjectController.configure(
+            project,
+            "version",
+            config,
+        )
 
         // Then
-        verify(exactly = 0) { Versioning.versionName(any(), any()) }
+        verify(exactly = 0) { MavenPublisher.configure(project, any(), any()) }
     }
 
     @Test
@@ -104,13 +105,16 @@ class PublisherSubProjectControllerSpec {
 
         every { project.name } returns fixture()
         every { project.tasks } returns mockk()
-        every { Versioning.versionName(any(), any()) } returns fixture()
 
         // When
-        PublisherSubProjectController.configure(project, config)
+        PublisherSubProjectController.configure(
+            project,
+            "version",
+            config,
+        )
 
         // Then
-        verify(exactly = 0) { Versioning.versionName(any(), any()) }
+        verify(exactly = 0) { MavenPublisher.configure(project, any(), any()) }
     }
 
     @Test
@@ -120,6 +124,7 @@ class PublisherSubProjectControllerSpec {
         val registry1 = gitRegistryTestConfig.copy(name = "a")
         val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
+        val version: String = fixture()
 
         val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
@@ -134,17 +139,17 @@ class PublisherSubProjectControllerSpec {
             standalone = false
         )
 
-        val version: String = fixture()
-
-        every { Versioning.versionName(project, versioningConfiguration) } returns version
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, or(registry1, registry2), dryRun) } just Runs
 
         // When
-        PublisherSubProjectController.configure(project, config)
+        PublisherSubProjectController.configure(
+            project,
+            version,
+            config,
+        )
 
         // Then
-        verify(exactly = 1) { Versioning.versionName(project, versioningConfiguration) }
         verify(exactly = 1) { MavenPublisher.configure(project, packageConfiguration, version) }
 
         verify(exactly = 1) {

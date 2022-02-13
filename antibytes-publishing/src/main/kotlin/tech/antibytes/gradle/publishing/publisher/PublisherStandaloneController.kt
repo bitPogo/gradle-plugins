@@ -44,18 +44,13 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
 
     override fun configure(
         project: Project,
+        version: String,
         extension: PublishingContract.PublishingPluginExtension
     ) {
         if (isApplicable(extension)) {
             val dryRun = extension.dryRun
             val registryConfigurations = extension.repositoryConfiguration
             val packageConfiguration = extension.packageConfiguration as PublishingApiContract.PackageConfiguration
-            val versioningConfiguration = extension.versioning
-
-            val version = Versioning.versionName(
-                project,
-                versioningConfiguration
-            )
 
             MavenPublisher.configure(
                 project,

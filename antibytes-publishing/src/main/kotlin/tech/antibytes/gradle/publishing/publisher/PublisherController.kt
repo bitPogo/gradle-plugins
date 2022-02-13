@@ -35,8 +35,13 @@ internal object PublisherController : PublishingContract.PublisherController {
         }
     }
 
+    private fun setVersionToProject(project: Project, version: String) {
+        project.version = version
+    }
+
     override fun configure(
         project: Project,
+        version: String,
         extension: PublishingContract.PublishingPluginExtension,
     ) {
         if (project.isRoot()) {
@@ -44,13 +49,16 @@ internal object PublisherController : PublishingContract.PublisherController {
         }
 
         project.afterEvaluate {
+            val version = Versioning.versionName(project, extension.versioning)
+
             addVersionTask(project, extension.versioning)
+            setVersionToProject(project, version)
 
             when {
                 extension.excludeProjects.contains(project.name) -> { /* Do nothing */ }
-                extension.standalone -> PublisherStandaloneController.configure(project, extension)
-                project.isRoot() -> PublisherRootProjectController.configure(project, extension)
-                else -> PublisherSubProjectController.configure(project, extension)
+                extension.standalone -> PublisherStandaloneController.configure(project, version, extension)
+                project.isRoot() -> PublisherRootProjectController.configure(project, version, extension)
+                else -> PublisherSubProjectController.configure(project, version, extension)
             }
         }
     }
