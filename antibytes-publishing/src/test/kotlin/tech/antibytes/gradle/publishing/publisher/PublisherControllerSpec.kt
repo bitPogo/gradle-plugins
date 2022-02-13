@@ -17,9 +17,9 @@ import io.mockk.verify
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.api.VersionInfo
@@ -29,7 +29,7 @@ import kotlin.test.assertTrue
 class PublisherControllerSpec {
     private val fixture = kotlinFixture()
 
-    @Before
+    @BeforeEach
     fun setUp() {
         mockkObject(Versioning)
         mockkObject(PublisherRootProjectController)
@@ -37,7 +37,7 @@ class PublisherControllerSpec {
         mockkObject(PublisherStandaloneController)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(Versioning)
         unmockkObject(PublisherRootProjectController)

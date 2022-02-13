@@ -10,9 +10,8 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import org.gradle.api.Project
-import org.junit.Rule
-import org.junit.Test
-import org.junit.rules.TemporaryFolder
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import java.io.File
@@ -20,8 +19,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class SourceHelperSpec {
-    @get:Rule
-    var testFolder: TemporaryFolder = TemporaryFolder()
+    @TempDir
+    lateinit var projectDir: File
 
     private val fixture = kotlinFixture()
 
@@ -51,7 +50,6 @@ class SourceHelperSpec {
     }
 
     private fun setUpDirStructure(): TestFiles {
-        val projectDir = testFolder.newFolder()
         val source = makeDir(projectDir, "src")
 
         val kmpPlatform = addProjectDirStructure(makeDir(source, "jvmMain"))

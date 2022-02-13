@@ -18,8 +18,8 @@ import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.grammar.BisonTaskContract
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -30,7 +30,7 @@ class BisonTaskSpec {
     private lateinit var project: Project
     private val fixture = kotlinFixture()
 
-    @Before
+    @BeforeEach
     fun setup() {
         project = ProjectBuilder.builder().build()
     }

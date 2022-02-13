@@ -14,7 +14,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.task.TaskContract
 import kotlin.test.assertTrue

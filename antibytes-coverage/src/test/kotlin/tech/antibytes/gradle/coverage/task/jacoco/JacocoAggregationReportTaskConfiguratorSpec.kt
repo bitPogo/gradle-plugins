@@ -25,7 +25,7 @@ import org.gradle.api.reporting.DirectoryReport
 import org.gradle.api.reporting.SingleFileReport
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.JacocoReportsContainer
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.api.AndroidJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration

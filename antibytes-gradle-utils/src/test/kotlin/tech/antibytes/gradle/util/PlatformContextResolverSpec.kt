@@ -10,7 +10,7 @@ import io.mockk.every
 import io.mockk.mockk
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

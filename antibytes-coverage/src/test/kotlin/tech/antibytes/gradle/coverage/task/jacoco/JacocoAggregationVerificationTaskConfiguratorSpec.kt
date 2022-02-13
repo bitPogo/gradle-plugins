@@ -24,7 +24,7 @@ import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.api.AndroidJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration

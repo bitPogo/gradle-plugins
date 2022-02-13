@@ -19,9 +19,9 @@ import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfiguration
@@ -51,7 +51,7 @@ class PublisherStandaloneControllerSpec {
         url = "",
     )
 
-    @Before
+    @BeforeEach
     fun setUp() {
         mockkObject(Versioning)
         mockkObject(MavenPublisher)
@@ -59,7 +59,7 @@ class PublisherStandaloneControllerSpec {
         mockkObject(GitRepository)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(Versioning)
         unmockkObject(MavenPublisher)

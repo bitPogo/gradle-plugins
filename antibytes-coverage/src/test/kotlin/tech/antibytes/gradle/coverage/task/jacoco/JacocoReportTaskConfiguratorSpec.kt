@@ -26,7 +26,7 @@ import org.gradle.api.reporting.SingleFileReport
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.JacocoReportsContainer
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration

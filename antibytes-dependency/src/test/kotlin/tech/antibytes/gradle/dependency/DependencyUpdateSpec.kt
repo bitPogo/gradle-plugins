@@ -20,7 +20,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.GradlePropertyBuilder
 import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue

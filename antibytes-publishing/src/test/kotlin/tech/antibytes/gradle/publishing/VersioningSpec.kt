@@ -15,7 +15,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.kotlin.dsl.invoke
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.api.VersioningConfiguration
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

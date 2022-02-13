@@ -15,9 +15,9 @@ import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
 import org.gradle.api.Project
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfiguration
@@ -45,14 +45,14 @@ class PublisherSubProjectControllerSpec {
         url = "",
     )
 
-    @Before
+    @BeforeEach
     fun setUp() {
         mockkObject(Versioning)
         mockkObject(MavenPublisher)
         mockkObject(MavenRepository)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(Versioning)
         unmockkObject(MavenPublisher)

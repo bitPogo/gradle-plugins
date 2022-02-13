@@ -8,10 +8,10 @@ package tech.antibytes.gradle.grammar.bison
 
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.SUCCESS
-import org.junit.Before
+import org.junit.jupiter.api.BeforeEach
 import org.junit.Ignore
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.rules.TemporaryFolder
 import java.io.File
 import kotlin.test.assertEquals
@@ -29,7 +29,7 @@ class BisonTasksIntegration {
         "/bisonExec"
     )?.readText()!!.trim()
 
-    @Before
+    @BeforeEach
     fun setUp() {
         testProjectDir = testDir.newFolder()
 

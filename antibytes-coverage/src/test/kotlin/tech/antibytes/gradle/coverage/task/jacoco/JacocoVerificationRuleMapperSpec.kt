@@ -12,7 +12,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.gradle.internal.jacoco.rules.JacocoViolationRuleImpl
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import java.math.BigDecimal
