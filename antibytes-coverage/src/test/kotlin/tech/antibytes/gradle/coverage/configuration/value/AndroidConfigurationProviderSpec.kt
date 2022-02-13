@@ -11,9 +11,9 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import org.gradle.api.Project
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.source.SourceHelper
@@ -25,12 +25,12 @@ import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class AndroidConfigurationProviderSpec {
-    @Before
+    @BeforeEach
     fun setup() {
         mockkObject(SourceHelper)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(SourceHelper)
     }

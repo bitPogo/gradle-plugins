@@ -23,7 +23,7 @@ import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomLicenseSpec
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.api.ContributorConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration

@@ -29,9 +29,9 @@ import org.eclipse.jgit.transport.RemoteRefUpdate
 import org.eclipse.jgit.transport.URIish
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.gradle.api.Project
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import java.io.File
 import kotlin.test.assertEquals
@@ -42,12 +42,12 @@ import kotlin.test.assertTrue
 class GitActionsSpec {
     private val fixture = kotlinFixture()
 
-    @Before
+    @BeforeEach
     fun setUp() {
         mockkStatic(Git::class)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkStatic(Git::class)
     }

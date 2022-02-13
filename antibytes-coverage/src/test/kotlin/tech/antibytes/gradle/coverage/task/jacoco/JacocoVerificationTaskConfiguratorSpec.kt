@@ -24,9 +24,9 @@ import org.gradle.api.tasks.TaskContainer
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
@@ -43,12 +43,12 @@ import kotlin.test.assertTrue
 class JacocoVerificationTaskConfiguratorSpec {
     private val fixture = kotlinFixture()
 
-    @Before
+    @BeforeEach
     fun setup() {
         mockkObject(JacocoVerificationRuleMapper)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(JacocoVerificationRuleMapper)
     }

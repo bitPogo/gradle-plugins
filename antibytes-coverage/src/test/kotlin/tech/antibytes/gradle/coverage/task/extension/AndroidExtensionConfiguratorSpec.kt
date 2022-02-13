@@ -20,7 +20,7 @@ import io.mockk.verify
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.test.invokeGradleAction
 import java.io.File

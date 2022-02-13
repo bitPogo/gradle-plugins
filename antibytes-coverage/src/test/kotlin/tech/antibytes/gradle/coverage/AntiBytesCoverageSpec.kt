@@ -17,9 +17,9 @@ import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.PluginContainer
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.coverage.task.TaskController
 import tech.antibytes.gradle.test.invokeGradleAction
@@ -27,13 +27,13 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class AntiBytesCoverageSpec {
-    @Before
+    @BeforeEach
     fun setup() {
         mockkObject(TaskController)
         mockkObject(DefaultConfigurationProvider)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(TaskController)
         unmockkObject(DefaultConfigurationProvider)

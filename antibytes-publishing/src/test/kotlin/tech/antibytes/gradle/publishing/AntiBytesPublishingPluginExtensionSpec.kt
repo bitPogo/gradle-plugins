@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.publishing
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.api.VersioningConfiguration
 import tech.antibytes.gradle.test.createExtension
 import kotlin.test.assertEquals

@@ -138,6 +138,7 @@ object Dependency {
         val test = Test
 
         object Test {
+            const val kotlin = "org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin.stdlib}"
             const val junit = "org.junit:junit-bom:${Version.jvm.test.junit}"
             const val jupiter = "org.junit.jupiter:junit-jupiter"
 

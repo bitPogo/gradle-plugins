@@ -19,7 +19,7 @@ import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.artifacts.repositories.PasswordCredentials
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.publish.PublishingExtension
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract

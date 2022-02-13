@@ -95,6 +95,10 @@ tasks.jacocoTestCoverageVerification {
     }
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 tasks.check {
     dependsOn("jacocoTestCoverageVerification")
 }

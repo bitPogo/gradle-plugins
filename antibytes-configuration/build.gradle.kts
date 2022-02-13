@@ -53,6 +53,10 @@ gradlePlugin {
     }
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 tasks.jacocoTestReport {
     dependsOn(tasks.named("test"))
 

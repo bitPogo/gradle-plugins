@@ -14,9 +14,9 @@ import io.mockk.unmockkObject
 import io.mockk.verify
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
 import tech.antibytes.gradle.util.GradleUtilApiContract
@@ -28,12 +28,12 @@ import kotlin.test.assertTrue
 class JacocoCoverageConfigurationProviderSpec {
     private val fixture = kotlinFixture()
 
-    @Before
+    @BeforeEach
     fun setUp() {
         mockkObject(JvmConfigurationProvider)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(JvmConfigurationProvider)
     }

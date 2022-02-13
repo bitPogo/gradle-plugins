@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.test
 
 import org.gradle.api.provider.Property
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 

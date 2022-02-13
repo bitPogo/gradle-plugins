@@ -15,10 +15,9 @@ import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.junit.rules.TemporaryFolder
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -26,17 +25,15 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class PostConverterTaskSpec {
-    @JvmField
-    @Rule
-    val testDir: TemporaryFolder = TemporaryFolder()
+    @TempDir
+    private lateinit var dir: File
     private lateinit var file: File
     private lateinit var project: Project
 
-    @Before
+    @BeforeEach
     fun setup() {
         project = ProjectBuilder.builder().build()
-
-        file = testDir.newFile()
+        file = File(dir, "test")
     }
 
     @Test

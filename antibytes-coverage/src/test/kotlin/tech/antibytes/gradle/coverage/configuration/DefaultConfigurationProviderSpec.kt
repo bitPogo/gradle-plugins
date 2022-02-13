@@ -11,9 +11,9 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import org.gradle.api.Project
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationProvider
 import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
@@ -24,14 +24,14 @@ import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class DefaultConfigurationProviderSpec {
-    @Before
+    @BeforeEach
     fun setup() {
         mockkObject(PlatformContextResolver)
         mockkObject(JvmConfigurationProvider)
         mockkObject(AndroidConfigurationProvider)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(PlatformContextResolver)
         unmockkObject(JvmConfigurationProvider)

@@ -23,7 +23,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.configuration.api.AndroidLibraryConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource

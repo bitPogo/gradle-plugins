@@ -8,9 +8,9 @@ package tech.antibytes.gradle.grammar
 
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
-import org.junit.Before
+import org.junit.jupiter.api.BeforeEach
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.rules.TemporaryFolder
 import tech.antibytes.gradle.grammar.jflex.JFlexTasksIntegration
 import java.io.File
@@ -25,7 +25,7 @@ class PostConverterIntegration {
     private lateinit var buildFile: File
     private lateinit var outputDir: File
 
-    @Before
+    @BeforeEach
     fun setUp() {
         testProjectDir = testDir.newFolder()
 

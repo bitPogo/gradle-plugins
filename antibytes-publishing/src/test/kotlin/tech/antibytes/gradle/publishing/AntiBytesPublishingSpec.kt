@@ -17,7 +17,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.PluginContainer
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.publisher.PublisherController
 import kotlin.test.assertTrue
 

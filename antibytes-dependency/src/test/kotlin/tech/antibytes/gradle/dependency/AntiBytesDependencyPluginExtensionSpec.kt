@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.dependency
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.createExtension
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

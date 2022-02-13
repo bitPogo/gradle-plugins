@@ -13,9 +13,9 @@ import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.configuration.api.AndroidApplicationConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource
@@ -29,12 +29,12 @@ import kotlin.test.assertTrue
 class DefaultAndroidApplicationConfigurationProviderSpec {
     private val fixture = kotlinFixture()
 
-    @Before
+    @BeforeEach
     fun setup() {
         mockkObject(PlatformContextResolver)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         unmockkObject(PlatformContextResolver)
     }
