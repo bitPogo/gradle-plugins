@@ -53,7 +53,7 @@ class AntiBytesPublishingSpec {
                 AntiBytesPublishingPluginExtension::class.java
             )
         } returns extension
-        every { PublisherController.configure(project, extension) } just Runs
+        every { PublisherController.configure(project, "", extension) } just Runs
 
         // When
         AntiBytesPublishing().apply(project)
@@ -65,7 +65,7 @@ class AntiBytesPublishingSpec {
                 AntiBytesPublishingPluginExtension::class.java
             )
         }
-        verify(exactly = 1) { PublisherController.configure(project, extension) }
+        verify(exactly = 1) { PublisherController.configure(project, "", extension) }
         verify(exactly = 1) { plugins.apply("com.palantir.git-version") }
         verify(exactly = 1) { plugins.apply("maven-publish") }
 
@@ -96,7 +96,7 @@ class AntiBytesPublishingSpec {
                 AntiBytesPublishingPluginExtension::class.java
             )
         } returns extension
-        every { PublisherController.configure(project, extension) } just Runs
+        every { PublisherController.configure(project, "", extension) } just Runs
 
         // When
         AntiBytesPublishing().apply(project)
@@ -108,7 +108,7 @@ class AntiBytesPublishingSpec {
                 AntiBytesPublishingPluginExtension::class.java
             )
         }
-        verify(exactly = 1) { PublisherController.configure(project, extension) }
+        verify(exactly = 1) { PublisherController.configure(project, "", extension) }
         verify(exactly = 0) { plugins.apply("com.palantir.git-version") }
         verify(exactly = 0) { plugins.apply("maven-publish") }
 

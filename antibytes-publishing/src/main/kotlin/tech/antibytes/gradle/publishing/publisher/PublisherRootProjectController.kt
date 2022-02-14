@@ -9,7 +9,6 @@ package tech.antibytes.gradle.publishing.publisher
 import org.gradle.api.Project
 import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.git.GitRepository
 
 internal object PublisherRootProjectController : PublishingContract.PublisherController, SharedPublisherFunctions() {
@@ -41,14 +40,10 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
 
     override fun configure(
         project: Project,
+        version: String,
         extension: PublishingContract.PublishingPluginExtension
     ) {
         if (extension.repositoryConfiguration.isNotEmpty()) {
-            val version = Versioning.versionName(
-                project,
-                extension.versioning
-            )
-
             extension.repositoryConfiguration.forEach { registry ->
                 val cloneTask = GitRepository.configureCloneTask(project, registry)
                 val pushTask = GitRepository.configurePushTask(
