@@ -26,7 +26,6 @@ import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfigurati
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.git.GitRepository
@@ -148,7 +147,7 @@ class PublisherStandaloneControllerSpec {
             versioning = versioningConfiguration,
             standalone = true
         )
-        
+
         val tasks: TaskContainer = mockk()
         val task: Task = mockk()
 
@@ -158,7 +157,7 @@ class PublisherStandaloneControllerSpec {
         every { task.dependsOn(any()) } returns task
 
         every { tasks.create(any(), any<Action<Task>>()) } returns task
-        
+
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns task
@@ -244,7 +243,7 @@ class PublisherStandaloneControllerSpec {
             versioning = versioningConfiguration,
             standalone = true
         )
-        
+
         val tasks: TaskContainer = mockk()
         val publishingTask: Task = mockk()
         val task: Task = mockk()
@@ -256,7 +255,7 @@ class PublisherStandaloneControllerSpec {
         every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
         every { tasks.findByName(any()) } returns task
         every { task.dependsOn(any()) } returns task
-        
+
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns task
@@ -310,7 +309,7 @@ class PublisherStandaloneControllerSpec {
             versioning = versioningConfiguration,
             standalone = true
         )
-        
+
         val tasks: TaskContainer = mockk()
 
         val gitCloneTask: Task = mockk()
@@ -382,7 +381,7 @@ class PublisherStandaloneControllerSpec {
             versioning = versioningConfiguration,
             standalone = true
         )
-        
+
         val tasks: TaskContainer = mockk()
 
         val gitCloneTask: Task = mockk()
@@ -401,7 +400,7 @@ class PublisherStandaloneControllerSpec {
         every {
             tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository")
         } returns maven2Task
-        
+
         every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns gitCloneTask

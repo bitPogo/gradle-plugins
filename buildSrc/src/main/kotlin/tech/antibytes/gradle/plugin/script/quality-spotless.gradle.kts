@@ -41,7 +41,7 @@ val ktlintVersion = "0.43.2"
 spotless {
     kotlin {
         target("**/*.kt")
-        targetExclude("buildSrc/build/", "**/buildSrc/build/")
+        targetExclude("buildSrc/build/", "**/buildSrc/build/", "**/antibytes-runtime-configuration/src/test/resources/generated/*.kt")
         ktlint(ktlintVersion).userData(
             mapOf(
                 "disabled_rules" to "no-wildcard-imports",

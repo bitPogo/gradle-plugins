@@ -11,6 +11,7 @@ object Version {
 
     val gradle = GradlePlugin
     val library = Library
+    val square = Square
     val test = Test
 
     object GradlePlugin {
@@ -70,6 +71,13 @@ object Version {
          * [Turtle](https://github.com/lordcodes/turtle)
          */
         const val turtle = "0.6.0"
+    }
+
+    object Square {
+        /**
+         * [Kotlin Poet](https://square.github.io/kotlinpoet/)
+         */
+        val kotlinPoet = "1.10.2"
     }
 
     object Test {

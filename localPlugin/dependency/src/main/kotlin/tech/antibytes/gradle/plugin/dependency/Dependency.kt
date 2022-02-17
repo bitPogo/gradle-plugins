@@ -29,6 +29,16 @@ object Dependency {
         const val turtle = "com.lordcodes.turtle:turtle:${Version.library.turtle}"
     }
 
+    val square = Square
+
+    object Square {
+        val kotlinPoet = KotlinPoet
+
+        object KotlinPoet {
+            val core = "com.squareup:kotlinpoet:${Version.square.kotlinPoet}"
+        }
+    }
+
     val test = Test
 
     object Test {
