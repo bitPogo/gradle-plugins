@@ -132,7 +132,7 @@ class ProjectExtensionSpec {
     }
 
     @Test
-    fun `Given isAndroidLibrary is called on a Project which is a AndroidLibrary plugin it returns true`() {
+    fun `Given isAndroidLibrary is called on a Project which has a AndroidLibrary plugin it returns true`() {
         // Given
         val project: Project = mockk()
 
@@ -160,7 +160,7 @@ class ProjectExtensionSpec {
     }
 
     @Test
-    fun `Given isAndroidLibrary is called on a Project which is a AndroidApplication plugin it returns true`() {
+    fun `Given isAndroidLibrary is called on a Project which has a AndroidApplication plugin it returns true`() {
         // Given
         val project: Project = mockk()
 
@@ -168,6 +168,94 @@ class ProjectExtensionSpec {
 
         // When
         val result = project.isAndroidApplication()
+
+        // Then
+        assertTrue(result)
+    }
+
+    @Test
+    fun `Given isAndroid is called on a Project which has neither a AndroidLibrary nor AndroidApplication plugin applied it returns false`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("com.android.application") } returns false
+        every { project.plugins.hasPlugin("com.android.library") } returns false
+
+        // When
+        val result = project.isAndroid()
+
+        // Then
+        assertFalse(result)
+    }
+
+    @Test
+    fun `Given isAndroid is called on a Project which has a AndroidLibrary plugin applied it returns false`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("com.android.application") } returns false
+        every { project.plugins.hasPlugin("com.android.library") } returns true
+
+        // When
+        val result = project.isAndroid()
+
+        // Then
+        assertTrue(result)
+    }
+
+    @Test
+    fun `Given isAndroid is called on a Project which has a AndroidApplication plugin applied it returns false`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("com.android.application") } returns true
+        every { project.plugins.hasPlugin("com.android.library") } returns false
+
+        // When
+        val result = project.isAndroid()
+
+        // Then
+        assertTrue(result)
+    }
+
+    @Test
+    fun `Given isAndroid is called on a Project which has a AndroidLibrary and AndroidApplication plugin applied it returns true`() { // This should never be the case
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("com.android.application") } returns true
+        every { project.plugins.hasPlugin("com.android.library") } returns true
+
+        // When
+        val result = project.isAndroid()
+
+        // Then
+        assertTrue(result)
+    }
+    
+    @Test
+    fun `Given isJs is called on a Project which has no Kotlin Js Plugin applied it returns false`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.js") } returns false
+
+        // When
+        val result = project.isJs()
+
+        // Then
+        assertFalse(result)
+    }
+
+    @Test
+    fun `Given isJs is called on a Project which has a Kotlin Js Plugin applied it returns false`() {
+        // Given
+        val project: Project = mockk()
+
+        every { project.plugins.hasPlugin("org.jetbrains.kotlin.js") } returns true
+
+        // When
+        val result = project.isJs()
 
         // Then
         assertTrue(result)

@@ -29,3 +29,11 @@ fun Project.isAndroidLibrary(): Boolean {
 fun Project.isAndroidApplication(): Boolean {
     return this.plugins.hasPlugin("com.android.application")
 }
+
+fun Project.isAndroid(): Boolean {
+    return this.plugins.hasPlugin("com.android.library") || this.plugins.hasPlugin("com.android.application")
+}
+
+fun Project.isJs(): Boolean {
+    return this.plugins.hasPlugin("org.jetbrains.kotlin.js")
+}
