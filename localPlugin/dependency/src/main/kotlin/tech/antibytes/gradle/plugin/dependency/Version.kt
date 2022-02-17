@@ -18,7 +18,7 @@ object Version {
         /**
          * [Gradle Versions](https://github.com/ben-manes/gradle-versions-plugin)
          */
-        const val dependencyUpdate = "0.41.0"
+        const val dependencyUpdate = "0.42.0"
 
         /**
          * [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
@@ -53,12 +53,12 @@ object Version {
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
          */
-        const val spotless = "6.2.0"
+        const val spotless = "6.3.0"
 
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
          */
-        const val ktlint = "0.43.2"
+        const val ktlint = "0.44.0"
     }
 
     object Library {
