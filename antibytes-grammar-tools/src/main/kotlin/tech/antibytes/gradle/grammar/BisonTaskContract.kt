@@ -244,7 +244,7 @@ interface BisonTaskContract : Task {
     val grammarFile: RegularFileProperty
 
     /**
-     * File loction where the generated file will be written to
+     * File location where the generated file will be written to
      * This property is required
      */
     @get:OutputFile

@@ -22,7 +22,6 @@ import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfigurati
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.VersioningConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.maven.MavenPublisher

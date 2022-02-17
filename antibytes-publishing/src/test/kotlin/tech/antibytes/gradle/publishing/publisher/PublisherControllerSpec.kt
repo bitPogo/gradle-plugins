@@ -85,9 +85,9 @@ class PublisherControllerSpec {
         every { project.version = any<String>() } just Runs
         every { Versioning.versionName(project, config.versioning) } returns fixture()
 
-        every { PublisherStandaloneController.configure(any(), any(), any())} just Runs
-        every { PublisherRootProjectController.configure(any(), any(), any())} just Runs
-        every { PublisherSubProjectController.configure(any(), any(), any())} just Runs
+        every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
+        every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
+        every { PublisherSubProjectController.configure(any(), any(), any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -147,8 +147,8 @@ class PublisherControllerSpec {
         every { Versioning.versionName(project, config.versioning) } returns fixture()
 
         every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
-        every { PublisherRootProjectController.configure(any(), any(), any())} just Runs
-        every { PublisherSubProjectController.configure(any(), any(), any())} just Runs
+        every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
+        every { PublisherSubProjectController.configure(any(), any(), any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -204,9 +204,9 @@ class PublisherControllerSpec {
         every { Versioning.versionName(project, config.versioning) } returns version
         every { project.version = version } just Runs
 
-        every { PublisherStandaloneController.configure(any(), any(), any())} just Runs
-        every { PublisherRootProjectController.configure(any(), any(), any())} just Runs
-        every { PublisherSubProjectController.configure(any(), any(), any())} just Runs
+        every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
+        every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
+        every { PublisherSubProjectController.configure(any(), any(), any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -220,10 +220,10 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { Versioning.versionName(project, config.versioning) }
         verify(exactly = 1) { project.version = version }
-        
-        verify(exactly = 0) { PublisherStandaloneController.configure(any(), version, any())}
-        verify(exactly = 0) { PublisherRootProjectController.configure(any(), version, any())}
-        verify(exactly = 0) { PublisherSubProjectController.configure(any(), version, any())}
+
+        verify(exactly = 0) { PublisherStandaloneController.configure(any(), version, any()) }
+        verify(exactly = 0) { PublisherRootProjectController.configure(any(), version, any()) }
+        verify(exactly = 0) { PublisherSubProjectController.configure(any(), version, any()) }
     }
 
     @Test
@@ -250,10 +250,10 @@ class PublisherControllerSpec {
 
         every { Versioning.versionName(project, config.versioning) } returns version
         every { project.version = version } just Runs
-        
-        every { PublisherStandaloneController.configure(project, version ,config) } just Runs
-        every { PublisherRootProjectController.configure(any(), any(), any())} just Runs
-        every { PublisherSubProjectController.configure(any(), any(), any())} just Runs
+
+        every { PublisherStandaloneController.configure(project, version, config) } just Runs
+        every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
+        every { PublisherSubProjectController.configure(any(), any(), any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -267,10 +267,10 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { Versioning.versionName(project, config.versioning) }
         verify(exactly = 1) { project.version = version }
-        
-        verify(exactly = 1) { PublisherStandaloneController.configure(project, version ,config) }
-        verify(exactly = 0) { PublisherRootProjectController.configure(any(), any(), any())}
-        verify(exactly = 0) { PublisherSubProjectController.configure(any(), any(), any())}
+
+        verify(exactly = 1) { PublisherStandaloneController.configure(project, version, config) }
+        verify(exactly = 0) { PublisherRootProjectController.configure(any(), any(), any()) }
+        verify(exactly = 0) { PublisherSubProjectController.configure(any(), any(), any()) }
         verify(exactly = 0) { project.evaluationDependsOnChildren() }
     }
 
@@ -299,9 +299,9 @@ class PublisherControllerSpec {
         every { Versioning.versionName(project, config.versioning) } returns version
         every { project.version = version } just Runs
 
-        every { PublisherStandaloneController.configure(any(), any(), any())} just Runs
-        every { PublisherRootProjectController.configure(any(), any(), any())} just Runs
-        every { PublisherSubProjectController.configure(project, version ,config) } just Runs
+        every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
+        every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
+        every { PublisherSubProjectController.configure(project, version, config) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -315,10 +315,10 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { Versioning.versionName(project, config.versioning) }
         verify(exactly = 1) { project.version = version }
-        
-        verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any())}
-        verify(exactly = 1) { PublisherSubProjectController.configure(project, version ,config) }
-        verify(exactly = 0) { PublisherRootProjectController.configure(any(), any(), any())}
+
+        verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any()) }
+        verify(exactly = 1) { PublisherSubProjectController.configure(project, version, config) }
+        verify(exactly = 0) { PublisherRootProjectController.configure(any(), any(), any()) }
         verify(exactly = 0) { project.evaluationDependsOnChildren() }
     }
 
@@ -346,9 +346,9 @@ class PublisherControllerSpec {
         every { project.version = any<String>() } just Runs
         every { Versioning.versionName(project, config.versioning) } returns fixture()
 
-        every { PublisherStandaloneController.configure(any(), any(), any())} just Runs
-        every { PublisherRootProjectController.configure(any(), any(), any())} just Runs
-        every { PublisherSubProjectController.configure(any(), any(), any())} just Runs
+        every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
+        every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
+        every { PublisherSubProjectController.configure(any(), any(), any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -388,9 +388,9 @@ class PublisherControllerSpec {
         every { Versioning.versionName(project, config.versioning) } returns version
         every { project.version = version } just Runs
 
-        every { PublisherStandaloneController.configure(any(), any(), any())} just Runs
-        every { PublisherRootProjectController.configure(project, version ,config) } just Runs
-        every { PublisherSubProjectController.configure(any(), any(), any())} just Runs
+        every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
+        every { PublisherRootProjectController.configure(project, version, config) } just Runs
+        every { PublisherSubProjectController.configure(any(), any(), any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -404,9 +404,9 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { Versioning.versionName(project, config.versioning) }
         verify(exactly = 1) { project.version = version }
-        
-        verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any())}
-        verify(exactly = 0) { PublisherSubProjectController.configure(any(), any(), any())}
-        verify(exactly = 1) { PublisherRootProjectController.configure(project, version ,config) }
+
+        verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any()) }
+        verify(exactly = 0) { PublisherSubProjectController.configure(any(), any(), any()) }
+        verify(exactly = 1) { PublisherRootProjectController.configure(project, version, config) }
     }
 }

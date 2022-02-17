@@ -10,7 +10,6 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository

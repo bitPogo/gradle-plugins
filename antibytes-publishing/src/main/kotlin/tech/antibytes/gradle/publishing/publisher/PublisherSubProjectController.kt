@@ -9,7 +9,6 @@ package tech.antibytes.gradle.publishing.publisher
 import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 

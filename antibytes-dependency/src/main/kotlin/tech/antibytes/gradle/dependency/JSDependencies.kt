@@ -10,18 +10,12 @@ object JSDependencies {
     val npm = Npm
     object Npm {
         val build = Build
-        object Build {
-
-        }
+        object Build
 
         val dev = Dev
-        object Dev {
-
-        }
+        object Dev
 
         val peer = Peer
-        object Peer {
-
-        }
+        object Peer
     }
 }

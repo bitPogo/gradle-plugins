@@ -189,8 +189,6 @@ object Version {
 
         val test = Test
 
-        object Test {
-
-        }
+        object Test
     }
 }
