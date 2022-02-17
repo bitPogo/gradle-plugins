@@ -9,6 +9,8 @@ package tech.antibytes.gradle.configuration.runtime
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.StopExecutionException
+import org.gradle.api.tasks.TaskAction
 
 internal interface RuntimeConfigurationContract {
     interface RuntimeConfigurationTask {
@@ -30,5 +32,12 @@ internal interface RuntimeConfigurationContract {
          */
         @get:Input
         val integerFields: MapProperty<String, Int>
+
+        /**
+         * Generates a RuntimeConfig file with the given parameter
+         * @throws StopExecutionException if no packageName was set
+         */
+        @TaskAction
+        fun generate()
     }
 }
