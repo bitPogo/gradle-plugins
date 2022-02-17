@@ -64,7 +64,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
     }
 
     @TaskAction
-    fun generate() {
+    override fun generate() {
         guardExecution()
 
         val file = FileSpec.builder(

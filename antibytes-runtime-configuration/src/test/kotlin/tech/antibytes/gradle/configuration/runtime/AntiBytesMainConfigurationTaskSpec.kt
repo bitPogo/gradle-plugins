@@ -16,6 +16,7 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class AntiBytesMainConfigurationTaskSpec {
     @TempDir
@@ -77,9 +78,11 @@ class AntiBytesMainConfigurationTaskSpec {
 
         // Then
         var fileValue = ""
+        var pointer: File? = null
         buildDir.walkBottomUp().toList().forEach { file ->
             if (file.absolutePath.endsWith("MainConfig.kt")) {
                 fileValue = file.readText()
+                pointer = file
             }
         }
 
@@ -87,6 +90,8 @@ class AntiBytesMainConfigurationTaskSpec {
             fileValue.normalizeSource(),
             expected.normalizeSource()
         )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/main/kotlin") ?: false)
     }
 
     @Test
