@@ -30,6 +30,10 @@ object Dependency {
             const val js = "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:${Version.kotlin.coroutines}"
         }
 
+        object AtomicFu {
+            const val common = "org.jetbrains.kotlinx:atomicfu-common:${Version.kotlin.atomicFu}"
+        }
+
         val koin = Koin
 
         object Koin {

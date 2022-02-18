@@ -61,6 +61,11 @@ object Version {
          */
         const val stately = "1.2.1"
 
+        /**
+         * (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
+         */
+        const val atomicFu = "0.17.1"
+
         val test = Test
 
         object Test {
