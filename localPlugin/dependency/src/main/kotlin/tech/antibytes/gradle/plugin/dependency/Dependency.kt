@@ -13,6 +13,7 @@ object Dependency {
         const val android = "com.android.tools.build:gradle:${Version.gradle.android}"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.gradle.kotlin}"
         const val kotlinReflection = "org.jetbrains.kotlin:kotlin-reflect:${Version.gradle.kotlin}"
+        const val atomicFu = "org.jetbrains.kotlinx:atomicfu-gradle-plugin:${Version.gradle.atomicFu}"
         const val owasp = "org.owasp:dependency-check-gradle:${Version.gradle.owasp}"
         const val dependencyUpdate = "com.github.ben-manes:gradle-versions-plugin:${Version.gradle.dependencyUpdate}"
         const val jacoco = "org.jacoco:org.jacoco.core:${Version.gradle.jacoco}"

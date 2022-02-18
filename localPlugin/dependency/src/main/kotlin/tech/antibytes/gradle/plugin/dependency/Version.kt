@@ -46,6 +46,11 @@ object Version {
         const val kotlin = "1.6.10"
 
         /**
+         * [AtomicFu](https://kotlinlang.org/docs/releases.html)
+         */
+        const val atomicFu = "0.17.1"
+
+        /**
          * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
          */
         const val android = "7.1.1"
