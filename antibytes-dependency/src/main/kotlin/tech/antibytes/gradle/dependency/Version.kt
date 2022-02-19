@@ -131,6 +131,7 @@ object Version {
          */
 
         val compose = Compose
+
         object Compose {
             const val core = "1.1.0-rc03"
             const val compiler = "1.1.0-rc03"
