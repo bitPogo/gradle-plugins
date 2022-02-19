@@ -31,8 +31,9 @@ object Dependency {
         }
 
         val atomicFu = AtomicFu
+
         object AtomicFu {
-            const val common = "org.jetbrains.kotlinx:atomicfu-common:${Version.kotlin.atomicFu}"
+            const val common = "org.jetbrains.kotlinx:atomicfu:${Version.kotlin.atomicFu}"
         }
 
         val koin = Koin
