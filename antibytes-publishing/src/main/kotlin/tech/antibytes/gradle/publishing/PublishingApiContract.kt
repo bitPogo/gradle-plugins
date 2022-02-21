@@ -52,6 +52,7 @@ interface PublishingApiContract {
     interface PackageConfiguration {
         val artifactId: String?
         val groupId: String?
+        val isJavaLibrary: Boolean
         val pom: PomConfiguration
         val developers: List<DeveloperConfiguration>
         val contributors: List<ContributorConfiguration>

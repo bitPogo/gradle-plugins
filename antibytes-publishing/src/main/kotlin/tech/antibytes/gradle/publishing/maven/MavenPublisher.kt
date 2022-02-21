@@ -16,6 +16,7 @@ import org.gradle.api.publish.maven.MavenPomDeveloperSpec
 import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.kotlin.dsl.create
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
@@ -115,6 +116,11 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             publications {
+                if (configuration.isJavaLibrary) {
+                    val publication = create(project.name, MavenPublication::class.java)
+                    publication.from(project.components.asMap["java"])
+                }
+
                 withType(MavenPublication::class.java) {
                     setPublicationProperties(
                         this,

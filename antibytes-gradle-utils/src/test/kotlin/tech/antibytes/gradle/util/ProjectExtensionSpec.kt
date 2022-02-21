@@ -232,7 +232,7 @@ class ProjectExtensionSpec {
         // Then
         assertTrue(result)
     }
-    
+
     @Test
     fun `Given isJs is called on a Project which has no Kotlin Js Plugin applied it returns false`() {
         // Given
