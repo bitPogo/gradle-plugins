@@ -8,18 +8,15 @@ package tech.antibytes.gradle.grammar
 
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
-import org.junit.Rule
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.rules.TemporaryFolder
+import org.junit.jupiter.api.io.TempDir
 import tech.antibytes.gradle.grammar.jflex.JFlexTasksIntegration
 import java.io.File
 import kotlin.test.assertEquals
 
 class PostConverterIntegration {
-    @JvmField
-    @Rule
-    val testDir: TemporaryFolder = TemporaryFolder()
+    @TempDir
     private lateinit var testProjectDir: File
     private lateinit var settingsFile: File
     private lateinit var buildFile: File
@@ -27,8 +24,6 @@ class PostConverterIntegration {
 
     @BeforeEach
     fun setUp() {
-        testProjectDir = testDir.newFolder()
-
         settingsFile = File(testProjectDir, "settings.gradle.kts").also { it.createNewFile() }
 
         buildFile = File(testProjectDir, "build.gradle.kts").also { it.createNewFile() }

@@ -8,19 +8,16 @@ package tech.antibytes.gradle.grammar.bison
 
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.SUCCESS
-import org.junit.Ignore
-import org.junit.Rule
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.rules.TemporaryFolder
+import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class BisonTasksIntegration {
-    @JvmField
-    @Rule
-    val testDir: TemporaryFolder = TemporaryFolder()
+    @TempDir
     private lateinit var testProjectDir: File
     private lateinit var settingsFile: File
     private lateinit var buildFile: File
@@ -31,8 +28,6 @@ class BisonTasksIntegration {
 
     @BeforeEach
     fun setUp() {
-        testProjectDir = testDir.newFolder()
-
         settingsFile = File(testProjectDir, "settings.gradle.kts").also { it.createNewFile() }
 
         buildFile = File(testProjectDir, "build.gradle.kts").also { it.createNewFile() }
@@ -47,7 +42,7 @@ class BisonTasksIntegration {
     }
 
     @Test
-    @Ignore // TODO Something is currently wrong on the CI
+    @Disabled // TODO Something is currently wrong on the CI
     fun `Given a Bison task is executed it generates a Java file`() {
         // Given
         val grammarFile = BisonTasksIntegration::class.java.getResource("/Simple.y")?.path!!

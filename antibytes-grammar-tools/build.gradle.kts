@@ -129,11 +129,10 @@ tasks.check {
     dependsOn(integrationTests, "jacocoTestCoverageVerification")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.withType(Test::class.java) {
+    (this as Test)
+    useJUnitPlatform()
+
     testLogging {
         events(TestLogEvent.FAILED)
     }
