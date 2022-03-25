@@ -157,9 +157,13 @@ internal object Versioning : PublishingContract.Versioning {
         val featureBranchPattern = resolveSnapshotPattern(configuration.featurePrefixes)
 
         return when {
+            details.branchName == null -> renderReleaseBranch(details)
             details.branchName.matches(releaseBranchPattern) -> renderReleaseBranch(details)
             details.branchName.matches(dependencyBotPattern) -> renderDependencyBotBranch(details)
-            details.branchName.matches(featureBranchPattern) -> renderFeatureBranch(details, configuration.useGitHashFeatureSuffix)
+            details.branchName.matches(featureBranchPattern) -> renderFeatureBranch(
+                details,
+                configuration.useGitHashFeatureSuffix
+            )
             else -> throw PublishingError.VersioningError(
                 "Ill named branch name (${details.branchName})! Please adjust it to match the project settings."
             )

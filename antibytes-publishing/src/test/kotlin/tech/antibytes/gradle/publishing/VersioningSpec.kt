@@ -219,6 +219,52 @@ class VersioningSpec {
     }
 
     @Test
+    fun `Given versionName is called, it renders the release version with a detached HEAD`() {
+        val branchName = null
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            releasePrefixes = listOf("main", "release"),
+            versionPrefix = versionPrefix
+        )
+
+        val project: Project = mockk()
+
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+
+        // When
+        val result = Versioning.versionName(
+            project,
+            configuration
+        )
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = expected
+        )
+    }
+
+    @Test
     fun `Given versionName is called, it renders a dependencyBot branch`() {
         val branchAction = "test"
         val branchName = "dependabot/$branchAction"
