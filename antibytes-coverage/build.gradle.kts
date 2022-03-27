@@ -24,7 +24,6 @@ jacoco {
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
-    implementation(Dependency.gradle.kotlin)
     implementation(Dependency.gradle.android)
     implementation(Dependency.gradle.jacoco)
     implementation(project(":antibytes-gradle-utils"))

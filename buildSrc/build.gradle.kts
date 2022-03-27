@@ -30,3 +30,8 @@ dependencies {
     implementation("com.diffplug.spotless:spotless-plugin-gradle:6.2.0")
     implementation("com.pinterest:ktlint:0.43.2")
 }
+
+with(extensions.getByType<JavaPluginExtension>()) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}

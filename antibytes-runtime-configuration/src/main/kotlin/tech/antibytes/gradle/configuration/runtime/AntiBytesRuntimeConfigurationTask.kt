@@ -14,10 +14,11 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
+import tech.antibytes.gradle.configuration.runtime.RuntimeConfigurationContract.RuntimeConfigurationTask
 import java.io.File
 import kotlin.reflect.KClass
 
-abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigurationContract.RuntimeConfigurationTask {
+abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigurationTask {
     @get:Internal
     protected abstract val fileName: String
     @get:Internal

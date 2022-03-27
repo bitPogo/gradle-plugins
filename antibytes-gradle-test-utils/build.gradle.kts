@@ -24,7 +24,6 @@ jacoco {
 }
 
 dependencies {
-    implementation(Dependency.gradle.kotlin)
     implementation(Dependency.test.mockk)
     implementation(Dependency.test.fixture)
 
