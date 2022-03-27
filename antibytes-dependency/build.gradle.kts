@@ -24,11 +24,16 @@ jacoco {
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
-    implementation(Dependency.gradle.atomicFu)
+    implementation(Dependency.gradle.atomicFu) {
+        exclude(group = "org.slf4j", module = "slf4j-simple")
+    }
     implementation(Dependency.gradle.android)
     implementation(Dependency.gradle.dependencyUpdate)
     implementation(Dependency.gradle.owasp)
-    implementation(Dependency.gradle.ktlint)
+    implementation(Dependency.gradle.ktlint) {
+        exclude(group = "ch.qos.logback", module = "logback-classic")
+        exclude(group = "org.slf4j", module = "slf4j-simple")
+    }
     implementation(Dependency.gradle.spotless)
     implementation(project(":antibytes-gradle-utils"))
 
