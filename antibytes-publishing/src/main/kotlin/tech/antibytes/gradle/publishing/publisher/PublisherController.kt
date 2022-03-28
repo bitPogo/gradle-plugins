@@ -49,16 +49,16 @@ internal object PublisherController : PublishingContract.PublisherController {
         }
 
         project.afterEvaluate {
-            val version = Versioning.versionName(project, extension.versioning)
+            val derivedVersion = Versioning.versionName(project, extension.versioning)
 
             addVersionTask(project, extension.versioning)
-            setVersionToProject(project, version)
+            setVersionToProject(project, derivedVersion)
 
             when {
                 extension.excludeProjects.contains(project.name) -> { /* Do nothing */ }
-                extension.standalone -> PublisherStandaloneController.configure(project, version, extension)
-                project.isRoot() -> PublisherRootProjectController.configure(project, version, extension)
-                else -> PublisherSubProjectController.configure(project, version, extension)
+                extension.standalone -> PublisherStandaloneController.configure(project, derivedVersion, extension)
+                project.isRoot() -> PublisherRootProjectController.configure(project, derivedVersion, extension)
+                else -> PublisherSubProjectController.configure(project, derivedVersion, extension)
             }
         }
     }
