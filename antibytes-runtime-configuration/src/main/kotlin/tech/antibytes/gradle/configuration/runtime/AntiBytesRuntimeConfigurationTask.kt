@@ -32,7 +32,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
     }
 
     private fun addField(name: String, type: KClass<*>, value: Any): PropertySpec {
-        return PropertySpec.builder(name, type)
+        return PropertySpec.builder(name, type, KModifier.CONST)
             .initializer(value.toString())
             .build()
     }
