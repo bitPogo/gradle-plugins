@@ -24,7 +24,9 @@ object Version {
         /**
          * [Kotlin](https://github.com/JetBrains/kotlin)
          */
-        const val stdlib = "1.6.10"
+        const val language = "1.6.10"
+
+        const val stdlib = language
 
         /**
          * [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)

@@ -10,7 +10,7 @@ import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
-internal interface DependencyContract {
+interface DependencyContract {
     interface DependencyPluginExtension {
         val keywords: SetProperty<String>
         val versionRegex: Property<Regex>
@@ -22,6 +22,11 @@ internal interface DependencyContract {
             configuration: DependencyPluginExtension
         )
     }
+
+    data class Credentials(
+        val username: String,
+        val password: String
+    )
 
     companion object {
         const val EXTENSION_ID = "antiBytesDependency"
