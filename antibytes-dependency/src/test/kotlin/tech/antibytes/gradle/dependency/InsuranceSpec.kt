@@ -119,4 +119,46 @@ class InsuranceSpec {
         verify(exactly = toEnsure.size) { selector.useVersion("1.6.10") }
         verify(exactly = toEnsure.size) { selector.because("Avoid resolution conflicts") }
     }
+
+    @Test
+    fun `Given a Project is called with ensureKotlinVersion, which gets a custom version it enforces a Resolution Strategy if the dependency is jetbrains and a specific module`() {
+        // Given
+        val project: Project = mockk()
+        val configurations: ConfigurationContainer = mockk()
+        val configuration: Configuration = mockk()
+        val resolutionStrategy: ResolutionStrategy = mockk()
+        val selector: DependencyResolveDetails = mockk(relaxed = true)
+        val version = "abc"
+        val toEnsure = listOf(
+            "kotlin-stdlib-jdk7",
+            "kotlin-stdlib-jdk8",
+            "kotlin-stdlib",
+            "kotlin-stdlib-common",
+            "kotlin-reflect"
+        )
+
+        every { project.configurations } returns configurations
+        every { configuration.resolutionStrategy } returns resolutionStrategy
+        every { selector.requested.group } returns "org.jetbrains.kotlin"
+        every { selector.requested.name } returnsMany toEnsure
+
+        invokeGradleAction(
+            { probe -> configurations.all(probe) },
+            configuration
+        )
+
+        invokeGradleAction(
+            { probe -> resolutionStrategy.eachDependency(probe) },
+            selector,
+            resolutionStrategy
+        )
+
+        // When
+        repeat(toEnsure.size) {
+            project.ensureKotlinVersion(version)
+        }
+        // Then
+        verify(exactly = toEnsure.size) { selector.useVersion(version) }
+        verify(exactly = toEnsure.size) { selector.because("Avoid resolution conflicts") }
+    }
 }
