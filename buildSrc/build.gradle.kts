@@ -1,3 +1,5 @@
+import tech.antibytes.gradle.plugin.dependency.ensureKotlinVersion
+
 /*
  * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
  *
@@ -6,6 +8,8 @@
 
 plugins {
     `kotlin-dsl`
+
+    id("tech.antibytes.gradle.plugin.dependency")
 }
 
 repositories {
@@ -13,6 +17,8 @@ repositories {
     mavenCentral()
     google()
 }
+
+ensureKotlinVersion("1.5.31")
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")

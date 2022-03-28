@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency
+package tech.antibytes.gradle.plugin.dependency
 
 import org.gradle.api.Project
 
@@ -20,7 +20,7 @@ fun Project.ensureKotlinVersion(version: String? = null) {
     configurations.all {
         resolutionStrategy.eachDependency {
             if (requested.group == "org.jetbrains.kotlin" && requested.name in modules) {
-                useVersion(version ?: Version.kotlin.language)
+                useVersion(version ?: Version.kotlin)
                 because("Avoid resolution conflicts")
             }
         }

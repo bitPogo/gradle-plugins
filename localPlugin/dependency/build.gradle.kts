@@ -22,3 +22,8 @@ gradlePlugin {
         implementationClass = "tech.antibytes.gradle.plugin.dependency.DependencyPlugin"
     }
 }
+
+with(extensions.getByType<JavaPluginExtension>()) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
