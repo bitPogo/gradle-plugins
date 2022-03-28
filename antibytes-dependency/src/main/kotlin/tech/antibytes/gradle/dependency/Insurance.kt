@@ -16,10 +16,16 @@ private val modules = listOf(
     "kotlin-reflect"
 )
 
-fun Project.ensureKotlinVersion(version: String? = null) {
+fun Project.ensureKotlinVersion(
+    version: String? = null,
+    excludes: List<String> = emptyList()
+) {
     configurations.all {
         resolutionStrategy.eachDependency {
-            if (requested.group == "org.jetbrains.kotlin" && requested.name in modules) {
+            if (requested.group == "org.jetbrains.kotlin" &&
+                requested.name in modules &&
+                excludes.none { excluded -> target.name.startsWith(excluded) }
+            ) {
                 useVersion(version ?: Version.kotlin.language)
                 because("Avoid resolution conflicts")
             }

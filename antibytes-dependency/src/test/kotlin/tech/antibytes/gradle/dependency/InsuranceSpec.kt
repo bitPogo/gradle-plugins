@@ -60,6 +60,7 @@ class InsuranceSpec {
         every { project.configurations } returns configurations
         every { configuration.resolutionStrategy } returns resolutionStrategy
         every { selector.requested.group } returns "org.jetbrains.kotlin"
+        every { selector.target.name } returns "any"
 
         invokeGradleAction(
             { probe -> configurations.all(probe) },
@@ -99,6 +100,7 @@ class InsuranceSpec {
         every { configuration.resolutionStrategy } returns resolutionStrategy
         every { selector.requested.group } returns "org.jetbrains.kotlin"
         every { selector.requested.name } returnsMany toEnsure
+        every { selector.target.name } returns "any"
 
         invokeGradleAction(
             { probe -> configurations.all(probe) },
@@ -141,6 +143,7 @@ class InsuranceSpec {
         every { configuration.resolutionStrategy } returns resolutionStrategy
         every { selector.requested.group } returns "org.jetbrains.kotlin"
         every { selector.requested.name } returnsMany toEnsure
+        every { selector.target.name } returns "any"
 
         invokeGradleAction(
             { probe -> configurations.all(probe) },
@@ -160,5 +163,48 @@ class InsuranceSpec {
         // Then
         verify(exactly = toEnsure.size) { selector.useVersion(version) }
         verify(exactly = toEnsure.size) { selector.because("Avoid resolution conflicts") }
+    }
+
+    @Test
+    fun `Given a Project is called with ensureKotlinVersion, it ignored targets which had been excluded`() {
+        // Given
+        val project: Project = mockk()
+        val configurations: ConfigurationContainer = mockk()
+        val configuration: Configuration = mockk()
+        val resolutionStrategy: ResolutionStrategy = mockk()
+        val selector: DependencyResolveDetails = mockk(relaxed = true)
+        val excludes = listOf("some")
+        val toEnsure = listOf(
+            "kotlin-stdlib-jdk7",
+            "kotlin-stdlib-jdk8",
+            "kotlin-stdlib",
+            "kotlin-stdlib-common",
+            "kotlin-reflect"
+        )
+
+        every { project.configurations } returns configurations
+        every { configuration.resolutionStrategy } returns resolutionStrategy
+        every { selector.requested.group } returns "org.jetbrains.kotlin"
+        every { selector.requested.name } returnsMany toEnsure
+        every { selector.target.name } returns "someThing"
+
+        invokeGradleAction(
+            { probe -> configurations.all(probe) },
+            configuration
+        )
+
+        invokeGradleAction(
+            { probe -> resolutionStrategy.eachDependency(probe) },
+            selector,
+            resolutionStrategy
+        )
+
+        // When
+        repeat(toEnsure.size) {
+            project.ensureKotlinVersion(excludes = excludes)
+        }
+        // Then
+        verify(exactly = 0) { selector.useVersion(any()) }
+        verify(exactly = 0) { selector.because("Avoid resolution conflicts") }
     }
 }
