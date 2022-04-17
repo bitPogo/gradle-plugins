@@ -14,7 +14,7 @@ object Version {
         /**
          * [KTLint](https://github.com/pinterest/ktlint/releases)
          */
-        const val ktLint = "0.44.0"
+        const val ktLint = "0.45.2"
     }
 
     // Kotlin
@@ -36,12 +36,12 @@ object Version {
         /**
          * [Koin](https://github.com/InsertKoinIO/koin)
          */
-        const val koin = "3.1.5"
+        const val koin = "3.1.6"
 
         /**
          * [Ktor](https://github.com/ktorio/ktor)
          */
-        const val ktor = "1.6.7"
+        const val ktor = "1.6.8"
 
         /**
          * [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
@@ -61,7 +61,7 @@ object Version {
         /**
          * [Stately](https://github.com/touchlab/Stately)
          */
-        const val stately = "1.2.1"
+        const val stately = "1.2.2"
 
         /**
          * (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
@@ -74,7 +74,7 @@ object Version {
             /**
              * [mockk](http://mockk.io)
              */
-            const val mockk = "1.12.2"
+            const val mockk = "1.12.3"
         }
     }
 
