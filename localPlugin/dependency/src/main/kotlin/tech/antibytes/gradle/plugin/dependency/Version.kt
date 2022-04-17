@@ -23,22 +23,22 @@ object Version {
         /**
          * [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
          */
-        const val owasp = "6.5.3"
+        const val owasp = "7.0.4.1"
 
         /**
          * [Jacoco](https://github.com/jacoco/jacoco/releases)
          */
-        const val jacoco = "0.8.7"
+        const val jacoco = "0.8.8"
 
         /**
          * [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
          */
-        const val publishing = "6.0.0.202111291000-r"
+        const val publishing = "6.1.0.202203080745-r"
 
         /**
          * [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
          */
-        const val versioning = "0.12.2" // see: https://github.com/palantir/gradle-git-version/issues/353
+        const val versioning = "0.15.0" // see: https://github.com/palantir/gradle-git-version/issues/353
 
         /**
          * [Kotlin](https://kotlinlang.org/docs/releases.html)
@@ -58,12 +58,12 @@ object Version {
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
          */
-        const val spotless = "6.3.0"
+        const val spotless = "6.4.2"
 
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
          */
-        const val ktlint = "0.44.0"
+        const val ktlint = "0.45.2"
     }
 
     object Library {
@@ -82,7 +82,7 @@ object Version {
         /**
          * [Kotlin Poet](https://square.github.io/kotlinpoet/)
          */
-        val kotlinPoet = "1.10.2"
+        val kotlinPoet = "1.11.0"
     }
 
     object Test {
@@ -94,7 +94,7 @@ object Version {
         /**
          * [mockk](http://mockk.io)
          */
-        const val mockk = "1.12.2"
+        const val mockk = "1.12.3"
 
         /**
          * [kotlinFixture](https://github.com/appmattus/kotlinfixture)
