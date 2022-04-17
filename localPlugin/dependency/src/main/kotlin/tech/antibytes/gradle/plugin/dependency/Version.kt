@@ -63,7 +63,7 @@ object Version {
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
          */
-        const val ktlint = "0.45.2"
+        const val ktlint = "0.44.0"
     }
 
     object Library {
