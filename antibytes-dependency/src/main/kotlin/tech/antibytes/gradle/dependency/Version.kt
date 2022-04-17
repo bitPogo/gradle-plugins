@@ -14,7 +14,7 @@ object Version {
         /**
          * [KTLint](https://github.com/pinterest/ktlint/releases)
          */
-        const val ktLint = "0.45.2"
+        const val ktLint = "0.44.0"
     }
 
     // Kotlin
