@@ -21,6 +21,7 @@ import kotlin.reflect.KClass
 abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigurationTask {
     @get:Internal
     protected abstract val fileName: String
+
     @get:Internal
     protected abstract val outputDirectory: File
 
