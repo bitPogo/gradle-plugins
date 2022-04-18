@@ -61,7 +61,7 @@ object Version {
         /**
          * [Stately](https://github.com/touchlab/Stately)
          */
-        const val stately = "1.2.2"
+        const val stately = "1.2.1"
 
         /**
          * (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
