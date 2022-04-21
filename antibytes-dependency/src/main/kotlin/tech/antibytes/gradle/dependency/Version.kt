@@ -118,7 +118,7 @@ object Version {
         /**
          * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
          */
-        val constraintLayout = "2.1.3"
+        const val constraintLayout = "2.1.3"
 
         // Material
         /**

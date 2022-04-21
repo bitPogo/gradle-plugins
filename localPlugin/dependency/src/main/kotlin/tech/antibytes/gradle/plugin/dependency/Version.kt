@@ -82,7 +82,7 @@ object Version {
         /**
          * [Kotlin Poet](https://square.github.io/kotlinpoet/)
          */
-        val kotlinPoet = "1.11.0"
+        const val kotlinPoet = "1.11.0"
     }
 
     object Test {

@@ -8,14 +8,18 @@ package tech.antibytes.gradle.dependency
 
 object JSDependencies {
     val npm = Npm
+
     object Npm {
         val build = Build
+
         object Build
 
         val dev = Dev
+
         object Dev
 
         val peer = Peer
+
         object Peer
     }
 }
