@@ -79,7 +79,7 @@ class AntiBytesCoveragePluginExtensionSpec {
 
         assertSame(
             actual = extension.jacocoVersion,
-            expected = "0.8.7"
+            expected = "0.8.8"
         )
     }
 

@@ -25,7 +25,7 @@ internal interface CoverageContract {
 
     companion object CONSTANTS {
         const val EXTENSION_ID = "antiBytesCoverage"
-        const val JACOCO_VERSION = "0.8.7"
+        const val JACOCO_VERSION = "0.8.8"
         const val DEFAULT_ANDROID_VARIANT = "debug"
         const val DEFAULT_ANDROID_FLAVOUR = ""
         val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_FLAVOUR.capitalize() + DEFAULT_ANDROID_VARIANT.capitalize()
