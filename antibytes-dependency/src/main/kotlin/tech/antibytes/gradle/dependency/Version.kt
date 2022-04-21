@@ -97,16 +97,23 @@ object Version {
          */
         val ktx = Ktx
 
+        /**
+         * [AndroidX Tech](https://androidx.tech/)
+         */
         object Ktx {
             const val core = "1.7.0"
+
+            /**
+             * [Android Tech](https://androidx.tech/artifacts/activity/activity-ktx/)
+             */
             const val activity = "1.4.0"
             const val collections = "1.2.0"
-            const val lifecycle = "2.4.0"
+            const val lifecycle = "2.4.1"
             const val fragment = "1.4.1"
-            const val livedata = "2.4.0"
-            const val navigation = "2.4.0"
+            const val livedata = "2.4.1"
+            const val navigation = "2.4.2"
             const val palette = "1.0.0"
-            const val viewmodel = "2.4.0"
+            const val viewmodel = "2.4.1"
             const val workmanager = "2.7.1"
         }
 
@@ -124,7 +131,7 @@ object Version {
         /**
          * [Material Android](https://github.com/material-components/material-components-android)
          */
-        const val material = "1.5.0"
+        const val material = "1.6.0-rc01"
 
         /**
          * [Jetpack Compose](https://developer.android.com/jetpack/androidx/releases/compose)
@@ -135,11 +142,11 @@ object Version {
         val compose = Compose
 
         object Compose {
-            const val core = "1.1.0-rc03"
-            const val compiler = "1.1.0-rc03"
+            const val core = "1.1.1"
+            const val compiler = "1.1.1"
             const val constraintLayout = "1.0.0"
-            const val activity = "1.3.1"
-            const val viewmodel = "1.0.0-alpha07"
+            const val activity = "1.4.0"
+            const val viewmodel = "2.4.1"
         }
 
         val test = Test

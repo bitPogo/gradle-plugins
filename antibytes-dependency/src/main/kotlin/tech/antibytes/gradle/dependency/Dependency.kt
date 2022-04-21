@@ -185,7 +185,7 @@ object Dependency {
             const val resources = "androidx.appcompat:appcompat-resources:${Version.android.appCompat}"
         }
 
-        val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.android.constraintLayout}"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.android.constraintLayout}"
 
         // Material
         const val material = "com.google.android.material:material:${Version.android.material}"
