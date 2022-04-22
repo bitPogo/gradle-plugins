@@ -53,7 +53,7 @@ object Version {
         /**
          * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
          */
-        const val android = "7.1.2"
+        const val android = "7.1.3"
 
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
