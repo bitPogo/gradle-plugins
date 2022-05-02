@@ -98,4 +98,58 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
             )
         )
     }
+
+    @Test
+    fun `Given createDefaultConfiguration is called with a Project it returns a AndroidAppConfiguration with default settings, if it is an AndroidApp in KMP Context`() {
+        // Given
+        val project: Project = mockk()
+        val projectName: String = fixture()
+
+        every { PlatformContextResolver.getType(any()) } returns setOf(GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP)
+        every { project.name } returns projectName
+
+        // When
+        val result = DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(project)
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = AndroidApplicationConfiguration(
+                compileSdkVersion = 31,
+                minSdkVersion = 23,
+                targetSdkVersion = 31,
+                compatibilityTargets = Compatibility(
+                    target = JavaVersion.VERSION_1_8,
+                    source = JavaVersion.VERSION_1_8
+                ),
+                fallbacks = mapOf("debug" to setOf("release")),
+                mainSource = MainSource(
+                    manifest = "src/androidMain/AndroidManifest.xml",
+                    sourceDirectories = setOf("src/androidMain/kotlin"),
+                    resourceDirectories = setOf(
+                        "src/androidMain/res",
+                        "src/androidMain/resources",
+                    )
+                ),
+                unitTestSource = TestSource(
+                    sourceDirectories = setOf("src/androidTest/kotlin"),
+                    resourceDirectories = setOf(
+                        "src/androidTest/res",
+                        "src/androidTest/resources",
+                    )
+                ),
+                androidTest = TestSource(
+                    sourceDirectories = setOf("src/androidAndroidTest/kotlin"),
+                    resourceDirectories = setOf(
+                        "src/androidAndroidTest/res",
+                        "src/androidAndroidTest/resources"
+                    )
+                ),
+                testRunner = TestRunner(
+                    runner = "androidx.test.runner.AndroidJUnitRunner",
+                    arguments = mapOf("clearPackageData" to "true")
+                )
+            )
+        )
+    }
 }
