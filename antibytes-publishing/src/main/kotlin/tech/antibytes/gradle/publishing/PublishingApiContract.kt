@@ -13,6 +13,7 @@ interface PublishingApiContract {
         val dependencyBotPrefixes: List<String>
         val issuePattern: Regex?
         val useGitHashFeatureSuffix: Boolean
+        val useGitHashSnapshotSuffix: Boolean
 
         val versionPrefix: String
         val normalization: Set<String>

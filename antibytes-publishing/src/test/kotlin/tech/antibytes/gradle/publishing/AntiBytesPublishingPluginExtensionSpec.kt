@@ -55,6 +55,16 @@ class AntiBytesPublishingPluginExtensionSpec {
             actual = extension.versioning.dependencyBotPrefixes,
             expected = VersioningConfiguration().dependencyBotPrefixes
         )
+
+        assertEquals(
+            actual = extension.versioning.useGitHashFeatureSuffix,
+            expected = VersioningConfiguration().useGitHashFeatureSuffix
+        )
+
+        assertEquals(
+            actual = extension.versioning.useGitHashSnapshotSuffix,
+            expected = VersioningConfiguration().useGitHashSnapshotSuffix
+        )
     }
 
     @Test
