@@ -38,14 +38,40 @@ internal object Versioning : PublishingContract.Versioning {
         return removeVersionPrefix(cleanName)
     }
 
-    private fun renderReleaseBranch(details: VersionDetails): String {
+    // Schema:
+    // version '-' [gitHash] '-' 'SNAPSHOT'
+    private fun renderSnapshotName(
+        details: VersionDetails,
+        useGitHash: Boolean
+    ): String {
+        val versionName = cleanVersionName(
+            details.version,
+            details.commitDistance
+        )
+
+        val snapShotName = mutableListOf(versionName)
+
+        if (useGitHash) {
+            snapShotName.add(details.gitHash)
+        }
+
+        snapShotName.add(NON_RELEASE_SUFFIX)
+
+        return snapShotName.joinToString(SEPARATOR)
+    }
+
+    // Schema:
+    // version
+    private fun renderRelease(details: VersionDetails): String = removeVersionPrefix(details.version)
+
+    private fun renderReleaseOrSnapshotBranch(
+        details: VersionDetails,
+        useGitHash: Boolean
+    ): String {
         return if (!details.isCleanTag || details.commitDistance > 0) {
-            cleanVersionName(
-                details.version,
-                details.commitDistance
-            ) + SEPARATOR + NON_RELEASE_SUFFIX
+            renderSnapshotName(details, useGitHash)
         } else {
-            removeVersionPrefix(details.version)
+            renderRelease(details)
         }
     }
 
@@ -157,8 +183,14 @@ internal object Versioning : PublishingContract.Versioning {
         val featureBranchPattern = resolveSnapshotPattern(configuration.featurePrefixes)
 
         return when {
-            details.branchName == null -> renderReleaseBranch(details)
-            details.branchName.matches(releaseBranchPattern) -> renderReleaseBranch(details)
+            details.branchName == null -> renderReleaseOrSnapshotBranch(
+                details,
+                configuration.useGitHashSnapshotSuffix
+            )
+            details.branchName.matches(releaseBranchPattern) -> renderReleaseOrSnapshotBranch(
+                details,
+                configuration.useGitHashSnapshotSuffix
+            )
             details.branchName.matches(dependencyBotPattern) -> renderDependencyBotBranch(details)
             details.branchName.matches(featureBranchPattern) -> renderFeatureBranch(
                 details,

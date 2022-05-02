@@ -173,6 +173,55 @@ class VersioningSpec {
     }
 
     @Test
+    fun `Given versionName is called, it marks the version as SNAPSHOT while using the git hash`() {
+        val branchName = "main"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val hash = "abc"
+        val version = "$versionPrefix$expected.dirty"
+
+        val configuration = versionTestConfiguration.copy(
+            releasePrefixes = listOf("main", "release"),
+            versionPrefix = versionPrefix,
+            useGitHashSnapshotSuffix = true
+        )
+
+        val project: Project = mockk()
+
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns false
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+        every { versionDetails.gitHash } returns hash
+
+        // When
+        val result = Versioning.versionName(
+            project,
+            configuration
+        )
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-$hash-SNAPSHOT"
+        )
+    }
+
+    @Test
     fun `Given versionName is called, it renders the release version`() {
         val branchName = "main"
         val expected = "1.15.1"

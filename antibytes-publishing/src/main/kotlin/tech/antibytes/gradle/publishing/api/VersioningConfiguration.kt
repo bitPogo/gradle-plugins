@@ -14,6 +14,7 @@ data class VersioningConfiguration(
     override val dependencyBotPrefixes: List<String> = listOf("dependabot"),
     override val issuePattern: Regex? = null,
     override val useGitHashFeatureSuffix: Boolean = false,
+    override val useGitHashSnapshotSuffix: Boolean = false,
     override val versionPrefix: String = "v",
     override val normalization: Set<String> = emptySet()
 ) : PublishingApiContract.VersioningConfiguration
