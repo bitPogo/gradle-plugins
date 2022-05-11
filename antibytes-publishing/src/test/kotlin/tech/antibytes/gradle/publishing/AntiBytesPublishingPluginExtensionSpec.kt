@@ -102,6 +102,13 @@ class AntiBytesPublishingPluginExtensionSpec {
     }
 
     @Test
+    fun `It has true as default signing configuration`() {
+        val extension: AntiBytesPublishingPluginExtension = createExtension()
+
+        assertNull(extension.signingConfiguration)
+    }
+
+    @Test
     fun `It has true as default Standalone`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 

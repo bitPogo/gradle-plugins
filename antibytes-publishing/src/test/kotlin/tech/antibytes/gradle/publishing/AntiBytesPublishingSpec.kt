@@ -19,6 +19,7 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.PluginContainer
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.publisher.PublisherController
+import tech.antibytes.gradle.publishing.signing.SigningController
 import kotlin.test.assertTrue
 
 class AntiBytesPublishingSpec {
@@ -32,6 +33,7 @@ class AntiBytesPublishingSpec {
     @Test
     fun `Given apply is called  with a Project, it creates the PluginExtension, apply the plugin dependencies and delegates it to the Publishing Controller`() {
         mockkObject(PublisherController)
+        mockkObject(SigningController)
         // Given
         val project: Project = mockk()
         val plugins: PluginContainer = mockk()
@@ -44,8 +46,10 @@ class AntiBytesPublishingSpec {
 
         every { plugins.hasPlugin("com.palantir.git-version") } returns false
         every { plugins.hasPlugin("maven-publish") } returns false
+        every { plugins.hasPlugin("signing") } returns false
         every { plugins.apply("com.palantir.git-version") } returns mockk()
         every { plugins.apply("maven-publish") } returns mockk()
+        every { plugins.apply("signing") } returns mockk()
 
         every {
             extensionContainer.create(
@@ -54,6 +58,7 @@ class AntiBytesPublishingSpec {
             )
         } returns extension
         every { PublisherController.configure(project, "", extension) } just Runs
+        every { SigningController.configure(project, extension) } just Runs
 
         // When
         AntiBytesPublishing().apply(project)
@@ -68,6 +73,7 @@ class AntiBytesPublishingSpec {
         verify(exactly = 1) { PublisherController.configure(project, "", extension) }
         verify(exactly = 1) { plugins.apply("com.palantir.git-version") }
         verify(exactly = 1) { plugins.apply("maven-publish") }
+        verify(exactly = 1) { plugins.apply("signing") }
 
         unmockkObject(PublisherController)
     }
@@ -75,6 +81,7 @@ class AntiBytesPublishingSpec {
     @Test
     fun `Given apply is called  with a Project, it creates the PluginExtension, ignores apply the plugin dependencies, if they already are applied and delegates it to the Publishing Controller`() {
         mockkObject(PublisherController)
+        mockkObject(SigningController)
         // Given
         val project: Project = mockk()
         val plugins: PluginContainer = mockk()
@@ -87,8 +94,10 @@ class AntiBytesPublishingSpec {
 
         every { plugins.hasPlugin("com.palantir.git-version") } returns true
         every { plugins.hasPlugin("maven-publish") } returns true
+        every { plugins.hasPlugin("signing") } returns true
         every { plugins.apply("com.palantir.git-version") } returns mockk()
         every { plugins.apply("maven-publish") } returns mockk()
+        every { plugins.apply("signing") } returns mockk()
 
         every {
             extensionContainer.create(
@@ -97,6 +106,7 @@ class AntiBytesPublishingSpec {
             )
         } returns extension
         every { PublisherController.configure(project, "", extension) } just Runs
+        every { SigningController.configure(project, extension) } just Runs
 
         // When
         AntiBytesPublishing().apply(project)
@@ -111,6 +121,7 @@ class AntiBytesPublishingSpec {
         verify(exactly = 1) { PublisherController.configure(project, "", extension) }
         verify(exactly = 0) { plugins.apply("com.palantir.git-version") }
         verify(exactly = 0) { plugins.apply("maven-publish") }
+        verify(exactly = 0) { plugins.apply("signing") }
 
         unmockkObject(PublisherController)
     }

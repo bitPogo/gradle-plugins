@@ -18,6 +18,9 @@ abstract class AntiBytesPublishingPluginExtension : PublishingContract.Publishin
     override var packageConfiguration: PublishingApiContract.PackageConfiguration? = null
     override var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration> = emptySet()
 
+    // Signing
+    override var signingConfiguration: SigningApiContract.MemorySigning? = null
+
     // General
     override var excludeProjects: Set<String> = emptySet()
 }
