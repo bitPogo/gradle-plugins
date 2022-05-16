@@ -46,10 +46,12 @@ class AntiBytesPublishingSpec {
 
         every { plugins.hasPlugin("com.palantir.git-version") } returns false
         every { plugins.hasPlugin("maven-publish") } returns false
-        every { plugins.hasPlugin("signing") } returns false
+        every { plugins.hasPlugin("org.gradle.signing") } returns false
         every { plugins.apply("com.palantir.git-version") } returns mockk()
         every { plugins.apply("maven-publish") } returns mockk()
-        every { plugins.apply("signing") } returns mockk()
+        every { plugins.apply("org.gradle.signing") } returns mockk()
+
+        every { extension getProperty "signingConfiguration" } returns mockk<SigningApiContract.MemorySigning>()
 
         every {
             extensionContainer.create(
@@ -73,7 +75,7 @@ class AntiBytesPublishingSpec {
         verify(exactly = 1) { PublisherController.configure(project, "", extension) }
         verify(exactly = 1) { plugins.apply("com.palantir.git-version") }
         verify(exactly = 1) { plugins.apply("maven-publish") }
-        verify(exactly = 1) { plugins.apply("signing") }
+        verify(exactly = 1) { plugins.apply("org.gradle.signing") }
 
         unmockkObject(PublisherController)
     }
@@ -94,10 +96,12 @@ class AntiBytesPublishingSpec {
 
         every { plugins.hasPlugin("com.palantir.git-version") } returns true
         every { plugins.hasPlugin("maven-publish") } returns true
-        every { plugins.hasPlugin("signing") } returns true
+        every { plugins.hasPlugin("org.gradle.signing") } returns true
         every { plugins.apply("com.palantir.git-version") } returns mockk()
         every { plugins.apply("maven-publish") } returns mockk()
-        every { plugins.apply("signing") } returns mockk()
+        every { plugins.apply("org.gradle.signing") } returns mockk()
+
+        every { extension getProperty "signingConfiguration" } returns mockk<SigningApiContract.MemorySigning>()
 
         every {
             extensionContainer.create(
@@ -121,7 +125,7 @@ class AntiBytesPublishingSpec {
         verify(exactly = 1) { PublisherController.configure(project, "", extension) }
         verify(exactly = 0) { plugins.apply("com.palantir.git-version") }
         verify(exactly = 0) { plugins.apply("maven-publish") }
-        verify(exactly = 0) { plugins.apply("signing") }
+        verify(exactly = 0) { plugins.apply("org.gradle.signing") }
 
         unmockkObject(PublisherController)
     }

@@ -29,11 +29,13 @@ class SigningControllerSpec {
     @BeforeEach
     fun setUp() {
         mockkObject(MemorySigning)
+        mockkObject(CommonSigning)
     }
 
     @AfterEach
     fun tearDown() {
         unmockkObject(MemorySigning)
+        unmockkObject(CommonSigning)
     }
 
     @Test
@@ -65,6 +67,7 @@ class SigningControllerSpec {
         every { project.rootProject } returns root
 
         every { MemorySigning.configure(any(), any()) } just Runs
+        every { CommonSigning.configure(any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
@@ -103,6 +106,7 @@ class SigningControllerSpec {
         every { project.rootProject } returns root
 
         every { MemorySigning.configure(any(), any()) } just Runs
+        every { CommonSigning.configure(any()) } just Runs
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },

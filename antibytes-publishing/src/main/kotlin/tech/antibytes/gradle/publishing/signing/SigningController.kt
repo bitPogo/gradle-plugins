@@ -15,7 +15,13 @@ internal object SigningController : SigningContract.SigningController {
         project: Project,
         extension: PublishingContract.PublishingPluginExtension,
     ) {
+        if (project.isRoot()) {
+            project.evaluationDependsOnChildren()
+        }
+
         project.afterEvaluate {
+            CommonSigning.configure(project)
+
             val signingConfig = extension.signingConfiguration ?: return@afterEvaluate
             MemorySigning.configure(project, signingConfig)
         }

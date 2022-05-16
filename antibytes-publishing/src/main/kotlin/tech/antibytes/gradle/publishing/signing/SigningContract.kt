@@ -11,6 +11,10 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.SigningApiContract
 
 internal interface SigningContract {
+    interface CommonSigning {
+        fun configure(project: Project)
+    }
+
     interface MemorySigning {
         fun configure(
             project: Project,

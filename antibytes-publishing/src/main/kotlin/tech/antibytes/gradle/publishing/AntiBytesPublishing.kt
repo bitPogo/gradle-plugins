@@ -21,9 +21,9 @@ class AntiBytesPublishing : Plugin<Project> {
             AntiBytesPublishingPluginExtension::class.java
         )
 
-        target.applyIfNotExists(*DEPENDENCIES.toTypedArray())
+        target.applyIfNotExists(*DEPENDENCIES)
 
-        SigningController.configure(project = target, extension = extension)
         PublisherController.configure(project = target, extension = extension)
+        SigningController.configure(project = target, extension = extension)
     }
 }
