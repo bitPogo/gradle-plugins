@@ -21,11 +21,11 @@ internal object MemorySigning : SigningContract.MemorySigning {
             when (configuration) {
                 is SigningApiContract.CompleteMemorySigning -> useInMemoryPgpKeys(
                     configuration.keyId,
-                    configuration.keyPath,
+                    configuration.key,
                     configuration.password,
                 )
                 else -> useInMemoryPgpKeys(
-                    configuration.keyPath,
+                    configuration.key,
                     configuration.password,
                 )
             }

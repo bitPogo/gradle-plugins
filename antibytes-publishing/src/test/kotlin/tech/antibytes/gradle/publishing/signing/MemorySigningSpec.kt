@@ -11,7 +11,6 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkStatic
 import io.mockk.verify
 import org.gradle.api.DomainObjectCollection
 import org.gradle.api.Project
@@ -25,7 +24,6 @@ import org.gradle.plugins.signing.SigningExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.api.CompleteMemorySigningConfiguration
 import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
-import tech.antibytes.gradle.publishing.api.PackageConfiguration
 import tech.antibytes.gradle.test.invokeGradleAction
 import kotlin.test.assertTrue
 
@@ -80,7 +78,7 @@ class MemorySigningSpec {
         )
 
         val signingConfiguration = MemorySigningConfiguration(
-            keyPath = fixture(),
+            key = fixture(),
             password = fixture(),
         )
 
@@ -89,7 +87,7 @@ class MemorySigningSpec {
 
         // Then
         verify(exactly = 1) {
-            signingExtension.useInMemoryPgpKeys(signingConfiguration.keyPath, signingConfiguration.password)
+            signingExtension.useInMemoryPgpKeys(signingConfiguration.key, signingConfiguration.password)
         }
     }
 
@@ -134,7 +132,7 @@ class MemorySigningSpec {
         )
 
         val signingConfiguration = CompleteMemorySigningConfiguration(
-            keyPath = fixture(),
+            key = fixture(),
             password = fixture(),
             keyId = fixture(),
         )
@@ -146,7 +144,7 @@ class MemorySigningSpec {
         verify(exactly = 1) {
             signingExtension.useInMemoryPgpKeys(
                 signingConfiguration.keyId,
-                signingConfiguration.keyPath,
+                signingConfiguration.key,
                 signingConfiguration.password,
             )
         }
@@ -193,7 +191,7 @@ class MemorySigningSpec {
         )
 
         val signingConfiguration = CompleteMemorySigningConfiguration(
-            keyPath = fixture(),
+            key = fixture(),
             password = fixture(),
             keyId = fixture(),
         )

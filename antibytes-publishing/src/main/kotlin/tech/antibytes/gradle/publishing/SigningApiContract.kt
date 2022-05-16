@@ -8,7 +8,7 @@ package tech.antibytes.gradle.publishing
 
 interface SigningApiContract {
     interface MemorySigning {
-        val keyPath: String?
+        val key: String?
         val password: String?
     }
 

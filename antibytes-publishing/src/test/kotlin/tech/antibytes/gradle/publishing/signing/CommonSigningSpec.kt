@@ -17,12 +17,10 @@ import org.gradle.api.Task
 import org.gradle.api.execution.TaskExecutionGraph
 import org.gradle.api.invocation.Gradle
 import org.gradle.api.plugins.ExtensionContainer
-import org.gradle.api.provider.Provider
 import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.plugins.signing.SigningExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class CommonSigningSpec {
