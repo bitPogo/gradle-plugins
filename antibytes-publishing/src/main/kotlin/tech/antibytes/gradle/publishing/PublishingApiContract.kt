@@ -76,4 +76,13 @@ interface PublishingApiContract {
     }
 
     interface MavenRepositoryConfiguration : RepositoryConfiguration
+
+    interface MemorySigning {
+        val key: String?
+        val password: String?
+    }
+
+    interface CompleteMemorySigning : MemorySigning {
+        val keyId: String?
+    }
 }

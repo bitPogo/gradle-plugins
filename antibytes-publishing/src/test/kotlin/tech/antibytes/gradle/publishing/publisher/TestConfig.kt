@@ -8,7 +8,6 @@ package tech.antibytes.gradle.publishing.publisher
 
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.SigningApiContract
 
 data class TestConfig(
     override var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration>,
@@ -17,5 +16,5 @@ data class TestConfig(
     override var excludeProjects: Set<String>,
     override var versioning: PublishingApiContract.VersioningConfiguration,
     override var standalone: Boolean,
-    override var signingConfiguration: SigningApiContract.MemorySigning? = null,
+    override var signingConfiguration: PublishingApiContract.MemorySigning? = null,
 ) : PublishingContract.PublishingPluginExtension

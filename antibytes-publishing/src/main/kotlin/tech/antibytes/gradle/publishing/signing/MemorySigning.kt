@@ -10,16 +10,16 @@ import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.plugins.signing.SigningExtension
-import tech.antibytes.gradle.publishing.SigningApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract
 
 internal object MemorySigning : SigningContract.MemorySigning {
     override fun configure(
         project: Project,
-        configuration: SigningApiContract.MemorySigning,
+        configuration: PublishingApiContract.MemorySigning,
     ) {
         project.extensions.configure(SigningExtension::class.java) {
             when (configuration) {
-                is SigningApiContract.CompleteMemorySigning -> useInMemoryPgpKeys(
+                is PublishingApiContract.CompleteMemorySigning -> useInMemoryPgpKeys(
                     configuration.keyId,
                     configuration.key,
                     configuration.password,

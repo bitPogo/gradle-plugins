@@ -27,7 +27,6 @@ import org.gradle.api.publish.maven.MavenPublication
  */
 plugins {
     `maven-publish`
-    `signing`
 }
 
 publishing {

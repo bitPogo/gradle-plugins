@@ -51,7 +51,7 @@ class AntiBytesPublishingSpec {
         every { plugins.apply("maven-publish") } returns mockk()
         every { plugins.apply("org.gradle.signing") } returns mockk()
 
-        every { extension getProperty "signingConfiguration" } returns mockk<SigningApiContract.MemorySigning>()
+        every { extension getProperty "signingConfiguration" } returns mockk<PublishingApiContract.MemorySigning>()
 
         every {
             extensionContainer.create(
@@ -101,7 +101,7 @@ class AntiBytesPublishingSpec {
         every { plugins.apply("maven-publish") } returns mockk()
         every { plugins.apply("org.gradle.signing") } returns mockk()
 
-        every { extension getProperty "signingConfiguration" } returns mockk<SigningApiContract.MemorySigning>()
+        every { extension getProperty "signingConfiguration" } returns mockk<PublishingApiContract.MemorySigning>()
 
         every {
             extensionContainer.create(
