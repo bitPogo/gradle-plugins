@@ -86,7 +86,13 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
                         "src/test/resources",
                     )
                 ),
-                androidTest = null,
+                androidTest = TestSource(
+                    sourceDirectories = setOf("src/androidTest/kotlin"),
+                    resourceDirectories = setOf(
+                        "src/androidTest/res",
+                        "src/androidTest/resources",
+                    )
+                ),
                 testRunner = TestRunner(
                     runner = "androidx.test.runner.AndroidJUnitRunner",
                     arguments = mapOf("clearPackageData" to "true")
@@ -136,7 +142,13 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
                         "src/androidTest/resources",
                     )
                 ),
-                androidTest = null,
+                androidTest = TestSource(
+                    sourceDirectories = setOf("src/androidAndroidTest/kotlin"),
+                    resourceDirectories = setOf(
+                        "src/androidAndroidTest/res",
+                        "src/androidAndroidTest/resources",
+                    )
+                ),
                 testRunner = TestRunner(
                     runner = "androidx.test.runner.AndroidJUnitRunner",
                     arguments = mapOf("clearPackageData" to "true")

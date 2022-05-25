@@ -12,4 +12,4 @@ data class CompleteMemorySigningConfiguration(
     override val key: String?,
     override val password: String?,
     override val keyId: String?,
-): PublishingApiContract.CompleteMemorySigning
+) : PublishingApiContract.CompleteMemorySigning

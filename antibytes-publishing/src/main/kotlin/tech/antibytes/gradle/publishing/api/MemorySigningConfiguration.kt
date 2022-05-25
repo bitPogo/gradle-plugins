@@ -11,4 +11,4 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 data class MemorySigningConfiguration(
     override val key: String?,
     override val password: String?,
-): PublishingApiContract.MemorySigning
+) : PublishingApiContract.MemorySigning
