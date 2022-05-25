@@ -46,6 +46,33 @@ class SigningControllerSpec {
     }
 
     @Test
+    fun `Given configure is called with a project which is the root project it triggers evaluationDependsOnChildren`() {
+        // Given
+        val name: String = fixture()
+
+        val config = TestConfig(
+            repositoryConfiguration = mockk(),
+            packageConfiguration = mockk(),
+            dryRun = false,
+            excludeProjects = setOf(name),
+            versioning = mockk(),
+            standalone = true,
+            signingConfiguration = null,
+        )
+
+        val project: Project = mockk(relaxed = true)
+
+        every { project.name } returns name
+        every { project.rootProject } returns project
+
+        // When
+        SigningController.configure(project, config)
+
+        // Then
+        verify(exactly = 1) { project.evaluationDependsOnChildren() }
+    }
+
+    @Test
     fun `Given configure is called without signing configuration, it does not call MemorySigning`() {
         // Given
         val name: String = fixture()
