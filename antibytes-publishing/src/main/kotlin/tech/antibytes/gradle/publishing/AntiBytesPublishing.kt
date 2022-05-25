@@ -11,6 +11,7 @@ import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingContract.Companion.DEPENDENCIES
 import tech.antibytes.gradle.publishing.PublishingContract.Companion.EXTENSION_ID
 import tech.antibytes.gradle.publishing.publisher.PublisherController
+import tech.antibytes.gradle.publishing.signing.SigningController
 import tech.antibytes.gradle.util.applyIfNotExists
 
 class AntiBytesPublishing : Plugin<Project> {
@@ -20,8 +21,9 @@ class AntiBytesPublishing : Plugin<Project> {
             AntiBytesPublishingPluginExtension::class.java
         )
 
-        target.applyIfNotExists(*DEPENDENCIES.toTypedArray())
+        target.applyIfNotExists(*DEPENDENCIES)
 
         PublisherController.configure(project = target, extension = extension)
+        SigningController.configure(project = target, extension = extension)
     }
 }

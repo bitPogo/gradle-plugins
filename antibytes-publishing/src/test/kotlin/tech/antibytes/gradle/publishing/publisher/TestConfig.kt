@@ -15,5 +15,6 @@ data class TestConfig(
     override var dryRun: Boolean,
     override var excludeProjects: Set<String>,
     override var versioning: PublishingApiContract.VersioningConfiguration,
-    override var standalone: Boolean
+    override var standalone: Boolean,
+    override var signingConfiguration: PublishingApiContract.MemorySigning? = null,
 ) : PublishingContract.PublishingPluginExtension

@@ -32,6 +32,7 @@ internal interface PublishingContract {
         var versioning: PublishingApiContract.VersioningConfiguration
         var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration>
         var packageConfiguration: PublishingApiContract.PackageConfiguration?
+        var signingConfiguration: PublishingApiContract.MemorySigning?
         var dryRun: Boolean
         var standalone: Boolean
     }
@@ -46,9 +47,10 @@ internal interface PublishingContract {
 
     companion object {
         const val EXTENSION_ID = "antiBytesPublishing"
-        val DEPENDENCIES = listOf(
+        val DEPENDENCIES = arrayOf(
             "com.palantir.git-version",
-            "maven-publish"
+            "maven-publish",
+            "org.gradle.signing"
         )
     }
 }
