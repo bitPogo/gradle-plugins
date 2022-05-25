@@ -69,7 +69,7 @@ class CommonSigningSpec {
         val extensions: ExtensionContainer = mockk()
         val gradle: Gradle = mockk()
         val taskExecutionGraph: TaskExecutionGraph = mockk()
-        val allTasks = emptyList<Task>()
+        val allTasks = listOf<Task>(mockk(relaxed = true))
 
         val signingExtension: SigningExtension = mockk(relaxed = true)
 

@@ -34,6 +34,14 @@ internal object DefaultAndroidLibraryConfigurationProvider : ConfigurationContra
         )
     }
 
+    private fun determineInstrumentedTestSource(contexts: Set<PlatformContext>): TestSource {
+        return if (isAndroidKmpLibrary(contexts)) {
+            determineTestSource("androidAndroidTest")
+        } else {
+            determineTestSource("androidTest")
+        }
+    }
+
     private fun isAndroidKmpLibrary(contexts: Set<PlatformContext>): Boolean {
         return contexts.any { context -> context == PlatformContext.ANDROID_LIBRARY_KMP }
     }
@@ -100,7 +108,7 @@ internal object DefaultAndroidLibraryConfigurationProvider : ConfigurationContra
             fallbacks = FALLBACKS,
             mainSource = determineMainSource(contexts),
             unitTestSource = determineTestSource(contexts),
-            androidTest = null,
+            androidTest = determineInstrumentedTestSource(contexts),
             testRunner = TestRunner(
                 runner = TEST_RUNNER,
                 arguments = TEST_RUNNER_ARGUMENTS
