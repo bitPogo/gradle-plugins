@@ -8,6 +8,8 @@ package tech.antibytes.gradle.coverage
 
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
+import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_FLAVOUR
+import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_VARIANT
 import java.io.File
 import java.math.BigDecimal
 
@@ -114,5 +116,67 @@ interface CoverageApiContract {
     interface AndroidJacocoAggregationConfiguration : JacocoAggregationConfiguration {
         var variant: String
         var flavour: String
+    }
+
+    interface AndroidJacocoCoverageConfigurationProvider : CoverageConfigurationProvider {
+        fun createAndroidAppOnlyConfiguration(
+            project: Project,
+            variant: String = DEFAULT_ANDROID_VARIANT,
+            flavour: String = DEFAULT_ANDROID_FLAVOUR,
+            reportSettings: JacocoReporterSettings? = null,
+            testDependencies: Set<String> = emptySet(),
+            instrumentedTestDependencies: Set<String> = emptySet(),
+            classPattern: Set<String> = emptySet(),
+            classFilter: Set<String> = emptySet(),
+            sources: Set<File> = emptySet(),
+            additionalSources: Set<File> = emptySet(),
+            additionalClasses: ConfigurableFileTree? = null,
+            verificationRules: Set<JacocoVerificationRule> = emptySet()
+        ): AndroidJacocoCoverageConfiguration
+
+        fun createAndroidAppKmpConfiguration(
+            project: Project,
+            variant: String = DEFAULT_ANDROID_VARIANT,
+            flavour: String = DEFAULT_ANDROID_FLAVOUR,
+            reportSettings: JacocoReporterSettings? = null,
+            testDependencies: Set<String> = emptySet(),
+            instrumentedTestDependencies: Set<String> = emptySet(),
+            classPattern: Set<String> = emptySet(),
+            classFilter: Set<String> = emptySet(),
+            sources: Set<File> = emptySet(),
+            additionalSources: Set<File> = emptySet(),
+            additionalClasses: ConfigurableFileTree? = null,
+            verificationRules: Set<JacocoVerificationRule> = emptySet()
+        ): AndroidJacocoCoverageConfiguration
+
+        fun createAndroidLibraryOnlyConfiguration(
+            project: Project,
+            variant: String = DEFAULT_ANDROID_VARIANT,
+            flavour: String = DEFAULT_ANDROID_FLAVOUR,
+            reportSettings: JacocoReporterSettings? = null,
+            testDependencies: Set<String> = emptySet(),
+            instrumentedTestDependencies: Set<String> = emptySet(),
+            classPattern: Set<String> = emptySet(),
+            classFilter: Set<String> = emptySet(),
+            sources: Set<File> = emptySet(),
+            additionalSources: Set<File> = emptySet(),
+            additionalClasses: ConfigurableFileTree? = null,
+            verificationRules: Set<JacocoVerificationRule> = emptySet()
+        ): AndroidJacocoCoverageConfiguration
+
+        fun createAndroidLibraryKmpConfiguration(
+            project: Project,
+            variant: String = DEFAULT_ANDROID_VARIANT,
+            flavour: String = DEFAULT_ANDROID_FLAVOUR,
+            reportSettings: JacocoReporterSettings? = null,
+            testDependencies: Set<String> = emptySet(),
+            instrumentedTestDependencies: Set<String> = emptySet(),
+            classPattern: Set<String> = emptySet(),
+            classFilter: Set<String> = emptySet(),
+            sources: Set<File> = emptySet(),
+            additionalSources: Set<File> = emptySet(),
+            additionalClasses: ConfigurableFileTree? = null,
+            verificationRules: Set<JacocoVerificationRule> = emptySet()
+        ): AndroidJacocoCoverageConfiguration
     }
 }
