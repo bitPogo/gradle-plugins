@@ -18,6 +18,7 @@ include(
     ":antibytes-gradle-test-utils",
     ":antibytes-dependency",
     ":antibytes-publishing",
+    ":antibytes-versioning",
     ":antibytes-configuration",
     ":antibytes-gradle-utils",
     ":antibytes-grammar-tools",
