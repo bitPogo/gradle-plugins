@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.verisoning
 
+import org.gradle.api.Project
 import tech.antibytes.gradle.verisoning.api.VersionInfo
 
 interface VersioningContract {
@@ -24,5 +25,9 @@ interface VersioningContract {
     interface Versioning {
         fun versionName(): String
         fun versionInfo(): VersionInfo
+    }
+
+    interface VersioningFactory {
+        fun getInstance(project: Project, configuration: VersioningConfiguration): Versioning
     }
 }

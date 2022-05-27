@@ -7,29 +7,12 @@
 package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Project
-import tech.antibytes.gradle.publishing.api.VersionInfo
+import tech.antibytes.gradle.verisoning.VersioningContract
 
 internal interface PublishingContract {
-    interface Versioning {
-        fun versionName(
-            project: Project,
-            configuration: PublishingApiContract.VersioningConfiguration
-        ): String
-
-        fun versionInfo(
-            project: Project,
-            configuration: PublishingApiContract.VersioningConfiguration
-        ): VersionInfo
-
-        companion object {
-            const val SEPARATOR = "-"
-            const val NON_RELEASE_SUFFIX = "SNAPSHOT"
-        }
-    }
-
     interface PublishingPluginExtension {
         var excludeProjects: Set<String>
-        var versioning: PublishingApiContract.VersioningConfiguration
+        var versioning: VersioningContract.VersioningConfiguration
         var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration>
         var packageConfiguration: PublishingApiContract.PackageConfiguration?
         var signingConfiguration: PublishingApiContract.MemorySigning?

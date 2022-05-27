@@ -37,9 +37,36 @@ class VersioningSpec {
     )
 
     @Test
-    fun `It fulfils Versioning`() {
-        val versioning: Any = Versioning(mockk(relaxed = true), mockk())
+    fun `It fulfils VersioningFactory`() {
+        val versioning: Any = Versioning
 
+        assertTrue(versioning is VersioningContract.VersioningFactory)
+    }
+
+    @Test
+    fun `It fulfils Versioning`() {
+        // Given
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { versionDetails.branchName } returns fixture()
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        // When
+        val versioning: Any = Versioning.getInstance(project, mockk())
+
+        // Then
         assertTrue(versioning is VersioningContract.Versioning)
     }
 
@@ -70,7 +97,7 @@ class VersioningSpec {
         // Then
         val error = assertFailsWith<VersioningError> {
             // When
-            Versioning(
+            Versioning.getInstance(
                 project,
                 configuration
             ).versionName()
@@ -116,7 +143,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -163,7 +190,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns distance
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -212,7 +239,7 @@ class VersioningSpec {
         every { versionDetails.gitHash } returns hash
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -258,7 +285,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -304,7 +331,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -351,7 +378,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -399,7 +426,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -408,10 +435,10 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-bump-${
-                branchAction
-                    .replace("_", "-")
-                    .replace("?", "-")
-                    .replace("\$", "-")
+            branchAction
+                .replace("_", "-")
+                .replace("?", "-")
+                .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
@@ -451,7 +478,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -499,7 +526,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -508,10 +535,10 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-${
-                branchAction
-                    .replace("_", "-")
-                    .replace("?", "-")
-                    .replace("\$", "-")
+            branchAction
+                .replace("_", "-")
+                .replace("?", "-")
+                .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
@@ -554,7 +581,7 @@ class VersioningSpec {
         every { versionDetails.gitHash } returns hash
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -602,7 +629,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -653,7 +680,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -701,7 +728,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -750,7 +777,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(
+        val result = Versioning.getInstance(
             project,
             configuration
         ).versionName()
@@ -759,10 +786,10 @@ class VersioningSpec {
         assertEquals(
             actual = result,
             expected = "$expected-${
-                branchAction
-                    .replace("_", "-")
-                    .replace("?", "-")
-                    .replace("\$", "-")
+            branchAction
+                .replace("_", "-")
+                .replace("?", "-")
+                .replace("\$", "-")
             }-SNAPSHOT"
         )
     }
@@ -802,7 +829,7 @@ class VersioningSpec {
         every { versionDetails.commitDistance } returns 0
 
         // When
-        val result = Versioning(project, configuration).versionInfo()
+        val result = Versioning.getInstance(project, configuration).versionInfo()
 
         // Then
         assertSame(

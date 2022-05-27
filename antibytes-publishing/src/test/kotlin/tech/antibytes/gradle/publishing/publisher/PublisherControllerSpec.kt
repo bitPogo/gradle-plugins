@@ -21,9 +21,10 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.Versioning
-import tech.antibytes.gradle.publishing.api.VersionInfo
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.verisoning.Versioning
+import tech.antibytes.gradle.verisoning.VersioningContract
+import tech.antibytes.gradle.verisoning.api.VersionInfo
 import kotlin.test.assertTrue
 
 class PublisherControllerSpec {
@@ -70,6 +71,7 @@ class PublisherControllerSpec {
         val root: Project = mockk()
         val tasks: TaskContainer = mockk()
         val versioningTask: Task = mockk()
+        val versioning: VersioningContract.Versioning = mockk()
 
         every { project.name } returns name
         every { project.rootProject } returns root
@@ -78,12 +80,13 @@ class PublisherControllerSpec {
 
         every { versioningTask.group = any() } just Runs
         every { versioningTask.description = any() } just Runs
-        every { Versioning.versionInfo(project, config.versioning) } returns VersionInfo(
+        every { Versioning.getInstance(project, config.versioning) } returns versioning
+        every { versioning.versionInfo() } returns VersionInfo(
             fixture(),
             mockk(relaxed = true)
         )
         every { project.version = any<String>() } just Runs
-        every { Versioning.versionName(project, config.versioning) } returns fixture()
+        every { versioning.versionName() } returns fixture()
 
         every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
         every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
@@ -113,7 +116,7 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { versioningTask.group = "Versioning" }
         verify(exactly = 1) { versioningTask.description = "Displays the current version" }
-        verify(exactly = 1) { Versioning.versionInfo(project, config.versioning) }
+        verify(exactly = 1) { versioning.versionInfo() }
     }
 
     @Test
@@ -134,6 +137,7 @@ class PublisherControllerSpec {
         val root: Project = mockk()
         val tasks: TaskContainer = mockk()
         val versioningTask: Task = mockk()
+        val versioning: VersioningContract.Versioning = mockk()
 
         every { project.name } returns name
         every { project.rootProject } returns root
@@ -142,9 +146,15 @@ class PublisherControllerSpec {
 
         every { versioningTask.group = any() } just Runs
         every { versioningTask.description = any() } just Runs
-        every { Versioning.versionInfo(project, config.versioning) } returns mockk()
+        every { Versioning.getInstance(project, config.versioning) } returns versioning
+        every { versioning.versionInfo() } returns mockk()
         every { project.version = any<String>() } just Runs
-        every { Versioning.versionName(project, config.versioning) } returns fixture()
+        every {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        } returns fixture()
 
         every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
         every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
@@ -174,7 +184,7 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 0) { versioningTask.group = "Versioning" }
         verify(exactly = 0) { versioningTask.description = "Displays the current version" }
-        verify(exactly = 0) { Versioning.versionInfo(project, config.versioning) }
+        verify(exactly = 0) { versioning.versionInfo() }
     }
 
     @Test
@@ -201,7 +211,12 @@ class PublisherControllerSpec {
         every { root.tasks } returns tasks
         every { tasks.findByName(any()) } returns mockk()
 
-        every { Versioning.versionName(project, config.versioning) } returns version
+        every {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        } returns version
         every { project.version = version } just Runs
 
         every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
@@ -218,7 +233,12 @@ class PublisherControllerSpec {
         PublisherController.configure(project = project, extension = config)
 
         // Then
-        verify(exactly = 1) { Versioning.versionName(project, config.versioning) }
+        verify(exactly = 1) {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        }
         verify(exactly = 1) { project.version = version }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), version, any()) }
@@ -248,7 +268,12 @@ class PublisherControllerSpec {
         every { root.tasks } returns tasks
         every { tasks.findByName(any()) } returns mockk()
 
-        every { Versioning.versionName(project, config.versioning) } returns version
+        every {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        } returns version
         every { project.version = version } just Runs
 
         every { PublisherStandaloneController.configure(project, version, config) } just Runs
@@ -265,7 +290,12 @@ class PublisherControllerSpec {
         PublisherController.configure(project = project, extension = config)
 
         // Then
-        verify(exactly = 1) { Versioning.versionName(project, config.versioning) }
+        verify(exactly = 1) {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        }
         verify(exactly = 1) { project.version = version }
 
         verify(exactly = 1) { PublisherStandaloneController.configure(project, version, config) }
@@ -296,7 +326,12 @@ class PublisherControllerSpec {
         every { root.tasks } returns tasks
         every { tasks.findByName(any()) } returns mockk()
 
-        every { Versioning.versionName(project, config.versioning) } returns version
+        every {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        } returns version
         every { project.version = version } just Runs
 
         every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
@@ -313,7 +348,12 @@ class PublisherControllerSpec {
         PublisherController.configure(project = project, extension = config)
 
         // Then
-        verify(exactly = 1) { Versioning.versionName(project, config.versioning) }
+        verify(exactly = 1) {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        }
         verify(exactly = 1) { project.version = version }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any()) }
@@ -344,7 +384,12 @@ class PublisherControllerSpec {
         every { project.evaluationDependsOnChildren() } just Runs
 
         every { project.version = any<String>() } just Runs
-        every { Versioning.versionName(project, config.versioning) } returns fixture()
+        every {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        } returns fixture()
 
         every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
         every { PublisherRootProjectController.configure(any(), any(), any()) } just Runs
@@ -385,7 +430,12 @@ class PublisherControllerSpec {
         every { tasks.findByName(any()) } returns mockk()
         every { project.evaluationDependsOnChildren() } just Runs
 
-        every { Versioning.versionName(project, config.versioning) } returns version
+        every {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        } returns version
         every { project.version = version } just Runs
 
         every { PublisherStandaloneController.configure(any(), any(), any()) } just Runs
@@ -402,7 +452,12 @@ class PublisherControllerSpec {
         PublisherController.configure(project = project, extension = config)
 
         // Then
-        verify(exactly = 1) { Versioning.versionName(project, config.versioning) }
+        verify(exactly = 1) {
+            Versioning.getInstance(
+                project,
+                config.versioning,
+            ).versionName()
+        }
         verify(exactly = 1) { project.version = version }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any()) }

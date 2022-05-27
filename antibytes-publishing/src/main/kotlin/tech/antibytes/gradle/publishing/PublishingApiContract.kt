@@ -7,18 +7,6 @@
 package tech.antibytes.gradle.publishing
 
 interface PublishingApiContract {
-    interface VersioningConfiguration {
-        val releasePrefixes: List<String>
-        val featurePrefixes: List<String>
-        val dependencyBotPrefixes: List<String>
-        val issuePattern: Regex?
-        val useGitHashFeatureSuffix: Boolean
-        val useGitHashSnapshotSuffix: Boolean
-
-        val versionPrefix: String
-        val normalization: Set<String>
-    }
-
     interface PomConfiguration {
         val name: String
         val description: String

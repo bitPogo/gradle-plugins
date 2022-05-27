@@ -28,6 +28,7 @@ dependencies {
     implementation(Dependency.gradle.publishing)
     implementation(Dependency.gradle.versioning)
     implementation(project(":antibytes-gradle-utils"))
+    api(project(":antibytes-versioning"))
 
     testImplementation(Dependency.test.kotlinTest)
     testImplementation(platform(Dependency.test.junit))

@@ -16,12 +16,10 @@ import tech.antibytes.gradle.verisoning.VersioningContract.VersioningConfigurati
 import tech.antibytes.gradle.verisoning.api.VersionInfo
 import tech.antibytes.gradle.verisoning.api.VersioningError
 
-class Versioning(
-    project: Project,
+class Versioning private constructor(
+    private val versionDetails: Closure<VersionDetails>,
     private val configuration: VersioningConfiguration
 ) : VersioningContract.Versioning {
-    private val versionDetails: Closure<VersionDetails> by project.extra
-
     private fun removeVersionPrefix(version: String): String {
         return version.substringAfter(configuration.versionPrefix)
     }
@@ -205,7 +203,7 @@ class Versioning(
         }
     }
 
-    override fun versionName(): String =  resolveVersionName(versionDetails())
+    override fun versionName(): String = resolveVersionName(versionDetails())
 
     override fun versionInfo(): VersionInfo {
         return VersionInfo(
@@ -214,8 +212,17 @@ class Versioning(
         )
     }
 
-    private companion object {
+    companion object : VersioningContract.VersioningFactory {
         private const val SEPARATOR = "-"
         private const val NON_RELEASE_SUFFIX = "SNAPSHOT"
+
+        override fun getInstance(
+            project: Project,
+            configuration: VersioningConfiguration
+        ): VersioningContract.Versioning {
+            val versionDetails: Closure<VersionDetails> by project.extra
+
+            return Versioning(versionDetails, configuration)
+        }
     }
 }

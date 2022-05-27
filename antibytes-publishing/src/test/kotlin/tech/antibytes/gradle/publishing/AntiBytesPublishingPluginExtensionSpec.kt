@@ -7,8 +7,8 @@
 package tech.antibytes.gradle.publishing
 
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.publishing.api.VersioningConfiguration
 import tech.antibytes.gradle.test.createExtension
+import tech.antibytes.gradle.verisoning.api.VersioningConfiguration
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
