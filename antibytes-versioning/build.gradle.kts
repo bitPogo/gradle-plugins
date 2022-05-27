@@ -11,7 +11,6 @@ import tech.antibytes.gradle.plugin.dependency.Dependency
 
 plugins {
     `kotlin-dsl`
-    `java-gradle-plugin`
     jacoco
 
     id("tech.antibytes.gradle.plugin.script.maven-package")
@@ -25,10 +24,7 @@ jacoco {
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
-    implementation(Dependency.gradle.publishing)
     implementation(Dependency.gradle.versioning)
-    implementation(project(":antibytes-gradle-utils"))
-    api(project(":antibytes-versioning"))
 
     testImplementation(Dependency.test.kotlinTest)
     testImplementation(platform(Dependency.test.junit))
@@ -41,17 +37,6 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
-}
-
-gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.publishing") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.publishing"
-        displayName = "${id}.gradle.plugin"
-        implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
-        description = "Publishing tasks for Antibytes projects"
-        version = "0.1.0"
-    }
 }
 
 tasks.jacocoTestReport {

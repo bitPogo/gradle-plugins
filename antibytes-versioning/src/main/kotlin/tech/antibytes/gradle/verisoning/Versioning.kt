@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.publishing
+package tech.antibytes.gradle.verisoning
 
 import com.palantir.gradle.gitversion.VersionDetails
 import groovy.lang.Closure
@@ -12,13 +12,14 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.provideDelegate
-import tech.antibytes.gradle.publishing.PublishingContract.Versioning.Companion.NON_RELEASE_SUFFIX
-import tech.antibytes.gradle.publishing.PublishingContract.Versioning.Companion.SEPARATOR
-import tech.antibytes.gradle.publishing.api.VersionInfo
+import tech.antibytes.gradle.verisoning.VersioningContract.VersioningConfiguration
+import tech.antibytes.gradle.verisoning.api.VersionInfo
+import tech.antibytes.gradle.verisoning.api.VersioningError
 
-internal object Versioning : PublishingContract.Versioning {
-    lateinit var configuration: PublishingApiContract.VersioningConfiguration
-
+class Versioning private constructor(
+    private val versionDetails: Closure<VersionDetails>,
+    private val configuration: VersioningConfiguration
+) : VersioningContract.Versioning {
     private fun removeVersionPrefix(version: String): String {
         return version.substringAfter(configuration.versionPrefix)
     }
@@ -196,32 +197,32 @@ internal object Versioning : PublishingContract.Versioning {
                 details,
                 configuration.useGitHashFeatureSuffix
             )
-            else -> throw PublishingError.VersioningError(
+            else -> throw VersioningError(
                 "Ill named branch name (${details.branchName})! Please adjust it to match the project settings."
             )
         }
     }
 
-    override fun versionName(
-        project: Project,
-        configuration: PublishingApiContract.VersioningConfiguration
-    ): String {
-        val versionDetails: Closure<VersionDetails> by project.extra
-        this.configuration = configuration
+    override fun versionName(): String = resolveVersionName(versionDetails())
 
-        return resolveVersionName(versionDetails())
-    }
-
-    override fun versionInfo(
-        project: Project,
-        configuration: PublishingApiContract.VersioningConfiguration
-    ): VersionInfo {
-        val versionDetails: Closure<VersionDetails> by project.extra
-        this.configuration = configuration
-
+    override fun versionInfo(): VersionInfo {
         return VersionInfo(
             resolveVersionName(versionDetails()),
             versionDetails()
         )
+    }
+
+    companion object : VersioningContract.VersioningFactory {
+        private const val SEPARATOR = "-"
+        private const val NON_RELEASE_SUFFIX = "SNAPSHOT"
+
+        override fun getInstance(
+            project: Project,
+            configuration: VersioningConfiguration
+        ): VersioningContract.Versioning {
+            val versionDetails: Closure<VersionDetails> by project.extra
+
+            return Versioning(versionDetails, configuration)
+        }
     }
 }

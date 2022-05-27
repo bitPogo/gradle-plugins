@@ -6,11 +6,12 @@
 
 package tech.antibytes.gradle.publishing
 
-import tech.antibytes.gradle.publishing.api.VersioningConfiguration
+import tech.antibytes.gradle.verisoning.VersioningContract
+import tech.antibytes.gradle.verisoning.api.VersioningConfiguration
 
 abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginExtension {
     // Versioning
-    override var versioning: PublishingApiContract.VersioningConfiguration = VersioningConfiguration()
+    override var versioning: VersioningContract.VersioningConfiguration = VersioningConfiguration()
 
     // Publishing
     override var dryRun: Boolean = false

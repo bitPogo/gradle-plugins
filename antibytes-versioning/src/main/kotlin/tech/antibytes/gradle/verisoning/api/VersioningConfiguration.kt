@@ -4,9 +4,9 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.publishing.api
+package tech.antibytes.gradle.verisoning.api
 
-import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.verisoning.VersioningContract
 
 data class VersioningConfiguration(
     override val releasePrefixes: List<String> = listOf("main", "release"),
@@ -16,5 +16,5 @@ data class VersioningConfiguration(
     override val useGitHashFeatureSuffix: Boolean = false,
     override val useGitHashSnapshotSuffix: Boolean = false,
     override val versionPrefix: String = "v",
-    override val normalization: Set<String> = emptySet()
-) : PublishingApiContract.VersioningConfiguration
+    override val normalization: Set<String> = emptySet(),
+) : VersioningContract.VersioningConfiguration

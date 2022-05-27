@@ -8,15 +8,15 @@ package tech.antibytes.gradle.publishing.publisher
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.Versioning
 import tech.antibytes.gradle.util.isRoot
+import tech.antibytes.gradle.verisoning.Versioning
+import tech.antibytes.gradle.verisoning.VersioningContract
 
 internal object PublisherController : PublishingContract.PublisherController {
     private fun addVersionTask(
         project: Project,
-        configuration: PublishingApiContract.VersioningConfiguration
+        configuration: VersioningContract.VersioningConfiguration
     ) {
         if (project.rootProject.tasks.findByName("versionInfo") !is Task) {
             project.rootProject.tasks.create("versionInfo") {
@@ -24,7 +24,7 @@ internal object PublisherController : PublishingContract.PublisherController {
                 description = "Displays the current version"
 
                 doLast {
-                    val info = Versioning.versionInfo(project, configuration)
+                    val info = Versioning.getInstance(project, configuration).versionInfo()
                     println("version: ${info.name}")
                     println("last tag: ${info.details.lastTag}")
                     println("distance from last tag: ${info.details.commitDistance}")
@@ -49,7 +49,7 @@ internal object PublisherController : PublishingContract.PublisherController {
         }
 
         project.afterEvaluate {
-            val derivedVersion = Versioning.versionName(project, extension.versioning)
+            val derivedVersion = Versioning.getInstance(project, extension.versioning).versionName()
 
             addVersionTask(project, extension.versioning)
             setVersionToProject(project, derivedVersion)
