@@ -10,8 +10,8 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.util.isRoot
-import tech.antibytes.gradle.verisoning.Versioning
-import tech.antibytes.gradle.verisoning.VersioningContract
+import tech.antibytes.gradle.versioning.Versioning
+import tech.antibytes.gradle.versioning.VersioningContract
 
 internal object PublisherController : PublishingContract.PublisherController {
     private fun addVersionTask(

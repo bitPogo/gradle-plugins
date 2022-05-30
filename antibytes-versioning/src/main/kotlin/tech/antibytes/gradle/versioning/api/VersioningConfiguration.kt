@@ -4,9 +4,9 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.verisoning.api
+package tech.antibytes.gradle.versioning.api
 
-import tech.antibytes.gradle.verisoning.VersioningContract
+import tech.antibytes.gradle.versioning.VersioningContract
 
 data class VersioningConfiguration(
     override val releasePrefixes: List<String> = listOf("main", "release"),

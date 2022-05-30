@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.verisoning
+package tech.antibytes.gradle.versioning
 
 import com.palantir.gradle.gitversion.VersionDetails
 import groovy.lang.Closure
@@ -12,9 +12,9 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.provideDelegate
-import tech.antibytes.gradle.verisoning.VersioningContract.VersioningConfiguration
-import tech.antibytes.gradle.verisoning.api.VersionInfo
-import tech.antibytes.gradle.verisoning.api.VersioningError
+import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
+import tech.antibytes.gradle.versioning.api.VersionInfo
+import tech.antibytes.gradle.versioning.api.VersioningError
 
 class Versioning private constructor(
     private val versionDetails: Closure<VersionDetails>,
