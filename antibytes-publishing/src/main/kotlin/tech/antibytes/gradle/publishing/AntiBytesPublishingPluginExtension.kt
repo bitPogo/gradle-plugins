@@ -6,8 +6,8 @@
 
 package tech.antibytes.gradle.publishing
 
-import tech.antibytes.gradle.verisoning.VersioningContract
-import tech.antibytes.gradle.verisoning.api.VersioningConfiguration
+import tech.antibytes.gradle.versioning.VersioningContract
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 
 abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginExtension {
     // Versioning

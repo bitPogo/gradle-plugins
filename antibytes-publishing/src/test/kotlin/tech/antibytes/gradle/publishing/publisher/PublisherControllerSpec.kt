@@ -22,9 +22,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.test.invokeGradleAction
-import tech.antibytes.gradle.verisoning.Versioning
-import tech.antibytes.gradle.verisoning.VersioningContract
-import tech.antibytes.gradle.verisoning.api.VersionInfo
+import tech.antibytes.gradle.versioning.Versioning
+import tech.antibytes.gradle.versioning.VersioningContract
+import tech.antibytes.gradle.versioning.api.VersionInfo
 import kotlin.test.assertTrue
 
 class PublisherControllerSpec {

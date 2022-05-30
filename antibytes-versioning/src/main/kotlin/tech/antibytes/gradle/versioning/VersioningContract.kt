@@ -4,10 +4,10 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.verisoning
+package tech.antibytes.gradle.versioning
 
 import org.gradle.api.Project
-import tech.antibytes.gradle.verisoning.api.VersionInfo
+import tech.antibytes.gradle.versioning.api.VersionInfo
 
 interface VersioningContract {
     interface VersioningConfiguration {

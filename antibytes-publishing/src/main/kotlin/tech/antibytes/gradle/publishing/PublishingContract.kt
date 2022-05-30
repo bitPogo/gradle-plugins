@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Project
-import tech.antibytes.gradle.verisoning.VersioningContract
+import tech.antibytes.gradle.versioning.VersioningContract
 
 internal interface PublishingContract {
     interface PublishingPluginExtension {

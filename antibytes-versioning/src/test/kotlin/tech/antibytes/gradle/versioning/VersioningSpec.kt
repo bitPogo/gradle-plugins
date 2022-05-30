@@ -16,10 +16,10 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.kotlin.dsl.invoke
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.verisoning.Versioning
-import tech.antibytes.gradle.verisoning.VersioningContract
-import tech.antibytes.gradle.verisoning.api.VersioningConfiguration
-import tech.antibytes.gradle.verisoning.api.VersioningError
+import tech.antibytes.gradle.versioning.Versioning
+import tech.antibytes.gradle.versioning.VersioningContract
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
+import tech.antibytes.gradle.versioning.api.VersioningError
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertSame
