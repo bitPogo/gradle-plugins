@@ -16,8 +16,6 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.kotlin.dsl.invoke
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.versioning.Versioning
-import tech.antibytes.gradle.versioning.VersioningContract
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningError
 import kotlin.test.assertEquals
@@ -203,6 +201,53 @@ class VersioningSpec {
     }
 
     @Test
+    fun `Given versionName is called, it marks the version as SNAPSHOT if the branch is has a commit distance greater then 0 and has a rc suffix`() {
+        val branchName = "main"
+        val expected = "1.15.1-rc01"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected-19-g24a885d.dirty"
+        val distance = 19
+
+        val configuration = versionTestConfiguration.copy(
+            releasePrefixes = listOf("main", "release"),
+            versionPrefix = versionPrefix
+        )
+
+        val project: Project = mockk()
+
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns distance
+
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-SNAPSHOT"
+        )
+    }
+
+    @Test
     fun `Given versionName is called, it marks the version as SNAPSHOT while using the git hash`() {
         val branchName = "main"
         val expected = "1.15.1"
@@ -255,6 +300,52 @@ class VersioningSpec {
     fun `Given versionName is called, it renders the release version`() {
         val branchName = "main"
         val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            releasePrefixes = listOf("main", "release"),
+            versionPrefix = versionPrefix
+        )
+
+        val project: Project = mockk()
+
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = expected
+        )
+    }
+
+    @Test
+    fun `Given versionName is called, it renders the release version with rc suffix`() {
+        val branchName = "main"
+        val expected = "1.15.1-rc01"
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 
@@ -391,6 +482,53 @@ class VersioningSpec {
     }
 
     @Test
+    fun `Given versionName is called, it renders a dependencyBot branch with rc suffix`() {
+        val branchAction = "test"
+        val branchName = "dependabot/$branchAction"
+        val expected = "1.15.1-rc01"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            dependencyBotPrefixes = listOf("dependabot"),
+            versionPrefix = versionPrefix
+        )
+
+        val project: Project = mockk()
+
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-bump-$branchAction-SNAPSHOT"
+        )
+    }
+
+    @Test
     fun `Given versionName is called, it renders and normalizes a dependencyBot branch`() {
         val branchAction = "test_abc?dfg\$asd"
         val branchName = "dependabot/$branchAction"
@@ -448,6 +586,53 @@ class VersioningSpec {
         val branchAction = "test"
         val branchName = "feature/$branchAction"
         val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            featurePrefixes = listOf("feature", "newStuff"),
+            versionPrefix = versionPrefix
+        )
+
+        val project: Project = mockk()
+
+        val extensions: ExtensionContainer = mockk()
+        val extraProperties: ExtraPropertiesExtension = mockk()
+
+        val versionDetails: VersionDetails = mockk()
+
+        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { extensions.extraProperties } returns extraProperties
+
+        every { project.extensions } returns extensions
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-$branchAction-SNAPSHOT"
+        )
+    }
+
+    @Test
+    fun `Given versionName is called, it renders a feature branch with rc suffix`() {
+        val branchAction = "test"
+        val branchName = "feature/$branchAction"
+        val expected = "1.15.1-rc01"
         val versionPrefix = "v"
         val version = "$versionPrefix$expected"
 

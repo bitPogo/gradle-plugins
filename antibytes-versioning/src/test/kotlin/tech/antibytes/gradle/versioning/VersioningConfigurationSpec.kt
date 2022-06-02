@@ -7,7 +7,6 @@
 package tech.antibytes.gradle.versioning
 
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.versioning.VersioningContract
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
