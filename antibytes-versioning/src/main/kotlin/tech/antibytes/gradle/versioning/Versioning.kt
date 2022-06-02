@@ -24,16 +24,28 @@ class Versioning private constructor(
         return version.substringAfter(configuration.versionPrefix)
     }
 
+    private fun String.amendRC(fullName: String): String {
+        val suffix = if (fullName.contains(RELEASE_CANDIDATE_SUFFIX)) {
+            val rcNumber = fullName.substringAfter(RELEASE_CANDIDATE_SUFFIX).substringBefore(SEPARATOR)
+
+            "$RELEASE_CANDIDATE_SUFFIX$rcNumber"
+        } else {
+            ""
+        }
+
+        return "$this$suffix"
+    }
+
     private fun cleanVersionName(
         version: String,
         commitDistance: Int
     ): String {
-        var cleanName = version.substringBefore(".dirty")
+        val name = version.substringBefore(".dirty")
 
-        cleanName = if (commitDistance > 0) {
-            cleanName.substringBefore(SEPARATOR)
+        val cleanName = if (commitDistance > 0) {
+            name.substringBefore(SEPARATOR).amendRC(name)
         } else {
-            cleanName
+            name
         }
 
         return removeVersionPrefix(cleanName)
@@ -215,6 +227,7 @@ class Versioning private constructor(
     companion object : VersioningContract.VersioningFactory {
         private const val SEPARATOR = "-"
         private const val NON_RELEASE_SUFFIX = "SNAPSHOT"
+        private const val RELEASE_CANDIDATE_SUFFIX = "${SEPARATOR}rc"
 
         override fun getInstance(
             project: Project,
