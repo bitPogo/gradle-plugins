@@ -66,6 +66,24 @@ class AntiBytesTestConfigurationTaskSpec {
     }
 
     @Test
+    fun `Given the task is executed it generates the buildDir if it does not exists`() {
+        // Given
+        val buildDir = "build"
+        project.buildDir = File(this.buildDir, buildDir)
+        val task: AntiBytesTestConfigurationTask = project.tasks.create("sut", AntiBytesTestConfigurationTask::class.java) {}
+
+        // When
+        task.packageName.set("packageName")
+        task.generate()
+
+        // Then
+        assertEquals(
+            actual = this.buildDir.list()!!.first(),
+            expected = buildDir
+        )
+    }
+
+    @Test
     fun `Given the task is executed it generates a OutputFile in main`() {
         // Given
         val packageName = "test.config"

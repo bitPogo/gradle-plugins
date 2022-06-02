@@ -11,7 +11,6 @@ import tech.antibytes.gradle.plugin.dependency.Dependency
 
 plugins {
     `kotlin-dsl`
-    `java-gradle-plugin`
     jacoco
 
     id("tech.antibytes.gradle.plugin.script.maven-package")
@@ -41,17 +40,6 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
-}
-
-gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.runtime-configuration") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.runtime-configuration"
-        displayName = "${id}.gradle.plugin"
-        implementationClass = "tech.antibytes.gradle.configuration.runtime.AntiBytesRuntimeConfiguration"
-        description = "Adds a Runtime Configuration Object for Antibytes projects"
-        version = "0.1.0"
-    }
 }
 
 tasks.test {
