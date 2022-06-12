@@ -21,5 +21,5 @@ data class TestConfig(
     override var versioning: VersioningConfiguration,
     override var standalone: Boolean,
     override var signingConfiguration: MemorySigning? = null,
-    override var documentation: PublishingApiContract.Documentation? = null,
+    override var documentation: PublishingApiContract.DocumentationConfiguration? = null,
 ) : PublishingContract.PublishingPluginExtension

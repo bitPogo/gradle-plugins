@@ -22,7 +22,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.api.Documentation
+import tech.antibytes.gradle.publishing.api.DocumentationConfiguration
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.VersioningContract
@@ -210,9 +210,9 @@ class PublisherControllerSpec {
             excludeProjects = setOf(name),
             versioning = mockk(relaxed = true),
             standalone = true,
-            documentation = Documentation(
-                dependencies = setOf(fixture()),
-                source = fixture()
+            documentation = DocumentationConfiguration(
+                tasks = setOf(fixture()),
+                outputDir = fixture()
             ),
         )
 
@@ -263,9 +263,9 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { javaDocTask.group = "Documentation" }
         verify(exactly = 1) { javaDocTask.description = "Generates the JavaDocs" }
-        verify(exactly = 1) { javaDocTask.setDependsOn(config.documentation!!.dependencies) }
+        verify(exactly = 1) { javaDocTask.setDependsOn(config.documentation!!.tasks) }
         verify(exactly = 1) { javaDocTask.archiveClassifier.set("javadoc") }
-        verify(exactly = 1) { javaDocTask.from(config.documentation!!.source.absolutePath) }
+        verify(exactly = 1) { javaDocTask.from(config.documentation!!.outputDir.absolutePath) }
     }
 
     @Test
@@ -280,9 +280,9 @@ class PublisherControllerSpec {
             excludeProjects = setOf(name),
             versioning = mockk(relaxed = true),
             standalone = true,
-            documentation = Documentation(
-                dependencies = setOf(fixture()),
-                source = fixture()
+            documentation = DocumentationConfiguration(
+                tasks = setOf(fixture()),
+                outputDir = fixture()
             ),
         )
 
@@ -328,9 +328,9 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 0) { javaDocTask.group = "Documentation" }
         verify(exactly = 0) { javaDocTask.description = "Generates the JavaDocs" }
-        verify(exactly = 0) { javaDocTask.setDependsOn(config.documentation!!.dependencies) }
+        verify(exactly = 0) { javaDocTask.setDependsOn(config.documentation!!.tasks) }
         verify(exactly = 0) { javaDocTask.archiveClassifier.set("javadoc") }
-        verify(exactly = 0) { javaDocTask.from(config.documentation!!.source.absolutePath) }
+        verify(exactly = 0) { javaDocTask.from(config.documentation!!.outputDir.absolutePath) }
     }
 
     @Test

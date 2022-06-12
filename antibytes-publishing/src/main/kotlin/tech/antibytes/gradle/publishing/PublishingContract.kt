@@ -17,7 +17,7 @@ internal interface PublishingContract {
         var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration>
         var packageConfiguration: PublishingApiContract.PackageConfiguration?
         var signingConfiguration: PublishingApiContract.MemorySigning?
-        var documentation: PublishingApiContract.Documentation?
+        var documentation: PublishingApiContract.DocumentationConfiguration?
         var dryRun: Boolean
         var standalone: Boolean
     }
