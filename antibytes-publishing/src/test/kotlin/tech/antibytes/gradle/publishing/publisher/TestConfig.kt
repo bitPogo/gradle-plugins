@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.publishing.publisher
 
+import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingApiContract.MemorySigning
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
@@ -20,4 +21,5 @@ data class TestConfig(
     override var versioning: VersioningConfiguration,
     override var standalone: Boolean,
     override var signingConfiguration: MemorySigning? = null,
+    override var documentation: PublishingApiContract.Documentation? = null,
 ) : PublishingContract.PublishingPluginExtension

@@ -92,6 +92,13 @@ class AntiBytesPublishingPluginExtensionSpec {
     }
 
     @Test
+    fun `It has no default Documentation`() {
+        val extension: AntiBytesPublishingPluginExtension = createExtension()
+
+        assertNull(extension.documentation)
+    }
+
+    @Test
     fun `It has an empty set as default ExcludeProjects`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 

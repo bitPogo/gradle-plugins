@@ -11,7 +11,7 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 data class PackageConfiguration(
     override val artifactId: String? = null,
     override val groupId: String? = null,
-    override val isJavaLibrary: Boolean = false,
+    override val isPureJavaLibrary: Boolean = false,
     override val pom: PublishingApiContract.PomConfiguration,
     override val developers: List<PublishingApiContract.DeveloperConfiguration>,
     override val contributors: List<PublishingApiContract.ContributorConfiguration> = emptyList(),

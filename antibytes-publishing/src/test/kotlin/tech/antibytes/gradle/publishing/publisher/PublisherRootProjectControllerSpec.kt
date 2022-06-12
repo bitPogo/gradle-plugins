@@ -88,6 +88,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             "version",
+            null,
             config,
         )
 
@@ -137,6 +138,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             version,
+            null,
             config,
         )
 
@@ -231,6 +233,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             version,
+            null,
             config,
         )
 
@@ -316,6 +319,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             version,
+            null,
             config,
         )
 
@@ -413,6 +417,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             version,
+            null,
             config,
         )
 
@@ -518,6 +523,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             version,
+            null,
             config,
         )
 
@@ -605,6 +611,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             version,
+            null,
             config,
         )
 
@@ -702,6 +709,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             version,
+            null,
             config,
         )
 
@@ -790,6 +798,7 @@ class PublisherRootProjectControllerSpec {
         PublisherRootProjectController.configure(
             project,
             version,
+            null,
             config,
         )
 

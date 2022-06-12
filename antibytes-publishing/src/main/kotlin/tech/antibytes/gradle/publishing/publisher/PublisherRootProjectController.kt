@@ -12,15 +12,14 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.git.GitRepository
 
 internal object PublisherRootProjectController : PublishingContract.PublisherController, SharedPublisherFunctions() {
-    private fun wireDependencies(
-        project: Project,
+    private fun Project.wireDependencies(
         cloneTask: Task?,
         pushTask: Task?,
         publishingTask: Task,
         registryName: String,
     ) {
         val mavenTasks = mutableListOf<Task>()
-        project.subprojects.forEach { subproject ->
+        subprojects.forEach { subproject ->
             subproject.tasks.findByName(
                 "publishAllPublicationsTo${registryName.capitalize()}Repository"
             ).also { task ->
@@ -41,6 +40,7 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
     override fun configure(
         project: Project,
         version: String,
+        documentation: Task?,
         extension: PublishingContract.PublishingPluginExtension
     ) {
         if (extension.repositoryConfiguration.isNotEmpty()) {
@@ -55,8 +55,7 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
 
                 val publishTask = addPublishingTask(project, registry)
 
-                wireDependencies(
-                    project,
+                project.wireDependencies(
                     cloneTask = cloneTask,
                     pushTask = pushTask,
                     publishingTask = publishTask,

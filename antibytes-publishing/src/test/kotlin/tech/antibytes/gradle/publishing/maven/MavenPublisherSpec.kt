@@ -27,6 +27,7 @@ import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomLicenseSpec
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.jvm.tasks.Jar
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.api.ContributorConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
@@ -91,11 +92,12 @@ class MavenPublisherSpec {
         )
 
         // When
-        MavenPublisher.configure(project, configuration, fixture())
+        MavenPublisher.configure(project, configuration, null, fixture())
 
         // Then
         verify(exactly = 0) { publication.artifactId = any() }
         verify(exactly = 0) { publication.groupId = any() }
+        verify(exactly = 0) { publication.artifact(any()) }
     }
 
     @Test
@@ -135,7 +137,7 @@ class MavenPublisherSpec {
         )
 
         // When
-        MavenPublisher.configure(project, configuration, version)
+        MavenPublisher.configure(project, configuration, null, version)
 
         // Then
         verify(exactly = 1) { publication.artifactId = artifactId }
@@ -192,14 +194,75 @@ class MavenPublisherSpec {
         val configuration = registryTestConfig.copy(
             artifactId = artifactId,
             groupId = groupId,
-            isJavaLibrary = true
+            isPureJavaLibrary = true
         )
 
         // When
-        MavenPublisher.configure(project, configuration, version)
+        MavenPublisher.configure(project, configuration, null, version)
 
         // Then
         verify(exactly = 1) { publication.from(java) }
+    }
+
+    @Test
+    fun `Given configureMavenTask is called with a Project, it adds the Documentation Artifact if given`() {
+        // Given
+        val artifactId: String = fixture()
+        val groupId: String = fixture()
+        val version: String = fixture()
+        val projectName: String = fixture()
+        val components: SoftwareComponentContainer = mockk()
+        val java: SoftwareComponent = mockk()
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val publicationContainer: PublicationContainer = mockk()
+        val publication: MavenPublication = mockk(relaxed = true)
+        val documentation: Jar = mockk()
+
+        every { project.extensions } returns extensions
+        every { project.name } returns projectName
+        every { publishingExtension.publications } returns publicationContainer
+
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.publications(probe) },
+            publicationContainer,
+            mockk()
+        )
+
+        every {
+            hint(String::class, 0)
+            hint(MavenPublication::class, 1)
+            publicationContainer.create(projectName, MavenPublication::class.java)
+        } returns publication
+
+        every { project.components } returns components
+        every { project.components.asMap["java"] } returns java
+        every { publication.from(any()) } just Runs
+
+        invokeGradleAction(
+            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
+            publication,
+            mockk()
+        )
+
+        val configuration = registryTestConfig.copy(
+            artifactId = artifactId,
+            groupId = groupId,
+            isPureJavaLibrary = true
+        )
+
+        // When
+        MavenPublisher.configure(project, configuration, documentation, version)
+
+        // Then
+        verify(exactly = 1) { publication.from(java) }
+        verify(exactly = 1) { publication.artifact(documentation) }
     }
 
     @Test
@@ -258,7 +321,7 @@ class MavenPublisherSpec {
         )
 
         // When
-        MavenPublisher.configure(project, configuration, fixture())
+        MavenPublisher.configure(project, configuration, null, fixture())
 
         // Then
         verify(exactly = 1) { pom.name.set(name) }
@@ -327,6 +390,7 @@ class MavenPublisherSpec {
             registryTestConfig.copy(
                 developers = listOf(devConfiguration, devConfiguration)
             ),
+            null,
             fixture()
         )
 
@@ -397,6 +461,7 @@ class MavenPublisherSpec {
             registryTestConfig.copy(
                 developers = listOf(devConfiguration, devConfiguration)
             ),
+            null,
             fixture()
         )
 
@@ -462,6 +527,7 @@ class MavenPublisherSpec {
             registryTestConfig.copy(
                 contributors = listOf(contribConfiguration, contribConfiguration)
             ),
+            null,
             fixture()
         )
 
@@ -530,6 +596,7 @@ class MavenPublisherSpec {
             registryTestConfig.copy(
                 contributors = listOf(contribConfiguration, contribConfiguration)
             ),
+            null,
             fixture()
         )
 
@@ -592,6 +659,7 @@ class MavenPublisherSpec {
         MavenPublisher.configure(
             project,
             registryTestConfig.copy(license = licenseConfiguration),
+            null,
             fixture()
         )
 
@@ -650,6 +718,7 @@ class MavenPublisherSpec {
         MavenPublisher.configure(
             project,
             registryTestConfig.copy(scm = sourceControlConfiguration),
+            null,
             fixture()
         )
 
