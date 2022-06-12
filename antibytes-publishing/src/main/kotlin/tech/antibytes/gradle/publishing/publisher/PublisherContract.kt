@@ -29,7 +29,8 @@ internal interface PublisherContract {
         fun configure(
             project: Project,
             configuration: PublishingApiContract.PackageConfiguration,
-            version: String
+            docs: Task?,
+            version: String,
         )
     }
 

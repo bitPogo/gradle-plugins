@@ -6,6 +6,8 @@
 
 package tech.antibytes.gradle.publishing
 
+import java.io.File
+
 interface PublishingApiContract {
     interface PomConfiguration {
         val name: String
@@ -38,10 +40,15 @@ interface PublishingApiContract {
         val developerConnection: String
     }
 
+    interface Documentation {
+        val dependencies: Set<String>
+        val source: File
+    }
+
     interface PackageConfiguration {
         val artifactId: String?
         val groupId: String?
-        val isJavaLibrary: Boolean
+        val isPureJavaLibrary: Boolean
         val pom: PomConfiguration
         val developers: List<DeveloperConfiguration>
         val contributors: List<ContributorConfiguration>

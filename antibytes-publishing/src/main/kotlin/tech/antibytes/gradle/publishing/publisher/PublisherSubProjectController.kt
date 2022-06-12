@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.publishing.publisher
 
 import org.gradle.api.Project
+import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
@@ -23,13 +24,15 @@ internal object PublisherSubProjectController : PublishingContract.PublisherCont
     override fun configure(
         project: Project,
         version: String,
+        documentation: Task?,
         extension: PublishingContract.PublishingPluginExtension
     ) {
         if (isApplicable(extension)) {
             MavenPublisher.configure(
-                project,
-                extension.packageConfiguration as PublishingApiContract.PackageConfiguration,
-                version
+                project = project,
+                configuration = extension.packageConfiguration as PublishingApiContract.PackageConfiguration,
+                version = version,
+                docs = documentation,
             )
 
             extension.repositoryConfiguration.forEach { registry ->

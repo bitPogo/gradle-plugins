@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.publishing.maven
 
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPom
 import org.gradle.api.publish.maven.MavenPomContributor
@@ -16,7 +17,6 @@ import org.gradle.api.publish.maven.MavenPomDeveloperSpec
 import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.kotlin.dsl.create
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
@@ -24,7 +24,8 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
     private fun setPublicationProperties(
         publication: MavenPublication,
         configuration: PublishingApiContract.PackageConfiguration,
-        version: String
+        docs: Task?,
+        version: String,
     ) {
         if (configuration.groupId is String) {
             publication.groupId = configuration.groupId
@@ -32,6 +33,10 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
         if (configuration.artifactId is String) {
             publication.artifactId = configuration.artifactId
+        }
+
+        if (docs != null) {
+            publication.artifact(docs)
         }
 
         publication.version = version
@@ -112,11 +117,12 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
     override fun configure(
         project: Project,
         configuration: PublishingApiContract.PackageConfiguration,
+        docs: Task?,
         version: String
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             publications {
-                if (configuration.isJavaLibrary) {
+                if (configuration.isPureJavaLibrary) {
                     val publication = create(project.name, MavenPublication::class.java)
                     publication.from(project.components.asMap["java"])
                 }
@@ -125,6 +131,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
                     setPublicationProperties(
                         this,
                         configuration,
+                        docs,
                         version
                     )
 

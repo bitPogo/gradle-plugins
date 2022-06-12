@@ -15,6 +15,7 @@ import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -75,6 +76,7 @@ class PublisherSubProjectControllerSpec {
             versioning = mockk(),
             standalone = true
         )
+        val documentation: Task = mockk()
 
         every { project.name } returns fixture()
 
@@ -82,11 +84,12 @@ class PublisherSubProjectControllerSpec {
         PublisherSubProjectController.configure(
             project,
             "version",
+            documentation,
             config,
         )
 
         // Then
-        verify(exactly = 0) { MavenPublisher.configure(project, any(), any()) }
+        verify(exactly = 0) { MavenPublisher.configure(project, any(), any(), any()) }
     }
 
     @Test
@@ -101,6 +104,7 @@ class PublisherSubProjectControllerSpec {
             versioning = mockk(),
             standalone = true,
         )
+        val documentation: Task = mockk()
 
         every { project.name } returns fixture()
         every { project.tasks } returns mockk()
@@ -109,11 +113,12 @@ class PublisherSubProjectControllerSpec {
         PublisherSubProjectController.configure(
             project,
             "version",
+            documentation,
             config,
         )
 
         // Then
-        verify(exactly = 0) { MavenPublisher.configure(project, any(), any()) }
+        verify(exactly = 0) { MavenPublisher.configure(project, any(), any(), any()) }
     }
 
     @Test
@@ -124,6 +129,7 @@ class PublisherSubProjectControllerSpec {
         val registry2 = mavenRegistryTestConfig.copy(name = "b")
         val dryRun: Boolean = fixture()
         val version: String = fixture()
+        val documentation: Task = mockk()
 
         val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
@@ -138,18 +144,19 @@ class PublisherSubProjectControllerSpec {
             standalone = false
         )
 
-        every { MavenPublisher.configure(project, packageConfiguration, version) } just Runs
+        every { MavenPublisher.configure(project, packageConfiguration, any(), version) } just Runs
         every { MavenRepository.configure(project, or(registry1, registry2), dryRun) } just Runs
 
         // When
         PublisherSubProjectController.configure(
             project,
             version,
+            documentation,
             config,
         )
 
         // Then
-        verify(exactly = 1) { MavenPublisher.configure(project, packageConfiguration, version) }
+        verify(exactly = 1) { MavenPublisher.configure(project, packageConfiguration, documentation, version) }
 
         verify(exactly = 1) {
             MavenRepository.configure(

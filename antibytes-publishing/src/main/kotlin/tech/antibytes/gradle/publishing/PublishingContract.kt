@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Project
+import org.gradle.api.Task
 import tech.antibytes.gradle.versioning.VersioningContract
 
 internal interface PublishingContract {
@@ -16,6 +17,7 @@ internal interface PublishingContract {
         var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration>
         var packageConfiguration: PublishingApiContract.PackageConfiguration?
         var signingConfiguration: PublishingApiContract.MemorySigning?
+        var documentation: PublishingApiContract.Documentation?
         var dryRun: Boolean
         var standalone: Boolean
     }
@@ -24,6 +26,7 @@ internal interface PublishingContract {
         fun configure(
             project: Project,
             version: String = "",
+            documentation: Task? = null,
             extension: PublishingPluginExtension
         )
     }

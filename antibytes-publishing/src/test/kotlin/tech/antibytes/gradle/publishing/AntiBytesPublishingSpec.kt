@@ -59,7 +59,7 @@ class AntiBytesPublishingSpec {
                 AntiBytesPublishingPluginExtension::class.java
             )
         } returns extension
-        every { PublisherController.configure(project, "", extension) } just Runs
+        every { PublisherController.configure(project, "", null, extension) } just Runs
         every { SigningController.configure(project, extension) } just Runs
 
         // When
@@ -72,7 +72,9 @@ class AntiBytesPublishingSpec {
                 AntiBytesPublishingPluginExtension::class.java
             )
         }
-        verify(exactly = 1) { PublisherController.configure(project, "", extension) }
+        verify(exactly = 1) {
+            PublisherController.configure(project, "", null, extension)
+        }
         verify(exactly = 1) { plugins.apply("com.palantir.git-version") }
         verify(exactly = 1) { plugins.apply("maven-publish") }
         verify(exactly = 1) { plugins.apply("org.gradle.signing") }
@@ -109,7 +111,9 @@ class AntiBytesPublishingSpec {
                 AntiBytesPublishingPluginExtension::class.java
             )
         } returns extension
-        every { PublisherController.configure(project, "", extension) } just Runs
+        every {
+            PublisherController.configure(project, "", null, extension)
+        } just Runs
         every { SigningController.configure(project, extension) } just Runs
 
         // When
@@ -122,7 +126,9 @@ class AntiBytesPublishingSpec {
                 AntiBytesPublishingPluginExtension::class.java
             )
         }
-        verify(exactly = 1) { PublisherController.configure(project, "", extension) }
+        verify(exactly = 1) {
+            PublisherController.configure(project, "", null, extension)
+        }
         verify(exactly = 0) { plugins.apply("com.palantir.git-version") }
         verify(exactly = 0) { plugins.apply("maven-publish") }
         verify(exactly = 0) { plugins.apply("org.gradle.signing") }

@@ -44,6 +44,7 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
     override fun configure(
         project: Project,
         version: String,
+        documentation: Task?,
         extension: PublishingContract.PublishingPluginExtension
     ) {
         if (isApplicable(extension)) {
@@ -52,9 +53,10 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
             val packageConfiguration = extension.packageConfiguration as PublishingApiContract.PackageConfiguration
 
             MavenPublisher.configure(
-                project,
-                packageConfiguration,
-                version
+                project = project,
+                configuration = packageConfiguration,
+                docs = documentation,
+                version = version,
             )
 
             registryConfigurations.forEach { registry ->
