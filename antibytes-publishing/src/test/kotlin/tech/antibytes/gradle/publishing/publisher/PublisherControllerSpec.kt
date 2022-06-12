@@ -218,14 +218,16 @@ class PublisherControllerSpec {
 
         val project: Project = mockk()
         val root: Project = mockk()
-        val tasks: TaskContainer = mockk()
+        val rootTasks: TaskContainer = mockk()
+        val childTasks: TaskContainer = mockk()
         val javaDocTask: Jar = mockk()
 
         every { project.name } returns name
+        every { project.tasks } returns childTasks
         every { project.rootProject } returns root
-        every { root.tasks } returns tasks
-        every { tasks.findByName(any()) } returns mockk()
-        every { tasks.findByName("javadoc") } returns null
+        every { root.tasks } returns rootTasks
+        every { rootTasks.findByName(any()) } returns mockk()
+        every { rootTasks.findByName("javadoc") } returns null
 
         every { javaDocTask.group = any() } just Runs
         every { javaDocTask.description = any() } just Runs
@@ -252,7 +254,7 @@ class PublisherControllerSpec {
         )
 
         invokeGradleAction(
-            { probe -> tasks.create("javadoc", Jar::class.java, probe) },
+            { probe -> childTasks.create("javadoc", Jar::class.java, probe) },
             javaDocTask,
             mockk()
         )
@@ -288,15 +290,17 @@ class PublisherControllerSpec {
 
         val project: Project = mockk()
         val root: Project = mockk()
-        val tasks: TaskContainer = mockk()
+        val rootTasks: TaskContainer = mockk()
+        val childTasks: TaskContainer = mockk()
         val javaDocTask: Jar = mockk(relaxed = true)
 
         every { project.name } returns name
+        every { project.tasks } returns childTasks
         every { project.rootProject } returns root
-        every { root.tasks } returns tasks
-        every { tasks.findByName(any()) } returns mockk()
-        every { tasks.findByName("javadoc") } returns mockk()
-        every { tasks.getByName("javadoc") } returns mockk()
+        every { root.tasks } returns rootTasks
+        every { rootTasks.findByName(any()) } returns mockk()
+        every { childTasks.findByName("javadoc") } returns mockk()
+        every { childTasks.getByName("javadoc") } returns mockk()
 
         every { Versioning.getInstance(any(), any()) } returns mockk(relaxed = true)
         every {
@@ -317,7 +321,7 @@ class PublisherControllerSpec {
         )
 
         invokeGradleAction(
-            { probe -> tasks.create("javadoc", Jar::class.java, probe) },
+            { probe -> childTasks.create("javadoc", Jar::class.java, probe) },
             javaDocTask,
             mockk()
         )
@@ -468,16 +472,18 @@ class PublisherControllerSpec {
 
         val project: Project = mockk()
         val root: Project = mockk()
-        val tasks: TaskContainer = mockk()
+        val rootTasks: TaskContainer = mockk()
+        val childTasks: TaskContainer = mockk()
         val version: String = fixture()
         val documentation: Jar = mockk()
 
         every { project.name } returns fixture()
+        every { project.tasks } returns childTasks
         every { project.rootProject } returns root
-        every { root.tasks } returns tasks
-        every { tasks.findByName(any()) } returns mockk()
-        every { tasks.findByName("javadoc") } returns null
-        every { tasks.getByName("javadoc") } returns documentation
+        every { root.tasks } returns rootTasks
+        every { rootTasks.findByName(any()) } returns mockk()
+        every { rootTasks.findByName("javadoc") } returns null
+        every { rootTasks.getByName("javadoc") } returns documentation
 
         every {
             Versioning.getInstance(
@@ -497,7 +503,7 @@ class PublisherControllerSpec {
             mockk()
         )
 
-        every { tasks.create("javadoc", Jar::class.java, any()) } returns documentation
+        every { childTasks.create("javadoc", Jar::class.java, any()) } returns documentation
 
         // When
         PublisherController.configure(
