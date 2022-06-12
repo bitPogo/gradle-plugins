@@ -40,9 +40,9 @@ interface PublishingApiContract {
         val developerConnection: String
     }
 
-    interface Documentation {
-        val dependencies: Set<String>
-        val source: File
+    interface DocumentationConfiguration {
+        val tasks: Set<String>
+        val outputDir: File
     }
 
     interface PackageConfiguration {

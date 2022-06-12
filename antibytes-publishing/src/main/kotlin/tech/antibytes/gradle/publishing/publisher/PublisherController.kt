@@ -45,15 +45,15 @@ internal object PublisherController : PublishingContract.PublisherController {
     }
 
     private fun Project.createDocumentationTask(
-        configuration: PublishingApiContract.Documentation
+        configuration: PublishingApiContract.DocumentationConfiguration
     ): Task {
         return if (!hasTask("javadoc")) {
             rootProject.tasks.create("javadoc", Jar::class.java) {
                 group = "Documentation"
                 description = "Generates the JavaDocs"
-                setDependsOn(configuration.dependencies)
+                setDependsOn(configuration.tasks)
                 archiveClassifier.set("javadoc")
-                from(configuration.source.absolutePath)
+                from(configuration.outputDir.absolutePath)
             }
         } else {
             rootProject.tasks.getByName("javadoc")
@@ -61,7 +61,7 @@ internal object PublisherController : PublishingContract.PublisherController {
     }
 
     private fun Project.addDocumentationTask(
-        configuration: PublishingApiContract.Documentation?
+        configuration: PublishingApiContract.DocumentationConfiguration?
     ): Task? {
         return if (configuration == null) {
             null
