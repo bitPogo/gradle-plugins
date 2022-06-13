@@ -18,12 +18,12 @@ import tech.antibytes.gradle.versioning.VersioningContract
 internal object PublisherController : PublishingContract.PublisherController {
     private fun Project.hasTask(
         taskName: String
-    ): Boolean = rootProject.tasks.findByName(taskName) is Task
+    ): Boolean = tasks.findByName(taskName) is Task
 
     private fun Project.addVersionTask(
         configuration: VersioningContract.VersioningConfiguration
     ) {
-        if (!hasTask("versionInfo")) {
+        if (!rootProject.hasTask("versionInfo")) {
             rootProject.tasks.create("versionInfo") {
                 group = "Versioning"
                 description = "Displays the current version"

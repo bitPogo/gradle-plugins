@@ -227,7 +227,7 @@ class PublisherControllerSpec {
         every { project.rootProject } returns root
         every { root.tasks } returns rootTasks
         every { rootTasks.findByName(any()) } returns mockk()
-        every { rootTasks.findByName("javadoc") } returns null
+        every { childTasks.findByName("javadoc") } returns null
 
         every { javaDocTask.group = any() } just Runs
         every { javaDocTask.description = any() } just Runs
@@ -482,8 +482,8 @@ class PublisherControllerSpec {
         every { project.rootProject } returns root
         every { root.tasks } returns rootTasks
         every { rootTasks.findByName(any()) } returns mockk()
-        every { rootTasks.findByName("javadoc") } returns null
-        every { rootTasks.getByName("javadoc") } returns documentation
+        every { childTasks.findByName("javadoc") } returns null
+        every { childTasks.getByName("javadoc") } returns documentation
 
         every {
             Versioning.getInstance(
