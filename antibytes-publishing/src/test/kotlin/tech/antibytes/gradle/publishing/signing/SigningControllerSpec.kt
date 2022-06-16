@@ -106,6 +106,7 @@ class SigningControllerSpec {
         SigningController.configure(project, config)
 
         // Then
+        verify(exactly = 0) { CommonSigning.configure(any()) }
         verify(exactly = 0) { MemorySigning.configure(any(), any()) }
     }
 
@@ -145,6 +146,49 @@ class SigningControllerSpec {
         SigningController.configure(project, config)
 
         // Then
-        verify(exactly = 1) { MemorySigning.configure(any(), any()) }
+        verify(exactly = 1) { CommonSigning.configure(project) }
+        verify(exactly = 1) { MemorySigning.configure(project, config.signingConfiguration!!) }
+    }
+
+    @Test
+    fun `Given configure is called with valid signing configuration on a root project, it configures the subprojects`() {
+        // Given
+        val name: String = fixture()
+
+        val config = TestConfig(
+            repositoryConfiguration = mockk(),
+            packageConfiguration = mockk(),
+            dryRun = false,
+            excludeProjects = setOf(name),
+            versioning = mockk(),
+            standalone = true,
+            signingConfiguration = MemorySigningConfiguration(
+                fixture(), fixture()
+            ),
+        )
+
+        val project: Project = mockk()
+        val subProject: Project = mockk()
+
+        every { project.name } returns name
+        every { project.rootProject } returns project
+        every { project.subprojects } returns setOf(subProject)
+
+        every { MemorySigning.configure(any(), any()) } just Runs
+        every { CommonSigning.configure(any()) } just Runs
+        every { project.evaluationDependsOnChildren() } just Runs
+
+        invokeGradleAction(
+            { probe -> project.afterEvaluate(probe) },
+            project,
+            mockk()
+        )
+
+        // When
+        SigningController.configure(project, config)
+
+        // Then
+        verify(exactly = 1) { CommonSigning.configure(subProject) }
+        verify(exactly = 1) { MemorySigning.configure(subProject, config.signingConfiguration!!) }
     }
 }
