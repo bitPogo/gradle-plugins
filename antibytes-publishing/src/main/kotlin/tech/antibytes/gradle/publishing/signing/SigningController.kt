@@ -7,10 +7,28 @@
 package tech.antibytes.gradle.publishing.signing
 
 import org.gradle.api.Project
+import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.util.isRoot
 
 internal object SigningController : SigningContract.SigningController {
+    private fun Project.applySigningConfiguration(
+        signingConfig: PublishingApiContract.MemorySigning?
+    ) {
+        if (signingConfig != null) {
+            CommonSigning.configure(this)
+            MemorySigning.configure(this, signingConfig)
+        }
+    }
+
+    private fun Project.configureSubprojects(
+        signingConfig: PublishingApiContract.MemorySigning?
+    ) {
+        subprojects.forEach { subproject ->
+            subproject.applySigningConfiguration(signingConfig)
+        }
+    }
+
     override fun configure(
         project: Project,
         extension: PublishingContract.PublishingPluginExtension,
@@ -20,10 +38,13 @@ internal object SigningController : SigningContract.SigningController {
         }
 
         project.afterEvaluate {
-            CommonSigning.configure(project)
+            val signingConfig = extension.signingConfiguration
 
-            val signingConfig = extension.signingConfiguration ?: return@afterEvaluate
-            MemorySigning.configure(project, signingConfig)
+            if (project.isRoot()) {
+                project.configureSubprojects(signingConfig)
+            } else {
+                project.applySigningConfiguration(signingConfig)
+            }
         }
     }
 }
