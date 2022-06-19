@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.plugin.dependency
 
 object Version {
-    const val kotlin = "1.6.10"
+    const val kotlin = "1.6.21"
 
     val gradle = GradlePlugin
     val library = Library
@@ -23,7 +23,7 @@ object Version {
         /**
          * [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
          */
-        const val owasp = "7.0.4.1"
+        const val owasp = "7.1.1"
 
         /**
          * [Jacoco](https://github.com/jacoco/jacoco/releases)
@@ -33,7 +33,7 @@ object Version {
         /**
          * [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
          */
-        const val publishing = "6.1.0.202203080745-r"
+        const val publishing = "6.2.0.202206071550-r"
 
         /**
          * [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
@@ -43,12 +43,12 @@ object Version {
         /**
          * [Kotlin](https://kotlinlang.org/docs/releases.html)
          */
-        const val kotlin = "1.6.10"
+        const val kotlin = "1.6.21"
 
         /**
          * [AtomicFu](https://kotlinlang.org/docs/releases.html)
          */
-        const val atomicFu = "0.17.1"
+        const val atomicFu = "0.17.3"
 
         /**
          * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
@@ -82,7 +82,7 @@ object Version {
         /**
          * [Kotlin Poet](https://square.github.io/kotlinpoet/)
          */
-        const val kotlinPoet = "1.11.0"
+        const val kotlinPoet = "1.12.0"
     }
 
     object Test {
