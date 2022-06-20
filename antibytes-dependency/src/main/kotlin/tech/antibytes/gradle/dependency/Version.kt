@@ -24,14 +24,14 @@ object Version {
         /**
          * [Kotlin](https://github.com/JetBrains/kotlin)
          */
-        const val language = "1.6.10"
+        const val language = "1.6.21"
 
         const val stdlib = language
 
         /**
          * [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
          */
-        const val coroutines = "1.6.0-native-mt"
+        const val coroutines = "1.6.1-native-mt"
 
         /**
          * [Koin](https://github.com/InsertKoinIO/koin)
@@ -46,17 +46,17 @@ object Version {
         /**
          * [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
          */
-        const val serialization = "1.3.2"
+        const val serialization = "1.3.3"
 
         /**
          * [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
          */
-        const val dateTime = "0.3.2"
+        const val dateTime = "0.3.3"
 
         /**
          * [UUID](https://github.com/benasher44/uuid)
          */
-        const val uuid = "0.4.0"
+        const val uuid = "0.4.1"
 
         /**
          * [Stately](https://github.com/touchlab/Stately)
@@ -66,7 +66,7 @@ object Version {
         /**
          * (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
          */
-        const val atomicFu = "0.17.1"
+        const val atomicFu = "0.17.3"
 
         val test = Test
 
@@ -101,37 +101,37 @@ object Version {
          * [AndroidX Tech](https://androidx.tech/)
          */
         object Ktx {
-            const val core = "1.7.0"
+            const val core = "1.8.0"
 
             /**
              * [Android Tech](https://androidx.tech/artifacts/activity/activity-ktx/)
              */
             const val activity = "1.4.0"
             const val collections = "1.2.0"
-            const val lifecycle = "2.4.1"
+            const val lifecycle = "2.5.0-rc02"
             const val fragment = "1.4.1"
-            const val livedata = "2.4.1"
+            const val livedata = "2.5.0-rc02"
             const val navigation = "2.4.2"
             const val palette = "1.0.0"
-            const val viewmodel = "2.4.1"
+            const val viewmodel = "2.5.0-rc02"
             const val workmanager = "2.7.1"
         }
 
         /**
          * [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
          */
-        const val appCompat = "1.4.1"
+        const val appCompat = "1.4.2"
 
         /**
          * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
          */
-        const val constraintLayout = "2.1.3"
+        const val constraintLayout = "2.1.4"
 
         // Material
         /**
          * [Material Android](https://github.com/material-components/material-components-android)
          */
-        const val material = "1.6.0-rc01"
+        const val material = "1.6.1"
 
         /**
          * [Jetpack Compose](https://developer.android.com/jetpack/androidx/releases/compose)
@@ -144,9 +144,9 @@ object Version {
         object Compose {
             const val core = "1.1.1"
             const val compiler = "1.1.1"
-            const val constraintLayout = "1.0.0"
+            const val constraintLayout = "1.0.1"
             const val activity = "1.4.0"
-            const val viewmodel = "2.4.1"
+            const val viewmodel = "2.5.0-rc02"
         }
 
         val test = Test
@@ -172,7 +172,7 @@ object Version {
             /**
              * [Robolectric](https://github.com/robolectric/robolectric)
              */
-            const val robolectric = "4.8"
+            const val robolectric = "4.8.1"
         }
     }
 
