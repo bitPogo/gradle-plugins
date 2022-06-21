@@ -142,8 +142,8 @@ object Version {
         val compose = Compose
 
         object Compose {
-            const val core = "1.1.1"
-            const val compiler = "1.1.1"
+            const val core = "1.2.0-rc01"
+            const val compiler = "1.2.0-rc01"
             const val constraintLayout = "1.0.1"
             const val activity = "1.4.0"
             const val viewmodel = "2.5.0-rc02"
