@@ -82,6 +82,11 @@ object Version {
 
     object Android {
         /**
+         * [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
+         */
+        const val androidGradlePlugin = "7.2.1"
+
+        /**
          * [Android Desugaring explained](https://developer.android.com/studio/write/java8-support)
          * [Android Desugaring](https://github.com/google/desugar_jdk_libs)
          */

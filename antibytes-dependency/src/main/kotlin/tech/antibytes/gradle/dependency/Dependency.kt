@@ -156,6 +156,9 @@ object Dependency {
     val android = Android
 
     object Android {
+        // AGP
+        const val androidGradlePlugin = "com.android.tools.build:gradle:${Version.android.androidGradlePlugin}"
+
         // Android
         const val desugar = "com.android.tools:desugar_jdk_libs:${Version.android.desugar}"
 
