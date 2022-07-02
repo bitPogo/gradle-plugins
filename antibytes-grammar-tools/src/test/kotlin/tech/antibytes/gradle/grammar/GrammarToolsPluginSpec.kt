@@ -7,10 +7,10 @@
 package tech.antibytes.gradle.grammar
 
 import io.mockk.mockk
+import kotlin.test.assertTrue
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.junit.jupiter.api.Test
-import kotlin.test.assertTrue
 
 class GrammarToolsPluginSpec {
     @Test

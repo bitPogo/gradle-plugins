@@ -18,11 +18,11 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
         contextId: String,
         dependencies: Set<Task>,
         executionFiles: Set<String>,
-        configuration: CoverageApiContract.JacocoCoverageConfiguration
+        configuration: CoverageApiContract.JacocoCoverageConfiguration,
     ): JacocoReport {
         return project.tasks.create(
             "${contextId}Coverage",
-            JacocoReport::class.java
+            JacocoReport::class.java,
         ) {
             this.group = "Verification"
             this.description = "Generate coverage reports for ${contextId.capitalize()}."
@@ -39,14 +39,14 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
                 project,
                 contextId,
                 configuration.reportSettings,
-                this
+                this,
             )
         }
     }
 
     private fun determineProjectTestDependencies(
         project: Project,
-        vararg testTaskNames: Set<String>
+        vararg testTaskNames: Set<String>,
     ): Set<Task> {
         val dependencies: MutableSet<Task> = mutableSetOf()
         testTaskNames.forEach { container ->
@@ -62,7 +62,7 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
     override fun configure(
         project: Project,
         contextId: String,
-        configuration: CoverageApiContract.CoverageConfiguration
+        configuration: CoverageApiContract.CoverageConfiguration,
     ): Task {
         configuration as CoverageApiContract.JacocoCoverageConfiguration
 
@@ -70,7 +70,7 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
             determineProjectTestDependencies(
                 project,
                 configuration.testDependencies,
-                configuration.instrumentedTestDependencies
+                configuration.instrumentedTestDependencies,
             )
         } else {
             determineProjectTestDependencies(project, configuration.testDependencies)
@@ -81,7 +81,7 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
             contextId,
             testDependencies,
             determineExecutionsFiles(configuration),
-            configuration
+            configuration,
         )
     }
 }

@@ -11,6 +11,11 @@ import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
 import io.mockk.verify
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
@@ -18,11 +23,6 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class PostConverterTaskSpec {
     @TempDir
@@ -56,7 +56,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = task.replaceWithString.get(),
-            expected = emptyList<Pair<String, String>>()
+            expected = emptyList<Pair<String, String>>(),
         )
     }
 
@@ -66,7 +66,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = task.replaceWithRegEx.get(),
-            expected = emptyList<Pair<Regex, String>>()
+            expected = emptyList<Pair<Regex, String>>(),
         )
     }
 
@@ -76,7 +76,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = task.deleteWithString.get(),
-            expected = emptyList<String>()
+            expected = emptyList<String>(),
         )
     }
 
@@ -86,7 +86,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = task.deleteWithRegEx.get(),
-            expected = emptyList<Regex>()
+            expected = emptyList<Regex>(),
         )
     }
 
@@ -108,7 +108,7 @@ class PostConverterTaskSpec {
         val message = "There was no file provided to process."
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
         verify(exactly = 1) { logger.error(message) }
 
@@ -119,7 +119,7 @@ class PostConverterTaskSpec {
     fun `Given cleanUp is called, it replaces with the provided string Replacements`() {
         // Given
         val replacements = listOf(
-            "aaa" to "x"
+            "aaa" to "x",
         )
 
         val targetFile = project.file(file)
@@ -138,7 +138,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = actual,
-            expected = "xTestx"
+            expected = "xTestx",
         )
     }
 
@@ -146,7 +146,7 @@ class PostConverterTaskSpec {
     fun `Given cleanUp is called, it replaces with the provided RegEx Replacements`() {
         // Given
         val replacements = listOf(
-            "[ab12]+([Test]+)[ab12]+".toRegex() to "$1"
+            "[ab12]+([Test]+)[ab12]+".toRegex() to "$1",
         )
 
         val targetFile = project.file(file)
@@ -165,7 +165,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = actual,
-            expected = "Test"
+            expected = "Test",
         )
     }
 
@@ -173,10 +173,10 @@ class PostConverterTaskSpec {
     fun `Given cleanUp is called, it replaces with the provided RegEx Replacements after String Replacements`() {
         // Given
         val stringReplacements = listOf(
-            "Test" to "Noway"
+            "Test" to "Noway",
         )
         val regexReplacements = listOf(
-            "[ab12]+([Test]+)[ab12]+".toRegex() to "$1"
+            "[ab12]+([Test]+)[ab12]+".toRegex() to "$1",
         )
 
         val targetFile = project.file(file)
@@ -196,7 +196,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = actual,
-            expected = "a12Nowayb12"
+            expected = "a12Nowayb12",
         )
     }
 
@@ -204,7 +204,7 @@ class PostConverterTaskSpec {
     fun `Given cleanUp is called, it removes with the provided string Deletions`() {
         // Given
         val deletions = listOf(
-            "aaa"
+            "aaa",
         )
 
         val targetFile = project.file(file)
@@ -223,7 +223,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = actual,
-            expected = "Test"
+            expected = "Test",
         )
     }
 
@@ -231,7 +231,7 @@ class PostConverterTaskSpec {
     fun `Given cleanUp is called, it removes with the provided RegEx Deletions`() {
         // Given
         val deletions = listOf(
-            "[a-zA-Z]".toRegex()
+            "[a-zA-Z]".toRegex(),
         )
 
         val targetFile = project.file(file)
@@ -250,7 +250,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = actual,
-            expected = "1234567"
+            expected = "1234567",
         )
     }
 
@@ -258,10 +258,10 @@ class PostConverterTaskSpec {
     fun `Given cleanUp is called, it removes with the provided RegEx Deletions after String Deletion`() {
         // Given
         val stringDeletions = listOf(
-            "a"
+            "a",
         )
         val regExDeletions = listOf(
-            "a[bc]".toRegex()
+            "a[bc]".toRegex(),
         )
 
         val targetFile = project.file(file)
@@ -281,7 +281,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = actual,
-            expected = "bcTestbc"
+            expected = "bcTestbc",
         )
     }
 
@@ -289,10 +289,10 @@ class PostConverterTaskSpec {
     fun `Given cleanUp is called, it run the provided String Deletion after RegEx Replacements`() {
         // Given
         val stringDeletions = listOf(
-            "a"
+            "a",
         )
         val regExReplacements = listOf(
-            "a[bc]+".toRegex() to "bb"
+            "a[bc]+".toRegex() to "bb",
         )
 
         val targetFile = project.file(file)
@@ -312,7 +312,7 @@ class PostConverterTaskSpec {
 
         assertEquals(
             actual = actual,
-            expected = "bbTestbb"
+            expected = "bbTestbb",
         )
     }
 }

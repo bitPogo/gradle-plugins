@@ -21,13 +21,13 @@ inline fun <reified T : Any> createExtension(vararg constructorArguments: Any): 
     return if (constructorArguments.isEmpty()) {
         project.extensions.create(
             extensionFixture(),
-            T::class.java
+            T::class.java,
         )
     } else {
         project.extensions.create(
             extensionFixture(),
             T::class.java,
-            *constructorArguments
+            *constructorArguments,
         )
     }
 }

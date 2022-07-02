@@ -10,5 +10,5 @@ import com.palantir.gradle.gitversion.VersionDetails
 
 data class VersionInfo(
     val name: String,
-    val details: VersionDetails
+    val details: VersionDetails,
 )

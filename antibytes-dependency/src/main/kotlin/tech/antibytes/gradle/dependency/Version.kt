@@ -14,7 +14,7 @@ object Version {
         /**
          * [KTLint](https://github.com/pinterest/ktlint/releases)
          */
-        const val ktLint = "0.44.0"
+        const val ktLint = "0.46.1"
     }
 
     // Kotlin
@@ -61,7 +61,7 @@ object Version {
         /**
          * [Stately](https://github.com/touchlab/Stately)
          */
-        const val stately = "1.2.2"
+        const val stately = "1.2.3"
 
         /**
          * (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)

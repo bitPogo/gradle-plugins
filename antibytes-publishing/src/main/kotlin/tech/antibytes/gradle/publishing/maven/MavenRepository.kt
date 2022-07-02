@@ -15,7 +15,7 @@ import tech.antibytes.gradle.publishing.publisher.PublisherContract
 internal object MavenRepository : PublisherContract.MavenRepository {
     private fun useCredentials(
         configuration: PublishingApiContract.RepositoryConfiguration,
-        dryRun: Boolean
+        dryRun: Boolean,
     ): Boolean {
         return configuration is PublishingApiContract.MavenRepositoryConfiguration && !dryRun
     }
@@ -23,7 +23,7 @@ internal object MavenRepository : PublisherContract.MavenRepository {
     private fun getUrl(
         project: Project,
         configuration: PublishingApiContract.RepositoryConfiguration,
-        dryRun: Boolean
+        dryRun: Boolean,
     ): String {
         val localBasePath = "file://${project.rootProject.buildDir.absolutePath}/${configuration.name}"
 
@@ -38,15 +38,15 @@ internal object MavenRepository : PublisherContract.MavenRepository {
         project: Project,
         repository: MavenArtifactRepository,
         configuration: PublishingApiContract.RepositoryConfiguration,
-        dryRun: Boolean
+        dryRun: Boolean,
     ) {
         repository.name = configuration.name.capitalize()
         repository.setUrl(
             getUrl(
                 project,
                 configuration,
-                dryRun
-            )
+                dryRun,
+            ),
         )
 
         if (useCredentials(configuration, dryRun)) {
@@ -60,7 +60,7 @@ internal object MavenRepository : PublisherContract.MavenRepository {
     override fun configure(
         project: Project,
         configuration: PublishingApiContract.RepositoryConfiguration,
-        dryRun: Boolean
+        dryRun: Boolean,
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             repositories {
@@ -69,7 +69,7 @@ internal object MavenRepository : PublisherContract.MavenRepository {
                         project,
                         this,
                         configuration,
-                        dryRun
+                        dryRun,
                     )
                 }
             }

@@ -6,10 +6,10 @@
 
 package tech.antibytes.gradle.coverage.configuration
 
+import java.io.File
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.util.GradleUtilApiContract
-import java.io.File
 
 internal interface ConfigurationContract {
 
@@ -25,7 +25,7 @@ internal interface ConfigurationContract {
     fun interface DefaultPlatformConfigurationProvider {
         fun createDefaultCoverageConfiguration(
             project: Project,
-            context: GradleUtilApiContract.PlatformContext
+            context: GradleUtilApiContract.PlatformContext,
         ): CoverageApiContract.CoverageConfiguration
     }
 }

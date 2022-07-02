@@ -13,5 +13,5 @@ data class AndroidJacocoAggregationConfiguration(
     override var exclude: Set<String> = emptySet(),
     override var variant: String,
     override var flavour: String,
-    override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule> = emptySet()
+    override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule> = emptySet(),
 ) : CoverageApiContract.AndroidJacocoAggregationConfiguration

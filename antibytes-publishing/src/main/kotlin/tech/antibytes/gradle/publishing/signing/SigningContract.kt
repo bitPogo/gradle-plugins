@@ -25,7 +25,7 @@ internal interface SigningContract {
     interface SigningController {
         fun configure(
             project: Project,
-            extension: PublishingContract.PublishingPluginExtension
+            extension: PublishingContract.PublishingPluginExtension,
         )
     }
 }

@@ -13,7 +13,7 @@ import tech.antibytes.gradle.util.isRoot
 
 internal object SigningController : SigningContract.SigningController {
     private fun Project.applySigningConfiguration(
-        signingConfig: PublishingApiContract.MemorySigning?
+        signingConfig: PublishingApiContract.MemorySigning?,
     ) {
         if (signingConfig != null) {
             CommonSigning.configure(this)
@@ -22,7 +22,7 @@ internal object SigningController : SigningContract.SigningController {
     }
 
     private fun Project.configureSubprojects(
-        signingConfig: PublishingApiContract.MemorySigning?
+        signingConfig: PublishingApiContract.MemorySigning?,
     ) {
         subprojects.forEach { subproject ->
             subproject.applySigningConfiguration(signingConfig)

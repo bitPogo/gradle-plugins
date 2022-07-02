@@ -36,7 +36,7 @@ plugins {
     id("com.diffplug.spotless")
 }
 
-val ktlintVersion = "0.44.0"
+val ktlintVersion = "0.46.1"
 
 spotless {
     kotlin {
@@ -46,10 +46,12 @@ spotless {
             "**/buildSrc/build/",
             "**/antibytes-runtime-configuration/src/test/resources/generated/*.kt"
         )
-        ktlint(ktlintVersion).userData(
+        ktlint(ktlintVersion).editorConfigOverride(
             mapOf(
                 "disabled_rules" to "no-wildcard-imports",
-                "ij_kotlin_imports_layout" to "*"
+                "ij_kotlin_imports_layout" to "*",
+                "ij_kotlin_allow_trailing_comma" to "true",
+                "ij_kotlin_allow_trailing_comma_on_call_site" to "true",
             )
         )
         trimTrailingWhitespace()

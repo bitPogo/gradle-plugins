@@ -16,7 +16,7 @@ import tech.antibytes.gradle.publishing.maven.MavenRepository
 
 internal object PublisherStandaloneController : PublishingContract.PublisherController, SharedPublisherFunctions() {
     private fun isApplicable(
-        extension: PublishingContract.PublishingPluginExtension
+        extension: PublishingContract.PublishingPluginExtension,
     ): Boolean {
         return extension.repositoryConfiguration.isNotEmpty() &&
             extension.packageConfiguration is PublishingApiContract.PackageConfiguration
@@ -30,7 +30,7 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
         registryName: String,
     ) {
         val mavenTask = project.tasks.findByName(
-            "publishAllPublicationsTo${registryName.capitalize()}Repository"
+            "publishAllPublicationsTo${registryName.capitalize()}Repository",
         ) as Task
 
         wireDependencies(
@@ -45,7 +45,7 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
         project: Project,
         version: String,
         documentation: Task?,
-        extension: PublishingContract.PublishingPluginExtension
+        extension: PublishingContract.PublishingPluginExtension,
     ) {
         if (isApplicable(extension)) {
             val dryRun = extension.dryRun

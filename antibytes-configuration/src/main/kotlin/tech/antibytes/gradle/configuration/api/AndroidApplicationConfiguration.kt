@@ -17,5 +17,5 @@ internal data class AndroidApplicationConfiguration(
     override val mainSource: ConfigurationApiContract.MainSource,
     override val unitTestSource: ConfigurationApiContract.TestSource,
     override val testRunner: ConfigurationApiContract.TestRunner,
-    override val androidTest: ConfigurationApiContract.TestSource
+    override val androidTest: ConfigurationApiContract.TestSource,
 ) : ConfigurationApiContract.AndroidApplicationConfiguration

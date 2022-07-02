@@ -17,6 +17,8 @@ import io.mockk.every
 import io.mockk.invoke
 import io.mockk.mockk
 import io.mockk.verify
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.api.JavaVersion
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
@@ -28,8 +30,6 @@ import tech.antibytes.gradle.configuration.api.MainSource
 import tech.antibytes.gradle.configuration.api.TestRunner
 import tech.antibytes.gradle.configuration.api.TestSource
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class AndroidApplicationConfiguratorSpec {
     private val fixture = kotlinFixture()
@@ -51,26 +51,26 @@ class AndroidApplicationConfiguratorSpec {
             targetSdkVersion = fixture(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
-                source = JavaVersion.VERSION_1_8
+                source = JavaVersion.VERSION_1_8,
             ),
             fallbacks = mapOf(fixture<String>() to fixture()),
             mainSource = MainSource(
                 manifest = fixture(),
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             unitTestSource = TestSource(
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             androidTest = TestSource(
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             testRunner = TestRunner(
                 runner = fixture(),
-                arguments = fixture()
-            )
+                arguments = fixture(),
+            ),
         )
 
         val extensions: ExtensionContainer = mockk()
@@ -82,7 +82,7 @@ class AndroidApplicationConfiguratorSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            libraryExtension
+            libraryExtension,
         )
 
         // When
@@ -102,26 +102,26 @@ class AndroidApplicationConfiguratorSpec {
             targetSdkVersion = fixture(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
-                source = JavaVersion.VERSION_1_8
+                source = JavaVersion.VERSION_1_8,
             ),
             fallbacks = mapOf(fixture<String>() to fixture()),
             mainSource = MainSource(
                 manifest = fixture(),
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             unitTestSource = TestSource(
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             androidTest = TestSource(
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             testRunner = TestRunner(
                 runner = fixture(),
-                arguments = fixture()
-            )
+                arguments = fixture(),
+            ),
         )
 
         val extensions: ExtensionContainer = mockk()
@@ -135,7 +135,7 @@ class AndroidApplicationConfiguratorSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            libraryExtension
+            libraryExtension,
         )
 
         every { libraryExtension.defaultConfig(captureLambda()) } answers {
@@ -153,7 +153,7 @@ class AndroidApplicationConfiguratorSpec {
         verify(exactly = 1) { defaultConfiguration.testInstrumentationRunner = configuration.testRunner.runner }
         assertEquals(
             actual = runnerArguments,
-            expected = configuration.testRunner.arguments
+            expected = configuration.testRunner.arguments,
         )
     }
 
@@ -167,26 +167,26 @@ class AndroidApplicationConfiguratorSpec {
             targetSdkVersion = fixture(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
-                source = JavaVersion.VERSION_1_8
+                source = JavaVersion.VERSION_1_8,
             ),
             fallbacks = mapOf(fixture<String>() to fixture()),
             mainSource = MainSource(
                 manifest = fixture(),
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             unitTestSource = TestSource(
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             androidTest = TestSource(
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             testRunner = TestRunner(
                 runner = fixture(),
-                arguments = fixture()
-            )
+                arguments = fixture(),
+            ),
         )
 
         val extensions: ExtensionContainer = mockk()
@@ -199,7 +199,7 @@ class AndroidApplicationConfiguratorSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            libraryExtension
+            libraryExtension,
         )
 
         every { libraryExtension.compileOptions(captureLambda()) } answers {
@@ -224,26 +224,26 @@ class AndroidApplicationConfiguratorSpec {
             targetSdkVersion = fixture(),
             compatibilityTargets = Compatibility(
                 target = JavaVersion.VERSION_1_8,
-                source = JavaVersion.VERSION_1_8
+                source = JavaVersion.VERSION_1_8,
             ),
             fallbacks = mapOf(fixture<String>() to fixture()),
             mainSource = MainSource(
                 manifest = fixture(),
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             unitTestSource = TestSource(
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             androidTest = TestSource(
                 sourceDirectories = fixture(),
-                resourceDirectories = fixture()
+                resourceDirectories = fixture(),
             ),
             testRunner = TestRunner(
                 runner = fixture(),
-                arguments = fixture()
-            )
+                arguments = fixture(),
+            ),
         )
 
         val extensions: ExtensionContainer = mockk()
@@ -268,7 +268,7 @@ class AndroidApplicationConfiguratorSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            libraryExtension
+            libraryExtension,
         )
 
         every { libraryExtension.sourceSets(captureLambda()) } answers {

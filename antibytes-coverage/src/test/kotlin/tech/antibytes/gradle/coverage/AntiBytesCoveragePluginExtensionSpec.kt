@@ -10,15 +10,15 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
+import kotlin.test.assertEquals
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.test.createExtension
-import kotlin.test.assertEquals
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class AntiBytesCoveragePluginExtensionSpec {
     @BeforeEach
@@ -51,7 +51,7 @@ class AntiBytesCoveragePluginExtensionSpec {
 
         assertSame(
             actual = extension.configurations,
-            expected = config
+            expected = config,
         )
     }
 
@@ -67,7 +67,7 @@ class AntiBytesCoveragePluginExtensionSpec {
 
         assertEquals(
             actual = extension.configurations,
-            expected = emptyMap()
+            expected = emptyMap(),
         )
     }
 
@@ -79,7 +79,7 @@ class AntiBytesCoveragePluginExtensionSpec {
 
         assertSame(
             actual = extension.jacocoVersion,
-            expected = "0.8.8"
+            expected = "0.8.8",
         )
     }
 

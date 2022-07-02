@@ -6,14 +6,14 @@
 
 package tech.antibytes.gradle.grammar
 
+import java.io.File
+import kotlin.test.assertEquals
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import tech.antibytes.gradle.grammar.jflex.JFlexTasksIntegration
-import java.io.File
-import kotlin.test.assertEquals
 
 class PostConverterIntegration {
     @TempDir
@@ -31,7 +31,7 @@ class PostConverterIntegration {
         outputDir = File(testProjectDir, "output").also { it.mkdir() }
 
         val settingsFileContent = JFlexTasksIntegration::class.java.getResource(
-            "/sample.settings.gradle.kts.txt"
+            "/sample.settings.gradle.kts.txt",
         )?.readText()
 
         settingsFile.writeText(settingsFileContent!!)
@@ -48,14 +48,14 @@ class PostConverterIntegration {
         buildFile.writeText(
             buildFileContent.replace(
                 "\$FLEX_CONVERTED_FILE",
-                file.absolutePath
+                file.absolutePath,
             ).replace(
                 "\$FLEX_CONVERTED_REPLACEMENT_PATTERN",
-                "[a-c]+"
+                "[a-c]+",
             ).replace(
                 "\$FLEX_CONVERTED_REPLACEMENT_VALUE",
-                "x "
-            )
+                "x ",
+            ),
         )
 
         // When
@@ -67,12 +67,12 @@ class PostConverterIntegration {
 
         assertEquals(
             actual = result.task(":postProcessJFlex")?.outcome,
-            expected = TaskOutcome.SUCCESS
+            expected = TaskOutcome.SUCCESS,
         )
 
         assertEquals(
             actual = file.readText(),
-            expected = "x Testx "
+            expected = "x Testx ",
         )
     }
 }

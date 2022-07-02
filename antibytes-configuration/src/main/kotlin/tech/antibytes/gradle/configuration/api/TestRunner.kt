@@ -10,5 +10,5 @@ import tech.antibytes.gradle.configuration.ConfigurationApiContract
 
 internal data class TestRunner(
     override val runner: String,
-    override val arguments: Map<String, String>
+    override val arguments: Map<String, String>,
 ) : ConfigurationApiContract.TestRunner

@@ -58,12 +58,12 @@ object Version {
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
          */
-        const val spotless = "6.7.2"
+        const val spotless = "6.8.0"
 
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
          */
-        const val ktlint = "0.44.0"
+        const val ktlint = "0.46.1"
     }
 
     object Library {

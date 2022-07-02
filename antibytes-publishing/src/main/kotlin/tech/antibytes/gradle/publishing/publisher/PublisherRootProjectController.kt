@@ -21,7 +21,7 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
         val mavenTasks = mutableListOf<Task>()
         subprojects.forEach { subproject ->
             subproject.tasks.findByName(
-                "publishAllPublicationsTo${registryName.capitalize()}Repository"
+                "publishAllPublicationsTo${registryName.capitalize()}Repository",
             ).also { task ->
                 if (task is Task) {
                     mavenTasks.add(task)
@@ -41,7 +41,7 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
         project: Project,
         version: String,
         documentation: Task?,
-        extension: PublishingContract.PublishingPluginExtension
+        extension: PublishingContract.PublishingPluginExtension,
     ) {
         if (extension.repositoryConfiguration.isNotEmpty()) {
             extension.repositoryConfiguration.forEach { registry ->
@@ -50,7 +50,7 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
                     project,
                     registry,
                     version,
-                    extension.dryRun
+                    extension.dryRun,
                 )
 
                 val publishTask = addPublishingTask(project, registry)
@@ -59,7 +59,7 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
                     cloneTask = cloneTask,
                     pushTask = pushTask,
                     publishingTask = publishTask,
-                    registryName = registry.name
+                    registryName = registry.name,
                 )
             }
         }

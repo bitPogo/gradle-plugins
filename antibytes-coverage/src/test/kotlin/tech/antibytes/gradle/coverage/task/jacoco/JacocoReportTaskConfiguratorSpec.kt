@@ -14,6 +14,10 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
@@ -32,10 +36,6 @@ import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.test.invokeGradleAction
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class JacocoReportTaskConfiguratorSpec {
     private val fixture = kotlinFixture()
@@ -57,7 +57,7 @@ class JacocoReportTaskConfiguratorSpec {
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -65,7 +65,7 @@ class JacocoReportTaskConfiguratorSpec {
             sources = mockk(),
             additionalSources = mockk(),
             additionalClasses = mockk(),
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val tasks: TaskContainer = mockk()
@@ -117,7 +117,7 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> tasks.create("${contextId}Coverage", JacocoReport::class.java, probe) },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
@@ -133,7 +133,7 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> project.fileTree(projectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
 
         every { fileTreeClassFiles.setExcludes(configuration.classFilter) } returns mockk()
@@ -142,18 +142,18 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> project.fileTree(buildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
         every {
             fileTreeExecutionFiles.setIncludes(
-                testDependencies.map { name -> "jacoco/$name.exec" }.toSet()
+                testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
 
         invokeGradleAction(
             { probe -> jacocoTask.reports(probe) },
             reports,
-            reports
+            reports,
         )
 
         every { reports.html } returns html
@@ -199,14 +199,14 @@ class JacocoReportTaskConfiguratorSpec {
         // Then
         assertSame(
             actual = reporter,
-            expected = jacocoTask
+            expected = jacocoTask,
         )
 
         verify(exactly = 1) { tasks.create("${contextId}Coverage", JacocoReport::class.java, any()) }
 
         assertEquals(
             actual = dependencies.captured,
-            expected = setOf(testTasks1, testTasks2)
+            expected = setOf(testTasks1, testTasks2),
         )
         verify(exactly = 1) { jacocoTask.group = "Verification" }
         verify(exactly = 1) { jacocoTask.description = "Generate coverage reports for ${contextId.capitalize()}." }
@@ -236,7 +236,7 @@ class JacocoReportTaskConfiguratorSpec {
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -244,7 +244,7 @@ class JacocoReportTaskConfiguratorSpec {
             sources = mockk(),
             additionalSources = mockk(),
             additionalClasses = mockk(),
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val tasks: TaskContainer = mockk()
@@ -267,7 +267,7 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> tasks.create("${contextId}Coverage", JacocoReport::class.java, probe) },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
@@ -277,12 +277,12 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> project.fileTree(projectDir, probe) },
             mockk<ConfigurableFileTree>(relaxed = true),
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> project.fileTree(buildDir, probe) },
             mockk<ConfigurableFileTree>(relaxed = true),
-            mockk()
+            mockk(),
         )
 
         // When
@@ -293,7 +293,7 @@ class JacocoReportTaskConfiguratorSpec {
 
         assertEquals(
             actual = dependencies.captured,
-            expected = setOf(testTasks1)
+            expected = setOf(testTasks1),
         )
     }
 
@@ -307,7 +307,7 @@ class JacocoReportTaskConfiguratorSpec {
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             instrumentedTestDependencies = setOf(fixture(), fixture()),
@@ -318,7 +318,7 @@ class JacocoReportTaskConfiguratorSpec {
             additionalClasses = mockk(),
             verificationRules = emptySet(),
             flavour = fixture(),
-            variant = fixture()
+            variant = fixture(),
         )
 
         val tasks: TaskContainer = mockk()
@@ -375,7 +375,7 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> tasks.create("${contextId}Coverage", JacocoReport::class.java, probe) },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
@@ -391,7 +391,7 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> project.fileTree(projectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
 
         every { fileTreeClassFiles.setExcludes(configuration.classFilter) } returns mockk()
@@ -400,7 +400,7 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> project.fileTree(buildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
 
         every {
@@ -410,21 +410,21 @@ class JacocoReportTaskConfiguratorSpec {
                     .toMutableSet()
                     .also {
                         it.add(
-                            "outputs/unit_test_code_coverage/${configuration.flavour}${configuration.variant.capitalize()}UnitTest/test${configuration.flavour.capitalize()}${configuration.variant.capitalize()}UnitTest.exec"
+                            "outputs/unit_test_code_coverage/${configuration.flavour}${configuration.variant.capitalize()}UnitTest/test${configuration.flavour.capitalize()}${configuration.variant.capitalize()}UnitTest.exec",
                         )
                         it.add(
-                            "outputs/code_coverage/${configuration.flavour}${configuration.variant.capitalize()}AndroidTest/**/*coverage.ec"
+                            "outputs/code_coverage/${configuration.flavour}${configuration.variant.capitalize()}AndroidTest/**/*coverage.ec",
                         )
                         it.add("jacoco/${configuration.flavour}${configuration.variant.capitalize()}.exec")
                         it.add("jacoco/jacoco.exec")
-                    }
+                    },
             )
         } returns mockk()
 
         invokeGradleAction(
             { probe -> jacocoTask.reports(probe) },
             reports,
-            reports
+            reports,
         )
 
         every { reports.html } returns html
@@ -470,14 +470,14 @@ class JacocoReportTaskConfiguratorSpec {
         // Then
         assertSame(
             actual = reporter,
-            expected = jacocoTask
+            expected = jacocoTask,
         )
 
         verify(exactly = 1) { tasks.create("${contextId}Coverage", JacocoReport::class.java, any()) }
 
         assertEquals(
             actual = dependencies.captured,
-            expected = setOf(testTasks1, testTasks2, instrumentedTestTasks1, instrumentedTestTasks2)
+            expected = setOf(testTasks1, testTasks2, instrumentedTestTasks1, instrumentedTestTasks2),
         )
         verify(exactly = 1) { jacocoTask.group = "Verification" }
         verify(exactly = 1) { jacocoTask.description = "Generate coverage reports for ${contextId.capitalize()}." }
@@ -507,7 +507,7 @@ class JacocoReportTaskConfiguratorSpec {
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             instrumentedTestDependencies = setOf(fixture(), fixture()),
@@ -518,7 +518,7 @@ class JacocoReportTaskConfiguratorSpec {
             additionalClasses = mockk(),
             verificationRules = emptySet(),
             flavour = fixture(),
-            variant = fixture()
+            variant = fixture(),
         )
 
         val tasks: TaskContainer = mockk()
@@ -545,7 +545,7 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> tasks.create("${contextId}Coverage", JacocoReport::class.java, probe) },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
@@ -555,12 +555,12 @@ class JacocoReportTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> project.fileTree(projectDir, probe) },
             mockk<ConfigurableFileTree>(relaxed = true),
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> project.fileTree(buildDir, probe) },
             mockk<ConfigurableFileTree>(relaxed = true),
-            mockk()
+            mockk(),
         )
 
         // When
@@ -571,7 +571,7 @@ class JacocoReportTaskConfiguratorSpec {
 
         assertEquals(
             actual = dependencies.captured,
-            expected = setOf(testTasks1, instrumentedTestTasks1)
+            expected = setOf(testTasks1, instrumentedTestTasks1),
         )
     }
 }

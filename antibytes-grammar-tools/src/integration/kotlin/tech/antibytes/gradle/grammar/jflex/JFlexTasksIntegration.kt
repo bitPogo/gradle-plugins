@@ -6,14 +6,14 @@
 
 package tech.antibytes.gradle.grammar.jflex
 
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.SUCCESS
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class JFlexTasksIntegration {
     @TempDir
@@ -31,7 +31,7 @@ class JFlexTasksIntegration {
         outputDir = File(testProjectDir, "output").also { it.mkdir() }
 
         val settingsFileContent = JFlexTasksIntegration::class.java.getResource(
-            "/sample.settings.gradle.kts.txt"
+            "/sample.settings.gradle.kts.txt",
         )?.readText()
 
         settingsFile.writeText(settingsFileContent!!)
@@ -47,11 +47,11 @@ class JFlexTasksIntegration {
         buildFile.writeText(
             buildFileContent.replace(
                 "\$FLEX_FILE",
-                flexFile
+                flexFile,
             ).replace(
                 "\$OUTPUT_DIR",
-                outputDir.absolutePath
-            )
+                outputDir.absolutePath,
+            ),
         )
 
         // When
@@ -66,12 +66,12 @@ class JFlexTasksIntegration {
         // Then
         assertEquals(
             actual = result.task(":jflex")?.outcome,
-            expected = SUCCESS
+            expected = SUCCESS,
         )
         assertTrue(generatedFile.exists())
         assertEquals(
             actual = generatedFile.readText().replace("// source:[a-zA-Z0-9/ \\-.]+\n".toRegex(), ""),
-            expected = expected
+            expected = expected,
         )
     }
 }

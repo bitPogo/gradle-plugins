@@ -6,10 +6,10 @@
 
 package tech.antibytes.gradle.publishing.api
 
-import tech.antibytes.gradle.publishing.PublishingApiContract
 import java.io.File
+import tech.antibytes.gradle.publishing.PublishingApiContract
 
 data class DocumentationConfiguration(
     override val tasks: Set<String>,
-    override val outputDir: File
+    override val outputDir: File,
 ) : PublishingApiContract.DocumentationConfiguration

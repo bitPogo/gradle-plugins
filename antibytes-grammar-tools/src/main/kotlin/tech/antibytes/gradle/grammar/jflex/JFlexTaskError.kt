@@ -9,7 +9,7 @@ package tech.antibytes.gradle.grammar.jflex
 import org.gradle.api.tasks.StopActionException
 
 sealed class JFlexTaskError(
-    message: String
+    message: String,
 ) : StopActionException(message) {
     class MissingFlexFileError : JFlexTaskError(MISSING_FLEX_FILE)
     class MissingOutputDirectoryError : JFlexTaskError(MISSING_OUTPUT_DIRECTORY)

@@ -33,7 +33,7 @@ class AntiBytesCustomDependenciesSpec {
         invokeGradleAction(
             { probe -> handler.maven(probe) },
             repository,
-            repository
+            repository,
         )
 
         // When
@@ -55,13 +55,13 @@ class AntiBytesCustomDependenciesSpec {
         invokeGradleAction(
             { probe -> handler.maven(probe) },
             repository,
-            repository
+            repository,
         )
 
         invokeGradleAction(
             { probe -> repository.content(probe) },
             content,
-            content
+            content,
         )
 
         // When
@@ -82,19 +82,19 @@ class AntiBytesCustomDependenciesSpec {
         val mavenCredentials: PasswordCredentials = mockk(relaxed = true)
         val credentials = DependencyContract.Credentials(
             username = "Test",
-            password = "safe"
+            password = "safe",
         )
 
         invokeGradleAction(
             { probe -> handler.maven(probe) },
             repository,
-            repository
+            repository,
         )
 
         invokeGradleAction(
             { probe -> repository.credentials(probe) },
             mavenCredentials,
-            mavenCredentials
+            mavenCredentials,
         )
 
         // When

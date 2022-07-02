@@ -232,7 +232,7 @@ object Dependency {
             const val espressoIntents = "androidx.test.espresso:espresso-intents:${Version.android.test.espresso}"
             const val espressoWeb = "androidx.test.espresso:espresso-web:${Version.android.test.espresso}"
 
-            const val composeJunit4 = "androidx.compose.ui:ui-test-junit4:${Version.android.compose.core}"
+            const val composeJunit4 = "androidx.compose.ui:ui-test-junit4:${Version.android.compose.ui}"
 
             const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Version.android.test.uiAutomator}"
 

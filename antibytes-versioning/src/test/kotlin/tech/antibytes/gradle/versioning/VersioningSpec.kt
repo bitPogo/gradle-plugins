@@ -11,6 +11,10 @@ import com.palantir.gradle.gitversion.VersionDetails
 import groovy.lang.Closure
 import io.mockk.every
 import io.mockk.mockk
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
@@ -18,10 +22,6 @@ import org.gradle.kotlin.dsl.invoke
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningError
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class VersioningSpec {
     private val fixture = kotlinFixture()
@@ -31,7 +31,7 @@ class VersioningSpec {
         dependencyBotPrefixes = listOf("xxx"),
         issuePattern = null,
         versionPrefix = "xxx",
-        normalization = emptySet()
+        normalization = emptySet(),
     )
 
     @Test
@@ -97,13 +97,13 @@ class VersioningSpec {
             // When
             Versioning.getInstance(
                 project,
-                configuration
+                configuration,
             ).versionName()
         }
 
         assertEquals(
             actual = error.message,
-            expected = "Ill named branch name ($branchName)! Please adjust it to match the project settings."
+            expected = "Ill named branch name ($branchName)! Please adjust it to match the project settings.",
         )
     }
 
@@ -116,7 +116,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             releasePrefixes = listOf("main", "release"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -143,13 +143,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-SNAPSHOT"
+            expected = "$expected-SNAPSHOT",
         )
     }
 
@@ -163,7 +163,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             releasePrefixes = listOf("main", "release"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -190,13 +190,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-SNAPSHOT"
+            expected = "$expected-SNAPSHOT",
         )
     }
 
@@ -210,7 +210,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             releasePrefixes = listOf("main", "release"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -237,13 +237,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-SNAPSHOT"
+            expected = "$expected-SNAPSHOT",
         )
     }
 
@@ -258,7 +258,7 @@ class VersioningSpec {
         val configuration = versionTestConfiguration.copy(
             releasePrefixes = listOf("main", "release"),
             versionPrefix = versionPrefix,
-            useGitHashSnapshotSuffix = true
+            useGitHashSnapshotSuffix = true,
         )
 
         val project: Project = mockk()
@@ -286,13 +286,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-$hash-SNAPSHOT"
+            expected = "$expected-$hash-SNAPSHOT",
         )
     }
 
@@ -305,7 +305,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             releasePrefixes = listOf("main", "release"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -332,13 +332,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = expected
+            expected = expected,
         )
     }
 
@@ -351,7 +351,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             releasePrefixes = listOf("main", "release"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -378,13 +378,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = expected
+            expected = expected,
         )
     }
 
@@ -397,7 +397,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             releasePrefixes = listOf("main", "release"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -424,13 +424,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = expected
+            expected = expected,
         )
     }
 
@@ -444,7 +444,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             dependencyBotPrefixes = listOf("dependabot"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -471,13 +471,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-bump-$branchAction-SNAPSHOT"
+            expected = "$expected-bump-$branchAction-SNAPSHOT",
         )
     }
 
@@ -491,7 +491,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             dependencyBotPrefixes = listOf("dependabot"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -518,13 +518,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-bump-$branchAction-SNAPSHOT"
+            expected = "$expected-bump-$branchAction-SNAPSHOT",
         )
     }
 
@@ -539,7 +539,7 @@ class VersioningSpec {
         val configuration = versionTestConfiguration.copy(
             dependencyBotPrefixes = listOf("dependabot"),
             versionPrefix = versionPrefix,
-            normalization = setOf("_", "?", "\$")
+            normalization = setOf("_", "?", "\$"),
         )
 
         val project: Project = mockk()
@@ -566,7 +566,7 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
@@ -577,7 +577,7 @@ class VersioningSpec {
                 .replace("_", "-")
                 .replace("?", "-")
                 .replace("\$", "-")
-            }-SNAPSHOT"
+            }-SNAPSHOT",
         )
     }
 
@@ -591,7 +591,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             featurePrefixes = listOf("feature", "newStuff"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -618,13 +618,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-$branchAction-SNAPSHOT"
+            expected = "$expected-$branchAction-SNAPSHOT",
         )
     }
 
@@ -638,7 +638,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             featurePrefixes = listOf("feature", "newStuff"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -665,13 +665,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-$branchAction-SNAPSHOT"
+            expected = "$expected-$branchAction-SNAPSHOT",
         )
     }
 
@@ -686,7 +686,7 @@ class VersioningSpec {
         val configuration = versionTestConfiguration.copy(
             featurePrefixes = listOf("feature", "newStuff"),
             versionPrefix = versionPrefix,
-            normalization = setOf("_", "?", "\$")
+            normalization = setOf("_", "?", "\$"),
         )
 
         val project: Project = mockk()
@@ -713,7 +713,7 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
@@ -724,7 +724,7 @@ class VersioningSpec {
                 .replace("_", "-")
                 .replace("?", "-")
                 .replace("\$", "-")
-            }-SNAPSHOT"
+            }-SNAPSHOT",
         )
     }
 
@@ -740,7 +740,7 @@ class VersioningSpec {
         val configuration = versionTestConfiguration.copy(
             featurePrefixes = listOf("feature", "newStuff"),
             versionPrefix = versionPrefix,
-            useGitHashFeatureSuffix = true
+            useGitHashFeatureSuffix = true,
         )
 
         val project: Project = mockk()
@@ -768,13 +768,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-$branchAction-$hash-SNAPSHOT"
+            expected = "$expected-$branchAction-$hash-SNAPSHOT",
         )
     }
 
@@ -816,13 +816,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-$branchAction-SNAPSHOT"
+            expected = "$expected-$branchAction-SNAPSHOT",
         )
     }
 
@@ -839,7 +839,7 @@ class VersioningSpec {
             featurePrefixes = listOf("feature", "newStuff"),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
-            useGitHashFeatureSuffix = true
+            useGitHashFeatureSuffix = true,
         )
 
         val project: Project = mockk()
@@ -867,13 +867,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-$branchAction-$hash-SNAPSHOT"
+            expected = "$expected-$branchAction-$hash-SNAPSHOT",
         )
     }
 
@@ -915,13 +915,13 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
         assertEquals(
             actual = result,
-            expected = "$expected-${branchName.substringAfter("newStuff/")}-SNAPSHOT"
+            expected = "$expected-${branchName.substringAfter("newStuff/")}-SNAPSHOT",
         )
     }
 
@@ -937,7 +937,7 @@ class VersioningSpec {
             featurePrefixes = listOf("feature", "newStuff"),
             issuePattern = "issue-[0-9]+/(.*)".toRegex(),
             versionPrefix = versionPrefix,
-            normalization = setOf("_", "?", "\$")
+            normalization = setOf("_", "?", "\$"),
         )
 
         val project: Project = mockk()
@@ -964,7 +964,7 @@ class VersioningSpec {
         // When
         val result = Versioning.getInstance(
             project,
-            configuration
+            configuration,
         ).versionName()
 
         // Then
@@ -975,7 +975,7 @@ class VersioningSpec {
                 .replace("_", "-")
                 .replace("?", "-")
                 .replace("\$", "-")
-            }-SNAPSHOT"
+            }-SNAPSHOT",
         )
     }
 
@@ -989,7 +989,7 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy(
             releasePrefixes = listOf("main", "release"),
-            versionPrefix = versionPrefix
+            versionPrefix = versionPrefix,
         )
 
         val project: Project = mockk()
@@ -1019,12 +1019,12 @@ class VersioningSpec {
         // Then
         assertSame(
             actual = result.details,
-            expected = details()
+            expected = details(),
         )
 
         assertEquals(
             actual = result.name,
-            expected = expected
+            expected = expected,
         )
     }
 }

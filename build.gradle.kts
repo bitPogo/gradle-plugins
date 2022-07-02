@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-import tech.antibytes.gradle.plugin.dependency.Version
+import tech.antibytes.gradle.plugin.dependency.ensureKotlinVersion
 
 plugins {
     id("tech.antibytes.gradle.plugin.dependency")
@@ -21,38 +21,11 @@ allprojects {
         mavenCentral()
         google()
     }
-
-    configurations.all {
-        resolutionStrategy.eachDependency {
-            if (requested.group == "org.jetbrains.kotlin" && requested.name == "kotlin-stdlib-jdk7") {
-                useVersion(Version.kotlin)
-                because("Avoid resolution conflicts")
-            }
-
-            if (requested.group == "org.jetbrains.kotlin" && requested.name == "kotlin-stdlib-jdk8") {
-                useVersion(Version.kotlin)
-                because("Avoid resolution conflicts")
-            }
-
-            if (requested.group == "org.jetbrains.kotlin" && requested.name == "kotlin-stdlib") {
-                useVersion(Version.kotlin)
-                because("Avoid resolution conflicts")
-            }
-
-            if (requested.group == "org.jetbrains.kotlin" && requested.name == "kotlin-stdlib-common") {
-                useVersion(Version.kotlin)
-                because("Avoid resolution conflicts")
-            }
-
-            if (requested.group == "org.jetbrains.kotlin" && requested.name == "kotlin-reflect") {
-                useVersion(Version.kotlin)
-                because("Avoid resolution conflicts")
-            }
-        }
-    }
 }
 
+ensureKotlinVersion()
+
 tasks.named<Wrapper>("wrapper") {
-    gradleVersion = "7.4.2"
+    gradleVersion = "7.5-rc-3"
     distributionType = Wrapper.DistributionType.ALL
 }

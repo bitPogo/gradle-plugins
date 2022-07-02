@@ -13,6 +13,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
@@ -20,7 +21,6 @@ import org.gradle.api.plugins.PluginContainer
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.publisher.PublisherController
 import tech.antibytes.gradle.publishing.signing.SigningController
-import kotlin.test.assertTrue
 
 class AntiBytesPublishingSpec {
     @Test
@@ -56,7 +56,7 @@ class AntiBytesPublishingSpec {
         every {
             extensionContainer.create(
                 "antiBytesPublishing",
-                AntiBytesPublishingPluginExtension::class.java
+                AntiBytesPublishingPluginExtension::class.java,
             )
         } returns extension
         every { PublisherController.configure(project, "", null, extension) } just Runs
@@ -69,7 +69,7 @@ class AntiBytesPublishingSpec {
         verify(exactly = 1) {
             extensionContainer.create(
                 "antiBytesPublishing",
-                AntiBytesPublishingPluginExtension::class.java
+                AntiBytesPublishingPluginExtension::class.java,
             )
         }
         verify(exactly = 1) {
@@ -108,7 +108,7 @@ class AntiBytesPublishingSpec {
         every {
             extensionContainer.create(
                 "antiBytesPublishing",
-                AntiBytesPublishingPluginExtension::class.java
+                AntiBytesPublishingPluginExtension::class.java,
             )
         } returns extension
         every {
@@ -123,7 +123,7 @@ class AntiBytesPublishingSpec {
         verify(exactly = 1) {
             extensionContainer.create(
                 "antiBytesPublishing",
-                AntiBytesPublishingPluginExtension::class.java
+                AntiBytesPublishingPluginExtension::class.java,
             )
         }
         verify(exactly = 1) {

@@ -15,6 +15,9 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
@@ -26,9 +29,6 @@ import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertTrue
 
 class GitRepositorySpec {
     private val fixture = kotlinFixture()
@@ -58,7 +58,7 @@ class GitRepositorySpec {
             name = fixture(),
             url = fixture(),
             username = "",
-            password = ""
+            password = "",
         )
 
         // When
@@ -82,7 +82,7 @@ class GitRepositorySpec {
             gitWorkDirectory = fixture(),
             url = fixture(),
             username = "",
-            password = ""
+            password = "",
         )
 
         val taskContainer: TaskContainer = mockk()
@@ -94,17 +94,17 @@ class GitRepositorySpec {
         invokeGradleAction(
             { probe -> taskContainer.create("clone${name.capitalize()}", probe) },
             task,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> taskContainer.create("push${name.capitalize()}", probe) },
             mockk<Task>(relaxed = true),
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> task.doLast(probe) },
             task,
-            mockk()
+            mockk(),
         )
 
         every { GitActions.checkout(project, configuration) } just Runs
@@ -130,7 +130,7 @@ class GitRepositorySpec {
             name = fixture(),
             url = fixture(),
             username = "",
-            password = ""
+            password = "",
         )
 
         // When
@@ -138,7 +138,7 @@ class GitRepositorySpec {
             project,
             configuration,
             version,
-            dryRun
+            dryRun,
         )
 
         // Then
@@ -158,7 +158,7 @@ class GitRepositorySpec {
             gitWorkDirectory = fixture(),
             url = fixture(),
             username = "",
-            password = ""
+            password = "",
         )
 
         val taskContainer: TaskContainer = mockk(relaxed = true)
@@ -169,17 +169,17 @@ class GitRepositorySpec {
         invokeGradleAction(
             { probe -> taskContainer.create("push${name.capitalize()}", probe) },
             task,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> taskContainer.create("clone${name.capitalize()}", probe) },
             mockk<Task>(relaxed = true),
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> task.doLast(probe) },
             task,
-            mockk()
+            mockk(),
         )
 
         every {
@@ -187,7 +187,7 @@ class GitRepositorySpec {
                 project,
                 configuration,
                 version,
-                dryRun
+                dryRun,
             )
         } returns true
 
@@ -205,7 +205,7 @@ class GitRepositorySpec {
                 project,
                 configuration,
                 version,
-                dryRun
+                dryRun,
             )
         }
     }
@@ -223,7 +223,7 @@ class GitRepositorySpec {
             gitWorkDirectory = fixture(),
             url = fixture(),
             username = "",
-            password = ""
+            password = "",
         )
 
         val taskContainer: TaskContainer = mockk(relaxed = true)
@@ -234,22 +234,22 @@ class GitRepositorySpec {
         invokeGradleAction(
             { probe -> taskContainer.create("push${name.capitalize()}", probe) },
             task,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> taskContainer.create("clone${name.capitalize()}", probe) },
             mockk<Task>(relaxed = true),
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> task.doLast(probe) },
             task,
-            mockk()
+            mockk(),
         )
 
         every {
             task.dependsOn(
-                "publishAllPublicationsTo${configuration.name.capitalize()}PackagesRepository"
+                "publishAllPublicationsTo${configuration.name.capitalize()}PackagesRepository",
             )
         } returns task
 
@@ -258,7 +258,7 @@ class GitRepositorySpec {
                 project,
                 configuration,
                 version,
-                dryRun
+                dryRun,
             )
         } returns false
 
@@ -275,7 +275,7 @@ class GitRepositorySpec {
 
         assertEquals(
             actual = error.message,
-            expected = "Something went wrong while pushing, please manually check the repository."
+            expected = "Something went wrong while pushing, please manually check the repository.",
         )
     }
 }

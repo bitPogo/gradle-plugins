@@ -15,6 +15,7 @@ import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
 import io.mockk.verifyOrder
+import kotlin.test.assertTrue
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -31,7 +32,6 @@ import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
-import kotlin.test.assertTrue
 
 class PublisherRootProjectControllerSpec {
     private val fixture = kotlinFixture()
@@ -40,7 +40,7 @@ class PublisherRootProjectControllerSpec {
         password = "",
         name = "",
         url = "",
-        gitWorkDirectory = ""
+        gitWorkDirectory = "",
     )
     private val mavenRegistryTestConfig = MavenRepositoryConfiguration(
         username = "",
@@ -116,7 +116,7 @@ class PublisherRootProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val tasks: TaskContainer = mockk()
@@ -146,7 +146,7 @@ class PublisherRootProjectControllerSpec {
         verify(exactly = 1) {
             GitRepository.configureCloneTask(
                 project,
-                registry1
+                registry1,
             )
         }
 
@@ -155,14 +155,14 @@ class PublisherRootProjectControllerSpec {
                 project,
                 registry1,
                 version,
-                dryRun
+                dryRun,
             )
         }
 
         verify(exactly = 1) {
             GitRepository.configureCloneTask(
                 project,
-                registry2
+                registry2,
             )
         }
 
@@ -171,7 +171,7 @@ class PublisherRootProjectControllerSpec {
                 project,
                 registry2,
                 version,
-                dryRun
+                dryRun,
             )
         }
     }
@@ -195,7 +195,7 @@ class PublisherRootProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val tasks: TaskContainer = mockk()
@@ -221,12 +221,12 @@ class PublisherRootProjectControllerSpec {
         invokeGradleAction(
             { probe -> tasks.create("publish${registry1.name.capitalize()}", probe) },
             publishingTask,
-            publishingTask
+            publishingTask,
         )
         invokeGradleAction(
             { probe -> tasks.create("publish${registry2.name.capitalize()}", probe) },
             publishingTask,
-            publishingTask
+            publishingTask,
         )
 
         // When
@@ -262,7 +262,7 @@ class PublisherRootProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val subproject1: Project = mockk()
@@ -360,7 +360,7 @@ class PublisherRootProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val subproject1: Project = mockk()
@@ -469,7 +469,7 @@ class PublisherRootProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val subproject1: Project = mockk()
@@ -557,7 +557,7 @@ class PublisherRootProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val subproject1: Project = mockk()
@@ -656,7 +656,7 @@ class PublisherRootProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val subproject1: Project = mockk()
@@ -748,7 +748,7 @@ class PublisherRootProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val subproject1: Project = mockk()

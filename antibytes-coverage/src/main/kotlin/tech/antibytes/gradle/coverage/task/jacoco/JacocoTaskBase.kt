@@ -6,20 +6,20 @@
 
 package tech.antibytes.gradle.coverage.task.jacoco
 
+import java.io.File
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.JacocoReportBase
 import tech.antibytes.gradle.coverage.CoverageApiContract
-import java.io.File
 
 internal abstract class JacocoTaskBase {
     private fun determineJvmExecutionFiles(
-        contextId: Set<String>
+        contextId: Set<String>,
     ): Set<String> = contextId.map { name -> "jacoco${File.separator}$name.exec" }.toSet()
 
     private fun determineAndroidExecutionsFiles(
         executionFiles: Set<String>,
-        configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration
+        configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration,
     ): Set<String> {
         val execs = executionFiles.toMutableSet()
         val infix = "${configuration.flavour}${configuration.variant.capitalize()}".decapitalize()
@@ -33,7 +33,7 @@ internal abstract class JacocoTaskBase {
     }
 
     protected fun determineExecutionsFiles(
-        configuration: CoverageApiContract.JacocoCoverageConfiguration
+        configuration: CoverageApiContract.JacocoCoverageConfiguration,
     ): Set<String> {
         val executionFiles = determineJvmExecutionFiles(configuration.testDependencies)
 
@@ -55,7 +55,7 @@ internal abstract class JacocoTaskBase {
             project.fileTree(project.projectDir) {
                 setIncludes(configuration.classPattern)
                 setExcludes(configuration.classFilter)
-            }
+            },
         )
 
         task.additionalSourceDirs.setFrom(configuration.additionalSources)
@@ -63,7 +63,7 @@ internal abstract class JacocoTaskBase {
         task.executionData.setFrom(
             project.fileTree(project.buildDir) {
                 setIncludes(executionFiles)
-            }
+            },
         )
     }
 
@@ -71,7 +71,7 @@ internal abstract class JacocoTaskBase {
         project: Project,
         contextId: String,
         reportSettings: CoverageApiContract.JacocoReporterSettings,
-        task: JacocoReport
+        task: JacocoReport,
     ) {
         task.reports {
             html.required.set(reportSettings.useHtml)
@@ -80,18 +80,18 @@ internal abstract class JacocoTaskBase {
 
             html.outputLocation.set(
                 project.layout.buildDirectory.dir(
-                    "reports/jacoco/$contextId/${project.name}"
-                ).get().asFile
+                    "reports/jacoco/$contextId/${project.name}",
+                ).get().asFile,
             )
             csv.outputLocation.set(
                 project.layout.buildDirectory.file(
-                    "reports/jacoco/$contextId/${project.name}.csv"
-                ).get().asFile
+                    "reports/jacoco/$contextId/${project.name}.csv",
+                ).get().asFile,
             )
             xml.outputLocation.set(
                 project.layout.buildDirectory.file(
-                    "reports/jacoco/$contextId/${project.name}.xml"
-                ).get().asFile
+                    "reports/jacoco/$contextId/${project.name}.xml",
+                ).get().asFile,
             )
         }
     }

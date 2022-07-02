@@ -18,8 +18,6 @@ repositories {
     google()
 }
 
-ensureKotlinVersion("1.5.31")
-
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
     // Coverage
@@ -33,8 +31,8 @@ dependencies {
     // Versioning
     implementation("com.palantir.gradle.gitversion:gradle-git-version:0.15.0")
     // spotless
-    implementation("com.diffplug.spotless:spotless-plugin-gradle:6.7.2")
-    implementation("com.pinterest:ktlint:0.44.0")
+    implementation("com.diffplug.spotless:spotless-plugin-gradle:6.8.0")
+    implementation("com.pinterest:ktlint:0.46.1")
 }
 
 with(extensions.getByType<JavaPluginExtension>()) {

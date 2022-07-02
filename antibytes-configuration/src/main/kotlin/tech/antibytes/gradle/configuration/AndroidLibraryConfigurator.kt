@@ -14,7 +14,7 @@ import tech.antibytes.gradle.util.isKmp
 internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibraryConfigurator {
     private fun setupAndroidExtension(
         extension: LibraryExtension,
-        configuration: ConfigurationApiContract.AndroidLibraryConfiguration
+        configuration: ConfigurationApiContract.AndroidLibraryConfiguration,
     ) {
         extension.compileSdk = configuration.compileSdkVersion
         extension.resourcePrefix = configuration.prefix
@@ -25,7 +25,7 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
 
             testInstrumentationRunner = configuration.testRunner.runner
             testInstrumentationRunnerArguments.putAll(
-                configuration.testRunner.arguments
+                configuration.testRunner.arguments,
             )
         }
 
@@ -54,7 +54,7 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
 
     private fun setupKmp(
         project: Project,
-        configuration: ConfigurationApiContract.AndroidLibraryConfiguration
+        configuration: ConfigurationApiContract.AndroidLibraryConfiguration,
     ) {
         project.extensions.configure(KotlinMultiplatformExtension::class.java) {
             android().publishLibraryVariants(*configuration.publishVariants.toTypedArray())
@@ -63,7 +63,7 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
 
     override fun configure(
         project: Project,
-        configuration: ConfigurationApiContract.AndroidLibraryConfiguration
+        configuration: ConfigurationApiContract.AndroidLibraryConfiguration,
     ) {
         project.extensions.configure(LibraryExtension::class.java) {
             setupAndroidExtension(this, configuration)

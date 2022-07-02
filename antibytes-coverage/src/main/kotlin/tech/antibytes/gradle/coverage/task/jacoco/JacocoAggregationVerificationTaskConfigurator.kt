@@ -17,11 +17,11 @@ internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.Ver
         project: Project,
         contextId: String,
         aggregation: AggregationData,
-        configuration: CoverageApiContract.JacocoAggregationConfiguration
+        configuration: CoverageApiContract.JacocoAggregationConfiguration,
     ): Task {
         return project.tasks.create(
             "${contextId}AggregationVerification",
-            JacocoCoverageVerification::class.java
+            JacocoCoverageVerification::class.java,
         ) {
             group = "Verification"
             description = "Verifies the aggregated coverage reports against a given set of rules for ${contextId.capitalize()}."
@@ -29,7 +29,7 @@ internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.Ver
 
             configureJacocoAggregationBase(
                 this,
-                aggregation
+                aggregation,
             )
 
             violationRules {
@@ -42,7 +42,7 @@ internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.Ver
     override fun configure(
         project: Project,
         contextId: String,
-        configuration: CoverageApiContract.CoverageConfiguration
+        configuration: CoverageApiContract.CoverageConfiguration,
     ): Task? {
         val rules = (configuration as CoverageApiContract.JacocoAggregationConfiguration).verificationRules
             .filter { rule -> rule.isValidRule() }
@@ -50,7 +50,7 @@ internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.Ver
         val aggregator = aggregate(
             project,
             contextId,
-            configuration
+            configuration,
         )
 
         return if (rules.isNotEmpty() && aggregator.dependencies.isNotEmpty()) {
@@ -58,7 +58,7 @@ internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.Ver
                 project,
                 contextId,
                 aggregator,
-                configuration
+                configuration,
             )
         } else {
             null

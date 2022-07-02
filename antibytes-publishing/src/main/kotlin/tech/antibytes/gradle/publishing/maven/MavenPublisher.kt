@@ -44,7 +44,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
     private fun setPomProperties(
         pom: MavenPom,
-        configuration: PublishingApiContract.PomConfiguration
+        configuration: PublishingApiContract.PomConfiguration,
     ) {
         pom.name.set(configuration.name)
         pom.description.set(configuration.description)
@@ -55,7 +55,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
     private fun setDevelopers(
         developers: MavenPomDeveloperSpec,
-        configurations: List<PublishingApiContract.DeveloperConfiguration>
+        configurations: List<PublishingApiContract.DeveloperConfiguration>,
     ) {
         configurations.forEach { configuration ->
             developers.developer { setDeveloper(this, configuration) }
@@ -64,7 +64,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
     private fun setDeveloper(
         developer: MavenPomDeveloper,
-        configuration: PublishingApiContract.DeveloperConfiguration
+        configuration: PublishingApiContract.DeveloperConfiguration,
     ) {
         developer.id.set(configuration.id)
         developer.name.set(configuration.name)
@@ -77,7 +77,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
     private fun setContributors(
         contributors: MavenPomContributorSpec,
-        configurations: List<PublishingApiContract.ContributorConfiguration>
+        configurations: List<PublishingApiContract.ContributorConfiguration>,
     ) {
         configurations.forEach { configuration ->
             contributors.contributor { setContributor(this, configuration) }
@@ -86,7 +86,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
     private fun setContributor(
         contributor: MavenPomContributor,
-        configuration: PublishingApiContract.ContributorConfiguration
+        configuration: PublishingApiContract.ContributorConfiguration,
     ) {
         contributor.name.set(configuration.name)
         contributor.email.set(configuration.email)
@@ -98,7 +98,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
     private fun setLicense(
         license: MavenPomLicense,
-        configuration: PublishingApiContract.LicenseConfiguration
+        configuration: PublishingApiContract.LicenseConfiguration,
     ) {
         license.name.set(configuration.name)
         license.url.set(configuration.url)
@@ -107,7 +107,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
     private fun setSourceControlManagement(
         sourceControlManagement: MavenPomScm,
-        configuration: PublishingApiContract.SourceControlConfiguration
+        configuration: PublishingApiContract.SourceControlConfiguration,
     ) {
         sourceControlManagement.connection.set(configuration.connection)
         sourceControlManagement.developerConnection.set(configuration.developerConnection)
@@ -118,7 +118,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
         project: Project,
         configuration: PublishingApiContract.PackageConfiguration,
         docs: Task?,
-        version: String
+        version: String,
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             publications {
@@ -132,26 +132,26 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
                         this,
                         configuration,
                         docs,
-                        version
+                        version,
                     )
 
                     pom {
                         setPomProperties(
                             this,
-                            configuration.pom
+                            configuration.pom,
                         )
 
                         developers {
                             setDevelopers(
                                 this,
-                                configuration.developers
+                                configuration.developers,
                             )
                         }
 
                         contributors {
                             setContributors(
                                 this,
-                                configuration.contributors
+                                configuration.contributors,
                             )
                         }
 
@@ -159,7 +159,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
                             license {
                                 setLicense(
                                     this,
-                                    configuration.license
+                                    configuration.license,
                                 )
                             }
                         }
@@ -167,7 +167,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
                         scm {
                             setSourceControlManagement(
                                 this,
-                                configuration.scm
+                                configuration.scm,
                             )
                         }
                     }

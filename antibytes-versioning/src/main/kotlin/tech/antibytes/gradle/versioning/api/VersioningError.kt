@@ -9,5 +9,5 @@ package tech.antibytes.gradle.versioning.api
 import org.gradle.api.GradleException
 
 class VersioningError(
-    override val message: String
+    override val message: String,
 ) : GradleException(message)

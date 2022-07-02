@@ -15,6 +15,9 @@ import io.mockk.mockkObject
 import io.mockk.slot
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -31,9 +34,6 @@ import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationVerificationT
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertTrue
 
 class TaskControllerSpec {
     private val fixture = kotlinFixture()
@@ -161,7 +161,7 @@ class TaskControllerSpec {
         invokeGradleAction(
             { probe -> project.tasks.create("multiplatformCoverage", probe) },
             kmpReporterTask,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -244,7 +244,7 @@ class TaskControllerSpec {
         invokeGradleAction(
             { probe -> project.tasks.create("multiplatformCoverageVerification", probe) },
             kmpVerificationTask,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -334,11 +334,11 @@ class TaskControllerSpec {
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { extension.configurations } returns mutableMapOf(
             contextId1 to configuration1,
-            contextId2 to configuration2
+            contextId2 to configuration2,
         )
         every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,
-            task2
+            task2,
         )
         every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -348,7 +348,7 @@ class TaskControllerSpec {
         invokeGradleAction(
             { probe -> project.tasks.create("multiplatformCoverage", probe) },
             kmpReporterTask,
-            mockk()
+            mockk(),
         )
 
         every { kmpReporterTask.dependsOn(capture(dependencies)) } returns mockk()
@@ -361,7 +361,7 @@ class TaskControllerSpec {
         verify(exactly = 1) { kmpReporterTask.description = "Generate a coverage reports for all platforms of multiplatform projects." }
         assertEquals(
             actual = dependencies.captured,
-            expected = setOf(task1, task2)
+            expected = setOf(task1, task2),
         )
 
         unmockkObject(JacocoAggregationReportTaskConfigurator)
@@ -395,11 +395,11 @@ class TaskControllerSpec {
         every { project.tasks } returns tasks
         every { extension.configurations } returns mutableMapOf(
             contextId1 to configuration1,
-            contextId2 to configuration2
+            contextId2 to configuration2,
         )
         every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,
-            task2
+            task2,
         )
         every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -409,7 +409,7 @@ class TaskControllerSpec {
         invokeGradleAction(
             { probe -> project.tasks.create("multiplatformCoverage", probe) },
             kmpReporterTask,
-            mockk()
+            mockk(),
         )
 
         every { kmpReporterTask.dependsOn(capture(dependencies)) } returns mockk()
@@ -453,15 +453,15 @@ class TaskControllerSpec {
         every { project.tasks } returns tasks
         every { extension.configurations } returns mutableMapOf(
             contextId1 to configuration1,
-            contextId2 to configuration2
+            contextId2 to configuration2,
         )
         every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,
-            task2
+            task2,
         )
         every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             verificationTask1,
-            verificationTask2
+            verificationTask2,
         )
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
 

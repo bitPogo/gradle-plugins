@@ -10,11 +10,11 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.plugins.PluginContainer
 import org.junit.jupiter.api.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class ProjectExtensionSpec {
     private val fixture = kotlinFixture()

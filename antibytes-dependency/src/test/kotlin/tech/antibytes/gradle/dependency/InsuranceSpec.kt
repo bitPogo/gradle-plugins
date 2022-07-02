@@ -32,13 +32,13 @@ class InsuranceSpec {
 
         invokeGradleAction(
             { probe -> configurations.all(probe) },
-            configuration
+            configuration,
         )
 
         invokeGradleAction(
             { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
-            resolutionStrategy
+            resolutionStrategy,
         )
 
         // When
@@ -64,13 +64,13 @@ class InsuranceSpec {
 
         invokeGradleAction(
             { probe -> configurations.all(probe) },
-            configuration
+            configuration,
         )
 
         invokeGradleAction(
             { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
-            resolutionStrategy
+            resolutionStrategy,
         )
 
         // When
@@ -93,7 +93,7 @@ class InsuranceSpec {
             "kotlin-stdlib-jdk8",
             "kotlin-stdlib",
             "kotlin-stdlib-common",
-            "kotlin-reflect"
+            "kotlin-reflect",
         )
 
         every { project.configurations } returns configurations
@@ -104,13 +104,13 @@ class InsuranceSpec {
 
         invokeGradleAction(
             { probe -> configurations.all(probe) },
-            configuration
+            configuration,
         )
 
         invokeGradleAction(
             { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
-            resolutionStrategy
+            resolutionStrategy,
         )
 
         // When
@@ -136,7 +136,7 @@ class InsuranceSpec {
             "kotlin-stdlib-jdk8",
             "kotlin-stdlib",
             "kotlin-stdlib-common",
-            "kotlin-reflect"
+            "kotlin-reflect",
         )
 
         every { project.configurations } returns configurations
@@ -147,13 +147,13 @@ class InsuranceSpec {
 
         invokeGradleAction(
             { probe -> configurations.all(probe) },
-            configuration
+            configuration,
         )
 
         invokeGradleAction(
             { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
-            resolutionStrategy
+            resolutionStrategy,
         )
 
         // When
@@ -179,7 +179,7 @@ class InsuranceSpec {
             "kotlin-stdlib-jdk8",
             "kotlin-stdlib",
             "kotlin-stdlib-common",
-            "kotlin-reflect"
+            "kotlin-reflect",
         )
 
         every { project.configurations } returns configurations
@@ -190,13 +190,13 @@ class InsuranceSpec {
 
         invokeGradleAction(
             { probe -> configurations.all(probe) },
-            configuration
+            configuration,
         )
 
         invokeGradleAction(
             { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
-            resolutionStrategy
+            resolutionStrategy,
         )
 
         // When

@@ -15,6 +15,7 @@ import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
 import io.mockk.verifyOrder
+import kotlin.test.assertTrue
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -32,7 +33,6 @@ import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
-import kotlin.test.assertTrue
 
 class PublisherStandaloneControllerSpec {
     private val fixture = kotlinFixture()
@@ -41,7 +41,7 @@ class PublisherStandaloneControllerSpec {
         password = "",
         name = "",
         url = "",
-        gitWorkDirectory = ""
+        gitWorkDirectory = "",
     )
     private val mavenRegistryTestConfig = MavenRepositoryConfiguration(
         username = "",
@@ -81,7 +81,7 @@ class PublisherStandaloneControllerSpec {
             dryRun = false,
             excludeProjects = setOf(),
             versioning = mockk(),
-            standalone = true
+            standalone = true,
         )
 
         every { project.name } returns fixture()
@@ -147,7 +147,7 @@ class PublisherStandaloneControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val tasks: TaskContainer = mockk()
@@ -182,14 +182,14 @@ class PublisherStandaloneControllerSpec {
             MavenRepository.configure(
                 project,
                 registry1,
-                dryRun
+                dryRun,
             )
         }
 
         verify(exactly = 1) {
             GitRepository.configureCloneTask(
                 project,
-                registry1
+                registry1,
             )
         }
 
@@ -198,7 +198,7 @@ class PublisherStandaloneControllerSpec {
                 project,
                 registry1,
                 version,
-                dryRun
+                dryRun,
             )
         }
 
@@ -206,14 +206,14 @@ class PublisherStandaloneControllerSpec {
             MavenRepository.configure(
                 project,
                 registry2,
-                dryRun
+                dryRun,
             )
         }
 
         verify(exactly = 1) {
             GitRepository.configureCloneTask(
                 project,
-                registry2
+                registry2,
             )
         }
 
@@ -222,7 +222,7 @@ class PublisherStandaloneControllerSpec {
                 project,
                 registry2,
                 version,
-                dryRun
+                dryRun,
             )
         }
     }
@@ -246,7 +246,7 @@ class PublisherStandaloneControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val tasks: TaskContainer = mockk()
@@ -272,12 +272,12 @@ class PublisherStandaloneControllerSpec {
         invokeGradleAction(
             { probe -> tasks.create("publish${registry1.name.capitalize()}", probe) },
             publishingTask,
-            publishingTask
+            publishingTask,
         )
         invokeGradleAction(
             { probe -> tasks.create("publish${registry2.name.capitalize()}", probe) },
             publishingTask,
-            publishingTask
+            publishingTask,
         )
 
         // When
@@ -313,7 +313,7 @@ class PublisherStandaloneControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val tasks: TaskContainer = mockk()
@@ -388,7 +388,7 @@ class PublisherStandaloneControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
 
         val tasks: TaskContainer = mockk()
@@ -435,7 +435,7 @@ class PublisherStandaloneControllerSpec {
                 project,
                 packageConfiguration,
                 documentation,
-                version
+                version,
             )
 
             MavenRepository.configure(project, registry1, dryRun)
@@ -483,7 +483,7 @@ class PublisherStandaloneControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
         val documentation: Task = mockk()
 
@@ -546,7 +546,7 @@ class PublisherStandaloneControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = true
+            standalone = true,
         )
         val documentation: Task = mockk()
 
@@ -588,7 +588,7 @@ class PublisherStandaloneControllerSpec {
                 project,
                 packageConfiguration,
                 documentation,
-                version
+                version,
             )
 
             MavenRepository.configure(project, registry1, dryRun)
