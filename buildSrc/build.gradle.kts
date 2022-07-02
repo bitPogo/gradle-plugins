@@ -21,7 +21,7 @@ repositories {
 ensureKotlinVersion("1.5.31")
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
     // Coverage
     implementation("org.jacoco:org.jacoco.core:0.8.8")
     // CVE
@@ -33,7 +33,7 @@ dependencies {
     // Versioning
     implementation("com.palantir.gradle.gitversion:gradle-git-version:0.15.0")
     // spotless
-    implementation("com.diffplug.spotless:spotless-plugin-gradle:6.4.2")
+    implementation("com.diffplug.spotless:spotless-plugin-gradle:6.7.2")
     implementation("com.pinterest:ktlint:0.44.0")
 }
 

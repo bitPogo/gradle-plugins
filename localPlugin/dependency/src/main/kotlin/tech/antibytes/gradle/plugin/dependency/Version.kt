@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.plugin.dependency
 
 object Version {
-    const val kotlin = "1.6.21"
+    const val kotlin = "1.7.0"
 
     val gradle = GradlePlugin
     val library = Library
@@ -43,12 +43,12 @@ object Version {
         /**
          * [Kotlin](https://kotlinlang.org/docs/releases.html)
          */
-        const val kotlin = "1.6.21"
+        const val kotlin = "1.7.0"
 
         /**
          * [AtomicFu](https://kotlinlang.org/docs/releases.html)
          */
-        const val atomicFu = "0.17.3"
+        const val atomicFu = "0.18.2"
 
         /**
          * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
@@ -58,7 +58,7 @@ object Version {
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
          */
-        const val spotless = "6.4.2"
+        const val spotless = "6.7.2"
 
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
