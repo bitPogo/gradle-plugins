@@ -14,6 +14,10 @@ import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
 import io.mockk.verify
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
@@ -21,10 +25,6 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.grammar.BisonTaskContract
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class BisonTaskSpec {
     private lateinit var project: Project
@@ -48,7 +48,7 @@ class BisonTaskSpec {
 
         assertEquals(
             actual = task.executable.get().asFile.absolutePath,
-            expected = "/usr/bin/bison"
+            expected = "/usr/bin/bison",
         )
     }
 
@@ -128,7 +128,7 @@ class BisonTaskSpec {
 
         assertEquals(
             actual = task.define.get(),
-            expected = emptyMap<String, String>()
+            expected = emptyMap<String, String>(),
         )
     }
 
@@ -138,7 +138,7 @@ class BisonTaskSpec {
 
         assertEquals(
             actual = task.forceDefine.get(),
-            expected = emptyMap<String, String>()
+            expected = emptyMap<String, String>(),
         )
     }
 
@@ -155,7 +155,7 @@ class BisonTaskSpec {
 
         assertEquals(
             actual = task.report.get(),
-            expected = emptySet<BisonTaskContract.Report>()
+            expected = emptySet<BisonTaskContract.Report>(),
         )
     }
 
@@ -193,7 +193,7 @@ class BisonTaskSpec {
 
         assertEquals(
             actual = task.filePrefixMap.get(),
-            expected = emptyMap()
+            expected = emptyMap(),
         )
     }
 
@@ -210,7 +210,7 @@ class BisonTaskSpec {
 
         assertEquals(
             actual = task.features.get(),
-            expected = emptySet()
+            expected = emptySet(),
         )
     }
 
@@ -220,7 +220,7 @@ class BisonTaskSpec {
 
         assertEquals(
             actual = task.warnings.get(),
-            expected = emptySet()
+            expected = emptySet(),
         )
     }
 
@@ -230,7 +230,7 @@ class BisonTaskSpec {
 
         assertEquals(
             actual = task.errors.get(),
-            expected = emptySet()
+            expected = emptySet(),
         )
     }
 
@@ -267,7 +267,7 @@ class BisonTaskSpec {
         val message = "There was no Bison executable provided."
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
         verify(exactly = 1) { logger.error(message) }
 
@@ -295,7 +295,7 @@ class BisonTaskSpec {
         val message = "There was no grammar file provided for Bison to process."
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
         verify(exactly = 1) { logger.error(message) }
 
@@ -325,7 +325,7 @@ class BisonTaskSpec {
         val message = "There was no output file provided for Bison to write into."
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
         verify(exactly = 1) { logger.error(message) }
 
@@ -361,7 +361,7 @@ class BisonTaskSpec {
         val message = "Something went wrong during code generation:\nRunning shell command failed"
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
         verify(exactly = 1) { logger.error(message) }
 
@@ -398,7 +398,7 @@ class BisonTaskSpec {
         val message = "Something went wrong during code generation:\nnull"
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
         verify(exactly = 1) { logger.error(message) }
 
@@ -435,14 +435,14 @@ class BisonTaskSpec {
                 command = bisonExec.absolutePath,
                 arguments = listOf(
                     "--output=${outputFile.absolutePath}",
-                    grammarFile.absolutePath
-                )
+                    grammarFile.absolutePath,
+                ),
             )
         }
         verify(exactly = 1) { logger.info("Start code generation of ${grammarFile.name}") }
         verify(exactly = 1) {
             logger.info(
-                "Bison was successful and wrote the output into ${outputFile.name}.\nIt produced the following reports:\n$bisonOutput"
+                "Bison was successful and wrote the output into ${outputFile.name}.\nIt produced the following reports:\n$bisonOutput",
             )
         }
 
@@ -491,8 +491,8 @@ class BisonTaskSpec {
                     "--token-table",
                     "--verbose",
                     "--output=${outputFile.absolutePath}",
-                    grammarFile.absolutePath
-                )
+                    grammarFile.absolutePath,
+                ),
             )
         }
 
@@ -521,7 +521,7 @@ class BisonTaskSpec {
             BisonTaskContract.Report.LOOKAHEAD,
         )
         val features = listOf(
-            BisonTaskContract.Features.SYNTAX_ONLY
+            BisonTaskContract.Features.SYNTAX_ONLY,
         )
         val color = BisonTaskContract.When.ALWAYS
 
@@ -574,8 +574,8 @@ class BisonTaskSpec {
                     "--feature=syntax-only",
                     "--color=always",
                     "--output=${outputFile.absolutePath}",
-                    grammarFile.absolutePath
-                )
+                    grammarFile.absolutePath,
+                ),
             )
         }
 
@@ -597,16 +597,16 @@ class BisonTaskSpec {
 
         val define = mapOf(
             "a" to "b",
-            "c" to "d"
+            "c" to "d",
         )
 
         val forceDefine = mapOf(
             "e" to "f",
-            "g" to "h"
+            "g" to "h",
         )
 
         val filePrefix = mapOf(
-            "m" to "n"
+            "m" to "n",
         )
 
         task.executable.set(bisonExec)
@@ -632,8 +632,8 @@ class BisonTaskSpec {
                     "--force-define=e=f,g=h",
                     "--file-prefix-map=m=n",
                     "--output=${outputFile.absolutePath}",
-                    grammarFile.absolutePath
-                )
+                    grammarFile.absolutePath,
+                ),
             )
         }
 
@@ -655,7 +655,7 @@ class BisonTaskSpec {
 
         val warnings = setOf(
             BisonTaskContract.ErrorCategory.COUNTER_EXAMPLES,
-            BisonTaskContract.ErrorCategory.EMPTY_RULE
+            BisonTaskContract.ErrorCategory.EMPTY_RULE,
         )
 
         task.executable.set(bisonExec)
@@ -677,8 +677,8 @@ class BisonTaskSpec {
                 arguments = listOf(
                     "--warning=counterexamples,empty-rule",
                     "--output=${outputFile.absolutePath}",
-                    grammarFile.absolutePath
-                )
+                    grammarFile.absolutePath,
+                ),
             )
         }
 
@@ -700,7 +700,7 @@ class BisonTaskSpec {
 
         val errors = setOf(
             BisonTaskContract.ErrorCategory.COUNTER_EXAMPLES,
-            BisonTaskContract.ErrorCategory.EMPTY_RULE
+            BisonTaskContract.ErrorCategory.EMPTY_RULE,
         )
 
         task.executable.set(bisonExec)
@@ -722,8 +722,8 @@ class BisonTaskSpec {
                 arguments = listOf(
                     "--warning=error=counterexamples,error=empty-rule",
                     "--output=${outputFile.absolutePath}",
-                    grammarFile.absolutePath
-                )
+                    grammarFile.absolutePath,
+                ),
             )
         }
 
@@ -744,12 +744,12 @@ class BisonTaskSpec {
         val outputFile = project.file("somewhere/somekotlin.kt")
 
         val errors = setOf(
-            BisonTaskContract.ErrorCategory.ALL
+            BisonTaskContract.ErrorCategory.ALL,
         )
 
         val warnings = setOf(
             BisonTaskContract.ErrorCategory.COUNTER_EXAMPLES,
-            BisonTaskContract.ErrorCategory.EMPTY_RULE
+            BisonTaskContract.ErrorCategory.EMPTY_RULE,
         )
 
         task.executable.set(bisonExec)
@@ -772,8 +772,8 @@ class BisonTaskSpec {
                 arguments = listOf(
                     "--warning=counterexamples,empty-rule,error=all",
                     "--output=${outputFile.absolutePath}",
-                    grammarFile.absolutePath
-                )
+                    grammarFile.absolutePath,
+                ),
             )
         }
 

@@ -13,14 +13,14 @@ internal interface GitContract {
     interface GitActions {
         fun checkout(
             project: Project,
-            repository: PublishingApiContract.RepositoryConfiguration
+            repository: PublishingApiContract.RepositoryConfiguration,
         )
 
         fun push(
             project: Project,
             repository: PublishingApiContract.RepositoryConfiguration,
             commitMessage: String,
-            dryRun: Boolean
+            dryRun: Boolean,
         ): Boolean
     }
 }

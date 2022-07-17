@@ -18,10 +18,16 @@ import io.mockk.mockkStatic
 import io.mockk.unmockkConstructor
 import io.mockk.unmockkStatic
 import io.mockk.verify
+import java.io.File
+import java.nio.charset.Charset
 import jflex.generator.LexGenerator
 import jflex.logging.Out
 import jflex.option.Options
 import jflex.skeleton.Skeleton
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
@@ -29,12 +35,6 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.grammar.JFlexTaskContract
-import java.io.File
-import java.nio.charset.Charset
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class JFlexTaskSpec {
     private lateinit var project: Project
@@ -72,7 +72,7 @@ class JFlexTaskSpec {
 
         assertEquals(
             actual = task.encoding.get(),
-            expected = Charsets.UTF_8.name()
+            expected = Charsets.UTF_8.name(),
         )
     }
 
@@ -171,7 +171,7 @@ class JFlexTaskSpec {
         val message = "There was no file provided for JFlex to process."
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
         verify(exactly = 1) { logger.error(message) }
 
@@ -200,7 +200,7 @@ class JFlexTaskSpec {
         val message = "There was no output directory provided for JFlex to write into."
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
         verify(exactly = 1) { logger.error(message) }
         unmockkStatic(Logging::class)
@@ -244,55 +244,55 @@ class JFlexTaskSpec {
         verify(exactly = 1) { Skeleton.readDefault() }
         assertEquals(
             actual = Options.getRootDirectory(),
-            expected = File("")
+            expected = File(""),
         )
         assertEquals(
             actual = Options.directory,
-            expected = outPutDir
+            expected = outPutDir,
         )
         assertEquals(
             actual = Options.encoding,
-            expected = Charset.forName(encoding)
+            expected = Charset.forName(encoding),
         )
         assertEquals(
             actual = Options.verbose,
-            expected = flag
+            expected = flag,
         )
         assertEquals(
             actual = Options.unused_warning,
-            expected = !flag
+            expected = !flag,
         )
         assertEquals(
             actual = Options.jlex,
-            expected = flag
+            expected = flag,
         )
         assertEquals(
             actual = Options.no_minimize,
-            expected = flag
+            expected = flag,
         )
         assertEquals(
             actual = Options.no_backup,
-            expected = !flag
+            expected = !flag,
         )
         assertEquals(
             actual = Options.time,
-            expected = flag
+            expected = flag,
         )
         assertEquals(
             actual = Options.dot,
-            expected = flag
+            expected = flag,
         )
         assertEquals(
             actual = Options.dump,
-            expected = flag
+            expected = flag,
         )
         assertEquals(
             actual = Options.legacy_dot,
-            expected = flag
+            expected = flag,
         )
         assertEquals(
             actual = Options.progress,
-            expected = flag
+            expected = flag,
         )
 
         unmockkStatic(Skeleton::class)
@@ -376,7 +376,7 @@ class JFlexTaskSpec {
         val message = "Something went wrong during code generation:\n${nestedError.message}"
         assertEquals(
             actual = error.message,
-            expected = message
+            expected = message,
         )
 
         unmockkConstructor(LexGenerator::class)

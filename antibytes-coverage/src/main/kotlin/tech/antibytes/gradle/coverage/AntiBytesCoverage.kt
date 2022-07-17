@@ -20,7 +20,7 @@ class AntiBytesCoverage : Plugin<Project> {
         val extension = target.extensions.create(
             EXTENSION_ID,
             AntiBytesCoveragePluginExtension::class.java,
-            target
+            target,
         )
 
         target.applyIfNotExists(*DEPENDENCIES.toTypedArray())

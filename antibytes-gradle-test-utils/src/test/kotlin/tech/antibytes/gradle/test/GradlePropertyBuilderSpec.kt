@@ -7,12 +7,12 @@
 package tech.antibytes.gradle.test
 
 import com.appmattus.kotlinfixture.kotlinFixture
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class GradlePropertyBuilderSpec {
     private val fixture = kotlinFixture()
@@ -29,7 +29,7 @@ class GradlePropertyBuilderSpec {
         assertTrue(result is Property<*>)
         assertEquals(
             actual = result.get(),
-            expected = value
+            expected = value,
         )
     }
 
@@ -45,7 +45,7 @@ class GradlePropertyBuilderSpec {
         assertTrue(result is ListProperty<*>)
         assertEquals(
             actual = result.get(),
-            expected = listOf(value)
+            expected = listOf(value),
         )
     }
 
@@ -61,7 +61,7 @@ class GradlePropertyBuilderSpec {
         assertTrue(result is SetProperty<*>)
         assertEquals(
             actual = result.get(),
-            expected = setOf(value)
+            expected = setOf(value),
         )
     }
 }

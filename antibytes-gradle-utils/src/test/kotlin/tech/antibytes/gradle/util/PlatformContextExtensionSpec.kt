@@ -6,9 +6,9 @@
 
 package tech.antibytes.gradle.util
 
-import org.junit.jupiter.api.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.Test
 
 class PlatformContextExtensionSpec {
     @Test
@@ -123,7 +123,7 @@ class PlatformContextExtensionSpec {
     fun `Given hasAndroidLibrary is called, it returns false, if the Set is empty`() {
         // Given
         val set = setOf(
-            GradleUtilApiContract.PlatformContext.JVM_KMP
+            GradleUtilApiContract.PlatformContext.JVM_KMP,
         )
 
         // When

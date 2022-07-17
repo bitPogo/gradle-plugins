@@ -9,16 +9,16 @@ package tech.antibytes.gradle.coverage.task.extension
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
+import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import tech.antibytes.gradle.coverage.task.TaskContract
-import java.io.File
 
 internal object AndroidExtensionConfigurator : TaskContract.AndroidExtensionConfigurator {
     private fun resolveAndroidExtension(
         project: Project,
-        action: (CommonExtension<*, *, *, *>) -> Unit
+        action: (CommonExtension<*, *, *, *>) -> Unit,
     ) {
         if (project.plugins.findPlugin("com.android.application") is Plugin<*>) {
             project.extensions.configure(ApplicationExtension::class.java) {
@@ -47,7 +47,7 @@ internal object AndroidExtensionConfigurator : TaskContract.AndroidExtensionConf
                     // AGP 4.2.x location: "../jacoco/jacoco.exec"
                     val infix = it.name.removePrefix("test").removeSuffix("UnitTest").decapitalize()
                     jacocoTaskExtension.setDestinationFile(
-                        File("${project.buildDir.path}${File.separator}jacoco${File.separator}$infix.exec")
+                        File("${project.buildDir.path}${File.separator}jacoco${File.separator}$infix.exec"),
                     )
 
                     jacocoTaskExtension.isIncludeNoLocationClasses = true

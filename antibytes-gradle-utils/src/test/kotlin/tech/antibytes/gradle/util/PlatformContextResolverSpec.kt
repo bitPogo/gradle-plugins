@@ -8,12 +8,12 @@ package tech.antibytes.gradle.util
 
 import io.mockk.every
 import io.mockk.mockk
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class PlatformContextResolverSpec {
     @Test
@@ -38,7 +38,7 @@ class PlatformContextResolverSpec {
         // Then
         assertEquals(
             expected = setOf(PlatformContext.JVM),
-            actual = result
+            actual = result,
         )
     }
 
@@ -62,7 +62,7 @@ class PlatformContextResolverSpec {
         // Then
         assertEquals(
             expected = setOf(PlatformContext.JVM_KMP),
-            actual = result
+            actual = result,
         )
     }
 
@@ -81,7 +81,7 @@ class PlatformContextResolverSpec {
         // Then
         assertEquals(
             expected = setOf(PlatformContext.ANDROID_LIBRARY),
-            actual = result
+            actual = result,
         )
     }
 
@@ -105,7 +105,7 @@ class PlatformContextResolverSpec {
         // Then
         assertEquals(
             expected = setOf(PlatformContext.ANDROID_LIBRARY_KMP),
-            actual = result
+            actual = result,
         )
     }
 
@@ -124,7 +124,7 @@ class PlatformContextResolverSpec {
         // Then
         assertEquals(
             expected = setOf(PlatformContext.ANDROID_APPLICATION),
-            actual = result
+            actual = result,
         )
     }
 
@@ -148,7 +148,7 @@ class PlatformContextResolverSpec {
         // Then
         assertEquals(
             expected = setOf(PlatformContext.ANDROID_APPLICATION_KMP),
-            actual = result
+            actual = result,
         )
     }
 
@@ -179,7 +179,7 @@ class PlatformContextResolverSpec {
                 PlatformContext.ANDROID_APPLICATION_KMP,
                 PlatformContext.JVM_KMP,
             ),
-            actual = result
+            actual = result,
         )
     }
 
@@ -206,7 +206,7 @@ class PlatformContextResolverSpec {
         // Then
         assertEquals(
             expected = emptySet(),
-            actual = result
+            actual = result,
         )
     }
 }

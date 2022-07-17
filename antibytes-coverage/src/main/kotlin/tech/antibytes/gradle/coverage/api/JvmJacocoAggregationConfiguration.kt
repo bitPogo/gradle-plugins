@@ -11,5 +11,5 @@ import tech.antibytes.gradle.coverage.CoverageApiContract
 data class JvmJacocoAggregationConfiguration(
     override val reportSettings: CoverageApiContract.JacocoReporterSettings = JacocoReporterSettings(),
     override var exclude: Set<String> = emptySet(),
-    override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule> = emptySet()
+    override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule> = emptySet(),
 ) : CoverageApiContract.JacocoAggregationConfiguration

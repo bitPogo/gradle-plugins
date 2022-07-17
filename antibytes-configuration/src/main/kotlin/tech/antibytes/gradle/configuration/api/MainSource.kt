@@ -11,5 +11,5 @@ import tech.antibytes.gradle.configuration.ConfigurationApiContract
 internal data class MainSource(
     override val manifest: String,
     override val sourceDirectories: Set<String>,
-    override val resourceDirectories: Set<String>
+    override val resourceDirectories: Set<String>,
 ) : ConfigurationApiContract.MainSource

@@ -6,13 +6,13 @@
 
 package tech.antibytes.gradle.coverage.api
 
+import java.io.File
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageApiContract.AndroidJacocoCoverageConfigurationProvider
 import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationProvider
 import tech.antibytes.gradle.util.GradleUtilApiContract
-import java.io.File
 
 data class AndroidJacocoConfiguration(
     override val reportSettings: CoverageApiContract.JacocoReporterSettings,
@@ -40,7 +40,7 @@ data class AndroidJacocoConfiguration(
             sources: Set<File>,
             additionalSources: Set<File>,
             additionalClasses: ConfigurableFileTree?,
-            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): AndroidJacocoConfiguration {
             if (variant.isNotEmpty()) {
                 configuration.variant = variant
@@ -102,11 +102,11 @@ data class AndroidJacocoConfiguration(
             sources: Set<File>,
             additionalSources: Set<File>,
             additionalClasses: ConfigurableFileTree?,
-            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
             val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                context
+                context,
             )
 
             return overrideDefaults(
@@ -121,7 +121,7 @@ data class AndroidJacocoConfiguration(
                 sources,
                 additionalSources,
                 additionalClasses,
-                verificationRules
+                verificationRules,
             )
         }
 
@@ -137,7 +137,7 @@ data class AndroidJacocoConfiguration(
             sources: Set<File>,
             additionalSources: Set<File>,
             additionalClasses: ConfigurableFileTree?,
-            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
             return createConfiguration(
                 project,
@@ -152,7 +152,7 @@ data class AndroidJacocoConfiguration(
                 sources,
                 additionalSources,
                 additionalClasses,
-                verificationRules
+                verificationRules,
             )
         }
 
@@ -168,7 +168,7 @@ data class AndroidJacocoConfiguration(
             sources: Set<File>,
             additionalSources: Set<File>,
             additionalClasses: ConfigurableFileTree?,
-            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
             return createConfiguration(
                 project,
@@ -183,7 +183,7 @@ data class AndroidJacocoConfiguration(
                 sources,
                 additionalSources,
                 additionalClasses,
-                verificationRules
+                verificationRules,
             )
         }
 
@@ -199,7 +199,7 @@ data class AndroidJacocoConfiguration(
             sources: Set<File>,
             additionalSources: Set<File>,
             additionalClasses: ConfigurableFileTree?,
-            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
             return createConfiguration(
                 project,
@@ -214,7 +214,7 @@ data class AndroidJacocoConfiguration(
                 sources,
                 additionalSources,
                 additionalClasses,
-                verificationRules
+                verificationRules,
             )
         }
 
@@ -230,7 +230,7 @@ data class AndroidJacocoConfiguration(
             sources: Set<File>,
             additionalSources: Set<File>,
             additionalClasses: ConfigurableFileTree?,
-            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>
+            verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
             return createConfiguration(
                 project,
@@ -245,7 +245,7 @@ data class AndroidJacocoConfiguration(
                 sources,
                 additionalSources,
                 additionalClasses,
-                verificationRules
+                verificationRules,
             )
         }
     }

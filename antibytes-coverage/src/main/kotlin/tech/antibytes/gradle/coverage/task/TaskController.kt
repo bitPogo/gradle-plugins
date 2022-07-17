@@ -27,22 +27,22 @@ internal object TaskController : CoverageContract.TaskController {
     private fun configureJacocoTask(
         project: Project,
         contextId: String,
-        configuration: JacocoCoverageConfiguration
+        configuration: JacocoCoverageConfiguration,
     ): Pair<Task, Task?> {
         return Pair(
             JacocoReportTaskConfigurator.configure(project, contextId, configuration),
-            JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+            JacocoVerificationTaskConfigurator.configure(project, contextId, configuration),
         )
     }
 
     private fun configureAggregationJacocoTask(
         project: Project,
         contextId: String,
-        configuration: JacocoAggregationConfiguration
+        configuration: JacocoAggregationConfiguration,
     ): Pair<Task, Task?> {
         return Pair(
             JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration),
-            JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+            JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration),
         )
     }
 
@@ -61,7 +61,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     private fun addCoverageTask(
         project: Project,
-        dependencies: Set<Task>
+        dependencies: Set<Task>,
     ) {
         project.tasks.create("multiplatformCoverage") {
             group = "Verification"
@@ -73,7 +73,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     private fun addVerificationTask(
         project: Project,
-        dependencies: List<Task>
+        dependencies: List<Task>,
     ) {
         project.tasks.create("multiplatformCoverageVerification") {
             group = "Verification"
@@ -85,7 +85,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     private fun addMultiplatformTasks(
         project: Project,
-        dependencies: Map<Task, Task?>
+        dependencies: Map<Task, Task?>,
     ) {
         addCoverageTask(project, dependencies.keys)
 
@@ -98,7 +98,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     private fun configureModule(
         project: Project,
-        extension: AntiBytesCoveragePluginExtension
+        extension: AntiBytesCoveragePluginExtension,
     ) {
         val tasks = mutableMapOf<Task, Task?>()
         extension.configurations.forEach { (contextId, configuration) ->
@@ -119,7 +119,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     private fun configureAggregation(
         project: Project,
-        extension: AntiBytesCoveragePluginExtension
+        extension: AntiBytesCoveragePluginExtension,
     ) {
         val tasks = mutableMapOf<Task, Task?>()
         extension.configurations.forEach { (contextId, configuration) ->
@@ -140,7 +140,7 @@ internal object TaskController : CoverageContract.TaskController {
 
     override fun configure(
         project: Project,
-        extension: AntiBytesCoveragePluginExtension
+        extension: AntiBytesCoveragePluginExtension,
     ) {
         if (project.isRoot()) {
             configureAggregation(project, extension)

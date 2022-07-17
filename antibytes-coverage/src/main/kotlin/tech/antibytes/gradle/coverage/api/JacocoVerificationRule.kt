@@ -6,8 +6,8 @@
 
 package tech.antibytes.gradle.coverage.api
 
-import tech.antibytes.gradle.coverage.CoverageApiContract
 import java.math.BigDecimal
+import tech.antibytes.gradle.coverage.CoverageApiContract
 
 data class JacocoVerificationRule(
     override val scope: CoverageApiContract.JacocoScope = CoverageApiContract.JacocoScope.BUNDLE,
@@ -17,5 +17,5 @@ data class JacocoVerificationRule(
     override val minimum: BigDecimal? = null,
     override val maximum: BigDecimal? = null,
     override val includes: Set<String> = setOf("*"),
-    override val excludes: Set<String> = emptySet()
+    override val excludes: Set<String> = emptySet(),
 ) : CoverageApiContract.JacocoVerificationRule

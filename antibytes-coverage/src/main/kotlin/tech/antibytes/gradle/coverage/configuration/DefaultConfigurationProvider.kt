@@ -17,17 +17,17 @@ import tech.antibytes.gradle.util.PlatformContextResolver
 internal object DefaultConfigurationProvider : CoverageContract.DefaultConfigurationProvider {
     private fun fetchConfiguration(
         project: Project,
-        context: PlatformContext
+        context: PlatformContext,
     ): CoverageApiContract.CoverageConfiguration {
         return if (context.prefix == "jvm") {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                context
+                context,
             )
         } else {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                context
+                context,
             )
         }
     }

@@ -11,5 +11,5 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 data class LicenseConfiguration(
     override val name: String,
     override val url: String,
-    override val distribution: String
+    override val distribution: String,
 ) : PublishingApiContract.LicenseConfiguration

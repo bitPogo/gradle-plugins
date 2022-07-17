@@ -11,5 +11,5 @@ import tech.antibytes.gradle.configuration.ConfigurationApiContract
 
 internal data class Compatibility(
     override val source: JavaVersion,
-    override val target: JavaVersion
+    override val target: JavaVersion,
 ) : ConfigurationApiContract.Compatibility

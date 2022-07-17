@@ -6,11 +6,11 @@
 
 package tech.antibytes.gradle.coverage.task.jacoco
 
+import java.math.BigDecimal
 import org.gradle.testing.jacoco.tasks.rules.JacocoLimit
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRule
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
 import tech.antibytes.gradle.coverage.CoverageApiContract
-import java.math.BigDecimal
 
 internal object JacocoVerificationRuleMapper : JacocoContract.JacocoVerificationRuleMapper {
     private fun hasLimit(rule: CoverageApiContract.JacocoVerificationRule): Boolean {
@@ -19,7 +19,7 @@ internal object JacocoVerificationRuleMapper : JacocoContract.JacocoVerification
 
     private fun configureLimit(
         limit: JacocoLimit,
-        rule: CoverageApiContract.JacocoVerificationRule
+        rule: CoverageApiContract.JacocoVerificationRule,
     ) {
         limit.minimum = rule.minimum
         limit.maximum = rule.maximum
@@ -29,7 +29,7 @@ internal object JacocoVerificationRuleMapper : JacocoContract.JacocoVerification
 
     private fun mapRule(
         jacocoViolationRule: JacocoViolationRule,
-        rule: CoverageApiContract.JacocoVerificationRule
+        rule: CoverageApiContract.JacocoVerificationRule,
     ): JacocoViolationRule {
         jacocoViolationRule.element = rule.scope.name
         jacocoViolationRule.isEnabled = rule.enable
@@ -45,7 +45,7 @@ internal object JacocoVerificationRuleMapper : JacocoContract.JacocoVerification
 
     override fun map(
         generator: JacocoViolationRulesContainer,
-        rules: Set<CoverageApiContract.JacocoVerificationRule>
+        rules: Set<CoverageApiContract.JacocoVerificationRule>,
     ) {
         rules.map { rule -> mapRule(generator.rule {}, rule) }
     }

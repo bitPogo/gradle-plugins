@@ -18,7 +18,7 @@ class AntiBytesPublishing : Plugin<Project> {
     override fun apply(target: Project) {
         val extension = target.extensions.create(
             EXTENSION_ID,
-            AntiBytesPublishingPluginExtension::class.java
+            AntiBytesPublishingPluginExtension::class.java,
         )
 
         target.applyIfNotExists(*DEPENDENCIES)

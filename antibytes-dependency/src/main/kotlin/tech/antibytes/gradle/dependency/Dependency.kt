@@ -53,18 +53,26 @@ object Dependency {
             val common = Common
 
             object Common {
-                const val core = "io.ktor:ktor-client-core:${Version.kotlin.ktor}"
-                const val serialization = "io.ktor:ktor-client-serialization:${Version.kotlin.ktor}"
+                const val client = "io.ktor:ktor-client-core:${Version.kotlin.ktor}"
+                const val json = "io.ktor:ktor-serialization-kotlinx-json:${Version.kotlin.ktor}"
+                const val xml = "io.ktor:ktor-serialization-kotlinx-xml:${Version.kotlin.ktor}"
+                const val cbor = "io.ktor:ktor-serialization-kotlinx-cbor:${Version.kotlin.ktor}"
+                const val websockets = "io.ktor:ktor-client-websockets:${Version.kotlin.ktor}"
+                const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:${Version.kotlin.ktor}"
             }
 
             val jvm = Jvm
 
             object Jvm {
-                const val core = "io.ktor:ktor-client-java:${Version.kotlin.ktor}"
+                const val client = "io.ktor:ktor-client-java:${Version.kotlin.ktor}"
                 const val jetty = "io.ktor:ktor-client-jetty:${Version.kotlin.ktor}"
                 const val apache = "io.ktor:ktor-client-apache:${Version.kotlin.ktor}"
                 const val cio = "io.ktor:ktor-client-cio:${Version.kotlin.ktor}"
-                const val serialization = "io.ktor:ktor-client-serialization-jvm:${Version.kotlin.ktor}"
+                const val json = "io.ktor:ktor-serialization-kotlinx-json-jvm:${Version.kotlin.ktor}"
+                const val xml = "io.ktor:ktor-serialization-kotlinx-xml-jvm:${Version.kotlin.ktor}"
+                const val cbor = "io.ktor:ktor-serialization-kotlinx-cbor-jvm:${Version.kotlin.ktor}"
+                const val websockets = "io.ktor:ktor-client-websockets-jvm:${Version.kotlin.ktor}"
+                const val contentNegotiation = "io.ktor:ktor-client-content-negotiation-jvm:${Version.kotlin.ktor}"
             }
 
             val android = Android
@@ -72,15 +80,22 @@ object Dependency {
             object Android {
                 const val client = "io.ktor:ktor-client-android:${Version.kotlin.ktor}"
                 const val okhttp = "io.ktor:ktor-client-okhttp:${Version.kotlin.ktor}"
-                const val serialization = "io.ktor:ktor-client-serialization-jvm:${Version.kotlin.ktor}"
+                const val json = "io.ktor:ktor-serialization-kotlinx-json-android:${Version.kotlin.ktor}"
+                const val xml = "io.ktor:ktor-serialization-kotlinx-xml-android:${Version.kotlin.ktor}"
+                const val cbor = "io.ktor:ktor-serialization-kotlinx-cbor-android:${Version.kotlin.ktor}"
+                const val websockets = "io.ktor:ktor-client-websockets-android:${Version.kotlin.ktor}"
+                const val contentNegotiation = "io.ktor:ktor-client-content-negotiation-android:${Version.kotlin.ktor}"
             }
 
             val ios = Ios
 
             object Ios {
-                const val client = "io.ktor:ktor-client-ios:${Version.kotlin.ktor}"
-                const val clientDarwin = "io.ktor:ktor-client-darwin:${Version.kotlin.ktor}"
-                const val serialization = "io.ktor:ktor-client-serialization-native:${Version.kotlin.ktor}"
+                const val client = "io.ktor:ktor-client-darwin:${Version.kotlin.ktor}"
+                const val json = "io.ktor:ktor-serialization-kotlinx-json-native:${Version.kotlin.ktor}"
+                const val xml = "io.ktor:ktor-serialization-kotlinx-xml-native:${Version.kotlin.ktor}"
+                const val cbor = "io.ktor:ktor-serialization-kotlinx-cbor-native:${Version.kotlin.ktor}"
+                const val websockets = "io.ktor:ktor-client-websockets-native:${Version.kotlin.ktor}"
+                const val contentNegotiation = "io.ktor:ktor-client-content-negotiation-native:${Version.kotlin.ktor}"
             }
 
             val js = JS
@@ -88,13 +103,22 @@ object Dependency {
             object JS {
                 const val client = "io.ktor:ktor-client-js:${Version.kotlin.ktor}"
                 const val serialization = "io.ktor:ktor-client-serialization-js:${Version.kotlin.ktor}"
+                const val json = "io.ktor:ktor-serialization-kotlinx-json-js:${Version.kotlin.ktor}"
+                const val xml = "io.ktor:ktor-serialization-kotlinx-xml-js:${Version.kotlin.ktor}"
+                const val cbor = "io.ktor:ktor-serialization-kotlinx-cbor-js:${Version.kotlin.ktor}"
+                const val websockets = "io.ktor:ktor-client-websockets-js:${Version.kotlin.ktor}"
+                const val contentNegotiation = "io.ktor:ktor-client-content-negotiation-js:${Version.kotlin.ktor}"
             }
 
             val native = Native
 
             object Native {
                 const val client = "io.ktor:ktor-client-curl:${Version.kotlin.ktor}"
-                const val serialization = "io.ktor:ktor-client-serialization-native:${Version.kotlin.ktor}"
+                const val json = "io.ktor:ktor-serialization-kotlinx-json-native:${Version.kotlin.ktor}"
+                const val xml = "io.ktor:ktor-serialization-kotlinx-xml-native:${Version.kotlin.ktor}"
+                const val cbor = "io.ktor:ktor-serialization-kotlinx-cbor-native:${Version.kotlin.ktor}"
+                const val websockets = "io.ktor:ktor-client-websockets-native:${Version.kotlin.ktor}"
+                const val contentNegotiation = "io.ktor:ktor-client-content-negotiation-native:${Version.kotlin.ktor}"
             }
 
             // Logger
@@ -175,6 +199,7 @@ object Dependency {
             const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.android.ktx.navigation}"
             const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Version.android.ktx.navigation}"
             const val palette = "androidx.palette:palette-ktx:${Version.android.ktx.palette}"
+            const val runtime = "androidx.compose.runtime:runtime:${Version.android.compose.runtime}"
             const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
             const val viewmodelSaver = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Version.android.ktx.viewmodel}"
             const val viewmodelCoroutine = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
@@ -197,14 +222,14 @@ object Dependency {
 
         // see: https://developer.android.com/jetpack/compose/setup
         object Compose {
-            const val ui = "androidx.compose.ui:ui:${Version.android.compose.core}"
-            const val uiTooling = "androidx.compose.ui:ui-tooling:${Version.android.compose.core}"
-            const val uiManifest = "androidx.compose.ui:ui-test-manifest:${Version.android.compose.core}"
-            const val foundation = "androidx.compose.foundation:foundation:${Version.android.compose.core}"
+            const val ui = "androidx.compose.ui:ui:${Version.android.compose.ui}"
+            const val uiTooling = "androidx.compose.ui:ui-tooling:${Version.android.compose.ui}"
+            const val uiManifest = "androidx.compose.ui:ui-test-manifest:${Version.android.compose.ui}"
+            const val foundation = "androidx.compose.foundation:foundation:${Version.android.compose.foundation}"
             const val navigation = "androidx.navigation:navigation-compose:${Version.android.ktx.navigation}"
-            const val material = "androidx.compose.material:material:${Version.android.compose.core}"
-            const val materialIcons = "androidx.compose.material:material-icons-core:${Version.android.compose.core}"
-            const val materialIconsExtended = "androidx.compose.material:material-icons-extended:${Version.android.compose.core}"
+            const val material = "androidx.compose.material:material:${Version.android.compose.material}"
+            const val materialIcons = "androidx.compose.material:material-icons-core:${Version.android.compose.material}"
+            const val materialIconsExtended = "androidx.compose.material:material-icons-extended:${Version.android.compose.material}"
             const val activity = "androidx.activity:activity-compose:${Version.android.compose.activity}"
             const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Version.android.compose.viewmodel}"
             const val constrainLayout = "androidx.constraintlayout:constraintlayout-compose:${Version.android.compose.constraintLayout}"
@@ -231,7 +256,7 @@ object Dependency {
             const val espressoIntents = "androidx.test.espresso:espresso-intents:${Version.android.test.espresso}"
             const val espressoWeb = "androidx.test.espresso:espresso-web:${Version.android.test.espresso}"
 
-            const val composeJunit4 = "androidx.compose.ui:ui-test-junit4:${Version.android.compose.core}"
+            const val composeJunit4 = "androidx.compose.ui:ui-test-junit4:${Version.android.compose.ui}"
 
             const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Version.android.test.uiAutomator}"
 

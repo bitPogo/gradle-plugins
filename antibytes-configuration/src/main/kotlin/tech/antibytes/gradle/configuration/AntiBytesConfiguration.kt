@@ -16,14 +16,14 @@ class AntiBytesConfiguration : Plugin<Project> {
         if (target.isAndroidLibrary()) {
             AndroidLibraryConfigurator.configure(
                 target,
-                DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(target)
+                DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(target),
             )
         }
 
         if (target.isAndroidApplication()) {
             AndroidApplicationConfigurator.configure(
                 target,
-                DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(target)
+                DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(target),
             )
         }
     }

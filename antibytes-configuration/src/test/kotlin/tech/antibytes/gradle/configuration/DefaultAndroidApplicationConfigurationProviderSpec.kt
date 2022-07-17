@@ -11,6 +11,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
@@ -23,8 +25,6 @@ import tech.antibytes.gradle.configuration.api.TestRunner
 import tech.antibytes.gradle.configuration.api.TestSource
 import tech.antibytes.gradle.util.GradleUtilApiContract
 import tech.antibytes.gradle.util.PlatformContextResolver
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class DefaultAndroidApplicationConfigurationProviderSpec {
     private val fixture = kotlinFixture()
@@ -66,7 +66,7 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
                 targetSdkVersion = 32,
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
-                    source = JavaVersion.VERSION_1_8
+                    source = JavaVersion.VERSION_1_8,
                 ),
                 fallbacks = mapOf("debug" to setOf("release")),
                 mainSource = MainSource(
@@ -74,28 +74,28 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
                     sourceDirectories = setOf("src/main/kotlin"),
                     resourceDirectories = setOf(
                         "src/main/res",
-                        "src/main/resources"
-                    )
+                        "src/main/resources",
+                    ),
                 ),
                 unitTestSource = TestSource(
                     sourceDirectories = setOf("src/test/kotlin"),
                     resourceDirectories = setOf(
                         "src/test/res",
-                        "src/test/resources"
-                    )
+                        "src/test/resources",
+                    ),
                 ),
                 androidTest = TestSource(
                     sourceDirectories = setOf("src/androidTest/kotlin"),
                     resourceDirectories = setOf(
                         "src/androidTest/res",
-                        "src/androidTest/resources"
-                    )
+                        "src/androidTest/resources",
+                    ),
                 ),
                 testRunner = TestRunner(
                     runner = "androidx.test.runner.AndroidJUnitRunner",
-                    arguments = mapOf("clearPackageData" to "true")
-                )
-            )
+                    arguments = mapOf("clearPackageData" to "true"),
+                ),
+            ),
         )
     }
 
@@ -120,7 +120,7 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
                 targetSdkVersion = 32,
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
-                    source = JavaVersion.VERSION_1_8
+                    source = JavaVersion.VERSION_1_8,
                 ),
                 fallbacks = mapOf("debug" to setOf("release")),
                 mainSource = MainSource(
@@ -129,27 +129,27 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
                     resourceDirectories = setOf(
                         "src/androidMain/res",
                         "src/androidMain/resources",
-                    )
+                    ),
                 ),
                 unitTestSource = TestSource(
                     sourceDirectories = setOf("src/androidTest/kotlin"),
                     resourceDirectories = setOf(
                         "src/androidTest/res",
                         "src/androidTest/resources",
-                    )
+                    ),
                 ),
                 androidTest = TestSource(
                     sourceDirectories = setOf("src/androidAndroidTest/kotlin"),
                     resourceDirectories = setOf(
                         "src/androidAndroidTest/res",
-                        "src/androidAndroidTest/resources"
-                    )
+                        "src/androidAndroidTest/resources",
+                    ),
                 ),
                 testRunner = TestRunner(
                     runner = "androidx.test.runner.AndroidJUnitRunner",
-                    arguments = mapOf("clearPackageData" to "true")
-                )
-            )
+                    arguments = mapOf("clearPackageData" to "true"),
+                ),
+            ),
         )
     }
 }

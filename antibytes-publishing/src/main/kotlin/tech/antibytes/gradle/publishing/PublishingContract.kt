@@ -27,7 +27,7 @@ internal interface PublishingContract {
             project: Project,
             version: String = "",
             documentation: Task? = null,
-            extension: PublishingPluginExtension
+            extension: PublishingPluginExtension,
         )
     }
 
@@ -36,7 +36,7 @@ internal interface PublishingContract {
         val DEPENDENCIES = arrayOf(
             "com.palantir.git-version",
             "maven-publish",
-            "org.gradle.signing"
+            "org.gradle.signing",
         )
     }
 }

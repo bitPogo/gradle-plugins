@@ -14,7 +14,7 @@ object Version {
         /**
          * [KTLint](https://github.com/pinterest/ktlint/releases)
          */
-        const val ktLint = "0.44.0"
+        const val ktLint = "0.46.1"
     }
 
     // Kotlin
@@ -24,14 +24,14 @@ object Version {
         /**
          * [Kotlin](https://github.com/JetBrains/kotlin)
          */
-        const val language = "1.6.21"
+        const val language = "1.7.0"
 
         const val stdlib = language
 
         /**
          * [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
          */
-        const val coroutines = "1.6.1-native-mt"
+        const val coroutines = "1.6.3-native-mt"
 
         /**
          * [Koin](https://github.com/InsertKoinIO/koin)
@@ -41,7 +41,7 @@ object Version {
         /**
          * [Ktor](https://github.com/ktorio/ktor)
          */
-        const val ktor = "1.6.8"
+        const val ktor = "2.0.3"
 
         /**
          * [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
@@ -51,7 +51,7 @@ object Version {
         /**
          * [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
          */
-        const val dateTime = "0.3.3"
+        const val dateTime = "0.4.0"
 
         /**
          * [UUID](https://github.com/benasher44/uuid)
@@ -61,12 +61,12 @@ object Version {
         /**
          * [Stately](https://github.com/touchlab/Stately)
          */
-        const val stately = "1.2.1"
+        const val stately = "1.2.3"
 
         /**
          * (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
          */
-        const val atomicFu = "0.17.3"
+        const val atomicFu = "0.18.2"
 
         val test = Test
 
@@ -111,14 +111,14 @@ object Version {
             /**
              * [Android Tech](https://androidx.tech/artifacts/activity/activity-ktx/)
              */
-            const val activity = "1.4.0"
+            const val activity = "1.5.0"
             const val collections = "1.2.0"
-            const val lifecycle = "2.5.0-rc02"
-            const val fragment = "1.4.1"
-            const val livedata = "2.5.0-rc02"
-            const val navigation = "2.4.2"
+            const val lifecycle = "2.5.0"
+            const val fragment = "1.5.0"
+            const val livedata = "2.5.0"
+            const val navigation = "2.5.0"
             const val palette = "1.0.0"
-            const val viewmodel = "2.5.0-rc02"
+            const val viewmodel = "2.5.0"
             const val workmanager = "2.7.1"
         }
 
@@ -147,11 +147,15 @@ object Version {
         val compose = Compose
 
         object Compose {
-            const val core = "1.2.0-rc01"
-            const val compiler = "1.2.0-rc01"
+            const val core = "1.2.0"
+            const val compiler = "1.2.0"
+            const val foundation = "1.2.0-rc03"
+            const val material = "1.2.0-rc03"
+            const val runtime = "1.2.0-rc03"
+            const val ui = "1.2.0-rc03"
             const val constraintLayout = "1.0.1"
-            const val activity = "1.4.0"
-            const val viewmodel = "2.5.0-rc02"
+            const val activity = "1.5.0"
+            const val viewmodel = "2.5.0"
         }
 
         val test = Test

@@ -14,6 +14,11 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import org.junit.jupiter.api.AfterEach
@@ -22,11 +27,6 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationProvider
 import tech.antibytes.gradle.util.GradleUtilApiContract
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
     private val fixture = kotlinFixture()
@@ -64,13 +64,13 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // Then
         assertEquals(
             actual = result,
-            expected = config
+            expected = config,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -89,13 +89,13 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // Then
         assertEquals(
             actual = result,
-            expected = config
+            expected = config,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -112,19 +112,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            variant = variant
+            variant = variant,
         )
 
         // Then
         assertNotEquals(
             actual = result.variant,
-            illegal = variant
+            illegal = variant,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -141,19 +141,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            variant = variant
+            variant = variant,
         )
 
         // Then
         assertNotEquals(
             actual = result.variant,
-            illegal = variant
+            illegal = variant,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -170,19 +170,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            variant = variant
+            variant = variant,
         )
 
         // Then
         assertSame(
             actual = result.variant,
-            expected = variant
+            expected = variant,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -199,19 +199,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            variant = variant
+            variant = variant,
         )
 
         // Then
         assertEquals(
             actual = result.variant,
-            expected = variant
+            expected = variant,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -228,19 +228,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            flavour = flavour
+            flavour = flavour,
         )
 
         // Then
         assertNotEquals(
             actual = result.flavour,
-            illegal = flavour
+            illegal = flavour,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -257,19 +257,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            flavour = flavour
+            flavour = flavour,
         )
 
         // Then
         assertNotEquals(
             actual = result.flavour,
-            illegal = flavour
+            illegal = flavour,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -286,19 +286,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            flavour = flavour
+            flavour = flavour,
         )
 
         // Then
         assertSame(
             actual = result.flavour,
-            expected = flavour
+            expected = flavour,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -315,19 +315,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            flavour = flavour
+            flavour = flavour,
         )
 
         // Then
         assertEquals(
             actual = result.flavour,
-            expected = flavour
+            expected = flavour,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -344,19 +344,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            reportSettings = reporterSettings
+            reportSettings = reporterSettings,
         )
 
         // Then
         assertSame(
             actual = result.reportSettings,
-            expected = reporterSettings
+            expected = reporterSettings,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -373,19 +373,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            reportSettings = reporterSettings
+            reportSettings = reporterSettings,
         )
 
         // Then
         assertEquals(
             actual = result.reportSettings,
-            expected = reporterSettings
+            expected = reporterSettings,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -402,19 +402,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            testDependencies = testDependencies
+            testDependencies = testDependencies,
         )
 
         // Then
         assertEquals(
             actual = result.testDependencies,
-            expected = testDependencies
+            expected = testDependencies,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -431,19 +431,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            testDependencies = testDependencies
+            testDependencies = testDependencies,
         )
 
         // Then
         assertEquals(
             actual = result.testDependencies,
-            expected = testDependencies
+            expected = testDependencies,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -460,19 +460,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            instrumentedTestDependencies = instrumentedTestDependencies
+            instrumentedTestDependencies = instrumentedTestDependencies,
         )
 
         // Then
         assertEquals(
             actual = result.instrumentedTestDependencies,
-            expected = instrumentedTestDependencies
+            expected = instrumentedTestDependencies,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -489,19 +489,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            instrumentedTestDependencies = instrumentedTestDependencies
+            instrumentedTestDependencies = instrumentedTestDependencies,
         )
 
         // Then
         assertEquals(
             actual = result.instrumentedTestDependencies,
-            expected = instrumentedTestDependencies
+            expected = instrumentedTestDependencies,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -518,19 +518,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            classPattern = classPattern
+            classPattern = classPattern,
         )
 
         // Then
         assertEquals(
             actual = result.classPattern,
-            expected = classPattern
+            expected = classPattern,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -547,19 +547,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            classPattern = classPattern
+            classPattern = classPattern,
         )
 
         // Then
         assertEquals(
             actual = result.classPattern,
-            expected = classPattern
+            expected = classPattern,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -576,19 +576,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            classFilter = classFilter
+            classFilter = classFilter,
         )
 
         // Then
         assertEquals(
             actual = result.classFilter,
-            expected = classFilter
+            expected = classFilter,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -605,19 +605,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            classFilter = classFilter
+            classFilter = classFilter,
         )
 
         // Then
         assertEquals(
             actual = result.classFilter,
-            expected = classFilter
+            expected = classFilter,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -634,19 +634,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            sources = sources
+            sources = sources,
         )
 
         // Then
         assertEquals(
             actual = result.sources,
-            expected = sources
+            expected = sources,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -663,19 +663,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            sources = sources
+            sources = sources,
         )
 
         // Then
         assertEquals(
             actual = result.sources,
-            expected = sources
+            expected = sources,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -693,19 +693,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            additionalSources = additionalSources
+            additionalSources = additionalSources,
         )
 
         // Then
         assertEquals(
             actual = result.additionalSources,
-            expected = additionalSources
+            expected = additionalSources,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -722,19 +722,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            additionalSources = additionalSources
+            additionalSources = additionalSources,
         )
 
         // Then
         assertEquals(
             actual = result.additionalSources,
-            expected = additionalSources
+            expected = additionalSources,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -751,19 +751,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            additionalClasses = additionalClasses
+            additionalClasses = additionalClasses,
         )
 
         // Then
         assertEquals(
             actual = result.additionalClasses,
-            expected = additionalClasses
+            expected = additionalClasses,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -780,19 +780,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            additionalClasses = additionalClasses
+            additionalClasses = additionalClasses,
         )
 
         // Then
         assertEquals(
             actual = result.additionalClasses,
-            expected = additionalClasses
+            expected = additionalClasses,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -809,19 +809,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryOnlyConfiguration(
             project,
-            verificationRules = verificationRules
+            verificationRules = verificationRules,
         )
 
         // Then
         assertEquals(
             actual = result.verificationRules,
-            expected = verificationRules
+            expected = verificationRules,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY,
             )
         }
     }
@@ -838,19 +838,19 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
         // When
         val result = AndroidJacocoConfiguration.createAndroidLibraryKmpConfiguration(
             project,
-            verificationRules = verificationRules
+            verificationRules = verificationRules,
         )
 
         // Then
         assertEquals(
             actual = result.verificationRules,
-            expected = verificationRules
+            expected = verificationRules,
         )
 
         verify(exactly = 1) {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP
+                GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP,
             )
         }
     }
@@ -867,7 +867,7 @@ class AndroidJacocoCoverageConfigurationProviderLibrarySpec {
             emptySet(),
             emptySet(),
             "xxx",
-            "zzz"
+            "zzz",
         )
     }
 }

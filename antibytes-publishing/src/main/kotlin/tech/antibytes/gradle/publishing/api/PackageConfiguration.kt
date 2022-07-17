@@ -16,5 +16,5 @@ data class PackageConfiguration(
     override val developers: List<PublishingApiContract.DeveloperConfiguration>,
     override val contributors: List<PublishingApiContract.ContributorConfiguration> = emptyList(),
     override val license: PublishingApiContract.LicenseConfiguration,
-    override val scm: PublishingApiContract.SourceControlConfiguration
+    override val scm: PublishingApiContract.SourceControlConfiguration,
 ) : PublishingApiContract.PackageConfiguration

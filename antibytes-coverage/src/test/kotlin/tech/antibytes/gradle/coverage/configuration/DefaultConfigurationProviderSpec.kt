@@ -10,6 +10,9 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
+import kotlin.test.assertEquals
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -19,9 +22,6 @@ import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationPr
 import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import tech.antibytes.gradle.util.PlatformContextResolver
-import kotlin.test.assertEquals
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class DefaultConfigurationProviderSpec {
     @BeforeEach
@@ -58,7 +58,7 @@ class DefaultConfigurationProviderSpec {
         // Then
         assertEquals(
             expected = result,
-            actual = emptyMap()
+            actual = emptyMap(),
         )
     }
 
@@ -73,7 +73,7 @@ class DefaultConfigurationProviderSpec {
         every {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                PlatformContext.JVM
+                PlatformContext.JVM,
             )
         } returns config
 
@@ -83,12 +83,12 @@ class DefaultConfigurationProviderSpec {
         // Then
         assertEquals(
             expected = 1,
-            actual = result.size
+            actual = result.size,
         )
 
         assertSame(
             expected = config,
-            actual = result["jvm"]
+            actual = result["jvm"],
         )
     }
 
@@ -103,7 +103,7 @@ class DefaultConfigurationProviderSpec {
         every {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                PlatformContext.ANDROID_APPLICATION
+                PlatformContext.ANDROID_APPLICATION,
             )
         } returns config
 
@@ -113,12 +113,12 @@ class DefaultConfigurationProviderSpec {
         // Then
         assertEquals(
             expected = 1,
-            actual = result.size
+            actual = result.size,
         )
 
         assertSame(
             expected = config,
-            actual = result["android"]
+            actual = result["android"],
         )
     }
 
@@ -132,18 +132,18 @@ class DefaultConfigurationProviderSpec {
 
         every { PlatformContextResolver.getType(project) } returns setOf(
             PlatformContext.ANDROID_APPLICATION,
-            PlatformContext.JVM
+            PlatformContext.JVM,
         )
         every {
             AndroidConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                PlatformContext.ANDROID_APPLICATION
+                PlatformContext.ANDROID_APPLICATION,
             )
         } returns configAndroid
         every {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                PlatformContext.JVM
+                PlatformContext.JVM,
             )
         } returns configJvm
 
@@ -153,16 +153,16 @@ class DefaultConfigurationProviderSpec {
         // Then
         assertEquals(
             expected = 2,
-            actual = result.size
+            actual = result.size,
         )
 
         assertSame(
             expected = configAndroid,
-            actual = result["android"]
+            actual = result["android"],
         )
         assertSame(
             expected = configJvm,
-            actual = result["jvm"]
+            actual = result["jvm"],
         )
     }
 }

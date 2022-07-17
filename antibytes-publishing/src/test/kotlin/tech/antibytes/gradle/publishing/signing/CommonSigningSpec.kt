@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.execution.TaskExecutionGraph
@@ -21,7 +22,6 @@ import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.plugins.signing.SigningExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertTrue
 
 class CommonSigningSpec {
     private val fixture = kotlinFixture()
@@ -41,7 +41,7 @@ class CommonSigningSpec {
         val gradle: Gradle = mockk()
         val taskExecutionGraph: TaskExecutionGraph = mockk()
         val allTasks = listOf<Task>(
-            mockk<PublishToMavenRepository>()
+            mockk<PublishToMavenRepository>(),
         )
 
         val signingExtension: SigningExtension = mockk(relaxed = true)
@@ -54,7 +54,7 @@ class CommonSigningSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension
+            signingExtension,
         )
 
         CommonSigning.configure(project)
@@ -81,7 +81,7 @@ class CommonSigningSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension
+            signingExtension,
         )
 
         CommonSigning.configure(project)

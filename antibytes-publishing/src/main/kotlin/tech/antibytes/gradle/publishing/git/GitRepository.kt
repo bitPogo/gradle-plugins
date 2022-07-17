@@ -15,14 +15,14 @@ import tech.antibytes.gradle.publishing.publisher.PublisherContract
 internal object GitRepository : PublisherContract.GitRepository {
     override fun configureCloneTask(
         project: Project,
-        configuration: PublishingApiContract.RepositoryConfiguration
+        configuration: PublishingApiContract.RepositoryConfiguration,
     ): Task? {
         return if (configuration is PublishingApiContract.GitRepositoryConfiguration) {
             project.tasks.create("clone${configuration.name.capitalize()}") {
                 doLast {
                     GitActions.checkout(
                         project,
-                        configuration
+                        configuration,
                     )
                 }
             }
@@ -35,7 +35,7 @@ internal object GitRepository : PublisherContract.GitRepository {
         project: Project,
         configuration: PublishingApiContract.RepositoryConfiguration,
         version: String,
-        dryRun: Boolean
+        dryRun: Boolean,
     ): Task? {
         return if (configuration is PublishingApiContract.GitRepositoryConfiguration) {
             project.tasks.create("push${configuration.name.capitalize()}") {
@@ -44,12 +44,12 @@ internal object GitRepository : PublisherContract.GitRepository {
                         project,
                         configuration,
                         version,
-                        dryRun
+                        dryRun,
                     )
 
                     if (!succeeded) {
                         throw PublishingError.GitRejectedCommitError(
-                            "Something went wrong while pushing, please manually check the repository."
+                            "Something went wrong while pushing, please manually check the repository.",
                         )
                     }
                 }

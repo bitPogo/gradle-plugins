@@ -18,7 +18,7 @@ import tech.antibytes.gradle.versioning.api.VersioningError
 
 class Versioning private constructor(
     private val versionDetails: Closure<VersionDetails>,
-    private val configuration: VersioningConfiguration
+    private val configuration: VersioningConfiguration,
 ) : VersioningContract.Versioning {
     private fun removeVersionPrefix(version: String): String {
         return version.substringAfter(configuration.versionPrefix)
@@ -38,7 +38,7 @@ class Versioning private constructor(
 
     private fun cleanVersionName(
         version: String,
-        commitDistance: Int
+        commitDistance: Int,
     ): String {
         val name = version.substringBefore(".dirty")
 
@@ -55,11 +55,11 @@ class Versioning private constructor(
     // version '-' [gitHash] '-' 'SNAPSHOT'
     private fun renderSnapshotName(
         details: VersionDetails,
-        useGitHash: Boolean
+        useGitHash: Boolean,
     ): String {
         val versionName = cleanVersionName(
             details.version,
-            details.commitDistance
+            details.commitDistance,
         )
 
         val snapShotName = mutableListOf(versionName)
@@ -79,7 +79,7 @@ class Versioning private constructor(
 
     private fun renderReleaseOrSnapshotBranch(
         details: VersionDetails,
-        useGitHash: Boolean
+        useGitHash: Boolean,
     ): String {
         return if (!details.isCleanTag || details.commitDistance > 0) {
             renderSnapshotName(details, useGitHash)
@@ -106,7 +106,7 @@ class Versioning private constructor(
 
     private fun extractBranchName(
         prefixes: List<String>,
-        name: String
+        name: String,
     ): String {
         val pattern = resolveSnapshotPattern(prefixes)
 
@@ -117,13 +117,13 @@ class Versioning private constructor(
         val infix = normalize(
             extractBranchName(
                 configuration.dependencyBotPrefixes,
-                details.branchName
-            )
+                details.branchName,
+            ),
         )
 
         val versionName = cleanVersionName(
             details.version,
-            details.commitDistance
+            details.commitDistance,
         )
 
         // Schema:
@@ -135,11 +135,11 @@ class Versioning private constructor(
         details: VersionDetails,
         useGitHash: Boolean,
         versionName: String,
-        infix: String
+        infix: String,
     ): String {
         val version = mutableListOf(
             versionName,
-            infix
+            infix,
         )
 
         if (useGitHash) {
@@ -153,19 +153,19 @@ class Versioning private constructor(
 
     private fun extractIssue(
         pattern: Regex,
-        name: String
+        name: String,
     ): String = pattern.matchEntire(name)!!.groups[1]!!.value
 
     private fun renderFeatureBranch(details: VersionDetails, useGitHash: Boolean): String {
         var infix = extractBranchName(
             configuration.featurePrefixes,
-            details.branchName
+            details.branchName,
         )
 
         infix = if (configuration.issuePattern is Regex && configuration.issuePattern!!.matches(infix)) {
             extractIssue(
                 configuration.issuePattern!!,
-                infix
+                infix,
             )
         } else {
             infix
@@ -178,9 +178,9 @@ class Versioning private constructor(
             useGitHash,
             cleanVersionName(
                 details.version,
-                details.commitDistance
+                details.commitDistance,
             ),
-            normalize(infix)
+            normalize(infix),
         )
     }
 
@@ -198,19 +198,19 @@ class Versioning private constructor(
         return when {
             details.branchName == null -> renderReleaseOrSnapshotBranch(
                 details,
-                configuration.useGitHashSnapshotSuffix
+                configuration.useGitHashSnapshotSuffix,
             )
             details.branchName.matches(releaseBranchPattern) -> renderReleaseOrSnapshotBranch(
                 details,
-                configuration.useGitHashSnapshotSuffix
+                configuration.useGitHashSnapshotSuffix,
             )
             details.branchName.matches(dependencyBotPattern) -> renderDependencyBotBranch(details)
             details.branchName.matches(featureBranchPattern) -> renderFeatureBranch(
                 details,
-                configuration.useGitHashFeatureSuffix
+                configuration.useGitHashFeatureSuffix,
             )
             else -> throw VersioningError(
-                "Ill named branch name (${details.branchName})! Please adjust it to match the project settings."
+                "Ill named branch name (${details.branchName})! Please adjust it to match the project settings.",
             )
         }
     }
@@ -220,7 +220,7 @@ class Versioning private constructor(
     override fun versionInfo(): VersionInfo {
         return VersionInfo(
             resolveVersionName(versionDetails()),
-            versionDetails()
+            versionDetails(),
         )
     }
 
@@ -231,7 +231,7 @@ class Versioning private constructor(
 
         override fun getInstance(
             project: Project,
-            configuration: VersioningConfiguration
+            configuration: VersioningConfiguration,
         ): VersioningContract.Versioning {
             val versionDetails: Closure<VersionDetails> by project.extra
 

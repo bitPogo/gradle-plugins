@@ -6,37 +6,11 @@
 
 package tech.antibytes.gradle.plugin.script
 
-/**
- * Quality check to keep the code spotless using [Spotless](https://github.com/diffplug/spotless)
- *
- * It uses Ktlint to format and validate Kotlin code style.
- *
- * Install:
- *
- * You need to add following dependencies to the buildSrc/build.gradle.kts
- *
- * dependencies {
- *     implementation("com.diffplug.spotless:spotless-plugin-gradle:5.10.2")
- *     implementation("com.pinterest:ktlint:0.42.1") or higher
- * }
- *
- * and ensure that the gradlePluginPortal is available
- *
- * repositories {
- *     gradlePluginPortal()
- * }
- *
- * Now just add id("tech.antibytes.gradle.plugin.script.quality-spotless") to your rootProject build.gradle.kts plugins
- *
- * plugins {
- *     id("tech.antibytes.gradle.plugin.script.quality-spotless")
- * }
- */
 plugins {
     id("com.diffplug.spotless")
 }
 
-val ktlintVersion = "0.44.0"
+val ktlintVersion = "0.46.1"
 
 spotless {
     kotlin {
@@ -46,10 +20,12 @@ spotless {
             "**/buildSrc/build/",
             "**/antibytes-runtime-configuration/src/test/resources/generated/*.kt"
         )
-        ktlint(ktlintVersion).userData(
+        ktlint(ktlintVersion).editorConfigOverride(
             mapOf(
                 "disabled_rules" to "no-wildcard-imports",
-                "ij_kotlin_imports_layout" to "*"
+                "ij_kotlin_imports_layout" to "*",
+                "ij_kotlin_allow_trailing_comma" to "true",
+                "ij_kotlin_allow_trailing_comma_on_call_site" to "true",
             )
         )
         trimTrailingWhitespace()

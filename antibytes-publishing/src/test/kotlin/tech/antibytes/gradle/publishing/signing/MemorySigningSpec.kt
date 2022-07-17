@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.DomainObjectCollection
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
@@ -25,7 +26,6 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.api.CompleteMemorySigningConfiguration
 import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertTrue
 
 class MemorySigningSpec {
     private val fixture = kotlinFixture()
@@ -59,22 +59,22 @@ class MemorySigningSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension
+            signingExtension,
         )
 
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
 
         val signingConfiguration = MemorySigningConfiguration(
@@ -113,22 +113,22 @@ class MemorySigningSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension
+            signingExtension,
         )
 
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
 
         val signingConfiguration = CompleteMemorySigningConfiguration(
@@ -172,22 +172,22 @@ class MemorySigningSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension
+            signingExtension,
         )
 
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
 
         val signingConfiguration = CompleteMemorySigningConfiguration(

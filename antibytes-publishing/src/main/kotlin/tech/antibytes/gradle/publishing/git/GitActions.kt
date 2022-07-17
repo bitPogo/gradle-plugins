@@ -6,26 +6,26 @@
 
 package tech.antibytes.gradle.publishing.git
 
+import java.io.File
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.ResetCommand
 import org.eclipse.jgit.transport.PushResult
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import java.io.File
 
 internal object GitActions : GitContract.GitActions {
     private fun update(
         git: Git,
-        credentials: PublishingApiContract.Credentials
+        credentials: PublishingApiContract.Credentials,
     ) {
         git.fetch()
             .setForceUpdate(true)
             .setCredentialsProvider(
                 UsernamePasswordCredentialsProvider(
                     credentials.username,
-                    credentials.password
-                )
+                    credentials.password,
+                ),
             )
             .call()
     }
@@ -39,7 +39,7 @@ internal object GitActions : GitContract.GitActions {
 
     private fun updateAndReset(
         targetDirectory: File,
-        repository: PublishingApiContract.RepositoryConfiguration
+        repository: PublishingApiContract.RepositoryConfiguration,
     ) {
         val git = Git.open(targetDirectory)
 
@@ -52,15 +52,15 @@ internal object GitActions : GitContract.GitActions {
 
     private fun clone(
         targetDirectory: File,
-        repository: PublishingApiContract.RepositoryConfiguration
+        repository: PublishingApiContract.RepositoryConfiguration,
     ) {
         Git.cloneRepository()
             .setURI(repository.url)
             .setCredentialsProvider(
                 UsernamePasswordCredentialsProvider(
                     repository.username,
-                    repository.password
-                )
+                    repository.password,
+                ),
             )
             .setDirectory(targetDirectory)
             .call()
@@ -68,7 +68,7 @@ internal object GitActions : GitContract.GitActions {
 
     override fun checkout(
         project: Project,
-        repository: PublishingApiContract.RepositoryConfiguration
+        repository: PublishingApiContract.RepositoryConfiguration,
     ) {
         val targetDirectory = File("${project.rootProject.buildDir.absolutePath}/${repository.name}")
 
@@ -94,7 +94,7 @@ internal object GitActions : GitContract.GitActions {
     }
 
     private fun parsePushResult(
-        results: Iterable<PushResult>
+        results: Iterable<PushResult>,
     ): Boolean {
         val update = results.first().remoteUpdates.first()
         return !update.status.name.startsWith("REJECTED")
@@ -103,15 +103,15 @@ internal object GitActions : GitContract.GitActions {
     private fun push(
         git: Git,
         credentials: PublishingApiContract.Credentials,
-        dryRun: Boolean
+        dryRun: Boolean,
     ): Boolean {
         val push = git.push()
             .setDryRun(dryRun)
             .setCredentialsProvider(
                 UsernamePasswordCredentialsProvider(
                     credentials.username,
-                    credentials.password
-                )
+                    credentials.password,
+                ),
             )
 
         return parsePushResult(push.call())
@@ -121,7 +121,7 @@ internal object GitActions : GitContract.GitActions {
         git: Git,
         credentials: PublishingApiContract.Credentials,
         commitMessage: String,
-        dryRun: Boolean
+        dryRun: Boolean,
     ): Boolean {
         commit(git, commitMessage)
         return push(git, credentials, dryRun)
@@ -131,17 +131,17 @@ internal object GitActions : GitContract.GitActions {
         project: Project,
         repository: PublishingApiContract.RepositoryConfiguration,
         commitMessage: String,
-        dryRun: Boolean
+        dryRun: Boolean,
     ): Boolean {
         val git = Git.open(
-            File("${project.rootProject.buildDir.absolutePath}/${repository.name}")
+            File("${project.rootProject.buildDir.absolutePath}/${repository.name}"),
         )
 
         return push(
             git,
             repository,
             commitMessage,
-            dryRun
+            dryRun,
         ).also { git.close() }
     }
 }

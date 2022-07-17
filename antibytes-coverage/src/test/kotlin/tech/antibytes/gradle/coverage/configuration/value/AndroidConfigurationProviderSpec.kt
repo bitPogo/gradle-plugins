@@ -10,6 +10,11 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -18,11 +23,6 @@ import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.source.SourceHelper
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertNull
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class AndroidConfigurationProviderSpec {
     @BeforeEach
@@ -49,7 +49,7 @@ class AndroidConfigurationProviderSpec {
         // When
         val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(
             mockk(),
-            PlatformContext.ANDROID_LIBRARY
+            PlatformContext.ANDROID_LIBRARY,
         )
 
         // Then
@@ -168,7 +168,7 @@ class AndroidConfigurationProviderSpec {
                 "**/*Test*.*",
                 "android/**/*.*",
                 "**/*\$Lambda$*.*",
-                "**/*\$inlined$*.*"
+                "**/*\$inlined$*.*",
             ),
         )
     }
@@ -189,7 +189,7 @@ class AndroidConfigurationProviderSpec {
         // Then
         assertSame(
             actual = config.sources,
-            expected = sources
+            expected = sources,
         )
     }
 
@@ -253,7 +253,7 @@ class AndroidConfigurationProviderSpec {
         // Then
         assertEquals(
             actual = config.variant,
-            expected = "debug"
+            expected = "debug",
         )
     }
 
@@ -269,7 +269,7 @@ class AndroidConfigurationProviderSpec {
         // Then
         assertEquals(
             actual = config.flavour,
-            expected = ""
+            expected = "",
         )
     }
 }

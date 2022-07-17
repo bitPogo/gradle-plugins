@@ -16,6 +16,11 @@ import io.mockk.mockkObject
 import io.mockk.slot
 import io.mockk.unmockkObject
 import io.mockk.verify
+import java.io.File
+import java.math.BigDecimal
+import kotlin.test.assertNull
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -34,11 +39,6 @@ import tech.antibytes.gradle.coverage.api.JvmJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.test.invokeGradleAction
-import java.io.File
-import java.math.BigDecimal
-import kotlin.test.assertNull
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class JacocoAggregationVerificationTaskConfiguratorSpec {
     private val fixture = kotlinFixture()
@@ -56,14 +56,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val project: Project = mockk()
         val contextId: String = fixture()
         val configuration = JvmJacocoAggregationConfiguration(
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val subConfiguration1 = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -71,7 +71,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sources = setOf(mockk()),
             additionalSources = setOf(mockk()),
             additionalClasses = mockk(),
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val subproject1: Project = mockk()
@@ -124,7 +124,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // When
@@ -140,14 +140,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val project: Project = mockk()
         val contextId: String = fixture()
         val configuration = JvmJacocoAggregationConfiguration(
-            verificationRules = setOf(JacocoVerificationRule())
+            verificationRules = setOf(JacocoVerificationRule()),
         )
 
         val subConfiguration1 = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -155,7 +155,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sources = setOf(mockk()),
             additionalSources = setOf(mockk()),
             additionalClasses = mockk(),
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val subproject1: Project = mockk()
@@ -193,9 +193,9 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val configuration = JvmJacocoAggregationConfiguration(
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
-            )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
+            ),
         )
 
         val subproject1: Project = mockk()
@@ -224,9 +224,9 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             exclude = setOf(subprojectName),
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
-            )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
+            ),
         )
 
         val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
@@ -253,16 +253,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val configuration = JvmJacocoAggregationConfiguration(
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
-            )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
+            ),
         )
 
         val subConfiguration1 = AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -273,7 +273,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             verificationRules = emptySet(),
             variant = "debug",
             flavour = "",
-            instrumentedTestDependencies = emptySet()
+            instrumentedTestDependencies = emptySet(),
         )
 
         val subproject1: Project = mockk()
@@ -308,16 +308,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val configuration = JvmJacocoAggregationConfiguration(
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
-            )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
+            ),
         )
 
         val subConfiguration1 = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -325,14 +325,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sources = setOf(mockk()),
             additionalSources = setOf(mockk()),
             additionalClasses = mockk(),
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val subConfiguration2 = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -340,7 +340,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sources = setOf(mockk()),
             additionalSources = setOf(mockk()),
             additionalClasses = mockk(),
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val projectName: String = fixture()
@@ -400,11 +400,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 project.tasks.create(
                     "${contextId}AggregationVerification",
                     JacocoCoverageVerification::class.java,
-                    probe
+                    probe,
                 )
             },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
@@ -420,12 +420,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
         invokeGradleAction(
             { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
 
         every {
@@ -447,12 +447,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
         invokeGradleAction(
             { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
 
         every { subproject1.tasks.getByName("${contextId}Coverage") } returns subproject1Reporter
@@ -460,12 +460,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration1.testDependencies.map { name -> "jacoco/$name.exec" }.toSet()
+                subConfiguration1.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration2.testDependencies.map { name -> "jacoco/$name.exec" }.toSet()
+                subConfiguration2.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
 
@@ -473,7 +473,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sourceDirectories.setFrom(
                 subConfiguration1.sources.toMutableSet().also {
                     it.addAll(subConfiguration2.sources)
-                }
+                },
             )
         } just Runs
 
@@ -489,14 +489,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             additionalSourceDirectories.setFrom(
                 subConfiguration1.additionalSources.toMutableSet().also {
                     it.addAll(subConfiguration2.additionalSources)
-                }
+                },
             )
         } just Runs
 
         invokeGradleAction(
             { probe -> jacocoTask.violationRules(probe) },
             violationRules,
-            mockk()
+            mockk(),
         )
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
@@ -507,7 +507,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         // Then
         assertSame(
             actual = verificator,
-            expected = jacocoTask
+            expected = jacocoTask,
         )
 
         verify(exactly = 1) { jacocoTask.group = "Verification" }
@@ -536,16 +536,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val configuration = JvmJacocoAggregationConfiguration(
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
-            )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
+            ),
         )
 
         val subConfiguration1 = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -553,14 +553,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sources = setOf(mockk()),
             additionalSources = setOf(mockk()),
             additionalClasses = null,
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val subConfiguration2 = JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -568,7 +568,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sources = setOf(mockk()),
             additionalSources = setOf(mockk()),
             additionalClasses = null,
-            verificationRules = emptySet()
+            verificationRules = emptySet(),
         )
 
         val projectName: String = fixture()
@@ -628,11 +628,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 project.tasks.create(
                     "${contextId}AggregationVerification",
                     JacocoCoverageVerification::class.java,
-                    probe
+                    probe,
                 )
             },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
@@ -648,12 +648,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
         invokeGradleAction(
             { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
 
         every {
@@ -675,12 +675,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
         invokeGradleAction(
             { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
 
         every { subproject1.tasks.getByName("${contextId}Coverage") } returns subproject1Reporter
@@ -688,12 +688,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration1.testDependencies.map { name -> "jacoco/$name.exec" }.toSet()
+                subConfiguration1.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration2.testDependencies.map { name -> "jacoco/$name.exec" }.toSet()
+                subConfiguration2.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
 
@@ -701,7 +701,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sourceDirectories.setFrom(
                 subConfiguration1.sources.toMutableSet().also {
                     it.addAll(subConfiguration2.sources)
-                }
+                },
             )
         } just Runs
 
@@ -712,14 +712,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             additionalSourceDirectories.setFrom(
                 subConfiguration1.additionalSources.toMutableSet().also {
                     it.addAll(subConfiguration2.additionalSources)
-                }
+                },
             )
         } just Runs
 
         invokeGradleAction(
             { probe -> jacocoTask.violationRules(probe) },
             violationRules,
-            mockk()
+            mockk(),
         )
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
@@ -730,7 +730,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         // Then
         assertSame(
             actual = verificator,
-            expected = jacocoTask
+            expected = jacocoTask,
         )
 
         verify(exactly = 1) { jacocoTask.group = "Verification" }
@@ -759,16 +759,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             variant = fixture(),
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
-            )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
+            ),
         )
 
         val subConfiguration1 = AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -779,7 +779,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             verificationRules = emptySet(),
             variant = fixture(),
             flavour = "",
-            instrumentedTestDependencies = emptySet()
+            instrumentedTestDependencies = emptySet(),
         )
 
         val subproject1: Project = mockk()
@@ -814,16 +814,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             variant = fixture(),
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
-            )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
+            ),
         )
 
         val subConfiguration1 = AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             classPattern = fixture(),
@@ -834,7 +834,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             verificationRules = emptySet(),
             variant = fixture(),
             flavour = "",
-            instrumentedTestDependencies = emptySet()
+            instrumentedTestDependencies = emptySet(),
         )
 
         val subproject1: Project = mockk()
@@ -870,18 +870,18 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val configuration = AndroidJacocoAggregationConfiguration(
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
             ),
             flavour = "",
-            variant = variant
+            variant = variant,
         )
 
         val subConfiguration1 = AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             instrumentedTestDependencies = setOf(fixture(), fixture()),
@@ -892,14 +892,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             additionalClasses = mockk(),
             verificationRules = emptySet(),
             variant = variant,
-            flavour = ""
+            flavour = "",
         )
 
         val subConfiguration2 = AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             instrumentedTestDependencies = setOf(fixture(), fixture()),
@@ -910,7 +910,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             additionalClasses = mockk(),
             verificationRules = emptySet(),
             variant = variant,
-            flavour = ""
+            flavour = "",
         )
 
         val projectName: String = fixture()
@@ -970,11 +970,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 project.tasks.create(
                     "${contextId}AggregationVerification",
                     JacocoCoverageVerification::class.java,
-                    probe
+                    probe,
                 )
             },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
@@ -990,12 +990,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
         invokeGradleAction(
             { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
 
         every {
@@ -1017,12 +1017,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
         invokeGradleAction(
             { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
 
         every { subproject1.tasks.getByName("${contextId}Coverage") } returns subproject1Reporter
@@ -1034,14 +1034,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                     .toMutableSet()
                     .also {
                         it.add(
-                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec"
+                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec",
                         )
                         it.add(
-                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec"
+                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec",
                         )
                         it.add("jacoco/${configuration.variant}.exec")
                         it.add("jacoco/jacoco.exec")
-                    }
+                    },
             )
         } returns mockk()
         every {
@@ -1050,14 +1050,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                     .toMutableSet()
                     .also {
                         it.add(
-                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec"
+                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec",
                         )
                         it.add(
-                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec"
+                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec",
                         )
                         it.add("jacoco/${configuration.variant}.exec")
                         it.add("jacoco/jacoco.exec")
-                    }
+                    },
             )
         } returns mockk()
 
@@ -1065,7 +1065,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sourceDirectories.setFrom(
                 subConfiguration1.sources.toMutableSet().also {
                     it.addAll(subConfiguration2.sources)
-                }
+                },
             )
         } just Runs
 
@@ -1088,7 +1088,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> jacocoTask.violationRules(probe) },
             violationRules,
-            mockk()
+            mockk(),
         )
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
@@ -1099,7 +1099,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         // Then
         assertSame(
             actual = verificator,
-            expected = jacocoTask
+            expected = jacocoTask,
         )
 
         verify(exactly = 1) { jacocoTask.group = "Verification" }
@@ -1129,18 +1129,18 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val configuration = AndroidJacocoAggregationConfiguration(
             verificationRules = setOf(
                 JacocoVerificationRule(
-                    minimum = BigDecimal(fixture<Int>())
-                )
+                    minimum = BigDecimal(fixture<Int>()),
+                ),
             ),
             flavour = "",
-            variant = variant
+            variant = variant,
         )
 
         val subConfiguration1 = AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             instrumentedTestDependencies = setOf(fixture(), fixture()),
@@ -1151,14 +1151,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             additionalClasses = null,
             verificationRules = emptySet(),
             variant = variant,
-            flavour = ""
+            flavour = "",
         )
 
         val subConfiguration2 = AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(
                 useHtml = fixture(),
                 useXml = fixture(),
-                useCsv = fixture()
+                useCsv = fixture(),
             ),
             testDependencies = setOf(fixture(), fixture()),
             instrumentedTestDependencies = setOf(fixture(), fixture()),
@@ -1169,7 +1169,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             additionalClasses = null,
             verificationRules = emptySet(),
             variant = variant,
-            flavour = ""
+            flavour = "",
         )
 
         val projectName: String = fixture()
@@ -1229,11 +1229,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 project.tasks.create(
                     "${contextId}AggregationVerification",
                     JacocoCoverageVerification::class.java,
-                    probe
+                    probe,
                 )
             },
             jacocoTask,
-            jacocoTask
+            jacocoTask,
         )
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
@@ -1249,12 +1249,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
         invokeGradleAction(
             { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
-            classFiles
+            classFiles,
         )
 
         every {
@@ -1276,12 +1276,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
         invokeGradleAction(
             { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
-            executionFiles
+            executionFiles,
         )
 
         every { subproject1.tasks.getByName("${contextId}Coverage") } returns subproject1Reporter
@@ -1293,14 +1293,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                     .toMutableSet()
                     .also {
                         it.add(
-                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec"
+                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec",
                         )
                         it.add(
-                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec"
+                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec",
                         )
                         it.add("jacoco/${configuration.variant}.exec")
                         it.add("jacoco/jacoco.exec")
-                    }
+                    },
             )
         } returns mockk()
         every {
@@ -1309,14 +1309,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                     .toMutableSet()
                     .also {
                         it.add(
-                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec"
+                            "outputs/unit_test_code_coverage/${configuration.variant}UnitTest/test${configuration.variant.capitalize()}UnitTest.exec",
                         )
                         it.add(
-                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec"
+                            "outputs/code_coverage/${configuration.variant}AndroidTest/**/*coverage.ec",
                         )
                         it.add("jacoco/${configuration.variant}.exec")
                         it.add("jacoco/jacoco.exec")
-                    }
+                    },
             )
         } returns mockk()
 
@@ -1324,7 +1324,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             sourceDirectories.setFrom(
                 subConfiguration1.sources.toMutableSet().also {
                     it.addAll(subConfiguration2.sources)
-                }
+                },
             )
         } just Runs
 
@@ -1343,7 +1343,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         invokeGradleAction(
             { probe -> jacocoTask.violationRules(probe) },
             violationRules,
-            mockk()
+            mockk(),
         )
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
@@ -1354,7 +1354,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         // Then
         assertSame(
             actual = verificator,
-            expected = jacocoTask
+            expected = jacocoTask,
         )
 
         verify(exactly = 1) { jacocoTask.group = "Verification" }

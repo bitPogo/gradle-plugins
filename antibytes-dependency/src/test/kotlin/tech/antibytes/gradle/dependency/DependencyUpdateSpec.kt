@@ -15,6 +15,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
@@ -23,7 +24,6 @@ import org.gradle.api.tasks.TaskProvider
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.GradlePropertyBuilder
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertTrue
 
 class DependencyUpdateSpec {
     @Test
@@ -42,11 +42,11 @@ class DependencyUpdateSpec {
         val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
-                setOf("A", "B", "C")
+                setOf("A", "B", "C"),
             )
             override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
                 Regex::class.java,
-                "xyz.*".toRegex()
+                "xyz.*".toRegex(),
             )
         }
         val project: Project = mockk()
@@ -66,25 +66,25 @@ class DependencyUpdateSpec {
         invokeGradleAction(
             { probe -> taskProvider.configure(probe) },
             dependencyTask,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> dependencyTask.resolutionStrategy(probe) },
             strategy,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> strategy.componentSelection(probe) },
             ruledSelection,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> ruledSelection.all(probe) },
             selection,
-            mockk()
+            mockk(),
         )
 
         every { selection.currentVersion } returns currentVersion
@@ -93,7 +93,7 @@ class DependencyUpdateSpec {
         // When
         DependencyUpdate.configure(
             project,
-            config
+            config,
         )
 
         // Then
@@ -109,11 +109,11 @@ class DependencyUpdateSpec {
         val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
-                setOf("A", "B", "C")
+                setOf("A", "B", "C"),
             )
             override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
                 Regex::class.java,
-                "xyz.*".toRegex()
+                "xyz.*".toRegex(),
             )
         }
         val project: Project = mockk()
@@ -133,25 +133,25 @@ class DependencyUpdateSpec {
         invokeGradleAction(
             { probe -> taskProvider.configure(probe) },
             dependencyTask,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> dependencyTask.resolutionStrategy(probe) },
             strategy,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> strategy.componentSelection(probe) },
             ruledSelection,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> ruledSelection.all(probe) },
             selection,
-            mockk()
+            mockk(),
         )
 
         every { selection.currentVersion } returns currentVersion
@@ -160,7 +160,7 @@ class DependencyUpdateSpec {
         // When
         DependencyUpdate.configure(
             project,
-            config
+            config,
         )
 
         // Then
@@ -176,11 +176,11 @@ class DependencyUpdateSpec {
         val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
-                setOf("A", "B", "C")
+                setOf("A", "B", "C"),
             )
             override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
                 Regex::class.java,
-                "xyz.*".toRegex()
+                "xyz.*".toRegex(),
             )
         }
         val project: Project = mockk()
@@ -200,25 +200,25 @@ class DependencyUpdateSpec {
         invokeGradleAction(
             { probe -> taskProvider.configure(probe) },
             dependencyTask,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> dependencyTask.resolutionStrategy(probe) },
             strategy,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> strategy.componentSelection(probe) },
             ruledSelection,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> ruledSelection.all(probe) },
             selection,
-            mockk()
+            mockk(),
         )
 
         every { selection.currentVersion } returns currentVersion
@@ -227,7 +227,7 @@ class DependencyUpdateSpec {
         // When
         DependencyUpdate.configure(
             project,
-            config
+            config,
         )
 
         // Then
@@ -243,11 +243,11 @@ class DependencyUpdateSpec {
         val config = object : DependencyContract.DependencyPluginExtension {
             override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
                 String::class.java,
-                setOf("A", "B", "C")
+                setOf("A", "B", "C"),
             )
             override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
                 Regex::class.java,
-                "xyz.*".toRegex()
+                "xyz.*".toRegex(),
             )
         }
         val project: Project = mockk()
@@ -267,25 +267,25 @@ class DependencyUpdateSpec {
         invokeGradleAction(
             { probe -> taskProvider.configure(probe) },
             dependencyTask,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> dependencyTask.resolutionStrategy(probe) },
             strategy,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> strategy.componentSelection(probe) },
             ruledSelection,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> ruledSelection.all(probe) },
             selection,
-            mockk()
+            mockk(),
         )
 
         every { selection.currentVersion } returns currentVersion
@@ -294,7 +294,7 @@ class DependencyUpdateSpec {
         // When
         DependencyUpdate.configure(
             project,
-            config
+            config,
         )
 
         // Then

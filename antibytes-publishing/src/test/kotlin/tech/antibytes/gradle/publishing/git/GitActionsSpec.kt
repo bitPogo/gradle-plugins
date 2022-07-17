@@ -16,6 +16,11 @@ import io.mockk.slot
 import io.mockk.unmockkStatic
 import io.mockk.verify
 import io.mockk.verifyOrder
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.eclipse.jgit.api.AddCommand
 import org.eclipse.jgit.api.CloneCommand
 import org.eclipse.jgit.api.CommitCommand
@@ -33,11 +38,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class GitActionsSpec {
     private val fixture = kotlinFixture()
@@ -96,7 +96,7 @@ class GitActionsSpec {
         // Then
         assertSame(
             actual = Unit,
-            expected = result
+            expected = result,
         )
 
         verifyOrder {
@@ -132,7 +132,7 @@ class GitActionsSpec {
             name = name,
             url = fixture(),
             username = username,
-            password = password
+            password = password,
         )
 
         val credentialsProvider = slot<UsernamePasswordCredentialsProvider>()
@@ -158,7 +158,7 @@ class GitActionsSpec {
         // Then
         assertSame(
             actual = Unit,
-            expected = result
+            expected = result,
         )
 
         val actualUsername = CredentialItem.Username()
@@ -169,12 +169,12 @@ class GitActionsSpec {
 
         assertEquals(
             actual = actualUsername.value,
-            expected = username
+            expected = username,
         )
 
         assertEquals(
             actual = String(actualPassword.value),
-            expected = password
+            expected = password,
         )
 
         verifyOrder {
@@ -232,7 +232,7 @@ class GitActionsSpec {
         // Then
         assertSame(
             actual = Unit,
-            expected = result
+            expected = result,
         )
 
         verifyOrder {
@@ -262,7 +262,7 @@ class GitActionsSpec {
             name = name,
             url = url,
             username = username,
-            password = password
+            password = password,
         )
 
         val credentialsProvider = slot<UsernamePasswordCredentialsProvider>()
@@ -295,17 +295,17 @@ class GitActionsSpec {
 
         assertEquals(
             actual = actualUsername.value,
-            expected = username
+            expected = username,
         )
 
         assertEquals(
             actual = String(actualPassword.value),
-            expected = password
+            expected = password,
         )
 
         assertSame(
             actual = Unit,
-            expected = result
+            expected = result,
         )
 
         verifyOrder {
@@ -364,7 +364,7 @@ class GitActionsSpec {
             project,
             configuration,
             message,
-            dryRun
+            dryRun,
         )
 
         // Then
@@ -441,7 +441,7 @@ class GitActionsSpec {
             project,
             configuration,
             message,
-            dryRun
+            dryRun,
         )
 
         // Then
@@ -519,7 +519,7 @@ class GitActionsSpec {
             project,
             configuration,
             message,
-            dryRun
+            dryRun,
         )
 
         // Then
@@ -563,7 +563,7 @@ class GitActionsSpec {
             name = name,
             url = fixture(),
             username = username,
-            password = password
+            password = password,
         )
 
         val credentialsProvider = slot<UsernamePasswordCredentialsProvider>()
@@ -603,7 +603,7 @@ class GitActionsSpec {
             project,
             configuration,
             message,
-            dryRun
+            dryRun,
         )
 
         // Then
@@ -615,12 +615,12 @@ class GitActionsSpec {
 
         assertEquals(
             actual = actualUsername.value,
-            expected = username
+            expected = username,
         )
 
         assertEquals(
             actual = String(actualPassword.value),
-            expected = password
+            expected = password,
         )
 
         assertTrue(result)
@@ -660,7 +660,7 @@ class GitActionsSpec {
             RemoteRefUpdate.Status.REJECTED_NODELETE,
             RemoteRefUpdate.Status.REJECTED_NONFASTFORWARD,
             RemoteRefUpdate.Status.REJECTED_OTHER_REASON,
-            RemoteRefUpdate.Status.REJECTED_REMOTE_CHANGED
+            RemoteRefUpdate.Status.REJECTED_REMOTE_CHANGED,
         )
 
         val configuration = TestRepositoryConfiguration(
@@ -705,13 +705,13 @@ class GitActionsSpec {
                 project,
                 configuration,
                 message,
-                dryRun
+                dryRun,
             )
 
             // Then
             assertFalse(
                 result,
-                message = "Failed at ${status.name}"
+                message = "Failed at ${status.name}",
             )
         }
     }
@@ -721,5 +721,5 @@ private data class TestRepositoryConfiguration(
     override val name: String,
     override val url: String,
     override val username: String = "",
-    override val password: String = ""
+    override val password: String = "",
 ) : PublishingApiContract.RepositoryConfiguration

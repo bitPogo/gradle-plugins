@@ -15,7 +15,7 @@ import tech.antibytes.gradle.publishing.maven.MavenRepository
 
 internal object PublisherSubProjectController : PublishingContract.PublisherController {
     private fun isApplicable(
-        extension: PublishingContract.PublishingPluginExtension
+        extension: PublishingContract.PublishingPluginExtension,
     ): Boolean {
         return extension.repositoryConfiguration.isNotEmpty() &&
             extension.packageConfiguration is PublishingApiContract.PackageConfiguration
@@ -25,7 +25,7 @@ internal object PublisherSubProjectController : PublishingContract.PublisherCont
         project: Project,
         version: String,
         documentation: Task?,
-        extension: PublishingContract.PublishingPluginExtension
+        extension: PublishingContract.PublishingPluginExtension,
     ) {
         if (isApplicable(extension)) {
             MavenPublisher.configure(
@@ -39,7 +39,7 @@ internal object PublisherSubProjectController : PublishingContract.PublisherCont
                 MavenRepository.configure(
                     project,
                     registry,
-                    extension.dryRun
+                    extension.dryRun,
                 )
             }
         }

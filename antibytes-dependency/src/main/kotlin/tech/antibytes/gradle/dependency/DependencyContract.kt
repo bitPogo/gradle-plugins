@@ -19,13 +19,13 @@ interface DependencyContract {
     interface Update {
         fun configure(
             project: Project,
-            configuration: DependencyPluginExtension
+            configuration: DependencyPluginExtension,
         )
     }
 
     data class Credentials(
         val username: String,
-        val password: String
+        val password: String,
     )
 
     companion object {
@@ -33,7 +33,7 @@ interface DependencyContract {
         val DEPENDENCIES = listOf(
             "com.github.ben-manes.versions",
             "org.owasp.dependencycheck",
-            "com.diffplug.spotless"
+            "com.diffplug.spotless",
         )
     }
 }

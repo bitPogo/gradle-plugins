@@ -14,6 +14,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -21,7 +22,6 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
 import tech.antibytes.gradle.publishing.publisher.TestConfig
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertTrue
 
 class SigningControllerSpec {
     private val fixture = kotlinFixture()
@@ -99,7 +99,7 @@ class SigningControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -123,7 +123,8 @@ class SigningControllerSpec {
             versioning = mockk(),
             standalone = true,
             signingConfiguration = MemorySigningConfiguration(
-                fixture(), fixture()
+                fixture(),
+                fixture(),
             ),
         )
 
@@ -139,7 +140,7 @@ class SigningControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -163,7 +164,8 @@ class SigningControllerSpec {
             versioning = mockk(),
             standalone = true,
             signingConfiguration = MemorySigningConfiguration(
-                fixture(), fixture()
+                fixture(),
+                fixture(),
             ),
         )
 
@@ -181,7 +183,7 @@ class SigningControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         // When
