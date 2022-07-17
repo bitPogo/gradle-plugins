@@ -17,11 +17,11 @@ internal object JacocoAggregationReportTaskConfigurator : TaskContract.ReportTas
         project: Project,
         contextId: String,
         aggregator: AggregationData,
-        configuration: CoverageApiContract.JacocoAggregationConfiguration
+        configuration: CoverageApiContract.JacocoAggregationConfiguration,
     ): JacocoReport {
         return project.tasks.create(
             "${contextId}CoverageAggregation",
-            JacocoReport::class.java
+            JacocoReport::class.java,
         ) {
             this.group = "Verification"
             this.description = "Aggregates coverage reports for ${contextId.capitalize()}."
@@ -34,7 +34,7 @@ internal object JacocoAggregationReportTaskConfigurator : TaskContract.ReportTas
                     project,
                     contextId,
                     configuration.reportSettings,
-                    this
+                    this,
                 )
             }
         }
@@ -43,7 +43,7 @@ internal object JacocoAggregationReportTaskConfigurator : TaskContract.ReportTas
     override fun configure(
         project: Project,
         contextId: String,
-        configuration: CoverageApiContract.CoverageConfiguration
+        configuration: CoverageApiContract.CoverageConfiguration,
     ): Task {
         return addReportTask(
             project,
@@ -51,9 +51,9 @@ internal object JacocoAggregationReportTaskConfigurator : TaskContract.ReportTas
             aggregate(
                 project,
                 contextId,
-                (configuration as CoverageApiContract.JacocoAggregationConfiguration)
+                (configuration as CoverageApiContract.JacocoAggregationConfiguration),
             ),
-            configuration
+            configuration,
         )
     }
 }

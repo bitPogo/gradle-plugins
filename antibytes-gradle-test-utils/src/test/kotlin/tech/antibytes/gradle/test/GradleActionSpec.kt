@@ -10,11 +10,11 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import java.io.File
+import kotlin.test.assertSame
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import org.junit.jupiter.api.Test
-import java.io.File
-import kotlin.test.assertSame
 
 class GradleActionSpec {
     @Test
@@ -33,7 +33,7 @@ class GradleActionSpec {
         invokeGradleAction(
             { probe -> project.fileTree(buildDir, probe) },
             fileTreeProbe,
-            givenFiles
+            givenFiles,
         )
 
         val result = project.fileTree(project.buildDir) {
@@ -43,7 +43,7 @@ class GradleActionSpec {
         // Then
         assertSame(
             expected = givenFiles,
-            actual = result
+            actual = result,
         )
 
         verify(exactly = 1) { fileTreeProbe.setExcludes(proof) }
@@ -60,7 +60,7 @@ class GradleActionSpec {
         // When
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
-            scopedProject
+            scopedProject,
         )
 
         project.afterEvaluate {

@@ -6,13 +6,13 @@
 
 package tech.antibytes.gradle.publishing
 
-import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.test.createExtension
-import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.test.createExtension
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 
 class AntiBytesPublishingPluginExtensionSpec {
     @Test
@@ -28,42 +28,42 @@ class AntiBytesPublishingPluginExtensionSpec {
 
         assertEquals(
             actual = extension.versioning.releasePrefixes,
-            expected = VersioningConfiguration().releasePrefixes
+            expected = VersioningConfiguration().releasePrefixes,
         )
 
         assertEquals(
             actual = extension.versioning.normalization,
-            expected = VersioningConfiguration().normalization
+            expected = VersioningConfiguration().normalization,
         )
 
         assertEquals(
             actual = extension.versioning.versionPrefix,
-            expected = VersioningConfiguration().versionPrefix
+            expected = VersioningConfiguration().versionPrefix,
         )
 
         assertEquals(
             actual = extension.versioning.featurePrefixes,
-            expected = VersioningConfiguration().featurePrefixes
+            expected = VersioningConfiguration().featurePrefixes,
         )
 
         assertEquals(
             actual = extension.versioning.issuePattern,
-            expected = VersioningConfiguration().issuePattern
+            expected = VersioningConfiguration().issuePattern,
         )
 
         assertEquals(
             actual = extension.versioning.dependencyBotPrefixes,
-            expected = VersioningConfiguration().dependencyBotPrefixes
+            expected = VersioningConfiguration().dependencyBotPrefixes,
         )
 
         assertEquals(
             actual = extension.versioning.useGitHashFeatureSuffix,
-            expected = VersioningConfiguration().useGitHashFeatureSuffix
+            expected = VersioningConfiguration().useGitHashFeatureSuffix,
         )
 
         assertEquals(
             actual = extension.versioning.useGitHashSnapshotSuffix,
-            expected = VersioningConfiguration().useGitHashSnapshotSuffix
+            expected = VersioningConfiguration().useGitHashSnapshotSuffix,
         )
     }
 
@@ -80,7 +80,7 @@ class AntiBytesPublishingPluginExtensionSpec {
 
         assertEquals(
             actual = extension.repositoryConfiguration,
-            expected = emptySet()
+            expected = emptySet(),
         )
     }
 
@@ -104,7 +104,7 @@ class AntiBytesPublishingPluginExtensionSpec {
 
         assertEquals(
             actual = extension.excludeProjects,
-            expected = emptySet()
+            expected = emptySet(),
         )
     }
 

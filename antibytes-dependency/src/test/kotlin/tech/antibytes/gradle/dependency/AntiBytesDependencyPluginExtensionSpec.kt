@@ -6,10 +6,10 @@
 
 package tech.antibytes.gradle.dependency
 
-import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.test.createExtension
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.test.createExtension
 
 class AntiBytesDependencyPluginExtensionSpec {
     @Test
@@ -25,7 +25,7 @@ class AntiBytesDependencyPluginExtensionSpec {
 
         assertEquals(
             actual = extension.keywords.get(),
-            expected = setOf("RELEASE", "FINAL", "GA")
+            expected = setOf("RELEASE", "FINAL", "GA"),
         )
     }
 
@@ -35,7 +35,7 @@ class AntiBytesDependencyPluginExtensionSpec {
 
         assertEquals(
             actual = extension.versionRegex.get().pattern,
-            expected = "^[0-9,.v-]+(-r)?\$"
+            expected = "^[0-9,.v-]+(-r)?\$",
         )
     }
 }

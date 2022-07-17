@@ -13,7 +13,7 @@ internal interface JacocoContract {
     interface JacocoVerificationRuleMapper {
         fun map(
             generator: JacocoViolationRulesContainer,
-            rules: Set<CoverageApiContract.JacocoVerificationRule>
+            rules: Set<CoverageApiContract.JacocoVerificationRule>,
         )
     }
 }

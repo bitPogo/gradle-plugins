@@ -12,5 +12,5 @@ data class ContributorConfiguration(
     override val name: String,
     override val email: String,
     override val url: String? = null,
-    override val additionalInformation: Map<String, String> = emptyMap()
+    override val additionalInformation: Map<String, String> = emptyMap(),
 ) : PublishingApiContract.ContributorConfiguration

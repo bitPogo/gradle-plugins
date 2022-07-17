@@ -6,12 +6,12 @@
 
 package tech.antibytes.gradle.coverage
 
+import java.io.File
+import java.math.BigDecimal
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_FLAVOUR
 import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_VARIANT
-import java.io.File
-import java.math.BigDecimal
 
 interface CoverageApiContract {
     interface Agent
@@ -85,7 +85,7 @@ interface CoverageApiContract {
             sources: Set<File> = emptySet(),
             additionalSources: Set<File> = emptySet(),
             additionalClasses: ConfigurableFileTree? = null,
-            verificationRules: Set<JacocoVerificationRule> = emptySet()
+            verificationRules: Set<JacocoVerificationRule> = emptySet(),
         ): JacocoCoverageConfiguration
 
         fun createJvmKmpConfiguration(
@@ -97,7 +97,7 @@ interface CoverageApiContract {
             sources: Set<File> = emptySet(),
             additionalSources: Set<File> = emptySet(),
             additionalClasses: ConfigurableFileTree? = null,
-            verificationRules: Set<JacocoVerificationRule> = emptySet()
+            verificationRules: Set<JacocoVerificationRule> = emptySet(),
         ): JacocoCoverageConfiguration
     }
 
@@ -131,7 +131,7 @@ interface CoverageApiContract {
             sources: Set<File> = emptySet(),
             additionalSources: Set<File> = emptySet(),
             additionalClasses: ConfigurableFileTree? = null,
-            verificationRules: Set<JacocoVerificationRule> = emptySet()
+            verificationRules: Set<JacocoVerificationRule> = emptySet(),
         ): AndroidJacocoCoverageConfiguration
 
         fun createAndroidAppKmpConfiguration(
@@ -146,7 +146,7 @@ interface CoverageApiContract {
             sources: Set<File> = emptySet(),
             additionalSources: Set<File> = emptySet(),
             additionalClasses: ConfigurableFileTree? = null,
-            verificationRules: Set<JacocoVerificationRule> = emptySet()
+            verificationRules: Set<JacocoVerificationRule> = emptySet(),
         ): AndroidJacocoCoverageConfiguration
 
         fun createAndroidLibraryOnlyConfiguration(
@@ -161,7 +161,7 @@ interface CoverageApiContract {
             sources: Set<File> = emptySet(),
             additionalSources: Set<File> = emptySet(),
             additionalClasses: ConfigurableFileTree? = null,
-            verificationRules: Set<JacocoVerificationRule> = emptySet()
+            verificationRules: Set<JacocoVerificationRule> = emptySet(),
         ): AndroidJacocoCoverageConfiguration
 
         fun createAndroidLibraryKmpConfiguration(
@@ -176,7 +176,7 @@ interface CoverageApiContract {
             sources: Set<File> = emptySet(),
             additionalSources: Set<File> = emptySet(),
             additionalClasses: ConfigurableFileTree? = null,
-            verificationRules: Set<JacocoVerificationRule> = emptySet()
+            verificationRules: Set<JacocoVerificationRule> = emptySet(),
         ): AndroidJacocoCoverageConfiguration
     }
 }

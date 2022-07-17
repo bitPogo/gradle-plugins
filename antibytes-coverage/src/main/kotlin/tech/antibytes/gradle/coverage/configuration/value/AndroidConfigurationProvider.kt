@@ -46,13 +46,13 @@ internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlat
             makePath("**", "*Test*.*"),
             makePath("android", "**", "*.*"),
             makePath("**", "*\$Lambda\$*.*"),
-            makePath("**", "*\$inlined\$*.*")
+            makePath("**", "*\$inlined\$*.*"),
         )
     }
 
     override fun createDefaultCoverageConfiguration(
         project: Project,
-        context: PlatformContext
+        context: PlatformContext,
     ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
         return AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(),
@@ -65,7 +65,7 @@ internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlat
             verificationRules = emptySet(),
             instrumentedTestDependencies = resolveInstrumentedTestTasks(context),
             variant = DEFAULT_ANDROID_VARIANT,
-            flavour = DEFAULT_ANDROID_FLAVOUR
+            flavour = DEFAULT_ANDROID_FLAVOUR,
         )
     }
 }

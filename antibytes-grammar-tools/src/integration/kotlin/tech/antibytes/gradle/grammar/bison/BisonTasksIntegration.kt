@@ -6,15 +6,15 @@
 
 package tech.antibytes.gradle.grammar.bison
 
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.SUCCESS
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class BisonTasksIntegration {
     @TempDir
@@ -23,7 +23,7 @@ class BisonTasksIntegration {
     private lateinit var buildFile: File
     private lateinit var outputFile: File
     private val bisonExec = BisonTasksIntegration::class.java.getResource(
-        "/bisonExec"
+        "/bisonExec",
     )?.readText()!!.trim()
 
     @BeforeEach
@@ -35,7 +35,7 @@ class BisonTasksIntegration {
         outputFile = File(testProjectDir, "output.java")
 
         val settingsFileContent = BisonTasksIntegration::class.java.getResource(
-            "/sample.settings.gradle.kts.txt"
+            "/sample.settings.gradle.kts.txt",
         )?.readText()
 
         settingsFile.writeText(settingsFileContent!!)
@@ -52,14 +52,14 @@ class BisonTasksIntegration {
         buildFile.writeText(
             buildFileContent.replace(
                 "\$BISON_EXEC",
-                bisonExec
+                bisonExec,
             ).replace(
                 "\$GRAMMAR_FILE",
-                grammarFile
+                grammarFile,
             ).replace(
                 "\$OUTPUT_FILE",
-                outputFile.absolutePath
-            )
+                outputFile.absolutePath,
+            ),
         )
 
         // When
@@ -72,7 +72,7 @@ class BisonTasksIntegration {
         // Then
         assertEquals(
             actual = result.task(":bison")?.outcome,
-            expected = SUCCESS
+            expected = SUCCESS,
         )
         assertTrue(outputFile.exists())
 
@@ -83,7 +83,7 @@ class BisonTasksIntegration {
 
         assertEquals(
             actual = actual,
-            expected = expected
+            expected = expected,
         )
     }
 }

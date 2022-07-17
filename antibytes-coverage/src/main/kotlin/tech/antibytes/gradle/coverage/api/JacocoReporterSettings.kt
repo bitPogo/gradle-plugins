@@ -11,5 +11,5 @@ import tech.antibytes.gradle.coverage.CoverageApiContract
 data class JacocoReporterSettings(
     override var useHtml: Boolean = true,
     override var useCsv: Boolean = true,
-    override var useXml: Boolean = true
+    override var useXml: Boolean = true,
 ) : CoverageApiContract.JacocoReporterSettings

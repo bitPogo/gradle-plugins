@@ -6,8 +6,8 @@
 
 package tech.antibytes.gradle.configuration.runtime
 
-import tech.antibytes.gradle.util.isKmp
 import java.io.File
+import tech.antibytes.gradle.util.isKmp
 
 abstract class AntiBytesTestConfigurationTask : AntiBytesRuntimeConfigurationTask() {
     override val fileName: String = "TestConfig"
@@ -25,7 +25,7 @@ abstract class AntiBytesTestConfigurationTask : AntiBytesRuntimeConfigurationTas
         }
 
         return File(
-            "${project.buildDir.absolutePath.trimEnd('/')}/generated/antibytes/$target/kotlin"
+            "${project.buildDir.absolutePath.trimEnd('/')}/generated/antibytes/$target/kotlin",
         )
     }
 }

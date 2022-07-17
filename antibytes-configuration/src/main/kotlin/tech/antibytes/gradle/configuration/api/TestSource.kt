@@ -10,5 +10,5 @@ import tech.antibytes.gradle.configuration.ConfigurationApiContract
 
 internal data class TestSource(
     override val sourceDirectories: Set<String>,
-    override val resourceDirectories: Set<String>
+    override val resourceDirectories: Set<String>,
 ) : ConfigurationApiContract.TestSource

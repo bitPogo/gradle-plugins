@@ -10,6 +10,11 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -18,11 +23,6 @@ import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.source.SourceHelper
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertNull
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class JvmConfigurationProviderSpec {
     @BeforeEach
@@ -49,7 +49,7 @@ class JvmConfigurationProviderSpec {
         // When
         val config = JvmConfigurationProvider.createDefaultCoverageConfiguration(
             mockk(),
-            PlatformContext.JVM
+            PlatformContext.JVM,
         )
 
         // Then
@@ -108,7 +108,7 @@ class JvmConfigurationProviderSpec {
             actual = config.classPattern,
             expected = setOf(
                 "build/classes/java/main/**/*.class",
-                "build/classes/kotlin/main/**/*.class"
+                "build/classes/kotlin/main/**/*.class",
             ),
         )
     }
@@ -128,7 +128,7 @@ class JvmConfigurationProviderSpec {
             actual = config.classPattern,
             expected = setOf(
                 "build/classes/java/jvm/main/**/*.class",
-                "build/classes/kotlin/jvm/main/**/*.class"
+                "build/classes/kotlin/jvm/main/**/*.class",
             ),
         )
     }
@@ -148,7 +148,7 @@ class JvmConfigurationProviderSpec {
             actual = config.classFilter,
             expected = setOf(
                 "build/classes/java/test/**/*.*",
-                "build/classes/kotlin/test/**/*.*"
+                "build/classes/kotlin/test/**/*.*",
             ),
         )
     }
@@ -168,7 +168,7 @@ class JvmConfigurationProviderSpec {
             actual = config.classFilter,
             expected = setOf(
                 "build/classes/java/jvm/test/**/*.*",
-                "build/classes/kotlin/jvm/test/**/*.*"
+                "build/classes/kotlin/jvm/test/**/*.*",
             ),
         )
     }
@@ -188,7 +188,7 @@ class JvmConfigurationProviderSpec {
             actual = config.classFilter,
             expected = setOf(
                 "build/classes/java/jvm/test/**/*.*",
-                "build/classes/kotlin/jvm/test/**/*.*"
+                "build/classes/kotlin/jvm/test/**/*.*",
             ),
         )
     }
@@ -209,7 +209,7 @@ class JvmConfigurationProviderSpec {
         // Then
         assertSame(
             actual = config.sources,
-            expected = sources
+            expected = sources,
         )
     }
 

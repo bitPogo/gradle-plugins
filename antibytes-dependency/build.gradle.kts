@@ -34,7 +34,9 @@ dependencies {
         exclude(group = "ch.qos.logback", module = "logback-classic")
         exclude(group = "org.slf4j", module = "slf4j-simple")
     }
-    implementation(Dependency.gradle.spotless)
+    implementation(Dependency.gradle.spotless) {
+        exclude(group = "org.codehaus.groovy", module = "groovy-xml")
+    }
     implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(Dependency.test.kotlinTest)

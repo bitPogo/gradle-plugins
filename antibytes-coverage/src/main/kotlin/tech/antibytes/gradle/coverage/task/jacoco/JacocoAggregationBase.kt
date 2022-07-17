@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.coverage.task.jacoco
 
+import java.io.File
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.api.file.FileTree
@@ -17,7 +18,6 @@ import tech.antibytes.gradle.coverage.CoverageApiContract.AndroidJacocoCoverageC
 import tech.antibytes.gradle.coverage.CoverageApiContract.CoverageConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCoverageConfiguration
-import java.io.File
 
 internal abstract class JacocoAggregationBase : JacocoTaskBase() {
     protected data class AggregationData(
@@ -26,27 +26,27 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         val classes: MutableSet<ConfigurableFileTree> = mutableSetOf(),
         val sources: MutableSet<File> = mutableSetOf(),
         val additionalSources: MutableSet<File> = mutableSetOf(),
-        var additionalClasses: MutableList<ConfigurableFileTree> = mutableListOf()
+        var additionalClasses: MutableList<ConfigurableFileTree> = mutableListOf(),
     )
 
     private fun resolveSubproject(
         subproject: Project,
         contextId: String,
         configuration: JacocoCoverageConfiguration,
-        aggregator: AggregationData
+        aggregator: AggregationData,
     ) {
         aggregator.classes.add(
             subproject.fileTree(subproject.projectDir) {
                 setIncludes(configuration.classPattern)
                 setExcludes(configuration.classFilter)
-            }
+            },
         )
         aggregator.executionFiles.add(
             subproject.fileTree(subproject.buildDir) {
                 setIncludes(
-                    determineExecutionsFiles(configuration)
+                    determineExecutionsFiles(configuration),
                 )
-            }
+            },
         )
 
         aggregator.sources.addAll(configuration.sources)
@@ -57,13 +57,13 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         }
 
         aggregator.dependencies.add(
-            subproject.tasks.getByName("${contextId}Coverage") as JacocoReport
+            subproject.tasks.getByName("${contextId}Coverage") as JacocoReport,
         )
     }
 
     private fun isMatchingJvmConfiguration(
         aggregationConfiguration: JacocoAggregationConfiguration,
-        subprojectConfiguration: CoverageConfiguration?
+        subprojectConfiguration: CoverageConfiguration?,
     ): Boolean {
         return aggregationConfiguration !is AndroidJacocoAggregationConfiguration &&
             subprojectConfiguration !is AndroidJacocoCoverageConfiguration
@@ -71,7 +71,7 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
 
     private fun isMatchingAndroidConfiguration(
         aggregationConfiguration: JacocoAggregationConfiguration,
-        subprojectConfiguration: CoverageConfiguration?
+        subprojectConfiguration: CoverageConfiguration?,
     ): Boolean {
         return aggregationConfiguration is AndroidJacocoAggregationConfiguration &&
             subprojectConfiguration is AndroidJacocoCoverageConfiguration &&
@@ -84,27 +84,27 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         contextId: String,
         aggregationConfiguration: JacocoAggregationConfiguration,
         extension: AntiBytesCoveragePluginExtension,
-        aggregator: AggregationData
+        aggregator: AggregationData,
     ) {
         return when {
             !extension.configurations.containsKey(contextId) -> Unit
             isMatchingAndroidConfiguration(
                 aggregationConfiguration,
-                extension.configurations[contextId]
+                extension.configurations[contextId],
             ) -> resolveSubproject(
                 subproject,
                 contextId,
                 extension.configurations[contextId] as JacocoCoverageConfiguration,
-                aggregator
+                aggregator,
             )
             isMatchingJvmConfiguration(
                 aggregationConfiguration,
-                extension.configurations[contextId]
+                extension.configurations[contextId],
             ) -> resolveSubproject(
                 subproject,
                 contextId,
                 extension.configurations[contextId] as JacocoCoverageConfiguration,
-                aggregator
+                aggregator,
             )
             else -> Unit
         }
@@ -113,7 +113,7 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
     protected fun aggregate(
         project: Project,
         contextId: String,
-        configuration: JacocoAggregationConfiguration
+        configuration: JacocoAggregationConfiguration,
     ): AggregationData {
         val aggregator = AggregationData()
         project.subprojects.forEach { subproject ->
@@ -125,7 +125,7 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
                     contextId,
                     configuration,
                     extension,
-                    aggregator
+                    aggregator,
                 )
             }
         }
@@ -134,7 +134,7 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
     }
 
     private fun resolveAdditionalClasses(
-        aggregatedAdditionalClasses: MutableList<ConfigurableFileTree>
+        aggregatedAdditionalClasses: MutableList<ConfigurableFileTree>,
     ): FileTree {
         var additionalClassFileTree: FileTree = aggregatedAdditionalClasses.removeAt(0)
         aggregatedAdditionalClasses.forEach { subTree ->
@@ -146,7 +146,7 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
 
     protected fun configureJacocoAggregationBase(
         task: JacocoReportBase,
-        aggregator: AggregationData
+        aggregator: AggregationData,
     ) {
         task.sourceDirectories.setFrom(aggregator.sources)
         task.classDirectories.setFrom(aggregator.classes)

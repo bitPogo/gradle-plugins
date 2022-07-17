@@ -13,6 +13,8 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -23,8 +25,6 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.coverage.task.TaskController
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class AntiBytesCoverageSpec {
     @BeforeEach
@@ -67,7 +67,7 @@ class AntiBytesCoverageSpec {
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
-            project
+            project,
         )
 
         every { TaskController.configure(any(), any()) } just Runs
@@ -80,7 +80,7 @@ class AntiBytesCoverageSpec {
             project.extensions.create(
                 "antiBytesCoverage",
                 AntiBytesCoveragePluginExtension::class.java,
-                project
+                project,
             )
         }
         verify(exactly = 1) { plugins.apply("jacoco") }
@@ -97,10 +97,10 @@ class AntiBytesCoverageSpec {
         val plugins: PluginContainer = mockk()
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
-            "context" to mockk()
+            "context" to mockk(),
         )
         val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
-            "context" to mockk()
+            "context" to mockk(),
         )
 
         val actualConfigurations = givenConfigurations.toMutableMap()
@@ -117,7 +117,7 @@ class AntiBytesCoverageSpec {
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
-            project
+            project,
         )
 
         every { TaskController.configure(any(), any()) } just Runs
@@ -134,7 +134,7 @@ class AntiBytesCoverageSpec {
         // Then
         assertEquals(
             actual = actualConfigurations,
-            expected = givenConfigurations
+            expected = givenConfigurations,
         )
     }
 
@@ -150,7 +150,7 @@ class AntiBytesCoverageSpec {
         )
         val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
-            "context2" to mockk()
+            "context2" to mockk(),
         )
 
         val actualConfigurations = givenConfigurations.toMutableMap()
@@ -167,7 +167,7 @@ class AntiBytesCoverageSpec {
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
-            project
+            project,
         )
 
         every { TaskController.configure(any(), any()) } just Runs
@@ -184,7 +184,7 @@ class AntiBytesCoverageSpec {
         // Then
         assertEquals(
             actual = actualConfigurations,
-            expected = givenConfigurations
+            expected = givenConfigurations,
         )
     }
 
@@ -198,7 +198,7 @@ class AntiBytesCoverageSpec {
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf()
         val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
-            "context2" to mockk()
+            "context2" to mockk(),
         )
 
         val actualConfigurations = givenConfigurations.toMutableMap()
@@ -215,7 +215,7 @@ class AntiBytesCoverageSpec {
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
-            project
+            project,
         )
 
         every { TaskController.configure(any(), any()) } just Runs
@@ -234,7 +234,7 @@ class AntiBytesCoverageSpec {
             actual = actualConfigurations,
             expected = givenConfigurations.also {
                 it["jvm"] = defaultConfigurations["jvm"]!!
-            }
+            },
         )
     }
 
@@ -248,7 +248,7 @@ class AntiBytesCoverageSpec {
         val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf()
         val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
-            "context2" to mockk()
+            "context2" to mockk(),
         )
 
         val actualConfigurations = givenConfigurations.toMutableMap()
@@ -265,7 +265,7 @@ class AntiBytesCoverageSpec {
 
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
-            project
+            project,
         )
 
         every { TaskController.configure(any(), any()) } just Runs
@@ -282,7 +282,7 @@ class AntiBytesCoverageSpec {
         // Then
         assertEquals(
             actual = actualConfigurations,
-            expected = givenConfigurations
+            expected = givenConfigurations,
         )
     }
 

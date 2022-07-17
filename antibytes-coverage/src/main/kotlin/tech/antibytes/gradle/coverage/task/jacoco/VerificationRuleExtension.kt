@@ -1,3 +1,4 @@
+/* ktlint-disable filename */
 /*
  * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
@@ -6,8 +7,8 @@
 
 package tech.antibytes.gradle.coverage.task.jacoco
 
-import tech.antibytes.gradle.coverage.CoverageApiContract
 import java.math.BigDecimal
+import tech.antibytes.gradle.coverage.CoverageApiContract
 
 internal fun CoverageApiContract.JacocoVerificationRule.isValidRule(): Boolean {
     return maximum is BigDecimal || minimum is BigDecimal

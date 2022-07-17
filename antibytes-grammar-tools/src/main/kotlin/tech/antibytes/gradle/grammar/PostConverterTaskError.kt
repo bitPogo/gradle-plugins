@@ -9,7 +9,7 @@ package tech.antibytes.gradle.grammar
 import org.gradle.api.tasks.StopActionException
 
 sealed class PostConverterTaskError(
-    message: String
+    message: String,
 ) : StopActionException(message) {
     class TargetFileNotFound : PostConverterTaskError(MISSING_TARGET_FILE)
 

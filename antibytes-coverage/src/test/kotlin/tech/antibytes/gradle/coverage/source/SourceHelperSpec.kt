@@ -9,14 +9,14 @@ package tech.antibytes.gradle.coverage.source
 import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class SourceHelperSpec {
     @TempDir
@@ -28,12 +28,12 @@ class SourceHelperSpec {
         val projectDir: File,
         val platformFile: File,
         val commonFile: File,
-        val vanillaFile: File
+        val vanillaFile: File,
     )
 
     private fun makeDir(
         parent: File,
-        child: String
+        child: String,
     ): File {
         return File("${parent.absolutePath}${File.separator}$child").also {
             it.mkdir()
@@ -57,20 +57,20 @@ class SourceHelperSpec {
         val platform = addProjectDirStructure(makeDir(source, "main"))
 
         val kmpFile = File(
-            "${kmpPlatform.absolutePath}${File.separator}${fixture<String>()}.kt"
+            "${kmpPlatform.absolutePath}${File.separator}${fixture<String>()}.kt",
         ).also { it.createNewFile() }
         val commonFile = File(
-            "${common.absolutePath}${File.separator}${fixture<String>()}.kt"
+            "${common.absolutePath}${File.separator}${fixture<String>()}.kt",
         ).also { it.createNewFile() }
         val vanillaFile = File(
-            "${platform.absolutePath}${File.separator}${fixture<String>()}.kt"
+            "${platform.absolutePath}${File.separator}${fixture<String>()}.kt",
         ).also { it.createNewFile() }
 
         return TestFiles(
             projectDir,
             kmpFile,
             commonFile,
-            vanillaFile
+            vanillaFile,
         )
     }
 
@@ -103,7 +103,7 @@ class SourceHelperSpec {
                 files.vanillaFile.parentFile.parentFile.parentFile.parentFile, // tech
                 files.vanillaFile.parentFile.parentFile.parentFile.parentFile.parentFile, // kotlin
                 files.vanillaFile.parentFile.parentFile.parentFile.parentFile.parentFile.parentFile, // main
-            )
+            ),
         )
     }
 
@@ -136,7 +136,7 @@ class SourceHelperSpec {
                 files.platformFile.parentFile.parentFile.parentFile.parentFile, // tech
                 files.platformFile.parentFile.parentFile.parentFile.parentFile.parentFile, // kotlin
                 files.platformFile.parentFile.parentFile.parentFile.parentFile.parentFile.parentFile, // main
-            )
+            ),
         )
     }
 }

@@ -28,7 +28,7 @@ internal object DefaultAndroidApplicationConfigurationProvider : ConfigurationCo
             resourceDirectories = setOf(
                 "src/$sourceDir/res",
                 "src/$sourceDir/resources",
-            )
+            ),
         )
     }
 
@@ -43,8 +43,8 @@ internal object DefaultAndroidApplicationConfigurationProvider : ConfigurationCo
                 sourceDirectories = setOf("src/androidMain/kotlin"),
                 resourceDirectories = setOf(
                     "src/androidMain/res",
-                    "src/androidMain/resources"
-                )
+                    "src/androidMain/resources",
+                ),
             )
         } else {
             MainSource(
@@ -52,8 +52,8 @@ internal object DefaultAndroidApplicationConfigurationProvider : ConfigurationCo
                 sourceDirectories = setOf("src/main/kotlin"),
                 resourceDirectories = setOf(
                     "src/main/res",
-                    "src/main/resources"
-                )
+                    "src/main/resources",
+                ),
             )
         }
     }
@@ -75,7 +75,7 @@ internal object DefaultAndroidApplicationConfigurationProvider : ConfigurationCo
     }
 
     override fun createDefaultConfiguration(
-        project: Project
+        project: Project,
     ): ConfigurationApiContract.AndroidApplicationConfiguration {
         val contexts = PlatformContextResolver.getType(project)
 
@@ -85,7 +85,7 @@ internal object DefaultAndroidApplicationConfigurationProvider : ConfigurationCo
             targetSdkVersion = TARGET_SDK,
             compatibilityTargets = Compatibility(
                 target = COMPATIBILITY_TARGETS,
-                source = COMPATIBILITY_TARGETS
+                source = COMPATIBILITY_TARGETS,
             ),
             fallbacks = FALLBACKS,
             mainSource = determineMainSource(contexts),
@@ -93,8 +93,8 @@ internal object DefaultAndroidApplicationConfigurationProvider : ConfigurationCo
             androidTest = determineInstrumentedTestSource(contexts),
             testRunner = TestRunner(
                 runner = TEST_RUNNER,
-                arguments = TEST_RUNNER_ARGUMENTS
-            )
+                arguments = TEST_RUNNER_ARGUMENTS,
+            ),
         )
     }
 }

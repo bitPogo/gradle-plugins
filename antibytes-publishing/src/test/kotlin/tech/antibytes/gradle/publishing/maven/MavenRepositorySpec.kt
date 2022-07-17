@@ -13,6 +13,9 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
@@ -24,9 +27,6 @@ import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.test.invokeGradleAction
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class MavenRepositorySpec {
     private val fixture = kotlinFixture()
@@ -45,7 +45,7 @@ class MavenRepositorySpec {
             name = fixture(),
             url = fixture(),
             username = fixture(),
-            password = fixture()
+            password = fixture(),
         )
 
         val project: Project = mockk()
@@ -60,29 +60,29 @@ class MavenRepositorySpec {
         every { publishingExtension.repositories } returns repositoryContainer
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repositoryContainer.maven(probe) },
             repository,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repository.credentials(probe) },
             credentials,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenRepository.configure(
             project,
             configuration,
-            false
+            false,
         )
 
         // Then
@@ -101,7 +101,7 @@ class MavenRepositorySpec {
             url = fixture(),
             username = fixture(),
             password = fixture(),
-            gitWorkDirectory = fixture()
+            gitWorkDirectory = fixture(),
         )
 
         val project: Project = mockk()
@@ -116,29 +116,29 @@ class MavenRepositorySpec {
         every { publishingExtension.repositories } returns repositoryContainer
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repositoryContainer.maven(probe) },
             repository,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repository.credentials(probe) },
             credentials,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenRepository.configure(
             project,
             configuration,
-            false
+            false,
         )
 
         // Then
@@ -154,7 +154,7 @@ class MavenRepositorySpec {
             name = fixture(),
             url = fixture(),
             username = fixture(),
-            password = fixture()
+            password = fixture(),
         )
 
         val project: Project = mockk()
@@ -169,29 +169,29 @@ class MavenRepositorySpec {
         every { publishingExtension.repositories } returns repositoryContainer
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repositoryContainer.maven(probe) },
             repository,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repository.credentials(probe) },
             credentials,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenRepository.configure(
             project,
             configuration,
-            dryRun
+            dryRun,
         )
 
         // Then
@@ -207,7 +207,7 @@ class MavenRepositorySpec {
             name = fixture(),
             url = fixture(),
             username = fixture(),
-            password = fixture()
+            password = fixture(),
         )
 
         val project: Project = mockk()
@@ -225,30 +225,30 @@ class MavenRepositorySpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repositoryContainer.maven(probe) },
             repository,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenRepository.configure(
             project,
             configuration,
-            dryRun
+            dryRun,
         )
 
         // Then
         assertEquals(
             actual = url.captured,
-            expected = configuration.url
+            expected = configuration.url,
         )
     }
 
@@ -260,7 +260,7 @@ class MavenRepositorySpec {
             name = fixture(),
             url = fixture(),
             username = fixture(),
-            password = fixture()
+            password = fixture(),
         )
         val rootBuildDir = "somewhere"
 
@@ -279,30 +279,30 @@ class MavenRepositorySpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repositoryContainer.maven(probe) },
             repository,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenRepository.configure(
             project,
             configuration,
-            dryRun
+            dryRun,
         )
 
         // Then
         assertEquals(
             actual = url.captured,
-            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/dryRun"
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/dryRun",
         )
     }
 
@@ -315,7 +315,7 @@ class MavenRepositorySpec {
             url = fixture(),
             username = fixture(),
             password = fixture(),
-            gitWorkDirectory = fixture()
+            gitWorkDirectory = fixture(),
         )
         val rootBuildDir = "somewhere"
 
@@ -334,30 +334,30 @@ class MavenRepositorySpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repositoryContainer.maven(probe) },
             repository,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenRepository.configure(
             project,
             configuration,
-            dryRun
+            dryRun,
         )
 
         // Then
         assertEquals(
             actual = url.captured,
-            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}",
         )
     }
 
@@ -370,7 +370,7 @@ class MavenRepositorySpec {
             url = fixture(),
             username = fixture(),
             password = fixture(),
-            gitWorkDirectory = fixture()
+            gitWorkDirectory = fixture(),
         )
         val rootBuildDir = "somewhere"
 
@@ -389,30 +389,30 @@ class MavenRepositorySpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repositoryContainer.maven(probe) },
             repository,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenRepository.configure(
             project,
             configuration,
-            dryRun
+            dryRun,
         )
 
         // Then
         assertEquals(
             actual = url.captured,
-            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}",
         )
     }
 
@@ -425,7 +425,7 @@ class MavenRepositorySpec {
             url = fixture(),
             username = fixture(),
             password = fixture(),
-            gitWorkDirectory = fixture()
+            gitWorkDirectory = fixture(),
         )
         val rootBuildDir = "somewhere"
 
@@ -444,30 +444,30 @@ class MavenRepositorySpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> repositoryContainer.maven(probe) },
             repository,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenRepository.configure(
             project,
             configuration,
-            dryRun
+            dryRun,
         )
 
         // Then
         assertEquals(
             actual = url.captured,
-            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}",
         )
     }
 

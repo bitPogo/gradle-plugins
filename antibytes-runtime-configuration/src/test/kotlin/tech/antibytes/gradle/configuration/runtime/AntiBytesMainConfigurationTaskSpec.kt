@@ -6,6 +6,10 @@
 
 package tech.antibytes.gradle.configuration.runtime
 
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
@@ -13,10 +17,6 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertTrue
 
 class AntiBytesMainConfigurationTaskSpec {
     @TempDir
@@ -79,7 +79,7 @@ class AntiBytesMainConfigurationTaskSpec {
         // Then
         assertEquals(
             actual = this.buildDir.list()!!.first(),
-            expected = buildDir
+            expected = buildDir,
         )
     }
 
@@ -106,7 +106,7 @@ class AntiBytesMainConfigurationTaskSpec {
 
         assertEquals(
             fileValue.normalizeSource(),
-            expected.normalizeSource()
+            expected.normalizeSource(),
         )
 
         assertTrue(pointer?.absolutePath?.contains("generated/antibytes/main/kotlin") ?: false)
@@ -124,8 +124,8 @@ class AntiBytesMainConfigurationTaskSpec {
         task.stringFields.set(
             mapOf(
                 "test" to "test1",
-                "test1" to "test2"
-            )
+                "test1" to "test2",
+            ),
         )
 
         task.generate()
@@ -140,7 +140,7 @@ class AntiBytesMainConfigurationTaskSpec {
 
         assertEquals(
             fileValue.normalizeSource(),
-            expected.normalizeSource()
+            expected.normalizeSource(),
         )
     }
 
@@ -156,8 +156,8 @@ class AntiBytesMainConfigurationTaskSpec {
         task.integerFields.set(
             mapOf(
                 "test" to 23,
-                "test1" to 42
-            )
+                "test1" to 42,
+            ),
         )
 
         task.generate()
@@ -172,7 +172,7 @@ class AntiBytesMainConfigurationTaskSpec {
 
         assertEquals(
             fileValue.normalizeSource(),
-            expected.normalizeSource()
+            expected.normalizeSource(),
         )
     }
 }

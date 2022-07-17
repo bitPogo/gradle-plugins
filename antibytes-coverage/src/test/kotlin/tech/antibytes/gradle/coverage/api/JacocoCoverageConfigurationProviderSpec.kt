@@ -12,6 +12,10 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import org.junit.jupiter.api.AfterEach
@@ -20,10 +24,6 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
 import tech.antibytes.gradle.util.GradleUtilApiContract
-import java.io.File
-import kotlin.test.assertEquals
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class JacocoCoverageConfigurationProviderSpec {
     private val fixture = kotlinFixture()
@@ -59,13 +59,13 @@ class JacocoCoverageConfigurationProviderSpec {
         // Then
         assertEquals(
             actual = result,
-            expected = config
+            expected = config,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -84,13 +84,13 @@ class JacocoCoverageConfigurationProviderSpec {
         // Then
         assertEquals(
             actual = result,
-            expected = config
+            expected = config,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }
@@ -107,19 +107,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmOnlyConfiguration(
             project,
-            reportSettings = reporterSettings
+            reportSettings = reporterSettings,
         )
 
         // Then
         assertSame(
             actual = result.reportSettings,
-            expected = reporterSettings
+            expected = reporterSettings,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -136,19 +136,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmKmpConfiguration(
             project,
-            reportSettings = reporterSettings
+            reportSettings = reporterSettings,
         )
 
         // Then
         assertEquals(
             actual = result.reportSettings,
-            expected = reporterSettings
+            expected = reporterSettings,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }
@@ -165,19 +165,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmOnlyConfiguration(
             project,
-            testDependencies = testDependencies
+            testDependencies = testDependencies,
         )
 
         // Then
         assertEquals(
             actual = result.testDependencies,
-            expected = testDependencies
+            expected = testDependencies,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -194,19 +194,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmKmpConfiguration(
             project,
-            testDependencies = testDependencies
+            testDependencies = testDependencies,
         )
 
         // Then
         assertEquals(
             actual = result.testDependencies,
-            expected = testDependencies
+            expected = testDependencies,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }
@@ -223,19 +223,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmOnlyConfiguration(
             project,
-            classPattern = classPattern
+            classPattern = classPattern,
         )
 
         // Then
         assertEquals(
             actual = result.classPattern,
-            expected = classPattern
+            expected = classPattern,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -252,19 +252,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmKmpConfiguration(
             project,
-            classPattern = classPattern
+            classPattern = classPattern,
         )
 
         // Then
         assertEquals(
             actual = result.classPattern,
-            expected = classPattern
+            expected = classPattern,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }
@@ -281,19 +281,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmOnlyConfiguration(
             project,
-            classFilter = classFilter
+            classFilter = classFilter,
         )
 
         // Then
         assertEquals(
             actual = result.classFilter,
-            expected = classFilter
+            expected = classFilter,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -310,19 +310,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmKmpConfiguration(
             project,
-            classFilter = classFilter
+            classFilter = classFilter,
         )
 
         // Then
         assertEquals(
             actual = result.classFilter,
-            expected = classFilter
+            expected = classFilter,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }
@@ -339,19 +339,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmOnlyConfiguration(
             project,
-            sources = sources
+            sources = sources,
         )
 
         // Then
         assertEquals(
             actual = result.sources,
-            expected = sources
+            expected = sources,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -368,19 +368,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmKmpConfiguration(
             project,
-            sources = sources
+            sources = sources,
         )
 
         // Then
         assertEquals(
             actual = result.sources,
-            expected = sources
+            expected = sources,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }
@@ -397,19 +397,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmOnlyConfiguration(
             project,
-            additionalSources = additionalSources
+            additionalSources = additionalSources,
         )
 
         // Then
         assertEquals(
             actual = result.additionalSources,
-            expected = additionalSources
+            expected = additionalSources,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -426,19 +426,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmKmpConfiguration(
             project,
-            additionalSources = additionalSources
+            additionalSources = additionalSources,
         )
 
         // Then
         assertEquals(
             actual = result.additionalSources,
-            expected = additionalSources
+            expected = additionalSources,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }
@@ -455,19 +455,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmOnlyConfiguration(
             project,
-            additionalClasses = additionalClasses
+            additionalClasses = additionalClasses,
         )
 
         // Then
         assertEquals(
             actual = result.additionalClasses,
-            expected = additionalClasses
+            expected = additionalClasses,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -484,19 +484,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmKmpConfiguration(
             project,
-            additionalClasses = additionalClasses
+            additionalClasses = additionalClasses,
         )
 
         // Then
         assertEquals(
             actual = result.additionalClasses,
-            expected = additionalClasses
+            expected = additionalClasses,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }
@@ -513,19 +513,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmOnlyConfiguration(
             project,
-            verificationRules = verificationRules
+            verificationRules = verificationRules,
         )
 
         // Then
         assertEquals(
             actual = result.verificationRules,
-            expected = verificationRules
+            expected = verificationRules,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM
+                GradleUtilApiContract.PlatformContext.JVM,
             )
         }
     }
@@ -542,19 +542,19 @@ class JacocoCoverageConfigurationProviderSpec {
         // When
         val result = JvmJacocoConfiguration.createJvmKmpConfiguration(
             project,
-            verificationRules = verificationRules
+            verificationRules = verificationRules,
         )
 
         // Then
         assertEquals(
             actual = result.verificationRules,
-            expected = verificationRules
+            expected = verificationRules,
         )
 
         verify(exactly = 1) {
             JvmConfigurationProvider.createDefaultCoverageConfiguration(
                 project,
-                GradleUtilApiContract.PlatformContext.JVM_KMP
+                GradleUtilApiContract.PlatformContext.JVM_KMP,
             )
         }
     }

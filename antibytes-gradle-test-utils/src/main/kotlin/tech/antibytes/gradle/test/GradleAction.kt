@@ -1,3 +1,4 @@
+/* ktlint-disable filename */
 /*
  * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
@@ -18,7 +19,7 @@ import org.gradle.api.Action
 inline fun <T : Any, reified R> invokeGradleAction(
     crossinline caller: (Action<T>) -> R,
     probe: T,
-    returnValue: R
+    returnValue: R,
 ) {
     val action = slot<Action<T>>()
     every {
@@ -36,7 +37,7 @@ inline fun <T : Any, reified R> invokeGradleAction(
  */
 inline fun <T : Any> invokeGradleAction(
     crossinline caller: (Action<T>) -> Unit,
-    probe: T
+    probe: T,
 ) {
     val action = slot<Action<T>>()
     every {

@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.component.SoftwareComponent
 import org.gradle.api.component.SoftwareComponentContainer
@@ -37,7 +38,6 @@ import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.test.invokeGradleAction
-import kotlin.test.assertTrue
 
 class MavenPublisherSpec {
     private val fixture = kotlinFixture()
@@ -73,22 +73,22 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
 
         val configuration = registryTestConfig.copy(
             artifactId = null,
-            groupId = null
+            groupId = null,
         )
 
         // When
@@ -118,17 +118,17 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
 
         val configuration = registryTestConfig.copy(
@@ -167,12 +167,12 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
 
         every {
@@ -188,13 +188,13 @@ class MavenPublisherSpec {
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
 
         val configuration = registryTestConfig.copy(
             artifactId = artifactId,
             groupId = groupId,
-            isPureJavaLibrary = true
+            isPureJavaLibrary = true,
         )
 
         // When
@@ -227,12 +227,12 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
 
         every {
@@ -248,13 +248,13 @@ class MavenPublisherSpec {
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
 
         val configuration = registryTestConfig.copy(
             artifactId = artifactId,
             groupId = groupId,
-            isPureJavaLibrary = true
+            isPureJavaLibrary = true,
         )
 
         // When
@@ -281,7 +281,7 @@ class MavenPublisherSpec {
             description = description,
             year = year,
             url = url,
-            additionalInformation = additionalProperties
+            additionalInformation = additionalProperties,
         )
 
         val project: Project = mockk()
@@ -296,28 +296,28 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publication.pom(probe) },
             pom,
-            mockk()
+            mockk(),
         )
 
         val configuration = registryTestConfig.copy(
             artifactId = artifactId,
             groupId = groupId,
-            pom = pomConfiguration
+            pom = pomConfiguration,
         )
 
         // When
@@ -339,7 +339,7 @@ class MavenPublisherSpec {
             name = fixture(),
             email = fixture(),
             url = fixture<String>(),
-            additionalInformation = fixture()
+            additionalInformation = fixture(),
         )
 
         val project: Project = mockk()
@@ -356,42 +356,42 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publication.pom(probe) },
             pom,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> pom.developers(probe) },
             developerSpec,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> developerSpec.developer(probe) },
             developer,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenPublisher.configure(
             project,
             registryTestConfig.copy(
-                developers = listOf(devConfiguration, devConfiguration)
+                developers = listOf(devConfiguration, devConfiguration),
             ),
             null,
-            fixture()
+            fixture(),
         )
 
         // Then
@@ -410,7 +410,7 @@ class MavenPublisherSpec {
             name = fixture(),
             email = fixture(),
             url = null,
-            additionalInformation = fixture()
+            additionalInformation = fixture(),
         )
 
         val project: Project = mockk()
@@ -427,42 +427,42 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publication.pom(probe) },
             pom,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> pom.developers(probe) },
             developerSpec,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> developerSpec.developer(probe) },
             developer,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenPublisher.configure(
             project,
             registryTestConfig.copy(
-                developers = listOf(devConfiguration, devConfiguration)
+                developers = listOf(devConfiguration, devConfiguration),
             ),
             null,
-            fixture()
+            fixture(),
         )
 
         // Then
@@ -493,42 +493,42 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publication.pom(probe) },
             pom,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> pom.contributors(probe) },
             contributorSpec,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> contributorSpec.contributor(probe) },
             contributor,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenPublisher.configure(
             project,
             registryTestConfig.copy(
-                contributors = listOf(contribConfiguration, contribConfiguration)
+                contributors = listOf(contribConfiguration, contribConfiguration),
             ),
             null,
-            fixture()
+            fixture(),
         )
 
         // Then
@@ -562,42 +562,42 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publication.pom(probe) },
             pom,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> pom.contributors(probe) },
             contributorSpec,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> contributorSpec.contributor(probe) },
             contributor,
-            mockk()
+            mockk(),
         )
 
         // When
         MavenPublisher.configure(
             project,
             registryTestConfig.copy(
-                contributors = listOf(contribConfiguration, contribConfiguration)
+                contributors = listOf(contribConfiguration, contribConfiguration),
             ),
             null,
-            fixture()
+            fixture(),
         )
 
         // Then
@@ -610,7 +610,7 @@ class MavenPublisherSpec {
         val licenseConfiguration = LicenseConfiguration(
             name = fixture(),
             url = fixture(),
-            distribution = fixture()
+            distribution = fixture(),
         )
 
         val project: Project = mockk()
@@ -627,32 +627,32 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publication.pom(probe) },
             pom,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> pom.licenses(probe) },
             licenseSpec,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> licenseSpec.license(probe) },
             license,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -660,7 +660,7 @@ class MavenPublisherSpec {
             project,
             registryTestConfig.copy(license = licenseConfiguration),
             null,
-            fixture()
+            fixture(),
         )
 
         // Then
@@ -691,27 +691,27 @@ class MavenPublisherSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension
+            publishingExtension,
         )
         invokeGradleAction(
             { probe -> publishingExtension.publications(probe) },
             publicationContainer,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> publication.pom(probe) },
             pom,
-            mockk()
+            mockk(),
         )
         invokeGradleAction(
             { probe -> pom.scm(probe) },
             scm,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -719,7 +719,7 @@ class MavenPublisherSpec {
             project,
             registryTestConfig.copy(scm = sourceControlConfiguration),
             null,
-            fixture()
+            fixture(),
         )
 
         // Then

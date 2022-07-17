@@ -10,13 +10,13 @@ import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import java.io.File
+import kotlin.reflect.KClass
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
 import tech.antibytes.gradle.configuration.runtime.RuntimeConfigurationContract.RuntimeConfigurationTask
-import java.io.File
-import kotlin.reflect.KClass
 
 abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigurationTask {
     @get:Internal
@@ -71,7 +71,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
 
         val file = FileSpec.builder(
             packageName.get(),
-            fileName
+            fileName,
         )
 
         file.addType(addConfiguration(fileName))

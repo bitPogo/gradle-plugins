@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.grammar
 
+import kotlin.jvm.Throws
 import org.gradle.api.Task
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.MapProperty
@@ -19,7 +20,6 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import tech.antibytes.gradle.grammar.bison.BisonTaskError
-import kotlin.jvm.Throws
 
 interface BisonTaskContract : Task {
     enum class Report(val value: String) {

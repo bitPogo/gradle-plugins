@@ -9,7 +9,7 @@ package tech.antibytes.gradle.grammar.bison
 import org.gradle.api.tasks.StopActionException
 
 sealed class BisonTaskError(
-    message: String
+    message: String,
 ) : StopActionException(message) {
     class MissingBisonExecError : BisonTaskError(MISSING_BISON_EXEC)
     class MissingGrammarFileError : BisonTaskError(MISSING_GRAMMAR_FILE)

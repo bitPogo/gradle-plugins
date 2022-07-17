@@ -14,6 +14,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.junit.jupiter.api.AfterEach
@@ -27,7 +28,6 @@ import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
-import kotlin.test.assertTrue
 
 class PublisherSubProjectControllerSpec {
     private val fixture = kotlinFixture()
@@ -36,7 +36,7 @@ class PublisherSubProjectControllerSpec {
         password = "",
         name = "",
         url = "",
-        gitWorkDirectory = ""
+        gitWorkDirectory = "",
     )
     private val mavenRegistryTestConfig = MavenRepositoryConfiguration(
         username = "",
@@ -74,7 +74,7 @@ class PublisherSubProjectControllerSpec {
             dryRun = false,
             excludeProjects = setOf(),
             versioning = mockk(),
-            standalone = true
+            standalone = true,
         )
         val documentation: Task = mockk()
 
@@ -141,7 +141,7 @@ class PublisherSubProjectControllerSpec {
             dryRun = dryRun,
             excludeProjects = emptySet(),
             versioning = versioningConfiguration,
-            standalone = false
+            standalone = false,
         )
 
         every { MavenPublisher.configure(project, packageConfiguration, any(), version) } just Runs
@@ -162,7 +162,7 @@ class PublisherSubProjectControllerSpec {
             MavenRepository.configure(
                 project,
                 registry1,
-                dryRun
+                dryRun,
             )
         }
 
@@ -170,7 +170,7 @@ class PublisherSubProjectControllerSpec {
             MavenRepository.configure(
                 project,
                 registry2,
-                dryRun
+                dryRun,
             )
         }
     }

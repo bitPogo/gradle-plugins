@@ -17,15 +17,15 @@ import io.mockk.invoke
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import java.io.File
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
+import org.gradle.api.tasks.testing.Test as GradleTest
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.test.invokeGradleAction
-import java.io.File
-import kotlin.test.assertTrue
-import org.gradle.api.tasks.testing.Test as GradleTest
 
 class AndroidExtensionConfiguratorSpec {
     private val fixture = kotlinFixture()
@@ -89,7 +89,7 @@ class AndroidExtensionConfiguratorSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            extension
+            extension,
         )
 
         // When
@@ -104,7 +104,7 @@ class AndroidExtensionConfiguratorSpec {
         }
         verify(exactly = 1) {
             jacocoExtension.setDestinationFile(
-                File("$path/jacoco/${flavour}${variant.capitalize()}.exec")
+                File("$path/jacoco/${flavour}${variant.capitalize()}.exec"),
             )
         }
     }
@@ -160,7 +160,7 @@ class AndroidExtensionConfiguratorSpec {
 
         invokeGradleAction(
             { probe -> extensions.configure(LibraryExtension::class.java, probe) },
-            extension
+            extension,
         )
 
         // When
@@ -175,7 +175,7 @@ class AndroidExtensionConfiguratorSpec {
         }
         verify(exactly = 1) {
             jacocoExtension.setDestinationFile(
-                File("$path/jacoco/$variant.exec")
+                File("$path/jacoco/$variant.exec"),
             )
         }
     }

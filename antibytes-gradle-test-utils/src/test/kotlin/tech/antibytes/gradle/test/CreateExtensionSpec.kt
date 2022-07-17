@@ -6,10 +6,10 @@
 
 package tech.antibytes.gradle.test
 
-import org.gradle.api.provider.Property
-import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import org.gradle.api.provider.Property
+import org.junit.jupiter.api.Test
 
 class CreateExtensionSpec {
     @Test
@@ -21,7 +21,7 @@ class CreateExtensionSpec {
         assertTrue(extension is TestExtension)
         assertEquals(
             actual = extension.test.get(),
-            expected = "test"
+            expected = "test",
         )
     }
 
@@ -37,7 +37,7 @@ class CreateExtensionSpec {
         assertTrue(extension is TestExtensionWithArgs)
         assertEquals(
             actual = extension.test.get(),
-            expected = arg
+            expected = arg,
         )
     }
 }

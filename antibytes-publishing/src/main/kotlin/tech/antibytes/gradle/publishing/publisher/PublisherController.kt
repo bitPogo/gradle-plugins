@@ -17,11 +17,11 @@ import tech.antibytes.gradle.versioning.VersioningContract
 
 internal object PublisherController : PublishingContract.PublisherController {
     private fun Project.hasTask(
-        taskName: String
+        taskName: String,
     ): Boolean = tasks.findByName(taskName) is Task
 
     private fun Project.addVersionTask(
-        configuration: VersioningContract.VersioningConfiguration
+        configuration: VersioningContract.VersioningConfiguration,
     ) {
         if (!rootProject.hasTask("versionInfo")) {
             rootProject.tasks.create("versionInfo") {
@@ -45,7 +45,7 @@ internal object PublisherController : PublishingContract.PublisherController {
     }
 
     private fun Project.createDocumentationTask(
-        configuration: PublishingApiContract.DocumentationConfiguration
+        configuration: PublishingApiContract.DocumentationConfiguration,
     ): Task {
         return if (!hasTask("javadoc")) {
             tasks.create("javadoc", Jar::class.java) {
@@ -61,7 +61,7 @@ internal object PublisherController : PublishingContract.PublisherController {
     }
 
     private fun Project.addDocumentationTask(
-        configuration: PublishingApiContract.DocumentationConfiguration?
+        configuration: PublishingApiContract.DocumentationConfiguration?,
     ): Task? {
         return if (configuration == null) {
             null

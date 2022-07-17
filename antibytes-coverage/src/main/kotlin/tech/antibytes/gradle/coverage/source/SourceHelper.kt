@@ -6,12 +6,12 @@
 
 package tech.antibytes.gradle.coverage.source
 
+import java.io.File
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.configuration.makePath
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import tech.antibytes.gradle.util.isKmp
-import java.io.File
 
 internal object SourceHelper : ConfigurationContract.SourceHelper {
     private fun List<String>.toFile(): File {
@@ -36,7 +36,7 @@ internal object SourceHelper : ConfigurationContract.SourceHelper {
 
     private fun mergeSource(
         platform: List<String>,
-        toAdd: String
+        toAdd: String,
     ): File {
         val merged = platform.toMutableList().also { it.add(toAdd) }
         return merged.toFile()
@@ -52,28 +52,28 @@ internal object SourceHelper : ConfigurationContract.SourceHelper {
 
     private fun resolvePlatformSourceKmp(
         context: PlatformContext,
-        platform: List<String>
+        platform: List<String>,
     ): File {
         return mergeSource(platform, "${context.prefix}Main")
     }
 
     override fun resolveSources(
         project: Project,
-        context: PlatformContext
+        context: PlatformContext,
     ): Set<File> {
         val platform = listOf(
             project.projectDir.absolutePath.trimEnd(File.separatorChar),
-            "src"
+            "src",
         )
 
         val sourceSets = if (context.isKmp()) {
             ConfigurationContract.SourceContainer(
                 platform = resolvePlatformSourceKmp(context, platform),
-                common = resolveCommon(platform)
+                common = resolveCommon(platform),
             )
         } else {
             ConfigurationContract.SourceContainer(
-                platform = resolvePlatformSource(platform)
+                platform = resolvePlatformSource(platform),
             )
         }
 

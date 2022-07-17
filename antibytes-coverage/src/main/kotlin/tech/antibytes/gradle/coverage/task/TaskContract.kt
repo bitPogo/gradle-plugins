@@ -24,7 +24,7 @@ internal interface TaskContract {
         fun configure(
             project: Project,
             contextId: String,
-            configuration: CoverageApiContract.CoverageConfiguration
+            configuration: CoverageApiContract.CoverageConfiguration,
         ): Task
     }
 
@@ -32,7 +32,7 @@ internal interface TaskContract {
         fun configure(
             project: Project,
             contextId: String,
-            configuration: CoverageApiContract.CoverageConfiguration
+            configuration: CoverageApiContract.CoverageConfiguration,
         ): Task?
     }
 }

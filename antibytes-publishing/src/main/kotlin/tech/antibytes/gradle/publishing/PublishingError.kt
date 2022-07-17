@@ -9,7 +9,7 @@ package tech.antibytes.gradle.publishing
 import org.gradle.api.GradleException
 
 sealed class PublishingError(
-    override val message: String
+    override val message: String,
 ) : GradleException(message) {
     class VersioningError(override val message: String) : PublishingError(message)
     class GitRejectedCommitError(override val message: String) : PublishingError(message)

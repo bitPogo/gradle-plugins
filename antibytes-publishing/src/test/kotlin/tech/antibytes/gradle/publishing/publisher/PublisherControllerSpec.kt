@@ -14,6 +14,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
@@ -27,7 +28,6 @@ import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.VersioningContract
 import tech.antibytes.gradle.versioning.api.VersionInfo
-import kotlin.test.assertTrue
 
 class PublisherControllerSpec {
     private val fixture = kotlinFixture()
@@ -66,7 +66,7 @@ class PublisherControllerSpec {
             dryRun = false,
             excludeProjects = setOf(name),
             versioning = mockk(),
-            standalone = true
+            standalone = true,
         )
 
         val project: Project = mockk()
@@ -88,7 +88,7 @@ class PublisherControllerSpec {
         every { Versioning.getInstance(project, config.versioning) } returns versioning
         every { versioning.versionInfo() } returns VersionInfo(
             fixture(),
-            mockk(relaxed = true)
+            mockk(relaxed = true),
         )
         every { project.version = any<String>() } just Runs
         every { versioning.versionName() } returns fixture()
@@ -106,19 +106,19 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> tasks.create("versionInfo", probe) },
             versioningTask,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> versioningTask.doLast(probe) },
             versioningTask,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -141,7 +141,7 @@ class PublisherControllerSpec {
             dryRun = false,
             excludeProjects = setOf(name),
             versioning = mockk(),
-            standalone = true
+            standalone = true,
         )
 
         val project: Project = mockk()
@@ -174,19 +174,19 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> tasks.create("versionInfo", probe) },
             versioningTask,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> versioningTask.doLast(probe) },
             versioningTask,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -212,7 +212,7 @@ class PublisherControllerSpec {
             standalone = true,
             documentation = DocumentationConfiguration(
                 tasks = setOf(fixture()),
-                outputDir = fixture()
+                outputDir = fixture(),
             ),
         )
 
@@ -250,13 +250,13 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> childTasks.create("javadoc", Jar::class.java, probe) },
             javaDocTask,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -284,7 +284,7 @@ class PublisherControllerSpec {
             standalone = true,
             documentation = DocumentationConfiguration(
                 tasks = setOf(fixture()),
-                outputDir = fixture()
+                outputDir = fixture(),
             ),
         )
 
@@ -317,13 +317,13 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         invokeGradleAction(
             { probe -> childTasks.create("javadoc", Jar::class.java, probe) },
             javaDocTask,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -348,7 +348,7 @@ class PublisherControllerSpec {
             dryRun = false,
             excludeProjects = setOf(name),
             versioning = mockk(),
-            standalone = true
+            standalone = true,
         )
 
         val project: Project = mockk()
@@ -377,7 +377,7 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -406,7 +406,7 @@ class PublisherControllerSpec {
             dryRun = false,
             excludeProjects = setOf(),
             versioning = mockk(),
-            standalone = true
+            standalone = true,
         )
 
         val project: Project = mockk()
@@ -436,7 +436,7 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -467,7 +467,7 @@ class PublisherControllerSpec {
             excludeProjects = setOf(),
             versioning = mockk(),
             standalone = false,
-            documentation = mockk()
+            documentation = mockk(),
         )
 
         val project: Project = mockk()
@@ -500,7 +500,7 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         every { childTasks.create("javadoc", Jar::class.java, any()) } returns documentation
@@ -535,7 +535,7 @@ class PublisherControllerSpec {
             dryRun = false,
             excludeProjects = setOf(),
             versioning = mockk(),
-            standalone = false
+            standalone = false,
         )
 
         val project: Project = mockk()
@@ -562,7 +562,7 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         // When
@@ -582,7 +582,7 @@ class PublisherControllerSpec {
             excludeProjects = setOf(),
             versioning = mockk(),
             standalone = false,
-            documentation = mockk()
+            documentation = mockk(),
         )
 
         val project: Project = mockk()
@@ -612,7 +612,7 @@ class PublisherControllerSpec {
         invokeGradleAction(
             { probe -> project.afterEvaluate(probe) },
             project,
-            mockk()
+            mockk(),
         )
 
         // When

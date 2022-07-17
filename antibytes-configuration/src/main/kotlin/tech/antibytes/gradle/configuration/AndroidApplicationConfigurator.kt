@@ -12,7 +12,7 @@ import org.gradle.api.Project
 internal object AndroidApplicationConfigurator : ConfigurationContract.AndroidApplicationConfigurator {
     private fun setupAndroidExtension(
         extension: ApplicationExtension,
-        configuration: ConfigurationApiContract.AndroidApplicationConfiguration
+        configuration: ConfigurationApiContract.AndroidApplicationConfiguration,
     ) {
         extension.compileSdk = configuration.compileSdkVersion
 
@@ -22,7 +22,7 @@ internal object AndroidApplicationConfigurator : ConfigurationContract.AndroidAp
 
             testInstrumentationRunner = configuration.testRunner.runner
             testInstrumentationRunnerArguments.putAll(
-                configuration.testRunner.arguments
+                configuration.testRunner.arguments,
             )
         }
 
@@ -49,7 +49,7 @@ internal object AndroidApplicationConfigurator : ConfigurationContract.AndroidAp
 
     override fun configure(
         project: Project,
-        configuration: ConfigurationApiContract.AndroidApplicationConfiguration
+        configuration: ConfigurationApiContract.AndroidApplicationConfiguration,
     ) {
         project.extensions.configure(ApplicationExtension::class.java) {
             setupAndroidExtension(this, configuration)

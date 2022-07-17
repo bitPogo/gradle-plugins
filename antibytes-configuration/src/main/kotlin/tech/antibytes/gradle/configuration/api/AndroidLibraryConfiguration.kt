@@ -19,5 +19,5 @@ internal data class AndroidLibraryConfiguration(
     override val unitTestSource: ConfigurationApiContract.TestSource,
     override val publishVariants: Set<String>,
     override val androidTest: ConfigurationApiContract.TestSource?,
-    override val testRunner: ConfigurationApiContract.TestRunner
+    override val testRunner: ConfigurationApiContract.TestRunner,
 ) : ConfigurationApiContract.AndroidLibraryConfiguration

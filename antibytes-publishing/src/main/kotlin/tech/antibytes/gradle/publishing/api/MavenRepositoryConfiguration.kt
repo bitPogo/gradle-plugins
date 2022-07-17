@@ -12,5 +12,5 @@ data class MavenRepositoryConfiguration(
     override val username: String,
     override val password: String,
     override val name: String,
-    override val url: String
+    override val url: String,
 ) : PublishingApiContract.MavenRepositoryConfiguration

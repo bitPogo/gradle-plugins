@@ -7,12 +7,12 @@
 package tech.antibytes.gradle.grammar.bison
 
 import com.lordcodes.turtle.shellRun
+import kotlin.jvm.Throws
 import org.gradle.api.DefaultTask
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.TaskAction
 import tech.antibytes.gradle.grammar.BisonTaskContract
-import kotlin.jvm.Throws
 
 abstract class BisonTask : BisonTaskContract, DefaultTask() {
     init {
@@ -153,7 +153,6 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
     }
 
     private fun addErrorOptions(arguments: MutableList<String>) {
-
         var warnings = if (warnings.get().isNotEmpty()) {
             warnings.get()
                 .map { option -> option.value }
@@ -201,7 +200,7 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
         val stdout = try {
             shellRun(
                 command = executable.get().asFile.absolutePath,
-                arguments = assembleArgument()
+                arguments = assembleArgument(),
             )
         } catch (error: Exception) {
             logger.error("${BisonTaskError.CODE_GENERATION_RUNTIME_ERROR}\n${error.message}")
@@ -209,7 +208,7 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
         }
 
         logger.info(
-            "Bison was successful and wrote the output into ${outputFile.get().asFile.name}.\nIt produced the following reports:\n$stdout"
+            "Bison was successful and wrote the output into ${outputFile.get().asFile.name}.\nIt produced the following reports:\n$stdout",
         )
     }
 

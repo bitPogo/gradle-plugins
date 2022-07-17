@@ -10,14 +10,14 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import java.math.BigDecimal
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.gradle.internal.jacoco.rules.JacocoViolationRuleImpl
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
-import java.math.BigDecimal
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class JacocoVerificationRuleMapperSpec {
     private val fixture = kotlinFixture()
@@ -48,7 +48,7 @@ class JacocoVerificationRuleMapperSpec {
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
             JacocoVerificationRule(),
-            JacocoVerificationRule()
+            JacocoVerificationRule(),
         )
 
         val actual1 = JacocoViolationRuleImpl()
@@ -62,12 +62,12 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual1,
-            expected = JacocoViolationRuleImpl()
+            expected = JacocoViolationRuleImpl(),
         )
 
         assertEquals(
             actual = actual2,
-            expected = JacocoViolationRuleImpl()
+            expected = JacocoViolationRuleImpl(),
         )
     }
 
@@ -77,8 +77,8 @@ class JacocoVerificationRuleMapperSpec {
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
             JacocoVerificationRule(
-                scope = CoverageApiContract.JacocoScope.METHOD
-            )
+                scope = CoverageApiContract.JacocoScope.METHOD,
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -91,7 +91,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.element,
-            expected = "METHOD"
+            expected = "METHOD",
         )
     }
 
@@ -103,8 +103,8 @@ class JacocoVerificationRuleMapperSpec {
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
             JacocoVerificationRule(
-                enable = enabled
-            )
+                enable = enabled,
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -117,7 +117,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.isEnabled,
-            expected = enabled
+            expected = enabled,
         )
     }
 
@@ -129,8 +129,8 @@ class JacocoVerificationRuleMapperSpec {
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
             JacocoVerificationRule(
-                includes = included
-            )
+                includes = included,
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -143,7 +143,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.includes.toSet(),
-            expected = included
+            expected = included,
         )
     }
 
@@ -155,8 +155,8 @@ class JacocoVerificationRuleMapperSpec {
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
             JacocoVerificationRule(
-                excludes = excludes
-            )
+                excludes = excludes,
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -169,7 +169,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.excludes.toSet(),
-            expected = excludes
+            expected = excludes,
         )
     }
 
@@ -179,8 +179,8 @@ class JacocoVerificationRuleMapperSpec {
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
             JacocoVerificationRule(
-                counter = CoverageApiContract.JacocoCounter.BRANCH
-            )
+                counter = CoverageApiContract.JacocoCounter.BRANCH,
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -193,7 +193,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.limits.size,
-            expected = 0
+            expected = 0,
         )
     }
 
@@ -206,7 +206,7 @@ class JacocoVerificationRuleMapperSpec {
         val rules = setOf(
             JacocoVerificationRule(
                 minimum = minimum,
-            )
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -219,7 +219,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.limits[0].minimum,
-            expected = minimum
+            expected = minimum,
         )
     }
 
@@ -232,7 +232,7 @@ class JacocoVerificationRuleMapperSpec {
         val rules = setOf(
             JacocoVerificationRule(
                 maximum = maximum,
-            )
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -245,7 +245,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.limits[0].maximum,
-            expected = maximum
+            expected = maximum,
         )
     }
 
@@ -258,8 +258,8 @@ class JacocoVerificationRuleMapperSpec {
         val rules = setOf(
             JacocoVerificationRule(
                 maximum = maximum,
-                counter = CoverageApiContract.JacocoCounter.LINE
-            )
+                counter = CoverageApiContract.JacocoCounter.LINE,
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -272,7 +272,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.limits[0].counter,
-            expected = "LINE"
+            expected = "LINE",
         )
     }
 
@@ -285,8 +285,8 @@ class JacocoVerificationRuleMapperSpec {
         val rules = setOf(
             JacocoVerificationRule(
                 maximum = maximum,
-                measurement = CoverageApiContract.JacocoMeasurement.MISSED_COUNT
-            )
+                measurement = CoverageApiContract.JacocoMeasurement.MISSED_COUNT,
+            ),
         )
 
         val actual = JacocoViolationRuleImpl()
@@ -299,7 +299,7 @@ class JacocoVerificationRuleMapperSpec {
         // Then
         assertEquals(
             actual = actual.limits[0].value,
-            expected = "MISSEDCOUNT"
+            expected = "MISSEDCOUNT",
         )
     }
 }
