@@ -78,6 +78,25 @@ object Version {
         }
     }
 
+    val square = Square
+
+    object Square {
+        /**
+         * (Okio)(https://square.github.io/okio/)
+         */
+        const val okio = "3.2.0"
+
+        /**
+         * [SQLDelight](https://github.com/cashapp/sqldelight/)
+         */
+        const val sqldelight = "1.5.3"
+
+        /**
+         * [OkHttp](https://square.github.io/okhttp/)
+         */
+        const val okhttp = "4.10.0"
+    }
+
     val android = Android
 
     object Android {
@@ -121,6 +140,11 @@ object Version {
             const val pageing = "3.1.1"
             const val viewmodel = "2.5.1"
             const val workmanager = "2.7.1"
+
+            /**
+             * [Annotation](https://developer.android.com/jetpack/androidx/releases/annotation)
+             */
+            const val annotation = "1.4.0"
         }
 
         /**
@@ -157,6 +181,7 @@ object Version {
             const val constraintLayout = "1.0.1"
             const val activity = "1.5.1"
             const val viewmodel = "2.5.1"
+            const val paging = "1.0.0-alpha15"
         }
 
         val test = Test
@@ -202,6 +227,20 @@ object Version {
              */
             const val junit4 = "4.13.2"
         }
+    }
+
+    val google = Google
+
+    object Google {
+        /**
+         * [Google Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+         */
+        const val hilt = "2.38.1"
+
+        /**
+         * [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)
+         */
+        const val hiltCompose = "1.0.0"
     }
 
     val js = JS

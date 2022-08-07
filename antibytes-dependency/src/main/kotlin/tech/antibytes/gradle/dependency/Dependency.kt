@@ -150,6 +150,40 @@ object Dependency {
             const val collections = "co.touchlab:stately-iso-collections:${Version.kotlin.stately}"
         }
 
+        val square = Square
+
+        object Square {
+
+            val okio = OkIO
+
+            object OkIO {
+                const val common = "com.squareup.okio:okio:${Version.square.okio}"
+                const val jvm = "com.squareup.okio:okio-jvm:${Version.square.okio}"
+            }
+
+            val sqldelight = SQLDelight
+
+            object SQLDelight {
+                const val gradle = "com.squareup.sqldelight:gradle-plugin:${Version.square.sqldelight}"
+                const val android = "com.squareup.sqldelight:android-driver:${Version.square.sqldelight}"
+                const val jvm = "com.squareup.sqldelight:sqlite-driver:${Version.square.sqldelight}"
+                const val jvmJdbc = "com.squareup.sqldelight:jdbc-driver:${Version.square.sqldelight}"
+                const val js = "com.squareup.sqldelight:sqljs-driver:${Version.square.sqldelight}"
+                const val native = "com.squareup.sqldelight:native-driver:${Version.square.sqldelight}"
+                const val coroutines = "com.squareup.sqldelight:coroutines-extensions:${Version.square.sqldelight}"
+            }
+
+            val okhttp = OkHttp
+
+            object OkHttp {
+                const val client = "com.squareup.okhttp3:okhttp:${Version.square.okhttp}"
+                const val bom = "com.squareup.okhttp3:okhttp-bom:${Version.square.okhttp}"
+                const val versionless = "com.squareup.okhttp3:okhttp"
+                const val logger = "com.squareup.okhttp3:logging-interceptor"
+                const val mockServer = "com.squareup.okhttp3:mockwebserver:${Version.square.okhttp}"
+            }
+        }
+
         val test = Test
 
         object Test {
@@ -190,6 +224,7 @@ object Dependency {
         val ktx = Ktx
 
         object Ktx {
+            const val annotation = "androidx.annotation:annotation:${Version.android.ktx.annotation}"
             const val core = "androidx.core:core-ktx:${Version.android.ktx.core}"
             const val activity = "androidx.activity:activity-ktx:${Version.android.ktx.activity}"
             const val collections = "androidx.collection:collection-ktx:${Version.android.ktx.collections}"
@@ -199,6 +234,7 @@ object Dependency {
             const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.android.ktx.navigation}"
             const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Version.android.ktx.navigation}"
             const val palette = "androidx.palette:palette-ktx:${Version.android.ktx.palette}"
+            const val paging = "androidx.paging:paging-runtime:${Version.android.ktx.pageing}"
             const val runtime = "androidx.compose.runtime:runtime:${Version.android.compose.runtime}"
             const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
             const val viewmodelSaver = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Version.android.ktx.viewmodel}"
@@ -233,6 +269,7 @@ object Dependency {
             const val activity = "androidx.activity:activity-compose:${Version.android.compose.activity}"
             const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Version.android.compose.viewmodel}"
             const val constrainLayout = "androidx.constraintlayout:constraintlayout-compose:${Version.android.compose.constraintLayout}"
+            const val paging = "androidx.paging:paging-compose:${Version.android.compose.paging}"
         }
 
         val test = Test
@@ -261,7 +298,17 @@ object Dependency {
             const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Version.android.test.uiAutomator}"
 
             const val robolectric = "org.robolectric:robolectric:${Version.android.test.robolectric}"
+
+            const val paging = "androidx.paging:paging-common:${Version.android.ktx.pageing}"
         }
+    }
+
+    object Hilt {
+        const val gradle = "com.google.dagger:hilt-android-gradle-plugin:${Version.google.hilt}"
+        const val core = "com.google.dagger:hilt-android:${Version.google.hilt}"
+        const val compiler = "com.google.dagger:hilt-compiler:${Version.google.hilt}"
+        const val composeNavigation = "androidx.hilt:hilt-navigation-compose:${Version.google.hiltCompose}"
+        const val test = "com.google.dagger:hilt-android-testing:${Version.google.hilt}"
     }
 
     val js = JS
