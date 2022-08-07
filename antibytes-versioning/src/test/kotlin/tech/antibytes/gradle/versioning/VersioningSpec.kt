@@ -20,6 +20,7 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.kotlin.dsl.invoke
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.test.createClosure
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningError
 
@@ -50,7 +51,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { versionDetails.branchName } returns fixture()
 
@@ -81,7 +82,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { versionDetails.branchName } returns branchName
 
@@ -126,7 +127,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -173,7 +174,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -220,7 +221,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -268,7 +269,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -315,7 +316,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -361,7 +362,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -407,7 +408,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -454,7 +455,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -501,7 +502,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -549,7 +550,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -601,7 +602,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -648,7 +649,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -696,7 +697,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -750,7 +751,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -799,7 +800,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -849,7 +850,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -898,7 +899,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -947,7 +948,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -999,7 +1000,7 @@ class VersioningSpec {
 
         val versionDetails: VersionDetails = mockk()
 
-        val details: Closure<VersionDetails> = ClosureHelper.createClosure(versionDetails)
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details

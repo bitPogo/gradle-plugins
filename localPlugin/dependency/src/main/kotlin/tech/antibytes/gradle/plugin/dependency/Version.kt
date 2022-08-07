@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.plugin.dependency
 
 object Version {
-    const val kotlin = "1.7.0"
+    const val kotlin = "1.7.10"
 
     val gradle = GradlePlugin
     val library = Library
@@ -43,22 +43,22 @@ object Version {
         /**
          * [Kotlin](https://kotlinlang.org/docs/releases.html)
          */
-        const val kotlin = "1.7.0"
+        const val kotlin = "1.7.10"
 
         /**
          * [AtomicFu](https://kotlinlang.org/docs/releases.html)
          */
-        const val atomicFu = "0.18.2"
+        const val atomicFu = "0.18.3"
 
         /**
          * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
          */
-        const val android = "7.2.1"
+        const val android = "7.2.2"
 
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
          */
-        const val spotless = "6.8.0"
+        const val spotless = "6.9.0"
 
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
@@ -75,7 +75,7 @@ object Version {
         /**
          * [Turtle](https://github.com/lordcodes/turtle)
          */
-        const val turtle = "0.6.0"
+        const val turtle = "0.7.0"
     }
 
     object Square {
@@ -89,12 +89,12 @@ object Version {
         /**
          * [JUnit](https://github.com/junit-team/junit5/)
          */
-        const val junit = "5.8.2"
+        const val junit = "5.9.0"
 
         /**
          * [mockk](http://mockk.io)
          */
-        const val mockk = "1.12.4"
+        const val mockk = "1.12.5"
 
         /**
          * [kotlinFixture](https://github.com/appmattus/kotlinfixture)

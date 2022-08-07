@@ -7,5 +7,5 @@
 package tech.antibytes.gradle.dependency
 
 object JSVersion {
-    const val node = "17.4.0"
+    const val node = "18.7.0"
 }
