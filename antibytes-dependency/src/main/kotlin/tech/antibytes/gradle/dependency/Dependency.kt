@@ -300,6 +300,13 @@ object Dependency {
             const val robolectric = "org.robolectric:robolectric:${Version.android.test.robolectric}"
 
             const val paging = "androidx.paging:paging-common:${Version.android.ktx.pageing}"
+
+            val mockk = Mockk
+
+            object Mockk {
+                const val unit = "io.mockk:mockk:${Version.kotlin.test.mockk}"
+                const val instrumented = "io.mockk:mockk-android:${Version.kotlin.test.mockk}"
+            }
         }
     }
 
