@@ -21,6 +21,7 @@ object Dependency {
         const val versioning = "com.palantir.gradle.gitversion:gradle-git-version:${Version.gradle.versioning}"
         const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Version.gradle.spotless}"
         const val ktlint = "com.pinterest:ktlint:${Version.gradle.ktlint}"
+        const val paparazzi = "app.cash.paparazzi:paparazzi-gradle-plugin:${Version.square.paparazzi}"
     }
 
     val library = Library
@@ -36,7 +37,7 @@ object Dependency {
         val kotlinPoet = KotlinPoet
 
         object KotlinPoet {
-            val core = "com.squareup:kotlinpoet:${Version.square.kotlinPoet}"
+            const val core = "com.squareup:kotlinpoet:${Version.square.kotlinPoet}"
         }
     }
 

@@ -83,6 +83,11 @@ object Version {
          * [Kotlin Poet](https://square.github.io/kotlinpoet/)
          */
         const val kotlinPoet = "1.12.0"
+
+        /**
+         * [Paparazzi](https://github.com/cashapp/paparazzi)
+         */
+        const val paparazzi = "1.0.0"
     }
 
     object Test {
