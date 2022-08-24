@@ -150,7 +150,7 @@ object Version {
         /**
          * [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
          */
-        const val appCompat = "1.4.2"
+        const val appCompat = "1.5.0"
 
         /**
          * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
@@ -173,11 +173,11 @@ object Version {
 
         object Compose {
             const val core = "1.2.0"
-            const val compiler = "1.3.0-rc02"
-            const val foundation = "1.2.0"
-            const val material = "1.2.0"
-            const val runtime = "1.2.0"
-            const val ui = "1.2.0"
+            const val compiler = "1.3.0"
+            const val foundation = "1.2.1"
+            const val material = "1.2.1"
+            const val runtime = "1.2.1"
+            const val ui = "1.2.1"
             const val constraintLayout = "1.0.1"
             const val activity = "1.5.1"
             const val viewmodel = "2.5.1"
@@ -209,11 +209,21 @@ object Version {
              */
             const val robolectric = "4.8.1"
         }
+
+        /**
+         * [Coil](https://github.com/coil-kt/coil)
+         */
+        const val coil = "2.1.0"
     }
 
     val jvm = Jvm
 
     object Jvm {
+        /**
+         * [Log4J](http://www.slf4j.org/)
+         */
+        const val slf4j = "1.7.36"
+
         val test = Test
 
         object Test {
@@ -235,7 +245,7 @@ object Version {
         /**
          * [Google Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
          */
-        const val hilt = "2.38.1"
+        const val hilt = "2.43.2"
 
         /**
          * [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)

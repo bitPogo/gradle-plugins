@@ -199,6 +199,13 @@ object Dependency {
     val jvm = Jvm
 
     object Jvm {
+        val slf4j = Slf4j
+
+        object Slf4j {
+            const val api = "org.slf4j:slf4j-api:${Version.jvm.slf4j}"
+            const val noop = "org.slf4j:slf4j-nop:${Version.jvm.slf4j}"
+        }
+
         val test = Test
 
         object Test {
@@ -300,15 +307,29 @@ object Dependency {
             const val robolectric = "org.robolectric:robolectric:${Version.android.test.robolectric}"
 
             const val paging = "androidx.paging:paging-common:${Version.android.ktx.pageing}"
-        }
-    }
 
-    object Hilt {
-        const val gradle = "com.google.dagger:hilt-android-gradle-plugin:${Version.google.hilt}"
-        const val core = "com.google.dagger:hilt-android:${Version.google.hilt}"
-        const val compiler = "com.google.dagger:hilt-compiler:${Version.google.hilt}"
-        const val composeNavigation = "androidx.hilt:hilt-navigation-compose:${Version.google.hiltCompose}"
-        const val test = "com.google.dagger:hilt-android-testing:${Version.google.hilt}"
+            val mockk = Mockk
+
+            object Mockk {
+                const val unit = "io.mockk:mockk:${Version.kotlin.test.mockk}"
+                const val instrumented = "io.mockk:mockk-android:${Version.kotlin.test.mockk}"
+            }
+        }
+
+        val coil = Coil
+        object Coil {
+            const val core = "io.coil-kt:coil:${Version.android.coil}"
+            const val compose = "io.coil-kt:coil-compose:${Version.android.coil}"
+        }
+
+        val hilt = Hilt
+        object Hilt {
+            const val gradle = "com.google.dagger:hilt-android-gradle-plugin:${Version.google.hilt}"
+            const val core = "com.google.dagger:hilt-android:${Version.google.hilt}"
+            const val compiler = "com.google.dagger:hilt-compiler:${Version.google.hilt}"
+            const val composeNavigation = "androidx.hilt:hilt-navigation-compose:${Version.google.hiltCompose}"
+            const val test = "com.google.dagger:hilt-android-testing:${Version.google.hilt}"
+        }
     }
 
     val js = JS
