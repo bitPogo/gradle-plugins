@@ -23,7 +23,7 @@ object Version {
         /**
          * [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
          */
-        const val owasp = "7.1.1"
+        const val owasp = "7.2.0"
 
         /**
          * [Jacoco](https://github.com/jacoco/jacoco/releases)
@@ -33,7 +33,7 @@ object Version {
         /**
          * [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
          */
-        const val publishing = "6.2.0.202206071550-r"
+        const val publishing = "6.3.0.202209071007-r"
 
         /**
          * [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
@@ -52,18 +52,19 @@ object Version {
 
         /**
          * [AGP](https://developer.android.com/studio/releases/gradle-plugin)
+         * [AGP on Maven](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
          */
         const val android = "7.2.2"
 
         /**
          * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
          */
-        const val spotless = "6.9.0"
+        const val spotless = "6.11.0"
 
         /**
          * [KTLint](https://github.com/pinterest/ktlint)
          */
-        const val ktlint = "0.46.1"
+        const val ktlint = "0.47.1"
     }
 
     object Library {
@@ -99,7 +100,7 @@ object Version {
         /**
          * [mockk](http://mockk.io)
          */
-        const val mockk = "1.12.5"
+        const val mockk = "1.12.8"
 
         /**
          * [kotlinFixture](https://github.com/appmattus/kotlinfixture)

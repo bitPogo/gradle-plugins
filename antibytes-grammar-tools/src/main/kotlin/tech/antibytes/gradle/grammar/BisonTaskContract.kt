@@ -56,7 +56,7 @@ interface BisonTaskContract : Task {
         /**
          * Do not generate the report.
          */
-        NONE("none")
+        NONE("none"),
     }
 
     enum class Features(val value: String) {
@@ -93,7 +93,7 @@ interface BisonTaskContract : Task {
         /**
          * Do not generate the report.
          */
-        NONE("none")
+        NONE("none"),
     }
 
     enum class ErrorCategory(val value: String) {
@@ -205,7 +205,7 @@ interface BisonTaskContract : Task {
         /**
          * turn off all the warnings
          */
-        NONE("none")
+        NONE("none"),
     }
 
     enum class When(val value: String) {
@@ -222,7 +222,7 @@ interface BisonTaskContract : Task {
         /**
          * colorize if the output device is a tty
          */
-        AUTO("auto")
+        AUTO("auto"),
     }
 
     /**

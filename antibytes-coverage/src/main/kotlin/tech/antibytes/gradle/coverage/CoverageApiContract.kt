@@ -31,7 +31,7 @@ interface CoverageApiContract {
     enum class JacocoScope {
         CLASS,
         METHOD,
-        BUNDLE
+        BUNDLE,
     }
 
     enum class JacocoCounter {
@@ -39,7 +39,7 @@ interface CoverageApiContract {
         BRANCH,
         CLASS,
         INSTRUCTION,
-        METHOD
+        METHOD,
     }
 
     enum class JacocoMeasurement(val value: String) {
@@ -47,7 +47,7 @@ interface CoverageApiContract {
         COVERED_COUNT("COVEREDCOUNT"),
         MISSED_RATIO("MISSEDRATIO"),
         MISSED_COUNT("MISSEDCOUNT"),
-        TOTAL_COUNT("TOTALCOUNT")
+        TOTAL_COUNT("TOTALCOUNT"),
     }
 
     interface JacocoVerificationRule : VerificationRule, JacocoAgent {

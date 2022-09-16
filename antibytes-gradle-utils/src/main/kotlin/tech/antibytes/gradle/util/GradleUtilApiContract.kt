@@ -15,7 +15,7 @@ interface GradleUtilApiContract {
         ANDROID_LIBRARY("android"),
         ANDROID_LIBRARY_KMP("android"),
         JVM("jvm"),
-        JVM_KMP("jvm")
+        JVM_KMP("jvm"),
     }
 
     fun interface PlatformContextResolver {
