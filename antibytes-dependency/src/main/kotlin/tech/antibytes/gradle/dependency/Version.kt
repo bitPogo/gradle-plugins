@@ -14,7 +14,7 @@ object Version {
         /**
          * [KTLint](https://github.com/pinterest/ktlint/releases)
          */
-        const val ktLint = "0.46.1"
+        const val ktLint = "0.47.1"
     }
 
     // Kotlin
@@ -41,12 +41,12 @@ object Version {
         /**
          * [Ktor](https://github.com/ktorio/ktor)
          */
-        const val ktor = "2.0.3"
+        const val ktor = "2.1.1"
 
         /**
          * [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
          */
-        const val serialization = "1.4.0-RC"
+        const val serialization = "1.4.0"
 
         /**
          * [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
@@ -74,7 +74,7 @@ object Version {
             /**
              * [mockk](http://mockk.io)
              */
-            const val mockk = "1.12.5"
+            const val mockk = "1.12.8"
         }
     }
 
@@ -125,7 +125,7 @@ object Version {
          * [AndroidX Tech](https://androidx.tech/)
          */
         object Ktx {
-            const val core = "1.8.0"
+            const val core = "1.9.0"
 
             /**
              * [Android Tech](https://androidx.tech/artifacts/activity/activity-ktx/)
@@ -133,9 +133,9 @@ object Version {
             const val activity = "1.5.1"
             const val collections = "1.2.0"
             const val lifecycle = "2.5.1"
-            const val fragment = "1.5.1"
+            const val fragment = "1.5.2"
             const val livedata = "2.5.1"
-            const val navigation = "2.5.1"
+            const val navigation = "2.5.2"
             const val palette = "1.0.0"
             const val pageing = "3.1.1"
             const val viewmodel = "2.5.1"
@@ -150,7 +150,7 @@ object Version {
         /**
          * [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
          */
-        const val appCompat = "1.5.0"
+        const val appCompat = "1.5.1"
 
         /**
          * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
@@ -161,7 +161,7 @@ object Version {
         /**
          * [Material Android](https://github.com/material-components/material-components-android)
          */
-        const val material = "1.6.1"
+        const val material = "1.7.0-rc01"
 
         /**
          * [Jetpack Compose](https://developer.android.com/jetpack/androidx/releases/compose)
@@ -172,8 +172,8 @@ object Version {
         val compose = Compose
 
         object Compose {
-            const val core = "1.2.0"
-            const val compiler = "1.3.0"
+            const val core = "1.2.1"
+            const val compiler = "1.3.1"
             const val foundation = "1.2.1"
             const val material = "1.2.1"
             const val runtime = "1.2.1"
@@ -181,7 +181,7 @@ object Version {
             const val constraintLayout = "1.0.1"
             const val activity = "1.5.1"
             const val viewmodel = "2.5.1"
-            const val paging = "1.0.0-alpha15"
+            const val paging = "1.0.0-alpha16"
         }
 
         val test = Test
@@ -207,13 +207,13 @@ object Version {
             /**
              * [Robolectric](https://github.com/robolectric/robolectric)
              */
-            const val robolectric = "4.8.1"
+            const val robolectric = "4.8.2"
         }
 
         /**
          * [Coil](https://github.com/coil-kt/coil)
          */
-        const val coil = "2.1.0"
+        const val coil = "2.2.1"
     }
 
     val jvm = Jvm
