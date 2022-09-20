@@ -4,9 +4,9 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency
+package tech.antibytes.gradle.dependency.version
 
-internal object MkDocsVersion {
+internal object MkDocs {
     /**
      * [MkDocs Include Plugin](https://github.com/mondeja/mkdocs-include-markdown-plugin/releases)
      */

@@ -6,13 +6,15 @@
 
 package tech.antibytes.gradle.dependency
 
+import tech.antibytes.gradle.dependency.version.MkDocs
+
 object MkDocs {
-    const val includeMarkdown = "mkdocs-include-markdown-plugin:${MkDocsVersion.includeMarkdown}"
-    const val kroki = "mkdocs-kroki-plugin:${MkDocsVersion.kroki}"
-    const val extraData = "mkdocs-markdownextradata-plugin:${MkDocsVersion.extraData}"
-    const val material = "mkdocs-material:${MkDocsVersion.material}"
-    const val minify = "mkdocs-minify-plugin:${MkDocsVersion.minify}"
-    const val redirects = "mkdocs-redirects:${MkDocsVersion.redirects}"
-    const val pygments = "pygments:${MkDocsVersion.pygments}"
-    const val pymdown = "pymdown-extensions:${MkDocsVersion.pymdown}"
+    const val includeMarkdown = "mkdocs-include-markdown-plugin:${MkDocs.includeMarkdown}"
+    const val kroki = "mkdocs-kroki-plugin:${MkDocs.kroki}"
+    const val extraData = "mkdocs-markdownextradata-plugin:${MkDocs.extraData}"
+    const val material = "mkdocs-material:${MkDocs.material}"
+    const val minify = "mkdocs-minify-plugin:${MkDocs.minify}"
+    const val redirects = "mkdocs-redirects:${MkDocs.redirects}"
+    const val pygments = "pygments:${MkDocs.pygments}"
+    const val pymdown = "pymdown-extensions:${MkDocs.pymdown}"
 }
