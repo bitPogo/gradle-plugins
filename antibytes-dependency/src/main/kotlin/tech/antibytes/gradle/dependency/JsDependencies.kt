@@ -6,7 +6,12 @@
 
 package tech.antibytes.gradle.dependency
 
-object JSDependencies {
+data class NpmPackage(
+    val name: String,
+    val version: String,
+)
+
+object JsDependencies {
     val npm = Npm
 
     object Npm {
