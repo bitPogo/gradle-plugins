@@ -18,6 +18,7 @@ import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.configuration.android.DefaultAndroidApplicationConfigurationProvider
 import tech.antibytes.gradle.configuration.api.AndroidApplicationConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource

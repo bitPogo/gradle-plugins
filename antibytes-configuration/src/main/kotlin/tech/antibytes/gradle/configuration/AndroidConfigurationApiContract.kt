@@ -8,7 +8,7 @@ package tech.antibytes.gradle.configuration
 
 import org.gradle.api.JavaVersion
 
-internal interface ConfigurationApiContract {
+internal interface AndroidConfigurationApiContract {
     interface TestSource {
         val sourceDirectories: Set<String>
         val resourceDirectories: Set<String>

@@ -7,9 +7,9 @@
 package tech.antibytes.gradle.configuration.api
 
 import org.gradle.api.JavaVersion
-import tech.antibytes.gradle.configuration.ConfigurationApiContract
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract
 
 internal data class Compatibility(
     override val source: JavaVersion,
     override val target: JavaVersion,
-) : ConfigurationApiContract.Compatibility
+) : AndroidConfigurationApiContract.Compatibility

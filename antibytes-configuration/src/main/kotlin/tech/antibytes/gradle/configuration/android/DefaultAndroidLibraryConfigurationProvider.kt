@@ -4,17 +4,19 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.configuration
+package tech.antibytes.gradle.configuration.android
 
 import org.gradle.api.Project
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.ANDROID_PREFIX
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.ANDROID_PREFIX_SEPARATOR
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.COMPATIBILITY_TARGETS
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.FALLBACKS
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.MIN_SDK
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.TARGET_SDK
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.TEST_RUNNER
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.TEST_RUNNER_ARGUMENTS
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.Companion.ANDROID_PREFIX
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.Companion.ANDROID_PREFIX_SEPARATOR
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.Companion.COMPATIBILITY_TARGETS
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.Companion.FALLBACKS
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.Companion.MIN_SDK
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.Companion.TARGET_SDK
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.Companion.TEST_RUNNER
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.Companion.TEST_RUNNER_ARGUMENTS
+import tech.antibytes.gradle.configuration.ConfigurationContract
 import tech.antibytes.gradle.configuration.api.AndroidLibraryConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource
@@ -92,7 +94,7 @@ internal object DefaultAndroidLibraryConfigurationProvider : ConfigurationContra
 
     override fun createDefaultConfiguration(
         project: Project,
-    ): ConfigurationApiContract.AndroidLibraryConfiguration {
+    ): AndroidConfigurationApiContract.AndroidLibraryConfiguration {
         val contexts = PlatformContextResolver.getType(project)
 
         return AndroidLibraryConfiguration(

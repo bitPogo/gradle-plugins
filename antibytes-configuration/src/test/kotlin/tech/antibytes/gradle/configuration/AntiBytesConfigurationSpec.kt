@@ -19,6 +19,10 @@ import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.configuration.android.AndroidApplicationConfigurator
+import tech.antibytes.gradle.configuration.android.AndroidLibraryConfigurator
+import tech.antibytes.gradle.configuration.android.DefaultAndroidApplicationConfigurationProvider
+import tech.antibytes.gradle.configuration.android.DefaultAndroidLibraryConfigurationProvider
 
 class AntiBytesConfigurationSpec {
     @BeforeEach
@@ -69,7 +73,7 @@ class AntiBytesConfigurationSpec {
         // Given
         val project: Project = mockk()
 
-        val androidConfig: ConfigurationApiContract.AndroidLibraryConfiguration = mockk()
+        val androidConfig: AndroidConfigurationApiContract.AndroidLibraryConfiguration = mockk()
 
         every { project.plugins.hasPlugin("com.android.application") } returns false
         every { project.plugins.hasPlugin("com.android.library") } returns true
@@ -89,7 +93,7 @@ class AntiBytesConfigurationSpec {
         // Given
         val project: Project = mockk()
 
-        val androidConfig: ConfigurationApiContract.AndroidApplicationConfiguration = mockk()
+        val androidConfig: AndroidConfigurationApiContract.AndroidApplicationConfiguration = mockk()
 
         every { project.plugins.hasPlugin("com.android.library") } returns false
         every { project.plugins.hasPlugin("com.android.application") } returns true
