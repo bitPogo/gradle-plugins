@@ -10,7 +10,7 @@ object Android {
     /**
      * [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
      */
-    const val androidGradlePlugin = "7.2.2"
+    const val androidGradlePlugin = "7.3.0"
 
     /**
      * [Android Desugaring explained](https://developer.android.com/studio/write/java8-support)
