@@ -30,6 +30,7 @@ private fun KotlinMultiplatformExtension.ensureIosDeviceCompatibility(os: Operat
     }
 }
 
+// see https://youtrack.jetbrains.com/issue/KT-45416/Do-not-use-iPhone-8-simulator-for-Gradle-tests
 fun KotlinMultiplatformExtension.ensureIosDeviceCompatibility() {
     val os = OperatingSystem.current()
 
