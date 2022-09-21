@@ -6,9 +6,9 @@
 
 package tech.antibytes.gradle.configuration.api
 
-import tech.antibytes.gradle.configuration.ConfigurationApiContract
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract
 
 internal data class TestRunner(
     override val runner: String,
     override val arguments: Map<String, String>,
-) : ConfigurationApiContract.TestRunner
+) : AndroidConfigurationApiContract.TestRunner

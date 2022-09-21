@@ -14,7 +14,7 @@ internal data class VersionDescriptor(
     constructor(version: String) : this(
         major = extractMajorVersion(version),
         minor = extractMinorVersion(version),
-        patch = extractPatchVersion(version)
+        patch = extractPatchVersion(version),
     )
 
     override fun toString(): String = "$major${DELIMITER}$minor${DELIMITER}$patch"

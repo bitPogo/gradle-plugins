@@ -6,12 +6,11 @@
 
 package tech.antibytes.gradle.configuration
 
-
 import org.gradle.internal.os.OperatingSystem
 import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
-import tech.antibytes.gradle.configuration.ConfigurationApiContract.Companion.IOS_DEFAULT_DEVICE
+import tech.antibytes.gradle.configuration.IosConfigurationApiContract.Companion.IOS_DEFAULT_DEVICE
 
 private val THRESHOLD = VersionDescriptor(12, 6, 0)
 

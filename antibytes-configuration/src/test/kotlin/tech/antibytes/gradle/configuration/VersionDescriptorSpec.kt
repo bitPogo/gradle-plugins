@@ -6,9 +6,9 @@
 
 package tech.antibytes.gradle.configuration
 
-import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.Test
 
 class VersionDescriptorSpec {
     @Test
@@ -22,17 +22,17 @@ class VersionDescriptorSpec {
         // Then
         assertEquals(
             expected = 12,
-            actual = version.major
+            actual = version.major,
         )
 
         assertEquals(
             expected = 13,
-            actual = version.minor
+            actual = version.minor,
         )
 
         assertEquals(
             expected = 14,
-            actual = version.patch
+            actual = version.patch,
         )
     }
 
@@ -47,17 +47,17 @@ class VersionDescriptorSpec {
         // Then
         assertEquals(
             expected = 12,
-            actual = version.major
+            actual = version.major,
         )
 
         assertEquals(
             expected = 13,
-            actual = version.minor
+            actual = version.minor,
         )
 
         assertEquals(
             expected = 0,
-            actual = version.patch
+            actual = version.patch,
         )
     }
 
@@ -72,17 +72,17 @@ class VersionDescriptorSpec {
         // Then
         assertEquals(
             expected = 12,
-            actual = version.major
+            actual = version.major,
         )
 
         assertEquals(
             expected = 0,
-            actual = version.minor
+            actual = version.minor,
         )
 
         assertEquals(
             expected = 0,
-            actual = version.patch
+            actual = version.patch,
         )
     }
 
@@ -97,7 +97,7 @@ class VersionDescriptorSpec {
         // Then
         assertEquals(
             actual = serialized,
-            expected = "12.13.14"
+            expected = "12.13.14",
         )
     }
 

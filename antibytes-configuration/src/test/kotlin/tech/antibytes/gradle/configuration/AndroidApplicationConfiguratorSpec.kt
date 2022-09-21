@@ -24,6 +24,7 @@ import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.configuration.android.AndroidApplicationConfigurator
 import tech.antibytes.gradle.configuration.api.AndroidApplicationConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource

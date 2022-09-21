@@ -6,10 +6,10 @@
 
 package tech.antibytes.gradle.configuration.api
 
-import tech.antibytes.gradle.configuration.ConfigurationApiContract
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract
 
 internal data class MainSource(
     override val manifest: String,
     override val sourceDirectories: Set<String>,
     override val resourceDirectories: Set<String>,
-) : ConfigurationApiContract.MainSource
+) : AndroidConfigurationApiContract.MainSource

@@ -6,16 +6,16 @@
 
 package tech.antibytes.gradle.configuration.api
 
-import tech.antibytes.gradle.configuration.ConfigurationApiContract
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract
 
 internal data class AndroidApplicationConfiguration(
     override val compileSdkVersion: Int,
     override val minSdkVersion: Int,
     override val targetSdkVersion: Int,
-    override val compatibilityTargets: ConfigurationApiContract.Compatibility,
+    override val compatibilityTargets: AndroidConfigurationApiContract.Compatibility,
     override val fallbacks: Map<String, Set<String>>,
-    override val mainSource: ConfigurationApiContract.MainSource,
-    override val unitTestSource: ConfigurationApiContract.TestSource,
-    override val testRunner: ConfigurationApiContract.TestRunner,
-    override val androidTest: ConfigurationApiContract.TestSource,
-) : ConfigurationApiContract.AndroidApplicationConfiguration
+    override val mainSource: AndroidConfigurationApiContract.MainSource,
+    override val unitTestSource: AndroidConfigurationApiContract.TestSource,
+    override val testRunner: AndroidConfigurationApiContract.TestRunner,
+    override val androidTest: AndroidConfigurationApiContract.TestSource,
+) : AndroidConfigurationApiContract.AndroidApplicationConfiguration

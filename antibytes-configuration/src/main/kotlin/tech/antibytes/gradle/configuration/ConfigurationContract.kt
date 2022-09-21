@@ -10,24 +10,24 @@ import org.gradle.api.Project
 
 internal interface ConfigurationContract {
     fun interface DefaultAndroidLibraryConfigurationProvider {
-        fun createDefaultConfiguration(project: Project): ConfigurationApiContract.AndroidLibraryConfiguration
+        fun createDefaultConfiguration(project: Project): AndroidConfigurationApiContract.AndroidLibraryConfiguration
     }
 
     fun interface DefaultAndroidApplicationConfigurationProvider {
-        fun createDefaultConfiguration(project: Project): ConfigurationApiContract.AndroidApplicationConfiguration
+        fun createDefaultConfiguration(project: Project): AndroidConfigurationApiContract.AndroidApplicationConfiguration
     }
 
     interface AndroidLibraryConfigurator {
         fun configure(
             project: Project,
-            configuration: ConfigurationApiContract.AndroidLibraryConfiguration,
+            configuration: AndroidConfigurationApiContract.AndroidLibraryConfiguration,
         )
     }
 
     interface AndroidApplicationConfigurator {
         fun configure(
             project: Project,
-            configuration: ConfigurationApiContract.AndroidApplicationConfiguration,
+            configuration: AndroidConfigurationApiContract.AndroidApplicationConfiguration,
         )
     }
 }
