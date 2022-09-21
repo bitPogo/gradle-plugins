@@ -10,6 +10,7 @@ import tech.antibytes.gradle.dependency.packages.Android
 import tech.antibytes.gradle.dependency.packages.Js
 import tech.antibytes.gradle.dependency.packages.Jvm
 import tech.antibytes.gradle.dependency.packages.Multiplatform
+import tech.antibytes.gradle.dependency.packages.Npm
 
 object Dependency {
 
@@ -20,4 +21,6 @@ object Dependency {
     val android = Android
 
     val js = Js
+
+    val npm = Npm
 }
