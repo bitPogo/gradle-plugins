@@ -10,7 +10,7 @@ data class VersionDescriptor(
     val major: Int,
     val minor: Int,
     val patch: Int,
-) {
+) : Comparable<VersionDescriptor> {
     constructor(version: String) : this(
         major = extractMajorVersion(version),
         minor = extractMinorVersion(version),
@@ -40,6 +40,15 @@ data class VersionDescriptor(
 
         fun extractPatchVersion(version: String): Int {
             return version.extract(2)?.toInt() ?: DEFAULT_VERSION
+        }
+    }
+
+    override operator fun compareTo(other: VersionDescriptor): Int {
+        return when {
+            other.major != this.major -> this.major - other.major
+            other.minor != this.minor -> this.minor - other.minor
+            other.patch != this.patch -> this.patch - other.patch
+            else -> 0
         }
     }
 }

@@ -8,6 +8,7 @@ package tech.antibytes.gradle.configuration
 
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class VersionDescriptorSpec {
     @Test
@@ -98,5 +99,95 @@ class VersionDescriptorSpec {
             actual = serialized,
             expected = "12.13.14"
         )
+    }
+
+    @Test
+    fun `Given 2 VersionDescriptors they are equal if all version parts are equal`() {
+        // Given
+        val version = VersionDescriptor(12, 13, 14)
+
+        // When
+        val equal = version == version
+
+        // Then
+        assertTrue(equal)
+    }
+
+    @Test
+    fun `Given 2 VersionDescriptors a version is greater if patch is greater`() {
+        // Given
+        val version1 = VersionDescriptor(12, 13, 14)
+        val version2 = VersionDescriptor(12, 13, 15)
+
+        // When
+        val greater = version2 > version1
+
+        // Then
+        assertTrue(greater)
+    }
+
+    @Test
+    fun `Given 2 VersionDescriptors a version is smaller if patch is smaller`() {
+        // Given
+        val version1 = VersionDescriptor(12, 13, 14)
+        val version2 = VersionDescriptor(12, 13, 15)
+
+        // When
+        val smaller = version1 < version2
+
+        // Then
+        assertTrue(smaller)
+    }
+
+    @Test
+    fun `Given 2 VersionDescriptors a version is greater if minor is greater`() {
+        // Given
+        val version1 = VersionDescriptor(12, 13, 14)
+        val version2 = VersionDescriptor(12, 14, 14)
+
+        // When
+        val greater = version2 > version1
+
+        // Then
+        assertTrue(greater)
+    }
+
+    @Test
+    fun `Given 2 VersionDescriptors a version is smaller if minor is smaller`() {
+        // Given
+        val version1 = VersionDescriptor(12, 13, 14)
+        val version2 = VersionDescriptor(12, 14, 14)
+
+        // When
+        val smaller = version1 < version2
+
+        // Then
+        assertTrue(smaller)
+    }
+
+    @Test
+    fun `Given 2 VersionDescriptors a version is greater if major is greater`() {
+        // Given
+        val version1 = VersionDescriptor(12, 13, 14)
+        val version2 = VersionDescriptor(13, 13, 14)
+
+        // When
+        val greater = version2 > version1
+
+        // Then
+        assertTrue(greater)
+    }
+
+    @Test
+    fun `Given 2 VersionDescriptors a version is smaller if major is smaller`() {
+        // Given
+        val version1 = VersionDescriptor(12, 13, 14)
+        val version2 = VersionDescriptor(13, 13, 14)
+
+        // When
+        val smaller = version1 < version2
+
+        // Then
+        assertTrue(smaller)
     }
 }
