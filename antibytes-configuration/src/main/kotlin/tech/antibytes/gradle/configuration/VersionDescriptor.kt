@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.configuration
 
-data class VersionDescriptor(
+internal data class VersionDescriptor(
     val major: Int,
     val minor: Int,
     val patch: Int,

@@ -62,6 +62,7 @@ internal interface ConfigurationApiContract {
     }
 
     companion object {
+        // Android
         const val ANDROID_PREFIX = "antibytes"
         const val ANDROID_PREFIX_SEPARATOR = "_"
         const val TARGET_SDK = 33
@@ -70,5 +71,8 @@ internal interface ConfigurationApiContract {
         val COMPATIBILITY_TARGETS = JavaVersion.VERSION_1_8
         const val TEST_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
         val TEST_RUNNER_ARGUMENTS = mapOf("clearPackageData" to "true")
+
+        // iOS
+        const val IOS_DEFAULT_DEVICE = "iPhone 14"
     }
 }
