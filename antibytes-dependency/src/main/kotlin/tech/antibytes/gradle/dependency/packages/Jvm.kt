@@ -23,7 +23,12 @@ object Jvm {
         const val junit = "org.junit:junit-bom:${Version.jvm.test.junit}"
         const val jupiter = "org.junit.jupiter:junit-jupiter"
 
-        const val mockk = "io.mockk:mockk:${Version.kotlin.test.mockk}"
+        val mockk = Mockk
         const val koin = "io.insert-koin:koin-test:${Version.kotlin.koin}"
+
+        object Mockk {
+            const val unit = "io.mockk:mockk:${Version.kotlin.test.mockk}"
+            const val instrumented = "io.mockk:mockk-jvm:${Version.kotlin.test.mockk}"
+        }
     }
 }
