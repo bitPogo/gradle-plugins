@@ -194,7 +194,7 @@ project.afterEvaluate {
         subproject.tasks.findByName("publishAllPublicationsToRollingReleasePackagesRepository").apply {
             if (this is Task) {
                 this.dependsOn(cloneRollingReleaseRepository)
-                release.add(this)
+                rollingRelease.add(this)
             }
         }
 

@@ -51,7 +51,7 @@ publishing {
 
         maven {
             name = "RollingReleasePackages"
-            setUrl("$target/maven-rolling-release/rolling")
+            setUrl("$target/maven-rolling-releases/rolling")
         }
 
         maven {
