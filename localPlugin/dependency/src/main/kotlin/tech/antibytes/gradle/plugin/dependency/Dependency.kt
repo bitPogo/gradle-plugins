@@ -48,6 +48,7 @@ object Dependency {
         const val junit = "org.junit:junit-bom:${Version.test.junit}"
         const val jupiter = "org.junit.jupiter:junit-jupiter"
         const val mockk = "io.mockk:mockk:${Version.test.mockk}"
+        const val mockkJvm = "io.mockk:mockk-jvm:${Version.test.mockk}"
         const val fixture = "com.appmattus.fixture:fixture:${Version.test.fixture}"
     }
 }
