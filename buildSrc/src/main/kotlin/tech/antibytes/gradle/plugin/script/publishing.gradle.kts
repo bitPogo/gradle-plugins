@@ -57,6 +57,7 @@ val separator = "-"
 
 val devRepoName = "$prefix${separator}dev"
 val snapshotRepoName = "$prefix${separator}snapshots"
+val rollingReleaseRepoName = "${prefix}${separator}rolling${separator}releases"
 val releaseRepoName = "$prefix${separator}releases"
 
 val basePath = "${rootProject.buildDir}/gitPublish"
@@ -123,6 +124,28 @@ val publishSnapshot: Task by tasks.creating {
     }
 }
 
+// rolling release
+val cloneRollingReleaseRepository: Task by tasks.creating {
+    doLast {
+        repository = Repository(
+            "$basePath/$rollingReleaseRepoName",
+            rollingReleaseRepoName
+        )
+
+        gitClone()
+    }
+}
+
+val publishRollingRelease: Task by tasks.creating {
+    group = taskGroup
+    dependsOn("setProjectVersion")
+    doLast {
+        git = Git.open(File("$basePath/$rollingReleaseRepoName"))
+        gitCommit()
+        gitPush()
+    }
+}
+
 // release
 val cloneReleaseRepository: Task by tasks.creating {
     doLast {
@@ -150,6 +173,7 @@ project.evaluationDependsOnChildren()
 project.afterEvaluate {
     val dev = mutableListOf<Task>()
     val snapshot = mutableListOf<Task>()
+    val rollingRelease = mutableListOf<Task>()
     val release = mutableListOf<Task>()
 
     project.subprojects.forEach { subproject ->
@@ -167,6 +191,13 @@ project.afterEvaluate {
             }
         }
 
+        subproject.tasks.findByName("publishAllPublicationsToRollingReleasePackagesRepository").apply {
+            if (this is Task) {
+                this.dependsOn(cloneRollingReleaseRepository)
+                release.add(this)
+            }
+        }
+
         subproject.tasks.findByName("publishAllPublicationsToReleasePackagesRepository").apply {
             if (this is Task) {
                 this.dependsOn(cloneReleaseRepository)
@@ -177,6 +208,7 @@ project.afterEvaluate {
 
     publishDevelopment.dependsOn(dev)
     publishSnapshot.dependsOn(snapshot)
+    publishRollingRelease.dependsOn(rollingRelease)
     publishRelease.dependsOn(release)
 }
 
@@ -248,4 +280,3 @@ fun gitPush() {
         }
     }
 }
-
