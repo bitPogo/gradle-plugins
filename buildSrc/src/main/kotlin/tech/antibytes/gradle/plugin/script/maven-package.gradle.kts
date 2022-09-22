@@ -50,6 +50,11 @@ publishing {
         }
 
         maven {
+            name = "RollingReleasePackages"
+            setUrl("$target/maven-rolling-release/rolling")
+        }
+
+        maven {
             name = "SnapshotPackages"
             setUrl("$target/maven-snapshots/snapshots")
         }
