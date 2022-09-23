@@ -22,7 +22,7 @@ object Kotlin {
     /**
      * [Koin](https://github.com/InsertKoinIO/koin)
      */
-    const val koin = "3.2.0"
+    const val koin = "3.2.1"
 
     /**
      * [Ktor](https://github.com/ktorio/ktor)
