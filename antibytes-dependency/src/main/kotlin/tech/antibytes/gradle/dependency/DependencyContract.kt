@@ -10,7 +10,7 @@ import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 
-interface DependencyContract {
+object DependencyContract {
     interface DependencyPluginExtension {
         val keywords: SetProperty<String>
         val versionRegex: Property<Regex>
@@ -28,12 +28,16 @@ interface DependencyContract {
         val password: String,
     )
 
-    companion object {
-        const val EXTENSION_ID = "antiBytesDependency"
-        val DEPENDENCIES = listOf(
-            "com.github.ben-manes.versions",
-            "org.owasp.dependencycheck",
-            "com.diffplug.spotless",
-        )
+    interface Repository {
+        val url: String
+        val groupIds: List<String>
+        val credentials: Credentials?
     }
+
+    const val EXTENSION_ID = "antiBytesDependency"
+    val DEPENDENCIES = listOf(
+        "com.github.ben-manes.versions",
+        "org.owasp.dependencycheck",
+        "com.diffplug.spotless",
+    )
 }
