@@ -6,14 +6,18 @@
 
 package tech.antibytes.gradle.dependency.version
 
-object Google {
-    /**
-     * [Google Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-     */
-    const val hilt = "2.43.2"
+internal object Google {
+    val hilt = Hilt
 
-    /**
-     * [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)
-     */
-    const val hiltCompose = "1.0.0"
+    object Hilt {
+        /**
+         * [Google Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+         */
+        const val core = "2.43.2"
+
+        /**
+         * [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)
+         */
+        const val compose = "1.0.0"
+    }
 }

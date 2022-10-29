@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.dependency.version
 
-object Square {
+internal object Square {
     /**
      * (Okio)(https://square.github.io/okio/)
      */

@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.dependency.version
 
-object Kotlin {
+internal object Kotlin {
     /**
      * [Kotlin](https://github.com/JetBrains/kotlin)
      */

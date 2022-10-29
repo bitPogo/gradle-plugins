@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.dependency.version
 
-object Android {
+internal object Android {
     /**
      * [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
      */

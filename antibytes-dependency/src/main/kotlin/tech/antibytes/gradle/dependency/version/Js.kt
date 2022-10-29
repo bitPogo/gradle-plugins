@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.dependency.version
 
-object Js {
+internal object Js {
     /**
      * [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
      */
@@ -15,5 +15,5 @@ object Js {
     /**
      * [NodeJs](https://nodejs.org/en/)
      */
-    const val node = "18.9.0"
+    const val node = "18.12.0"
 }

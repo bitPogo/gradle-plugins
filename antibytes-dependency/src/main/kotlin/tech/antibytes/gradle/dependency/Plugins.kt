@@ -4,8 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency.version
+package tech.antibytes.gradle.dependency
 
-internal object Npm {
-    const val node = "18.7.0"
+object Plugins {
 }
