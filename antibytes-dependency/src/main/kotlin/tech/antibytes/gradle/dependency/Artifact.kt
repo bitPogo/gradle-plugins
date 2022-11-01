@@ -6,15 +6,26 @@
 
 package tech.antibytes.gradle.dependency
 
-internal interface Artifact {
-    val id: String
+internal sealed class Artifact {
+    open val id: String = ""
 }
 
 internal data class MavenArtifact(
     val group: String,
     override val id: String,
-) : Artifact
+    val version: String,
+) : Artifact()
+
+internal data class MavenVersionlessArtifact(
+    val group: String,
+    override val id: String,
+) : Artifact()
 
 internal data class NpmArtifact(
-    override val id: String
-) : Artifact
+    override val id: String,
+    val version: String,
+) : Artifact()
+
+internal data class PythonArtifact(
+    override val id: String,
+) : Artifact()

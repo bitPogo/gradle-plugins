@@ -6,6 +6,8 @@
 
 package tech.antibytes.gradle.dependency
 
-fun MutableList<String>.toDependencyName(
+internal fun List<String>.toDependencyName(
     propertyName: String
 ): String = this.joinToString("-") + "-" + propertyName
+
+internal fun Any.toDependencyName(): String = this::class.simpleName!!.decapitalize()

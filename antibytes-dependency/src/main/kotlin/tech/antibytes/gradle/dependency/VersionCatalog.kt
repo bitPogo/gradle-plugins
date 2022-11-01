@@ -8,48 +8,54 @@ package tech.antibytes.gradle.dependency
 
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import tech.antibytes.gradle.dependency.version.Android
-import tech.antibytes.gradle.dependency.version.Google
 import tech.antibytes.gradle.dependency.version.Js
 import tech.antibytes.gradle.dependency.version.Jvm
 import tech.antibytes.gradle.dependency.version.Kotlin
-import tech.antibytes.gradle.dependency.version.Npm
+import tech.antibytes.gradle.dependency.version.MkDocs
 import tech.antibytes.gradle.dependency.version.Square
+import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 
-internal fun VersionCatalogBuilder.addVersions(
+private fun <T, V> VersionCatalogBuilder.addVersions(
+    catalog: Any,
+    aliasName: List<String>,
+    property: KProperty1<T, V>
+) {
+    if (property.isConst) {
+        version(
+            aliasName.toDependencyName(property.name),
+            property.call() as String
+        )
+    } else {
+        addVersions(
+            catalog = property.call(catalog)!!,
+            prefix = aliasName,
+        )
+    }
+}
+
+private fun VersionCatalogBuilder.addVersions(
     catalog: Any,
     prefix: List<String> = emptyList(),
 ) {
     val aliasName = prefix.toMutableList().apply {
-        add(catalog::class.simpleName!!.decapitalize())
+        add(catalog.toDependencyName())
     }
-    catalog::class.memberProperties.forEach { property ->
-        if (property.isConst) {
-            version(
-                aliasName.toDependencyName(property.name),
-                property.call() as String
-            )
-        } else {
-            addVersions(
-                catalog = property.call(catalog)!!,
-                prefix = aliasName,
-            )
-        }
-    }
+
+    catalog::class.memberProperties.forEach { property -> this.addVersions(catalog, aliasName, property) }
 }
 
 internal fun VersionCatalogBuilder.addVersions() {
     addVersions(Android)
-    addVersions(Google)
+    addVersions(Gradle)
     addVersions(Js)
     addVersions(Jvm)
     addVersions(Kotlin)
-    addVersions(Npm)
+    addVersions(MkDocs)
     addVersions(Square)
 }
 
 internal object Version {
-
     val gradle = Gradle
 
     // Kotlin
@@ -61,9 +67,5 @@ internal object Version {
 
     val jvm = Jvm
 
-    val google = Google
-
     val js = Js
-
-    val npm = Npm
 }

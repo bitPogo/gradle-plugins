@@ -6,11 +6,13 @@
 
 package tech.antibytes.gradle.dependency.version
 
+import tech.antibytes.gradle.dependency.config.DependencyConfig
+
 internal object Android {
     /**
      * [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
      */
-    const val androidGradlePlugin = "7.3.0"
+    const val androidGradlePlugin = DependencyConfig.android
 
     /**
      * [Android Desugaring explained](https://developer.android.com/studio/write/java8-support)
@@ -121,4 +123,18 @@ internal object Android {
      * [Coil](https://github.com/coil-kt/coil)
      */
     const val coil = "2.2.1"
+
+    val hilt = Hilt
+
+    object Hilt {
+        /**
+         * [Google Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+         */
+        const val core = "2.43.2"
+
+        /**
+         * [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)
+         */
+        const val compose = "1.0.0"
+    }
 }

@@ -6,4 +6,15 @@
 
 package tech.antibytes.gradle.dependency
 
-object Gradle
+internal object Gradle {
+    val agp = MavenArtifact(
+        group = "com.android.tools.build",
+        id = "gradle",
+        version = Version.android.androidGradlePlugin
+    )
+    val dependencyUpdate = MavenArtifact(
+        group = "com.github.ben-manes",
+        id = "gradle-versions-plugin",
+        version = "Version.gradle"
+    )
+}

@@ -6,6 +6,9 @@
 
 package tech.antibytes.gradle.dependency.version
 
-internal object Npm {
-    const val node = "18.7.0"
+internal object Node {
+    /**
+     * (Axios Client)[https://github.com/axios/axios]
+     */
+    val axios = "1.1.3"
 }
