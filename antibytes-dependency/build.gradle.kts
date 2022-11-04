@@ -5,7 +5,6 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     `kotlin-dsl`
@@ -18,6 +17,7 @@ plugins {
 jacoco {
     toolVersion = libs.versions.jacoco.get()
 }
+
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
@@ -25,12 +25,24 @@ dependencies {
     implementation(libs.atomicFu) {
         exclude(group = "org.slf4j", module = "slf4j-simple")
     }
-    implementation(tech.antibytes.gradle.plugin.dependency.Dependency.gradle.android)
+    implementation(libs.agp)
+    implementation(libs.dependencyUpdate)
+    implementation(libs.owasp)
+    implementation(libs.ktlint) {
+        exclude(group = "ch.qos.logback", module = "logback-classic")
+        exclude(group = "org.slf4j", module = "slf4j-simple")
+    }
+    implementation(libs.spotless) {
+        exclude(group = "org.codehaus.groovy", module = "groovy-xml")
+    }
+    implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
-    testImplementation(libs.mockk)
     testImplementation(libs.jupiter)
+    testImplementation(libs.mockk)
+    testImplementation(libs.fixture)
+    testImplementation(project(":antibytes-gradle-test-utils"))
 }
 
 java {
@@ -38,55 +50,63 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-
-
-configure<SourceSetContainer> {
-    main {
-        java.srcDirs("src/main/kotlin", "src-gen/main/kotlin")
+gradlePlugin {
+    plugins.register("${LibraryConfig.group}.gradle.dependency") {
+        group = LibraryConfig.group
+        id = "${LibraryConfig.group}.gradle.dependency"
+        implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependency"
+        displayName = "${id}.gradle.plugin"
+        description = "General dependencies for Antibytes projects"
+        version = "0.1.0"
     }
 }
 
-val templatesPath = "${projectDir}/src/templates"
-val configPath = "${projectDir}/src-gen/main/kotlin/tech/antibytes/gradle/dependency/config"
+tasks.jacocoTestReport {
+    dependsOn(tasks.named("test"))
 
-fun String.replaceContent(replacements: Map<String, String>): String {
-    var text = this
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        csv.required.set(true)
 
-    replacements.forEach { (pattern, replacement) ->
-        text = text.replace(pattern, replacement)
+        html.outputLocation.set(
+            layout.buildDirectory.dir("reports/jacoco/test/${project.name}").get().asFile
+        )
+        csv.outputLocation.set(
+            layout.buildDirectory.file("reports/jacoco/test/${project.name}.csv").get().asFile
+        )
+        xml.outputLocation.set(
+            layout.buildDirectory.file("reports/jacoco/test/${project.name}.xml").get().asFile
+        )
     }
-
-    return text
 }
 
-val provideConfig: Task by tasks.creating {
-    doFirst {
-        val templates = File(templatesPath)
-        val configs = File(configPath)
-
-        val config = File(templates, "DependencyConfig.tmpl")
-            .readText()
-            .replaceContent(
-                mapOf(
-                    "ANDROID" to Version.gradle.android,
-                    "KOTLIN" to Version.gradle.kotlin,
-                    "OWASP" to Version.gradle.owasp,
-                )
-            )
-
-        if (!configs.exists()) {
-            if (!configs.mkdir()) {
-                System.err.println("The script not able to create the config directory")
+tasks.jacocoTestCoverageVerification {
+    dependsOn(tasks.named("jacocoTestReport"))
+    violationRules {
+        rule {
+            enabled = true
+            limit {
+                counter = "BRANCH"
+                value = "COVEREDRATIO"
+                minimum = BigDecimal(0.99)
             }
         }
-        File(configPath, "DependencyConfig.kt").writeText(config)
+        rule { // TODO -> Add Integration Tests
+            enabled = false
+            limit {
+                counter = "INSTRUCTION"
+                value = "COVEREDRATIO"
+                minimum = BigDecimal(0.38)
+            }
+        }
     }
-}
-
-tasks.withType<KotlinCompile> {
-    dependsOn(provideConfig)
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.check {
+    dependsOn("jacocoTestCoverageVerification")
 }

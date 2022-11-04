@@ -17,7 +17,7 @@ include(
     ":antibytes-coverage",
     ":antibytes-gradle-test-utils",
     ":antibytes-dependency",
-    ":antibytes-dependency-management",
+    ":antibytes-dependency-catalog",
     ":antibytes-publishing",
     ":antibytes-versioning",
     ":antibytes-configuration",

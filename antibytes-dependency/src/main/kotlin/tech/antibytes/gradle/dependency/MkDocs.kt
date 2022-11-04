@@ -8,29 +8,13 @@ package tech.antibytes.gradle.dependency
 
 import tech.antibytes.gradle.dependency.version.MkDocs
 
-internal object MkDocs {
-    val includeMarkdown = PythonArtifact(
-        id = "mkdocs-include-markdown-plugin",
-    )
-    val kroki = PythonArtifact(
-        id = "mkdocs-kroki-plugin",
-    )
-    val extraData = PythonArtifact(
-        id = "mkdocs-markdownextradata-plugin",
-    )
-    val material = PythonArtifact(
-        id = "mkdocs-material",
-    )
-    val minify = PythonArtifact(
-        id = "mkdocs-minify-plugin",
-    )
-    val redirects = PythonArtifact(
-        id = "mkdocs-redirects",
-    )
-    val pygments = PythonArtifact(
-        id = "pygments",
-    )
-    val pymdown = PythonArtifact(
-        id = "pymdown-extensions",
-    )
+object MkDocs {
+    const val includeMarkdown = "mkdocs-include-markdown-plugin:${MkDocs.includeMarkdown}"
+    const val kroki = "mkdocs-kroki-plugin:${MkDocs.kroki}"
+    const val extraData = "mkdocs-markdownextradata-plugin:${MkDocs.extraData}"
+    const val material = "mkdocs-material:${MkDocs.material}"
+    const val minify = "mkdocs-minify-plugin:${MkDocs.minify}"
+    const val redirects = "mkdocs-redirects:${MkDocs.redirects}"
+    const val pygments = "pygments:${MkDocs.pygments}"
+    const val pymdown = "pymdown-extensions:${MkDocs.pymdown}"
 }

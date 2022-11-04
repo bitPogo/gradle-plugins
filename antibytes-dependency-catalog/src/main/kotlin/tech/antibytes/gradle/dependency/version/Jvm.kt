@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.dependency.version
 
-object Jvm {
+internal object Jvm {
     /**
      * [Log4J](http://www.slf4j.org/)
      */
