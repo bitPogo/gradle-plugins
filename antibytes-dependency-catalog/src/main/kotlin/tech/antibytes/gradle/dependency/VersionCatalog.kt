@@ -18,6 +18,7 @@ import tech.antibytes.gradle.dependency.version.Kotlinx
 import tech.antibytes.gradle.dependency.version.Ktor
 import tech.antibytes.gradle.dependency.version.MkDocs
 import tech.antibytes.gradle.dependency.version.Node
+import tech.antibytes.gradle.dependency.version.Slf4j
 import tech.antibytes.gradle.dependency.version.Square
 import tech.antibytes.gradle.dependency.version.Vendor
 
@@ -73,6 +74,7 @@ internal fun VersionCatalogBuilder.addVersions() {
     addVersions(MkDocs)
     addVersions(Node)
     addVersions(Square)
+    addVersions(Slf4j)
     addVersions(Vendor)
 }
 

@@ -389,6 +389,32 @@ class DependencyCatalogSpec {
     }
 
     @Test
+    fun `It contains SLF4J Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-slf4j-noop",
+                "org.slf4j",
+                "slf4j-nop",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.version("slf4j-noop")
+        }
+    }
+
+    @Test
     fun `It contains Vendor Dependencies`() {
         // Given
         val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()

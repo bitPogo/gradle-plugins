@@ -6,11 +6,12 @@
 
 package tech.antibytes.gradle.dependency.version
 
-internal object Vendor {
-    /**
-     * [UUID](https://github.com/benasher44/uuid)
-     */
-    const val uuid = "0.5.0"
+/**
+ * [SLF4J](http://www.slf4j.org/)
+ */
+internal object Slf4j {
+    private const val version = "1.7.36"
 
-
+    const val noop = version
+    const val api = version
 }

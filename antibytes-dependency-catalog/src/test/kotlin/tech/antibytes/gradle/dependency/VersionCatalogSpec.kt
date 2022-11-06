@@ -194,6 +194,21 @@ class VersionCatalogSpec {
     }
 
     @Test
+    fun `It contains SLF4J Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("slf4j-noop", any<String>())
+        }
+    }
+
+    @Test
     fun `It contains Vendor Versions`() {
         // Given
         val catalog: VersionCatalogBuilder = mockk()
