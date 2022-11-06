@@ -8,9 +8,17 @@ package tech.antibytes.gradle.dependency.version
 
 internal object Vendor {
     /**
+     * [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
+     */
+    const val nodeJs = "0.0.7"
+
+    /**
+     * [NodeJs](https://nodejs.org/en/)
+     */
+    const val node = "18.12.0"
+
+    /**
      * [UUID](https://github.com/benasher44/uuid)
      */
     const val uuid = "0.5.0"
-
-
 }

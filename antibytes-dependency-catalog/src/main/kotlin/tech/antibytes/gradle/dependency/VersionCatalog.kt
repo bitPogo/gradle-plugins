@@ -13,6 +13,7 @@ import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import tech.antibytes.gradle.dependency.version.Android
 import tech.antibytes.gradle.dependency.version.Js
 import tech.antibytes.gradle.dependency.version.Jvm
+import tech.antibytes.gradle.dependency.version.Koin
 import tech.antibytes.gradle.dependency.version.Kotlin
 import tech.antibytes.gradle.dependency.version.Kotlinx
 import tech.antibytes.gradle.dependency.version.Ktor
@@ -66,8 +67,7 @@ private fun VersionCatalogBuilder.addVersions(
 internal fun VersionCatalogBuilder.addVersions() {
     addVersions(Android)
     addVersions(Gradle)
-    addVersions(Js)
-    addVersions(Jvm)
+    addVersions(Koin)
     addVersions(Kotlin)
     addVersions(Kotlinx)
     addVersions(Ktor)

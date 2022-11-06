@@ -9,6 +9,7 @@ package tech.antibytes.gradle.dependency
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
+import tech.antibytes.gradle.dependency.module.Koin
 import tech.antibytes.gradle.dependency.module.Kotlinx
 import tech.antibytes.gradle.dependency.module.Ktor
 import tech.antibytes.gradle.dependency.module.MkDocs
@@ -35,8 +36,8 @@ private fun String.toPlatformDependency(platform: Platform): String {
     return "$this-${platform.platformId}"
 }
 
-private fun KmpArtifact.determineInfix(): String {
-    return if (this is MavenKmpTestArtifact) {
+private fun Any.determineInfix(): String {
+    return if (this is TestArtifact) {
         "test"
     } else {
         ""
@@ -57,7 +58,8 @@ private fun VersionCatalogBuilder.addDependencies(
 ) {
     artifact.platforms.forEach { platform ->
         val infix = artifact.determineInfix()
-        val name = aliasName.injectPlatform(platform, infix).removeDoubles("test")
+        val name = aliasName.injectPlatform(platform, infix)
+            .removeDoubles("test")
 
         if (platform == Platform.COMMON) {
             library(
@@ -73,6 +75,22 @@ private fun VersionCatalogBuilder.addDependencies(
             ).version(aliasName)
         }
     }
+}
+
+private fun VersionCatalogBuilder.addDependencies(
+    aliasName: String,
+    artifact: SinglePlatformArtifact,
+) {
+    val infix = artifact.determineInfix()
+    val name = aliasName.injectPlatform(artifact.type, infix)
+        .removeDoubles(artifact.type.platform)
+        .removeDoubles("test")
+
+    library(
+        name,
+        artifact.group,
+        artifact.id,
+    ).version(aliasName)
 }
 
 private fun MutableList<String>.addIfNotVendor(
@@ -95,13 +113,7 @@ private fun VersionCatalogBuilder.addDependencies(
             val name = aliasName.toDependencyName(property.name)
 
             when (val artifact = property.call(catalog)!!) {
-                is MavenArtifact -> {
-                    library(
-                        "${artifact.type.platform}-$name".removeDoubles(artifact.type.platform),
-                        artifact.group,
-                        artifact.id,
-                    ).version(name)
-                }
+                is SinglePlatformArtifact -> addDependencies(name, artifact)
                 is MavenVersionlessArtifact -> {
                     library(
                         "bom-$name".removeDoubles("bom"),
@@ -136,6 +148,7 @@ private fun VersionCatalogBuilder.addDependencies(
 }
 
 internal fun VersionCatalogBuilder.addDependencies() {
+    addDependencies(Koin)
     addDependencies(Kotlinx)
     addDependencies(Ktor)
     addDependencies(MkDocs)

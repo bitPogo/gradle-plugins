@@ -106,6 +106,65 @@ class DependencyCatalogSpec {
     }
 
     @Test
+    fun `It contains Koin Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-koin-core",
+                "io.insert-koin",
+                "koin-core",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "js-koin-core",
+                "io.insert-koin",
+                "koin-core-js",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.version("koin-core")
+        }
+    }
+
+    @Test
+    fun `It contains Koin Test Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-test-koin-junit5",
+                "io.insert-koin",
+                "koin-test-junit5",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.version("koin-junit5")
+        }
+    }
+
+    @Test
     fun `It contains Kotlinx Coroutines KMP Dependencies`() {
         // Given
         val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()

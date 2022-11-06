@@ -6,6 +6,10 @@
 
 package tech.antibytes.gradle.dependency
 
+internal interface TestArtifact {
+
+}
+
 internal sealed class Artifact {
     open val id: String = ""
 }
@@ -43,17 +47,23 @@ internal enum class Platform(val platform: String) {
     WINDOWS_X86("mingwX86"),
 }
 
-internal data class MavenArtifact(
-    val group: String,
+internal abstract class SinglePlatformArtifact(
+    open val group: String,
     override val id: String,
-    val type: Platform = Platform.JVM,
+    open val type: Platform,
 ) : Artifact()
 
-internal data class MavenTestArtifact(
-    val group: String,
+internal data class MavenArtifact(
+    override val group: String,
     override val id: String,
-    val type: Platform = Platform.JVM,
-) : Artifact()
+    override val type: Platform = Platform.JVM,
+) : SinglePlatformArtifact(group, id, type)
+
+internal data class MavenTestArtifact(
+    override val group: String,
+    override val id: String,
+    override val type: Platform = Platform.JVM,
+) : SinglePlatformArtifact(group, id, type), TestArtifact
 
 internal data class MavenVersionlessArtifact(
     val group: String,
@@ -63,9 +73,9 @@ internal data class MavenVersionlessArtifact(
 internal data class MavenVersionlessTestArtifact(
     val group: String,
     override val id: String,
-) : Artifact()
+) : Artifact(), TestArtifact
 
-internal open class KmpArtifact(
+internal abstract class KmpArtifact(
     open val group: String,
     override val id: String,
     open val platforms: List<Platform>,
@@ -81,7 +91,7 @@ internal data class MavenKmpTestArtifact(
     override val group: String,
     override val id: String,
     override val platforms: List<Platform>,
-) : KmpArtifact(group, id, platforms)
+) : KmpArtifact(group, id, platforms), TestArtifact
 
 internal data class NodeArtifact(
     override val id: String,
