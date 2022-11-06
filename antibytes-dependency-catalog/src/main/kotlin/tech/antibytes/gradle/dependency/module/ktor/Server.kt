@@ -8,11 +8,12 @@ package tech.antibytes.gradle.dependency.module.ktor
 
 import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
+import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.Platform
 import tech.antibytes.gradle.dependency.module.Ktor.group
 
 internal object Server {
-    private val platforms = listOf(
+    private val allPlatforms = listOf(
         Platform.COMMON,
         Platform.IOS_ARM32,
         Platform.IOS_ARM64,
@@ -35,7 +36,7 @@ internal object Server {
     val auth = MavenKmpArtifact(
         group = group,
         id = "ktor-server-auth",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val authJwt = MavenArtifact(
@@ -51,25 +52,25 @@ internal object Server {
     val autoHeadResponse = MavenKmpArtifact(
         group = group,
         id = "ktor-server-auto-head-response",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val base = MavenKmpArtifact(
         group = group,
         id = "ktor-server",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val cachingHeaders = MavenKmpArtifact(
         group = group,
         id = "ktor-server-caching-headers",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val callId = MavenKmpArtifact(
         group = group,
         id = "ktor-server-caching-headers",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val callLogging = MavenArtifact(
@@ -80,7 +81,7 @@ internal object Server {
     val cio = MavenKmpArtifact(
         group = group,
         id = "ktor-server-cio",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val compression = MavenArtifact(
@@ -91,37 +92,37 @@ internal object Server {
     val conditionalHeaders = MavenKmpArtifact(
         group = group,
         id = "ktor-server-conditional-headers",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val configYaml = MavenKmpArtifact(
         group = group,
         id = "ktor-server-config-yaml",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val contentNegotiation = MavenKmpArtifact(
         group = group,
         id = "ktor-server-content-negotiation",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val core = MavenKmpArtifact(
         group = group,
         id = "ktor-server-core",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val cors = MavenKmpArtifact(
         group = group,
         id = "ktor-server-cors",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val dataConversion = MavenKmpArtifact(
         group = group,
         id = "ktor-server-data-conversion",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val defaultHeaders = MavenArtifact(
@@ -132,13 +133,13 @@ internal object Server {
     val doubleReceive = MavenKmpArtifact(
         group = group,
         id = "ktor-server-double-receive",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val forwardedHeader = MavenKmpArtifact(
         group = group,
         id = "ktor-server-forwarded-header",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val freemaker = MavenArtifact(
@@ -149,25 +150,25 @@ internal object Server {
     val hostCommon = MavenKmpArtifact(
         group = group,
         id = "ktor-server-host-common",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val hsts = MavenKmpArtifact(
         group = group,
         id = "ktor-server-hsts",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val htmlBuilder = MavenKmpArtifact(
         group = group,
         id = "ktor-server-html-builder",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val httpRedirect = MavenKmpArtifact(
         group = group,
         id = "ktor-server-http-redirect",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val jetty = MavenArtifact(
@@ -188,7 +189,7 @@ internal object Server {
     val methodOverride = MavenKmpArtifact(
         group = group,
         id = "ktor-server-method-override",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val metrics = MavenArtifact(
@@ -214,7 +215,7 @@ internal object Server {
     val partialContent = MavenKmpArtifact(
         group = group,
         id = "ktor-server-partial-content",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val pebble = MavenArtifact(
@@ -230,13 +231,13 @@ internal object Server {
     val requestValidation = MavenKmpArtifact(
         group = group,
         id = "ktor-server-request-validation",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val resources = MavenKmpArtifact(
         group = group,
         id = "ktor-server-resources",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 
     val servlet = MavenArtifact(
@@ -252,7 +253,13 @@ internal object Server {
     val statusPages = MavenKmpArtifact(
         group = group,
         id = "ktor-server-status-pages",
-        platforms = platforms,
+        platforms = allPlatforms,
+    )
+
+    val testHost = MavenKmpTestArtifact(
+        group = group,
+        id = "ktor-server-test-host",
+        platforms = allPlatforms,
     )
 
     val thymeleaf = MavenArtifact(
@@ -278,6 +285,6 @@ internal object Server {
     val websockets = MavenKmpArtifact(
         group = group,
         id = "ktor-server-websockets",
-        platforms = platforms,
+        platforms = allPlatforms,
     )
 }

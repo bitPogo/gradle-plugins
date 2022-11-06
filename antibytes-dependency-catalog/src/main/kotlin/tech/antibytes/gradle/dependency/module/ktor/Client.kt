@@ -8,6 +8,7 @@ package tech.antibytes.gradle.dependency.module.ktor
 
 import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
+import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.Platform
 import tech.antibytes.gradle.dependency.module.Ktor.group
 
@@ -190,6 +191,12 @@ internal object Client {
     val logging = MavenKmpArtifact(
         group = group,
         id = "ktor-client-logging",
+        platforms = allPlatforms,
+    )
+
+    val mockClient = MavenKmpTestArtifact(
+        group = group,
+        id = "ktor-client-mock",
         platforms = allPlatforms,
     )
 
