@@ -387,4 +387,37 @@ class DependencyCatalogSpec {
             module.version("ktor-server-base")
         }
     }
+
+    @Test
+    fun `It contains Vendor Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-uuid",
+                "com.benasher44",
+                "uuid",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-uuid",
+                "com.benasher44",
+                "uuid-jvm",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.version("uuid")
+        }
+    }
 }

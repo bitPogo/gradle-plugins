@@ -6,7 +6,6 @@
 
 package tech.antibytes.gradle.dependency.module
 
-import tech.antibytes.gradle.dependency.Version
 import tech.antibytes.gradle.dependency.module.kmp.AtomicFu
 import tech.antibytes.gradle.dependency.module.kmp.Koin
 import tech.antibytes.gradle.dependency.module.kmp.Kotlin
@@ -29,7 +28,7 @@ object Multiplatform {
 
     // const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Version.kotlin.dateTime}"
 
-    const val uuid = "com.benasher44:uuid:${Version.kotlin.uuid}"
+    // const val uuid = "com.benasher44:uuid:${Version.kotlin.uuid}"
 
     val stately = Stately
 

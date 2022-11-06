@@ -25,11 +25,6 @@ internal object Kotlin {
     const val ktor = "2.1.1"
 
     /**
-     * [UUID](https://github.com/benasher44/uuid)
-     */
-    const val uuid = "0.5.0"
-
-    /**
      * [Stately](https://github.com/touchlab/Stately)
      */
     const val stately = "1.2.3"

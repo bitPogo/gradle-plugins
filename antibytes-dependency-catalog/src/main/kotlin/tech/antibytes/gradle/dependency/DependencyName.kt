@@ -8,6 +8,12 @@ package tech.antibytes.gradle.dependency
 
 internal fun List<String>.toDependencyName(
     propertyName: String,
-): String = this.joinToString("-") + "-" + propertyName
+): String {
+    return if (this.isEmpty()) {
+        propertyName
+    } else {
+        this.joinToString("-") + "-" + propertyName
+    }
+}
 
 internal fun Any.toDependencyName(): String = this::class.simpleName!!.decapitalize()

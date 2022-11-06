@@ -19,6 +19,7 @@ import tech.antibytes.gradle.dependency.version.Ktor
 import tech.antibytes.gradle.dependency.version.MkDocs
 import tech.antibytes.gradle.dependency.version.Node
 import tech.antibytes.gradle.dependency.version.Square
+import tech.antibytes.gradle.dependency.version.Vendor
 
 private fun <T, V> VersionCatalogBuilder.addVersions(
     catalog: Any,
@@ -38,12 +39,20 @@ private fun <T, V> VersionCatalogBuilder.addVersions(
     }
 }
 
+private fun MutableList<String>.addIfNotVendor(
+    catalog: Any
+) {
+    if (catalog != Vendor) {
+        add(catalog.toDependencyName())
+    }
+}
+
 private fun VersionCatalogBuilder.addVersions(
     catalog: Any,
     prefix: List<String> = emptyList(),
 ) {
     val aliasName = prefix.toMutableList().apply {
-        add(catalog.toDependencyName())
+        addIfNotVendor(catalog)
     }
 
     catalog::class.memberProperties.forEach { property ->
@@ -64,6 +73,7 @@ internal fun VersionCatalogBuilder.addVersions() {
     addVersions(MkDocs)
     addVersions(Node)
     addVersions(Square)
+    addVersions(Vendor)
 }
 
 internal object Version {
@@ -80,4 +90,6 @@ internal object Version {
     val jvm = Jvm
 
     val js = Js
+
+    val vendor = Vendor
 }

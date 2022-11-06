@@ -192,4 +192,19 @@ class VersionCatalogSpec {
             catalog.version("ktor-server-core", any<String>())
         }
     }
+
+    @Test
+    fun `It contains Vendor Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("uuid", any<String>())
+        }
+    }
 }

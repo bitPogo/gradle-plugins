@@ -13,6 +13,7 @@ import tech.antibytes.gradle.dependency.module.Kotlinx
 import tech.antibytes.gradle.dependency.module.Ktor
 import tech.antibytes.gradle.dependency.module.MkDocs
 import tech.antibytes.gradle.dependency.module.Node
+import tech.antibytes.gradle.dependency.module.Vendor
 
 private fun String.extractNodeNamespace(): String = "node-${split('-', limit = 3)[1]}"
 
@@ -73,12 +74,20 @@ private fun VersionCatalogBuilder.addDependencies(
     }
 }
 
+private fun MutableList<String>.addIfNotVendor(
+    catalog: Any
+) {
+    if (catalog != Vendor) {
+        add(catalog.toDependencyName())
+    }
+}
+
 private fun VersionCatalogBuilder.addDependencies(
     catalog: Any,
     prefix: List<String> = emptyList(),
 ) {
     val aliasName = prefix.toMutableList().apply {
-        add(catalog.toDependencyName())
+        addIfNotVendor(catalog)
     }
     catalog::class.memberProperties.forEach { property ->
         if (property.visibility == KVisibility.PUBLIC) {
@@ -130,4 +139,5 @@ internal fun VersionCatalogBuilder.addDependencies() {
     addDependencies(Ktor)
     addDependencies(MkDocs)
     addDependencies(Node)
+    addDependencies(Vendor)
 }
