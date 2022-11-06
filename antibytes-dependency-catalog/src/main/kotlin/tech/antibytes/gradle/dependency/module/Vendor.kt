@@ -7,9 +7,20 @@
 package tech.antibytes.gradle.dependency.module
 
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
+import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.Platform
 
 internal object Vendor {
+    val mockk = MavenKmpTestArtifact(
+        group = "io.mockk",
+        id = "mockk",
+        platforms = listOf(
+            Platform.COMMON,
+            Platform.ANDROID,
+            Platform.JVM,
+        )
+    )
+
     val uuid = MavenKmpArtifact(
         group = "com.benasher44",
         id = "uuid",

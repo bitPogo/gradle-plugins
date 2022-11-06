@@ -474,6 +474,39 @@ class DependencyCatalogSpec {
     }
 
     @Test
+    fun `It contains Stately Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-stately-collections",
+                "co.touchlab",
+                "stately-iso-collections",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "js-stately-collections",
+                "co.touchlab",
+                "stately-iso-collections-js",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.version("stately-collections")
+        }
+    }
+
+    @Test
     fun `It contains Vendor Dependencies`() {
         // Given
         val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()

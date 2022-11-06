@@ -16,6 +16,7 @@ import tech.antibytes.gradle.dependency.module.MkDocs
 import tech.antibytes.gradle.dependency.module.Node
 import tech.antibytes.gradle.dependency.module.Vendor
 import tech.antibytes.gradle.dependency.module.Slf4j
+import tech.antibytes.gradle.dependency.module.Stately
 
 private fun String.extractNodeNamespace(): String = "node-${split('-', limit = 3)[1]}"
 
@@ -153,6 +154,7 @@ internal fun VersionCatalogBuilder.addDependencies() {
     addDependencies(Ktor)
     addDependencies(MkDocs)
     addDependencies(Node)
+    addDependencies(Stately)
     addDependencies(Slf4j)
     addDependencies(Vendor)
 }

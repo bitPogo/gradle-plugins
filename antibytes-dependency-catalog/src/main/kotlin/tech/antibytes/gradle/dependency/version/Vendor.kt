@@ -8,6 +8,11 @@ package tech.antibytes.gradle.dependency.version
 
 internal object Vendor {
     /**
+     * [mockk](http://mockk.io)
+     */
+    const val mockk = "1.12.8"
+
+    /**
      * [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
      */
     const val nodeJs = "0.0.7"
