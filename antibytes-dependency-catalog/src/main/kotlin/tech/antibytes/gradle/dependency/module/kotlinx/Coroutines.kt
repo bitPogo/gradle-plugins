@@ -16,7 +16,7 @@ internal object Coroutines {
     val android = MavenArtifact(
         group = group,
         id = "kotlinx-coroutines-android",
-        type = Platform.ANDROID
+        type = Platform.ANDROID,
     )
 
     val bom = MavenVersionlessArtifact(
@@ -52,7 +52,7 @@ internal object Coroutines {
             Platform.WATCHOS_SIMULATOR_ARM64,
             Platform.WATCHOS_X64,
             Platform.WATCHOS_X86,
-        )
+        ),
     )
 
     val javafx = MavenArtifact(

@@ -6,8 +6,6 @@
 
 package tech.antibytes.gradle.dependency.module.kmp
 
-import tech.antibytes.gradle.dependency.Version
-
 object AtomicFu {
     // const val common = "org.jetbrains.kotlinx:atomicfu:${Version.kotlin.atomicFu}"
 }

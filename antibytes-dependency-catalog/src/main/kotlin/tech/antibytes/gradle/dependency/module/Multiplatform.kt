@@ -8,11 +8,9 @@ package tech.antibytes.gradle.dependency.module
 
 import tech.antibytes.gradle.dependency.Version
 import tech.antibytes.gradle.dependency.module.kmp.AtomicFu
-// import tech.antibytes.gradle.dependency.packages.kmp.Coroutines
 import tech.antibytes.gradle.dependency.module.kmp.Koin
 import tech.antibytes.gradle.dependency.module.kmp.Kotlin
 import tech.antibytes.gradle.dependency.module.kmp.Ktor
-//import tech.antibytes.gradle.dependency.packages.kmp.Serialization
 import tech.antibytes.gradle.dependency.module.kmp.Stately
 import tech.antibytes.gradle.dependency.module.kmp.Test
 
@@ -27,7 +25,7 @@ object Multiplatform {
 
     val ktor = Ktor
 
-   // val serialization = Serialization
+    // val serialization = Serialization
 
     // const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Version.kotlin.dateTime}"
 

@@ -23,8 +23,6 @@ internal enum class Platform(val platform: String) {
     IOS_ARM64("iosArm64"),
     IOS_SIMULATOR_ARM64("iosSimulatorArm64"),
     IOS_X64("iosX64"),
-    WINDOWS_X64("mingwX64"),
-    WINDOWS_X86("mingwX86"),
     LINUX_ARM64("linuxArm64"),
     LINUX_ARM32_HFP("linuxArm32Hfp"),
     LINUX_MIPS32("linuxMips32"),
@@ -41,12 +39,14 @@ internal enum class Platform(val platform: String) {
     WATCHOS_SIMULATOR_ARM64("watchosSimulatorArm64"),
     WATCHOS_X64("watchosX64"),
     WATCHOS_X86("watchosX86"),
+    WINDOWS_X64("mingwX64"),
+    WINDOWS_X86("mingwX86"),
 }
 
 internal data class MavenArtifact(
     val group: String,
     override val id: String,
-    val type: Platform = Platform.JVM
+    val type: Platform = Platform.JVM,
 ) : Artifact()
 
 internal data class MavenVersionlessArtifact(

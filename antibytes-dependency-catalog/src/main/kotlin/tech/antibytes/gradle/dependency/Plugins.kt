@@ -6,5 +6,4 @@
 
 package tech.antibytes.gradle.dependency
 
-object Plugins {
-}
+object Plugins

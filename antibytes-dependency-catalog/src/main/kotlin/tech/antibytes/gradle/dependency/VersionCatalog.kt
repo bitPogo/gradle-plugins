@@ -6,28 +6,29 @@
 
 package tech.antibytes.gradle.dependency
 
+import kotlin.reflect.KProperty1
+import kotlin.reflect.KVisibility
+import kotlin.reflect.full.memberProperties
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import tech.antibytes.gradle.dependency.version.Android
 import tech.antibytes.gradle.dependency.version.Js
 import tech.antibytes.gradle.dependency.version.Jvm
 import tech.antibytes.gradle.dependency.version.Kotlin
 import tech.antibytes.gradle.dependency.version.Kotlinx
+import tech.antibytes.gradle.dependency.version.Ktor
 import tech.antibytes.gradle.dependency.version.MkDocs
 import tech.antibytes.gradle.dependency.version.Node
 import tech.antibytes.gradle.dependency.version.Square
-import kotlin.reflect.KProperty1
-import kotlin.reflect.KVisibility
-import kotlin.reflect.full.memberProperties
 
 private fun <T, V> VersionCatalogBuilder.addVersions(
     catalog: Any,
     aliasName: List<String>,
-    property: KProperty1<T, V>
+    property: KProperty1<T, V>,
 ) {
     if (property.isConst) {
         version(
             aliasName.toDependencyName(property.name),
-            property.call() as String
+            property.call() as String,
         )
     } else {
         addVersions(
@@ -59,6 +60,7 @@ internal fun VersionCatalogBuilder.addVersions() {
     addVersions(Jvm)
     addVersions(Kotlin)
     addVersions(Kotlinx)
+    addVersions(Ktor)
     addVersions(MkDocs)
     addVersions(Node)
     addVersions(Square)

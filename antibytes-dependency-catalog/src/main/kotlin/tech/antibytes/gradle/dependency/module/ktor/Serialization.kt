@@ -4,23 +4,21 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency.module
+package tech.antibytes.gradle.dependency.module.ktor
 
+import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.Platform
-import tech.antibytes.gradle.dependency.module.kotlinx.Coroutines
-import tech.antibytes.gradle.dependency.module.kotlinx.Serialization
+import tech.antibytes.gradle.dependency.module.Ktor
 
-internal object Kotlinx {
-    internal const val group = "org.jetbrains.kotlinx"
-    val atomicfu = MavenKmpArtifact(
-        group = group,
-        id = "atomicfu",
+internal object Serialization {
+    val cbor = MavenKmpArtifact(
+        group = Ktor.group,
+        id = "ktor-serialization-kotlinx-cbor",
         platforms = listOf(
             Platform.COMMON,
             Platform.JS,
             Platform.JVM,
-            Platform.IOS_ARM32,
             Platform.IOS_ARM64,
             Platform.IOS_SIMULATOR_ARM64,
             Platform.IOS_X64,
@@ -39,16 +37,13 @@ internal object Kotlinx {
         ),
     )
 
-    val coroutines = Coroutines
-
-    val dateTime = MavenKmpArtifact(
-        group = group,
-        id = "kotlinx-datetime",
+    val core = MavenKmpArtifact(
+        group = Ktor.group,
+        id = "ktor-serialization-kotlinx",
         platforms = listOf(
             Platform.COMMON,
             Platform.JS,
             Platform.JVM,
-            Platform.IOS_ARM32,
             Platform.IOS_ARM64,
             Platform.IOS_SIMULATOR_ARM64,
             Platform.IOS_X64,
@@ -67,5 +62,23 @@ internal object Kotlinx {
         ),
     )
 
-    val serialization = Serialization
+    val gson = MavenArtifact(
+        group = Ktor.group,
+        id = "ktor-serialization-kotlinx-gson",
+    )
+
+    val jackson = MavenArtifact(
+        group = Ktor.group,
+        id = "ktor-serialization-kotlinx-jackson",
+    )
+
+    val json = MavenArtifact(
+        group = Ktor.group,
+        id = "ktor-serialization-kotlinx-json",
+    )
+
+    val xml = MavenArtifact(
+        group = Ktor.group,
+        id = "ktor-serialization-kotlinx-xml",
+    )
 }

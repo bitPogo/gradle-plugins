@@ -8,5 +8,5 @@ package tech.antibytes.gradle.dependency
 
 data class PluginReference(
     val id: String,
-    val version: String
+    val version: String,
 )

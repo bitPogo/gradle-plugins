@@ -20,7 +20,7 @@ object Android {
 
     // Android
     const val desugar = "com.android.tools:desugar_jdk_libs:${Version.android.desugar}"
-    
+
     // AndroidX
     val ktx = Ktx
 

@@ -6,12 +6,13 @@
 
 package tech.antibytes.gradle.dependency
 
-import org.gradle.api.initialization.dsl.VersionCatalogBuilder
-import tech.antibytes.gradle.dependency.module.Kotlinx
-import tech.antibytes.gradle.dependency.module.MkDocs
-import tech.antibytes.gradle.dependency.module.Node
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
+import org.gradle.api.initialization.dsl.VersionCatalogBuilder
+import tech.antibytes.gradle.dependency.module.Kotlinx
+import tech.antibytes.gradle.dependency.module.Ktor
+import tech.antibytes.gradle.dependency.module.MkDocs
+import tech.antibytes.gradle.dependency.module.Node
 
 private fun String.extractNodeNamespace(): String = "node-${split('-', limit = 3)[1]}"
 
@@ -30,7 +31,7 @@ private fun String.toPlatformDependency(platform: Platform): String {
 
 private fun VersionCatalogBuilder.addDependencies(
     aliasName: String,
-    artifact: MavenKmpArtifact
+    artifact: MavenKmpArtifact,
 ) {
     artifact.platforms.forEach { platform ->
         val name = aliasName.injectPlatform(platform)
@@ -113,6 +114,7 @@ private fun VersionCatalogBuilder.addDependencies(
 
 internal fun VersionCatalogBuilder.addDependencies() {
     addDependencies(Kotlinx)
+    addDependencies(Ktor)
     addDependencies(MkDocs)
     addDependencies(Node)
 }

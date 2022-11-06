@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.dependency
 
 internal fun List<String>.toDependencyName(
-    propertyName: String
+    propertyName: String,
 ): String = this.joinToString("-") + "-" + propertyName
 
 internal fun Any.toDependencyName(): String = this::class.simpleName!!.decapitalize()

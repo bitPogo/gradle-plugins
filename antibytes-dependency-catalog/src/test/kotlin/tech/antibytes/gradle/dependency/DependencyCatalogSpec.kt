@@ -123,14 +123,14 @@ class DependencyCatalogSpec {
             catalog.library(
                 "common-kotlinx-coroutines-core",
                 "org.jetbrains.kotlinx",
-                "kotlinx-coroutines-core"
+                "kotlinx-coroutines-core",
             )
         }
         verify(exactly = 1) {
             catalog.library(
                 "js-kotlinx-coroutines-core",
                 "org.jetbrains.kotlinx",
-                "kotlinx-coroutines-core-js"
+                "kotlinx-coroutines-core-js",
             )
         }
 
@@ -155,9 +155,9 @@ class DependencyCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.library(
-                "kotlinx-coroutines-bom",
+                "bom-kotlinx-coroutines",
                 "org.jetbrains.kotlinx",
-                "kotlinx-coroutines-bom"
+                "kotlinx-coroutines-bom",
             )
         }
 
@@ -184,7 +184,7 @@ class DependencyCatalogSpec {
             catalog.library(
                 "android-kotlinx-coroutines",
                 "org.jetbrains.kotlinx",
-                "kotlinx-coroutines-android"
+                "kotlinx-coroutines-android",
             )
         }
 
@@ -194,7 +194,34 @@ class DependencyCatalogSpec {
     }
 
     @Test
-    fun `It contains Kotlinx Coroutines KMP Serialisation Dependencies`() {
+    fun `It contains Kotlinx Serialisation BOM Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "bom-kotlinx-serialization",
+                "org.jetbrains.kotlinx",
+                "kotlinx-serialization-bom",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.withoutVersion()
+        }
+    }
+
+    @Test
+    fun `It contains Kotlinx Serialisation Dependencies`() {
         // Given
         val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
         val catalog: VersionCatalogBuilder = mockk()
@@ -211,19 +238,119 @@ class DependencyCatalogSpec {
             catalog.library(
                 "common-kotlinx-serialization-core",
                 "org.jetbrains.kotlinx",
-                "kotlinx-serialization-core"
+                "kotlinx-serialization-core",
             )
         }
         verify(exactly = 1) {
             catalog.library(
                 "js-kotlinx-serialization-core",
                 "org.jetbrains.kotlinx",
-                "kotlinx-serialization-core-js"
+                "kotlinx-serialization-core-js",
             )
         }
 
         verify(atLeast = 2) {
             module.version("kotlinx-serialization-core")
+        }
+    }
+
+    @Test
+    fun `It contains Ktor Client Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-ktor-client-core",
+                "io.ktor",
+                "ktor-client-core",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "js-ktor-client-core",
+                "io.ktor",
+                "ktor-client-core-js",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.version("ktor-client-core")
+        }
+    }
+
+    @Test
+    fun `It contains Ktor Serialisation Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-ktor-serialization-core",
+                "io.ktor",
+                "ktor-serialization-kotlinx",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "js-ktor-serialization-core",
+                "io.ktor",
+                "ktor-serialization-kotlinx-js",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.version("ktor-serialization-core")
+        }
+    }
+
+    @Test
+    fun `It contains Ktor Server Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-ktor-server-base",
+                "io.ktor",
+                "ktor-server",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-ktor-server-base",
+                "io.ktor",
+                "ktor-server-jvm",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.version("ktor-server-base")
         }
     }
 }

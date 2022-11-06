@@ -74,7 +74,7 @@ class VersionCatalogSpec {
     }
 
     @Test
-    fun `It contains KotlinX Versions`() {
+    fun `It contains Kotlinx Versions`() {
         // Given
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.version(any(), any<String>()) } returns "any"
@@ -84,7 +84,7 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("kotlinx-coroutines", any<String>())
+            catalog.version("kotlinx-coroutines-core", any<String>())
         }
     }
 
@@ -130,6 +130,66 @@ class VersionCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.version("square-sqldelight", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Ktor Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("ktor-events", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Ktor Client Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("ktor-client-core", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Ktor Serialisation Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("ktor-serialization-core", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Ktor Server Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("ktor-server-core", any<String>())
         }
     }
 }
