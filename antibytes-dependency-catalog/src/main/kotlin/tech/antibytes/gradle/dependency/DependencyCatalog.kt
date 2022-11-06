@@ -21,20 +21,41 @@ private fun String.extractNodeVersion(): String = "node-${split('-', limit = 3)[
 private val Platform.platformId: String
     get() = platform.toLowerCase()
 
-private fun String.injectPlatform(platform: Platform): String {
-    return "${platform.platformId}-$this"
+private fun String.injectPlatform(platform: Platform, infix: String = ""): String {
+    return if (infix.isEmpty()) {
+        "${platform.platformId}-$this"
+    } else {
+        "${platform.platformId}-$infix-$this"
+    }
 }
 
 private fun String.toPlatformDependency(platform: Platform): String {
     return "$this-${platform.platformId}"
 }
 
+private fun KmpArtifact.determineInfix(): String {
+    return if (this is MavenKmpTestArtifact) {
+        "test"
+    } else {
+        ""
+    }
+}
+
+private fun String.removeDoubles(double: String): String {
+    return if (this.endsWith("-$double")) {
+        this.substringBeforeLast('-')
+    } else {
+        this
+    }
+}
+
 private fun VersionCatalogBuilder.addDependencies(
     aliasName: String,
-    artifact: MavenKmpArtifact,
+    artifact: KmpArtifact,
 ) {
     artifact.platforms.forEach { platform ->
-        val name = aliasName.injectPlatform(platform)
+        val infix = artifact.determineInfix()
+        val name = aliasName.injectPlatform(platform, infix).removeDoubles("test")
 
         if (platform == Platform.COMMON) {
             library(
@@ -49,14 +70,6 @@ private fun VersionCatalogBuilder.addDependencies(
                 artifact.id.toPlatformDependency(platform),
             ).version(aliasName)
         }
-    }
-}
-
-private fun String.removeDoubles(double: String): String {
-    return if (this.endsWith("-$double")) {
-        this.substringBeforeLast('-')
-    } else {
-        this
     }
 }
 
@@ -86,7 +99,7 @@ private fun VersionCatalogBuilder.addDependencies(
                         artifact.id,
                     ).withoutVersion()
                 }
-                is MavenKmpArtifact -> addDependencies(name, artifact)
+                is KmpArtifact -> addDependencies(name, artifact)
                 is NodeArtifact -> {
                     library(
                         name,

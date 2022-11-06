@@ -22,6 +22,7 @@ internal object Kotlinx {
 
         const val core = version
         const val android = version
+        const val test = version
     }
 
     /**

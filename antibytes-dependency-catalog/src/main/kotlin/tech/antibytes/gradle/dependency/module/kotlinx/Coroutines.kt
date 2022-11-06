@@ -10,9 +10,37 @@ import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.MavenVersionlessArtifact
 import tech.antibytes.gradle.dependency.Platform
+import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.module.Kotlinx.group
 
 internal object Coroutines {
+    private val allPlatforms = listOf(
+        Platform.COMMON,
+        Platform.JS,
+        Platform.JVM,
+        Platform.IOS_ARM32,
+        Platform.IOS_ARM64,
+        Platform.IOS_SIMULATOR_ARM64,
+        Platform.IOS_X64,
+        Platform.WINDOWS_X64,
+        Platform.WINDOWS_X86,
+        Platform.LINUX_ARM64,
+        Platform.LINUX_ARM32_HFP,
+        Platform.LINUX_MIPS32,
+        Platform.LINUX_MIPSEL32,
+        Platform.LINUX_X64,
+        Platform.MACOS_ARM64,
+        Platform.MACOS_X64,
+        Platform.TVOS_ARM64,
+        Platform.TVOS_SIMULATOR_ARM64,
+        Platform.TVOS_X64,
+        Platform.WATCHOS_ARM32,
+        Platform.WATCHOS_ARM64,
+        Platform.WATCHOS_SIMULATOR_ARM64,
+        Platform.WATCHOS_X64,
+        Platform.WATCHOS_X86,
+    )
+
     val android = MavenArtifact(
         group = group,
         id = "kotlinx-coroutines-android",
@@ -27,32 +55,7 @@ internal object Coroutines {
     val core = MavenKmpArtifact(
         group = group,
         id = "kotlinx-coroutines-core",
-        platforms = listOf(
-            Platform.COMMON,
-            Platform.JS,
-            Platform.JVM,
-            Platform.IOS_ARM32,
-            Platform.IOS_ARM64,
-            Platform.IOS_SIMULATOR_ARM64,
-            Platform.IOS_X64,
-            Platform.WINDOWS_X64,
-            Platform.WINDOWS_X86,
-            Platform.LINUX_ARM64,
-            Platform.LINUX_ARM32_HFP,
-            Platform.LINUX_MIPS32,
-            Platform.LINUX_MIPSEL32,
-            Platform.LINUX_X64,
-            Platform.MACOS_ARM64,
-            Platform.MACOS_X64,
-            Platform.TVOS_ARM64,
-            Platform.TVOS_SIMULATOR_ARM64,
-            Platform.TVOS_X64,
-            Platform.WATCHOS_ARM32,
-            Platform.WATCHOS_ARM64,
-            Platform.WATCHOS_SIMULATOR_ARM64,
-            Platform.WATCHOS_X64,
-            Platform.WATCHOS_X86,
-        ),
+        platforms = allPlatforms,
     )
 
     val javafx = MavenArtifact(
@@ -68,5 +71,11 @@ internal object Coroutines {
     val jdk9 = MavenArtifact(
         group = group,
         id = "kotlinx-coroutines-jdk9",
+    )
+
+    val test = MavenKmpTestArtifact(
+        group = group,
+        id = "kotlinx-coroutines-test",
+        platforms = allPlatforms,
     )
 }

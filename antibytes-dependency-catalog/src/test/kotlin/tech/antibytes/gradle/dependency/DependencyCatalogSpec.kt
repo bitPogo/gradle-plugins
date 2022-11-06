@@ -140,6 +140,40 @@ class DependencyCatalogSpec {
     }
 
     @Test
+    fun `It contains Kotlinx Coroutines KMP Test Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { module.version(any<String>()) } just Runs
+        every { module.withoutVersion() } just Runs
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-test-kotlinx-coroutines",
+                "org.jetbrains.kotlinx",
+                "kotlinx-coroutines-test",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "js-test-kotlinx-coroutines",
+                "org.jetbrains.kotlinx",
+                "kotlinx-coroutines-test-js",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.version("kotlinx-coroutines-test")
+        }
+    }
+
+    @Test
     fun `It contains Kotlinx Coroutines BOM Dependencies`() {
         // Given
         val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()

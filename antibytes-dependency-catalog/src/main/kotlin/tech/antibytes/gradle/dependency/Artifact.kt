@@ -49,16 +49,39 @@ internal data class MavenArtifact(
     val type: Platform = Platform.JVM,
 ) : Artifact()
 
+internal data class MavenTestArtifact(
+    val group: String,
+    override val id: String,
+    val type: Platform = Platform.JVM,
+) : Artifact()
+
 internal data class MavenVersionlessArtifact(
     val group: String,
     override val id: String,
 ) : Artifact()
 
-internal data class MavenKmpArtifact(
+internal data class MavenVersionlessTestArtifact(
     val group: String,
     override val id: String,
-    val platforms: List<Platform>,
 ) : Artifact()
+
+internal open class KmpArtifact(
+    open val group: String,
+    override val id: String,
+    open val platforms: List<Platform>,
+) : Artifact()
+
+internal data class MavenKmpArtifact(
+    override val group: String,
+    override val id: String,
+    override val platforms: List<Platform>,
+) : KmpArtifact(group, id, platforms)
+
+internal data class MavenKmpTestArtifact(
+    override val group: String,
+    override val id: String,
+    override val platforms: List<Platform>,
+) : KmpArtifact(group, id, platforms)
 
 internal data class NodeArtifact(
     override val id: String,
