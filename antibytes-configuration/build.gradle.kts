@@ -5,8 +5,6 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import tech.antibytes.gradle.plugin.dependency.Version
-import tech.antibytes.gradle.plugin.dependency.Dependency
 
 
 plugins {
@@ -18,23 +16,23 @@ plugins {
 }
 
 jacoco {
-    version = Version.gradle.jacoco
+    version = libs.versions.jacoco.get()
 }
 
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
-    implementation(Dependency.gradle.kotlin)
-    implementation(Dependency.gradle.android)
+    implementation(libs.kotlin)
+    implementation(libs.agp)
     implementation(project(":antibytes-gradle-utils"))
 
-    testImplementation(Dependency.test.kotlinTest)
-    testImplementation(platform(Dependency.test.junit))
-    testImplementation(Dependency.test.jupiter)
-    testImplementation(Dependency.test.mockk)
-    testImplementation(Dependency.test.mockkJvm)
-    testImplementation(Dependency.test.fixture)
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.jupiter)
+    testImplementation(libs.mockk)
+    testImplementation(libs.mockkInstumented)
+    testImplementation(libs.fixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
 }
 

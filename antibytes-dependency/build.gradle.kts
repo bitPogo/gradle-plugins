@@ -5,8 +5,6 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import tech.antibytes.gradle.plugin.dependency.Version
-import tech.antibytes.gradle.plugin.dependency.Dependency
 
 plugins {
     `kotlin-dsl`
@@ -17,33 +15,33 @@ plugins {
 }
 
 jacoco {
-    toolVersion = Version.gradle.jacoco
+    toolVersion = libs.versions.jacoco.get()
 }
 
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
-    implementation(Dependency.gradle.atomicFu) {
+    implementation(libs.atomicFu) {
         exclude(group = "org.slf4j", module = "slf4j-simple")
     }
-    implementation(Dependency.gradle.android)
-    implementation(Dependency.gradle.dependencyUpdate)
-    implementation(Dependency.gradle.owasp)
-    implementation(Dependency.gradle.ktlint) {
+    implementation(libs.agp)
+    implementation(libs.dependencyUpdate)
+    implementation(libs.owasp)
+    implementation(libs.ktlint) {
         exclude(group = "ch.qos.logback", module = "logback-classic")
         exclude(group = "org.slf4j", module = "slf4j-simple")
     }
-    implementation(Dependency.gradle.spotless) {
+    implementation(libs.spotless) {
         exclude(group = "org.codehaus.groovy", module = "groovy-xml")
     }
     implementation(project(":antibytes-gradle-utils"))
 
-    testImplementation(Dependency.test.kotlinTest)
-    testImplementation(platform(Dependency.test.junit))
-    testImplementation(Dependency.test.jupiter)
-    testImplementation(Dependency.test.mockk)
-    testImplementation(Dependency.test.fixture)
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.jupiter)
+    testImplementation(libs.mockk)
+    testImplementation(libs.fixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
 }
 

@@ -17,11 +17,11 @@ private val modules = listOf(
     "kotlin-reflect",
 )
 
-fun Project.ensureKotlinVersion(version: String? = null) {
+fun Project.ensureKotlinVersion(version: String) {
     configurations.all {
         resolutionStrategy.eachDependency {
             if (requested.group == "org.jetbrains.kotlin" && requested.name in modules) {
-                useVersion(version ?: Version.kotlin)
+                useVersion(version)
                 because("Avoid resolution conflicts")
             }
         }

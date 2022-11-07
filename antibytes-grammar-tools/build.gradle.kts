@@ -3,7 +3,6 @@
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
-import tech.antibytes.gradle.plugin.dependency.Dependency as AntibytesDependency
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -45,21 +44,21 @@ fun DependencyHandler.integrationTestImplementation(dependencyNotation: Any): De
     add("integrationTestImplementation", dependencyNotation)
 
 dependencies {
-    implementation(AntibytesDependency.library.jflex)
-    implementation(AntibytesDependency.library.turtle)
+    implementation(libs.jflex)
+    implementation(libs.turtle)
 
-    testImplementation(AntibytesDependency.test.kotlinTest)
-    testImplementation(platform(AntibytesDependency.test.junit))
-    testImplementation(AntibytesDependency.test.jupiter)
-    testImplementation(AntibytesDependency.test.mockk)
-    testImplementation(AntibytesDependency.test.fixture)
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.jupiter)
+    testImplementation(libs.mockk)
+    testImplementation(libs.fixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
     // Note: this is not necessary for tests itself, only for ide support of integrationTests
     testImplementation(gradleTestKit())
 
-    integrationTestImplementation(AntibytesDependency.test.kotlinTest)
-    integrationTestImplementation(platform(AntibytesDependency.test.junit))
-    integrationTestImplementation(AntibytesDependency.test.jupiter)
+    integrationTestImplementation(libs.kotlinTest)
+    integrationTestImplementation(platform(libs.junit))
+    integrationTestImplementation(libs.jupiter)
     integrationTestImplementation(gradleTestKit())
 }
 

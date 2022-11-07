@@ -1,16 +1,10 @@
-import tech.antibytes.gradle.plugin.dependency.ensureKotlinVersion
-import tech.antibytes.gradle.plugin.dependency.Dependency
-
 /*
  * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
-
 plugins {
     `kotlin-dsl`
-
-    id("tech.antibytes.gradle.plugin.dependency")
 }
 
 repositories {
@@ -20,20 +14,20 @@ repositories {
 }
 
 dependencies {
-    implementation(Dependency.gradle.kotlin)
+    implementation(libs.kotlin)
     // Coverage
-    implementation(Dependency.gradle.jacoco)
+    implementation(libs.jacoco)
     // CVE
-    implementation(Dependency.gradle.owasp)
+    implementation(libs.owasp)
     // dependency-updates.gradle.kts
-    implementation(Dependency.gradle.dependencyUpdate)
+    implementation(libs.dependencyUpdate)
     // publishing.gradle.kts
-    implementation(Dependency.gradle.publishing)
+    implementation(libs.publishing)
     // Versioning
-    implementation(Dependency.gradle.versioning)
+    implementation(libs.versioning)
     // spotless
-    implementation(Dependency.gradle.spotless)
-    implementation(Dependency.gradle.ktlint)
+    implementation(libs.spotless)
+    implementation(libs.ktlint)
 }
 
 with(extensions.getByType<JavaPluginExtension>()) {
