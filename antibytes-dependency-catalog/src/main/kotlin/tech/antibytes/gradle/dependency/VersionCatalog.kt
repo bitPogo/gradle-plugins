@@ -19,7 +19,6 @@ import tech.antibytes.gradle.dependency.version.Kotlinx
 import tech.antibytes.gradle.dependency.version.Ktor
 import tech.antibytes.gradle.dependency.version.MkDocs
 import tech.antibytes.gradle.dependency.version.Node
-import tech.antibytes.gradle.dependency.version.SLF4J
 import tech.antibytes.gradle.dependency.version.Square
 import tech.antibytes.gradle.dependency.version.Stately
 import tech.antibytes.gradle.dependency.version.Vendor
@@ -42,14 +41,6 @@ private fun <T, V> VersionCatalogBuilder.addVersions(
     }
 }
 
-private fun MutableList<String>.addIfNotVendor(
-    catalog: Any
-) {
-    if (catalog != Vendor) {
-        add(catalog.toDependencyName())
-    }
-}
-
 private fun VersionCatalogBuilder.addVersions(
     catalog: Any,
     prefix: List<String>,
@@ -69,7 +60,7 @@ private fun VersionCatalogBuilder.addVersions(
     catalog: Any,
 ) {
     val prefix: List<String> = mutableListOf<String>().apply {
-        addIfNotVendor(catalog)
+        addIfNotVendorOrGradle(catalog)
     }
 
     addVersions(catalog, prefix)

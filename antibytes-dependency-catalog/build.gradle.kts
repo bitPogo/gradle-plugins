@@ -5,7 +5,6 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import tech.antibytes.gradle.plugin.dependency.Version
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -20,15 +19,15 @@ plugins {
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
-    implementation(tech.antibytes.gradle.plugin.dependency.Dependency.gradle.atomicFu) {
+    implementation(libs.atomicFu) {
         exclude(group = "org.slf4j", module = "slf4j-simple")
     }
-    implementation(tech.antibytes.gradle.plugin.dependency.Dependency.gradle.android)
+    implementation(libs.agp)
 
-    testImplementation(tech.antibytes.gradle.plugin.dependency.Dependency.test.kotlinTest)
-    testImplementation(platform(tech.antibytes.gradle.plugin.dependency.Dependency.test.junit))
-    testImplementation(tech.antibytes.gradle.plugin.dependency.Dependency.test.mockk)
-    testImplementation(tech.antibytes.gradle.plugin.dependency.Dependency.test.jupiter)
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.mockk)
+    testImplementation(libs.jupiter)
 }
 
 java {
@@ -66,9 +65,9 @@ val provideConfig: Task by tasks.creating {
             .readText()
             .replaceContent(
                 mapOf(
-                    "ANDROID" to Version.gradle.android,
-                    "KOTLIN" to Version.gradle.kotlin,
-                    "OWASP" to Version.gradle.owasp,
+                    "ANDROID" to libs.versions.agp.get(),
+                    "KOTLIN" to libs.versions.kotlin.get(),
+                    "OWASP" to libs.versions.owasp.get(),
                 )
             )
 

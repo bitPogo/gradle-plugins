@@ -17,6 +17,7 @@ import tech.antibytes.gradle.dependency.module.Node
 import tech.antibytes.gradle.dependency.module.Vendor
 import tech.antibytes.gradle.dependency.module.Square
 import tech.antibytes.gradle.dependency.module.Stately
+import tech.antibytes.gradle.dependency.module.Gradle
 
 private fun String.extractNodeNamespace(): String = "node-${split('-', limit = 3)[1]}"
 
@@ -143,14 +144,6 @@ private fun VersionCatalogBuilder.addDependencies(
     ).versionRef(aliasName)
 }
 
-private fun MutableList<String>.addIfNotVendor(
-    catalog: Any
-) {
-    if (catalog != Vendor) {
-        add(catalog.toDependencyName())
-    }
-}
-
 private fun VersionCatalogBuilder.addDependencies(
     catalog: Any,
     prefix: List<String>,
@@ -180,11 +173,19 @@ private fun VersionCatalogBuilder.addDependencies(
     }
 }
 
+private fun MutableList<String>.addIfNotVendorOrGradle(
+    catalog: Any
+) {
+    if (catalog != Vendor || catalog != Gradle) {
+        add(catalog.toDependencyName())
+    }
+}
+
 private fun VersionCatalogBuilder.addDependencies(
     catalog: Any,
 ) {
     val prefix: List<String> = mutableListOf<String>().apply {
-        addIfNotVendor(catalog)
+        addIfNotVendorOrGradle(catalog)
     }
 
     addDependencies(catalog, prefix)
