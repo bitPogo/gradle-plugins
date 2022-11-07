@@ -11,7 +11,7 @@ import tech.antibytes.gradle.dependency.MavenArtifact
 /**
  * [SLF4J](http://www.slf4j.org/)
  */
-internal object Slf4j {
+internal object SLF4J {
     private const val group = "org.slf4j"
 
     val api = MavenArtifact(

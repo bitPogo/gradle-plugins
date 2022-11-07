@@ -6,8 +6,9 @@
 
 package tech.antibytes.gradle.dependency.module.kotlinx
 
+import tech.antibytes.gradle.dependency.GradlePlugin
+import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
-import tech.antibytes.gradle.dependency.MavenVersionlessArtifact
 import tech.antibytes.gradle.dependency.Platform
 import tech.antibytes.gradle.dependency.module.Kotlinx
 
@@ -38,7 +39,7 @@ internal object Serialization {
         Platform.WATCHOS_X86,
     )
 
-    val bom = MavenVersionlessArtifact(
+    val bom = MavenArtifact(
         group = Kotlinx.group,
         id = "kotlinx-serialization-bom",
     )
@@ -132,6 +133,12 @@ internal object Serialization {
         ),
     )
 
+    val hocon = MavenKmpArtifact(
+        group = Kotlinx.group,
+        id = "kotlinx-serialization-hocon",
+        platforms = allPlatforms,
+    )
+
     val properties = MavenKmpArtifact(
         group = Kotlinx.group,
         id = "kotlinx-serialization-properties",
@@ -142,5 +149,14 @@ internal object Serialization {
         group = Kotlinx.group,
         id = "kotlinx-serialization-protobuf",
         platforms = allPlatforms,
+    )
+
+    val gradle = MavenArtifact(
+        group = "org.jetbrains.kotlin",
+        id = "kotlin-serialization",
+    )
+
+    val plugin = GradlePlugin(
+        id = "org.jetbrains.kotlin.plugin.serialization"
     )
 }

@@ -14,7 +14,7 @@ import tech.antibytes.gradle.dependency.module.ktor.Serialization
 import tech.antibytes.gradle.dependency.module.ktor.Server
 
 internal object Ktor {
-    internal val group = "io.ktor"
+    internal const val group = "io.ktor"
     private val allPlatforms = listOf(
         Platform.COMMON,
         Platform.IOS_ARM32,

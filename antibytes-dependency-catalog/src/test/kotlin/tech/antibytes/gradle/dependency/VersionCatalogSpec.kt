@@ -89,7 +89,7 @@ class VersionCatalogSpec {
     }
 
     @Test
-    fun `It contains Square Versions`() {
+    fun `It contains Squares Okio Versions`() {
         // Given
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.version(any(), any<String>()) } returns "any"
@@ -99,7 +99,67 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("square-sqldelight", any<String>())
+            catalog.version("square-okio-core", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Squares SqlDelight Driver Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("square-sqldelight-driver-android", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Squares SqlDelight Coroutine Extension Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("square-sqldelight-coroutines", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Squares OkHttp Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("square-okhttp-coroutines", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Squares OkHttp Mockserver Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("square-okhttp-mockserver-junit5", any<String>())
         }
     }
 

@@ -16,4 +16,6 @@ internal fun List<String>.toDependencyName(
     }
 }
 
+internal fun List<String>.toDependencyName(): String = this.joinToString("-")
+
 internal fun Any.toDependencyName(): String = this::class.simpleName!!.decapitalize()

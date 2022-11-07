@@ -15,7 +15,7 @@ import tech.antibytes.gradle.dependency.module.Ktor
 import tech.antibytes.gradle.dependency.module.MkDocs
 import tech.antibytes.gradle.dependency.module.Node
 import tech.antibytes.gradle.dependency.module.Vendor
-import tech.antibytes.gradle.dependency.module.Slf4j
+import tech.antibytes.gradle.dependency.module.Square
 import tech.antibytes.gradle.dependency.module.Stately
 
 private fun String.extractNodeNamespace(): String = "node-${split('-', limit = 3)[1]}"
@@ -67,13 +67,13 @@ private fun VersionCatalogBuilder.addDependencies(
                 name,
                 artifact.group,
                 artifact.id,
-            ).version(aliasName)
+            ).versionRef(aliasName)
         } else {
             library(
                 name,
                 artifact.group,
                 artifact.id.toPlatformDependency(platform),
-            ).version(aliasName)
+            ).versionRef(aliasName)
         }
     }
 }
@@ -83,15 +83,64 @@ private fun VersionCatalogBuilder.addDependencies(
     artifact: SinglePlatformArtifact,
 ) {
     val infix = artifact.determineInfix()
-    val name = aliasName.injectPlatform(artifact.type, infix)
-        .removeDoubles(artifact.type.platform)
+    val name = aliasName.injectPlatform(artifact.platform, infix)
+        .removeDoubles(artifact.platform.platform)
         .removeDoubles("test")
 
     library(
         name,
         artifact.group,
         artifact.id,
-    ).version(aliasName)
+    ).versionRef(aliasName)
+}
+
+private fun VersionCatalogBuilder.addDependencies(
+    aliasName: String,
+    artifact: VersionlessArtifact,
+) {
+    val infix = artifact.determineInfix()
+    val name = aliasName.injectPlatform(artifact.platform, infix)
+        .removeDoubles(artifact.platform.platform)
+        .removeDoubles("test")
+
+    library(
+        name,
+        artifact.group,
+        artifact.id,
+    ).withoutVersion()
+}
+
+
+private fun VersionCatalogBuilder.addDependencies(
+    aliasName: String,
+    artifact: Plugin,
+) {
+    plugin(
+        aliasName.removeDoubles("plugin"),
+        artifact.id
+    ).versionRef(aliasName)
+}
+
+private fun VersionCatalogBuilder.addDependencies(
+    aliasName: String,
+    artifact: NodeArtifact,
+) {
+    library(
+        aliasName,
+        aliasName.extractNodeNamespace(),
+        artifact.id,
+    ).versionRef(aliasName.extractNodeVersion())
+}
+
+private fun VersionCatalogBuilder.addDependencies(
+    aliasName: String,
+    artifact: PythonArtifact,
+) {
+    library(
+        aliasName,
+        "python",
+        artifact.id,
+    ).versionRef(aliasName)
 }
 
 private fun MutableList<String>.addIfNotVendor(
@@ -104,39 +153,22 @@ private fun MutableList<String>.addIfNotVendor(
 
 private fun VersionCatalogBuilder.addDependencies(
     catalog: Any,
-    prefix: List<String> = emptyList(),
+    prefix: List<String>,
 ) {
-    val aliasName = prefix.toMutableList().apply {
-        addIfNotVendor(catalog)
-    }
     catalog::class.memberProperties.forEach { property ->
         if (property.visibility == KVisibility.PUBLIC) {
-            val name = aliasName.toDependencyName(property.name)
+            val aliasName = prefix.toMutableList().apply {
+                add(property.name)
+            }
+            val name = aliasName.toDependencyName()
 
             when (val artifact = property.call(catalog)!!) {
                 is SinglePlatformArtifact -> addDependencies(name, artifact)
-                is MavenVersionlessArtifact -> {
-                    library(
-                        "bom-$name".removeDoubles("bom"),
-                        artifact.group,
-                        artifact.id,
-                    ).withoutVersion()
-                }
+                is VersionlessArtifact -> addDependencies(name, artifact)
                 is KmpArtifact -> addDependencies(name, artifact)
-                is NodeArtifact -> {
-                    library(
-                        name,
-                        name.extractNodeNamespace(),
-                        artifact.id,
-                    ).version(name.extractNodeVersion())
-                }
-                is PythonArtifact -> {
-                    library(
-                        name,
-                        "python",
-                        artifact.id,
-                    ).version(name)
-                }
+                is Plugin -> addDependencies(name, artifact)
+                is NodeArtifact -> addDependencies(name, artifact)
+                is PythonArtifact -> addDependencies(name, artifact)
                 else -> {
                     addDependencies(
                         catalog = artifact,
@@ -148,6 +180,16 @@ private fun VersionCatalogBuilder.addDependencies(
     }
 }
 
+private fun VersionCatalogBuilder.addDependencies(
+    catalog: Any,
+) {
+    val prefix: List<String> = mutableListOf<String>().apply {
+        addIfNotVendor(catalog)
+    }
+
+    addDependencies(catalog, prefix)
+}
+
 internal fun VersionCatalogBuilder.addDependencies() {
     addDependencies(Koin)
     addDependencies(Kotlinx)
@@ -155,6 +197,6 @@ internal fun VersionCatalogBuilder.addDependencies() {
     addDependencies(MkDocs)
     addDependencies(Node)
     addDependencies(Stately)
-    addDependencies(Slf4j)
+    addDependencies(Square)
     addDependencies(Vendor)
 }

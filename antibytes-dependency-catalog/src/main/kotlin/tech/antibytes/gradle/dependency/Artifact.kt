@@ -6,9 +6,7 @@
 
 package tech.antibytes.gradle.dependency
 
-internal interface TestArtifact {
-
-}
+internal interface TestArtifact
 
 internal sealed class Artifact {
     open val id: String = ""
@@ -47,51 +45,71 @@ internal enum class Platform(val platform: String) {
     WINDOWS_X86("mingwX86"),
 }
 
-internal abstract class SinglePlatformArtifact(
-    open val group: String,
-    override val id: String,
-    open val type: Platform,
-) : Artifact()
+internal interface SinglePlatformArtifact {
+    val group: String
+    val id: String
+    val platform: Platform
+}
 
 internal data class MavenArtifact(
     override val group: String,
     override val id: String,
-    override val type: Platform = Platform.JVM,
-) : SinglePlatformArtifact(group, id, type)
+    override val platform: Platform = Platform.JVM,
+) : Artifact(), SinglePlatformArtifact
 
 internal data class MavenTestArtifact(
     override val group: String,
     override val id: String,
-    override val type: Platform = Platform.JVM,
-) : SinglePlatformArtifact(group, id, type), TestArtifact
+    override val platform: Platform = Platform.JVM,
+) : Artifact(), SinglePlatformArtifact, TestArtifact
+
+internal interface VersionlessArtifact {
+    val group: String
+    val id: String
+    val platform: Platform
+}
 
 internal data class MavenVersionlessArtifact(
-    val group: String,
+    override val group: String,
     override val id: String,
-) : Artifact()
+    override val platform: Platform = Platform.JVM,
+) : Artifact(), VersionlessArtifact
 
 internal data class MavenVersionlessTestArtifact(
-    val group: String,
+    override val group: String,
     override val id: String,
-) : Artifact(), TestArtifact
+    override val platform: Platform = Platform.JVM,
+) : Artifact(), VersionlessArtifact, TestArtifact
 
-internal abstract class KmpArtifact(
-    open val group: String,
-    override val id: String,
-    open val platforms: List<Platform>,
-) : Artifact()
+internal interface KmpArtifact {
+    val group: String
+    val id: String
+    val platforms: List<Platform>
+}
 
 internal data class MavenKmpArtifact(
     override val group: String,
     override val id: String,
     override val platforms: List<Platform>,
-) : KmpArtifact(group, id, platforms)
+) : Artifact(), KmpArtifact
 
 internal data class MavenKmpTestArtifact(
     override val group: String,
     override val id: String,
     override val platforms: List<Platform>,
-) : KmpArtifact(group, id, platforms), TestArtifact
+) : Artifact(), KmpArtifact, TestArtifact
+
+internal interface Plugin {
+    val id: String
+}
+
+internal data class GradlePlugin(
+    override val id: String,
+) : Artifact(), Plugin
+
+internal data class VersionlessGradlePlugin(
+    override val id: String,
+) : Artifact(), Plugin
 
 internal data class NodeArtifact(
     override val id: String,

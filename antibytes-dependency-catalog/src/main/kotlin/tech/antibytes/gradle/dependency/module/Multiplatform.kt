@@ -32,7 +32,7 @@ object Multiplatform {
 
     val stately = Stately
 
-    val square = Square
+    //val square = Square
 
     val test = Test
 }

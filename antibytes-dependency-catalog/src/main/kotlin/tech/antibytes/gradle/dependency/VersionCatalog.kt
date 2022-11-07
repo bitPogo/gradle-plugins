@@ -19,7 +19,7 @@ import tech.antibytes.gradle.dependency.version.Kotlinx
 import tech.antibytes.gradle.dependency.version.Ktor
 import tech.antibytes.gradle.dependency.version.MkDocs
 import tech.antibytes.gradle.dependency.version.Node
-import tech.antibytes.gradle.dependency.version.Slf4j
+import tech.antibytes.gradle.dependency.version.SLF4J
 import tech.antibytes.gradle.dependency.version.Square
 import tech.antibytes.gradle.dependency.version.Stately
 import tech.antibytes.gradle.dependency.version.Vendor
@@ -31,7 +31,7 @@ private fun <T, V> VersionCatalogBuilder.addVersions(
 ) {
     if (property.isConst) {
         version(
-            aliasName.toDependencyName(property.name),
+            aliasName.toDependencyName(),
             property.call() as String,
         )
     } else {
@@ -52,17 +52,27 @@ private fun MutableList<String>.addIfNotVendor(
 
 private fun VersionCatalogBuilder.addVersions(
     catalog: Any,
-    prefix: List<String> = emptyList(),
+    prefix: List<String>,
 ) {
-    val aliasName = prefix.toMutableList().apply {
-        addIfNotVendor(catalog)
-    }
-
     catalog::class.memberProperties.forEach { property ->
         if (property.visibility != KVisibility.PRIVATE) {
+            val aliasName = prefix.toMutableList().apply {
+                add(property.name)
+            }
+
             addVersions(catalog, aliasName, property)
         }
     }
+}
+
+private fun VersionCatalogBuilder.addVersions(
+    catalog: Any,
+) {
+    val prefix: List<String> = mutableListOf<String>().apply {
+        addIfNotVendor(catalog)
+    }
+
+    addVersions(catalog, prefix)
 }
 
 internal fun VersionCatalogBuilder.addVersions() {
@@ -76,7 +86,6 @@ internal fun VersionCatalogBuilder.addVersions() {
     addVersions(Node)
     addVersions(Stately)
     addVersions(Square)
-    addVersions(Slf4j)
     addVersions(Vendor)
 }
 

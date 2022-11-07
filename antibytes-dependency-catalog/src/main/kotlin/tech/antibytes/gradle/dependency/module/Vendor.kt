@@ -9,6 +9,7 @@ package tech.antibytes.gradle.dependency.module
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.Platform
+import tech.antibytes.gradle.dependency.module.SLF4J
 
 internal object Vendor {
     val mockk = MavenKmpTestArtifact(
@@ -20,6 +21,8 @@ internal object Vendor {
             Platform.JVM,
         )
     )
+
+    val slf4j = SLF4J
 
     val uuid = MavenKmpArtifact(
         group = "com.benasher44",

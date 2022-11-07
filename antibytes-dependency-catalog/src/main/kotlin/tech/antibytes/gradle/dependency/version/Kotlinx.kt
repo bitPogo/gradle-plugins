@@ -6,6 +6,8 @@
 
 package tech.antibytes.gradle.dependency.version
 
+import tech.antibytes.gradle.dependency.version.Kotlin.language
+
 internal object Kotlinx {
     /**
      * (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
@@ -20,6 +22,7 @@ internal object Kotlinx {
     object Coroutines {
         private const val version = "1.6.4"
 
+        const val bom = version
         const val core = version
         const val android = version
         const val test = version
@@ -33,12 +36,16 @@ internal object Kotlinx {
     object Serialization {
         private const val version = "1.4.0"
 
+        const val bom = version
         const val core = version
         const val cbor = version
         const val json = version
         const val jsonOkio = version
+        const val hocon = version
         const val properties = version
         const val protobuf = version
+        const val gradle = language
+        const val plugin = language
     }
 
     /**

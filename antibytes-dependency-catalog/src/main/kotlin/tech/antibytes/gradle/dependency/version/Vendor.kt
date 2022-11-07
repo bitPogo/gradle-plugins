@@ -22,6 +22,8 @@ internal object Vendor {
      */
     const val node = "18.12.0"
 
+    val slf4j = SLF4J
+
     /**
      * [UUID](https://github.com/benasher44/uuid)
      */

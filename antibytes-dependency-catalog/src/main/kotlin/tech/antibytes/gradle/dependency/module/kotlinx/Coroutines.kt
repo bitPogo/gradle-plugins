@@ -8,7 +8,6 @@ package tech.antibytes.gradle.dependency.module.kotlinx
 
 import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
-import tech.antibytes.gradle.dependency.MavenVersionlessArtifact
 import tech.antibytes.gradle.dependency.Platform
 import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.module.Kotlinx.group
@@ -44,10 +43,10 @@ internal object Coroutines {
     val android = MavenArtifact(
         group = group,
         id = "kotlinx-coroutines-android",
-        type = Platform.ANDROID,
+        platform = Platform.ANDROID,
     )
 
-    val bom = MavenVersionlessArtifact(
+    val bom = MavenArtifact(
         group = group,
         id = "kotlinx-coroutines-bom",
     )

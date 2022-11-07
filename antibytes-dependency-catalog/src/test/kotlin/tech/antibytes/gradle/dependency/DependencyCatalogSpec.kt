@@ -19,12 +19,11 @@ class DependencyCatalogSpec {
     @Test
     fun `It contains PythonDependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -35,19 +34,18 @@ class DependencyCatalogSpec {
         }
 
         verify(exactly = 1) {
-            module.version("mkDocs-includeMarkdown")
+            module.versionRef("mkDocs-includeMarkdown")
         }
     }
 
     @Test
     fun `It contains Node ProductionDependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -58,19 +56,18 @@ class DependencyCatalogSpec {
         }
 
         verify(exactly = 1) {
-            module.version("node-axios")
+            module.versionRef("node-axios")
         }
     }
 
     @Test
     fun `It contains Node DevelopmentDependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -81,7 +78,7 @@ class DependencyCatalogSpec {
         }
 
         verify(exactly = 1) {
-            module.version("node-copyWebpackPlugin")
+            module.versionRef("node-copyWebpackPlugin")
         }
     }
 
@@ -108,12 +105,11 @@ class DependencyCatalogSpec {
     @Test
     fun `It contains Koin Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
         // When
         catalog.addDependencies()
 
@@ -134,19 +130,18 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("koin-core")
+            module.versionRef("koin-core")
         }
     }
 
     @Test
     fun `It contains Koin Test Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
         // When
         catalog.addDependencies()
 
@@ -160,19 +155,18 @@ class DependencyCatalogSpec {
         }
 
         verify(exactly = 1) {
-            module.version("koin-junit5")
+            module.versionRef("koin-junit5")
         }
     }
 
     @Test
     fun `It contains Kotlinx Coroutines KMP Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -194,19 +188,18 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("kotlinx-coroutines-core")
+            module.versionRef("kotlinx-coroutines-core")
         }
     }
 
     @Test
     fun `It contains Kotlinx Coroutines KMP Test Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -228,19 +221,18 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("kotlinx-coroutines-test")
+            module.versionRef("kotlinx-coroutines-test")
         }
     }
 
     @Test
     fun `It contains Kotlinx Coroutines BOM Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -248,26 +240,25 @@ class DependencyCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.library(
-                "bom-kotlinx-coroutines",
+                "jvm-kotlinx-coroutines-bom",
                 "org.jetbrains.kotlinx",
                 "kotlinx-coroutines-bom",
             )
         }
 
         verify(atLeast = 1) {
-            module.withoutVersion()
+            module.versionRef("kotlinx-coroutines-bom")
         }
     }
 
     @Test
     fun `It contains Kotlinx Coroutines Maven Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -282,19 +273,18 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 1) {
-            module.version("kotlinx-coroutines-android")
+            module.versionRef("kotlinx-coroutines-android")
         }
     }
 
     @Test
     fun `It contains Kotlinx Serialisation BOM Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -302,26 +292,25 @@ class DependencyCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.library(
-                "bom-kotlinx-serialization",
+                "jvm-kotlinx-serialization-bom",
                 "org.jetbrains.kotlinx",
                 "kotlinx-serialization-bom",
             )
         }
 
         verify(atLeast = 1) {
-            module.withoutVersion()
+            module.versionRef("kotlinx-serialization-bom")
         }
     }
 
     @Test
     fun `It contains Kotlinx Serialisation Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -343,19 +332,18 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("kotlinx-serialization-core")
+            module.versionRef("kotlinx-serialization-core")
         }
     }
 
     @Test
     fun `It contains Ktor Client Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
 
         // When
         catalog.addDependencies()
@@ -377,19 +365,18 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("ktor-client-core")
+            module.versionRef("ktor-client-core")
         }
     }
 
     @Test
     fun `It contains Ktor Serialisation Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
         // When
         catalog.addDependencies()
 
@@ -410,19 +397,18 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("ktor-serialization-core")
+            module.versionRef("ktor-serialization-core")
         }
     }
 
     @Test
     fun `It contains Ktor Server Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
         // When
         catalog.addDependencies()
 
@@ -443,19 +429,18 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("ktor-server-base")
+            module.versionRef("ktor-server-base")
         }
     }
 
     @Test
     fun `It contains SLF4J Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
         // When
         catalog.addDependencies()
 
@@ -469,19 +454,18 @@ class DependencyCatalogSpec {
         }
 
         verify(exactly = 1) {
-            module.version("slf4j-noop")
+            module.versionRef("slf4j-noop")
         }
     }
 
     @Test
     fun `It contains Stately Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
         // When
         catalog.addDependencies()
 
@@ -502,19 +486,191 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("stately-collections")
+            module.versionRef("stately-collections")
+        }
+    }
+
+    @Test
+    fun `It contains Square Okio Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-square-okio-bom",
+                "com.squareup.okio",
+                "okio-bom",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "js-square-okio-core",
+                "com.squareup.okio",
+                "okio-js",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.versionRef("square-okio-core")
+        }
+    }
+
+    @Test
+    fun `It contains Square SqlDelight Driver Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-square-sqldelight-driver-native",
+                "com.squareup.sqldelight",
+                "native-driver",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "iosarm64-square-sqldelight-driver-native",
+                "com.squareup.sqldelight",
+                "native-driver-iosarm64",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.versionRef("square-sqldelight-driver-native")
+        }
+    }
+
+    @Test
+    fun `It contains Square SqlDelight Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-square-sqldelight-coroutines",
+                "com.squareup.sqldelight",
+                "coroutines-extensions",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "js-square-sqldelight-coroutines",
+                "com.squareup.sqldelight",
+                "coroutines-extensions-js",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.versionRef("square-sqldelight-coroutines")
+        }
+    }
+
+    @Test
+    fun `It contains Square the SqlDelight Gradle Plugin`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.plugin(
+                "square-sqldelight",
+                "com.squareup.sqldelight",
+            )
+        }
+
+        verify(exactly = 1) {
+            plugin.versionRef("square-sqldelight-plugin")
+        }
+    }
+
+    @Test
+    fun `It contains Square the SqlDelight OkHttp`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-square-okhttp-core",
+                "com.squareup.okhttp3",
+                "okhttp"
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("square-okhttp-core")
+        }
+    }
+
+    @Test
+    fun `It contains Square the SqlDelight OkHttp Mockserver`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-square-okhttp-mockserver-core",
+                "com.squareup.okhttp3",
+                "okhttp-mockserver"
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("square-okhttp-mockserver-core")
         }
     }
 
     @Test
     fun `It contains Vendor Dependencies`() {
         // Given
-        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk()
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk()
         every { catalog.library(any(), any()) } just Runs
         every { catalog.library(any(), any(), any()) } returns module
-        every { module.version(any<String>()) } just Runs
-        every { module.withoutVersion() } just Runs
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
         // When
         catalog.addDependencies()
 
@@ -535,7 +691,7 @@ class DependencyCatalogSpec {
         }
 
         verify(atLeast = 2) {
-            module.version("uuid")
+            module.versionRef("uuid")
         }
     }
 }

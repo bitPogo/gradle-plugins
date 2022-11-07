@@ -38,7 +38,7 @@ internal object Client {
     val android = MavenArtifact(
         group = group,
         id = "ktor-client-android",
-        type = Platform.ANDROID,
+        platform = Platform.ANDROID,
     )
 
     val apache = MavenArtifact(

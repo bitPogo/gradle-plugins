@@ -20,9 +20,9 @@ internal object Ktor {
 
     const val events = version
 
-    val serialisation = Serialization
+    val serialization = Serialization
 
     val server = Server
 
-    val utils = version
+    const val utils = version
 }
