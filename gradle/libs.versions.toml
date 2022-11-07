@@ -1,0 +1,69 @@
+[versions]
+# [Kotlin](https://kotlinlang.org/docs/releases.html)
+kotlin = "1.7.10"
+
+gradle = "7.5.1"
+
+## Gradle
+# [Gradle Versions](https://github.com/ben-manes/gradle-versions-plugin)
+dependencyUpdate = "0.42.0"
+# [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
+owasp = "7.2.0"
+# [Jacoco](https://github.com/jacoco/jacoco/releases)
+jacoco = "0.8.8"
+# [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
+publishing = "6.3.0.202209071007-r"
+# [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
+versioning = "0.15.0" # see: https://github.com/palantir/gradle-git-version/issues/353
+# [AtomicFu](https://kotlinlang.org/docs/releases.html)
+atomicFu = "0.18.3"
+## [AGP](https://developer.android.com/studio/releases/gradle-plugin)
+## [AGP on Maven](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
+agp = "7.3.0"
+# [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
+spotless = "6.11.0"
+# [KTLint](https://github.com/pinterest/ktlint)
+ktlint = "0.47.1"
+
+## Libs
+# [JFlex](https://jflex.de/)
+jflex = "1.8.2"
+# [Turtle](https://github.com/lordcodes/turtle)
+turtle = "0.7.0"
+# [Kotlin Poet](https://square.github.io/kotlinpoet/)
+kotlinPoet = "1.12.0"
+
+## Test
+# [JUnit](https://github.com/junit-team/junit5/)
+junit = "5.9.0"
+# [mockk](http://mockk.io)
+mockk = "1.12.8"
+# [kotlinFixture](https://github.com/appmattus/kotlinfixture)
+fixture = "1.2.0"
+
+[libraries]
+## Gradle
+agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinReflection = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+atomicFu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicFu" }
+dependencyUpdate = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "dependencyUpdate" }
+owasp = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
+jacoco = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
+publishing = { module = "org.eclipse.jgit:org.eclipse.jgit", version.ref = "publishing" }
+versioning = { module = "com.palantir.gradle.gitversion:gradle-git-version", version.ref = "versioning" }
+spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
+ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
+
+## Libs
+jflex = { module = "de.jflex:jflex", version.ref = "jflex" }
+turtle = { module = "com.lordcodes.turtle:turtle", version.ref = "turtle" }
+kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
+
+## Test
+kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit = { module = "org.junit:junit-bom", version.ref = "junit" }
+jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockkInstumented = { module = "io.mockk:mockk-jvm", version.ref = "mockk" }
+fixture = { module = "com.appmattus.fixture:fixture", version.ref = "fixture" }

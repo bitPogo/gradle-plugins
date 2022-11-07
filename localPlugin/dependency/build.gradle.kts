@@ -6,7 +6,8 @@
 
 plugins {
     `kotlin-dsl`
-    `java-gradle-plugin`
+    java
+    //`java-gradle-plugin`
 }
 
 group = "tech.antibytes.gradle.plugin.dependency"
@@ -15,6 +16,7 @@ version = "1.0.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
+
 
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.plugin.dependency") {

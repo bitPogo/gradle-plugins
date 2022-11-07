@@ -5,8 +5,6 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import tech.antibytes.gradle.plugin.dependency.Dependency
-import tech.antibytes.gradle.plugin.dependency.Version
 
 plugins {
     `kotlin-dsl`
@@ -20,16 +18,16 @@ plugins {
 group = LibraryConfig.PublishConfig.groupId
 
 jacoco {
-    toolVersion = Version.gradle.jacoco
+    toolVersion = libs.versions.jacoco.get()
 }
 
 dependencies {
-    implementation(Dependency.test.mockk)
-    implementation(Dependency.test.fixture)
+    implementation(libs.mockk)
+    implementation(libs.fixture)
 
-    testImplementation(Dependency.test.kotlinTest)
-    testImplementation(platform(Dependency.test.junit))
-    testImplementation(Dependency.test.jupiter)
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.jupiter)
 }
 
 java {
