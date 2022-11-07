@@ -8,6 +8,11 @@ package tech.antibytes.gradle.dependency.version
 
 internal object MkDocs {
     /**
+     * [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
+     */
+    const val core = "2.4.0"
+
+    /**
      * [MkDocs Include Plugin](https://github.com/mondeja/mkdocs-include-markdown-plugin/releases)
      */
     const val includeMarkdown = "3.7.1"

@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.module.square
 
+import tech.antibytes.gradle.dependency.GradleArtifact
 import tech.antibytes.gradle.dependency.GradlePlugin
 import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
@@ -19,7 +20,7 @@ internal object SqlDelight {
         val android = MavenArtifact(
             group = group,
             id = "android-driver",
-            platform = Platform.ANDROID
+            platform = Platform.ANDROID,
         )
         val jdbc = MavenArtifact(
             group = group,
@@ -32,7 +33,7 @@ internal object SqlDelight {
         val js = MavenArtifact(
             group = group,
             id = "sqljs-driver",
-            platform = Platform.JS
+            platform = Platform.JS,
         )
         val native = MavenKmpArtifact(
             group = group,
@@ -56,7 +57,7 @@ internal object SqlDelight {
                 Platform.WATCHOS_SIMULATOR_ARM64,
                 Platform.WATCHOS_X86,
                 Platform.WATCHOS_X64,
-            )
+            ),
         )
     }
 
@@ -84,15 +85,15 @@ internal object SqlDelight {
             Platform.WATCHOS_SIMULATOR_ARM64,
             Platform.WATCHOS_X86,
             Platform.WATCHOS_X64,
-        )
+        ),
     )
 
-    val gradle = MavenArtifact(
+    val gradle = GradleArtifact(
         group = group,
-        id = "gradle-plugin"
+        id = "gradle-plugin",
     )
 
     val plugin = GradlePlugin(
-        id = "com.squareup.sqldelight"
+        id = "com.squareup.sqldelight",
     )
 }

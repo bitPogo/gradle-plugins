@@ -144,7 +144,7 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("square-okhttp-coroutines", any<String>())
+            catalog.version("square-okhttp-bom", any<String>())
         }
     }
 
@@ -159,7 +159,7 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("square-okhttp-mockserver-junit5", any<String>())
+            catalog.version("square-okhttp-mockserver-core", any<String>())
         }
     }
 
@@ -280,6 +280,21 @@ class VersionCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.version("uuid", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Gradle Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("gradle-versioning-dependency", any<String>())
         }
     }
 }

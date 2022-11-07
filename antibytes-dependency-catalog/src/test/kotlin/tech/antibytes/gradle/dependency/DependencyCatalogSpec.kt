@@ -278,6 +278,39 @@ class DependencyCatalogSpec {
     }
 
     @Test
+    fun `It contains Kotlinx AtomicFu Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns mockk(relaxed = true)
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-kotlinx-atomicfu-core",
+                "org.jetbrains.kotlinx",
+                "atomicfu",
+            )
+        }
+        verify(exactly = 1) {
+            catalog.library(
+                "js-kotlinx-atomicfu-core",
+                "org.jetbrains.kotlinx",
+                "atomicfu-js",
+            )
+        }
+
+        verify(atLeast = 2) {
+            module.versionRef("kotlinx-atomicfu-core")
+        }
+    }
+
+    @Test
     fun `It contains Kotlinx Serialisation BOM Dependencies`() {
         // Given
         val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
@@ -628,7 +661,7 @@ class DependencyCatalogSpec {
             catalog.library(
                 "jvm-square-okhttp-core",
                 "com.squareup.okhttp3",
-                "okhttp"
+                "okhttp",
             )
         }
 
@@ -654,7 +687,7 @@ class DependencyCatalogSpec {
             catalog.library(
                 "jvm-square-okhttp-mockserver-core",
                 "com.squareup.okhttp3",
-                "okhttp-mockserver"
+                "okhttp-mockserver",
             )
         }
 
@@ -692,6 +725,32 @@ class DependencyCatalogSpec {
 
         verify(atLeast = 2) {
             module.versionRef("uuid")
+        }
+    }
+
+    @Test
+    fun `It contains Gradle`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "gradle-versioning",
+                "com.palantir.gradle.gitversion",
+                "gradle-git-version",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("gradle-versioning-dependency")
         }
     }
 }

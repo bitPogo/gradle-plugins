@@ -53,6 +53,6 @@ internal object Okio {
     val bom = MavenArtifact(
         group = group,
         id = "okio-bom",
-        platform = Platform.COMMON
+        platform = Platform.COMMON,
     )
 }

@@ -11,6 +11,7 @@ import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import tech.antibytes.gradle.dependency.version.Android
+import tech.antibytes.gradle.dependency.version.Gradle
 import tech.antibytes.gradle.dependency.version.Js
 import tech.antibytes.gradle.dependency.version.Jvm
 import tech.antibytes.gradle.dependency.version.Koin
@@ -23,15 +24,23 @@ import tech.antibytes.gradle.dependency.version.Square
 import tech.antibytes.gradle.dependency.version.Stately
 import tech.antibytes.gradle.dependency.version.Vendor
 
+private fun <T, V> KProperty1<T, V>.determineVersion(catalog: Any): String {
+    return if (this.isConst) {
+        this.call()
+    } else {
+        this.call(catalog)
+    } as String
+}
+
 private fun <T, V> VersionCatalogBuilder.addVersions(
     catalog: Any,
     aliasName: List<String>,
     property: KProperty1<T, V>,
 ) {
-    if (property.isConst) {
+    if (property.returnType.toString() == "kotlin.String") {
         version(
             aliasName.toDependencyName(),
-            property.call() as String,
+            property.determineVersion(catalog),
         )
     } else {
         addVersions(
@@ -53,6 +62,14 @@ private fun VersionCatalogBuilder.addVersions(
 
             addVersions(catalog, aliasName, property)
         }
+    }
+}
+
+private fun MutableList<String>.addIfNotVendorOrGradle(
+    catalog: Any,
+) {
+    if (catalog != Vendor) {
+        add(catalog.toDependencyName())
     }
 }
 
@@ -81,8 +98,6 @@ internal fun VersionCatalogBuilder.addVersions() {
 }
 
 internal object Version {
-    val gradle = Gradle
-
     val kotlin = Kotlin
 
     val koltinx = Kotlinx

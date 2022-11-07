@@ -9,15 +9,16 @@ package tech.antibytes.gradle.dependency
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
+import tech.antibytes.gradle.dependency.module.Android
+import tech.antibytes.gradle.dependency.module.Gradle
 import tech.antibytes.gradle.dependency.module.Koin
 import tech.antibytes.gradle.dependency.module.Kotlinx
 import tech.antibytes.gradle.dependency.module.Ktor
 import tech.antibytes.gradle.dependency.module.MkDocs
 import tech.antibytes.gradle.dependency.module.Node
-import tech.antibytes.gradle.dependency.module.Vendor
 import tech.antibytes.gradle.dependency.module.Square
 import tech.antibytes.gradle.dependency.module.Stately
-import tech.antibytes.gradle.dependency.module.Gradle
+import tech.antibytes.gradle.dependency.module.Vendor
 
 private fun String.extractNodeNamespace(): String = "node-${split('-', limit = 3)[1]}"
 
@@ -34,6 +35,14 @@ private fun String.injectPlatform(platform: Platform, infix: String = ""): Strin
     }
 }
 
+private fun String.injectGradle(infix: String): String {
+    return if (infix.isEmpty()) {
+        "gradle-$this"
+    } else {
+        "gradle-$infix-$this"
+    }
+}
+
 private fun String.toPlatformDependency(platform: Platform): String {
     return "$this-${platform.platformId}"
 }
@@ -46,11 +55,17 @@ private fun Any.determineInfix(): String {
     }
 }
 
-private fun String.removeDoubles(double: String): String {
-    return if (this.endsWith("-$double")) {
+private fun String.remove(double: String): String {
+    val name = if (this.endsWith("-$double")) {
         this.substringBeforeLast('-')
     } else {
         this
+    }
+
+    return if (name.startsWith("$double-")) {
+        this.substringAfter('-')
+    } else {
+        name
     }
 }
 
@@ -60,8 +75,8 @@ private fun VersionCatalogBuilder.addDependencies(
 ) {
     artifact.platforms.forEach { platform ->
         val infix = artifact.determineInfix()
-        val name = aliasName.injectPlatform(platform, infix)
-            .removeDoubles("test")
+        val name = aliasName.remove("test")
+            .injectPlatform(platform, infix)
 
         if (platform == Platform.COMMON) {
             library(
@@ -84,9 +99,9 @@ private fun VersionCatalogBuilder.addDependencies(
     artifact: SinglePlatformArtifact,
 ) {
     val infix = artifact.determineInfix()
-    val name = aliasName.injectPlatform(artifact.platform, infix)
-        .removeDoubles(artifact.platform.platform)
-        .removeDoubles("test")
+    val name = aliasName.remove(artifact.platform.platform)
+        .remove("test")
+        .injectPlatform(artifact.platform, infix)
 
     library(
         name,
@@ -100,9 +115,9 @@ private fun VersionCatalogBuilder.addDependencies(
     artifact: VersionlessArtifact,
 ) {
     val infix = artifact.determineInfix()
-    val name = aliasName.injectPlatform(artifact.platform, infix)
-        .removeDoubles(artifact.platform.platform)
-        .removeDoubles("test")
+    val name = aliasName.remove(artifact.platform.platform)
+        .remove("test")
+        .injectPlatform(artifact.platform, infix)
 
     library(
         name,
@@ -111,14 +126,30 @@ private fun VersionCatalogBuilder.addDependencies(
     ).withoutVersion()
 }
 
-
 private fun VersionCatalogBuilder.addDependencies(
     aliasName: String,
     artifact: Plugin,
 ) {
     plugin(
-        aliasName.removeDoubles("plugin"),
-        artifact.id
+        aliasName.remove("plugin"),
+        artifact.id,
+    ).versionRef(aliasName)
+}
+
+private fun VersionCatalogBuilder.addDependencies(
+    aliasName: String,
+    artifact: GradleArtifact,
+) {
+    val infix = artifact.determineInfix()
+    val name = aliasName.remove("gradle")
+        .remove("test")
+        .remove("dependency")
+        .injectGradle(infix)
+
+    library(
+        name,
+        artifact.group,
+        artifact.id,
     ).versionRef(aliasName)
 }
 
@@ -159,6 +190,7 @@ private fun VersionCatalogBuilder.addDependencies(
                 is SinglePlatformArtifact -> addDependencies(name, artifact)
                 is VersionlessArtifact -> addDependencies(name, artifact)
                 is KmpArtifact -> addDependencies(name, artifact)
+                is GradleArtifact -> addDependencies(name, artifact)
                 is Plugin -> addDependencies(name, artifact)
                 is NodeArtifact -> addDependencies(name, artifact)
                 is PythonArtifact -> addDependencies(name, artifact)
@@ -173,10 +205,10 @@ private fun VersionCatalogBuilder.addDependencies(
     }
 }
 
-private fun MutableList<String>.addIfNotVendorOrGradle(
-    catalog: Any
+private fun MutableList<String>.addIfNotVendorOrAndroid(
+    catalog: Any,
 ) {
-    if (catalog != Vendor || catalog != Gradle) {
+    if (catalog != Vendor && catalog != Android) {
         add(catalog.toDependencyName())
     }
 }
@@ -185,13 +217,14 @@ private fun VersionCatalogBuilder.addDependencies(
     catalog: Any,
 ) {
     val prefix: List<String> = mutableListOf<String>().apply {
-        addIfNotVendorOrGradle(catalog)
+        addIfNotVendorOrAndroid(catalog)
     }
 
     addDependencies(catalog, prefix)
 }
 
 internal fun VersionCatalogBuilder.addDependencies() {
+    addDependencies(Gradle)
     addDependencies(Koin)
     addDependencies(Kotlinx)
     addDependencies(Ktor)

@@ -6,7 +6,6 @@
 
 package tech.antibytes.gradle.dependency.version
 
-
 /**
  * [Koin](https://github.com/InsertKoinIO/koin)
  */

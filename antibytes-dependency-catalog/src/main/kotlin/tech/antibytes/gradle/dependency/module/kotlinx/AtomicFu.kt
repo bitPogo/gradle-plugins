@@ -4,23 +4,18 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency.module
+package tech.antibytes.gradle.dependency.module.kotlinx
 
+import tech.antibytes.gradle.dependency.GradleArtifact
+import tech.antibytes.gradle.dependency.GradlePlugin
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.Platform
-import tech.antibytes.gradle.dependency.module.kotlinx.AtomicFu
-import tech.antibytes.gradle.dependency.module.kotlinx.Coroutines
-import tech.antibytes.gradle.dependency.module.kotlinx.Serialization
+import tech.antibytes.gradle.dependency.module.Kotlinx
 
-internal object Kotlinx {
-    internal const val group = "org.jetbrains.kotlinx"
-    val atomicfu = AtomicFu
-
-    val coroutines = Coroutines
-
-    val dateTime = MavenKmpArtifact(
-        group = group,
-        id = "kotlinx-datetime",
+internal object AtomicFu {
+    val core = MavenKmpArtifact(
+        group = Kotlinx.group,
+        id = "atomicfu",
         platforms = listOf(
             Platform.COMMON,
             Platform.JS,
@@ -43,6 +38,11 @@ internal object Kotlinx {
             Platform.WATCHOS_X86,
         ),
     )
-
-    val serialization = Serialization
+    val gradle = GradleArtifact(
+        group = Kotlinx.group,
+        id = "atomicfu-gradle-plugin",
+    )
+    val plugin = GradlePlugin(
+        id = "kotlinx-atomicfu",
+    )
 }

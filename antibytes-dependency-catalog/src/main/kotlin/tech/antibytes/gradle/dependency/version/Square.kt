@@ -50,6 +50,7 @@ internal object Square {
     internal object OkHttp {
         private const val version = "4.10.0"
         const val core = version
+
         // const val coroutines = version
         const val bom = version
         const val brotli = version

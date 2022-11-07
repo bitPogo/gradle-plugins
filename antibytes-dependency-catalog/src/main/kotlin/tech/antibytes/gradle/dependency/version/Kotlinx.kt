@@ -14,6 +14,14 @@ internal object Kotlinx {
      */
     const val atomicFu = "0.18.3"
 
+    internal object AtomicFu {
+        private const val version = "0.18.3"
+
+        const val core = version
+        const val gradle = version
+        const val plugin = version
+    }
+
     /**
      * [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
      */

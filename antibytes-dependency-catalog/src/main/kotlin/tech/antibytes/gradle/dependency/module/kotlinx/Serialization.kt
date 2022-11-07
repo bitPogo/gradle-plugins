@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.module.kotlinx
 
+import tech.antibytes.gradle.dependency.GradleArtifact
 import tech.antibytes.gradle.dependency.GradlePlugin
 import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
@@ -151,12 +152,12 @@ internal object Serialization {
         platforms = allPlatforms,
     )
 
-    val gradle = MavenArtifact(
+    val gradle = GradleArtifact(
         group = "org.jetbrains.kotlin",
         id = "kotlin-serialization",
     )
 
     val plugin = GradlePlugin(
-        id = "org.jetbrains.kotlin.plugin.serialization"
+        id = "org.jetbrains.kotlin.plugin.serialization",
     )
 }

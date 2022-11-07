@@ -6,9 +6,12 @@
 
 package tech.antibytes.gradle.dependency.module
 
+import tech.antibytes.gradle.dependency.GradlePlugin
 import tech.antibytes.gradle.dependency.PythonArtifact
 
 internal object MkDocs {
+    val core = GradlePlugin("ru.vyarus.mkdocs")
+
     val includeMarkdown = PythonArtifact(
         id = "mkdocs-include-markdown-plugin",
     )

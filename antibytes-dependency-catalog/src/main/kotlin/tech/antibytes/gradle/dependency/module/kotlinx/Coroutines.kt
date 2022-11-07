@@ -8,8 +8,8 @@ package tech.antibytes.gradle.dependency.module.kotlinx
 
 import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
-import tech.antibytes.gradle.dependency.Platform
 import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
+import tech.antibytes.gradle.dependency.Platform
 import tech.antibytes.gradle.dependency.module.Kotlinx.group
 
 internal object Coroutines {
