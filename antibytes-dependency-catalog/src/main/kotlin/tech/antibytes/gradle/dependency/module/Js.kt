@@ -6,8 +6,7 @@
 
 package tech.antibytes.gradle.dependency.module
 
-import tech.antibytes.gradle.dependency.Version
-
+/*
 object Js {
     const val nodejs = "org.jetbrains.kotlinx:kotlinx-nodejs:${Version.js.nodeJs}"
 
@@ -17,3 +16,4 @@ object Js {
         const val js = "org.jetbrains.kotlin:kotlin-test-js:${Version.kotlin.stdlib}"
     }
 }
+*/

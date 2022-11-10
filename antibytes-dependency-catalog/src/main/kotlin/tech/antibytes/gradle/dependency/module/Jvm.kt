@@ -16,8 +16,9 @@ object Jvm {
         const val noop = "org.slf4j:slf4j-nop:${Version.jvm.slf4j}"
     }
 
-    val test = Test
+    // val test = Test
 
+    /*
     object Test {
         const val kotlin = "org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin.stdlib}"
         const val junit = "org.junit:junit-bom:${Version.jvm.test.junit}"
@@ -30,5 +31,5 @@ object Jvm {
             const val unit = "io.mockk:mockk:${Version.kotlin.test.mockk}"
             const val instrumented = "io.mockk:mockk-jvm:${Version.kotlin.test.mockk}"
         }
-    }
+    }*/
 }

@@ -7,22 +7,17 @@
 package tech.antibytes.gradle.dependency.module
 
 import tech.antibytes.gradle.dependency.module.kmp.AtomicFu
-import tech.antibytes.gradle.dependency.module.kmp.Koin
-import tech.antibytes.gradle.dependency.module.kmp.Kotlin
-import tech.antibytes.gradle.dependency.module.kmp.Ktor
-import tech.antibytes.gradle.dependency.module.kmp.Stately
-import tech.antibytes.gradle.dependency.module.kmp.Test
 
 object Multiplatform {
-    val kotlin = Kotlin
+    // val kotlin = Kotlin
 
     // val coroutines = Coroutines
 
     val atomicFu = AtomicFu
 
-    val koin = Koin
+    // val koin = Koin
 
-    val ktor = Ktor
+    // val ktor = Ktor
 
     // val serialization = Serialization
 
@@ -30,9 +25,9 @@ object Multiplatform {
 
     // const val uuid = "com.benasher44:uuid:${Version.kotlin.uuid}"
 
-    val stately = Stately
+    // val stately = Stately
 
     // val square = Square
 
-    val test = Test
+    // val test = Test
 }

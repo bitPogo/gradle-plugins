@@ -6,8 +6,7 @@
 
 package tech.antibytes.gradle.dependency.module.kmp
 
-import tech.antibytes.gradle.dependency.Version
-
+/*
 object Kotlin {
     const val common = "org.jetbrains.kotlin:kotlin-stdlib-common:${Version.kotlin.stdlib}"
     const val jdk = "org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin.stdlib}"
@@ -16,3 +15,4 @@ object Kotlin {
     const val native = "org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin.stdlib}"
     const val android = "org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin.stdlib}"
 }
+*/

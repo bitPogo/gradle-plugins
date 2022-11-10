@@ -6,8 +6,7 @@
 
 package tech.antibytes.gradle.dependency.module.kmp
 
-import tech.antibytes.gradle.dependency.Version
-
+/*
 object Test {
     const val common = "org.jetbrains.kotlin:kotlin-test-common:${Version.kotlin.stdlib}"
 
@@ -17,3 +16,4 @@ object Test {
     const val jvm = "org.jetbrains.kotlin:kotlin-test:${Version.kotlin.stdlib}"
     const val junit = "org.jetbrains.kotlin:kotlin-test-junit:${Version.kotlin.stdlib}"
 }
+*/

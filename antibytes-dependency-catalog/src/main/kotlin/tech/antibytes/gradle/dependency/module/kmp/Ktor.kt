@@ -6,8 +6,7 @@
 
 package tech.antibytes.gradle.dependency.module.kmp
 
-import tech.antibytes.gradle.dependency.Version
-
+/*
 object Ktor {
     val common = Common
 
@@ -86,3 +85,4 @@ object Ktor {
     // Testing
     const val mock = "io.ktor:ktor-client-mock:${Version.kotlin.ktor}"
 }
+*/

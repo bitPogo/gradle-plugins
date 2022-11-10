@@ -12,6 +12,7 @@ import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import tech.antibytes.gradle.dependency.module.Android
 import tech.antibytes.gradle.dependency.module.Gradle
 import tech.antibytes.gradle.dependency.module.Koin
+import tech.antibytes.gradle.dependency.module.Kotlin
 import tech.antibytes.gradle.dependency.module.Kotlinx
 import tech.antibytes.gradle.dependency.module.Ktor
 import tech.antibytes.gradle.dependency.module.MkDocs
@@ -226,6 +227,7 @@ private fun VersionCatalogBuilder.addDependencies(
 internal fun VersionCatalogBuilder.addDependencies() {
     addDependencies(Gradle)
     addDependencies(Koin)
+    addDependencies(Kotlin)
     addDependencies(Kotlinx)
     addDependencies(Ktor)
     addDependencies(MkDocs)

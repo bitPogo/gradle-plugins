@@ -29,6 +29,51 @@ class VersionCatalogSpec {
     }
 
     @Test
+    fun `It contains Kotlin Stdlib Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("kotlin-stdlib-common", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Kotlin Test Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("kotlin-test-annotations", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Kotlin Scripting Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("kotlin-scripting-core", any<String>())
+        }
+    }
+
+    @Test
     fun `It contains Kotlin Versions`() {
         // Given
         val catalog: VersionCatalogBuilder = mockk()
@@ -39,7 +84,7 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("kotlin-stdlib", any<String>())
+            catalog.version("kotlin-kotlin-plugin", any<String>())
         }
     }
 

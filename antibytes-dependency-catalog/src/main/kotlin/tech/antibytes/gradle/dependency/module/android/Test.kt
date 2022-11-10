@@ -35,10 +35,10 @@ object Test {
 
     const val paging = "androidx.paging:paging-common:${Version.android.ktx.pageing}"
 
-    val mockk = Mockk
+    /*val mockk = Mockk
 
     object Mockk {
         const val unit = "io.mockk:mockk:${Version.kotlin.test.mockk}"
         const val instrumented = "io.mockk:mockk-android:${Version.kotlin.test.mockk}"
-    }
+    }*/
 }

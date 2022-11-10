@@ -6,35 +6,56 @@
 
 package tech.antibytes.gradle.dependency.version
 
+import tech.antibytes.gradle.dependency.GradleBundleVersion
+
 internal object Kotlin {
     /**
      * [Kotlin](https://github.com/JetBrains/kotlin)
      */
-    const val language = "1.7.10"
+    private const val version = "1.7.10"
+    const val language = version
 
-    const val stdlib = language
+    const val bom = version
 
-    /**
-     * [Koin](https://github.com/InsertKoinIO/koin)
-     */
-    const val koin = "3.2.1"
+    val stdlib = StdLib
 
-    /**
-     * [Ktor](https://github.com/ktorio/ktor)
-     */
-    const val ktor = "2.1.1"
+    internal object StdLib {
+        const val common = version
+        const val jvm = version
+        const val jdk7 = version
+        const val jdk8 = version
+        const val js = version
+        const val wasm = version
+    }
 
-    /**
-     * [Stately](https://github.com/touchlab/Stately)
-     */
-    const val stately = "1.2.3"
+    val scripting = Scripting
+
+    internal object Scripting {
+        const val core = version
+        const val jsr223 = version
+        const val jsr223Unshaded = version
+        const val jvm = version
+        const val jvmHostUnshaded = version
+        const val common = version
+        const val dependencies = version
+        const val dependenciesMaven = version
+    }
 
     val test = Test
 
-    object Test {
-        /**
-         * [mockk](http://mockk.io)
-         */
-        const val mockk = "1.12.8"
+    internal object Test {
+        const val annotations = version
+        const val annotationsCommon = version
+        const val core = version
+        const val common = version
+        const val js = version
+        const val junit4 = version
+        const val junit5 = version
+        const val testng = version
+        const val wasm = version
     }
+
+    val kotlin = GradleBundleVersion(version)
+    const val kmp = version
+    const val reflect = version
 }

@@ -753,4 +753,110 @@ class DependencyCatalogSpec {
             module.versionRef("gradle-versioning-dependency")
         }
     }
+
+    @Test
+    fun `It contains Kotlin StdLib`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-kotlin-stdlib",
+                "org.jetbrains.kotlin",
+                "kotlin-stdlib-common",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("kotlin-stdlib-common")
+        }
+    }
+
+    @Test
+    fun `It contains Kotlin Script`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-kotlin-scripting-jsr223",
+                "org.jetbrains.kotlin",
+                "kotlin-scripting-jsr223",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("kotlin-scripting-jsr223")
+        }
+    }
+
+    @Test
+    fun `It contains Kotlin Test`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-test-kotlin",
+                "org.jetbrains.kotlin",
+                "kotlin-test",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("kotlin-test-jvm")
+        }
+    }
+
+    @Test
+    fun `It contains Kotlin`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-kotlin-bom",
+                "org.jetbrains.kotlin",
+                "kotlin-bom",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("kotlin-bom")
+        }
+    }
 }
