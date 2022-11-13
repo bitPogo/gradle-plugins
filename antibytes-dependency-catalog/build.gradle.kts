@@ -80,6 +80,17 @@ val provideConfig: Task by tasks.creating {
     }
 }
 
+gradlePlugin {
+    plugins.register("${LibraryConfig.group}.gradle.dependency.catalog") {
+        group = LibraryConfig.group
+        id = "${LibraryConfig.group}.gradle.dependency.catalog"
+        implementationClass = "tech.antibytes.gradle.dependency.AntibytesDependency"
+        displayName = "${id}.gradle.catalog.plugin"
+        description = "General dependencies for Antibytes projects"
+        version = "0.1.0"
+    }
+}
+
 tasks.withType<KotlinCompile> {
     dependsOn(provideConfig)
 }
