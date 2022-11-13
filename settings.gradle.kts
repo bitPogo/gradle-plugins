@@ -12,12 +12,14 @@ pluginManagement {
 }
 
 includeBuild("localPlugin/dependency")
+includeBuild("shared-version-catalog")
 
 include(
     ":antibytes-coverage",
     ":antibytes-gradle-test-utils",
     ":antibytes-dependency",
     ":antibytes-dependency-catalog",
+    ":antibytes-dependency-catalog-test",
     ":antibytes-publishing",
     ":antibytes-versioning",
     ":antibytes-configuration",

@@ -17,6 +17,23 @@ plugins {
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
-catalog {
-    addSharedAntibytesConfiguration()
+dependencies {
+    implementation(libs.atomicFu) {
+        exclude(group = "org.slf4j", module = "slf4j-simple")
+    }
+    implementation(libs.agp)
+
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.mockk)
+    testImplementation(libs.jupiter)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
