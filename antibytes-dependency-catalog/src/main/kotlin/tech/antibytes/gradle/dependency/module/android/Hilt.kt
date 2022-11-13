@@ -6,12 +6,38 @@
 
 package tech.antibytes.gradle.dependency.module.android
 
-import tech.antibytes.gradle.dependency.Version
+import tech.antibytes.gradle.dependency.GradleBundle
+import tech.antibytes.gradle.dependency.MavenArtifact
+import tech.antibytes.gradle.dependency.MavenTestArtifact
+import tech.antibytes.gradle.dependency.Platform
 
-object Hilt {
-    const val gradle = "com.google.dagger:hilt-android-gradle-plugin:${Version.android.hilt.core}"
-    const val core = "com.google.dagger:hilt-android:${Version.android.hilt.core}"
-    const val compiler = "com.google.dagger:hilt-compiler:${Version.android.hilt.core}"
-    const val composeNavigation = "androidx.hilt:hilt-navigation-compose:${Version.android.hilt.compose}"
-    const val test = "com.google.dagger:hilt-android-testing:${Version.android.hilt.core}"
+internal object Hilt {
+    private const val group = "com.google.dagger"
+
+    val core = MavenArtifact(
+        group = group,
+        id = "hilt-android",
+        platform = Platform.ANDROID,
+    )
+    val gradle = GradleBundle(
+        group = group,
+        id = "hilt-android-gradle-plugin",
+        plugin = "dagger.hilt.android.plugin",
+    )
+    val compiler = MavenArtifact(
+        group = group,
+        id = "hilt-compiler",
+        platform = Platform.ANDROID,
+    )
+    val test = MavenTestArtifact(
+        group = group,
+        id = "hilt-android-testing",
+        platform = Platform.ANDROID,
+    )
+
+    val compose = MavenArtifact(
+        group = group,
+        id = "hilt-navigation-compose",
+        platform = Platform.ANDROID,
+    )
 }

@@ -111,15 +111,20 @@ internal data class VersionlessGradlePlugin(
     override val id: String,
 ) : Artifact(), Plugin
 
+internal interface GradleRelatedArtifact {
+    val group: String
+    val id: String
+}
+
 internal data class GradleArtifact(
-    val group: String,
+    override val group: String,
     override val id: String,
-) : Artifact()
+) : Artifact(), GradleRelatedArtifact
 
 internal data class GradleTestArtifact(
-    val group: String,
+    override val group: String,
     override val id: String,
-) : Artifact(), TestArtifact
+) : Artifact(), TestArtifact, GradleRelatedArtifact
 
 internal data class NodeArtifact(
     override val id: String,
@@ -134,12 +139,30 @@ internal class GradleBundleVersion(version: String) {
     val plugin = version
 }
 
+internal interface Bundle {
+    val dependency: GradleRelatedArtifact
+    val plugin: GradlePlugin
+}
+
 internal class GradleBundle(
     group: String,
     id: String,
     plugin: String,
 ) {
     val dependency = GradleArtifact(
+        group = group,
+        id = id,
+    )
+
+    val plugin = GradlePlugin(plugin)
+}
+
+internal class GradleTestBundle(
+    group: String,
+    id: String,
+    plugin: String,
+) {
+    val dependency = GradleTestArtifact(
         group = group,
         id = id,
     )

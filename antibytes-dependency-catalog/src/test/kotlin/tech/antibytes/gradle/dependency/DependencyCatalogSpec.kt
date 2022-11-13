@@ -7,15 +7,22 @@
 package tech.antibytes.gradle.dependency
 
 import io.mockk.Runs
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class DependencyCatalogSpec {
+    @AfterEach
+    fun tearDown() {
+        clearAllMocks()
+    }
+
     @Test
     fun `It contains PythonDependencies`() {
         // Given
@@ -857,6 +864,600 @@ class DependencyCatalogSpec {
 
         verify(exactly = 1) {
             module.versionRef("kotlin-bom")
+        }
+    }
+
+    @Test
+    fun `It contains Android`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "gradle-agp",
+                "com.android.tools.build",
+                "gradle",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-agp")
+        }
+    }
+
+    @Test
+    fun `It contains Android KTX`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-ktx-core",
+                "androidx.core",
+                "core-ktx",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-ktx-core")
+        }
+    }
+
+    @Test
+    fun `It contains Android Ktx Activity`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-ktx-activity-core",
+                "androidx.activity",
+                "activity-ktx",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-ktx-activity-core")
+        }
+    }
+
+    @Test
+    fun `It contains Android KTX Navigation`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-ktx-navigation-ui",
+                "androidx.navigation",
+                "navigation-ui-ktx",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-ktx-navigation-ui")
+        }
+    }
+
+    @Test
+    fun `It contains Android KTX Paging`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-ktx-paging-compose",
+                "androidx.paging",
+                "paging-compose",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-ktx-paging-compose")
+        }
+    }
+
+    @Test
+    fun `It contains Android KTX Viewmodel`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-ktx-viewmodel-core",
+                "androidx.lifecycle",
+                "lifecycle-viewmodel-ktx",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-ktx-viewmodel-core")
+        }
+    }
+
+    @Test
+    fun `It contains Android AppCompact`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-appCompact-core",
+                "androidx.appcompat",
+                "appcompat",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-appCompact-core")
+        }
+    }
+
+    @Test
+    fun `It contains Android Coil`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-coil-core",
+                "io.coil-kt",
+                "coil",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-coil-core")
+        }
+    }
+
+    @Test
+    fun `It contains Android ConstraintLayout`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-constraintLayout-compose",
+                "androidx.constraintlayout",
+                "constraintlayout-compose",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-constraintLayout-compose")
+        }
+    }
+
+    @Test
+    fun `It contains Android Material`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-material-core",
+                "com.google.android.material",
+                "material",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-material-core")
+        }
+    }
+
+    @Test
+    fun `It contains Android Material Compose`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-material-compose-core",
+                "androidx.compose.material",
+                "material",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-material-compose-core")
+        }
+    }
+
+    @Test
+    fun `It contains Android Material3`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-material3-core",
+                "androidx.compose.material3",
+                "material3",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-material3-core")
+        }
+    }
+
+    @Test
+    fun `It contains Android Hilt`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-hilt-compose",
+                "com.google.dagger",
+                "hilt-navigation-compose",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-hilt-compose")
+        }
+    }
+
+    @Test
+    fun `It contains Android Compose`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-compose-bom",
+                "androidx.compose",
+                "compose-bom",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-compose-bom")
+        }
+    }
+
+    @Test
+    fun `It contains Android Compose Animations`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-compose-animation-graphics",
+                "androidx.compose.animation",
+                "animation-graphics",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-compose-animation-graphics")
+        }
+    }
+
+    @Test
+    fun `It contains Android Compose Foundation`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-compose-foundation-layout",
+                "androidx.compose.foundation",
+                "foundation-layout",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-compose-foundation-layout")
+        }
+    }
+
+    @Test
+    fun `It contains Android Compose UI`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-compose-ui-geometry",
+                "androidx.compose.ui",
+                "ui-geometry",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-compose-ui-geometry")
+        }
+    }
+
+    @Test
+    fun `It contains Android Compose UI Tooling`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-compose-ui-tooling-preview",
+                "androidx.compose.ui",
+                "ui-tooling-preview",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-compose-ui-tooling-preview")
+        }
+    }
+
+    @Test
+    fun `It contains Android Test Compose`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-test-compose-manifest",
+                "androidx.compose.ui",
+                "ui-test-manifest",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-test-compose-manifest")
+        }
+    }
+
+    @Test
+    fun `It contains Android Test Espresso`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-test-espresso-web",
+                "androidx.test.espresso",
+                "espresso-web",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-test-espresso-web")
+        }
+    }
+
+    @Test
+    fun `It contains Android Test JUnit`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-test-junit-ktx",
+                "androidx.test.ext",
+                "junit-ktx",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-test-junit-ktx")
+        }
+    }
+
+    @Test
+    fun `It contains Android Test`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-test-ktx",
+                "androidx.test",
+                "core-ktx",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("android-test-ktx")
         }
     }
 }

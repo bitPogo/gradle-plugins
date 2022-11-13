@@ -65,7 +65,7 @@ private fun VersionCatalogBuilder.addVersions(
     }
 }
 
-private fun MutableList<String>.addIfNotVendorOrGradle(
+private fun MutableList<String>.addIfNotVendor(
     catalog: Any,
 ) {
     if (catalog != Vendor) {
@@ -77,7 +77,7 @@ private fun VersionCatalogBuilder.addVersions(
     catalog: Any,
 ) {
     val prefix: List<String> = mutableListOf<String>().apply {
-        addIfNotVendorOrGradle(catalog)
+        addIfNotVendor(catalog)
     }
 
     addVersions(catalog, prefix)

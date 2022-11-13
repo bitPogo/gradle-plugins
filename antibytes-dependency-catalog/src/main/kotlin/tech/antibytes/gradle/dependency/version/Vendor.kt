@@ -6,6 +6,8 @@
 
 package tech.antibytes.gradle.dependency.version
 
+import tech.antibytes.gradle.dependency.GradleBundleVersion
+
 internal object Vendor {
     /**
      * [mockk](http://mockk.io)
@@ -28,4 +30,9 @@ internal object Vendor {
      * [UUID](https://github.com/benasher44/uuid)
      */
     const val uuid = "0.5.0"
+
+    /**
+     * [Paparazzi](https://github.com/cashapp/paparazzi)
+     */
+    val paparazzi = GradleBundleVersion("1.0.0")
 }

@@ -104,11 +104,13 @@ private fun VersionCatalogBuilder.addDependencies(
         .remove("test")
         .injectPlatform(artifact.platform, infix)
 
-    library(
+    val dependency = library(
         name,
         artifact.group,
         artifact.id,
-    ).versionRef(aliasName)
+    )
+
+    dependency.versionRef(aliasName)
 }
 
 private fun VersionCatalogBuilder.addDependencies(
@@ -143,6 +145,7 @@ private fun VersionCatalogBuilder.addDependencies(
 ) {
     val infix = artifact.determineInfix()
     val name = aliasName.remove("gradle")
+        .remove("android")
         .remove("test")
         .remove("dependency")
         .injectGradle(infix)
@@ -206,10 +209,10 @@ private fun VersionCatalogBuilder.addDependencies(
     }
 }
 
-private fun MutableList<String>.addIfNotVendorOrAndroid(
+private fun MutableList<String>.addIfNotVendor(
     catalog: Any,
 ) {
-    if (catalog != Vendor && catalog != Android) {
+    if (catalog != Vendor) {
         add(catalog.toDependencyName())
     }
 }
@@ -218,13 +221,14 @@ private fun VersionCatalogBuilder.addDependencies(
     catalog: Any,
 ) {
     val prefix: List<String> = mutableListOf<String>().apply {
-        addIfNotVendorOrAndroid(catalog)
+        addIfNotVendor(catalog)
     }
 
     addDependencies(catalog, prefix)
 }
 
 internal fun VersionCatalogBuilder.addDependencies() {
+    addDependencies(Android)
     addDependencies(Gradle)
     addDependencies(Koin)
     addDependencies(Kotlin)

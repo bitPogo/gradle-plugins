@@ -6,23 +6,123 @@
 
 package tech.antibytes.gradle.dependency.module.android
 
-import tech.antibytes.gradle.dependency.Version
+import tech.antibytes.gradle.dependency.MavenArtifact
+import tech.antibytes.gradle.dependency.Platform
 
-object Ktx {
-    const val annotation = "androidx.annotation:annotation:${Version.android.ktx.annotation}"
-    const val core = "androidx.core:core-ktx:${Version.android.ktx.core}"
-    const val activity = "androidx.activity:activity-ktx:${Version.android.ktx.activity}"
-    const val collections = "androidx.collection:collection-ktx:${Version.android.ktx.collections}"
-    const val fragment = "androidx.fragment:fragment-ktx:${Version.android.ktx.fragment}"
-    const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.android.ktx.lifecycle}"
-    const val navigationRuntime = "androidx.navigation:navigation-runtime-ktx:${Version.android.ktx.navigation}"
-    const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.android.ktx.navigation}"
-    const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Version.android.ktx.navigation}"
-    const val palette = "androidx.palette:palette-ktx:${Version.android.ktx.palette}"
-    const val paging = "androidx.paging:paging-runtime:${Version.android.ktx.pageing}"
-    const val runtime = "androidx.compose.runtime:runtime:${Version.android.compose.runtime}"
-    const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
-    const val viewmodelSaver = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Version.android.ktx.viewmodel}"
-    const val viewmodelCoroutine = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
-    const val workmanager = "androidx.work:work-runtime-ktx:${Version.android.ktx.workmanager}"
+internal object Ktx {
+    val annotation = MavenArtifact(
+        group = "androidx.annotation",
+        id = "annotation",
+        platform = Platform.ANDROID,
+    )
+    val core = MavenArtifact(
+        group = "androidx.core",
+        id = "core-ktx",
+        platform = Platform.ANDROID,
+    )
+
+    val activity = Activity
+    internal object Activity {
+        private const val group = "androidx.activity"
+        val core = MavenArtifact(
+            group = group,
+            id = "activity-ktx",
+            platform = Platform.ANDROID,
+        )
+        val compose = MavenArtifact(
+            group = group,
+            id = "activity-compose",
+            platform = Platform.ANDROID,
+        )
+    }
+
+    val collections = MavenArtifact(
+        group = "androidx.collections",
+        id = "collections-ktx",
+        platform = Platform.ANDROID,
+    )
+    val fragment = MavenArtifact(
+        group = "androidx.fragment",
+        id = "fragment-ktx",
+        platform = Platform.ANDROID,
+    )
+    val lifecycle = MavenArtifact(
+        group = "androidx.lifecycle",
+        id = "lifecycle-runtime-ktx",
+        platform = Platform.ANDROID,
+    )
+
+    val navigation = Navigation
+
+    internal object Navigation {
+        private const val group = "androidx.navigation"
+        val runtime = MavenArtifact(
+            group = group,
+            id = "navigation-runtime-ktx",
+            platform = Platform.ANDROID,
+        )
+        val fragment = MavenArtifact(
+            group = group,
+            id = "navigation-fragment-ktx",
+            platform = Platform.ANDROID,
+        )
+        val ui = MavenArtifact(
+            group = group,
+            id = "navigation-ui-ktx",
+            platform = Platform.ANDROID,
+        )
+        val compose = MavenArtifact(
+            group = group,
+            id = "navigation-compose",
+            platform = Platform.ANDROID,
+        )
+    }
+
+    val palette = MavenArtifact(
+        group = "androidx.palette",
+        id = "palette-ktx",
+        platform = Platform.ANDROID,
+    )
+    val paging = Paging
+
+    internal object Paging {
+        private const val group = "androidx.paging"
+        val core = MavenArtifact(
+            group = group,
+            id = "paging-runtime",
+            platform = Platform.ANDROID,
+        )
+        val compose = MavenArtifact(
+            group = group,
+            id = "paging-compose",
+            platform = Platform.ANDROID,
+        )
+    }
+
+    val viewmodel = Viewmodel
+
+    internal object Viewmodel {
+        private const val group = "androidx.lifecycle"
+        val core = MavenArtifact(
+            group = group,
+            id = "lifecycle-viewmodel-ktx",
+            platform = Platform.ANDROID,
+        )
+        val saver = MavenArtifact(
+            group = group,
+            id = "lifecycle-viewmodel-savedstate",
+            platform = Platform.ANDROID,
+        )
+        val compose = MavenArtifact(
+            group = group,
+            id = "lifecycle-viewmodel-compose",
+            platform = Platform.ANDROID,
+        )
+    }
+
+    val workmanager = MavenArtifact(
+        group = "androidx.work",
+        id = "work-runtime-ktx",
+        platform = Platform.ANDROID,
+    )
 }

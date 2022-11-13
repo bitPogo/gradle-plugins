@@ -6,36 +6,47 @@
 
 package tech.antibytes.gradle.dependency.module
 
-import tech.antibytes.gradle.dependency.Version
+import tech.antibytes.gradle.dependency.GradleArtifact
+import tech.antibytes.gradle.dependency.MavenArtifact
+import tech.antibytes.gradle.dependency.Platform
+import tech.antibytes.gradle.dependency.VersionlessGradlePlugin
 import tech.antibytes.gradle.dependency.module.android.AppCompact
 import tech.antibytes.gradle.dependency.module.android.Coil
 import tech.antibytes.gradle.dependency.module.android.Compose
+import tech.antibytes.gradle.dependency.module.android.ConstraintLayout
 import tech.antibytes.gradle.dependency.module.android.Hilt
 import tech.antibytes.gradle.dependency.module.android.Ktx
+import tech.antibytes.gradle.dependency.module.android.Material
+import tech.antibytes.gradle.dependency.module.android.Material3
 import tech.antibytes.gradle.dependency.module.android.Test
 
-object Android {
+internal object Android {
     // AGP
-    // const val androidGradlePlugin = "com.android.tools.build:gradle:${Version.android.androidGradlePlugin}"
+    val agp = GradleArtifact(
+        group = "com.android.tools.build",
+        id = "gradle",
+    )
 
-    // Android
-    const val desugar = "com.android.tools:desugar_jdk_libs:${Version.android.desugar}"
-
-    // AndroidX
-    val ktx = Ktx
+    val library = VersionlessGradlePlugin("com.android.library")
+    val application = VersionlessGradlePlugin("com.android.application")
 
     val appCompact = AppCompact
-
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.android.constraintLayout}"
-
-    // Material
-    const val material = "com.google.android.material:material:${Version.android.material}"
-
+    val coil = Coil
     val compose = Compose
 
-    val test = Test
+    val constraintLayout = ConstraintLayout
 
-    val coil = Coil
+    val desugar = MavenArtifact(
+        group = "com.android.tools",
+        id = "desugar_jdk_libs",
+        platform = Platform.ANDROID,
+    )
 
     val hilt = Hilt
+
+    val ktx = Ktx
+
+    val material = Material
+    val material3 = Material3
+    val test = Test
 }

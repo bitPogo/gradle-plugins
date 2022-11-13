@@ -23,6 +23,6 @@ object Ktx {
     const val runtime = "androidx.compose.runtime:runtime:${Version.android.compose.runtime}"
     const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
     const val viewmodelSaver = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Version.android.ktx.viewmodel}"
-    const val viewmodelCoroutine = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.android.ktx.viewmodel}"
+    const val viewmodelCoroutine = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.android.ktx.viewmodel}"
     const val workmanager = "androidx.work:work-runtime-ktx:${Version.android.ktx.workmanager}"
 }

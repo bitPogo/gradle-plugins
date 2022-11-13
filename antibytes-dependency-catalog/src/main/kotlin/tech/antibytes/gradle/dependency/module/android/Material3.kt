@@ -9,16 +9,17 @@ package tech.antibytes.gradle.dependency.module.android
 import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.Platform
 
-internal object Coil {
-    private const val group = "io.coil-kt"
+internal object Material3 {
+    private const val group = "androidx.compose.material3"
+
     val core = MavenArtifact(
         group = group,
-        id = "coil",
+        id = "material3",
         platform = Platform.ANDROID,
     )
-    val compose = MavenArtifact(
+    val windowSize = MavenArtifact(
         group = group,
-        id = "coil-compose",
+        id = "material3-window-size-class",
         platform = Platform.ANDROID,
     )
 }

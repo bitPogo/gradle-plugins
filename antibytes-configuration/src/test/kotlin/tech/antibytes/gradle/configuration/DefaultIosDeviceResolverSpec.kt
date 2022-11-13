@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.gradle.targets.native.KotlinNativeSimulatorTestRun
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.configuration.ios.ensureIosDeviceCompatibility
 
 class DefaultIosDeviceResolverSpec {
     @BeforeEach

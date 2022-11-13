@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.module
 
+import tech.antibytes.gradle.dependency.GradleBundle
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.Platform
@@ -48,5 +49,11 @@ internal object Vendor {
             Platform.WATCHOS_X64,
             Platform.WATCHOS_X86,
         ),
+    )
+
+    val paparazzi = GradleBundle(
+        group = "app.cash.paparazzi",
+        id = "paparazzi-gradle-plugin",
+        plugin = "app.cash.paparazzi",
     )
 }

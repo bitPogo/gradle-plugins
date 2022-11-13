@@ -6,9 +6,19 @@
 
 package tech.antibytes.gradle.dependency.module.android
 
-import tech.antibytes.gradle.dependency.Version
+import tech.antibytes.gradle.dependency.MavenArtifact
+import tech.antibytes.gradle.dependency.Platform
 
-object AppCompact {
-    const val core = "androidx.appcompat:appcompat:${Version.android.appCompat}"
-    const val resources = "androidx.appcompat:appcompat-resources:${Version.android.appCompat}"
+internal object AppCompact {
+    private const val group = "androidx.appcompat"
+    val core = MavenArtifact(
+        group = group,
+        id = "appcompat",
+        platform = Platform.ANDROID,
+    )
+    val resources = MavenArtifact(
+        group = group,
+        id = "appcompat-resources",
+        platform = Platform.ANDROID,
+    )
 }

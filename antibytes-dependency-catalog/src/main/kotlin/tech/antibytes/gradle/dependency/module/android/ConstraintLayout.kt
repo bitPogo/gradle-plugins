@@ -9,16 +9,17 @@ package tech.antibytes.gradle.dependency.module.android
 import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.Platform
 
-internal object Coil {
-    private const val group = "io.coil-kt"
+internal object ConstraintLayout {
+    private const val group = "androidx.constraintlayout"
     val core = MavenArtifact(
         group = group,
-        id = "coil",
+        id = "constraintlayout",
         platform = Platform.ANDROID,
     )
+
     val compose = MavenArtifact(
         group = group,
-        id = "coil-compose",
+        id = "constraintlayout-compose",
         platform = Platform.ANDROID,
     )
 }
