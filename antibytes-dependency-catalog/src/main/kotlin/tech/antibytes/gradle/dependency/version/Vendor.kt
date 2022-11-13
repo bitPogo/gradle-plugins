@@ -14,10 +14,16 @@ internal object Vendor {
      */
     const val node = "18.12.0"
 
-    /**
-     * [SLF4J](https://www.slf4j.org/)
-     */
     val slf4j = SLF4J
+    /**
+     * [SLF4J](http://www.slf4j.org/)
+     */
+    internal object SLF4J {
+        private const val version = "1.7.36"
+
+        const val noop = version
+        const val api = version
+    }
 
     /**
      * [UUID](https://github.com/benasher44/uuid)
