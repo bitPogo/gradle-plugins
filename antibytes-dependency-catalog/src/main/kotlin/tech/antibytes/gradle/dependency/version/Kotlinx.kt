@@ -60,4 +60,9 @@ internal object Kotlinx {
      * [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
      */
     const val dateTime = "0.4.0"
+
+    /**
+     * [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
+     */
+    const val nodeJs = "0.0.7"
 }

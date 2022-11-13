@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.module
 
+import tech.antibytes.gradle.dependency.MavenArtifact
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.Platform
 import tech.antibytes.gradle.dependency.module.kotlinx.AtomicFu
@@ -42,6 +43,12 @@ internal object Kotlinx {
             Platform.WATCHOS_X64,
             Platform.WATCHOS_X86,
         ),
+    )
+
+    val nodeJs = MavenArtifact(
+        group = group,
+        id = "kotlinx-nodejs",
+        platform = Platform.JS,
     )
 
     val serialization = Serialization

@@ -6,22 +6,11 @@
 
 package tech.antibytes.gradle.dependency.module
 
-import tech.antibytes.gradle.dependency.GradleBundle
 import tech.antibytes.gradle.dependency.MavenKmpArtifact
-import tech.antibytes.gradle.dependency.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.Platform
+import tech.antibytes.gradle.dependency.module.vendor.Test
 
 internal object Vendor {
-    val mockk = MavenKmpTestArtifact(
-        group = "io.mockk",
-        id = "mockk",
-        platforms = listOf(
-            Platform.COMMON,
-            Platform.ANDROID,
-            Platform.JVM,
-        ),
-    )
-
     val slf4j = SLF4J
 
     val uuid = MavenKmpArtifact(
@@ -51,9 +40,5 @@ internal object Vendor {
         ),
     )
 
-    val paparazzi = GradleBundle(
-        group = "app.cash.paparazzi",
-        id = "paparazzi-gradle-plugin",
-        plugin = "app.cash.paparazzi",
-    )
+    val test = Test
 }

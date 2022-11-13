@@ -1460,4 +1460,58 @@ class DependencyCatalogSpec {
             module.versionRef("android-test-ktx")
         }
     }
+
+    @Test
+    fun `It contains Vendor Test`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "common-test-mockk",
+                "io.mockk",
+                "mockk",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("test-mockk")
+        }
+    }
+
+    @Test
+    fun `It contains Vendor Test JUnit`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-test-junit-parameterized",
+                "org.junit.jupiter",
+                "junit-jupiter-params",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("test-junit-parameterized")
+        }
+    }
 }

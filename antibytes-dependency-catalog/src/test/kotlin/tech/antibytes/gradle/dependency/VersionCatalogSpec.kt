@@ -664,4 +664,34 @@ class VersionCatalogSpec {
             catalog.version("gradle-versioning-dependency", any<String>())
         }
     }
+
+    @Test
+    fun `It contains Vendor Test Junit Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("test-junit-core", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Vendor Test Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("test-mockk", any<String>())
+        }
+    }
 }
