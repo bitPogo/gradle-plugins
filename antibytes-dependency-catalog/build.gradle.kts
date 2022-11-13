@@ -8,7 +8,6 @@ import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.dependency.addSharedAntibytesConfiguration
 
 plugins {
-    `kotlin-dsl`
     `version-catalog`
 
     id("tech.antibytes.gradle.plugin.script.maven-package")

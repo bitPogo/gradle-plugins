@@ -66,6 +66,11 @@ publishing {
     }
 
     publications {
+        if (plugins.hasPlugin(VersionCatalogPlugin::class.java)) {
+            val publication = create(project.name, MavenPublication::class.java)
+            publication.from(project.components.asMap["versionCatalog"])
+        }
+
         withType<MavenPublication> {
             groupId = LibraryConfig.PublishConfig.groupId
 
