@@ -128,7 +128,6 @@ tasks.check {
 }
 
 tasks.withType(Test::class.java) {
-    (this as Test)
     useJUnitPlatform()
 
     testLogging {

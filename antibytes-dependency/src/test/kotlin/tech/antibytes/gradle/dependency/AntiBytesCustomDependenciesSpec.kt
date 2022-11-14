@@ -12,61 +12,57 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.artifacts.repositories.PasswordCredentials
 import org.gradle.api.artifacts.repositories.RepositoryContentDescriptor
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.dependency.AntiBytesCustomDependencies.addCustomRepositories
+import tech.antibytes.gradle.dependency.DependencyContract.Credentials
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class AntiBytesCustomDependenciesSpec {
-    @AfterEach
-    fun tearDown() {
-        AntiBytesCustomDependencies.githubGroups = emptyList()
-        AntiBytesCustomDependencies.credentials = null
-    }
-
     @Test
-    fun `Given a RepositoryHandler with addCustomRepositories, it adds the Antibytes Repositories`() {
+    fun `Given a RepositoryHandler with addCustomRepositories, it adds the given Repositories`() {
         // Given
         val handler: RepositoryHandler = mockk()
-        val repository: MavenArtifactRepository = mockk(relaxed = true)
+        val mavenRepository: MavenArtifactRepository = mockk(relaxed = true)
+        val repository = CustomRepository("test")
 
         invokeGradleAction(
             { probe -> handler.maven(probe) },
-            repository,
-            repository,
+            mavenRepository,
+            mavenRepository,
         )
 
         // When
-        handler.addCustomRepositories()
+        handler.addCustomRepositories(listOf(repository, repository))
 
         // Then
-        verify(exactly = 1) { repository.setUrl("https://raw.github.com/bitPogo/maven-dev/main/dev") }
-        verify(exactly = 1) { repository.setUrl("https://raw.github.com/bitPogo/maven-snapshots/main/snapshots") }
+        verify(exactly = 2) { mavenRepository.setUrl("test") }
     }
 
     @Test
     fun `Given a RepositoryHandler with addCustomRepositories, it adds the Antibytes Repositories with the presetted groups`() {
         // Given
         val handler: RepositoryHandler = mockk()
-        val repository: MavenArtifactRepository = mockk(relaxed = true)
+        val mavenRepository: MavenArtifactRepository = mockk(relaxed = true)
         val content: RepositoryContentDescriptor = mockk(relaxed = true)
         val groups = listOf("1", "2", "3")
-
-        invokeGradleAction(
-            { probe -> handler.maven(probe) },
-            repository,
-            repository,
+        val repository = CustomRepository(
+            url = "test",
+            groupIds = groups,
         )
 
         invokeGradleAction(
-            { probe -> repository.content(probe) },
+            { probe -> handler.maven(probe) },
+            mavenRepository,
+            mavenRepository,
+        )
+
+        invokeGradleAction(
+            { probe -> mavenRepository.content(probe) },
             content,
             content,
         )
 
         // When
-        AntiBytesCustomDependencies.githubGroups = groups
-        handler.addCustomRepositories()
+        handler.addCustomRepositories(listOf(repository, repository))
 
         // Then
         groups.forEach { group ->
@@ -78,28 +74,31 @@ class AntiBytesCustomDependenciesSpec {
     fun `Given a RepositoryHandler with addCustomRepositories, it adds the Antibytes Repositories with the presetted credentials`() {
         // Given
         val handler: RepositoryHandler = mockk()
-        val repository: MavenArtifactRepository = mockk(relaxed = true)
+        val mavenRepository: MavenArtifactRepository = mockk(relaxed = true)
         val mavenCredentials: PasswordCredentials = mockk(relaxed = true)
-        val credentials = DependencyContract.Credentials(
+        val credentials = Credentials(
             username = "Test",
             password = "safe",
+        )
+        val repository = CustomRepository(
+            url = "test",
+            credentials = credentials,
         )
 
         invokeGradleAction(
             { probe -> handler.maven(probe) },
-            repository,
-            repository,
+            mavenRepository,
+            mavenRepository,
         )
 
         invokeGradleAction(
-            { probe -> repository.credentials(probe) },
+            { probe -> mavenRepository.credentials(probe) },
             mavenCredentials,
             mavenCredentials,
         )
 
         // When
-        AntiBytesCustomDependencies.credentials = credentials
-        handler.addCustomRepositories()
+        handler.addCustomRepositories(listOf(repository, repository))
 
         // Then
         verify(exactly = 2) { mavenCredentials.username = credentials.username }

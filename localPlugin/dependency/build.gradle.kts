@@ -17,7 +17,6 @@ repositories {
     mavenCentral()
 }
 
-
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.plugin.dependency") {
         id = "tech.antibytes.gradle.plugin.dependency"

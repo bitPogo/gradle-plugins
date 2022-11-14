@@ -24,6 +24,7 @@ captures/
 
 # generated
 antibytes-grammar-tools/src/integration/resources/bisonExec
+**/src-gen/**/*.kt
 
 # Editors
 *.suo

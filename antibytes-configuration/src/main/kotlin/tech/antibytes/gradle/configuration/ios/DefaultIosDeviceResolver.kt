@@ -4,13 +4,14 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.configuration
+package tech.antibytes.gradle.configuration.ios
 
 import org.gradle.internal.os.OperatingSystem
 import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
 import tech.antibytes.gradle.configuration.IosConfigurationApiContract.Companion.IOS_DEFAULT_DEVICE
+import tech.antibytes.gradle.configuration.VersionDescriptor
 
 private val THRESHOLD = VersionDescriptor(12, 6, 0)
 

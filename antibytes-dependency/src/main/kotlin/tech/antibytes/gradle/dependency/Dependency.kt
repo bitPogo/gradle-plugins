@@ -6,11 +6,11 @@
 
 package tech.antibytes.gradle.dependency
 
-import tech.antibytes.gradle.dependency.packages.Android
-import tech.antibytes.gradle.dependency.packages.Js
-import tech.antibytes.gradle.dependency.packages.Jvm
-import tech.antibytes.gradle.dependency.packages.Multiplatform
-import tech.antibytes.gradle.dependency.packages.Npm
+import tech.antibytes.gradle.dependency.module.Android
+import tech.antibytes.gradle.dependency.module.Js
+import tech.antibytes.gradle.dependency.module.Jvm
+import tech.antibytes.gradle.dependency.module.Multiplatform
+import tech.antibytes.gradle.dependency.module.Npm
 
 object Dependency {
 

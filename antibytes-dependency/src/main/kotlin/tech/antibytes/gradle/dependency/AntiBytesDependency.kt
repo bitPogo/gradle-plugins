@@ -8,8 +8,8 @@ package tech.antibytes.gradle.dependency
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import tech.antibytes.gradle.dependency.DependencyContract.Companion.DEPENDENCIES
-import tech.antibytes.gradle.dependency.DependencyContract.Companion.EXTENSION_ID
+import tech.antibytes.gradle.dependency.DependencyContract.DEPENDENCIES
+import tech.antibytes.gradle.dependency.DependencyContract.EXTENSION_ID
 import tech.antibytes.gradle.util.applyIfNotExists
 
 class AntiBytesDependency : Plugin<Project> {
