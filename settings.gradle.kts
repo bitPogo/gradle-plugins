@@ -20,6 +20,7 @@ include(
     ":antibytes-dependency",
     ":antibytes-dependency-catalog",
     ":antibytes-dependency-catalog-test",
+    ":antibytes-dependency-helper",
     ":antibytes-publishing",
     ":antibytes-versioning",
     ":antibytes-configuration",
