@@ -10,6 +10,8 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
     jacoco
+
+    id("tech.antibytes.gradle.local")
 }
 
 // To make it available as direct dependency
@@ -22,11 +24,6 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.atomicFu) {
-        exclude(group = "org.slf4j", module = "slf4j-simple")
-    }
-    implementation(libs.agp)
-
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.mockk)
@@ -89,7 +86,7 @@ tasks.withType<KotlinCompile> {
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.dependency.catalog") {
         id = "tech.antibytes.gradle.dependency.catalog"
-        implementationClass = "tech.antibytes.gradle.dependency.DependencyPlugin"
+        implementationClass = "tech.antibytes.gradle.dependency.catalog.DependencyPlugin"
     }
 }
 

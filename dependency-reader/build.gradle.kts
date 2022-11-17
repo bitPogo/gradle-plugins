@@ -4,17 +4,23 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-import tech.antibytes.gradle.plugin.config.LibraryConfig
 
 plugins {
     `kotlin-dsl`
-    `version-catalog`
+    `java-gradle-plugin`
+    jacoco
 }
 
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+    google()
+}
 
 dependencies {
+    implementation(libs.gson)
+    implementation(libs.toml4j)
+
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.mockk)
@@ -24,6 +30,13 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+gradlePlugin {
+    plugins.register("tech.antibytes.gradle.local") {
+        id = "tech.antibytes.gradle.local"
+        implementationClass = "tech.antibytes.gradle.local.DependencyPlugin"
+    }
 }
 
 tasks.test {

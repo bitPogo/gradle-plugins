@@ -5,7 +5,7 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import tech.antibytes.gradle.dependency.addSharedAntibytesConfiguration
+import tech.antibytes.gradle.dependency.catalog.addSharedAntibytesConfiguration
 
 plugins {
     `version-catalog`
