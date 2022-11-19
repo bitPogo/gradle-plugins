@@ -6,10 +6,13 @@
 
 package tech.antibytes.gradle.local.reader
 
+import com.google.gson.Gson
 import java.io.File
 import java.io.InputStreamReader
 import tech.antibytes.gradle.local.DependencyVersionContract.Companion.PYTHON_SEPARATOR
 import tech.antibytes.gradle.local.DependencyVersionContract.DependencyReader
+import tech.antibytes.gradle.local.DependencyVersionContract.NodeDependencies
+import tech.antibytes.gradle.local.DependencyVersionContract.PackageDependencies
 import tech.antibytes.gradle.local.DependencyVersionContract.ReaderFactory
 
 internal object DependencyReader : ReaderFactory {
@@ -73,7 +76,27 @@ internal object DependencyReader : ReaderFactory {
         return DependencyReader { this.reader().readPythonLines() }
     }
 
-    override fun getPythonReader(
+    override fun getPythonReader(file: File): DependencyReader<Map<String, String>> = file.checkFile().readPython()
+
+    @JvmStatic
+    private fun PackageDependencies.asNodeDependencies(): NodeDependencies {
+        return NodeDependencies(
+            production = dependencies ?: emptyMap(),
+            development = devDependencies ?: emptyMap(),
+            peer = peerDependencies ?: emptyMap(),
+            optional = optionalDependencies ?: emptyMap(),
+        )
+    }
+
+    @JvmStatic
+    private fun File.readPackageJson(): NodeDependencies {
+        return Gson().fromJson(this.reader(), PackageDependencies::class.java).asNodeDependencies()
+    }
+
+    @JvmStatic
+    private fun File.readNode(): DependencyReader<NodeDependencies> = DependencyReader { readPackageJson() }
+
+    override fun getNodeReader(
         file: File,
-    ): DependencyReader<Map<String, String>> = file.checkFile().readPython()
+    ): DependencyReader<NodeDependencies> = file.checkFile().readNode()
 }

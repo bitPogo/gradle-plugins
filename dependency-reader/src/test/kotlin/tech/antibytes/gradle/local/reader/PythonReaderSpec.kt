@@ -79,4 +79,26 @@ class PythonReaderSpec {
             ),
         )
     }
+
+    @Test
+    fun `Given extractVersions is called it returns a Map of Version by their package name while using the latest declared`() {
+        // Given
+        val content = javaClass.getResource("/python/Override.txt")!!.readText()
+        file.createNewFile().also {
+            file.writeText(content)
+        }
+
+        // When
+        val versions = DependencyReader.getPythonReader(file).extractVersions()
+
+        // Then
+        assertEquals(
+            actual = versions,
+            expected = mapOf(
+                "pymdown-extensions" to "9.5",
+                "mkdocs-redirects" to "1.1.0",
+                "pygments" to "2.13.0",
+            ),
+        )
+    }
 }

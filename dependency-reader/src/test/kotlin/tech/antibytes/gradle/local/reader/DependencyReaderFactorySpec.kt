@@ -90,4 +90,64 @@ class DependencyReaderFactorySpec {
             reader is DependencyVersionContract.DependencyReader<*>,
         )
     }
+
+    @Test
+    fun `Given getNodeReader is called it fails if the File does not exists`() {
+        // Then
+        val error = assertFailsWith<IllegalArgumentException> {
+            // When
+            DependencyReader.getNodeReader(file)
+        }
+
+        assertEquals(
+            expected = "The given file does not exists.",
+            actual = error.message,
+        )
+    }
+
+    @Test
+    fun `Given getNodeReader is called it fails if the File is not a File`() {
+        // Then
+        val error = assertFailsWith<IllegalArgumentException> {
+            // When
+            DependencyReader.getNodeReader(fileDir)
+        }
+
+        assertEquals(
+            expected = "The given file is not a file.",
+            actual = error.message,
+        )
+    }
+
+    @Test
+    fun `Given getNodeReader is called it fails if the File is readable`() {
+        // Given
+        file.createNewFile()
+        file.setReadable(false)
+
+        // Then
+        val error = assertFailsWith<IllegalArgumentException> {
+            // When
+            DependencyReader.getNodeReader(file)
+        }
+
+        assertEquals(
+            expected = "The given file is not readable.",
+            actual = error.message,
+        )
+    }
+
+    @Test
+    fun `Given getNodeReader is returns a Node reader`() {
+        // Given
+        file.createNewFile()
+
+        // When
+        val reader: Any = DependencyReader.getNodeReader(file)
+
+        // Then
+        assertTrue(
+            reader is DependencyVersionContract.DependencyReader<*>,
+        )
+    }
 }
