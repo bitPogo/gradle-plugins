@@ -35,8 +35,8 @@ internal interface DependencyVersionContract {
 
     interface Writer {
         fun writePythonDependencies(dependencies: Map<String, String>)
-        fun writeNodeDependency(dependencies: NodeDependencies)
-        fun writeGradleDependency(dependencies: Map<String, String>)
+        fun writeNodeDependencies(dependencies: NodeDependencies)
+        fun writeGradleDependencies(dependencies: Map<String, String>)
     }
 
     companion object {

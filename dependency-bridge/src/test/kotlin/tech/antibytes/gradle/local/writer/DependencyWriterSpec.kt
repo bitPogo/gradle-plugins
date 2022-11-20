@@ -9,10 +9,12 @@ package tech.antibytes.gradle.local.writer
 import com.appmattus.kotlinfixture.kotlinFixture
 import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import tech.antibytes.gradle.local.DependencyVersionContract
+import tech.antibytes.gradle.local.DependencyVersionContract.NodeDependencies
 
 class DependencyWriterSpec {
     @TempDir
@@ -35,6 +37,28 @@ class DependencyWriterSpec {
 
         // Then
         assertTrue(writer is DependencyVersionContract.Writer)
+    }
+
+    @Test
+    fun `Given writePythonDependencies is called it ignores empty python dependencies`() {
+        // Given
+        val packageName = "com.test.python"
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writePythonDependencies(emptyMap())
+
+        // Then
+        var hasNodeDependency = false
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("PythonVersions.kt")) {
+                hasNodeDependency = true
+            }
+        }
+
+        assertFalse(hasNodeDependency)
     }
 
     @Test
@@ -100,6 +124,28 @@ class DependencyWriterSpec {
     }
 
     @Test
+    fun `Given writeGradleDependencies is called it ignores empty gradle dependencies`() {
+        // Given
+        val packageName = "com.test.gradle"
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeGradleDependencies(emptyMap())
+
+        // Then
+        var hasNodeDependency = false
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("GradleVersions.kt")) {
+                hasNodeDependency = true
+            }
+        }
+
+        assertFalse(hasNodeDependency)
+    }
+
+    @Test
     fun `Given writeGradleDependencies is called it writes simple named key-value pairs`() {
         // Given
         val versions = mapOf(
@@ -114,7 +160,7 @@ class DependencyWriterSpec {
         DependencyWriter(
             packageName = packageName,
             outputDirectory = dir,
-        ).writeGradleDependency(versions)
+        ).writeGradleDependencies(versions)
 
         // Then
         var fileValue = ""
@@ -145,12 +191,432 @@ class DependencyWriterSpec {
         DependencyWriter(
             packageName = packageName,
             outputDirectory = dir,
-        ).writeGradleDependency(versions)
+        ).writeGradleDependencies(versions)
 
         // Then
         var fileValue = ""
         dir.walkBottomUp().toList().forEach { file ->
             if (file.absolutePath.endsWith("GradleVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it ignores empty production dependencies`() {
+        // Given
+        val packageName = "com.test.gradle"
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = emptyMap(),
+                peer = emptyMap(),
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var hasNodeDependency = false
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeProductionVersions.kt")) {
+                hasNodeDependency = true
+            }
+        }
+
+        assertFalse(hasNodeDependency)
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it writes simple named key-value pairs for production dependencies`() {
+        // Given
+        val versions = mapOf(
+            "test" to "1",
+            "testa" to "2",
+            "testb" to "3",
+        )
+        val packageName = "com.test.node"
+        val expected = loadResource("/SimpleNodeProduction.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = versions,
+                development = emptyMap(),
+                peer = emptyMap(),
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeProductionVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it writes complex named key-value pairs for production dependencies`() {
+        // Given
+        val versions = mapOf(
+            "test-with-strange-name" to "1",
+            "test-with-strange-name-a" to "2",
+            "test-with-strange-name-b" to "3",
+        )
+        val packageName = "com.test.node"
+        val expected = loadResource("/ComplexNodeProduction.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = versions,
+                development = emptyMap(),
+                peer = emptyMap(),
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeProductionVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it ignores empty development dependencies`() {
+        // Given
+        val packageName = "com.test.gradle"
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = emptyMap(),
+                peer = emptyMap(),
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var hasNodeDependency = false
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeDevelopmentVersions.kt")) {
+                hasNodeDependency = true
+            }
+        }
+
+        assertFalse(hasNodeDependency)
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it writes simple named key-value pairs for development dependencies`() {
+        // Given
+        val versions = mapOf(
+            "test" to "1",
+            "testa" to "2",
+            "testb" to "3",
+        )
+        val packageName = "com.test.node"
+        val expected = loadResource("/SimpleNodeDevelopment.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = versions,
+                peer = emptyMap(),
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeDevelopmentVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it writes complex named key-value pairs for development dependencies`() {
+        // Given
+        val versions = mapOf(
+            "test-with-strange-name" to "1",
+            "test-with-strange-name-a" to "2",
+            "test-with-strange-name-b" to "3",
+        )
+        val packageName = "com.test.node"
+        val expected = loadResource("/ComplexNodeDevelopment.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = versions,
+                peer = emptyMap(),
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeDevelopmentVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it ignores empty peer dependencies`() {
+        // Given
+        val packageName = "com.test.gradle"
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = emptyMap(),
+                peer = emptyMap(),
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var hasNodeDependency = false
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodePeerVersions.kt")) {
+                hasNodeDependency = true
+            }
+        }
+
+        assertFalse(hasNodeDependency)
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it writes simple named key-value pairs for peer dependencies`() {
+        // Given
+        val versions = mapOf(
+            "test" to "1",
+            "testa" to "2",
+            "testb" to "3",
+        )
+        val packageName = "com.test.node"
+        val expected = loadResource("/SimpleNodePeer.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = emptyMap(),
+                peer = versions,
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodePeerVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it writes complex named key-value pairs for peer dependencies`() {
+        // Given
+        val versions = mapOf(
+            "test-with-strange-name" to "1",
+            "test-with-strange-name-a" to "2",
+            "test-with-strange-name-b" to "3",
+        )
+        val packageName = "com.test.node"
+        val expected = loadResource("/ComplexNodePeer.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = emptyMap(),
+                peer = versions,
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodePeerVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it ignores empty optional dependencies`() {
+        // Given
+        val packageName = "com.test.gradle"
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = emptyMap(),
+                peer = emptyMap(),
+                optional = emptyMap(),
+            ),
+        )
+
+        // Then
+        var hasNodeDependency = false
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeOptionalVersions.kt")) {
+                hasNodeDependency = true
+            }
+        }
+
+        assertFalse(hasNodeDependency)
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it writes simple named key-value pairs for optional dependencies`() {
+        // Given
+        val versions = mapOf(
+            "test" to "1",
+            "testa" to "2",
+            "testb" to "3",
+        )
+        val packageName = "com.test.node"
+        val expected = loadResource("/SimpleNodeOptional.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = emptyMap(),
+                peer = emptyMap(),
+                optional = versions,
+            ),
+        )
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeOptionalVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeNodeDependencies is called it writes complex named key-value pairs for optional dependencies`() {
+        // Given
+        val versions = mapOf(
+            "test-with-strange-name" to "1",
+            "test-with-strange-name-a" to "2",
+            "test-with-strange-name-b" to "3",
+        )
+        val packageName = "com.test.node"
+        val expected = loadResource("/ComplexNodeOptional.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeNodeDependencies(
+            NodeDependencies(
+                production = emptyMap(),
+                development = emptyMap(),
+                peer = emptyMap(),
+                optional = versions,
+            ),
+        )
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeOptionalVersions.kt")) {
                 fileValue = file.readText()
             }
         }

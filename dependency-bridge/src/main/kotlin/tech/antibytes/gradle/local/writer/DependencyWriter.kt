@@ -29,16 +29,6 @@ internal class DependencyWriter(
         file.build().writeTo(outputDirectory)
     }
 
-    private fun writeDependency(name: String, action: TypeSpec.Builder.() -> Unit) {
-        intoFile(name) {
-            val implementation = TypeSpec.objectBuilder(name)
-            implementation.addModifiers(KModifier.INTERNAL)
-            implementation.action()
-
-            implementation.build()
-        }
-    }
-
     private fun buildProperty(name: String, value: String): PropertySpec {
         return PropertySpec.builder(name, String::class, KModifier.CONST, KModifier.INTERNAL)
             .initializer("\"$value\"")
@@ -62,19 +52,33 @@ internal class DependencyWriter(
         }
     }
 
-    override fun writePythonDependencies(dependencies: Map<String, String>) {
-        writeDependency("PythonVersions") {
-            addProperties(dependencies)
+    private fun writeDependency(
+        name: String,
+        dependencies: Map<String, String>,
+    ) {
+        if (dependencies.isNotEmpty()) {
+            intoFile(name) {
+                val implementation = TypeSpec.objectBuilder(name)
+                implementation.addModifiers(KModifier.INTERNAL)
+                implementation.addProperties(dependencies)
+
+                implementation.build()
+            }
         }
     }
 
-    override fun writeNodeDependency(dependencies: NodeDependencies) {
-        TODO("Not yet implemented")
+    override fun writePythonDependencies(
+        dependencies: Map<String, String>,
+    ) = writeDependency("PythonVersions", dependencies)
+
+    override fun writeNodeDependencies(dependencies: NodeDependencies) {
+        writeDependency("NodeProductionVersions", dependencies.production)
+        writeDependency("NodeDevelopmentVersions", dependencies.development)
+        writeDependency("NodePeerVersions", dependencies.peer)
+        writeDependency("NodeOptionalVersions", dependencies.optional)
     }
 
-    override fun writeGradleDependency(dependencies: Map<String, String>) {
-        writeDependency("GradleVersions") {
-            addProperties(dependencies)
-        }
-    }
+    override fun writeGradleDependencies(
+        dependencies: Map<String, String>,
+    ) = writeDependency("GradleVersions", dependencies)
 }
