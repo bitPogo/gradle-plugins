@@ -53,14 +53,18 @@ internal class DependencyWriter(
             .decapitalize()
     }
 
+    private fun TypeSpec.Builder.addProperties(dependencies: Map<String, String>) {
+        dependencies.forEach { (module, version) ->
+            addProperty(
+                module.toPropertyName(),
+                version,
+            )
+        }
+    }
+
     override fun writePythonDependencies(dependencies: Map<String, String>) {
         writeDependency("PythonVersions") {
-            dependencies.forEach { (module, version) ->
-                addProperty(
-                    module.toPropertyName(),
-                    version,
-                )
-            }
+            addProperties(dependencies)
         }
     }
 
@@ -69,6 +73,8 @@ internal class DependencyWriter(
     }
 
     override fun writeGradleDependency(dependencies: Map<String, String>) {
-        TODO("Not yet implemented")
+        writeDependency("GradleVersions") {
+            addProperties(dependencies)
+        }
     }
 }

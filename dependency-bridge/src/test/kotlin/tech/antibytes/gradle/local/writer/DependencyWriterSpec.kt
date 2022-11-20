@@ -98,4 +98,66 @@ class DependencyWriterSpec {
             expected = expected.normalizeSource(),
         )
     }
+
+    @Test
+    fun `Given writeGradleDependencies is called it writes simple named key-value pairs`() {
+        // Given
+        val versions = mapOf(
+            "test" to "1",
+            "testa" to "2",
+            "testb" to "3",
+        )
+        val packageName = "com.test.gradle"
+        val expected = loadResource("/SimpleGradle.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeGradleDependency(versions)
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("GradleVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given writeGradleDependencies is called it writes complex named key-value pairs`() {
+        // Given
+        val versions = mapOf(
+            "test-with-strange-name" to "1",
+            "test-with-strange-name-a" to "2",
+            "test-with-strange-name-b" to "3",
+        )
+        val packageName = "com.test.gradle"
+        val expected = loadResource("/ComplexGradle.kt")
+
+        // When
+        DependencyWriter(
+            packageName = packageName,
+            outputDirectory = dir,
+        ).writeGradleDependency(versions)
+
+        // Then
+        var fileValue = ""
+        dir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("GradleVersions.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
 }
