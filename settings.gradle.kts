@@ -11,6 +11,7 @@ pluginManagement {
     }
 }
 
+includeBuild("dependency-reader")
 includeBuild("localPlugin/dependency")
 includeBuild("shared-version-catalog")
 
@@ -18,6 +19,7 @@ include(
     ":antibytes-coverage",
     ":antibytes-gradle-test-utils",
     ":antibytes-dependency",
+    ":antibytes-dependency-reader-test",
     ":antibytes-dependency-catalog",
     ":antibytes-dependency-catalog-test",
     ":antibytes-dependency-helper",

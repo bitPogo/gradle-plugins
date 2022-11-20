@@ -15,6 +15,8 @@ plugins {
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
+    implementation(libs.gson)
+
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.mockk)
