@@ -18,7 +18,7 @@ spotless {
         targetExclude(
             "buildSrc/build/",
             "**/buildSrc/build/",
-            "**/antibytes-runtime-configuration/src/test/resources/generated/*.kt"
+            "**/src/test/resources/generated/*.kt"
         )
         ktlint(ktlintVersion).editorConfigOverride(
             mapOf(

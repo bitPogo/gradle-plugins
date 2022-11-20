@@ -3,8 +3,9 @@ name = "test"
 [versions]
 kotlin = "1.7.10"
 gradle = "7.5.1"
+## Test
 toml4j = "0.7.2"
-gson = "2.10"
+gson = "2.10" ## Test
 
 [libraries]
 kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

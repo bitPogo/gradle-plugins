@@ -23,14 +23,20 @@ internal interface DependencyVersionContract {
         val optional: Map<String, String>,
     )
 
-    fun interface DependencyReader<T : Any> {
+    fun interface Reader<T : Any> {
         fun extractVersions(): T
     }
 
     interface ReaderFactory {
-        fun getPythonReader(file: File): DependencyReader<Map<String, String>>
-        fun getNodeReader(file: File): DependencyReader<NodeDependencies>
-        fun getGradleReader(file: File): DependencyReader<Map<String, String>>
+        fun getPythonReader(file: File): Reader<Map<String, String>>
+        fun getNodeReader(file: File): Reader<NodeDependencies>
+        fun getGradleReader(file: File): Reader<Map<String, String>>
+    }
+
+    interface Writer {
+        fun writePythonDependencies(dependencies: Map<String, String>)
+        fun writeNodeDependency(dependencies: NodeDependencies)
+        fun writeGradleDependency(dependencies: Map<String, String>)
     }
 
     companion object {

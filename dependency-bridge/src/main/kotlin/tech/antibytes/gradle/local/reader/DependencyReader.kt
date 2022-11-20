@@ -9,13 +9,13 @@ package tech.antibytes.gradle.local.reader
 import com.google.gson.Gson
 import java.io.File
 import java.io.InputStreamReader
-import java.io.Reader
+import java.io.Reader as FileReader
 import tech.antibytes.gradle.local.DependencyVersionContract.Companion.PYTHON_SEPARATOR
 import tech.antibytes.gradle.local.DependencyVersionContract.Companion.TOML_COMMENTS
 import tech.antibytes.gradle.local.DependencyVersionContract.Companion.TOML_SEPARATOR
-import tech.antibytes.gradle.local.DependencyVersionContract.DependencyReader
 import tech.antibytes.gradle.local.DependencyVersionContract.NodeDependencies
 import tech.antibytes.gradle.local.DependencyVersionContract.PackageDependencies
+import tech.antibytes.gradle.local.DependencyVersionContract.Reader
 import tech.antibytes.gradle.local.DependencyVersionContract.ReaderFactory
 
 internal object DependencyReader : ReaderFactory {
@@ -78,11 +78,9 @@ internal object DependencyReader : ReaderFactory {
     }
 
     @JvmStatic
-    private fun File.readPython(): DependencyReader<Map<String, String>> {
-        return DependencyReader { this.reader().readPythonLines() }
-    }
+    private fun File.readPython(): Reader<Map<String, String>> = Reader { reader().readPythonLines() }
 
-    override fun getPythonReader(file: File): DependencyReader<Map<String, String>> = file.checkFile().readPython()
+    override fun getPythonReader(file: File): Reader<Map<String, String>> = file.checkFile().readPython()
 
     @JvmStatic
     private fun PackageDependencies.asNodeDependencies(): NodeDependencies {
@@ -100,23 +98,24 @@ internal object DependencyReader : ReaderFactory {
     }
 
     @JvmStatic
-    private fun File.readNodeJs(): DependencyReader<NodeDependencies> = DependencyReader { readPackageJson() }
+    private fun File.readNodeJs(): Reader<NodeDependencies> = Reader { readPackageJson() }
 
     override fun getNodeReader(
         file: File,
-    ): DependencyReader<NodeDependencies> = file.checkFile().readNodeJs()
+    ): Reader<NodeDependencies> = file.checkFile().readNodeJs()
 
     @JvmStatic
     private fun File.readGradleToml(): Map<String, String> = TomlReader(this.reader()).readVersion()
 
     @JvmStatic
-    private fun File.readGradle(): DependencyReader<Map<String, String>> = DependencyReader { readGradleToml() }
+    private fun File.readGradle(): Reader<Map<String, String>> =
+        Reader { readGradleToml() }
 
     override fun getGradleReader(
         file: File,
-    ): DependencyReader<Map<String, String>> = file.checkFile().readGradle()
+    ): Reader<Map<String, String>> = file.checkFile().readGradle()
 
-    private class TomlReader(private val reader: Reader) {
+    private class TomlReader(private val reader: FileReader) {
         private fun String.isStart(): Boolean = this.trim() == "[versions]"
         private fun String.isEnd(): Boolean = this.trim().startsWith("[")
 
