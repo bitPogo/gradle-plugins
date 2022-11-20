@@ -30,9 +30,12 @@ internal interface DependencyVersionContract {
     interface ReaderFactory {
         fun getPythonReader(file: File): DependencyReader<Map<String, String>>
         fun getNodeReader(file: File): DependencyReader<NodeDependencies>
+        fun getGradleReader(file: File): DependencyReader<Map<String, String>>
     }
 
     companion object {
         const val PYTHON_SEPARATOR = "=="
+        const val TOML_COMMENTS = "##"
+        const val TOML_SEPARATOR = "="
     }
 }
