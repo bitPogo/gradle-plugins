@@ -15,4 +15,4 @@ dependencyResolutionManagement {
     }
 }
 
-includeBuild("../dependency-reader")
+includeBuild("../dependency-bridge")

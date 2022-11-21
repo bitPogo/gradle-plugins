@@ -171,8 +171,8 @@ class AntiBytesTestConfigurationTaskSpec {
         }
 
         assertEquals(
-            fileValue.normalizeSource(),
-            expected.normalizeSource(),
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
         )
     }
 }
