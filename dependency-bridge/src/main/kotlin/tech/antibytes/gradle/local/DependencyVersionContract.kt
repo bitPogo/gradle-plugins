@@ -6,6 +6,15 @@
 
 package tech.antibytes.gradle.local
 
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.StopExecutionException
+import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 internal interface DependencyVersionContract {
@@ -37,6 +46,46 @@ internal interface DependencyVersionContract {
         fun writePythonDependencies(dependencies: Map<String, String>)
         fun writeNodeDependencies(dependencies: NodeDependencies)
         fun writeGradleDependencies(dependencies: Map<String, String>)
+    }
+
+    interface DependencyVersionTask {
+        /**
+         * Namespace where the generated File lives under
+         * This property is required
+         */
+        @get:Input
+        val packageName: Property<String>
+
+        /**
+         * Directories which is used to assemble python dependencies
+         * This property is required
+         */
+        @get:InputFile
+        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        val pythonDirectory: ListProperty<RegularFileProperty>
+
+        /**
+         * Directories which is used to assemble nodeJs dependencies
+         * This property is required
+         */
+        @get:InputFile
+        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        val nodeDirectory: ListProperty<RegularFileProperty>
+
+        /**
+         * Directory which is used to assemble nodeJs dependencies
+         * This properties is required
+         */
+        @get:InputFile
+        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        val gradleDirectory: ListProperty<RegularFileProperty>
+
+        /**
+         * Bridges the version files to Kotlin
+         * @throws StopExecutionException if no packageName was set
+         */
+        @TaskAction
+        fun generate()
     }
 
     companion object {
