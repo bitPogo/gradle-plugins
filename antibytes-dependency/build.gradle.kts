@@ -22,9 +22,6 @@ jacoco {
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
-    implementation(libs.atomicFu) {
-        exclude(group = "org.slf4j", module = "slf4j-simple")
-    }
     implementation(libs.agp)
     implementation(libs.dependencyUpdate)
     implementation(libs.owasp)
@@ -41,7 +38,7 @@ dependencies {
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
-    testImplementation(libs.fixture)
+    testImplementation(libs.jvmFixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
 }
 

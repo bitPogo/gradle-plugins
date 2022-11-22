@@ -595,7 +595,7 @@ class DependencyWriterSpec {
         val versions = mapOf(
             "test-with-strange-name" to "1",
             "test-with-strange-name-a" to "2",
-            "test-with-strange-name-b" to "3",
+            "test-with-strange-name.b" to "3",
         )
         val packageName = "com.test.node"
         val expected = loadResource("/ComplexNodeOptional.kt")

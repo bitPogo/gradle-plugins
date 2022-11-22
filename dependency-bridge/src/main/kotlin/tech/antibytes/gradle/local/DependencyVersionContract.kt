@@ -10,9 +10,6 @@ import java.io.File
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
 
@@ -59,24 +56,21 @@ internal interface DependencyVersionContract {
          * Directories which is used to assemble python dependencies
          * This property is required
          */
-        @get:InputFile
-        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        @get:Input
         val pythonDirectory: ListProperty<File>
 
         /**
          * Directories which is used to assemble nodeJs dependencies
          * This property is required
          */
-        @get:InputFile
-        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        @get:Input
         val nodeDirectory: ListProperty<File>
 
         /**
          * Directory which is used to assemble nodeJs dependencies
          * This properties is required
          */
-        @get:InputFile
-        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        @get:Input
         val gradleDirectory: ListProperty<File>
 
         /**
@@ -89,7 +83,7 @@ internal interface DependencyVersionContract {
 
     companion object {
         const val PYTHON_SEPARATOR = "=="
-        const val TOML_COMMENTS = "##"
+        const val TOML_COMMENTS = "#"
         const val TOML_SEPARATOR = "="
     }
 }

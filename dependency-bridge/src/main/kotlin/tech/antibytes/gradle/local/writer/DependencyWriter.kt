@@ -38,7 +38,7 @@ internal class DependencyWriter(
     private fun TypeSpec.Builder.addProperty(name: String, value: String) = addProperty(buildProperty(name, value))
 
     private fun String.toPropertyName(): String {
-        return this.split("-")
+        return this.split('-', '.')
             .joinToString("") { part -> part.capitalize() }
             .decapitalize()
     }

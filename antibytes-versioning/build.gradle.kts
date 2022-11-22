@@ -28,7 +28,7 @@ dependencies {
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
-    testImplementation(libs.fixture)
+    testImplementation(libs.jvmFixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
 }
 

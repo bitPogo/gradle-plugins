@@ -20,7 +20,7 @@ dependencies {
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.mockk)
-    testImplementation(libs.fixture)
+    testImplementation(libs.jvmFixture)
     testImplementation(libs.jupiter)
 }
 

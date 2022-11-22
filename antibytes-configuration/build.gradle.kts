@@ -32,7 +32,7 @@ dependencies {
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.mockkInstumented)
-    testImplementation(libs.fixture)
+    testImplementation(libs.jvmFixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
 }
 
