@@ -70,7 +70,7 @@ class DependencyWriterSpec {
             "testb" to "3",
         )
         val packageName = "com.test.python"
-        val expected = loadResource("/SinglePython.kt")
+        val expected = loadResource("/SimplePython.kt")
 
         // When
         DependencyWriter(

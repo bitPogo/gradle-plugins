@@ -6,6 +6,11 @@
 
 package tech.antibytes.gradle.local
 
+import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
@@ -13,22 +18,15 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import java.io.File
 import tech.antibytes.gradle.local.DependencyVersionContract.DependencyVersionTask
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 
 class AntibytesDependencyVersionTaskSpec {
     @TempDir
     private lateinit var buildDir: File
 
     @TempDir
-    private lateinit var dependencyDir1: File
+    private lateinit var root: File
 
-    @TempDir
-    private lateinit var dependencyDir2: File
     private lateinit var project: Project
 
     @BeforeEach
@@ -128,7 +126,7 @@ class AntibytesDependencyVersionTaskSpec {
         // Given
         project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
-        val singleRequirements = File(dependencyDir1, "requirements.txt")
+        val singleRequirements = File(root, "requirements.txt")
         singleRequirements.createNewFile().also {
             singleRequirements.writeText(loadResource("/python/Regular.txt"))
         }
@@ -138,7 +136,7 @@ class AntibytesDependencyVersionTaskSpec {
         // When
         task.packageName.set("some.name.test")
         task.pythonDirectory.set(
-            listOf(dependencyDir1)
+            listOf(root),
         )
         task.generate()
 
@@ -153,7 +151,7 @@ class AntibytesDependencyVersionTaskSpec {
         assertNotNull(pointer)
         assertEquals(
             actual = pointer!!.readText().normalizeSource(),
-            expected = expected.normalizeSource()
+            expected = expected.normalizeSource(),
         )
     }
 
@@ -162,15 +160,20 @@ class AntibytesDependencyVersionTaskSpec {
         // Given
         project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
+        val dependencyDir1 = File(root, "A")
+        dependencyDir1.mkdir()
 
-        val firstRequirements = File(dependencyDir1, "requirements.txt")
-        firstRequirements.createNewFile().also {
-            firstRequirements.writeText(loadResource("/python/Regular.txt"))
+        val dependencyDir2 = File(root, "B")
+        dependencyDir2.mkdir()
+
+        val firstDependencies = File(dependencyDir1, "requirements.txt")
+        firstDependencies.createNewFile().also {
+            firstDependencies.writeText(loadResource("/python/Regular.txt"))
         }
 
-        val secondRequirements = File(dependencyDir2, "requirements.txt")
-        secondRequirements.createNewFile().also {
-            secondRequirements.writeText(loadResource("/python/Additional.txt"))
+        val secondDependencies = File(dependencyDir2, "requirements.txt")
+        secondDependencies.createNewFile().also {
+            secondDependencies.writeText(loadResource("/python/Additional.txt"))
         }
 
         val expected = loadResource("/task/MultiPython.kt")
@@ -178,7 +181,7 @@ class AntibytesDependencyVersionTaskSpec {
         // When
         task.packageName.set("some.name.test")
         task.pythonDirectory.set(
-            listOf(dependencyDir1, dependencyDir2)
+            listOf(dependencyDir1, dependencyDir2),
         )
         task.generate()
 
@@ -193,7 +196,7 @@ class AntibytesDependencyVersionTaskSpec {
         assertNotNull(pointer)
         assertEquals(
             actual = pointer!!.readText().normalizeSource(),
-            expected = expected.normalizeSource()
+            expected = expected.normalizeSource(),
         )
     }
 
@@ -202,7 +205,7 @@ class AntibytesDependencyVersionTaskSpec {
         // Given
         project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
-        val singleRequirements = File(dependencyDir1, "dependencies.toml")
+        val singleRequirements = File(root, "dependencies.toml")
         singleRequirements.createNewFile().also {
             singleRequirements.writeText(loadResource("/gradle/versions.toml"))
         }
@@ -212,7 +215,7 @@ class AntibytesDependencyVersionTaskSpec {
         // When
         task.packageName.set("some.name.test")
         task.gradleDirectory.set(
-            listOf(dependencyDir1)
+            listOf(root),
         )
         task.generate()
 
@@ -227,7 +230,7 @@ class AntibytesDependencyVersionTaskSpec {
         assertNotNull(pointer)
         assertEquals(
             actual = pointer!!.readText().normalizeSource(),
-            expected = expected.normalizeSource()
+            expected = expected.normalizeSource(),
         )
     }
 
@@ -237,14 +240,14 @@ class AntibytesDependencyVersionTaskSpec {
         project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
 
-        val firstRequirements = File(dependencyDir1, "dependencies.toml")
-        firstRequirements.createNewFile().also {
-            firstRequirements.writeText(loadResource("/gradle/versions.toml"))
+        val firstDependencies = File(root, "base.toml")
+        firstDependencies.createNewFile().also {
+            firstDependencies.writeText(loadResource("/gradle/versions.toml"))
         }
 
-        val secondRequirements = File(dependencyDir1, "additional.dependencies.toml")
-        secondRequirements.createNewFile().also {
-            secondRequirements.writeText(loadResource("/gradle/additional.versions.toml"))
+        val secondDependencies = File(root, "extended.toml")
+        secondDependencies.createNewFile().also {
+            secondDependencies.writeText(loadResource("/gradle/additional.versions.toml"))
         }
 
         val expected = loadResource("/task/MultiGradle.kt")
@@ -252,7 +255,7 @@ class AntibytesDependencyVersionTaskSpec {
         // When
         task.packageName.set("some.name.test")
         task.gradleDirectory.set(
-            listOf(dependencyDir1, dependencyDir2)
+            listOf(root),
         )
         task.generate()
 
@@ -267,7 +270,7 @@ class AntibytesDependencyVersionTaskSpec {
         assertNotNull(pointer)
         assertEquals(
             actual = pointer!!.readText().normalizeSource(),
-            expected = expected.normalizeSource()
+            expected = expected.normalizeSource(),
         )
     }
 
@@ -276,15 +279,20 @@ class AntibytesDependencyVersionTaskSpec {
         // Given
         project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
+        val dependencyDir1 = File(root, "A")
+        dependencyDir1.mkdir()
 
-        val firstRequirements = File(dependencyDir1, "dependencies.toml")
-        firstRequirements.createNewFile().also {
-            firstRequirements.writeText(loadResource("/gradle/versions.toml"))
+        val dependencyDir2 = File(root, "B")
+        dependencyDir2.mkdir()
+
+        val firstDependencies = File(dependencyDir1, "dependencies.toml")
+        firstDependencies.createNewFile().also {
+            firstDependencies.writeText(loadResource("/gradle/versions.toml"))
         }
 
-        val secondRequirements = File(dependencyDir2, "dependencies.toml")
-        secondRequirements.createNewFile().also {
-            secondRequirements.writeText(loadResource("/gradle/additional.versions.toml"))
+        val secondDependencies = File(dependencyDir2, "dependencies.toml")
+        secondDependencies.createNewFile().also {
+            secondDependencies.writeText(loadResource("/gradle/additional.versions.toml"))
         }
 
         val expected = loadResource("/task/MultiGradle.kt")
@@ -292,7 +300,7 @@ class AntibytesDependencyVersionTaskSpec {
         // When
         task.packageName.set("some.name.test")
         task.gradleDirectory.set(
-            listOf(dependencyDir1, dependencyDir2)
+            listOf(dependencyDir1, dependencyDir2),
         )
         task.generate()
 
@@ -307,7 +315,221 @@ class AntibytesDependencyVersionTaskSpec {
         assertNotNull(pointer)
         assertEquals(
             actual = pointer!!.readText().normalizeSource(),
-            expected = expected.normalizeSource()
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given the task is executed it writes the content of a single package json file for node`() {
+        // Given
+        project.buildDir = File(buildDir, "build")
+        val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
+        val singleRequirements = File(root, "package.json")
+        singleRequirements.createNewFile().also {
+            singleRequirements.writeText(loadResource("/node/All.json"))
+        }
+
+        val expected = loadResource("/task/SingleNodeProduction.kt")
+
+        // When
+        task.packageName.set("some.name.test")
+        task.nodeDirectory.set(
+            listOf(root),
+        )
+        task.generate()
+
+        // Then
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeProductionVersions.kt")) {
+                pointer = file
+            }
+        }
+
+        assertNotNull(pointer)
+        assertEquals(
+            actual = pointer!!.readText().normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given the task is executed it writes the content of a multiple package json for node while merging the production dependencies`() {
+        // Given
+        project.buildDir = File(buildDir, "build")
+        val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
+        val dependencyDir1 = File(root, "A")
+        dependencyDir1.mkdir()
+
+        val dependencyDir2 = File(root, "B")
+        dependencyDir2.mkdir()
+
+        val firstDependencies = File(dependencyDir1, "package.json")
+        firstDependencies.createNewFile().also {
+            firstDependencies.writeText(loadResource("/node/All.json"))
+        }
+
+        val secondDependencies = File(dependencyDir2, "package.json")
+        secondDependencies.createNewFile().also {
+            secondDependencies.writeText(loadResource("/node/Additional.json"))
+        }
+
+        val expected = loadResource("/task/MultiNodeProduction.kt")
+
+        // When
+        task.packageName.set("some.name.test")
+        task.nodeDirectory.set(
+            listOf(dependencyDir1, dependencyDir2),
+        )
+        task.generate()
+
+        // Then
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeProductionVersions.kt")) {
+                pointer = file
+            }
+        }
+
+        assertNotNull(pointer)
+        assertEquals(
+            actual = pointer!!.readText().normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given the task is executed it writes the content of a multiple package json for node while merging the development dependencies`() {
+        // Given
+        project.buildDir = File(buildDir, "build")
+        val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
+        val dependencyDir1 = File(root, "A")
+        dependencyDir1.mkdir()
+
+        val dependencyDir2 = File(root, "B")
+        dependencyDir2.mkdir()
+
+        val firstDependencies = File(dependencyDir1, "package.json")
+        firstDependencies.createNewFile().also {
+            firstDependencies.writeText(loadResource("/node/All.json"))
+        }
+
+        val secondDependencies = File(dependencyDir2, "package.json")
+        secondDependencies.createNewFile().also {
+            secondDependencies.writeText(loadResource("/node/Additional.json"))
+        }
+
+        val expected = loadResource("/task/MultiNodeDevelopment.kt")
+
+        // When
+        task.packageName.set("some.name.test")
+        task.nodeDirectory.set(
+            listOf(dependencyDir1, dependencyDir2),
+        )
+        task.generate()
+
+        // Then
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeDevelopmentVersions.kt")) {
+                pointer = file
+            }
+        }
+
+        assertNotNull(pointer)
+        assertEquals(
+            actual = pointer!!.readText().normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given the task is executed it writes the content of a multiple package json for node while merging the peer dependencies`() {
+        // Given
+        project.buildDir = File(buildDir, "build")
+        val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
+        val dependencyDir1 = File(root, "A")
+        dependencyDir1.mkdir()
+
+        val dependencyDir2 = File(root, "B")
+        dependencyDir2.mkdir()
+
+        val firstDependencies = File(dependencyDir1, "package.json")
+        firstDependencies.createNewFile().also {
+            firstDependencies.writeText(loadResource("/node/All.json"))
+        }
+
+        val secondDependencies = File(dependencyDir2, "package.json")
+        secondDependencies.createNewFile().also {
+            secondDependencies.writeText(loadResource("/node/Additional.json"))
+        }
+
+        val expected = loadResource("/task/MultiNodePeer.kt")
+
+        // When
+        task.packageName.set("some.name.test")
+        task.nodeDirectory.set(
+            listOf(dependencyDir1, dependencyDir2),
+        )
+        task.generate()
+
+        // Then
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodePeerVersions.kt")) {
+                pointer = file
+            }
+        }
+
+        assertNotNull(pointer)
+        assertEquals(
+            actual = pointer!!.readText().normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
+    fun `Given the task is executed it writes the content of a multiple package json for node while merging the optional dependencies`() {
+        // Given
+        project.buildDir = File(buildDir, "build")
+        val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
+        val dependencyDir1 = File(root, "A")
+        dependencyDir1.mkdir()
+
+        val dependencyDir2 = File(root, "B")
+        dependencyDir2.mkdir()
+
+        val firstDependencies = File(dependencyDir1, "package.json")
+        firstDependencies.createNewFile().also {
+            firstDependencies.writeText(loadResource("/node/All.json"))
+        }
+
+        val secondDependencies = File(dependencyDir2, "package.json")
+        secondDependencies.createNewFile().also {
+            secondDependencies.writeText(loadResource("/node/Additional.json"))
+        }
+
+        val expected = loadResource("/task/MultiNodeOptional.kt")
+
+        // When
+        task.packageName.set("some.name.test")
+        task.nodeDirectory.set(
+            listOf(dependencyDir1, dependencyDir2),
+        )
+        task.generate()
+
+        // Then
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("NodeOptionalVersions.kt")) {
+                pointer = file
+            }
+        }
+
+        assertNotNull(pointer)
+        assertEquals(
+            actual = pointer!!.readText().normalizeSource(),
+            expected = expected.normalizeSource(),
         )
     }
 }

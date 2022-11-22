@@ -1,0 +1,38 @@
+{
+  "name": "test",
+  "version": "0.1.0",
+  "description": "Just for tests",
+  "main": "dist/test.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha",
+    "build": "webpack --mode=production"
+  },
+  "keywords": [
+    "nobody", "cares"
+  ],
+  "author": {
+    "name": "me",
+    "email": "me@ego.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2",
+    "babel-preset-env": "1.7.4"
+  },
+  "dependencies": {
+    "mocha": "^5.2.0",
+    "mocha-eslint": "^4.1.0",
+    "eslint-config-standard": "^12.5.0"
+  },
+  "peerDependencies": {
+    "mocha": "^5.5.0",
+    "eslint-config-standard": "^12.5.0",
+    "babel-preset-env": "1.7.4"
+  },
+  "optionalDependencies": {
+    "mocha": "^5.2.0",
+    "mocha-eslint": "^4.1.0",
+    "webpack": "^4.2.1"
+  }
+}
