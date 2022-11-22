@@ -27,7 +27,7 @@ internal object Kotlin {
         group = group,
         id = "kotlin-bom",
     )
-    val kmp = GradlePlugin(
+    val multiplatform = GradlePlugin(
         id = "org.jetbrains.kotlin.multiplatform",
     )
     val reflect = MavenArtifact(

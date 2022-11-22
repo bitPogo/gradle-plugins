@@ -62,4 +62,19 @@ internal object Test {
             id = "junit",
         )
     }
+
+    val compiler = Compiler
+
+    internal object Compiler {
+        private val group = "com.github.tschuchortdev"
+
+        val core = MavenTestArtifact(
+            group = group,
+            id = "kotlin-compile-testing",
+        )
+        val ksp = MavenTestArtifact(
+            group = group,
+            id = "kotlin-compile-testing-ksp",
+        )
+    }
 }

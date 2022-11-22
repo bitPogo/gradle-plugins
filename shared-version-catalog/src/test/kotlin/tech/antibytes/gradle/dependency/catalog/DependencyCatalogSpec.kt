@@ -704,6 +704,32 @@ class DependencyCatalogSpec {
     }
 
     @Test
+    fun `It contains Square KotlinPoet`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-square-kotlinPoet-ksp",
+                "com.squareup",
+                "kotlinpoet-ksp",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("square-kotlinPoet-ksp")
+        }
+    }
+
+    @Test
     fun `It contains Vendor Dependencies`() {
         // Given
         val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
@@ -1512,6 +1538,33 @@ class DependencyCatalogSpec {
 
         verify(atLeast = 1) {
             module.versionRef("test-junit-parameterized")
+        }
+    }
+
+    @Test
+    fun `It contains Vendor Test CompilerTest`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "jvm-test-compiler-ksp",
+                "com.github.tschuchortdev",
+                "kotlin-compile-testing-ksp",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("test-compiler-ksp")
         }
     }
 }

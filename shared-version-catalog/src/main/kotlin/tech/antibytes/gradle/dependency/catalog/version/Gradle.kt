@@ -43,4 +43,12 @@ internal object Gradle {
      * [KTLint](https://github.com/pinterest/ktlint)
      */
     const val ktlint = "0.47.1"
+
+    /**
+     * [KSP](https://github.com/google/ksp)
+     */
+    /**
+     * [KSP DevTools on MavenCentral](https://mvnrepository.com/artifact/com.google.devtools.ksp/com.google.devtools.ksp.gradle.plugin)
+     */
+    val ksp = GradleBundleVersion("1.7.10-1.0.6")
 }

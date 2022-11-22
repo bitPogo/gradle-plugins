@@ -546,6 +546,21 @@ class VersionCatalogSpec {
     }
 
     @Test
+    fun `It contains Squares KotlinPoet Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("square-kotlinPoet-core", any<String>())
+        }
+    }
+
+    @Test
     fun `It contains Ktor Versions`() {
         // Given
         val catalog: VersionCatalogBuilder = mockk()
@@ -722,6 +737,21 @@ class VersionCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.version("test-mockk", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Vendor Test Compiler Test Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("test-compiler-core", any<String>())
         }
     }
 }

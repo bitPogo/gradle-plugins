@@ -61,5 +61,17 @@ internal object Vendor {
              */
             const val junit4 = "4.13.2"
         }
+
+        /**
+         * [Compiler Test](https://github.com/tschuchortdev/kotlin-compile-testing)
+         */
+        val compiler = Compiler
+
+        internal object Compiler {
+            private const val version = "1.4.9"
+
+            const val core = version
+            const val ksp = version
+        }
     }
 }

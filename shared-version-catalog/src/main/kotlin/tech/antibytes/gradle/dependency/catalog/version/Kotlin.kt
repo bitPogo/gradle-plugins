@@ -7,12 +7,13 @@
 package tech.antibytes.gradle.dependency.catalog.version
 
 import tech.antibytes.gradle.dependency.catalog.GradleBundleVersion
+import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Kotlin {
     /**
      * [Kotlin](https://github.com/JetBrains/kotlin)
      */
-    private const val version = "1.7.10"
+    private const val version = GradleVersions.kotlin
     const val language = version
 
     const val bom = version
@@ -57,6 +58,6 @@ internal object Kotlin {
     }
 
     val kotlin = GradleBundleVersion(version)
-    const val kmp = version
+    const val multiplatform = version
     const val reflect = version
 }

@@ -44,4 +44,9 @@ internal object Gradle {
         group = "com.pinterest",
         id = "ktlint",
     )
+    val ksp = GradleBundle(
+        group = "com.google.devtools.ksp",
+        id = "symbol-processing-api",
+        plugin = "com.google.devtools.ksp",
+    )
 }
