@@ -1,0 +1,17 @@
+[versions]
+kotlin = "1.7.21"
+## Gradle
+# [Gradle Versions](https://github.com/ben-manes/gradle-versions-plugin)
+dependencyUpdate = "0.42.0"
+# [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
+owasp = "7.2.0"
+# [Jacoco](https://github.com/jacoco/jacoco/releases)
+jacoco = "0.8.8"
+
+[libraries]
+## Gradle
+kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinReflection = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+dependencyUpdate = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "dependencyUpdate" }
+owasp = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
+jacoco = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }

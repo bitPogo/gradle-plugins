@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.local
 
-import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.file.Directory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -62,7 +62,7 @@ internal interface DependencyVersionContract {
          */
         @get:InputFile
         @get:PathSensitive(PathSensitivity.NAME_ONLY)
-        val pythonDirectory: ListProperty<RegularFileProperty>
+        val pythonDirectory: ListProperty<File>
 
         /**
          * Directories which is used to assemble nodeJs dependencies
@@ -70,7 +70,7 @@ internal interface DependencyVersionContract {
          */
         @get:InputFile
         @get:PathSensitive(PathSensitivity.NAME_ONLY)
-        val nodeDirectory: ListProperty<RegularFileProperty>
+        val nodeDirectory: ListProperty<File>
 
         /**
          * Directory which is used to assemble nodeJs dependencies
@@ -78,7 +78,7 @@ internal interface DependencyVersionContract {
          */
         @get:InputFile
         @get:PathSensitive(PathSensitivity.NAME_ONLY)
-        val gradleDirectory: ListProperty<RegularFileProperty>
+        val gradleDirectory: ListProperty<File>
 
         /**
          * Bridges the version files to Kotlin
