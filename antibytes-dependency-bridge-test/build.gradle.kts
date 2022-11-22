@@ -8,7 +8,6 @@ import tech.antibytes.gradle.plugin.config.LibraryConfig
 
 plugins {
     `kotlin-dsl`
-    `version-catalog`
 }
 
 // To make it available as direct dependency

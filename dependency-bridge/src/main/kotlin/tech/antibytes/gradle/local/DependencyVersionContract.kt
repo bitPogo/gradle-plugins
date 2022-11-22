@@ -7,6 +7,14 @@
 package tech.antibytes.gradle.local
 
 import java.io.File
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.StopExecutionException
+import org.gradle.api.tasks.TaskAction
 
 internal interface DependencyVersionContract {
     data class PackageDependencies(
@@ -17,10 +25,10 @@ internal interface DependencyVersionContract {
     )
 
     data class NodeDependencies(
-        val production: Map<String, String>,
-        val development: Map<String, String>,
-        val peer: Map<String, String>,
-        val optional: Map<String, String>,
+        val production: Map<String, String> = emptyMap(),
+        val development: Map<String, String> = emptyMap(),
+        val peer: Map<String, String> = emptyMap(),
+        val optional: Map<String, String> = emptyMap(),
     )
 
     fun interface Reader<T : Any> {
@@ -37,6 +45,46 @@ internal interface DependencyVersionContract {
         fun writePythonDependencies(dependencies: Map<String, String>)
         fun writeNodeDependencies(dependencies: NodeDependencies)
         fun writeGradleDependencies(dependencies: Map<String, String>)
+    }
+
+    interface DependencyVersionTask {
+        /**
+         * Namespace where the generated File lives under
+         * This property is required
+         */
+        @get:Input
+        val packageName: Property<String>
+
+        /**
+         * Directories which is used to assemble python dependencies
+         * This property is required
+         */
+        @get:InputFile
+        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        val pythonDirectory: ListProperty<File>
+
+        /**
+         * Directories which is used to assemble nodeJs dependencies
+         * This property is required
+         */
+        @get:InputFile
+        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        val nodeDirectory: ListProperty<File>
+
+        /**
+         * Directory which is used to assemble nodeJs dependencies
+         * This properties is required
+         */
+        @get:InputFile
+        @get:PathSensitive(PathSensitivity.NAME_ONLY)
+        val gradleDirectory: ListProperty<File>
+
+        /**
+         * Bridges the version files to Kotlin
+         * @throws StopExecutionException if no packageName was set
+         */
+        @TaskAction
+        fun generate()
     }
 
     companion object {

@@ -63,7 +63,6 @@ class GradleReaderSpec {
         // Given
         val content = javaClass.getResource("/gradle/versions.toml")!!.readText()
         file.createNewFile().also {
-            println(content)
             file.writeText(content)
         }
 
