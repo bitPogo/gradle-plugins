@@ -45,10 +45,16 @@ interface PublishingApiContract {
         val outputDir: File
     }
 
+    enum class Type {
+        PURE_JAVA,
+        VERSION_CATALOG,
+        MIXED,
+    }
+
     interface PackageConfiguration {
         val artifactId: String?
         val groupId: String?
-        val isPureJavaLibrary: Boolean
+        val type: Type
         val pom: PomConfiguration
         val developers: List<DeveloperConfiguration>
         val contributors: List<ContributorConfiguration>

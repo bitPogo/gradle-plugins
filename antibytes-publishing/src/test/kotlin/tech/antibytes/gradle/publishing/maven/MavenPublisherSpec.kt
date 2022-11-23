@@ -30,6 +30,7 @@ import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.jvm.tasks.Jar
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.api.ContributorConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
@@ -194,7 +195,7 @@ class MavenPublisherSpec {
         val configuration = registryTestConfig.copy(
             artifactId = artifactId,
             groupId = groupId,
-            isPureJavaLibrary = true,
+            type = PublishingApiContract.Type.PURE_JAVA,
         )
 
         // When
@@ -254,7 +255,7 @@ class MavenPublisherSpec {
         val configuration = registryTestConfig.copy(
             artifactId = artifactId,
             groupId = groupId,
-            isPureJavaLibrary = true,
+            type = PublishingApiContract.Type.PURE_JAVA,
         )
 
         // When
@@ -262,6 +263,126 @@ class MavenPublisherSpec {
 
         // Then
         verify(exactly = 1) { publication.from(java) }
+        verify(exactly = 1) { publication.artifact(documentation) }
+    }
+
+    @Test
+    fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the Publication, while creating a Publishing Task for VersionCatalogs`() {
+        // Given
+        val artifactId: String = fixture()
+        val groupId: String = fixture()
+        val version: String = fixture()
+        val projectName: String = fixture()
+        val components: SoftwareComponentContainer = mockk()
+        val versionCatalog: SoftwareComponent = mockk()
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val publicationContainer: PublicationContainer = mockk()
+        val publication: MavenPublication = mockk(relaxed = true)
+
+        every { project.extensions } returns extensions
+        every { project.name } returns projectName
+        every { publishingExtension.publications } returns publicationContainer
+
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension,
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.publications(probe) },
+            publicationContainer,
+            mockk(),
+        )
+
+        every {
+            hint(String::class, 0)
+            hint(MavenPublication::class, 1)
+            publicationContainer.create(projectName, MavenPublication::class.java)
+        } returns publication
+
+        every { project.components } returns components
+        every { project.components.asMap["versionCatalog"] } returns versionCatalog
+        every { publication.from(any()) } just Runs
+
+        invokeGradleAction(
+            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
+            publication,
+            mockk(),
+        )
+
+        val configuration = registryTestConfig.copy(
+            artifactId = artifactId,
+            groupId = groupId,
+            type = PublishingApiContract.Type.VERSION_CATALOG,
+        )
+
+        // When
+        MavenPublisher.configure(project, configuration, null, version)
+
+        // Then
+        verify(exactly = 1) { publication.from(versionCatalog) }
+    }
+
+    @Test
+    fun `Given configureMavenTask is called with a Project, it adds the Documentation Artifact if given for VersionCatalogs`() {
+        // Given
+        val artifactId: String = fixture()
+        val groupId: String = fixture()
+        val version: String = fixture()
+        val projectName: String = fixture()
+        val components: SoftwareComponentContainer = mockk()
+        val versionCatalog: SoftwareComponent = mockk()
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val publicationContainer: PublicationContainer = mockk()
+        val publication: MavenPublication = mockk(relaxed = true)
+        val documentation: Jar = mockk()
+
+        every { project.extensions } returns extensions
+        every { project.name } returns projectName
+        every { publishingExtension.publications } returns publicationContainer
+
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension,
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.publications(probe) },
+            publicationContainer,
+            mockk(),
+        )
+
+        every {
+            hint(String::class, 0)
+            hint(MavenPublication::class, 1)
+            publicationContainer.create(projectName, MavenPublication::class.java)
+        } returns publication
+
+        every { project.components } returns components
+        every { project.components.asMap["versionCatalog"] } returns versionCatalog
+        every { publication.from(any()) } just Runs
+
+        invokeGradleAction(
+            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
+            publication,
+            mockk(),
+        )
+
+        val configuration = registryTestConfig.copy(
+            artifactId = artifactId,
+            groupId = groupId,
+            type = PublishingApiContract.Type.VERSION_CATALOG,
+        )
+
+        // When
+        MavenPublisher.configure(project, configuration, documentation, version)
+
+        // Then
+        verify(exactly = 1) { publication.from(versionCatalog) }
         verify(exactly = 1) { publication.artifact(documentation) }
     }
 
