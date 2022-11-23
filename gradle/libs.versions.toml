@@ -18,8 +18,6 @@ jacoco = "0.8.8"
 publishing = "6.3.0.202209071007-r"
 # [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
 versioning = "0.15.0" # see: https://github.com/palantir/gradle-git-version/issues/353
-# [AtomicFu](https://kotlinlang.org/docs/releases.html)
-atomicFu = "0.18.3"
 ## [AGP](https://developer.android.com/studio/releases/gradle-plugin)
 ## [AGP on Maven](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
 agp = "7.3.0"
@@ -42,14 +40,13 @@ junit = "5.9.0"
 # [mockk](http://mockk.io)
 mockk = "1.12.8"
 # [kotlinFixture](https://github.com/appmattus/kotlinfixture)
-fixture = "1.2.0"
+jvmFixture = "1.2.0"
 
 [libraries]
 ## Gradle
 agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinReflection = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-atomicFu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicFu" }
 dependencyUpdate = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "dependencyUpdate" }
 owasp = { module = "org.owasp:dependency-check-gradle", version.ref = "owasp" }
 jacoco = { module = "org.jacoco:org.jacoco.core", version.ref = "jacoco" }
@@ -70,4 +67,4 @@ junit = { module = "org.junit:junit-bom", version.ref = "junit" }
 jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockkInstumented = { module = "io.mockk:mockk-jvm", version.ref = "mockk" }
-fixture = { module = "com.appmattus.fixture:fixture", version.ref = "fixture" }
+jvmFixture = { module = "com.appmattus.fixture:fixture", version.ref = "jvmFixture" }

@@ -6,49 +6,52 @@
 
 package tech.antibytes.gradle.dependency.catalog.version
 
+import tech.antibytes.gradle.dependency.config.GradleVersions
+import tech.antibytes.gradle.dependency.config.PythonVersions
+
 internal object MkDocs {
     /**
      * [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
      */
-    const val core = "2.4.0"
+    const val core = GradleVersions.mkDocs
 
     /**
      * [MkDocs Include Plugin](https://github.com/mondeja/mkdocs-include-markdown-plugin/releases)
      */
-    const val includeMarkdown = "3.7.1"
+    const val includeMarkdown = PythonVersions.mkdocsIncludeMarkdownPlugin
 
     /**
      * [MkDocs Kroki](https://pypi.org/project/mkdocs-kroki-plugin/)
      */
-    const val kroki = "0.3.0"
+    const val kroki = PythonVersions.mkdocsKrokiPlugin
 
     /**
      * [MkDocs Extra Injected Data](https://github.com/rosscdh/mkdocs-markdownextradata-plugin/releases)
      */
-    const val extraData = "0.2.5"
+    const val extraData = PythonVersions.mkdocsMarkdownextradataPlugin
 
     /**
      * [MkDocs Material](https://github.com/squidfunk/mkdocs-material/releases)
      */
-    const val material = "8.5.0"
+    const val material = PythonVersions.mkdocsMaterial
 
     /**
      * [MkDocs Minfier](https://pypi.org/project/mkdocs-minify-plugin/)
      */
-    const val minify = "0.5.0"
+    const val minify = PythonVersions.mkdocsMinifyPlugin
 
     /**
      * [MkDocs Redirects](https://github.com/mkdocs/mkdocs-redirects/releases)
      */
-    const val redirects = "1.1.0"
+    const val redirects = PythonVersions.mkdocsRedirects
 
     /**
      * [Pygments](https://pypi.org/project/Pygments/)
      */
-    const val pygments = "2.13.0"
+    const val pygments = PythonVersions.pygments
 
     /**
      * (PyMdown)(https://github.com/facelessuser/pymdown-extensions/releases)
      */
-    const val pymdown = "9.5"
+    const val pymdown = PythonVersions.pymdownExtensions
 }

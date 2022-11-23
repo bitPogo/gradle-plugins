@@ -6,11 +6,13 @@
 
 package tech.antibytes.gradle.dependency.catalog.version
 
+import tech.antibytes.gradle.dependency.config.GradleVersions
+
 /**
  * [Stately](https://github.com/touchlab/Stately)
  */
 internal object Stately {
-    private const val version = "1.2.3"
+    private const val version = GradleVersions.stately
 
     const val isolate = version
     const val freeze = version

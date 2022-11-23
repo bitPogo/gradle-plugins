@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.dependency.catalog.version
 
-import tech.antibytes.gradle.dependency.catalog.version.Kotlin.language
+import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Kotlinx {
     /**
@@ -15,7 +15,7 @@ internal object Kotlinx {
     val atomicfu = AtomicFu
 
     internal object AtomicFu {
-        private const val version = "0.18.3"
+        private const val version = GradleVersions.kotlinxAtomicfu
 
         const val core = version
         const val gradle = version
@@ -28,7 +28,7 @@ internal object Kotlinx {
     val coroutines = Coroutines
 
     object Coroutines {
-        private const val version = "1.6.4"
+        private const val version = GradleVersions.kotlinxCoroutines
 
         const val bom = version
         const val core = version
@@ -45,7 +45,7 @@ internal object Kotlinx {
     val serialization = Serialization
 
     object Serialization {
-        private const val version = "1.4.0"
+        private const val version = GradleVersions.kotlinxSerialization
 
         const val bom = version
         const val core = version
@@ -55,17 +55,17 @@ internal object Kotlinx {
         const val hocon = version
         const val properties = version
         const val protobuf = version
-        const val gradle = language
-        const val plugin = language
+        const val gradle = Kotlin.language
+        const val plugin = Kotlin.language
     }
 
     /**
      * [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
      */
-    const val dateTime = "0.4.0"
+    const val dateTime = GradleVersions.kotlinxDateTime
 
     /**
      * [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
      */
-    const val nodeJs = "0.0.7"
+    const val nodeJs = GradleVersions.kotlinxNodeJs
 }

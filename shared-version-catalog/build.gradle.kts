@@ -5,6 +5,7 @@
  */
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.local.AntibytesDependencyVersionTask
 
 plugins {
     `kotlin-dsl`
@@ -37,7 +38,11 @@ java {
 
 configure<SourceSetContainer> {
     main {
-        java.srcDirs("src/main/kotlin", "src-gen/main/kotlin")
+        java.srcDirs(
+            "src/main/kotlin",
+            "src-gen/main/kotlin",
+            "build/generated/antibytes/main/kotlin",
+        )
     }
 }
 
@@ -52,6 +57,21 @@ fun String.replaceContent(replacements: Map<String, String>): String {
     }
 
     return text
+}
+
+val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesDependencyVersionTask::class.java) {
+    packageName.set("tech.antibytes.gradle.dependency.config")
+    val externalDependencies = listOf(File("${projectDir.absolutePath.trimEnd('/')}/../shared-dependencies"))
+    val internalDependencies = listOf(File("${projectDir.absolutePath.trimEnd('/')}/../gradle"))
+
+    pythonDirectory.set(externalDependencies)
+    nodeDirectory.set(externalDependencies)
+    gradleDirectory.set(
+        listOf(
+            externalDependencies,
+            internalDependencies,
+        ).flatten()
+    )
 }
 
 val provideConfig: Task by tasks.creating {
@@ -79,7 +99,10 @@ val provideConfig: Task by tasks.creating {
 }
 
 tasks.withType<KotlinCompile> {
-    dependsOn(provideConfig)
+    dependsOn(
+        provideConfig,
+        provideVersions,
+    )
 }
 
 

@@ -10,9 +10,10 @@ import tech.antibytes.gradle.dependency.catalog.MavenArtifact
 import tech.antibytes.gradle.dependency.catalog.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.catalog.MavenKmpTestArtifact
 import tech.antibytes.gradle.dependency.catalog.Platform
+import tech.antibytes.gradle.dependency.catalog.module.Square
 
 internal object Okio {
-    private const val group = "com.squareup.okio"
+    private const val group = "${Square.domain}.okio"
     private val allPlatforms = listOf(
         Platform.COMMON,
         Platform.IOS_ARM64,

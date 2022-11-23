@@ -9,7 +9,6 @@ package tech.antibytes.gradle.local
 import java.io.File
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.ListProperty
-import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
 import tech.antibytes.gradle.local.DependencyVersionContract.DependencyVersionTask
@@ -19,8 +18,6 @@ import tech.antibytes.gradle.local.reader.DependencyReader
 import tech.antibytes.gradle.local.writer.DependencyWriter
 
 abstract class AntibytesDependencyVersionTask : DefaultTask(), DependencyVersionTask {
-    @Suppress("ANNOTATION_TARGETS_NON_EXISTENT_ACCESSOR")
-    @get:Internal
     private val outputDirectory: File = File(
         "${project.buildDir.absolutePath.trimEnd('/')}/generated/antibytes/main/kotlin",
     )

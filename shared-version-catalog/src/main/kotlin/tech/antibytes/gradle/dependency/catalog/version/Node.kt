@@ -6,19 +6,22 @@
 
 package tech.antibytes.gradle.dependency.catalog.version
 
+import tech.antibytes.gradle.dependency.config.NodeDevelopmentVersions
+import tech.antibytes.gradle.dependency.config.NodeProductionVersions
+
 internal object Node {
     /**
      * [Axios Client](https://github.com/axios/axios)
      */
-    const val axios = "1.1.3"
+    const val axios = NodeProductionVersions.axios
 
     /**
      * [Copy Webpack Plugin](https://www.npmjs.com/package/copy-webpack-plugin)
      */
-    const val copyWebpackPlugin = "11.0.0"
+    const val copyWebpackPlugin = NodeDevelopmentVersions.copyWebpackPlugin
 
     /**
      * [SQL Js](https://github.com/sql-js/sql.js/)
      */
-    const val sqlJs = "1.8.0"
+    const val sqlJs = NodeProductionVersions.sqlJs
 }

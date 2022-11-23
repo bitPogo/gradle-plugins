@@ -1,0 +1,239 @@
+[versions]
+## [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
+agp = "7.3.0"
+## [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
+appCompact = "1.5.1"
+## [Coil](https://github.com/coil-kt/coil)
+coil = "2.2.1"
+## [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
+constraintLayout = "2.1.4"
+constraintLayout-compose = "1.0.1"
+
+## [Jetpack Compose](https://developer.android.com/jetpack/androidx/releases/compose)
+## [Release Notes](https://developer.android.com/jetpack/androidx/versions/all-channel)
+## [Compatibility Notes](https://developer.android.com/jetpack/androidx/releases/compose-kotlin)
+## [Overview](https://developer.android.com/jetpack/compose/setup)
+android-compose-animation = "1.2.1"
+android-compose-bom = "2022.11.00"
+android-compose-compiler = "1.3.1"
+android-compose-foundation = "1.2.1"
+android-compose-runtime = "1.2.1"
+android-compose-saveable = "1.2.1"
+android-compose-ui = "1.2.1"
+android-compose-ui-tooling = "1.2.1"
+
+## [AndroidX](https://developer.android.com/jetpack/androidx)
+## [AndroidX Core](https://developer.android.com/kotlin/ktx)
+android-ktx-core = "1.9.0"
+android-ktx-activity = "1.5.1"
+## [Annotation](https://developer.android.com/jetpack/androidx/releases/annotation)
+android-ktx-annotation = "1.4.0"
+android-ktx-collections = "1.2.0"
+android-ktx-fragment = "1.5.2"
+android-ktx-lifecycle = "2.5.1"
+android-ktx-navigation = "2.5.2"
+android-ktx-palette = "1.0.0"
+## [Androidx Pageing](https://developer.android.com/jetpack/androidx/releases/paging)
+android-ktx-paging-compose = "1.0.0-alpha16"
+android-ktx-paging-core = "3.1.1"
+android-ktx-viewmodel = "2.5.1"
+android-ktx-workmanager = "2.7.1"
+
+## [Material Android](https://github.com/material-components/material-components-android)
+android-material = "1.7.0-rc01"
+android-material-compose = "1.2.1"
+## [Material3 Compose](https://developer.android.com/jetpack/androidx/releases/compose-material3)
+android-material3 = "1.0.1"
+
+## [Jetpack Compose](https://developer.android.com/jetpack/androidx/releases/compose)
+## [Release Notes](https://developer.android.com/jetpack/androidx/versions/all-channel)
+## [Compatibility Notes](https://developer.android.com/jetpack/androidx/releases/compose-kotlin)
+## [Overview](https://developer.android.com/jetpack/compose/setup)
+android-test-compose = "1.2.1"
+
+## [Android Testing](https://developer.android.com/testing)
+## [Android Testing Releases](https://developer.android.com/jetpack/androidx/releases/test)
+android-test-core = "1.4.0"
+android-test-ktx = "1.4.0"
+android-test-orchestrator = "1.4.1"
+android-test-rules = "1.4.0"
+android-test-runner = "1.4.0"
+
+android-test-junit = "1.1.3"
+android-test-espresso = "3.4.0"
+
+## [Android UITest Automation explained](https://developer.android.com/training/testing/ui-testing/uiautomator-testing)
+## [Android UITest Automation](https://androidx.tech/artifacts/test.uiautomator/uiautomator/)
+android-test-uiAutomator = "2.2.0"
+
+## [Robolectric](https://github.com/robolectric/robolectric)
+android-test-robolectric = "4.8.2"
+
+## [Android Desugaring explained](https://developer.android.com/studio/write/java8-support)
+## [Android Desugaring](https://github.com/google/desugar_jdk_libs)
+desugar = "1.1.5"
+
+## [Google Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+hilt = "2.43.2"
+## [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)
+hilt-compose = "1.0.0"
+
+
+## [JUnit4](https://github.com/junit-team/junit4/)
+junit4 = "4.13.2"
+
+
+## (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
+kotlinx-atomicfu = "0.18.3"
+## [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+kotlinx-coroutines = "1.6.4"
+## [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
+kotlinx-serialization = "1.4.0"
+## [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
+kotlinx-dateTime = "0.4.0"
+## [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
+kotlinx-nodeJs = "0.0.7"
+
+
+## [Ktor](https://github.com/ktorio/ktor)
+ktor = "2.1.1"
+
+
+## [Koin](https://github.com/InsertKoinIO/koin)
+koin-annotations = "1.0.3"
+koin-core = "3.2.1"
+
+## [KSP](https://github.com/google/ksp)
+## [KSP DevTools on MavenCentral](https://mvnrepository.com/artifact/com.google.devtools.ksp/com.google.devtools.ksp.gradle.plugin)
+ksp = "1.7.10-1.0.6"
+
+## [Compiler Test](https://github.com/tschuchortdev/kotlin-compile-testing)
+compilerTest = "1.4.9"
+
+
+## [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
+mkDocs = "2.4.0"
+
+## [Okio](https://square.github.io/okio/)
+square-okio = "3.2.0"
+## [SQLDelight](https://github.com/cashapp/sqldelight/)
+square-sqldelight = "1.5.3"
+## [OkHttp](https://square.github.io/okhttp/)
+square-okhttp = "4.10.0"
+## [KotlinPoet](https://github.com/square/kotlinpoet)
+square-kotlinPoet = "1.12.0"
+
+
+## [Stately](https://github.com/touchlab/Stately)
+stately = "1.2.3"
+
+
+## [SLF4J](http://www.slf4j.org/)
+slf4j = "1.7.36"
+
+
+## [Paparazzi](https://github.com/cashapp/paparazzi)
+paparazzi = "1.0.0"
+
+
+## [UUID](https://github.com/benasher44/uuid)
+uuidKmp = "0.5.0"
+
+
+
+[libraries]
+agp = {group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+appCompact = {group = "androidx.appcompat", name = "appcompat", version.ref = "appCompact" }
+coil = {group = "io.coil-kt", name = "coil", version.ref = "coil" }
+
+
+constraintLayout = {group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
+constraintLayout-compose = {group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintLayout-compose" }
+
+
+android-compose-animation = {group = "androidx.compose.animation", name = "animation", version.ref = "android-compose-animation" }
+android-compose-bom = {group = "androidx.compose", name = "compose-bom", version.ref = "android-compose-bom" }
+android-compose-compiler = {group = "androidx.compose.compiler", name = "compiler", version.ref = "android-compose-compiler" }
+android-compose-foundation = {group = "androidx.compose.foundation", name = "foundation", version.ref = "android-compose-foundation" }
+android-compose-runtime = {group = "androidx.compose.runtime", name = "runtime", version.ref = "android-compose-runtime" }
+android-compose-saveable = {group = "androidx.compose.runtime", name = "runtime-saveable", version.ref = "android-compose-saveable" }
+android-compose-ui = {group = "androidx.compose.ui", name = "ui", version.ref = "android-compose-ui" }
+android-compose-ui-tooling = {group = "androidx.compose.ui", name = "ui", version.ref = "android-compose-ui-tooling" }
+
+
+android-ktx-activity = {group = "androidx.activity", name = "activity-ktx", version.ref = "android-ktx-activity" }
+android-ktx-core = {group = "androidx.core", name = "core-ktx", version.ref = "android-ktx-core" }
+android-ktx-annotation = {group = "androidx.annotation", name = "annotation", version.ref = "android-ktx-annotation" }
+android-ktx-collections = {group = "androidx.collections", name = "collections-ktx", version.ref = "android-ktx-collections" }
+android-ktx-fragment = {group = "androidx.fragment", name = "fragment-ktx", version.ref = "android-ktx-fragment" }
+android-ktx-lifecycle = {group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "android-ktx-lifecycle" }
+android-ktx-navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "android-ktx-navigation" }
+android-ktx-palette = {group = "androidx.palette", name = "palette-ktx", version.ref = "android-ktx-palette" }
+android-ktx-paging-compose = {group = "androidx.paging", name = "paging-compose", version.ref = "android-ktx-paging-compose" }
+android-ktx-paging-core = {group = "androidx.paging", name = "paging-runtime", version.ref = "android-ktx-paging-core" }
+android-ktx-viewmodel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "android-ktx-viewmodel" }
+android-ktx-workmanager = {group = "androidx.work", name = "work-runtime-ktx", version.ref = "android-ktx-workmanager" }
+
+android-material = {group = "com.google.android.material", name = "material", version.ref = "android-material" }
+android-material-compose = {group = "androidx.compose.material", name = "material", version.ref = "android-material-compose" }
+android-material3 = {group = "androidx.compose.material3", name = "material3", version.ref = "android-material3" }
+
+android-test-compose = {group = "androidx.compose.ui", name = "ui-test", version.ref = "android-test-compose" }
+android-test-core = {group = "androidx.test", name = "core", version.ref = "android-test-core" }
+android-test-espresso = {group = "androidx.test.espresso", name = "espresso-core", version.ref = "android-test-espresso" }
+android-test-junit = {group = "androidx.test.ext", name = "junit", version.ref = "android-test-junit" }
+android-test-ktx = {group = "androidx.test", name = "core-ktx", version.ref = "android-test-ktx" }
+android-test-robolectric = {group = "org.robolectric", name = "robolectric", version.ref = "android-test-robolectric" }
+android-test-rules = {group = "androidx.test", name = "rules", version.ref = "android-test-rules" }
+android-test-runner = {group = "androidx.test", name = "runner", version.ref = "android-test-runner" }
+android-test-uiAutomator = {group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "android-test-uiAutomator" }
+
+
+desugar = {group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar" }
+
+
+hilt-compiler = {group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-compose = {group = "com.google.dagger", name = "hilt-navigation-compose", version.ref = "hilt-compose" }
+
+
+junit4 = {group = "junit", name = "junit", version.ref = "junit4" }
+
+
+kotlinx-atomicfu = {group = "org.jetbrains.kotlinx", name = "atomicfu-gradle-plugin", version.ref = "kotlinx-atomicfu" }
+kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-bom = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-bom", version.ref = "kotlinx-serialization" }
+kotlinx-dateTime = {group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-dateTime" }
+kotlinx-nodeJs = {group = "org.jetbrains.kotlinx", name = "kotlinx-nodejs", version.ref = "kotlinx-nodeJs" }
+
+
+koin-annotations = {group = "io.insert-koin", name = "koin-annotations", version.ref = "koin-annotations" }
+koin-core = {group = "io.insert-koin", name = "koin-core", version.ref = "koin-core" }
+
+
+ksp = {group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
+
+compilerTest = {group = "com.github.tschuchortdev", name = "kotlin-compile-testing", version.ref = "compilerTest" }
+
+
+ktor-client-core = {group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+
+
+mkDocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref = "mkDocs" }
+
+
+square-okio-core = {group = "com.squareup.okio", name = "okio", version.ref = "square-okio" }
+square-sqldelight = {group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight" }
+square-okhttp = {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "square-okhttp" }
+square-kotlinPoet = {group = "com.squareup", name = "kotlinpoet", version.ref = "square-kotlinPoet" }
+
+
+stately-collections = {group = "co.touchlab", name = "stately-iso-collections-jvm", version.ref = "stately" }
+
+
+slf4j-api = {group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+
+
+paparazzi = {group = "app.cash.paparazzi", name = "paparazzi-gradle-plugin", version.ref = "paparazzi" }
+
+
+uuidKmp = {group = "com.benasher44", name = "uuid", version.ref = "uuidKmp" }

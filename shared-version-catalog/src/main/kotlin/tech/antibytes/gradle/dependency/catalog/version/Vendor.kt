@@ -7,12 +7,13 @@
 package tech.antibytes.gradle.dependency.catalog.version
 
 import tech.antibytes.gradle.dependency.catalog.GradleBundleVersion
+import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Vendor {
     /**
      * [NodeJs](https://nodejs.org/en/)
      */
-    const val node = "18.12.0"
+    const val node = GradleVersions.nodeJs
 
     val slf4j = SLF4J
 
@@ -20,7 +21,7 @@ internal object Vendor {
      * [SLF4J](http://www.slf4j.org/)
      */
     internal object SLF4J {
-        private const val version = "1.7.36"
+        private const val version = GradleVersions.slf4j
 
         const val noop = version
         const val api = version
@@ -29,7 +30,7 @@ internal object Vendor {
     /**
      * [UUID](https://github.com/benasher44/uuid)
      */
-    const val uuid = "0.5.0"
+    const val uuid = GradleVersions.uuidKmp
 
     val test = Test
 
@@ -37,12 +38,14 @@ internal object Vendor {
         /**
          * [Paparazzi](https://github.com/cashapp/paparazzi)
          */
-        val paparazzi = GradleBundleVersion("1.0.0")
+        val paparazzi = GradleBundleVersion(
+            GradleVersions.paparazzi,
+        )
 
         /**
          * [mockk](http://mockk.io)
          */
-        const val mockk = "1.12.8"
+        const val mockk = GradleVersions.mockk
 
         val junit = JUnit
 
@@ -50,7 +53,7 @@ internal object Vendor {
             /**
              * [JUnit5](https://github.com/junit-team/junit5/)
              */
-            private const val version = "5.9.0"
+            private const val version = GradleVersions.junit
             const val bom = version
             const val core = version
             const val parameterized = version
@@ -59,7 +62,19 @@ internal object Vendor {
             /**
              * [JUnit4](https://github.com/junit-team/junit4/)
              */
-            const val junit4 = "4.13.2"
+            const val junit4 = GradleVersions.junit4
+        }
+
+        /**
+         * [Compiler Test](https://github.com/tschuchortdev/kotlin-compile-testing)
+         */
+        val compiler = Compiler
+
+        internal object Compiler {
+            private const val version = GradleVersions.compilerTest
+
+            const val core = version
+            const val ksp = version
         }
     }
 }

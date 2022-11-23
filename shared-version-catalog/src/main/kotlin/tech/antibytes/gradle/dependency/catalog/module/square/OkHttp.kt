@@ -7,9 +7,10 @@
 package tech.antibytes.gradle.dependency.catalog.module.square
 
 import tech.antibytes.gradle.dependency.catalog.MavenArtifact
+import tech.antibytes.gradle.dependency.catalog.module.Square
 
 internal object OkHttp {
-    private const val group = "com.squareup.okhttp3"
+    private const val group = "${Square.domain}.okhttp3"
     val core = MavenArtifact(
         group = group,
         id = "okhttp",

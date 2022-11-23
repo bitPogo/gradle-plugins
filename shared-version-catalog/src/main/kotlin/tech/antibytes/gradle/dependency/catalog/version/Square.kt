@@ -6,14 +6,16 @@
 
 package tech.antibytes.gradle.dependency.catalog.version
 
+import tech.antibytes.gradle.dependency.config.GradleVersions
+
 internal object Square {
     /**
-     * (Okio)(https://square.github.io/okio/)
+     * [Okio](https://square.github.io/okio/)
      */
     val okio = Okio
 
     internal object Okio {
-        private const val version = "3.2.0"
+        private const val version = GradleVersions.squareOkio
         const val core = version
         const val fakefilesystem = version
         const val nodefilesystem = version
@@ -26,7 +28,7 @@ internal object Square {
     val sqldelight = SqlDelight
 
     internal object SqlDelight {
-        private const val version = "1.5.3"
+        private const val version = GradleVersions.squareSqldelight
         val driver = Driver
 
         internal object Driver {
@@ -48,7 +50,7 @@ internal object Square {
     val okhttp = OkHttp
 
     internal object OkHttp {
-        private const val version = "4.10.0"
+        private const val version = GradleVersions.squareOkhttp
         const val core = version
 
         // const val coroutines = version
@@ -68,5 +70,17 @@ internal object Square {
             // const val junit4 = version
             // const val junit5 = version
         }
+    }
+
+    /**
+     * [KotlinPoet](https://github.com/square/kotlinpoet)
+     */
+    val kotlinPoet = KotlinPoet
+
+    internal object KotlinPoet {
+        private const val version = GradleVersions.kotlinPoet
+
+        const val core = version
+        const val ksp = version
     }
 }
