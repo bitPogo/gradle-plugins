@@ -8,6 +8,7 @@ package tech.antibytes.gradle.dependency.catalog.module
 
 import tech.antibytes.gradle.dependency.catalog.GradleArtifact
 import tech.antibytes.gradle.dependency.catalog.GradleBundle
+import tech.antibytes.gradle.dependency.catalog.module.gradle.Antibytes
 
 internal object Gradle {
     val dependencyUpdate = GradleBundle(
@@ -49,4 +50,5 @@ internal object Gradle {
         id = "symbol-processing-api",
         plugin = "com.google.devtools.ksp",
     )
+    val antibytes = Antibytes
 }

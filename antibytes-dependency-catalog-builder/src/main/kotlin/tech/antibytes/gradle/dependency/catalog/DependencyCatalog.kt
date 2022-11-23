@@ -147,7 +147,7 @@ private fun VersionCatalogBuilder.addDependencies(
 
 private fun VersionCatalogBuilder.addDependencies(
     aliasName: String,
-    artifact: GradleArtifact,
+    artifact: GradleRelatedArtifact,
 ) {
     val infix = artifact.determineInfix()
     val name = aliasName.remove("gradle")
@@ -200,7 +200,7 @@ private fun VersionCatalogBuilder.addDependencies(
                 is SinglePlatformArtifact -> addDependencies(name, artifact)
                 is VersionlessArtifact -> addDependencies(name, artifact)
                 is KmpArtifact -> addDependencies(name, artifact)
-                is GradleArtifact -> addDependencies(name, artifact)
+                is GradleRelatedArtifact -> addDependencies(name, artifact)
                 is Plugin -> addDependencies(name, artifact)
                 is NodeArtifact -> addDependencies(name, artifact)
                 is PythonArtifact -> addDependencies(name, artifact)

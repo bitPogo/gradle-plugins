@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.dependency.catalog.version
 
 import tech.antibytes.gradle.dependency.catalog.GradleBundleVersion
+import tech.antibytes.gradle.dependency.config.DependencyConfig
 import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Gradle {
@@ -65,4 +66,19 @@ internal object Gradle {
     val ksp = GradleBundleVersion(
         GradleVersions.ksp,
     )
+
+    val antibytes = Antibytes
+
+    internal object Antibytes {
+        private const val version = DependencyConfig.antibytes
+
+        val publishing = GradleBundleVersion(version)
+        val versioning = GradleBundleVersion(version)
+        val coverage = GradleBundleVersion(version)
+        val projectConfig = GradleBundleVersion(version)
+        const val runtimeConfig = version
+        val grammarTools = GradleBundleVersion(version)
+        const val utils = version
+        const val testUtils = version
+    }
 }
