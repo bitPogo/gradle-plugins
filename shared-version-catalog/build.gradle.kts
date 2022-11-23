@@ -8,13 +8,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.local.AntibytesDependencyVersionTask
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 
 
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
-    jacoco
 
+    id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.dependency.local")
     id("tech.antibytes.gradle.versioning.local")
 }
@@ -26,10 +27,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation(libs.kotlinTest)
-    testImplementation(platform(libs.junit))
-    testImplementation(libs.mockk)
-    testImplementation(libs.jupiter)
+    implementation(libs.kotlin)
 }
 
 java {
@@ -47,20 +45,25 @@ configure<SourceSetContainer> {
     }
 }
 
-val templatesPath = "${projectDir}/src/templates"
-val configPath = "${projectDir}/build/generated/antibytes/main/kotlin/tech/antibytes/gradle/dependency/config"
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
 
-fun String.replaceContent(replacements: Map<String, String>): String {
-    var text = this
-
-    replacements.forEach { (pattern, replacement) ->
-        text = text.replace(pattern, replacement)
-    }
-
-    return text
+    packageName.set("tech.antibytes.gradle.dependency.config")
+    stringFields.set(
+        mapOf(
+            "antibytes" to Versioning.getInstance(
+                project = project,
+                configuration = VersioningConfiguration(
+                    featurePrefixes = listOf("feature"),
+                )
+            ).versionName(),
+        )
+    )
 }
 
 val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesDependencyVersionTask::class.java) {
+    mustRunAfter("clean")
+
     packageName.set("tech.antibytes.gradle.dependency.config")
     val externalDependencies = listOf(File("${projectDir.absolutePath.trimEnd('/')}/../shared-dependencies"))
     val internalDependencies = listOf(File("${projectDir.absolutePath.trimEnd('/')}/../gradle"))
@@ -75,38 +78,6 @@ val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesD
     )
 }
 
-val provideConfig: Task by tasks.creating {
-    mustRunAfter(provideVersions)
-    doLast {
-        val templates = File(templatesPath)
-        val configDir = File(configPath)
-
-        val config = File(templates, "DependencyConfig.tmpl")
-            .readText()
-            .replaceContent(
-                mapOf(
-                    "ANTIBYTES" to Versioning.getInstance(
-                        project = project,
-                        configuration = VersioningConfiguration(
-                            featurePrefixes = listOf("feature"),
-                        )
-                    ).versionName(),
-                )
-            )
-
-        if (!configDir.exists()) {
-            if (!configDir.mkdirs()) {
-                throw StopExecutionException("The script not able to create the config directory")
-            }
-        }
-        val configFile = File(configDir, "DependencyConfig.kt")
-        if (!configFile.exists()) {
-            configFile.createNewFile()
-        }
-        configFile.writeText(config)
-    }
-}
-
 tasks.withType<KotlinCompile> {
     dependsOn(
         provideVersions,
@@ -119,8 +90,4 @@ gradlePlugin {
         id = "tech.antibytes.gradle.dependency.catalog"
         implementationClass = "tech.antibytes.gradle.dependency.catalog.DependencyPlugin"
     }
-}
-
-tasks.test {
-    useJUnitPlatform()
 }

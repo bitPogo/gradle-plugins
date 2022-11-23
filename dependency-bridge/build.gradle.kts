@@ -20,12 +20,6 @@ repositories {
 dependencies {
     implementation(libs.gson)
     implementation(libs.kotlinPoet)
-
-    testImplementation(libs.kotlinTest)
-    testImplementation(platform(libs.junit))
-    testImplementation(libs.mockk)
-    testImplementation(libs.jvmFixture)
-    testImplementation(libs.jupiter)
 }
 
 java {

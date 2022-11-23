@@ -18,7 +18,6 @@ allprojects {
 
 dependencies {
     implementation(libs.kotlin)
-    implementation(libs.agp)
     implementation(project(":utils"))
     implementation(libs.kotlinPoet)
 }
@@ -26,4 +25,20 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+configure<SourceSetContainer> {
+    main {
+        java.srcDirs(
+            "src/main/kotlin",
+            "src-plugin/main/kotlin",
+        )
+    }
+}
+
+gradlePlugin {
+    plugins.register("tech.antibytes.gradle.runtime.local") {
+        id = "tech.antibytes.gradle.runtime.local"
+        implementationClass = "tech.antibytes.gradle.runtime.local.DependencyPlugin"
+    }
 }

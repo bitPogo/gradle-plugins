@@ -9,30 +9,19 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.local.AntibytesDependencyVersionTask
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 
 plugins {
     `kotlin-dsl`
     `version-catalog`
 
+    id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.dependency.local")
     id("tech.antibytes.gradle.versioning.local")
 }
 
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
-
-val templatesPath = "${projectDir}/src/templates"
-val configPath = "${projectDir}/build/generated/antibytes/main/kotlin/tech/antibytes/gradle/dependency/config"
-
-fun String.replaceContent(replacements: Map<String, String>): String {
-    var text = this
-
-    replacements.forEach { (pattern, replacement) ->
-        text = text.replace(pattern, replacement)
-    }
-
-    return text
-}
 
 val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesDependencyVersionTask::class.java) {
     packageName.set("tech.antibytes.gradle.dependency.config")
@@ -46,35 +35,20 @@ val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesD
     )
 }
 
-val provideConfig: Task by tasks.creating {
-    doLast {
-        val templates = File(templatesPath)
-        val configDir = File(configPath)
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
 
-        val config = File(templates, "DependencyConfig.tmpl")
-            .readText()
-            .replaceContent(
-                mapOf(
-                    "ANTIBYTES" to Versioning.getInstance(
-                        project = project,
-                        configuration = VersioningConfiguration(
-                            featurePrefixes = listOf("feature"),
-                        )
-                    ).versionName(),
+    packageName.set("tech.antibytes.gradle.dependency.config")
+    stringFields.set(
+        mapOf(
+            "antibytes" to Versioning.getInstance(
+                project = project,
+                configuration = VersioningConfiguration(
+                    featurePrefixes = listOf("feature"),
                 )
-            )
-
-        if (!configDir.exists()) {
-            if (!configDir.mkdirs()) {
-                throw StopExecutionException("The script not able to create the config directory")
-            }
-        }
-        val configFile = File(configDir, "DependencyConfig.kt")
-        if (!configFile.exists()) {
-            configFile.createNewFile()
-        }
-        configFile.writeText(config)
-    }
+            ).versionName(),
+        )
+    )
 }
 
 configure<SourceSetContainer> {

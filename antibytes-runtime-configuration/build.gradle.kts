@@ -23,7 +23,6 @@ group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.kotlin)
-    implementation(libs.agp)
     implementation(project(":antibytes-gradle-utils"))
     implementation(libs.kotlinPoet)
 
