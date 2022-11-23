@@ -4,48 +4,22 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import tech.antibytes.gradle.plugin.config.LibraryConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import tech.antibytes.gradle.local.AntibytesDependencyVersionTask
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
-
+import tech.antibytes.gradle.local.AntibytesDependencyVersionTask
 
 plugins {
     `kotlin-dsl`
-    `java-gradle-plugin`
-    jacoco
+    `version-catalog`
 
     id("tech.antibytes.gradle.dependency.local")
     id("tech.antibytes.gradle.versioning.local")
 }
 
-repositories {
-    gradlePluginPortal()
-    mavenCentral()
-    google()
-}
-
-dependencies {
-    testImplementation(libs.kotlinTest)
-    testImplementation(platform(libs.junit))
-    testImplementation(libs.mockk)
-    testImplementation(libs.jupiter)
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
-configure<SourceSetContainer> {
-    main {
-        java.srcDirs(
-            "src/main/kotlin",
-            "build/generated/antibytes/main/kotlin",
-            "src-plugin/main/kotlin",
-        )
-    }
-}
+// To make it available as direct dependency
+group = LibraryConfig.PublishConfig.groupId
 
 val templatesPath = "${projectDir}/src/templates"
 val configPath = "${projectDir}/build/generated/antibytes/main/kotlin/tech/antibytes/gradle/dependency/config"
@@ -68,15 +42,11 @@ val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesD
     pythonDirectory.set(externalDependencies)
     nodeDirectory.set(externalDependencies)
     gradleDirectory.set(
-        listOf(
-            externalDependencies,
-            internalDependencies,
-        ).flatten()
+        listOf(externalDependencies, internalDependencies).flatten()
     )
 }
 
 val provideConfig: Task by tasks.creating {
-    mustRunAfter(provideVersions)
     doLast {
         val templates = File(templatesPath)
         val configDir = File(configPath)
@@ -107,20 +77,34 @@ val provideConfig: Task by tasks.creating {
     }
 }
 
+configure<SourceSetContainer> {
+    main {
+        java.srcDirs(
+            "src/main/kotlin",
+            "build/generated/antibytes/main/kotlin",
+        )
+    }
+}
+
+dependencies {
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.mockk)
+    testImplementation(libs.jupiter)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
 tasks.withType<KotlinCompile> {
     dependsOn(
         provideVersions,
         provideConfig,
     )
-}
-
-gradlePlugin {
-    plugins.register("tech.antibytes.gradle.dependency.catalog") {
-        id = "tech.antibytes.gradle.dependency.catalog"
-        implementationClass = "tech.antibytes.gradle.dependency.catalog.DependencyPlugin"
-    }
-}
-
-tasks.test {
-    useJUnitPlatform()
 }

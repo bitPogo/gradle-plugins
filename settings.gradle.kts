@@ -11,6 +11,7 @@ pluginManagement {
     }
 }
 
+includeBuild("versioning")
 includeBuild("dependency-bridge")
 includeBuild("localPlugin/dependency")
 includeBuild("shared-version-catalog")
@@ -19,9 +20,9 @@ include(
     ":antibytes-coverage",
     ":antibytes-gradle-test-utils",
     ":antibytes-dependency",
-    ":antibytes-dependency-bridge-test",
+    ":antibytes-dependency-bridge",
     ":antibytes-dependency-catalog",
-    ":antibytes-dependency-catalog-test",
+    ":antibytes-dependency-catalog-builder",
     ":antibytes-dependency-helper",
     ":antibytes-publishing",
     ":antibytes-versioning",
