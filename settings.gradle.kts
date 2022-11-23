@@ -11,6 +11,8 @@ pluginManagement {
     }
 }
 
+includeBuild("runtime-configuration")
+includeBuild("publishing")
 includeBuild("versioning")
 includeBuild("dependency-bridge")
 includeBuild("localPlugin/dependency")

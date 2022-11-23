@@ -23,9 +23,9 @@ jacoco {
 
 dependencies {
     implementation(libs.kotlin)
-    implementation(libs.mockk)
-    implementation(libs.jvmFixture)
 
+    testImplementation(libs.mockk)
+    testImplementation(libs.jvmFixture)
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
