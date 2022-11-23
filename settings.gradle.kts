@@ -11,6 +11,7 @@ pluginManagement {
     }
 }
 
+includeBuild("versioning")
 includeBuild("dependency-bridge")
 includeBuild("localPlugin/dependency")
 includeBuild("shared-version-catalog")

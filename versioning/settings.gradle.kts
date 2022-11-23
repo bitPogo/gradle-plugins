@@ -14,6 +14,3 @@ dependencyResolutionManagement {
         }
     }
 }
-
-includeBuild("../dependency-bridge")
-includeBuild("../versioning")

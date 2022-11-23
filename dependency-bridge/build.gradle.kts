@@ -34,8 +34,8 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("tech.antibytes.gradle.local") {
-        id = "tech.antibytes.gradle.local"
+    plugins.register("tech.antibytes.gradle.dependency.local") {
+        id = "tech.antibytes.gradle.dependency.local"
         implementationClass = "tech.antibytes.gradle.local.DependencyPlugin"
     }
 }

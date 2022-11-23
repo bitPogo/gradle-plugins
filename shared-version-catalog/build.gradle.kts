@@ -6,13 +6,17 @@
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.local.AntibytesDependencyVersionTask
+import tech.antibytes.gradle.versioning.Versioning
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
+
 
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
     jacoco
 
-    id("tech.antibytes.gradle.local")
+    id("tech.antibytes.gradle.dependency.local")
+    id("tech.antibytes.gradle.versioning.local")
 }
 
 // To make it available as direct dependency
@@ -40,14 +44,14 @@ configure<SourceSetContainer> {
     main {
         java.srcDirs(
             "src/main/kotlin",
-            "src-gen/main/kotlin",
             "build/generated/antibytes/main/kotlin",
+            "src-plugin/main/kotlin",
         )
     }
 }
 
 val templatesPath = "${projectDir}/src/templates"
-val configPath = "${projectDir}/src-gen/main/kotlin/tech/antibytes/gradle/dependency/config"
+val configPath = "${projectDir}/build/generated/antibytes/main/kotlin/tech/antibytes/gradle/dependency/config"
 
 fun String.replaceContent(replacements: Map<String, String>): String {
     var text = this
@@ -83,9 +87,12 @@ val provideConfig: Task by tasks.creating {
             .readText()
             .replaceContent(
                 mapOf(
-                    "ANDROID" to libs.versions.agp.get(),
-                    "KOTLIN" to libs.versions.kotlin.get(),
-                    "OWASP" to libs.versions.owasp.get(),
+                    "ANTIBYTES" to Versioning.getInstance(
+                        project = project,
+                        configuration = VersioningConfiguration(
+                            featurePrefixes = listOf("feature"),
+                        )
+                    ).versionName(),
                 )
             )
 
@@ -104,7 +111,6 @@ tasks.withType<KotlinCompile> {
         provideVersions,
     )
 }
-
 
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.dependency.catalog") {
