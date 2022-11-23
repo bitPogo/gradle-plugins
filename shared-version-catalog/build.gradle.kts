@@ -19,9 +19,6 @@ plugins {
     id("tech.antibytes.gradle.versioning.local")
 }
 
-// To make it available as direct dependency
-group = "tech.antibytes.gradle.dependency"
-
 repositories {
     gradlePluginPortal()
     mavenCentral()
@@ -79,9 +76,10 @@ val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesD
 }
 
 val provideConfig: Task by tasks.creating {
-    doFirst {
+    mustRunAfter(provideVersions)
+    doLast {
         val templates = File(templatesPath)
-        val configs = File(configPath)
+        val configDir = File(configPath)
 
         val config = File(templates, "DependencyConfig.tmpl")
             .readText()
@@ -96,19 +94,23 @@ val provideConfig: Task by tasks.creating {
                 )
             )
 
-        if (!configs.exists()) {
-            if (!configs.mkdir()) {
-                System.err.println("The script not able to create the config directory")
+        if (!configDir.exists()) {
+            if (!configDir.mkdirs()) {
+                throw StopExecutionException("The script not able to create the config directory")
             }
         }
-        File(configPath, "DependencyConfig.kt").writeText(config)
+        val configFile = File(configDir, "DependencyConfig.kt")
+        if (!configFile.exists()) {
+            configFile.createNewFile()
+        }
+        configFile.writeText(config)
     }
 }
 
 tasks.withType<KotlinCompile> {
     dependsOn(
-        provideConfig,
         provideVersions,
+        provideConfig,
     )
 }
 

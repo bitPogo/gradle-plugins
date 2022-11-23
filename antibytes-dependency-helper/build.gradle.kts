@@ -96,12 +96,15 @@ tasks.jacocoTestCoverageVerification {
 
 configure<SourceSetContainer> {
     main {
-        java.srcDirs("src/main/kotlin", "src-gen/main/kotlin")
+        java.srcDirs(
+            "src/main/kotlin",
+            "build/generated/antibytes/main/kotlin"
+        )
     }
 }
 
 val templatesPath = "${projectDir}/src/templates"
-val configPath = "${projectDir}/src-gen/main/kotlin/tech/antibytes/gradle/dependency/config"
+val configPath = "${projectDir}/build/generated/antibytes/main/kotlin/tech/antibytes/gradle/dependency/config"
 
 fun String.replaceContent(replacements: Map<String, String>): String {
     var text = this
@@ -114,9 +117,9 @@ fun String.replaceContent(replacements: Map<String, String>): String {
 }
 
 val provideConfig: Task by tasks.creating {
-    doFirst {
+    doLast {
         val templates = File(templatesPath)
-        val configs = File(configPath)
+        val configDir = File(configPath)
 
         val config = File(templates, "DependencyConfig.tmpl")
             .readText()
@@ -126,12 +129,16 @@ val provideConfig: Task by tasks.creating {
                 )
             )
 
-        if (!configs.exists()) {
-            if (!configs.mkdir()) {
-                System.err.println("The script not able to create the config directory")
+        if (!configDir.exists()) {
+            if (!configDir.mkdirs()) {
+                throw StopExecutionException("The script not able to create the config directory")
             }
         }
-        File(configPath, "DependencyConfig.kt").writeText(config)
+        val configFile = File(configDir, "DependencyConfig.kt")
+        if (!configFile.exists()) {
+            configFile.createNewFile()
+        }
+        configFile.writeText(config)
     }
 }
 

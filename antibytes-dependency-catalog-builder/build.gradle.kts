@@ -6,43 +6,32 @@
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.versioning.Versioning
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.local.AntibytesDependencyVersionTask
 
 plugins {
     `kotlin-dsl`
     `version-catalog`
 
-    id("tech.antibytes.gradle.version.local")
+    id("tech.antibytes.gradle.dependency.local")
+    id("tech.antibytes.gradle.versioning.local")
 }
 
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
-val provideConfig: Task by tasks.creating {
-    doFirst {
-        val templates = File(templatesPath)
-        val configs = File(configPath)
+val templatesPath = "${projectDir}/src/templates"
+val configPath = "${projectDir}/build/generated/antibytes/main/kotlin/tech/antibytes/gradle/dependency/config"
 
-        val config = File(templates, "DependencyConfig.tmpl")
-            .readText()
-            .replaceContent(
-                mapOf(
-                    "ANTIBYTES" to tech.antibytes.gradle.versioning.Versioning.getInstance(
-                        project = project,
-                        configuration = tech.antibytes.gradle.versioning.api.VersioningConfiguration(
-                            featurePrefixes = listOf("feature"),
-                        )
-                    ).versionName(),
-                )
-            )
+fun String.replaceContent(replacements: Map<String, String>): String {
+    var text = this
 
-        if (!configs.exists()) {
-            if (!configs.mkdir()) {
-                System.err.println("The script not able to create the config directory")
-            }
-        }
-        File(configPath, "DependencyConfig.kt").writeText(config)
+    replacements.forEach { (pattern, replacement) ->
+        text = text.replace(pattern, replacement)
     }
+
+    return text
 }
 
 val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesDependencyVersionTask::class.java) {
@@ -55,6 +44,37 @@ val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesD
     gradleDirectory.set(
         listOf(externalDependencies, internalDependencies).flatten()
     )
+}
+
+val provideConfig: Task by tasks.creating {
+    doLast {
+        val templates = File(templatesPath)
+        val configDir = File(configPath)
+
+        val config = File(templates, "DependencyConfig.tmpl")
+            .readText()
+            .replaceContent(
+                mapOf(
+                    "ANTIBYTES" to Versioning.getInstance(
+                        project = project,
+                        configuration = VersioningConfiguration(
+                            featurePrefixes = listOf("feature"),
+                        )
+                    ).versionName(),
+                )
+            )
+
+        if (!configDir.exists()) {
+            if (!configDir.mkdirs()) {
+                throw StopExecutionException("The script not able to create the config directory")
+            }
+        }
+        val configFile = File(configDir, "DependencyConfig.kt")
+        if (!configFile.exists()) {
+            configFile.createNewFile()
+        }
+        configFile.writeText(config)
+    }
 }
 
 configure<SourceSetContainer> {
@@ -84,7 +104,7 @@ tasks.test {
 
 tasks.withType<KotlinCompile> {
     dependsOn(
-        provideConfig,
         provideVersions,
+        provideConfig,
     )
 }
