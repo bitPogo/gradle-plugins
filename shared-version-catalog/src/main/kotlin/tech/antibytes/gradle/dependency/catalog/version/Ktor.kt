@@ -9,12 +9,13 @@ package tech.antibytes.gradle.dependency.catalog.version
 import tech.antibytes.gradle.dependency.catalog.version.ktor.Client
 import tech.antibytes.gradle.dependency.catalog.version.ktor.Serialization
 import tech.antibytes.gradle.dependency.catalog.version.ktor.Server
+import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Ktor {
     /**
      * [Ktor](https://github.com/ktorio/ktor)
      */
-    internal const val version = "2.1.1"
+    internal const val version = GradleVersions.ktor
 
     val client = Client
 

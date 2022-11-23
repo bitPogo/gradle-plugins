@@ -31,7 +31,6 @@ android-ktx-annotation = "1.4.0"
 android-ktx-collections = "1.2.0"
 android-ktx-fragment = "1.5.2"
 android-ktx-lifecycle = "2.5.1"
-android-ktx-livedata = "2.5.1"
 android-ktx-navigation = "2.5.2"
 android-ktx-palette = "1.0.0"
 ## [Androidx Pageing](https://developer.android.com/jetpack/androidx/releases/paging)
@@ -79,12 +78,17 @@ hilt = "2.43.2"
 ## [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)
 hilt-compose = "1.0.0"
 
+
+## [JUnit4](https://github.com/junit-team/junit4/)
+junit4 = "4.13.2"
+
+
 ## (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
 kotlinx-atomicfu = "0.18.3"
 ## [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 kotlinx-coroutines = "1.6.4"
 ## [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
-kotlinx-serialization-bom = "1.4.0"
+kotlinx-serialization = "1.4.0"
 ## [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
 kotlinx-dateTime = "0.4.0"
 ## [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
@@ -99,6 +103,16 @@ ktor = "2.1.1"
 koin-annotations = "1.0.3"
 koin-core = "3.2.1"
 
+## [KSP](https://github.com/google/ksp)
+## [KSP DevTools on MavenCentral](https://mvnrepository.com/artifact/com.google.devtools.ksp/com.google.devtools.ksp.gradle.plugin)
+ksp = "1.7.10-1.0.6"
+
+## [Compiler Test](https://github.com/tschuchortdev/kotlin-compile-testing)
+compilerTest = "1.4.9"
+
+
+## [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
+mkDocs = "2.4.0"
 
 ## [Okio](https://square.github.io/okio/)
 square-okio = "3.2.0"
@@ -118,18 +132,14 @@ stately = "1.2.3"
 slf4j = "1.7.36"
 
 
+## [Paparazzi](https://github.com/cashapp/paparazzi)
+paparazzi = "1.0.0"
+
+
 ## [UUID](https://github.com/benasher44/uuid)
 uuidKmp = "0.5.0"
 
 
-## [JUnit4](https://github.com/junit-team/junit4/)
-junit4 = "4.13.2"
-
-## [Paparazzi](https://github.com/cashapp/paparazzi)
-paparazzi = "1.0.0"
-
-## [Compiler Test](https://github.com/tschuchortdev/kotlin-compile-testing)
-compilerTest = "1.4.9"
 
 [libraries]
 agp = {group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -186,9 +196,12 @@ hilt-compiler = {group = "com.google.dagger", name = "hilt-compiler", version.re
 hilt-compose = {group = "com.google.dagger", name = "hilt-navigation-compose", version.ref = "hilt-compose" }
 
 
+junit4 = {group = "junit", name = "junit", version.ref = "junit4" }
+
+
 kotlinx-atomicfu = {group = "org.jetbrains.kotlinx", name = "atomicfu-gradle-plugin", version.ref = "kotlinx-atomicfu" }
 kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
-kotlinx-serialization-bom = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-bom", version.ref = "kotlinx-serialization-bom" }
+kotlinx-serialization-bom = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-bom", version.ref = "kotlinx-serialization" }
 kotlinx-dateTime = {group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-dateTime" }
 kotlinx-nodeJs = {group = "org.jetbrains.kotlinx", name = "kotlinx-nodejs", version.ref = "kotlinx-nodeJs" }
 
@@ -197,7 +210,15 @@ koin-annotations = {group = "io.insert-koin", name = "koin-annotations", version
 koin-core = {group = "io.insert-koin", name = "koin-core", version.ref = "koin-core" }
 
 
+ksp = {group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
+
+compilerTest = {group = "com.github.tschuchortdev", name = "kotlin-compile-testing", version.ref = "compilerTest" }
+
+
 ktor-client-core = {group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+
+
+mkDocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref = "mkDocs" }
 
 
 square-okio-core = {group = "com.squareup.okio", name = "okio", version.ref = "square-okio" }
@@ -212,8 +233,7 @@ stately-collections = {group = "co.touchlab", name = "stately-iso-collections-jv
 slf4j-api = {group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 
 
-uuidKmp = {group = "com.benasher44", name = "uuid", version.ref = "uuidKmp" }
-
-junit4 = {group = "junit", name = "junit", version.ref = "junit4" }
 paparazzi = {group = "app.cash.paparazzi", name = "paparazzi-gradle-plugin", version.ref = "paparazzi" }
-compilerTest = {group = "com.github.tschuchortdev", name = "kotlin-compile-testing", version.ref = "compilerTest" }
+
+
+uuidKmp = {group = "com.benasher44", name = "uuid", version.ref = "uuidKmp" }

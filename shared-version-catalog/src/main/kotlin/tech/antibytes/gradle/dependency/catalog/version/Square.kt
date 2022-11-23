@@ -15,7 +15,7 @@ internal object Square {
     val okio = Okio
 
     internal object Okio {
-        private const val version = "3.2.0"
+        private const val version = GradleVersions.squareOkio
         const val core = version
         const val fakefilesystem = version
         const val nodefilesystem = version
@@ -28,7 +28,7 @@ internal object Square {
     val sqldelight = SqlDelight
 
     internal object SqlDelight {
-        private const val version = "1.5.3"
+        private const val version = GradleVersions.squareSqldelight
         val driver = Driver
 
         internal object Driver {
@@ -50,7 +50,7 @@ internal object Square {
     val okhttp = OkHttp
 
     internal object OkHttp {
-        private const val version = "4.10.0"
+        private const val version = GradleVersions.squareOkhttp
         const val core = version
 
         // const val coroutines = version

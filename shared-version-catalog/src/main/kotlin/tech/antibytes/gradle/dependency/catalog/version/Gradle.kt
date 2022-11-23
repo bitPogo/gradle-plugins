@@ -7,42 +7,53 @@
 package tech.antibytes.gradle.dependency.catalog.version
 
 import tech.antibytes.gradle.dependency.catalog.GradleBundleVersion
+import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Gradle {
     /**
      * [Gradle Versions](https://github.com/ben-manes/gradle-versions-plugin)
      */
-    val dependencyUpdate = GradleBundleVersion("0.42.0")
+    val dependencyUpdate = GradleBundleVersion(
+        GradleVersions.dependencyUpdate
+    )
 
     /**
      * [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
      */
-    val owasp = GradleBundleVersion("7.2.0")
+    val owasp = GradleBundleVersion(
+        GradleVersions.owasp
+    )
 
     /**
      * [Jacoco](https://github.com/jacoco/jacoco/releases)
      */
-    val jacoco = GradleBundleVersion("0.8.8")
+    val jacoco = GradleBundleVersion(
+        GradleVersions.jacoco
+    )
 
     /**
      * [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
      */
-    val publishing = "6.3.0.202209071007-r"
+    val publishing = GradleVersions.publishing
 
     /**
      * [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
      */
-    val versioning = GradleBundleVersion("0.15.0") // see: https://github.com/palantir/gradle-git-version/issues/353
+    val versioning = GradleBundleVersion(
+        GradleVersions.versioning
+    ) // see: https://github.com/palantir/gradle-git-version/issues/353
 
     /**
      * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
      */
-    val spotless = GradleBundleVersion("6.11.0")
+    val spotless = GradleBundleVersion(
+        GradleVersions.spotless
+    )
 
     /**
      * [KTLint](https://github.com/pinterest/ktlint)
      */
-    const val ktlint = "0.47.1"
+    const val ktlint = GradleVersions.ktlint
 
     /**
      * [KSP](https://github.com/google/ksp)
@@ -50,5 +61,8 @@ internal object Gradle {
     /**
      * [KSP DevTools on MavenCentral](https://mvnrepository.com/artifact/com.google.devtools.ksp/com.google.devtools.ksp.gradle.plugin)
      */
-    val ksp = GradleBundleVersion("1.7.10-1.0.6")
+    // GradleVersions.dependencyUpdate
+    val ksp = GradleBundleVersion(
+        GradleVersions.ksp
+    )
 }

@@ -7,12 +7,13 @@
 package tech.antibytes.gradle.dependency.catalog.version
 
 import tech.antibytes.gradle.dependency.catalog.GradleBundleVersion
+import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Android {
     /**
      * [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
      */
-    val agp = "7.3.0"
+    val agp = GradleVersions.agp
 
     val appCompact = AppCompact
 
@@ -20,7 +21,7 @@ internal object Android {
      * [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
      */
     internal object AppCompact {
-        private const val version = "1.5.1"
+        private const val version = GradleVersions.appCompact
 
         const val core = version
         const val resources = version
@@ -32,7 +33,7 @@ internal object Android {
     val coil = Coil
 
     internal object Coil {
-        private const val version = "2.2.1"
+        private const val version = GradleVersions.coil
         const val core = version
         const val compose = version
     }
@@ -43,8 +44,8 @@ internal object Android {
      * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
      */
     internal object ConstraintLayout {
-        const val core = "2.1.4"
-        const val compose = "1.0.1"
+        const val core = GradleVersions.constraintLayout
+        const val compose = GradleVersions.constraintLayoutCompose
     }
 
     /**
@@ -60,28 +61,28 @@ internal object Android {
         val animation = Animation
 
         internal object Animation {
-            private const val version = "1.2.1"
+            private const val version = GradleVersions.androidComposeAnimation
             const val core = version
             const val runtime = version
             const val graphics = version
         }
 
-        const val bom = "2022.11.00"
-        const val compiler = "1.3.1"
+        const val bom = GradleVersions.androidComposeBom
+        const val compiler = GradleVersions.androidComposeCompiler
         val foundation = Foundation
 
         internal object Foundation {
-            private const val version = "1.2.1"
+            private const val version = GradleVersions.androidComposeFoundation
             const val core = version
             const val layout = version
         }
 
-        const val runtime = "1.2.1"
-        const val saveable = "1.2.1"
+        const val runtime = GradleVersions.androidComposeRuntime
+        const val saveable = GradleVersions.androidComposeSaveable
         val ui = UI
 
         internal object UI {
-            private const val version = "1.2.1"
+            private const val version = GradleVersions.androidComposeUi
             const val core = version
             const val geometry = version
             const val graphics = version
@@ -90,8 +91,9 @@ internal object Android {
             const val unit = version
 
             val tooling = Tooling
+
             internal object Tooling {
-                private const val version = "1.2.1"
+                private const val version = GradleVersions.androidComposeUiTooling
                 const val core = version
                 const val data = version
                 const val preview = version
@@ -103,7 +105,7 @@ internal object Android {
      * [Android Desugaring explained](https://developer.android.com/studio/write/java8-support)
      * [Android Desugaring](https://github.com/google/desugar_jdk_libs)
      */
-    const val desugar = "1.1.5"
+    const val desugar = GradleVersions.desugar
 
     val hilt = Hilt
 
@@ -111,7 +113,7 @@ internal object Android {
         /**
          * [Google Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
          */
-        private const val version = "2.43.2"
+        private const val version = GradleVersions.hilt
 
         const val core = version
         val gradle = GradleBundleVersion(version)
@@ -121,7 +123,7 @@ internal object Android {
         /**
          * [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)
          */
-        const val compose = "1.0.0"
+        const val compose = GradleVersions.hiltCompose
     }
 
     // AndroidX
@@ -138,12 +140,12 @@ internal object Android {
      * [AndroidX Tech](https://androidx.tech/)
      */
     internal object Ktx {
-        const val core = "1.9.0"
+        const val core = GradleVersions.androidKtxCore
 
         /**
          * [Annotation](https://developer.android.com/jetpack/androidx/releases/annotation)
          */
-        const val annotation = "1.4.0"
+        const val annotation = GradleVersions.androidKtxAnnotation
 
         /**
          * [Android Tech](https://androidx.tech/artifacts/activity/activity-ktx/)
@@ -151,18 +153,18 @@ internal object Android {
         val activity = Activity
 
         internal object Activity {
-            private const val version = "1.5.1"
+            private const val version = GradleVersions.androidKtxActivity
             const val core = version
             const val compose = version
         }
 
-        const val collections = "1.2.0"
-        const val fragment = "1.5.2"
-        const val lifecycle = "2.5.1"
+        const val collections = GradleVersions.androidKtxCollections
+        const val fragment = GradleVersions.androidKtxFragment
+        const val lifecycle = GradleVersions.androidKtxLifecycle
         val navigation = Navigation
 
         internal object Navigation {
-            private const val version = "2.5.2"
+            private const val version = GradleVersions.androidKtxNavigation
 
             val runtime = version
             val fragment = version
@@ -170,27 +172,27 @@ internal object Android {
             val compose = version
         }
 
-        const val palette = "1.0.0"
+        const val palette = GradleVersions.androidKtxPalette
         val paging = Paging
 
         /**
          * [Androidx Pageing](https://developer.android.com/jetpack/androidx/releases/paging)
          */
         internal object Paging {
-            const val core = "3.1.1"
-            const val compose = "1.0.0-alpha16"
+            const val core = GradleVersions.androidKtxPagingCore
+            const val compose = GradleVersions.androidKtxPagingCompose
         }
 
         val viewmodel = Viewmodel
 
         internal object Viewmodel {
-            private const val version = "2.5.1"
+            private const val version = GradleVersions.androidKtxViewmodel
             const val core = version
             const val saver = version
             const val compose = version
         }
 
-        const val workmanager = "2.7.1"
+        const val workmanager = GradleVersions.androidKtxWorkmanager
     }
 
     // Material
@@ -200,12 +202,12 @@ internal object Android {
     val material = Material
 
     internal object Material {
-        private const val version = "1.7.0-rc01"
+        private const val version = GradleVersions.androidMaterial
         const val core = version
         val compose = Compose
 
         internal object Compose {
-            private const val version = "1.2.1"
+            private const val version = GradleVersions.androidMaterialCompose
             const val core = version
             const val icons = version
             const val extendedIcons = version
@@ -219,7 +221,7 @@ internal object Android {
     val material3 = Material3
 
     internal object Material3 {
-        private const val version = "1.0.1"
+        private const val version = GradleVersions.androidMaterial3
         const val core = version
         const val windowSize = version
     }
@@ -235,7 +237,7 @@ internal object Android {
          */
         val compose = Compose
         internal object Compose {
-            private const val version = "1.2.1"
+            private const val version = GradleVersions.androidTestCompose
             const val core = version
             const val manifest = version
             const val junit4 = version
@@ -247,25 +249,25 @@ internal object Android {
         /**
          * [Android Testing Releases](https://developer.android.com/jetpack/androidx/releases/test)
          */
-        const val core = "1.4.0"
-        const val ktx = "1.4.0"
-        const val runner = "1.4.0"
-        const val rules = "1.4.0"
+        const val core = GradleVersions.androidTestCore
+        const val ktx = GradleVersions.androidTestKtx
+        const val runner = GradleVersions.androidTestRunner
+        const val rules = GradleVersions.androidTestRules
 
         val espresso = Espresso
         internal object Espresso {
-            private const val version = "3.4.0"
+            private const val version = GradleVersions.androidTestEspresso
 
             const val core = version
             const val intents = version
             const val web = version
         }
 
-        const val orchestrator = "1.4.1"
+        const val orchestrator = GradleVersions.androidTestOrchestrator
 
         val junit = JUnit
         internal object JUnit {
-            private const val version = "1.1.3"
+            private const val version = GradleVersions.androidTestJunit
             const val core = version
             const val ktx = version
         }
@@ -274,11 +276,11 @@ internal object Android {
          * [Android UITest Automation explained](https://developer.android.com/training/testing/ui-testing/uiautomator-testing)
          * [Android UITest Automation](https://androidx.tech/artifacts/test.uiautomator/uiautomator/)
          */
-        const val uiAutomator = "2.2.0"
+        const val uiAutomator = GradleVersions.androidTestUiAutomator
 
         /**
          * [Robolectric](https://github.com/robolectric/robolectric)
          */
-        const val robolectric = "4.8.2"
+        const val robolectric = GradleVersions.androidTestRobolectric
     }
 }
