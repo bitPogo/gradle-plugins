@@ -10,7 +10,7 @@ import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Square {
     /**
-     * (Okio)(https://square.github.io/okio/)
+     * [Okio](https://square.github.io/okio/)
      */
     val okio = Okio
 

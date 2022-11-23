@@ -157,9 +157,8 @@ internal object Android {
         }
 
         const val collections = "1.2.0"
-        const val lifecycle = "2.5.1"
         const val fragment = "1.5.2"
-        const val livedata = "2.5.1"
+        const val lifecycle = "2.5.1"
         val navigation = Navigation
 
         internal object Navigation {

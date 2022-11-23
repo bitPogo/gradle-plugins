@@ -17,6 +17,11 @@ internal object Compose {
         id = "compose-bom",
         platform = Platform.ANDROID,
     )
+    val compiler = MavenArtifact(
+        group = "$group.compiler",
+        id = "compiler",
+        platform = Platform.ANDROID,
+    )
     val runtime = MavenArtifact(
         group = "$group.runtime",
         id = "runtime",
