@@ -13,7 +13,7 @@ internal object Vendor {
     /**
      * [NodeJs](https://nodejs.org/en/)
      */
-    const val node = "18.12.0"
+    const val node = GradleVersions.nodeJs
 
     val slf4j = SLF4J
 
@@ -39,7 +39,7 @@ internal object Vendor {
          * [Paparazzi](https://github.com/cashapp/paparazzi)
          */
         val paparazzi = GradleBundleVersion(
-            GradleVersions.paparazzi
+            GradleVersions.paparazzi,
         )
 
         /**

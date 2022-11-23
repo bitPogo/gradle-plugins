@@ -13,7 +13,7 @@ internal object Android {
     /**
      * [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
      */
-    val agp = GradleVersions.agp
+    const val agp = GradleVersions.agp
 
     val appCompact = AppCompact
 

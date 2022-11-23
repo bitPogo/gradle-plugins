@@ -14,21 +14,21 @@ internal object Gradle {
      * [Gradle Versions](https://github.com/ben-manes/gradle-versions-plugin)
      */
     val dependencyUpdate = GradleBundleVersion(
-        GradleVersions.dependencyUpdate
+        GradleVersions.dependencyUpdate,
     )
 
     /**
      * [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
      */
     val owasp = GradleBundleVersion(
-        GradleVersions.owasp
+        GradleVersions.owasp,
     )
 
     /**
      * [Jacoco](https://github.com/jacoco/jacoco/releases)
      */
     val jacoco = GradleBundleVersion(
-        GradleVersions.jacoco
+        GradleVersions.jacoco,
     )
 
     /**
@@ -40,14 +40,14 @@ internal object Gradle {
      * [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
      */
     val versioning = GradleBundleVersion(
-        GradleVersions.versioning
+        GradleVersions.versioning,
     ) // see: https://github.com/palantir/gradle-git-version/issues/353
 
     /**
      * [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
      */
     val spotless = GradleBundleVersion(
-        GradleVersions.spotless
+        GradleVersions.spotless,
     )
 
     /**
@@ -63,6 +63,6 @@ internal object Gradle {
      */
     // GradleVersions.dependencyUpdate
     val ksp = GradleBundleVersion(
-        GradleVersions.ksp
+        GradleVersions.ksp,
     )
 }
