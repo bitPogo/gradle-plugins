@@ -11,7 +11,7 @@ import kotlin.test.assertTrue
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.createExtension
 
-class AntiBytesDependencyPluginExtensionSpec {
+class AntiBytesDependencyHelperPluginExtensionSpec {
     @Test
     fun `It fulfils DependencyPluginExtension`() {
         val extension: Any = createExtension<AntiBytesDependencyPluginExtension>()

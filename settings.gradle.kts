@@ -12,10 +12,10 @@ pluginManagement {
 }
 
 includeBuild("runtime-configuration")
+includeBuild("dependency-helper")
 includeBuild("publishing")
 includeBuild("versioning")
 includeBuild("dependency-bridge")
-includeBuild("localPlugin/dependency")
 includeBuild("shared-version-catalog")
 
 include(

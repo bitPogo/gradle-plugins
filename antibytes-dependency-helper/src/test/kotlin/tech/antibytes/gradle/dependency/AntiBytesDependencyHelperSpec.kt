@@ -22,7 +22,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class AntiBytesDependencySpec {
+class AntiBytesDependencyHelperSpec {
     @BeforeEach
     fun setup() {
         mockkObject(DependencyUpdate)
@@ -35,7 +35,7 @@ class AntiBytesDependencySpec {
 
     @Test
     fun `It fulfils Plugin`() {
-        val plugin: Any = AntiBytesDependency()
+        val plugin: Any = AntiBytesDependencyHelper()
 
         assertTrue(plugin is Plugin<*>)
     }
@@ -58,7 +58,7 @@ class AntiBytesDependencySpec {
         every { DependencyUpdate.configure(project, extension) } just Runs
 
         // When
-        AntiBytesDependency().apply(project)
+        AntiBytesDependencyHelper().apply(project)
 
         // Then
         verify(exactly = 1) { extensions.create("antiBytesDependency", any<Class<*>>()) }
@@ -87,7 +87,7 @@ class AntiBytesDependencySpec {
         every { DependencyUpdate.configure(project, extension) } just Runs
 
         // When
-        AntiBytesDependency().apply(project)
+        AntiBytesDependencyHelper().apply(project)
 
         // Then
         verify(atLeast = 1) { plugins.apply("com.github.ben-manes.versions") }
@@ -116,7 +116,7 @@ class AntiBytesDependencySpec {
         every { plugins.apply("org.owasp.dependencycheck") } returns mockk()
 
         // When
-        AntiBytesDependency().apply(project)
+        AntiBytesDependencyHelper().apply(project)
 
         // Then
         verify(atLeast = 1) { plugins.apply("org.owasp.dependencycheck") }
@@ -141,7 +141,7 @@ class AntiBytesDependencySpec {
         every { DependencyUpdate.configure(project, extension) } just Runs
 
         // When
-        AntiBytesDependency().apply(project)
+        AntiBytesDependencyHelper().apply(project)
 
         // Then
         verify(exactly = 0) { plugins.apply("com.github.ben-manes.versions") }

@@ -47,10 +47,9 @@ gradlePlugin {
     plugins.register("${LibraryConfig.group}.gradle.dependency") {
         group = LibraryConfig.group
         id = "${LibraryConfig.group}.gradle.dependency"
-        implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependency"
+        implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependencyHelper"
         displayName = "${id}.gradle.plugin"
-        description = "General dependencies for Antibytes projects"
-        version = "0.1.0"
+        description = "Dependency Helper for Antibytes projects"
     }
 }
 

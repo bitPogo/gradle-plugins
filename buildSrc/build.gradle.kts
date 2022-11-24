@@ -17,10 +17,6 @@ dependencies {
     implementation(libs.kotlin)
     // Coverage
     implementation(libs.jacoco)
-    // CVE
-    implementation(libs.owasp)
-    // dependency-updates.gradle.kts
-    implementation(libs.dependencyUpdate)
     // publishing.gradle.kts
     implementation(libs.publishing)
     // Versioning

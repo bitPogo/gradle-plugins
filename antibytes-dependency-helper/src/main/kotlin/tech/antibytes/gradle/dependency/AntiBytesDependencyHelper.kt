@@ -12,7 +12,7 @@ import tech.antibytes.gradle.dependency.DependencyContract.Companion.DEPENDENCIE
 import tech.antibytes.gradle.dependency.DependencyContract.Companion.EXTENSION_ID
 import tech.antibytes.gradle.util.applyIfNotExists
 
-class AntiBytesDependency : Plugin<Project> {
+class AntiBytesDependencyHelper : Plugin<Project> {
     override fun apply(target: Project) {
         val extension = target.extensions.create(
             EXTENSION_ID,
