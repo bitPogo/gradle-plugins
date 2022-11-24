@@ -22,11 +22,15 @@ import org.gradle.jvm.tasks.Jar
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.api.DocumentationConfiguration
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.VersioningContract
+import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 import tech.antibytes.gradle.versioning.api.VersionInfo
 
 class PublisherControllerSpec {
@@ -59,14 +63,15 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project, Configuration and a IsRoot Flag, it adds a Versioning task to the Project root if it does not exists`() {
         // Given
         val name: String = fixture()
+        val versionConfig: VersioningConfiguration = mockk(relaxed = true)
 
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(),
-            standalone = true,
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf(name)),
+            versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
+            standalone = makeProperty(Boolean::class.java, true),
         )
 
         val project: Project = mockk()
@@ -85,7 +90,7 @@ class PublisherControllerSpec {
         every { versioningTask.project } returns project
         every { versioningTask.group = any() } just Runs
         every { versioningTask.description = any() } just Runs
-        every { Versioning.getInstance(project, config.versioning) } returns versioning
+        every { Versioning.getInstance(project, versionConfig) } returns versioning
         every { versioning.versionInfo() } returns VersionInfo(
             fixture(),
             mockk(relaxed = true),
@@ -136,12 +141,12 @@ class PublisherControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(),
-            standalone = true,
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf(name)),
+            versioning = makeProperty(VersioningConfiguration::class.java, mockk(relaxed = true)),
+            standalone = makeProperty(Boolean::class.java, true),
         )
 
         val project: Project = mockk()
@@ -157,13 +162,11 @@ class PublisherControllerSpec {
 
         every { versioningTask.group = any() } just Runs
         every { versioningTask.description = any() } just Runs
-        every { Versioning.getInstance(project, config.versioning) } returns versioning
-        every { versioning.versionInfo() } returns mockk()
         every { project.version = any<String>() } just Runs
         every {
             Versioning.getInstance(
-                project,
-                config.versioning,
+                any(),
+                any(),
             ).versionName()
         } returns fixture()
 
@@ -193,6 +196,9 @@ class PublisherControllerSpec {
         PublisherController.configure(project = project, extension = config)
 
         // Then
+        verify(exactly = 1) {
+            Versioning.getInstance(project, config.versioning.get())
+        }
         verify(exactly = 0) { versioningTask.group = "Versioning" }
         verify(exactly = 0) { versioningTask.description = "Displays the current version" }
         verify(exactly = 0) { versioning.versionInfo() }
@@ -204,15 +210,18 @@ class PublisherControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(relaxed = true),
-            standalone = true,
-            documentation = DocumentationConfiguration(
-                tasks = setOf(fixture()),
-                outputDir = fixture(),
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf(name)),
+            versioning = makeProperty(VersioningConfiguration::class.java, mockk(relaxed = true)),
+            standalone = makeProperty(Boolean::class.java, true),
+            documentation = makeProperty(
+                PublishingApiContract.DocumentationConfiguration::class.java,
+                DocumentationConfiguration(
+                    tasks = setOf(fixture()),
+                    outputDir = fixture(),
+                ),
             ),
         )
 
@@ -265,9 +274,9 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { javaDocTask.group = "Documentation" }
         verify(exactly = 1) { javaDocTask.description = "Generates the JavaDocs" }
-        verify(exactly = 1) { javaDocTask.setDependsOn(config.documentation!!.tasks) }
+        verify(exactly = 1) { javaDocTask.setDependsOn(config.documentation.get().tasks) }
         verify(exactly = 1) { javaDocTask.archiveClassifier.set("javadoc") }
-        verify(exactly = 1) { javaDocTask.from(config.documentation!!.outputDir.absolutePath) }
+        verify(exactly = 1) { javaDocTask.from(config.documentation.get().outputDir.absolutePath) }
     }
 
     @Test
@@ -276,15 +285,18 @@ class PublisherControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(relaxed = true),
-            standalone = true,
-            documentation = DocumentationConfiguration(
-                tasks = setOf(fixture()),
-                outputDir = fixture(),
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf(name)),
+            versioning = makeProperty(VersioningConfiguration::class.java, mockk(relaxed = true)),
+            standalone = makeProperty(Boolean::class.java, true),
+            documentation = makeProperty(
+                PublishingApiContract.DocumentationConfiguration::class.java,
+                DocumentationConfiguration(
+                    tasks = setOf(fixture()),
+                    outputDir = fixture(),
+                ),
             ),
         )
 
@@ -332,23 +344,24 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 0) { javaDocTask.group = "Documentation" }
         verify(exactly = 0) { javaDocTask.description = "Generates the JavaDocs" }
-        verify(exactly = 0) { javaDocTask.setDependsOn(config.documentation!!.tasks) }
+        verify(exactly = 0) { javaDocTask.setDependsOn(config.documentation.get().tasks) }
         verify(exactly = 0) { javaDocTask.archiveClassifier.set("javadoc") }
-        verify(exactly = 0) { javaDocTask.from(config.documentation!!.outputDir.absolutePath) }
+        verify(exactly = 0) { javaDocTask.from(config.documentation.get().outputDir.absolutePath) }
     }
 
     @Test
     fun `Given configure is called with a Project and the Configuration the Project if it is excludes`() {
         // Given
         val name: String = fixture()
+        val versionConfig: VersioningConfiguration = mockk(relaxed = true)
 
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(),
-            standalone = true,
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf(name)),
+            versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
+            standalone = makeProperty(Boolean::class.java, true),
         )
 
         val project: Project = mockk()
@@ -363,10 +376,7 @@ class PublisherControllerSpec {
         every { tasks.getByName("javadoc") } returns mockk()
 
         every {
-            Versioning.getInstance(
-                project,
-                config.versioning,
-            ).versionName()
+            Versioning.getInstance(project, versionConfig).versionName()
         } returns version
 
         every { project.version = version } just Runs
@@ -384,12 +394,6 @@ class PublisherControllerSpec {
         PublisherController.configure(project = project, extension = config)
 
         // Then
-        verify(exactly = 1) {
-            Versioning.getInstance(
-                project,
-                config.versioning,
-            ).versionName()
-        }
         verify(exactly = 1) { project.version = version }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), version, any(), any()) }
@@ -400,13 +404,14 @@ class PublisherControllerSpec {
     @Test
     fun `Given configure is called with a Project and the Configuration, it delegates the parameter to the Standalone Configuration, if it is configured as Standalone`() {
         // Given
+        val versionConfig: VersioningConfiguration = mockk(relaxed = true)
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(),
-            versioning = mockk(),
-            standalone = true,
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
+            standalone = makeProperty(Boolean::class.java, true),
         )
 
         val project: Project = mockk()
@@ -422,10 +427,7 @@ class PublisherControllerSpec {
         every { tasks.getByName("javadoc") } returns documentation
 
         every {
-            Versioning.getInstance(
-                project,
-                config.versioning,
-            ).versionName()
+            Versioning.getInstance(project, versionConfig).versionName()
         } returns version
         every { project.version = version } just Runs
 
@@ -443,12 +445,6 @@ class PublisherControllerSpec {
         PublisherController.configure(project = project, extension = config)
 
         // Then
-        verify(exactly = 1) {
-            Versioning.getInstance(
-                project,
-                config.versioning,
-            ).versionName()
-        }
         verify(exactly = 1) { project.version = version }
 
         verify(exactly = 1) { PublisherStandaloneController.configure(project, version, null, config) }
@@ -460,14 +456,21 @@ class PublisherControllerSpec {
     @Test
     fun `Given configure is called with a Project and the Configuration, it delegates the parameter to the SubProjectPublisher, if it is configured as non Standalone and the target is not root`() {
         // Given
+        val versionConfig: VersioningConfiguration = mockk(relaxed = true)
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(),
-            versioning = mockk(),
-            standalone = false,
-            documentation = mockk(),
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
+            standalone = makeProperty(Boolean::class.java, false),
+            documentation = makeProperty(
+                PublishingApiContract.DocumentationConfiguration::class.java,
+                DocumentationConfiguration(
+                    tasks = setOf(fixture()),
+                    outputDir = fixture(),
+                ),
+            ),
         )
 
         val project: Project = mockk()
@@ -486,10 +489,7 @@ class PublisherControllerSpec {
         every { childTasks.getByName("javadoc") } returns documentation
 
         every {
-            Versioning.getInstance(
-                project,
-                config.versioning,
-            ).versionName()
+            Versioning.getInstance(project, versionConfig).versionName()
         } returns version
         every { project.version = version } just Runs
 
@@ -512,12 +512,6 @@ class PublisherControllerSpec {
         )
 
         // Then
-        verify(exactly = 1) {
-            Versioning.getInstance(
-                project,
-                config.versioning,
-            ).versionName()
-        }
         verify(exactly = 1) { project.version = version }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any(), any()) }
@@ -530,12 +524,12 @@ class PublisherControllerSpec {
     fun `Given configure is called with a Project and the Configuration, it sets up the evaluation dependencies if the target is root`() {
         // Given
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(),
-            versioning = mockk(),
-            standalone = false,
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf()),
+            versioning = makeProperty(VersioningConfiguration::class.java, mockk(relaxed = true)),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val project: Project = mockk()
@@ -550,8 +544,8 @@ class PublisherControllerSpec {
         every { project.version = any<String>() } just Runs
         every {
             Versioning.getInstance(
-                project,
-                config.versioning,
+                any(),
+                any(),
             ).versionName()
         } returns fixture()
 
@@ -575,14 +569,21 @@ class PublisherControllerSpec {
     @Test
     fun `Given configure is called with a Project and the Configuration, it delegates the parameter to the RootProjectPublisher if the target is root and it is configured as non Standalone `() {
         // Given
+        val versionConfig: VersioningConfiguration = mockk(relaxed = true)
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(),
-            versioning = mockk(),
-            standalone = false,
-            documentation = mockk(),
+            repositories = mockk(),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
+            standalone = makeProperty(Boolean::class.java, false),
+            documentation = makeProperty(
+                PublishingApiContract.DocumentationConfiguration::class.java,
+                DocumentationConfiguration(
+                    tasks = setOf(fixture()),
+                    outputDir = fixture(),
+                ),
+            ),
         )
 
         val project: Project = mockk()
@@ -598,10 +599,7 @@ class PublisherControllerSpec {
         every { project.evaluationDependsOnChildren() } just Runs
 
         every {
-            Versioning.getInstance(
-                project,
-                config.versioning,
-            ).versionName()
+            Versioning.getInstance(project, versionConfig).versionName()
         } returns version
         every { project.version = version } just Runs
 
@@ -622,12 +620,6 @@ class PublisherControllerSpec {
         )
 
         // Then
-        verify(exactly = 1) {
-            Versioning.getInstance(
-                project,
-                config.versioning,
-            ).versionName()
-        }
         verify(exactly = 1) { project.version = version }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any(), any()) }

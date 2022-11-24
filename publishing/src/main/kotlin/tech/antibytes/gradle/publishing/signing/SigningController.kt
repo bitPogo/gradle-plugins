@@ -38,7 +38,7 @@ internal object SigningController : SigningContract.SigningController {
         }
 
         project.afterEvaluate {
-            val signingConfig = extension.signing.orNull
+            val signingConfig = extension.signingConfiguration
 
             if (project.isRoot()) {
                 project.configureSubprojects(signingConfig)

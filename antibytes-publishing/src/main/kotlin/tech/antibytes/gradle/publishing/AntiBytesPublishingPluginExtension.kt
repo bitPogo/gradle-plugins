@@ -6,25 +6,21 @@
 
 package tech.antibytes.gradle.publishing
 
-import tech.antibytes.gradle.versioning.VersioningContract
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 
 abstract class AntiBytesPublishingPluginExtension : PublishingContract.PublishingPluginExtension {
-    // Versioning
-    override var versioning: VersioningContract.VersioningConfiguration = VersioningConfiguration()
+    init {
+        versioning.convention(VersioningConfiguration())
+        dryRun.convention(false)
+        standalone.convention(false)
 
-    // Publishing
-    override var dryRun: Boolean = false
-    override var standalone: Boolean = false
-    override var packageConfiguration: PublishingApiContract.PackageConfiguration? = null
-    override var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration> = emptySet()
+        packaging.convention(null)
+        repositories.convention(mutableSetOf())
 
-    // Documentation
-    override var documentation: PublishingApiContract.DocumentationConfiguration? = null
+        documentation.convention(null)
 
-    // Signing
-    override var signingConfiguration: PublishingApiContract.MemorySigning? = null
+        signing.convention(null)
 
-    // General
-    override var excludeProjects: Set<String> = emptySet()
+        excludeProjects.convention(mutableSetOf())
+    }
 }

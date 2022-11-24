@@ -43,15 +43,14 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
         documentation: Task?,
         extension: PublishingContract.PublishingPluginExtension,
     ) {
-        val registries = extension.repositories.get()
-        if (registries.isNotEmpty()) {
-            registries.forEach { registry ->
+        if (extension.repositoryConfiguration.isNotEmpty()) {
+            extension.repositoryConfiguration.forEach { registry ->
                 val cloneTask = GitRepository.configureCloneTask(project, registry)
                 val pushTask = GitRepository.configurePushTask(
                     project,
                     registry,
                     version,
-                    extension.dryRun.get(),
+                    extension.dryRun,
                 )
 
                 val publishTask = addPublishingTask(project, registry)

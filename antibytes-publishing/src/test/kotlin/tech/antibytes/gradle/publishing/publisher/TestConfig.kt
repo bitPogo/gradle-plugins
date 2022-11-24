@@ -6,20 +6,26 @@
 
 package tech.antibytes.gradle.publishing.publisher
 
-import tech.antibytes.gradle.publishing.PublishingApiContract
+import org.gradle.api.provider.Property
+import org.gradle.api.provider.SetProperty
+import tech.antibytes.gradle.publishing.PublishingApiContract.DocumentationConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.MemorySigning
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
 data class TestConfig(
-    override var repositoryConfiguration: Set<RepositoryConfiguration>,
-    override var packageConfiguration: PackageConfiguration?,
-    override var dryRun: Boolean,
-    override var excludeProjects: Set<String>,
-    override var versioning: VersioningConfiguration,
-    override var standalone: Boolean,
-    override var signingConfiguration: MemorySigning? = null,
-    override var documentation: PublishingApiContract.DocumentationConfiguration? = null,
+    override val excludeProjects: SetProperty<String>,
+    override val versioning: Property<VersioningConfiguration>,
+    override val repositories: SetProperty<RepositoryConfiguration>,
+    override val packaging: Property<PackageConfiguration>,
+    override val dryRun: Property<Boolean>,
+    override val standalone: Property<Boolean>,
+    override val documentation: Property<DocumentationConfiguration> = makeProperty(
+        DocumentationConfiguration::class.java,
+        null,
+    ),
+    override val signing: Property<MemorySigning> = makeProperty(MemorySigning::class.java, null),
 ) : PublishingContract.PublishingPluginExtension

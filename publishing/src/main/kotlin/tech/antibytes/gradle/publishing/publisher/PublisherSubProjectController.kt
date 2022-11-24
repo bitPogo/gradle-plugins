@@ -17,8 +17,8 @@ internal object PublisherSubProjectController : PublishingContract.PublisherCont
     private fun isApplicable(
         extension: PublishingContract.PublishingPluginExtension,
     ): Boolean {
-        return extension.repositories.get().isNotEmpty() &&
-            extension.packaging.orNull is PublishingApiContract.PackageConfiguration
+        return extension.repositoryConfiguration.isNotEmpty() &&
+            extension.packageConfiguration is PublishingApiContract.PackageConfiguration
     }
 
     override fun configure(
@@ -27,21 +27,19 @@ internal object PublisherSubProjectController : PublishingContract.PublisherCont
         documentation: Task?,
         extension: PublishingContract.PublishingPluginExtension,
     ) {
-        val registryConfigurations = extension.repositories.get()
-
         if (isApplicable(extension)) {
             MavenPublisher.configure(
                 project = project,
-                configuration = extension.packaging.get(),
+                configuration = extension.packageConfiguration as PublishingApiContract.PackageConfiguration,
                 version = version,
                 docs = documentation,
             )
 
-            registryConfigurations.forEach { registry ->
+            extension.repositoryConfiguration.forEach { registry ->
                 MavenRepository.configure(
                     project,
                     registry,
-                    extension.dryRun.get(),
+                    extension.dryRun,
                 )
             }
         }

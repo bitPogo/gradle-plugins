@@ -30,6 +30,8 @@ import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenRepository
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
@@ -69,16 +71,16 @@ class PublisherRootProjectControllerSpec {
     }
 
     @Test
-    fun `Given configure is called with a Project and PublishingPluginConfiguration, it does nothing if no registryConfiguration was given`() {
+    fun `Given configure is called with a Project and PublishingPluginConfiguration, it does nothing if no repositoriesConfiguration was given`() {
         // Given
         val project: Project = mockk()
         val config = TestConfig(
-            repositoryConfiguration = emptySet(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = emptySet(),
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, emptySet()),
+            packaging = mockk(),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
             versioning = mockk(),
-            standalone = true,
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         every { project.name } returns fixture()
@@ -106,17 +108,17 @@ class PublisherRootProjectControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            repositoryConfiguration = repositoryConfiguration,
-            packageConfiguration = packageConfiguration,
-            dryRun = dryRun,
-            excludeProjects = emptySet(),
-            versioning = versioningConfiguration,
-            standalone = true,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val tasks: TaskContainer = mockk()
@@ -185,17 +187,17 @@ class PublisherRootProjectControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val registryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            repositoryConfiguration = registryConfiguration,
-            packageConfiguration = packageConfiguration,
-            dryRun = dryRun,
-            excludeProjects = emptySet(),
-            versioning = versioningConfiguration,
-            standalone = true,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val tasks: TaskContainer = mockk()
@@ -252,17 +254,17 @@ class PublisherRootProjectControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            repositoryConfiguration = repositoryConfiguration,
-            packageConfiguration = packageConfiguration,
-            dryRun = dryRun,
-            excludeProjects = emptySet(),
-            versioning = versioningConfiguration,
-            standalone = true,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val subproject1: Project = mockk()
@@ -350,17 +352,17 @@ class PublisherRootProjectControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            repositoryConfiguration = repositoryConfiguration,
-            packageConfiguration = packageConfiguration,
-            dryRun = dryRun,
-            excludeProjects = emptySet(),
-            versioning = versioningConfiguration,
-            standalone = true,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val subproject1: Project = mockk()
@@ -459,17 +461,17 @@ class PublisherRootProjectControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            repositoryConfiguration = repositoryConfiguration,
-            packageConfiguration = packageConfiguration,
-            dryRun = dryRun,
-            excludeProjects = emptySet(),
-            versioning = versioningConfiguration,
-            standalone = true,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val subproject1: Project = mockk()
@@ -547,17 +549,17 @@ class PublisherRootProjectControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            repositoryConfiguration = repositoryConfiguration,
-            packageConfiguration = packageConfiguration,
-            dryRun = dryRun,
-            excludeProjects = emptySet(),
-            versioning = versioningConfiguration,
-            standalone = true,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val subproject1: Project = mockk()
@@ -646,17 +648,17 @@ class PublisherRootProjectControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            repositoryConfiguration = repositoryConfiguration,
-            packageConfiguration = packageConfiguration,
-            dryRun = dryRun,
-            excludeProjects = emptySet(),
-            versioning = versioningConfiguration,
-            standalone = true,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val subproject1: Project = mockk()
@@ -738,17 +740,17 @@ class PublisherRootProjectControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoryConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
-            repositoryConfiguration = repositoryConfiguration,
-            packageConfiguration = packageConfiguration,
-            dryRun = dryRun,
-            excludeProjects = emptySet(),
-            versioning = versioningConfiguration,
-            standalone = true,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
         )
 
         val subproject1: Project = mockk()

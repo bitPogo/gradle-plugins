@@ -19,9 +19,13 @@ import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
 import tech.antibytes.gradle.publishing.publisher.TestConfig
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.versioning.VersioningContract
 
 class SigningControllerSpec {
     private val fixture = kotlinFixture()
@@ -51,13 +55,22 @@ class SigningControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(),
-            standalone = true,
-            signingConfiguration = null,
+            repositories = makeSetProperty(
+                PublishingApiContract.RepositoryConfiguration::class.java,
+                setOf(mockk()),
+            ),
+            packaging = makeProperty(
+                PublishingApiContract.PackageConfiguration::class.java,
+                mockk(),
+            ),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(
+                VersioningContract.VersioningConfiguration::class.java,
+                mockk(),
+            ),
+            standalone = makeProperty(Boolean::class.java, true),
+            signing = makeProperty(PublishingApiContract.MemorySigning::class.java, null),
         )
 
         val project: Project = mockk(relaxed = true)
@@ -78,13 +91,22 @@ class SigningControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(),
-            standalone = true,
-            signingConfiguration = null,
+            repositories = makeSetProperty(
+                PublishingApiContract.RepositoryConfiguration::class.java,
+                setOf(mockk()),
+            ),
+            packaging = makeProperty(
+                PublishingApiContract.PackageConfiguration::class.java,
+                mockk(),
+            ),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(
+                VersioningContract.VersioningConfiguration::class.java,
+                mockk(),
+            ),
+            standalone = makeProperty(Boolean::class.java, true),
+            signing = makeProperty(PublishingApiContract.MemorySigning::class.java, null),
         )
 
         val project: Project = mockk()
@@ -114,17 +136,28 @@ class SigningControllerSpec {
     fun `Given configure is called with valid signing configuration, it calls MemorySigning`() {
         // Given
         val name: String = fixture()
-
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(),
-            standalone = true,
-            signingConfiguration = MemorySigningConfiguration(
-                fixture(),
-                fixture(),
+            repositories = makeSetProperty(
+                PublishingApiContract.RepositoryConfiguration::class.java,
+                setOf(mockk()),
+            ),
+            packaging = makeProperty(
+                PublishingApiContract.PackageConfiguration::class.java,
+                mockk(),
+            ),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(
+                VersioningContract.VersioningConfiguration::class.java,
+                mockk(),
+            ),
+            standalone = makeProperty(Boolean::class.java, true),
+            signing = makeProperty(
+                PublishingApiContract.MemorySigning::class.java,
+                MemorySigningConfiguration(
+                    fixture(),
+                    fixture(),
+                ),
             ),
         )
 
@@ -148,24 +181,35 @@ class SigningControllerSpec {
 
         // Then
         verify(exactly = 1) { CommonSigning.configure(project) }
-        verify(exactly = 1) { MemorySigning.configure(project, config.signingConfiguration!!) }
+        verify(exactly = 1) { MemorySigning.configure(project, config.signing.get()) }
     }
 
     @Test
     fun `Given configure is called with valid signing configuration on a root project, it configures the subprojects`() {
         // Given
         val name: String = fixture()
-
         val config = TestConfig(
-            repositoryConfiguration = mockk(),
-            packageConfiguration = mockk(),
-            dryRun = false,
-            excludeProjects = setOf(name),
-            versioning = mockk(),
-            standalone = true,
-            signingConfiguration = MemorySigningConfiguration(
-                fixture(),
-                fixture(),
+            repositories = makeSetProperty(
+                PublishingApiContract.RepositoryConfiguration::class.java,
+                setOf(mockk()),
+            ),
+            packaging = makeProperty(
+                PublishingApiContract.PackageConfiguration::class.java,
+                mockk(),
+            ),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(
+                VersioningContract.VersioningConfiguration::class.java,
+                mockk(),
+            ),
+            standalone = makeProperty(Boolean::class.java, true),
+            signing = makeProperty(
+                PublishingApiContract.MemorySigning::class.java,
+                MemorySigningConfiguration(
+                    fixture(),
+                    fixture(),
+                ),
             ),
         )
 
@@ -191,6 +235,6 @@ class SigningControllerSpec {
 
         // Then
         verify(exactly = 1) { CommonSigning.configure(subProject) }
-        verify(exactly = 1) { MemorySigning.configure(subProject, config.signingConfiguration!!) }
+        verify(exactly = 1) { MemorySigning.configure(subProject, config.signing.get()) }
     }
 }
