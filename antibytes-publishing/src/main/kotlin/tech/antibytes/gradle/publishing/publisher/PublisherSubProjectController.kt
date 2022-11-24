@@ -9,27 +9,37 @@ package tech.antibytes.gradle.publishing.publisher
 import org.gradle.api.Project
 import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingContract
+import tech.antibytes.gradle.publishing.PublishingContract.PublisherController
+import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 
-internal object PublisherSubProjectController : PublishingContract.PublisherController {
-    private fun isApplicable(
-        extension: PublishingContract.PublishingPluginExtension,
-    ): Boolean {
-        return extension.repositories.get().isNotEmpty() &&
-            extension.packaging.orNull is PublishingApiContract.PackageConfiguration
+internal object PublisherSubProjectController : PublisherController {
+    private fun Project.determineRepositories(extension: PublishingPluginExtension): Set<RepositoryConfiguration> {
+        val repositories = extension.repositories.get()
+
+        return if (repositories.isEmpty()) {
+            rootProject.extensions.getByType(PublishingPluginExtension::class.java).repositories.get()
+        } else {
+            repositories
+        }
+    }
+
+    private fun PublishingPluginExtension.isApplicable(repositories: Set<RepositoryConfiguration>): Boolean {
+        return repositories.isNotEmpty() &&
+            packaging.orNull is PublishingApiContract.PackageConfiguration
     }
 
     override fun configure(
         project: Project,
         version: String,
         documentation: Task?,
-        extension: PublishingContract.PublishingPluginExtension,
+        extension: PublishingPluginExtension,
     ) {
-        val registryConfigurations = extension.repositories.get()
+        val registryConfigurations = project.determineRepositories(extension)
 
-        if (isApplicable(extension)) {
+        if (extension.isApplicable(registryConfigurations)) {
             MavenPublisher.configure(
                 project = project,
                 configuration = extension.packaging.get(),
