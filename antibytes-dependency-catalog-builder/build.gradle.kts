@@ -10,6 +10,10 @@ import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.local.AntibytesDependencyVersionTask
 import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
+import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
+import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
 
 plugins {
     `kotlin-dsl`
@@ -18,6 +22,7 @@ plugins {
     id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.dependency.local")
     id("tech.antibytes.gradle.versioning.local")
+    id("tech.antibytes.gradle.coverage.local")
 }
 
 // To make it available as direct dependency
@@ -72,13 +77,41 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.withType<KotlinCompile> {
     dependsOn(
         provideVersions,
         provideConfig,
     )
+}
+
+antiBytesCoverage {
+    val branchCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.BRANCH,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.99)
+    )
+
+    val instructionCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.INSTRUCTION,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.95)
+    )
+
+    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
+        project,
+        verificationRules = setOf(
+            branchCoverage,
+            instructionCoverage
+        )
+    )
+
+    configurations["jvm"] = jvmCoverage
+}
+
+tasks.check {
+    dependsOn("jvmCoverageVerification")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

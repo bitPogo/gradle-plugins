@@ -13,6 +13,7 @@ pluginManagement {
 
 includeBuild("runtime-configuration")
 includeBuild("dependency-helper")
+includeBuild("coverage")
 includeBuild("publishing")
 includeBuild("versioning")
 includeBuild("dependency-bridge")

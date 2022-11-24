@@ -1,0 +1,36 @@
+/*
+ * Copyright (c) 2021 Matthias Geisler (bitPogo) / All rights reserved.
+ *
+ * Use of this source code is governed by Apache License, Version 2.0
+ */
+
+plugins {
+    `kotlin-dsl`
+    `java-gradle-plugin`
+}
+
+allprojects {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+    }
+}
+
+dependencies {
+    implementation(libs.agp)
+    implementation(libs.jacoco)
+    implementation(project(":utils"))
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+gradlePlugin {
+    plugins.register("tech.antibytes.gradle.coverage.local") {
+        id = "tech.antibytes.gradle.coverage.local"
+        implementationClass = "tech.antibytes.gradle.coverage.AntiBytesCoverage"
+    }
+}
