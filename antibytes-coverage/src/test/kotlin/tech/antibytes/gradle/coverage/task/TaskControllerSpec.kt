@@ -1,3 +1,4 @@
+/* ktlint-disable argument-list-wrapping */
 /*
  * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
@@ -33,6 +34,7 @@ import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationReportTaskCon
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationVerificationTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
+import tech.antibytes.gradle.test.GradlePropertyBuilder
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class TaskControllerSpec {
@@ -53,7 +55,11 @@ class TaskControllerSpec {
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
-        every { extension.configurations } returns mutableMapOf("unknown" to configuration)
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf("unknown" to configuration),
+        )
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         // Then
@@ -77,7 +83,10 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns mockk()
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
-        every { extension.configurations } returns mutableMapOf(contextId to configuration)
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
+        )
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -111,7 +120,10 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns mockk()
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
-        every { extension.configurations } returns mutableMapOf(contextId to configuration)
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
+        )
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns reporter
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -149,7 +161,10 @@ class TaskControllerSpec {
         val kmpReporterTask: Task = mockk(relaxed = true)
 
         every { project.rootProject } returns mockk()
-        every { extension.configurations } returns mutableMapOf(contextId to configuration)
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
+        )
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns jacocoReporterTask
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -194,7 +209,10 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns mockk()
         every { project.tasks } returns tasks
-        every { extension.configurations } returns mutableMapOf(contextId to configuration)
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
+        )
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -232,7 +250,10 @@ class TaskControllerSpec {
         val kmpVerificationTask: Task = mockk(relaxed = true)
 
         every { project.rootProject } returns mockk()
-        every { extension.configurations } returns mutableMapOf(contextId to configuration)
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
+        )
         every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns jacocoVerificationTask
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -269,7 +290,11 @@ class TaskControllerSpec {
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
         every { project.rootProject } returns project
-        every { extension.configurations } returns mutableMapOf("unknown" to configuration)
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf("unknown" to configuration),
+        )
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
         // Then
@@ -293,7 +318,10 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns project
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
-        every { extension.configurations } returns mutableMapOf(contextId to configuration)
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
+        )
         every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
         every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
@@ -332,9 +360,13 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns project
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
-        every { extension.configurations } returns mutableMapOf(
-            contextId1 to configuration1,
-            contextId2 to configuration2,
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(
+                contextId1 to configuration1,
+                contextId2 to configuration2,
+            ),
         )
         every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,
@@ -393,9 +425,13 @@ class TaskControllerSpec {
         every { project.rootProject } returns project
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { project.tasks } returns tasks
-        every { extension.configurations } returns mutableMapOf(
-            contextId1 to configuration1,
-            contextId2 to configuration2,
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(
+                contextId1 to configuration1,
+                contextId2 to configuration2,
+            ),
         )
         every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,
@@ -451,9 +487,13 @@ class TaskControllerSpec {
         every { project.rootProject } returns project
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { project.tasks } returns tasks
-        every { extension.configurations } returns mutableMapOf(
-            contextId1 to configuration1,
-            contextId2 to configuration2,
+        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(
+                contextId1 to configuration1,
+                contextId2 to configuration2,
+            ),
         )
         every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,

@@ -135,7 +135,9 @@ antiBytesCoverage {
         )
     )
 
-    configurations["jvm"] = jvmCoverage
+    configurations.set(
+        mapOf("jvm" to jvmCoverage)
+    )
 }
 
 val provideBisonExec by tasks.creating(Task::class.java) {

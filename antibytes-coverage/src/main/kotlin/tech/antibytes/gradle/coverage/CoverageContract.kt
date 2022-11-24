@@ -7,12 +7,14 @@
 package tech.antibytes.gradle.coverage
 
 import org.gradle.api.Project
+import org.gradle.api.provider.MapProperty
+import org.gradle.api.provider.Property
 
 internal interface CoverageContract {
     interface CoveragePluginExtension {
-        var jacocoVersion: String
-        var appendKmpJvmTask: Boolean
-        val configurations: MutableMap<String, CoverageApiContract.CoverageConfiguration>
+        val jacocoVersion: Property<String>
+        val appendKmpJvmTask: Property<Boolean>
+        val configurations: MapProperty<String, CoverageApiContract.CoverageConfiguration>
     }
 
     fun interface TaskController {
@@ -25,7 +27,6 @@ internal interface CoverageContract {
 
     companion object CONSTANTS {
         const val EXTENSION_ID = "antiBytesCoverage"
-        const val JACOCO_VERSION = "0.8.8"
         const val DEFAULT_ANDROID_VARIANT = "debug"
         const val DEFAULT_ANDROID_FLAVOUR = ""
         val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_FLAVOUR.capitalize() + DEFAULT_ANDROID_VARIANT.capitalize()

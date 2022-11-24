@@ -95,7 +95,9 @@ antiBytesCoverage {
         )
     )
 
-    configurations["jvm"] = jvmCoverage
+    configurations.set(
+        mapOf("jvm" to jvmCoverage)
+    )
 }
 
 tasks.test {

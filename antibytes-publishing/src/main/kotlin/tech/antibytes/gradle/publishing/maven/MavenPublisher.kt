@@ -132,7 +132,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
                 when (configuration.type) {
                     Type.PURE_JAVA -> configureComponent(project, "java")
                     Type.VERSION_CATALOG -> configureComponent(project, "versionCatalog")
-                    else -> {/* Do nothing */}
+                    else -> { /* Do nothing */ }
                 }
 
                 withType(MavenPublication::class.java) {

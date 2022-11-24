@@ -8,16 +8,22 @@ package tech.antibytes.gradle.coverage
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract.CoverageConfiguration
-import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.JACOCO_VERSION
+import tech.antibytes.gradle.coverage.config.MainConfig
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.util.isRoot
 
 abstract class AntiBytesCoveragePluginExtension(project: Project) : CoverageContract.CoveragePluginExtension {
-    override val configurations: MutableMap<String, CoverageConfiguration> = if (project.isRoot()) {
-        mutableMapOf()
-    } else {
-        DefaultConfigurationProvider.createDefaultCoverageConfiguration(project)
+    init {
+        configurations.convention(determineDefaultConfiguration(project))
+        jacocoVersion.convention(MainConfig.jacoco)
+        appendKmpJvmTask.convention(true)
     }
-    override var jacocoVersion: String = JACOCO_VERSION
-    override var appendKmpJvmTask: Boolean = true
+
+    private fun determineDefaultConfiguration(project: Project): MutableMap<String, CoverageConfiguration> {
+        return if (project.isRoot()) {
+            mutableMapOf()
+        } else {
+            DefaultConfigurationProvider.createDefaultCoverageConfiguration(project)
+        }
+    }
 }

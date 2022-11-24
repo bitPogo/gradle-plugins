@@ -20,6 +20,7 @@ includeBuild("dependency-bridge")
 includeBuild("shared-version-catalog")
 
 include(
+    ":antibytes-configuration",
     ":antibytes-coverage",
     ":antibytes-gradle-test-utils",
     ":antibytes-dependency",
@@ -29,7 +30,6 @@ include(
     ":antibytes-dependency-helper",
     ":antibytes-publishing",
     ":antibytes-versioning",
-    ":antibytes-configuration",
     ":antibytes-gradle-utils",
     ":antibytes-grammar-tools",
     ":antibytes-runtime-configuration"

@@ -22,8 +22,11 @@ import org.gradle.api.plugins.PluginContainer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.coverage.CoverageApiContract.CoverageConfiguration
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.coverage.task.TaskController
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class AntiBytesCoverageSpec {
@@ -95,15 +98,19 @@ class AntiBytesCoverageSpec {
 
         val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
-        val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
+        val givenConfigurations: MutableMap<String, CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
             "context" to mockk(),
         )
-        val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
+        val defaultConfigurations: MutableMap<String, CoverageConfiguration> = mutableMapOf(
             "context" to mockk(),
         )
 
-        val actualConfigurations = givenConfigurations.toMutableMap()
+        val actualConfigurations = makeMapProperty(
+            String::class.java,
+            CoverageConfiguration::class.java,
+            givenConfigurations.toMutableMap(),
+        )
 
         every {
             project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
@@ -123,7 +130,7 @@ class AntiBytesCoverageSpec {
         every { TaskController.configure(any(), any()) } just Runs
 
         every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
-        every { extension.appendKmpJvmTask } returns true
+        every { extension.appendKmpJvmTask } returns makeProperty(Boolean::class.java, true)
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
         every { extension.configurations } returns actualConfigurations
@@ -133,7 +140,7 @@ class AntiBytesCoverageSpec {
 
         // Then
         assertEquals(
-            actual = actualConfigurations,
+            actual = actualConfigurations.get(),
             expected = givenConfigurations,
         )
     }
@@ -145,15 +152,19 @@ class AntiBytesCoverageSpec {
 
         val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
-        val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
+        val givenConfigurations: MutableMap<String, CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
         )
-        val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
+        val defaultConfigurations: MutableMap<String, CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
             "context2" to mockk(),
         )
 
-        val actualConfigurations = givenConfigurations.toMutableMap()
+        val actualConfigurations = makeMapProperty(
+            String::class.java,
+            CoverageConfiguration::class.java,
+            givenConfigurations.toMutableMap(),
+        )
 
         every {
             project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
@@ -173,7 +184,7 @@ class AntiBytesCoverageSpec {
         every { TaskController.configure(any(), any()) } just Runs
 
         every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
-        every { extension.appendKmpJvmTask } returns true
+        every { extension.appendKmpJvmTask } returns makeProperty(Boolean::class.java, true)
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
         every { extension.configurations } returns actualConfigurations
@@ -183,7 +194,7 @@ class AntiBytesCoverageSpec {
 
         // Then
         assertEquals(
-            actual = actualConfigurations,
+            actual = actualConfigurations.get(),
             expected = givenConfigurations,
         )
     }
@@ -195,13 +206,17 @@ class AntiBytesCoverageSpec {
 
         val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
-        val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf()
-        val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
+        val givenConfigurations: MutableMap<String, CoverageConfiguration> = mutableMapOf()
+        val defaultConfigurations: MutableMap<String, CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
             "context2" to mockk(),
         )
 
-        val actualConfigurations = givenConfigurations.toMutableMap()
+        val actualConfigurations = makeMapProperty(
+            String::class.java,
+            CoverageConfiguration::class.java,
+            givenConfigurations.toMutableMap(),
+        )
 
         every {
             project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
@@ -221,7 +236,7 @@ class AntiBytesCoverageSpec {
         every { TaskController.configure(any(), any()) } just Runs
 
         every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
-        every { extension.appendKmpJvmTask } returns true
+        every { extension.appendKmpJvmTask } returns makeProperty(Boolean::class.java, true)
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
         every { extension.configurations } returns actualConfigurations
@@ -231,7 +246,7 @@ class AntiBytesCoverageSpec {
 
         // Then
         assertEquals(
-            actual = actualConfigurations,
+            actual = actualConfigurations.get(),
             expected = givenConfigurations.also {
                 it["jvm"] = defaultConfigurations["jvm"]!!
             },
@@ -245,13 +260,17 @@ class AntiBytesCoverageSpec {
 
         val extension: AntiBytesCoveragePluginExtension = mockk()
         val plugins: PluginContainer = mockk()
-        val givenConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf()
-        val defaultConfigurations: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mutableMapOf(
+        val givenConfigurations: MutableMap<String, CoverageConfiguration> = mutableMapOf()
+        val defaultConfigurations: MutableMap<String, CoverageConfiguration> = mutableMapOf(
             "jvm" to mockk(),
             "context2" to mockk(),
         )
 
-        val actualConfigurations = givenConfigurations.toMutableMap()
+        val actualConfigurations = makeMapProperty(
+            String::class.java,
+            CoverageConfiguration::class.java,
+            givenConfigurations.toMutableMap(),
+        )
 
         every {
             project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
@@ -271,7 +290,7 @@ class AntiBytesCoverageSpec {
         every { TaskController.configure(any(), any()) } just Runs
 
         every { plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
-        every { extension.appendKmpJvmTask } returns false
+        every { extension.appendKmpJvmTask } returns makeProperty(Boolean::class.java, false)
         every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns defaultConfigurations
 
         every { extension.configurations } returns actualConfigurations
@@ -281,7 +300,7 @@ class AntiBytesCoverageSpec {
 
         // Then
         assertEquals(
-            actual = actualConfigurations,
+            actual = actualConfigurations.get(),
             expected = givenConfigurations,
         )
     }

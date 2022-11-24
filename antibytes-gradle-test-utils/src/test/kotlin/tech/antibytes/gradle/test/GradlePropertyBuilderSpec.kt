@@ -10,6 +10,7 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.junit.jupiter.api.Test
@@ -62,6 +63,22 @@ class GradlePropertyBuilderSpec {
         assertEquals(
             actual = result.get(),
             expected = setOf(value),
+        )
+    }
+
+    @Test
+    fun `Given makeMapProperty it builds a Property with the given Value`() {
+        // Given
+        val value: Map<String, String> = fixture()
+
+        // When
+        val result: Any = GradlePropertyBuilder.makeMapProperty(String::class.java, String::class.java, value)
+
+        // Then
+        assertTrue(result is MapProperty<*, *>)
+        assertEquals(
+            actual = result.get(),
+            expected = value,
         )
     }
 }

@@ -9,17 +9,19 @@ import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 import tech.antibytes.gradle.publishing.api.PackageConfiguration
 import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
 
-
+    id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.publishing.local")
     id("tech.antibytes.gradle.coverage.local")
 }
@@ -84,6 +86,26 @@ gradlePlugin {
     }
 }
 
+configure<SourceSetContainer> {
+    main {
+        java.srcDirs(
+            "src/main/kotlin",
+            "build/generated/antibytes/main/kotlin",
+        )
+    }
+}
+
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
+
+    packageName.set("tech.antibytes.gradle.coverage.config")
+    stringFields.set(
+        mapOf(
+            "jacoco" to libs.versions.jacoco.get(),
+        )
+    )
+}
+
 antiBytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
@@ -105,7 +127,15 @@ antiBytesCoverage {
         )
     )
 
-    configurations["jvm"] = jvmCoverage
+    configurations.set(
+        mapOf("jvm" to jvmCoverage)
+    )
+}
+
+tasks.withType<KotlinCompile> {
+    dependsOn(
+        provideConfig,
+    )
 }
 
 tasks.test {

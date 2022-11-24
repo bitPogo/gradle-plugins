@@ -31,6 +31,7 @@ import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
+import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.api.AndroidJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
@@ -38,6 +39,7 @@ import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.task.TaskContract
+import tech.antibytes.gradle.test.GradlePropertyBuilder
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class JacocoAggregationVerificationTaskConfiguratorSpec {
@@ -89,7 +91,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { subproject1.buildDir } returns subproject1BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
 
         every { subproject1.fileTree(any<File>(), any<Action<ConfigurableFileTree>>()) } returns mockk()
         every { subproject1.tasks.getByName(any()) } returns mockk<JacocoReport>()
@@ -119,7 +125,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { subproject1.name } returns subprojectName
         every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(fixture<String>() to mockk())
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(fixture<String>() to mockk()),
+        )
 
         invokeGradleAction(
             { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
@@ -173,7 +183,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { subproject1.buildDir } returns subproject1BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
 
         every { subproject1.fileTree(any<File>(), any<Action<ConfigurableFileTree>>()) } returns mockk()
         every { subproject1.tasks.getByName(any()) } returns mockk<JacocoReport>()
@@ -289,7 +303,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject2.name } returns fixture()
         every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns null
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
@@ -392,8 +410,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.buildDir } returns subproject1BuildDir
         every { subproject2.buildDir } returns subproject2BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
-        every { subproject2CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration2)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
+        every { subproject2CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration2),
+        )
 
         invokeGradleAction(
             { probe ->
@@ -620,8 +646,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.buildDir } returns subproject1BuildDir
         every { subproject2.buildDir } returns subproject2BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
-        every { subproject2CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration2)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
+        every { subproject2CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration2),
+        )
 
         invokeGradleAction(
             { probe ->
@@ -795,7 +829,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
         every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns null
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
@@ -850,7 +888,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
         every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns null
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
@@ -962,8 +1004,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.buildDir } returns subproject1BuildDir
         every { subproject2.buildDir } returns subproject2BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
-        every { subproject2CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration2)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
+        every { subproject2CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration2),
+        )
 
         invokeGradleAction(
             { probe ->
@@ -1221,8 +1271,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.buildDir } returns subproject1BuildDir
         every { subproject2.buildDir } returns subproject2BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration1)
-        every { subproject2CoverageExtension.configurations } returns mutableMapOf(contextId to subConfiguration2)
+        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration1),
+        )
+        every { subproject2CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+            String::class.java,
+            CoverageApiContract.CoverageConfiguration::class.java,
+            mutableMapOf(contextId to subConfiguration2),
+        )
 
         invokeGradleAction(
             { probe ->

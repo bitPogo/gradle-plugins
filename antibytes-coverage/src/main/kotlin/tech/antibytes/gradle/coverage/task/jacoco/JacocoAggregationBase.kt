@@ -86,24 +86,26 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         extension: AntiBytesCoveragePluginExtension,
         aggregator: AggregationData,
     ) {
+        val configurations = extension.configurations.get()
+
         return when {
-            !extension.configurations.containsKey(contextId) -> Unit
+            !configurations.containsKey(contextId) -> Unit
             isMatchingAndroidConfiguration(
                 aggregationConfiguration,
-                extension.configurations[contextId],
+                configurations[contextId],
             ) -> resolveSubproject(
                 subproject,
                 contextId,
-                extension.configurations[contextId] as JacocoCoverageConfiguration,
+                configurations[contextId] as JacocoCoverageConfiguration,
                 aggregator,
             )
             isMatchingJvmConfiguration(
                 aggregationConfiguration,
-                extension.configurations[contextId],
+                configurations[contextId],
             ) -> resolveSubproject(
                 subproject,
                 contextId,
-                extension.configurations[contextId] as JacocoCoverageConfiguration,
+                configurations[contextId] as JacocoCoverageConfiguration,
                 aggregator,
             )
             else -> Unit

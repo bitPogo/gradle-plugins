@@ -18,6 +18,7 @@ import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.task.TaskContract
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 
 class JacocoExtensionConfiguratorSpec {
     private val fixture = kotlinFixture()
@@ -39,7 +40,7 @@ class JacocoExtensionConfiguratorSpec {
         val jacocoExtension: JacocoPluginExtension = mockk()
 
         every { project.extensions.getByType(JacocoPluginExtension::class.java) } returns jacocoExtension
-        every { configuration.jacocoVersion } returns version
+        every { configuration.jacocoVersion } returns makeProperty(String::class.java, version)
         every { jacocoExtension.toolVersion = any() } just Runs
 
         // When

@@ -21,7 +21,7 @@ plugins {
     `kotlin-dsl`
     `java-library`
 
-    id("tech.antibytes.gradle.coverage.local")
+   id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
 }
 
@@ -95,7 +95,9 @@ antiBytesCoverage {
         )
     )
 
-    configurations["jvm"] = jvmCoverage
+    configurations.set(
+        mapOf("jvm" to jvmCoverage)
+    )
 }
 
 tasks.test {
