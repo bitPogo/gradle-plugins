@@ -5,17 +5,18 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
+import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
+import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
 
 
 plugins {
     `kotlin-dsl`
-    jacoco
 
     id("tech.antibytes.gradle.plugin.script.maven-package")
-}
 
-jacoco {
-    version = libs.versions.jacoco.get()
+    id("tech.antibytes.gradle.coverage.local")
 }
 
 // To make it available as direct dependency
@@ -23,7 +24,6 @@ group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.kotlin)
-    implementation(libs.agp)
     implementation(project(":antibytes-gradle-utils"))
     implementation(libs.kotlinPoet)
 
@@ -44,48 +44,30 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.jacocoTestReport {
-    dependsOn(tasks.named("test"))
+antiBytesCoverage {
+    val branchCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.BRANCH,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.83)
+    )
 
-    reports {
-        html.required.set(true)
-        xml.required.set(true)
-        csv.required.set(true)
+    val instructionCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.INSTRUCTION,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.89)
+    )
 
-        html.outputLocation.set(
-            layout.buildDirectory.dir("reports/jacoco/test/${project.name}").get().asFile
+    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
+        project,
+        verificationRules = setOf(
+            branchCoverage,
+            instructionCoverage
         )
-        csv.outputLocation.set(
-            layout.buildDirectory.file("reports/jacoco/test/${project.name}.csv").get().asFile
-        )
-        xml.outputLocation.set(
-            layout.buildDirectory.file("reports/jacoco/test/${project.name}.xml").get().asFile
-        )
-    }
-}
+    )
 
-tasks.jacocoTestCoverageVerification {
-    dependsOn(tasks.named("jacocoTestReport"))
-    violationRules {
-        rule {
-            enabled = false
-            limit {
-                counter = "BRANCH"
-                value = "COVEREDRATIO"
-                minimum = BigDecimal(0.99)
-            }
-        }
-        rule {
-            enabled = false
-            limit {
-                counter = "INSTRUCTION"
-                value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.89)
-            }
-        }
-    }
+    configurations["jvm"] = jvmCoverage
 }
 
 tasks.check {
-    dependsOn("jacocoTestCoverageVerification")
+    dependsOn("jvmCoverageVerification")
 }

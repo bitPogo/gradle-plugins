@@ -6,17 +6,20 @@
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
+import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
+import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
 
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
-    jacoco
+
+    id("tech.antibytes.gradle.runtime.local")
+    id("tech.antibytes.gradle.coverage.local")
 
     id("tech.antibytes.gradle.plugin.script.maven-package")
-}
-
-jacoco {
-    toolVersion = libs.versions.jacoco.get()
 }
 
 // To make it available as direct dependency
@@ -45,53 +48,34 @@ gradlePlugin {
     plugins.register("${LibraryConfig.group}.gradle.dependency") {
         group = LibraryConfig.group
         id = "${LibraryConfig.group}.gradle.dependency"
-        implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependency"
+        implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependencyHelper"
         displayName = "${id}.gradle.plugin"
-        description = "General dependencies for Antibytes projects"
-        version = "0.1.0"
+        description = "Dependency Helper for Antibytes projects"
     }
 }
 
-tasks.jacocoTestReport {
-    dependsOn(tasks.named("test"))
+antiBytesCoverage {
+    val branchCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.BRANCH,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.96)
+    )
 
-    reports {
-        html.required.set(true)
-        xml.required.set(true)
-        csv.required.set(true)
+    val instructionCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.INSTRUCTION,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.85)
+    )
 
-        html.outputLocation.set(
-            layout.buildDirectory.dir("reports/jacoco/test/${project.name}").get().asFile
+    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
+        project,
+        verificationRules = setOf(
+            branchCoverage,
+            instructionCoverage
         )
-        csv.outputLocation.set(
-            layout.buildDirectory.file("reports/jacoco/test/${project.name}.csv").get().asFile
-        )
-        xml.outputLocation.set(
-            layout.buildDirectory.file("reports/jacoco/test/${project.name}.xml").get().asFile
-        )
-    }
-}
+    )
 
-tasks.jacocoTestCoverageVerification {
-    dependsOn(tasks.named("jacocoTestReport"))
-    violationRules {
-        rule {
-            enabled = true
-            limit {
-                counter = "BRANCH"
-                value = "COVEREDRATIO"
-                minimum = BigDecimal(0.99)
-            }
-        }
-        rule { // TODO -> Add Integration Tests
-            enabled = false
-            limit {
-                counter = "INSTRUCTION"
-                value = "COVEREDRATIO"
-                minimum = BigDecimal(0.85)
-            }
-        }
-    }
+    configurations["jvm"] = jvmCoverage
 }
 
 configure<SourceSetContainer> {
@@ -103,43 +87,15 @@ configure<SourceSetContainer> {
     }
 }
 
-val templatesPath = "${projectDir}/src/templates"
-val configPath = "${projectDir}/build/generated/antibytes/main/kotlin/tech/antibytes/gradle/dependency/config"
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
 
-fun String.replaceContent(replacements: Map<String, String>): String {
-    var text = this
-
-    replacements.forEach { (pattern, replacement) ->
-        text = text.replace(pattern, replacement)
-    }
-
-    return text
-}
-
-val provideConfig: Task by tasks.creating {
-    doLast {
-        val templates = File(templatesPath)
-        val configDir = File(configPath)
-
-        val config = File(templates, "DependencyConfig.tmpl")
-            .readText()
-            .replaceContent(
-                mapOf(
-                    "KOTLIN" to libs.versions.kotlin.get(),
-                )
-            )
-
-        if (!configDir.exists()) {
-            if (!configDir.mkdirs()) {
-                throw StopExecutionException("The script not able to create the config directory")
-            }
-        }
-        val configFile = File(configDir, "DependencyConfig.kt")
-        if (!configFile.exists()) {
-            configFile.createNewFile()
-        }
-        configFile.writeText(config)
-    }
+    packageName.set("tech.antibytes.gradle.dependency.config")
+    stringFields.set(
+        mapOf(
+            "kotlin" to libs.versions.kotlin.get(),
+        )
+    )
 }
 
 tasks.withType<KotlinCompile> {
@@ -151,5 +107,5 @@ tasks.test {
 }
 
 tasks.check {
-    dependsOn("jacocoTestCoverageVerification")
+    dependsOn("jvmCoverageVerification")
 }

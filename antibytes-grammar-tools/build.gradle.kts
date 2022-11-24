@@ -6,14 +6,19 @@
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
+import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
 
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
-    jacoco
 
     id("idea")
     id("tech.antibytes.gradle.plugin.script.maven-package")
+
+    id("tech.antibytes.gradle.coverage.local")
 }
 
 // To make it available as direct dependency
@@ -68,31 +73,34 @@ gradlePlugin {
         id = "${LibraryConfig.group}.gradle.grammar"
         implementationClass = "tech.antibytes.gradle.grammar.GrammarToolsPlugin"
         description = "A Bison and JFlex plugin for Gradle"
-        version = "0.1.0"
     }
     testSourceSets(sourceSets.getByName("integrationTest"))
 }
 
-tasks.jacocoTestCoverageVerification {
-    dependsOn(tasks.named("jacocoTestReport"))
-    violationRules {
-        rule {
-            enabled = true
-            limit {
-                counter = "BRANCH"
-                value = "COVEREDRATIO"
-                minimum = BigDecimal(0.99)
-            }
-        }
-        rule {
-            enabled = true
-            limit {
-                counter = "INSTRUCTION"
-                value = "COVEREDRATIO"
-                minimum = BigDecimal( 0.99)
-            }
-        }
-    }
+
+
+antiBytesCoverage {
+    val branchCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.BRANCH,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.99)
+    )
+
+    val instructionCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.INSTRUCTION,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.99)
+    )
+
+    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
+        project,
+        verificationRules = setOf(
+            branchCoverage,
+            instructionCoverage
+        )
+    )
+
+    configurations["jvm"] = jvmCoverage
 }
 
 val provideBisonExec by tasks.creating(Task::class.java) {
@@ -124,7 +132,7 @@ val integrationTests by tasks.creating(Test::class.java) {
 }
 
 tasks.check {
-    dependsOn(integrationTests, "jacocoTestCoverageVerification")
+    dependsOn(integrationTests, "jvmCoverageVerification")
 }
 
 tasks.withType(Test::class.java) {

@@ -4,16 +4,15 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-import tech.antibytes.gradle.plugin.dependency.ensureKotlinVersion
+import tech.antibytes.gradle.dependency.ensureKotlinVersion
 
 plugins {
-    id("tech.antibytes.gradle.plugin.dependency")
-    id("tech.antibytes.gradle.dependency.catalog")
-    id("tech.antibytes.gradle.plugin.script.dependency-update")
     id("tech.antibytes.gradle.plugin.script.quality-spotless")
     id("tech.antibytes.gradle.plugin.script.versioning")
     id("tech.antibytes.gradle.plugin.script.publishing")
-    id("org.owasp.dependencycheck")
+
+    id("tech.antibytes.gradle.dependency.catalog")
+    id("tech.antibytes.gradle.dependency.helper.local")
 }
 
 allprojects {

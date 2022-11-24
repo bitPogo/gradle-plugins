@@ -15,6 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
-includeBuild("../runtime-configuration")
-includeBuild("../dependency-bridge")
-includeBuild("../versioning")
+include(
+    ":versioning",
+    ":utils",
+)

@@ -4,21 +4,21 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-
 plugins {
     `kotlin-dsl`
-    `java-gradle-plugin`
-    jacoco
 }
 
-repositories {
-    gradlePluginPortal()
-    mavenCentral()
-    google()
+allprojects {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+    }
 }
 
 dependencies {
-    implementation(libs.gson)
+    implementation(libs.kotlin)
+    implementation(project(":utils"))
     implementation(libs.kotlinPoet)
 }
 
@@ -37,12 +37,8 @@ configure<SourceSetContainer> {
 }
 
 gradlePlugin {
-    plugins.register("tech.antibytes.gradle.dependency.local") {
-        id = "tech.antibytes.gradle.dependency.local"
-        implementationClass = "tech.antibytes.gradle.dependency.DependencyPlugin"
+    plugins.register("tech.antibytes.gradle.runtime.local") {
+        id = "tech.antibytes.gradle.runtime.local"
+        implementationClass = "tech.antibytes.gradle.runtime.local.DependencyPlugin"
     }
-}
-
-tasks.test {
-    useJUnitPlatform()
 }

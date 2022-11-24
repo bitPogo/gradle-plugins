@@ -5,9 +5,15 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
+import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
+import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
 
 plugins {
     `kotlin-dsl`
+
+    id("tech.antibytes.gradle.coverage.local")
 }
 
 // To make it available as direct dependency
@@ -29,6 +35,34 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+antiBytesCoverage {
+    val branchCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.BRANCH,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.90)
+    )
+
+    val instructionCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.INSTRUCTION,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.95)
+    )
+
+    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
+        project,
+        verificationRules = setOf(
+            branchCoverage,
+            instructionCoverage
+        )
+    )
+
+    configurations["jvm"] = jvmCoverage
+}
+
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.check {
+    dependsOn("jvmCoverageVerification")
 }

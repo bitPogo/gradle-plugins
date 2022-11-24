@@ -9,7 +9,7 @@ package tech.antibytes.gradle.dependency
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.DependencyResolveDetails
-import tech.antibytes.gradle.dependency.config.DependencyConfig
+import tech.antibytes.gradle.dependency.config.MainConfig
 
 private val modules = listOf(
     "kotlin-stdlib-jdk7",
@@ -32,7 +32,7 @@ fun Project.ensureKotlinVersion(
     configurations.all {
         resolutionStrategy.eachDependency {
             if (overrideVersion(excludes)) {
-                useVersion(version ?: DependencyConfig.kotlin)
+                useVersion(version ?: MainConfig.kotlin)
                 because("Avoid resolution conflicts")
             }
         }
