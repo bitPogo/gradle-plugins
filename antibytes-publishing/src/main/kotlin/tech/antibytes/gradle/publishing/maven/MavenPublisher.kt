@@ -19,8 +19,8 @@ import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
 internal object MavenPublisher : PublisherContract.MavenPublisher {
     private fun setPublicationProperties(
@@ -132,6 +132,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
                 when (configuration.type) {
                     Type.PURE_JAVA -> configureComponent(project, "java")
                     Type.VERSION_CATALOG -> configureComponent(project, "versionCatalog")
+                    else -> {/* Do nothing */}
                 }
 
                 withType(MavenPublication::class.java) {

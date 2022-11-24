@@ -5,17 +5,51 @@
  */
 
 import tech.antibytes.gradle.plugin.config.LibraryConfig
+import tech.antibytes.gradle.publishing.api.PackageConfiguration
+import tech.antibytes.gradle.publishing.api.PomConfiguration
+import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
+import tech.antibytes.gradle.publishing.api.LicenseConfiguration
+import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
     jacoco
 
-    id("tech.antibytes.gradle.plugin.script.maven-package")
+    id("tech.antibytes.gradle.publishing.local")
 }
 
 jacoco {
     toolVersion = libs.versions.jacoco.get()
+}
+
+antiBytesPublishing {
+    packageConfiguration = PackageConfiguration(
+        pom = PomConfiguration(
+            name = "antibytes-dependency",
+            description = "General dependencies for Antibytes projects.",
+            year = 2022,
+            url = LibraryConfig.publishing.url,
+        ),
+        developers = listOf(
+            DeveloperConfiguration(
+                id = LibraryConfig.publishing.developerId,
+                name = LibraryConfig.publishing.developerName,
+                url = LibraryConfig.publishing.developerUrl,
+                email = LibraryConfig.publishing.developerEmail,
+            )
+        ),
+        license = LicenseConfiguration(
+            name = LibraryConfig.publishing.licenseName,
+            url = LibraryConfig.publishing.licenseUrl,
+            distribution = LibraryConfig.publishing.licenseDistribution,
+        ),
+        scm = SourceControlConfiguration(
+            url = LibraryConfig.publishing.scmUrl,
+            connection = LibraryConfig.publishing.scmConnection,
+            developerConnection = LibraryConfig.publishing.scmDeveloperConnection,
+        ),
+    )
 }
 
 // To make it available as direct dependency

@@ -9,6 +9,9 @@ package tech.antibytes.gradle.plugin.config
 object LibraryConfig {
     val publishing = PublishConfig
 
+    val username = System.getenv("PACKAGE_REGISTRY_UPLOAD_USERNAME")?.toString() ?: ""
+    val password = System.getenv("PACKAGE_REGISTRY_UPLOAD_TOKEN")?.toString() ?: ""
+
     const val group = "tech.antibytes"
     const val name = "gradle-plugins"
 
@@ -30,7 +33,8 @@ object LibraryConfig {
         // DEVELOPER
         const val developerId = "bitPogo"
         const val developerName = "bitPogo"
-        const val developerEmail = "solascriptura001+antibytes@gmail.com"
+        const val developerUrl = "https://$host/$githubOwner"
+        const val developerEmail = "bitpogo@antibytes.tech"
 
         // LICENSE
         const val licenseName = "The Apache License, Version 2.0"
