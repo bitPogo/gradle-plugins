@@ -10,7 +10,7 @@ import org.gradle.api.Project
 import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import org.gradle.plugins.signing.SigningExtension
 
-object CommonSigning : SigningContract.CommonSigning {
+object CommonSignature : SigningContract.CommonSignature {
     override fun configure(project: Project) {
         project.extensions.configure(SigningExtension::class.java) {
             isRequired = project.gradle.taskGraph.allTasks.any { it is PublishToMavenRepository }

@@ -25,32 +25,34 @@ plugins {
 }
 
 antiBytesPublishing {
-    packageConfiguration = PackageConfiguration(
-        type = Type.PURE_JAVA,
-        pom = PomConfiguration(
-            name = "antibytes-gradle-test-utils",
-            description = "Helpers to make Gradle testable.",
-            year = 2022,
-            url = LibraryConfig.publishing.url,
-        ),
-        developers = listOf(
-            DeveloperConfiguration(
-                id = LibraryConfig.publishing.developerId,
-                name = LibraryConfig.publishing.developerName,
-                url = LibraryConfig.publishing.developerUrl,
-                email = LibraryConfig.publishing.developerEmail,
-            )
-        ),
-        license = LicenseConfiguration(
-            name = LibraryConfig.publishing.licenseName,
-            url = LibraryConfig.publishing.licenseUrl,
-            distribution = LibraryConfig.publishing.licenseDistribution,
-        ),
-        scm = SourceControlConfiguration(
-            url = LibraryConfig.publishing.scmUrl,
-            connection = LibraryConfig.publishing.scmConnection,
-            developerConnection = LibraryConfig.publishing.scmDeveloperConnection,
-        ),
+    packaging.set(
+        PackageConfiguration(
+            type = Type.PURE_JAVA,
+            pom = PomConfiguration(
+                name = "antibytes-gradle-test-utils",
+                description = "Helpers to make Gradle testable.",
+                year = 2022,
+                url = LibraryConfig.publishing.url,
+            ),
+            developers = listOf(
+                DeveloperConfiguration(
+                    id = LibraryConfig.publishing.developerId,
+                    name = LibraryConfig.publishing.developerName,
+                    url = LibraryConfig.publishing.developerUrl,
+                    email = LibraryConfig.publishing.developerEmail,
+                )
+            ),
+            license = LicenseConfiguration(
+                name = LibraryConfig.publishing.licenseName,
+                url = LibraryConfig.publishing.licenseUrl,
+                distribution = LibraryConfig.publishing.licenseDistribution,
+            ),
+            scm = SourceControlConfiguration(
+                url = LibraryConfig.publishing.scmUrl,
+                connection = LibraryConfig.publishing.scmConnection,
+                developerConnection = LibraryConfig.publishing.scmDeveloperConnection,
+            ),
+        )
     )
 }
 

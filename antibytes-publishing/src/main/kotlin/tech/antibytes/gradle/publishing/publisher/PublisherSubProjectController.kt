@@ -37,9 +37,9 @@ internal object PublisherSubProjectController : PublisherController {
         documentation: Task?,
         extension: PublishingPluginExtension,
     ) {
-        val registryConfigurations = project.determineRepositories(extension)
+        val repositories = project.determineRepositories(extension)
 
-        if (extension.isApplicable(registryConfigurations)) {
+        if (extension.isApplicable(repositories)) {
             MavenPublisher.configure(
                 project = project,
                 configuration = extension.packaging.get(),
@@ -47,10 +47,10 @@ internal object PublisherSubProjectController : PublisherController {
                 docs = documentation,
             )
 
-            registryConfigurations.forEach { registry ->
+            repositories.forEach { repository ->
                 MavenRepository.configure(
                     project,
-                    registry,
+                    repository,
                     extension.dryRun.get(),
                 )
             }

@@ -27,31 +27,33 @@ plugins {
 }
 
 antiBytesPublishing {
-    packageConfiguration = PackageConfiguration(
-        pom = PomConfiguration(
-            name = "antibytes-dependency-helper",
-            description = "Helpers to bridge TOMLs to Dependencies and to keep repos up to date.",
-            year = 2022,
-            url = LibraryConfig.publishing.url,
-        ),
-        developers = listOf(
-            DeveloperConfiguration(
-                id = LibraryConfig.publishing.developerId,
-                name = LibraryConfig.publishing.developerName,
-                url = LibraryConfig.publishing.developerUrl,
-                email = LibraryConfig.publishing.developerEmail,
-            )
-        ),
-        license = LicenseConfiguration(
-            name = LibraryConfig.publishing.licenseName,
-            url = LibraryConfig.publishing.licenseUrl,
-            distribution = LibraryConfig.publishing.licenseDistribution,
-        ),
-        scm = SourceControlConfiguration(
-            url = LibraryConfig.publishing.scmUrl,
-            connection = LibraryConfig.publishing.scmConnection,
-            developerConnection = LibraryConfig.publishing.scmDeveloperConnection,
-        ),
+    packaging.set(
+        PackageConfiguration(
+            pom = PomConfiguration(
+                name = "antibytes-dependency-helper",
+                description = "Helpers to bridge TOMLs to Dependencies and to keep repos up to date.",
+                year = 2022,
+                url = LibraryConfig.publishing.url,
+            ),
+            developers = listOf(
+                DeveloperConfiguration(
+                    id = LibraryConfig.publishing.developerId,
+                    name = LibraryConfig.publishing.developerName,
+                    url = LibraryConfig.publishing.developerUrl,
+                    email = LibraryConfig.publishing.developerEmail,
+                )
+            ),
+            license = LicenseConfiguration(
+                name = LibraryConfig.publishing.licenseName,
+                url = LibraryConfig.publishing.licenseUrl,
+                distribution = LibraryConfig.publishing.licenseDistribution,
+            ),
+            scm = SourceControlConfiguration(
+                url = LibraryConfig.publishing.scmUrl,
+                connection = LibraryConfig.publishing.scmConnection,
+                developerConnection = LibraryConfig.publishing.scmDeveloperConnection,
+            ),
+        )
     )
 }
 

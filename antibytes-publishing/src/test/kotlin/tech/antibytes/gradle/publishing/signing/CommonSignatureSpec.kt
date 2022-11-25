@@ -23,14 +23,12 @@ import org.gradle.plugins.signing.SigningExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.invokeGradleAction
 
-class CommonSigningSpec {
-    private val fixture = kotlinFixture()
-
+class CommonSignatureSpec {
     @Test
     fun `It fulfils CommonSigning`() {
-        val publisher: Any = CommonSigning
+        val publisher: Any = CommonSignature
 
-        assertTrue(publisher is SigningContract.CommonSigning)
+        assertTrue(publisher is SigningContract.CommonSignature)
     }
 
     @Test
@@ -57,7 +55,7 @@ class CommonSigningSpec {
             signingExtension,
         )
 
-        CommonSigning.configure(project)
+        CommonSignature.configure(project)
 
         verify(exactly = 1) { signingExtension.isRequired = true }
     }
@@ -84,7 +82,7 @@ class CommonSigningSpec {
             signingExtension,
         )
 
-        CommonSigning.configure(project)
+        CommonSignature.configure(project)
 
         verify(exactly = 1) { signingExtension.isRequired = false }
     }

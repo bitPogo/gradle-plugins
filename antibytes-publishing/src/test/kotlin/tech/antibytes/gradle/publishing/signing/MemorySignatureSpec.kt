@@ -27,14 +27,14 @@ import tech.antibytes.gradle.publishing.api.CompleteMemorySigningConfiguration
 import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
 import tech.antibytes.gradle.test.invokeGradleAction
 
-class MemorySigningSpec {
+class MemorySignatureSpec {
     private val fixture = kotlinFixture()
 
     @Test
     fun `It fulfils MemorySigning`() {
-        val publisher: Any = MemorySigning
+        val publisher: Any = MemorySignature
 
-        assertTrue(publisher is SigningContract.MemorySigning)
+        assertTrue(publisher is SigningContract.MemorySignature)
     }
 
     @Test
@@ -83,7 +83,7 @@ class MemorySigningSpec {
         )
 
         // When
-        MemorySigning.configure(project, signingConfiguration)
+        MemorySignature.configure(project, signingConfiguration)
 
         // Then
         verify(exactly = 1) {
@@ -138,7 +138,7 @@ class MemorySigningSpec {
         )
 
         // When
-        MemorySigning.configure(project, signingConfiguration)
+        MemorySignature.configure(project, signingConfiguration)
 
         // Then
         verify(exactly = 1) {
@@ -197,7 +197,7 @@ class MemorySigningSpec {
         )
 
         // When
-        MemorySigning.configure(project, signingConfiguration)
+        MemorySignature.configure(project, signingConfiguration)
 
         // Then
         verify(exactly = 1) {

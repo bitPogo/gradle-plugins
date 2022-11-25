@@ -8,42 +8,54 @@ package tech.antibytes.gradle.publishing.signing
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingContract
+import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.util.isRoot
 
 internal object SigningController : SigningContract.SigningController {
+    private fun PublishingPluginExtension.allowsSigning(projectName: String): Boolean {
+        return !signing.isPresent && !standalone.get() && projectName !in excludeProjects.get()
+    }
+
+    private fun Project.isSignable(): Boolean {
+        val extension = extensions.findByType(PublishingPluginExtension::class.java)
+
+        return extension != null && extension.allowsSigning(name)
+    }
+
     private fun Project.applySigningConfiguration(
         signingConfig: PublishingApiContract.MemorySigning?,
     ) {
         if (signingConfig != null) {
-            CommonSigning.configure(this)
-            MemorySigning.configure(this, signingConfig)
+            CommonSignature.configure(this)
+            MemorySignature.configure(this, signingConfig)
         }
     }
 
     private fun Project.configureSubprojects(
-        signingConfig: PublishingApiContract.MemorySigning?,
+        extension: PublishingPluginExtension,
     ) {
+        val signingConfig = extension.signing.orNull
+
         subprojects.forEach { subproject ->
-            subproject.applySigningConfiguration(signingConfig)
+            if (subproject.name !in extension.excludeProjects.get() && subproject.isSignable()) {
+                subproject.applySigningConfiguration(signingConfig)
+            }
         }
     }
 
     override fun configure(
         project: Project,
-        extension: PublishingContract.PublishingPluginExtension,
+        extension: PublishingPluginExtension,
     ) {
         if (project.isRoot()) {
             project.evaluationDependsOnChildren()
         }
 
         project.afterEvaluate {
-            val signingConfig = extension.signing.orNull
-
             if (project.isRoot()) {
-                project.configureSubprojects(signingConfig)
+                project.configureSubprojects(extension)
             } else {
-                project.applySigningConfiguration(signingConfig)
+                project.applySigningConfiguration(extension.signing.orNull)
             }
         }
     }

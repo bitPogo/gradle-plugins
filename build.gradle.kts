@@ -18,37 +18,41 @@ plugins {
 }
 
 antiBytesPublishing {
-    versioning = VersioningConfiguration(
-        featurePrefixes = listOf("feature")
+    versioning.set(
+        VersioningConfiguration(
+            featurePrefixes = listOf("feature")
+        )
     )
-    repositoryConfiguration = setOf(
-        GitRepositoryConfiguration(
-            name = "Development",
-            gitWorkDirectory = "dev",
-            url = "https://github.com/${LibraryConfig.githubOwner}/maven-dev",
-            username = LibraryConfig.username,
-            password = LibraryConfig.password
-        ),
-        GitRepositoryConfiguration(
-            name = "Snapshot",
-            gitWorkDirectory = "snapshots",
-            url = "https://github.com/${LibraryConfig.githubOwner}/maven-snapshots",
-            username = LibraryConfig.username,
-            password = LibraryConfig.password
-        ),
-        GitRepositoryConfiguration(
-            name = "RollingRelease",
-            gitWorkDirectory = "rolling",
-            url = "https://github.com/${LibraryConfig.githubOwner}/maven-rolling-releases",
-            username = LibraryConfig.username,
-            password = LibraryConfig.password
-        ),
-        GitRepositoryConfiguration(
-            name = "Release",
-            gitWorkDirectory = "releases",
-            url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
-            username = LibraryConfig.username,
-            password = LibraryConfig.password
+    repositories.set(
+        setOf(
+            GitRepositoryConfiguration(
+                name = "Development",
+                gitWorkDirectory = "dev",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-dev",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "Snapshot",
+                gitWorkDirectory = "snapshots",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-snapshots",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "RollingRelease",
+                gitWorkDirectory = "rolling",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-rolling-releases",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "Release",
+                gitWorkDirectory = "releases",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            )
         )
     )
 }
