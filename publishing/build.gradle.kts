@@ -19,6 +19,7 @@ allprojects {
 }
 
 dependencies {
+    implementation(libs.kotlin)
     implementation(libs.publishing)
     implementation(libs.versioning)
     implementation(project(":utils"))

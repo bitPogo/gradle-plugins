@@ -10,8 +10,9 @@ import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.util.isRoot
+import tech.antibytes.gradle.publishing.PublishingContract.SigningController
 
-internal object SigningController : SigningContract.SigningController {
+internal object SigningController : SigningController {
     private fun PublishingPluginExtension.allowsSigning(projectName: String): Boolean {
         return !signing.isPresent && !standalone.get() && projectName !in excludeProjects.get()
     }

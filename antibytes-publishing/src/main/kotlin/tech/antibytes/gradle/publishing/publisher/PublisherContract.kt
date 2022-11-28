@@ -8,18 +8,22 @@ package tech.antibytes.gradle.publishing.publisher
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
+
+internal typealias Version = String
 
 internal interface PublisherContract {
     interface GitRepository {
         fun configureCloneTask(
             project: Project,
-            configuration: PublishingApiContract.RepositoryConfiguration,
+            configuration: RepositoryConfiguration,
         ): Task?
 
         fun configurePushTask(
             project: Project,
-            configuration: PublishingApiContract.RepositoryConfiguration,
+            configuration: RepositoryConfiguration,
             version: String,
             dryRun: Boolean,
         ): Task?
@@ -28,7 +32,7 @@ internal interface PublisherContract {
     fun interface MavenPublisher {
         fun configure(
             project: Project,
-            configuration: PublishingApiContract.PackageConfiguration,
+            configuration: PackageConfiguration,
             docs: Task?,
             version: String,
         )
@@ -37,8 +41,22 @@ internal interface PublisherContract {
     fun interface MavenRepository {
         fun configure(
             project: Project,
-            configuration: PublishingApiContract.RepositoryConfiguration,
+            configuration: RepositoryConfiguration,
             dryRun: Boolean,
         )
+    }
+
+    fun interface VersionController {
+        fun configure(
+            project: Project,
+            configuration: PublishingPluginExtension,
+        ): Version
+    }
+
+    fun interface DocumentationController {
+        fun configure(
+            project: Project,
+            configuration: PublishingPluginExtension,
+        ): Task?
     }
 }

@@ -21,11 +21,4 @@ internal interface SigningContract {
             configuration: PublishingApiContract.MemorySigning,
         )
     }
-
-    interface SigningController {
-        fun configure(
-            project: Project,
-            extension: PublishingContract.PublishingPluginExtension,
-        )
-    }
 }

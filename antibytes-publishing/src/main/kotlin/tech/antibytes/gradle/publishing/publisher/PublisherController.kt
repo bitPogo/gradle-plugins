@@ -11,9 +11,11 @@ import org.gradle.api.Task
 import org.gradle.jvm.tasks.Jar
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
+import tech.antibytes.gradle.publishing.doc.DocumentationController
 import tech.antibytes.gradle.util.isRoot
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.VersioningContract
+
 
 internal object PublisherController : PublishingContract.PublisherController {
     private fun Project.hasTask(
@@ -83,6 +85,7 @@ internal object PublisherController : PublishingContract.PublisherController {
         project.afterEvaluate {
             val derivedVersion = Versioning.getInstance(project, extension.versioning.get()).versionName()
             val docTask = project.addDocumentationTask(extension.documentation.orNull)
+            DocumentationController.configure(project, extension)
 
             project.addVersionTask(extension.versioning.get())
             project.setVersionToProject(derivedVersion)

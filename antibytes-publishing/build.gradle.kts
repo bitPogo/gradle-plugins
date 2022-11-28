@@ -59,6 +59,7 @@ antiBytesPublishing {
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
+    implementation(libs.kotlin)
     implementation(libs.publishing)
     implementation(libs.versioning)
     implementation(project(":antibytes-gradle-utils"))

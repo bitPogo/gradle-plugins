@@ -21,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingApiContract.MemorySigning
+import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
 import tech.antibytes.gradle.publishing.publisher.TestConfig
@@ -49,7 +50,7 @@ class SigningControllerSpec {
     fun `It fulfils SigningController`() {
         val controller: Any = SigningController
 
-        assertTrue(controller is SigningContract.SigningController)
+        assertTrue(controller is PublishingContract.SigningController)
     }
 
     @Test

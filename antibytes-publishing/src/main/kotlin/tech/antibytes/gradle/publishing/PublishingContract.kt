@@ -37,6 +37,13 @@ internal interface PublishingContract {
         )
     }
 
+    interface SigningController {
+        fun configure(
+            project: Project,
+            extension: PublishingPluginExtension,
+        )
+    }
+
     companion object {
         const val EXTENSION_ID = "antiBytesPublishing"
         val DEPENDENCIES = arrayOf(
