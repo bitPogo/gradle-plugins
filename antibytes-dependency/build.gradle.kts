@@ -33,6 +33,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
+            groupId = LibraryConfig.PublishConfig.groupId,
             pom = PomConfiguration(
                 name = "antibytes-dependency",
                 description = "General dependencies for Antibytes projects.",

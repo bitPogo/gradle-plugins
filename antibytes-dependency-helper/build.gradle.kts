@@ -36,6 +36,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
+            groupId = LibraryConfig.PublishConfig.groupId,
             pom = PomConfiguration(
                 name = "antibytes-dependency-helper",
                 description = "Helpers to bridge TOMLs to Dependencies and to keep repos up to date.",

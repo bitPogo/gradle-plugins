@@ -6,6 +6,7 @@
  */
 package tech.antibytes.gradle.test
 
+import io.mockk.MockKMatcherScope
 import io.mockk.every
 import io.mockk.slot
 import org.gradle.api.Action
@@ -17,7 +18,7 @@ import org.gradle.api.Action
  * @param T: return value of the Gradle Action
  */
 inline fun <T : Any, reified R> invokeGradleAction(
-    crossinline caller: (Action<T>) -> R,
+    crossinline caller: MockKMatcherScope.(Action<T>) -> R,
     probe: T,
     returnValue: R,
 ) {
@@ -36,7 +37,7 @@ inline fun <T : Any, reified R> invokeGradleAction(
  * @param T: Object which is wrapped by the Action
  */
 inline fun <T : Any> invokeGradleAction(
-    crossinline caller: (Action<T>) -> Unit,
+    crossinline caller: MockKMatcherScope.(Action<T>) -> Unit,
     probe: T,
 ) {
     val action = slot<Action<T>>()
