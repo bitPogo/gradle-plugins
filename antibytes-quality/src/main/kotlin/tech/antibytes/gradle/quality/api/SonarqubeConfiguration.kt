@@ -16,5 +16,5 @@ data class SonarqubeConfiguration(
     override val jacoco: String = "**/reports/jacoco/**/*.xml",
     override val junit: String = "**/test-results/jvmTest,**/test-results/testDebugUnitTest,",
     override val detekt: String,
-    override val exclude: Set<String>
+    override val exclude: Set<String>,
 ) : QualityApiContract.SonarqubeConfiguration

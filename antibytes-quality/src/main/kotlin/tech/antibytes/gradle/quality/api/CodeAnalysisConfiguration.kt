@@ -31,7 +31,7 @@ data class CodeAnalysisConfiguration(
         "**/test/resources/**",
         "**/build.gradle.kts",
         "**/settings.gradle.kts",
-        "**/Dangerfile.df.kts"
+        "**/Dangerfile.df.kts",
     ),
     override val excludeBaseline: Set<String> = setOf(
         "**/.gradle/**",
@@ -54,7 +54,7 @@ data class CodeAnalysisConfiguration(
         "**/*.pro",
         "**/*.sq",
         "**/*.xml",
-        "**/*.yml"
+        "**/*.yml",
     ),
-    override val reports: Report = CodeAnalysisReport()
+    override val reports: Report = CodeAnalysisReport(),
 ) : QualityApiContract.CodeAnalysisConfiguration

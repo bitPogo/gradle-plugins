@@ -6,9 +6,9 @@
 
 package tech.antibytes.gradle.quality
 
+import kotlin.test.assertTrue
 import org.gradle.api.Plugin
 import org.junit.jupiter.api.Test
-import kotlin.test.assertTrue
 
 class AntiBytesQualitySpec {
     @Test

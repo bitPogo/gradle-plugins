@@ -33,7 +33,7 @@ include(
     ":antibytes-gradle-utils",
     ":antibytes-grammar-tools",
     ":antibytes-runtime-configuration",
-    ":antibytes-quality",
+    ":antibytes-quality"
 )
 
 buildCache {

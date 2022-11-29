@@ -6,12 +6,12 @@
 
 package tech.antibytes.gradle.quality
 
-import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.quality.api.LinterConfiguration
-import tech.antibytes.gradle.test.createExtension
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.Test
+import tech.antibytes.gradle.quality.api.LinterConfiguration
+import tech.antibytes.gradle.test.createExtension
 
 class AntiBytesQualityExtensionSpec {
     @Test
@@ -27,7 +27,7 @@ class AntiBytesQualityExtensionSpec {
 
         assertEquals(
             actual = extension.linter.orNull,
-            expected = LinterConfiguration()
+            expected = LinterConfiguration(),
         )
     }
 
@@ -37,7 +37,7 @@ class AntiBytesQualityExtensionSpec {
 
         assertEquals(
             actual = extension.explicitApiFor.orNull,
-            expected = emptySet()
+            expected = emptySet(),
         )
     }
 

@@ -11,11 +11,11 @@ interface QualityApiContract {
         interface PartialConfiguration {
             val include: Set<String>
             val exclude: Set<String>
-            val configuration: Map<String, String>
+            val disabledRules: Map<String, String>
         }
 
         val code: PartialConfiguration
-        val scripts: PartialConfiguration
+        val gradle: PartialConfiguration
         val misc: PartialConfiguration
     }
 
