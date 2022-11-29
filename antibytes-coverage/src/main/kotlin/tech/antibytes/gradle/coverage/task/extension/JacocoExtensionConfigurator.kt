@@ -15,6 +15,6 @@ internal object JacocoExtensionConfigurator : TaskContract.JacocoExtensionConfig
     override fun configure(project: Project, configuration: AntiBytesCoveragePluginExtension) {
         val extension = project.extensions.getByType(JacocoPluginExtension::class.java)
 
-        extension.toolVersion = configuration.jacocoVersion
+        extension.toolVersion = configuration.jacocoVersion.get()
     }
 }

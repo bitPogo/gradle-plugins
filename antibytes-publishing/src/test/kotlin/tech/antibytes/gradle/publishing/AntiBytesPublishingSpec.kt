@@ -21,6 +21,7 @@ import org.gradle.api.plugins.PluginContainer
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.publisher.PublisherController
 import tech.antibytes.gradle.publishing.signing.SigningController
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 
 class AntiBytesPublishingSpec {
     @Test
@@ -51,7 +52,10 @@ class AntiBytesPublishingSpec {
         every { plugins.apply("maven-publish") } returns mockk()
         every { plugins.apply("org.gradle.signing") } returns mockk()
 
-        every { extension getProperty "signingConfiguration" } returns mockk<PublishingApiContract.MemorySigning>()
+        every { extension.signing } returns makeProperty(
+            PublishingApiContract.MemorySigning::class.java,
+            mockk(),
+        )
 
         every {
             extensionContainer.create(
@@ -103,7 +107,10 @@ class AntiBytesPublishingSpec {
         every { plugins.apply("maven-publish") } returns mockk()
         every { plugins.apply("org.gradle.signing") } returns mockk()
 
-        every { extension getProperty "signingConfiguration" } returns mockk<PublishingApiContract.MemorySigning>()
+        every { extension.signing } returns makeProperty(
+            PublishingApiContract.MemorySigning::class.java,
+            mockk(),
+        )
 
         every {
             extensionContainer.create(

@@ -8,24 +8,16 @@ package tech.antibytes.gradle.publishing.signing
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingContract
 
 internal interface SigningContract {
-    interface CommonSigning {
+    interface CommonSignature {
         fun configure(project: Project)
     }
 
-    interface MemorySigning {
+    interface MemorySignature {
         fun configure(
             project: Project,
             configuration: PublishingApiContract.MemorySigning,
-        )
-    }
-
-    interface SigningController {
-        fun configure(
-            project: Project,
-            extension: PublishingContract.PublishingPluginExtension,
         )
     }
 }

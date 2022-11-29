@@ -8,6 +8,7 @@ package tech.antibytes.gradle.publishing.maven
 
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.publish.PublicationContainer
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPom
 import org.gradle.api.publish.maven.MavenPomContributor
@@ -18,6 +19,7 @@ import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
 internal object MavenPublisher : PublisherContract.MavenPublisher {
@@ -114,6 +116,11 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
         sourceControlManagement.url.set(configuration.url)
     }
 
+    private fun PublicationContainer.configureComponent(project: Project, component: String) {
+        val publication = create(project.name, MavenPublication::class.java)
+        publication.from(project.components.asMap[component])
+    }
+
     override fun configure(
         project: Project,
         configuration: PublishingApiContract.PackageConfiguration,
@@ -122,9 +129,10 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             publications {
-                if (configuration.isPureJavaLibrary) {
-                    val publication = create(project.name, MavenPublication::class.java)
-                    publication.from(project.components.asMap["java"])
+                when (configuration.type) {
+                    Type.PURE_JAVA -> configureComponent(project, "java")
+                    Type.VERSION_CATALOG -> configureComponent(project, "versionCatalog")
+                    else -> { /* Do nothing */ }
                 }
 
                 withType(MavenPublication::class.java) {

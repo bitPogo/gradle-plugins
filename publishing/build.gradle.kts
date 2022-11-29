@@ -19,6 +19,7 @@ allprojects {
 }
 
 dependencies {
+    implementation(libs.kotlin)
     implementation(libs.publishing)
     implementation(libs.versioning)
     implementation(project(":utils"))
@@ -31,8 +32,8 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("tech.antibytes.gradle.local.publishing") {
-        id = "tech.antibytes.gradle.local.publishing"
+    plugins.register("tech.antibytes.gradle.publishing.local") {
+        id = "tech.antibytes.gradle.publishing.local"
         implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
     }
 }

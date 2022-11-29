@@ -16,12 +16,12 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
         cloneTask: Task?,
         pushTask: Task?,
         publishingTask: Task,
-        registryName: String,
+        repositoryName: String,
     ) {
         val mavenTasks = mutableListOf<Task>()
         subprojects.forEach { subproject ->
             subproject.tasks.findByName(
-                "publishAllPublicationsTo${registryName.capitalize()}Repository",
+                "publishAllPublicationsTo${repositoryName.capitalize()}Repository",
             ).also { task ->
                 if (task is Task) {
                     mavenTasks.add(task)
@@ -43,23 +43,24 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
         documentation: Task?,
         extension: PublishingContract.PublishingPluginExtension,
     ) {
-        if (extension.repositoryConfiguration.isNotEmpty()) {
-            extension.repositoryConfiguration.forEach { registry ->
-                val cloneTask = GitRepository.configureCloneTask(project, registry)
+        val repositories = extension.repositories.get()
+        if (repositories.isNotEmpty()) {
+            repositories.forEach { repository ->
+                val cloneTask = GitRepository.configureCloneTask(project, repository)
                 val pushTask = GitRepository.configurePushTask(
                     project,
-                    registry,
+                    repository,
                     version,
-                    extension.dryRun,
+                    extension.dryRun.get(),
                 )
 
-                val publishTask = addPublishingTask(project, registry)
+                val publishTask = addPublishingTask(project, repository)
 
                 project.wireDependencies(
                     cloneTask = cloneTask,
                     pushTask = pushTask,
                     publishingTask = publishTask,
-                    registryName = registry.name,
+                    repositoryName = repository.name,
                 )
             }
         }

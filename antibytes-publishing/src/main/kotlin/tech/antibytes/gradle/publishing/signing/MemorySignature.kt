@@ -12,7 +12,7 @@ import org.gradle.kotlin.dsl.getByType
 import org.gradle.plugins.signing.SigningExtension
 import tech.antibytes.gradle.publishing.PublishingApiContract
 
-internal object MemorySigning : SigningContract.MemorySigning {
+internal object MemorySignature : SigningContract.MemorySignature {
     override fun configure(
         project: Project,
         configuration: PublishingApiContract.MemorySigning,

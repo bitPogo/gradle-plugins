@@ -28,9 +28,7 @@ internal abstract class SharedPublisherFunctions {
         publishingTask: Task,
     ) {
         if (pushTask is Task) {
-            mavenTasks.forEach { task ->
-                task.dependsOn(cloneTask)
-            }
+            mavenTasks.forEach { task -> task.dependsOn(cloneTask) }
             pushTask.dependsOn(mavenTasks)
             publishingTask.dependsOn(pushTask)
         } else {

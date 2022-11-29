@@ -9,37 +9,49 @@ package tech.antibytes.gradle.publishing.publisher
 import org.gradle.api.Project
 import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
+import tech.antibytes.gradle.publishing.PublishingContract.PublisherController
+import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 
-internal object PublisherSubProjectController : PublishingContract.PublisherController {
-    private fun isApplicable(
-        extension: PublishingContract.PublishingPluginExtension,
-    ): Boolean {
-        return extension.repositoryConfiguration.isNotEmpty() &&
-            extension.packageConfiguration is PublishingApiContract.PackageConfiguration
+internal object PublisherSubProjectController : PublisherController {
+    private fun Project.determineRepositories(extension: PublishingPluginExtension): Set<RepositoryConfiguration> {
+        val repositories = extension.repositories.get()
+
+        return if (repositories.isEmpty()) {
+            rootProject.extensions.getByType(PublishingPluginExtension::class.java).repositories.get()
+        } else {
+            repositories
+        }
+    }
+
+    private fun PublishingPluginExtension.isApplicable(repositories: Set<RepositoryConfiguration>): Boolean {
+        return repositories.isNotEmpty() &&
+            packaging.orNull is PublishingApiContract.PackageConfiguration
     }
 
     override fun configure(
         project: Project,
         version: String,
         documentation: Task?,
-        extension: PublishingContract.PublishingPluginExtension,
+        extension: PublishingPluginExtension,
     ) {
-        if (isApplicable(extension)) {
+        val repositories = project.determineRepositories(extension)
+
+        if (extension.isApplicable(repositories)) {
             MavenPublisher.configure(
                 project = project,
-                configuration = extension.packageConfiguration as PublishingApiContract.PackageConfiguration,
+                configuration = extension.packaging.get(),
                 version = version,
                 docs = documentation,
             )
 
-            extension.repositoryConfiguration.forEach { registry ->
+            repositories.forEach { repository ->
                 MavenRepository.configure(
                     project,
-                    registry,
-                    extension.dryRun,
+                    repository,
+                    extension.dryRun.get(),
                 )
             }
         }

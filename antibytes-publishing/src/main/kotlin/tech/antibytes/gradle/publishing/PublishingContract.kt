@@ -8,18 +8,24 @@ package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.versioning.VersioningContract
+import org.gradle.api.provider.Property
+import org.gradle.api.provider.SetProperty
+import tech.antibytes.gradle.publishing.PublishingApiContract.DocumentationConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.MemorySigning
+import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
+import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
 internal interface PublishingContract {
     interface PublishingPluginExtension {
-        var excludeProjects: Set<String>
-        var versioning: VersioningContract.VersioningConfiguration
-        var repositoryConfiguration: Set<PublishingApiContract.RepositoryConfiguration>
-        var packageConfiguration: PublishingApiContract.PackageConfiguration?
-        var signingConfiguration: PublishingApiContract.MemorySigning?
-        var documentation: PublishingApiContract.DocumentationConfiguration?
-        var dryRun: Boolean
-        var standalone: Boolean
+        val excludeProjects: SetProperty<String>
+        val versioning: Property<VersioningConfiguration>
+        val repositories: SetProperty<RepositoryConfiguration>
+        val packaging: Property<PackageConfiguration>
+        val signing: Property<MemorySigning>
+        val documentation: Property<DocumentationConfiguration>
+        val dryRun: Property<Boolean>
+        val standalone: Property<Boolean>
     }
 
     interface PublisherController {
@@ -27,6 +33,13 @@ internal interface PublishingContract {
             project: Project,
             version: String = "",
             documentation: Task? = null,
+            extension: PublishingPluginExtension,
+        )
+    }
+
+    interface SigningController {
+        fun configure(
+            project: Project,
             extension: PublishingPluginExtension,
         )
     }

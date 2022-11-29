@@ -52,7 +52,7 @@ internal object TaskController : CoverageContract.TaskController {
         extension: AntiBytesCoveragePluginExtension,
     ) {
         JacocoExtensionConfigurator.configure(project, extension)
-        val configuration = extension.configurations[contextId]
+        val configuration = extension.configurations.get()[contextId]
 
         if (configuration is AndroidJacocoCoverageConfiguration) {
             AndroidExtensionConfigurator.configure(project)
@@ -101,7 +101,7 @@ internal object TaskController : CoverageContract.TaskController {
         extension: AntiBytesCoveragePluginExtension,
     ) {
         val tasks = mutableMapOf<Task, Task?>()
-        extension.configurations.forEach { (contextId, configuration) ->
+        extension.configurations.get().forEach { (contextId, configuration) ->
             val (reporter, verification) = when (configuration) {
                 is JacocoCoverageConfiguration -> configureJacocoTask(project, contextId, configuration).also {
                     configureJacocoExtensions(project, contextId, extension)
@@ -122,7 +122,7 @@ internal object TaskController : CoverageContract.TaskController {
         extension: AntiBytesCoveragePluginExtension,
     ) {
         val tasks = mutableMapOf<Task, Task?>()
-        extension.configurations.forEach { (contextId, configuration) ->
+        extension.configurations.get().forEach { (contextId, configuration) ->
             val (reporter, verification) = when (configuration) {
                 is JacocoAggregationConfiguration -> configureAggregationJacocoTask(project, contextId, configuration).also {
                     JacocoExtensionConfigurator.configure(project, extension)

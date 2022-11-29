@@ -27,42 +27,42 @@ class AntiBytesPublishingPluginExtensionSpec {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
         assertEquals(
-            actual = extension.versioning.releasePrefixes,
+            actual = extension.versioning.get().releasePrefixes,
             expected = VersioningConfiguration().releasePrefixes,
         )
 
         assertEquals(
-            actual = extension.versioning.normalization,
+            actual = extension.versioning.get().normalization,
             expected = VersioningConfiguration().normalization,
         )
 
         assertEquals(
-            actual = extension.versioning.versionPrefix,
+            actual = extension.versioning.get().versionPrefix,
             expected = VersioningConfiguration().versionPrefix,
         )
 
         assertEquals(
-            actual = extension.versioning.featurePrefixes,
+            actual = extension.versioning.get().featurePrefixes,
             expected = VersioningConfiguration().featurePrefixes,
         )
 
         assertEquals(
-            actual = extension.versioning.issuePattern,
+            actual = extension.versioning.get().issuePattern,
             expected = VersioningConfiguration().issuePattern,
         )
 
         assertEquals(
-            actual = extension.versioning.dependencyBotPrefixes,
+            actual = extension.versioning.get().dependencyBotPrefixes,
             expected = VersioningConfiguration().dependencyBotPrefixes,
         )
 
         assertEquals(
-            actual = extension.versioning.useGitHashFeatureSuffix,
+            actual = extension.versioning.get().useGitHashFeatureSuffix,
             expected = VersioningConfiguration().useGitHashFeatureSuffix,
         )
 
         assertEquals(
-            actual = extension.versioning.useGitHashSnapshotSuffix,
+            actual = extension.versioning.get().useGitHashSnapshotSuffix,
             expected = VersioningConfiguration().useGitHashSnapshotSuffix,
         )
     }
@@ -71,7 +71,7 @@ class AntiBytesPublishingPluginExtensionSpec {
     fun `It has false as default DryRun`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertFalse(extension.dryRun)
+        assertFalse(extension.dryRun.get())
     }
 
     @Test
@@ -79,7 +79,7 @@ class AntiBytesPublishingPluginExtensionSpec {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
         assertEquals(
-            actual = extension.repositoryConfiguration,
+            actual = extension.repositories.get(),
             expected = emptySet(),
         )
     }
@@ -88,14 +88,14 @@ class AntiBytesPublishingPluginExtensionSpec {
     fun `It has no default PackageConfigurations`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertNull(extension.packageConfiguration)
+        assertNull(extension.packaging.orNull)
     }
 
     @Test
     fun `It has no default Documentation`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertNull(extension.documentation)
+        assertNull(extension.documentation.orNull)
     }
 
     @Test
@@ -103,7 +103,7 @@ class AntiBytesPublishingPluginExtensionSpec {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
         assertEquals(
-            actual = extension.excludeProjects,
+            actual = extension.excludeProjects.get(),
             expected = emptySet(),
         )
     }
@@ -112,13 +112,13 @@ class AntiBytesPublishingPluginExtensionSpec {
     fun `It has true as default signing configuration`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertNull(extension.signingConfiguration)
+        assertNull(extension.signing.orNull)
     }
 
     @Test
     fun `It has true as default Standalone`() {
         val extension: AntiBytesPublishingPluginExtension = createExtension()
 
-        assertFalse(extension.standalone)
+        assertFalse(extension.standalone.get())
     }
 }

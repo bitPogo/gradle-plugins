@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.test
 
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.gradle.testfixtures.ProjectBuilder
@@ -42,5 +43,18 @@ object GradlePropertyBuilder {
      */
     fun <T> makeSetProperty(type: Class<T>, value: Set<T>): SetProperty<T> {
         return project.objects.setProperty(type).convention(value)
+    }
+
+    /**
+     * Creates a MapProperty
+     * @param Class<T>: type of the Objects Key which will be wrapped by the resulting Property
+     * * @param Class<T>: type of the Objects Value which will be wrapped by the resulting Property
+     * @param Map<T>: key-value pairs of the Object which will be wrapped by the resulting Property
+     */
+    fun <T : Any, V : Any> makeMapProperty(keyType: Class<T>, valueType: Class<V>, map: Map<T, V>): MapProperty<T, V> {
+        return project.objects.mapProperty(
+            keyType,
+            valueType,
+        ).convention(map)
     }
 }

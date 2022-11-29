@@ -15,10 +15,6 @@ repositories {
 
 dependencies {
     implementation(libs.kotlin)
-    // publishing.gradle.kts
-    implementation(libs.publishing)
-    // Versioning
-    implementation(libs.versioning)
     // spotless
     implementation(libs.spotless)
     implementation(libs.ktlint)

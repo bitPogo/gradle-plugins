@@ -18,8 +18,8 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
     private fun isApplicable(
         extension: PublishingContract.PublishingPluginExtension,
     ): Boolean {
-        return extension.repositoryConfiguration.isNotEmpty() &&
-            extension.packageConfiguration is PublishingApiContract.PackageConfiguration
+        return extension.repositories.get().isNotEmpty() &&
+            extension.packaging.orNull is PublishingApiContract.PackageConfiguration
     }
 
     private fun wireDependencies(
@@ -48,9 +48,9 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
         extension: PublishingContract.PublishingPluginExtension,
     ) {
         if (isApplicable(extension)) {
-            val dryRun = extension.dryRun
-            val registryConfigurations = extension.repositoryConfiguration
-            val packageConfiguration = extension.packageConfiguration as PublishingApiContract.PackageConfiguration
+            val dryRun = extension.dryRun.get()
+            val registryConfigurations = extension.repositories.get()
+            val packageConfiguration = extension.packaging.get()
 
             MavenPublisher.configure(
                 project = project,
