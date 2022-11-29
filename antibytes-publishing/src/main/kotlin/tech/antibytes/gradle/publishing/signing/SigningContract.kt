@@ -8,7 +8,6 @@ package tech.antibytes.gradle.publishing.signing
 
 import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingContract
 
 internal interface SigningContract {
     interface CommonSignature {

@@ -13,7 +13,6 @@ import tech.antibytes.gradle.publishing.doc.DocumentationController
 import tech.antibytes.gradle.publishing.version.VersionController
 import tech.antibytes.gradle.util.isRoot
 
-
 internal object PublisherController : PublishingContract.PublisherController {
     override fun configure(
         project: Project,

@@ -45,11 +45,11 @@ internal object VersionController : PublisherContract.VersionController {
 
     override fun configure(
         project: Project,
-        configuration: PublishingPluginExtension
+        configuration: PublishingPluginExtension,
     ): Version {
         val derivedVersion = Versioning.getInstance(
             project,
-            configuration.versioning.get()
+            configuration.versioning.get(),
         ).versionName()
 
         project.addVersionTask(configuration.versioning.get())

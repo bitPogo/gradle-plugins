@@ -28,7 +28,6 @@ import tech.antibytes.gradle.publishing.version.VersionController
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
-import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
 class PublisherControllerSpec {

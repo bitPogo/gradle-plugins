@@ -14,6 +14,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
@@ -28,7 +29,6 @@ import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.VersioningContract
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 import tech.antibytes.gradle.versioning.api.VersionInfo
-import kotlin.test.assertTrue
 
 class VersionControllerSpec {
     private val fixture = kotlinFixture()

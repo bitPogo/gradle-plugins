@@ -6,7 +6,6 @@
 
 package tech.antibytes.gradle.publishing.signing
 
-import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just

@@ -10,6 +10,9 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlin.test.assertNull
+import kotlin.test.assertSame
+import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
@@ -19,9 +22,6 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.api.DocumentationConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.test.createExtension
-import kotlin.test.assertNull
-import kotlin.test.assertSame
-import kotlin.test.assertTrue
 
 class DocumentationControllerSpec {
     private val fixture = kotlinFixture()
@@ -58,8 +58,8 @@ class DocumentationControllerSpec {
         extension.documentation.set(
             DocumentationConfiguration(
                 tasks = setOf("dokkaHtml"),
-                outputDir = mockk()
-            )
+                outputDir = mockk(),
+            ),
         )
 
         every { project.rootProject } returns mockk()
@@ -86,8 +86,8 @@ class DocumentationControllerSpec {
         extension.documentation.set(
             DocumentationConfiguration(
                 tasks = setOf(fixture()),
-                outputDir = mockk(relaxed = true)
-            )
+                outputDir = mockk(relaxed = true),
+            ),
         )
 
         every { project.rootProject } returns mockk()

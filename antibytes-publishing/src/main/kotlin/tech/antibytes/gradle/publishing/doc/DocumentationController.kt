@@ -9,18 +9,16 @@ package tech.antibytes.gradle.publishing.doc
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.jvm.tasks.Jar
-import org.gradle.kotlin.dsl.extra
-import tech.antibytes.gradle.publishing.publisher.PublisherContract
-import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.publishing.PublishingApiContract.DocumentationConfiguration
+import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
+import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.util.isRoot
-import java.io.File
 
 internal object DocumentationController : PublisherContract.DocumentationController {
     private const val DOC_TASK_NAME = "javadoc"
 
     private fun Project.createDocumentationTask(
-        configuration: DocumentationConfiguration
+        configuration: DocumentationConfiguration,
     ): Task {
         return tasks.create(DOC_TASK_NAME, Jar::class.java).apply {
             group = "Documentation"
@@ -32,11 +30,11 @@ internal object DocumentationController : PublisherContract.DocumentationControl
     }
 
     private fun DocumentationConfiguration.determineDocumentationTask(
-        project: Project
+        project: Project,
     ): Task = project.tasks.findByName(DOC_TASK_NAME) ?: project.createDocumentationTask(this)
 
     private fun PublishingPluginExtension.determineDocumentationTask(
-        project: Project
+        project: Project,
     ): Task? = documentation.orNull?.determineDocumentationTask(project)
 
     private fun Project.executeIfNotRoot(action: Function0<Task?>): Task? {
@@ -49,6 +47,6 @@ internal object DocumentationController : PublisherContract.DocumentationControl
 
     override fun configure(
         project: Project,
-        configuration: PublishingPluginExtension
+        configuration: PublishingPluginExtension,
     ): Task? = project.executeIfNotRoot { configuration.determineDocumentationTask(project) }
 }

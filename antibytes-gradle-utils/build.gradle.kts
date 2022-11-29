@@ -4,6 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
@@ -26,6 +27,11 @@ plugins {
 }
 
 antiBytesPublishing {
+    versioning.set(
+        VersioningConfiguration(
+            featurePrefixes = listOf("feature")
+        )
+    )
     packaging.set(
         PackageConfiguration(
             type = Type.PURE_JAVA,
@@ -53,6 +59,38 @@ antiBytesPublishing {
                 connection = LibraryConfig.publishing.scmConnection,
                 developerConnection = LibraryConfig.publishing.scmDeveloperConnection,
             ),
+        )
+    )
+    repositories.set(
+        setOf(
+            GitRepositoryConfiguration(
+                name = "Development",
+                gitWorkDirectory = "dev",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-dev",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "Snapshot",
+                gitWorkDirectory = "snapshots",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-snapshots",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "RollingRelease",
+                gitWorkDirectory = "rolling",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-rolling-releases",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "Release",
+                gitWorkDirectory = "releases",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            )
         )
     )
 }

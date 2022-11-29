@@ -4,6 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
@@ -16,6 +17,7 @@ import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
+import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -27,6 +29,11 @@ plugins {
 }
 
 antiBytesPublishing {
+    versioning.set(
+        VersioningConfiguration(
+            featurePrefixes = listOf("feature")
+        )
+    )
     packaging.set(
         PackageConfiguration(
             pom = PomConfiguration(
@@ -53,6 +60,38 @@ antiBytesPublishing {
                 connection = LibraryConfig.publishing.scmConnection,
                 developerConnection = LibraryConfig.publishing.scmDeveloperConnection,
             ),
+        )
+    )
+    repositories.set(
+        setOf(
+            GitRepositoryConfiguration(
+                name = "Development",
+                gitWorkDirectory = "dev",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-dev",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "Snapshot",
+                gitWorkDirectory = "snapshots",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-snapshots",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "RollingRelease",
+                gitWorkDirectory = "rolling",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-rolling-releases",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            ),
+            GitRepositoryConfiguration(
+                name = "Release",
+                gitWorkDirectory = "releases",
+                url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
+                username = LibraryConfig.username,
+                password = LibraryConfig.password
+            )
         )
     )
 }

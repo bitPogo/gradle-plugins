@@ -9,8 +9,8 @@ package tech.antibytes.gradle.publishing.signing
 import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
-import tech.antibytes.gradle.util.isRoot
 import tech.antibytes.gradle.publishing.PublishingContract.SigningController
+import tech.antibytes.gradle.util.isRoot
 
 internal object SigningController : SigningController {
     private fun PublishingPluginExtension.allowsSigning(projectName: String): Boolean {
