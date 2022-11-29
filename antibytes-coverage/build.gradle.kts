@@ -36,6 +36,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
+            groupId = LibraryConfig.PublishConfig.groupId,
             pom = PomConfiguration(
                 name = "antibytes-coverage",
                 description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes.",

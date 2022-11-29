@@ -36,6 +36,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
+            groupId = LibraryConfig.PublishConfig.groupId,
             pom = PomConfiguration(
                 name = "antibytes-grammar-tools",
                 description = "A Bison and JFlex plugin for Gradle.",

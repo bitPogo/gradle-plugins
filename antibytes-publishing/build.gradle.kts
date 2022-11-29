@@ -34,6 +34,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
+            groupId = LibraryConfig.PublishConfig.groupId,
             pom = PomConfiguration(
                 name = "antibytes-publishing",
                 description = "Publishing tasks for Antibytes projects.",

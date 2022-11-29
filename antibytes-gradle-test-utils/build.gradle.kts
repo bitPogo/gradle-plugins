@@ -34,6 +34,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
+            groupId = LibraryConfig.PublishConfig.groupId,
             type = Type.PURE_JAVA,
             pom = PomConfiguration(
                 name = "antibytes-gradle-test-utils",

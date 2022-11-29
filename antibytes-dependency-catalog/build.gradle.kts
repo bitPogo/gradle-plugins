@@ -29,6 +29,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
+            groupId = LibraryConfig.PublishConfig.groupId,
             type = Type.VERSION_CATALOG,
             pom = PomConfiguration(
                 name = "antibytes-dependency-catalog",
