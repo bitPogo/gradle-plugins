@@ -4,6 +4,8 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
@@ -22,6 +24,7 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
 
+    id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
 }
@@ -100,6 +103,8 @@ group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.kotlin)
+    implementation(libs.spotless)
+    implementation(libs.ktlint)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
@@ -156,4 +161,28 @@ tasks.test {
 
 tasks.check {
     dependsOn("jvmCoverageVerification")
+}
+
+configure<SourceSetContainer> {
+    main {
+        java.srcDirs(
+            "src/main/kotlin",
+            "build/generated/antibytes/main/kotlin"
+        )
+    }
+}
+
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
+
+    packageName.set("tech.antibytes.gradle.quality.config")
+    stringFields.set(
+        mapOf(
+            "ktlintVersion" to libs.versions.ktlint.get(),
+        )
+    )
+}
+
+tasks.withType<KotlinCompile> {
+    dependsOn(provideConfig)
 }
