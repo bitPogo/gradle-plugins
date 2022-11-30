@@ -26,12 +26,12 @@ import tech.antibytes.gradle.quality.api.PartialLinterConfiguration
 import tech.antibytes.gradle.test.createExtension
 import tech.antibytes.gradle.test.invokeGradleAction
 
-class LinterSpec {
+class SpotlessSpec {
     private val fixture = kotlinFixture()
 
     @Test
     fun `It fulfils Configurator`() {
-        val configurator: Any = Linter
+        val configurator: Any = Spotless
 
         assertTrue(configurator is Configurator)
     }
@@ -44,7 +44,7 @@ class LinterSpec {
         extension.linter.convention(null)
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
     }
 
     @Test
@@ -92,7 +92,7 @@ class LinterSpec {
         )
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
 
         // Then
         assertEquals(
@@ -152,7 +152,7 @@ class LinterSpec {
         )
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
 
         // Then
         assertEquals(
@@ -200,7 +200,7 @@ class LinterSpec {
         )
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
 
         // Then
         assertEquals(
@@ -254,7 +254,7 @@ class LinterSpec {
         )
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
 
         // Then
         assertEquals(
@@ -314,7 +314,7 @@ class LinterSpec {
         )
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
 
         // Then
         assertEquals(
@@ -362,7 +362,7 @@ class LinterSpec {
         )
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
 
         // Then
         assertEquals(
@@ -415,7 +415,7 @@ class LinterSpec {
         )
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
 
         // Then
         assertEquals(
@@ -473,7 +473,7 @@ class LinterSpec {
         )
 
         // When
-        Linter.configure(project, extension)
+        Spotless.configure(project, extension)
 
         // Then
         assertEquals(

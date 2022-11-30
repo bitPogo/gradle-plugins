@@ -14,7 +14,7 @@ import tech.antibytes.gradle.quality.QualityApiContract.LinterConfiguration.Part
 import tech.antibytes.gradle.quality.QualityContract.Extension
 import tech.antibytes.gradle.quality.config.MainConfig.ktlintVersion
 
-internal object Linter : Configurator() {
+internal object Spotless : Configurator() {
     private fun FormatExtension.configure(configuration: PartialConfiguration) {
         target(*configuration.include.toTypedArray())
         if (configuration.exclude.isNotEmpty()) {
@@ -59,7 +59,6 @@ internal object Linter : Configurator() {
         configuration: Extension,
     ) {
         configuration.linter.orNull.applyIfNotNull { linterConfiguration ->
-            println(linterConfiguration)
             project.plugins.apply("com.diffplug.spotless")
 
             project.extensions.configure(SpotlessExtension::class.java) {

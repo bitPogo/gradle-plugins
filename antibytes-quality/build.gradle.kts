@@ -105,6 +105,7 @@ dependencies {
     implementation(libs.kotlin)
     implementation(libs.spotless)
     implementation(libs.ktlint)
+    implementation(libs.detekt)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
@@ -178,6 +179,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     packageName.set("tech.antibytes.gradle.quality.config")
     stringFields.set(
         mapOf(
+            "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
         )
     )
