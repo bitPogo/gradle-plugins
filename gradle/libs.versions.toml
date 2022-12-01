@@ -25,6 +25,8 @@ agp = "7.3.0"
 spotless = "6.11.0"
 # [KTLint](https://github.com/pinterest/ktlint)
 ktlint = "0.47.1"
+# [Detekt](https://github.com/detekt/detekt)
+detekt = "1.21.0"
 
 ## Libs
 # [JFlex](https://jflex.de/)
@@ -54,6 +56,7 @@ publishing = { module = "org.eclipse.jgit:org.eclipse.jgit", version.ref = "publ
 versioning = { module = "com.palantir.gradle.gitversion:gradle-git-version", version.ref = "versioning" }
 spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
+detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 
 ## Libs
 jflex = { module = "de.jflex:jflex", version.ref = "jflex" }

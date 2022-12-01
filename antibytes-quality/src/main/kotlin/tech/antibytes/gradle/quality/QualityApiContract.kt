@@ -6,6 +6,9 @@
 
 package tech.antibytes.gradle.quality
 
+import java.io.File
+import org.gradle.api.file.ConfigurableFileCollection
+
 interface QualityApiContract {
     interface LinterConfiguration {
         interface PartialConfiguration {
@@ -32,6 +35,9 @@ interface QualityApiContract {
         val exclude: Set<String>
         val excludeBaseline: Set<String>
         val reports: Report
+        val configurationFiles: ConfigurableFileCollection
+        val baselineFile: File
+        val sourceFiles: ConfigurableFileCollection
     }
 
     interface SonarqubeConfiguration {
