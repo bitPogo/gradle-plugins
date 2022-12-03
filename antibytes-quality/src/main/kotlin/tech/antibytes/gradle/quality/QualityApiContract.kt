@@ -40,7 +40,7 @@ interface QualityApiContract {
         val sourceFiles: ConfigurableFileCollection
     }
 
-    interface SonarqubeConfiguration {
+    interface QualityGateConfiguration {
         val projectKey: String
         val organization: String
         val host: String

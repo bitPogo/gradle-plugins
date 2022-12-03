@@ -106,6 +106,7 @@ dependencies {
     implementation(libs.spotless)
     implementation(libs.ktlint)
     implementation(libs.detekt)
+    implementation(libs.sonarqube)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))

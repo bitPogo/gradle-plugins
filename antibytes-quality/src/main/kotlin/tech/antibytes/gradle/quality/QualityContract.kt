@@ -11,7 +11,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import tech.antibytes.gradle.quality.QualityApiContract.CodeAnalysisConfiguration
 import tech.antibytes.gradle.quality.QualityApiContract.LinterConfiguration
-import tech.antibytes.gradle.quality.QualityApiContract.SonarqubeConfiguration
+import tech.antibytes.gradle.quality.QualityApiContract.QualityGateConfiguration
 import tech.antibytes.gradle.quality.QualityApiContract.StableApiConfiguration
 
 internal interface QualityContract {
@@ -20,7 +20,7 @@ internal interface QualityContract {
         val linter: Property<LinterConfiguration>
         val codeAnalysis: Property<CodeAnalysisConfiguration>
         val stableApi: Property<StableApiConfiguration>
-        val qualityGate: Property<SonarqubeConfiguration>
+        val qualityGate: Property<QualityGateConfiguration>
     }
 
     fun interface Configurator {
