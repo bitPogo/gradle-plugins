@@ -32,16 +32,6 @@ class AntiBytesQualityExtensionSpec {
     }
 
     @Test
-    fun `It has no explicit Api on Default`() {
-        val extension = createExtension<AntiBytesQualityExtension>()
-
-        assertEquals(
-            actual = extension.explicitApiFor.orNull,
-            expected = emptySet(),
-        )
-    }
-
-    @Test
     fun `It has no CodeAnalysis on Default`() {
         val extension = createExtension<AntiBytesQualityExtension>()
 

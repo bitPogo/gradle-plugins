@@ -11,7 +11,6 @@ import tech.antibytes.gradle.quality.api.LinterConfiguration
 abstract class AntiBytesQualityExtension : QualityContract.Extension {
     init {
         linter.convention(LinterConfiguration())
-        explicitApiFor.convention(emptySet())
         codeAnalysis.convention(null)
         stableApi.convention(null)
         qualityGate.convention(null)
