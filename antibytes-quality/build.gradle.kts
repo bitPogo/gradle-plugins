@@ -107,6 +107,7 @@ dependencies {
     implementation(libs.ktlint)
     implementation(libs.detekt)
     implementation(libs.sonarqube)
+    implementation(libs.stableApi)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
