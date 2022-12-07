@@ -8,7 +8,7 @@ package tech.antibytes.gradle.versioning
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class DependencyPlugin : Plugin<Project> {
+class AntibytesVersioning : Plugin<Project> {
     override fun apply(target: Project) {
         if (!target.plugins.hasPlugin("com.palantir.git-version")) {
             target.plugins.apply("com.palantir.git-version")

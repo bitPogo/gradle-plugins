@@ -23,18 +23,9 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-configure<SourceSetContainer> {
-    main {
-        java.srcDirs(
-            "src/main/kotlin",
-            "src-plugin/main/kotlin",
-        )
-    }
-}
-
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.versioning.local") {
         id = "tech.antibytes.gradle.versioning.local"
-        implementationClass = "tech.antibytes.gradle.versioning.DependencyPlugin"
+        implementationClass = "tech.antibytes.gradle.versioning.AntibytesVersioning"
     }
 }
