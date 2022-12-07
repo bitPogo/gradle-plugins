@@ -149,3 +149,11 @@ tasks.test {
 tasks.check {
     dependsOn("jvmCoverageVerification")
 }
+
+
+gradlePlugin {
+    plugins.register("tech.antibytes.gradle.versioning") {
+        id = "tech.antibytes.gradle.versioning"
+        implementationClass = "tech.antibytes.gradle.versioning.AntibytesVersioning"
+    }
+}
