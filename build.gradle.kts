@@ -10,11 +10,10 @@ import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 
 plugins {
-    id("tech.antibytes.gradle.plugin.script.quality-spotless")
-
     id("tech.antibytes.gradle.publishing.local")
     id("tech.antibytes.gradle.dependency.catalog")
     id("tech.antibytes.gradle.dependency.helper.local")
+    id("tech.antibytes.gradle.quality.local")
 }
 
 antiBytesPublishing {

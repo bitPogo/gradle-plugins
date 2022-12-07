@@ -18,6 +18,7 @@ includeBuild("publishing")
 includeBuild("versioning")
 includeBuild("dependency-bridge")
 includeBuild("shared-version-catalog")
+includeBuild("quality")
 
 include(
     ":antibytes-configuration",

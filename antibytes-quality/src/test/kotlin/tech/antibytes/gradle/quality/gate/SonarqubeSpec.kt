@@ -91,6 +91,49 @@ class SonarqubeSpec {
     }
 
     @Test
+    fun `Given configure is called with an analysis Config it will not exclude subprojects`() {
+        // Given
+        val project: Project = mockk()
+        val subProject: Project = mockk()
+        val subprojectName: String = fixture()
+        val extension = createExtension<AntiBytesQualityExtension>()
+
+        val config = QualityGateConfiguration(
+            projectKey = fixture(),
+            organization = fixture(),
+            host = fixture(),
+            encoding = fixture(),
+            jacoco = fixture(),
+            junit = fixture(),
+            detekt = fixture(),
+            exclude = fixture(),
+        )
+        val sonarExtension: SonarQubeExtension = mockk(relaxed = true)
+
+        extension.qualityGate.set(config)
+
+        every { project.plugins.apply(any()) } returns mockk()
+        every { project.extensions.configure(SonarQubeExtension::class.java, any()) } returns mockk()
+        every { subProject.name } returns subprojectName
+
+        invokeGradleAction(
+            { probe -> project.subprojects(probe) },
+            subProject,
+        )
+        invokeGradleAction(
+            { probe -> subProject.extensions.configure(SonarQubeExtension::class.java, probe) },
+            sonarExtension,
+            sonarExtension,
+        )
+
+        // When
+        Sonarqube.configure(project, extension)
+
+        // Then
+        verify(exactly = 0) { sonarExtension.isSkipProject = true }
+    }
+
+    @Test
     fun `Given configure is called with an analysis Config it excludes subprojects`() {
         // Given
         val project: Project = mockk()
