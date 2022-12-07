@@ -24,4 +24,8 @@ internal interface QualityContract {
     fun interface Configurator {
         fun configure(project: Project, configuration: Extension)
     }
+
+    companion object {
+        const val EXTENSION_ID = "antiBytesQuality"
+    }
 }

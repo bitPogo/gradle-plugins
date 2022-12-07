@@ -6,7 +6,7 @@
 
 package tech.antibytes.gradle.quality
 
-abstract class Configurator : QualityContract.Configurator {
+internal abstract class Configurator : QualityContract.Configurator {
     protected fun <T : Any> T?.applyIfNotNull(action: (T) -> Unit) {
         if (this != null) {
             action(this)

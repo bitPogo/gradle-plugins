@@ -8,9 +8,34 @@ package tech.antibytes.gradle.quality
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import tech.antibytes.gradle.quality.QualityContract.Companion.EXTENSION_ID
+import tech.antibytes.gradle.quality.analysis.Detekt
+import tech.antibytes.gradle.quality.gate.Sonarqube
+import tech.antibytes.gradle.quality.linter.Spotless
+import tech.antibytes.gradle.quality.stableapi.StableApi
 
 class AntiBytesQuality : Plugin<Project> {
+    private val phases = setOf(
+        Spotless,
+        Detekt,
+        Sonarqube,
+        StableApi,
+    )
+
+    private fun Project.applyPlugin(extension: AntiBytesQualityExtension) {
+        afterEvaluate {
+            phases.forEach { configurator ->
+                configurator.configure(this, extension)
+            }
+        }
+    }
+
     override fun apply(target: Project) {
-        TODO("Not yet implemented")
+        val extension = target.extensions.create(
+            EXTENSION_ID,
+            AntiBytesQualityExtension::class.java,
+        )
+
+        target.applyPlugin(extension)
     }
 }

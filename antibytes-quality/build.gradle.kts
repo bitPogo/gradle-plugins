@@ -136,20 +136,20 @@ antiBytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.98)
+        minimum = BigDecimal(0.99)
     )
 
     val instructionCoverage = JacocoVerificationRule(
         counter = JacocoCounter.INSTRUCTION,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.95)
+        minimum = BigDecimal(0.97)
     )
 
     val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
         project,
         verificationRules = setOf(
-            // branchCoverage,
-            // instructionCoverage
+            branchCoverage,
+            instructionCoverage
         )
     )
 
@@ -163,7 +163,7 @@ tasks.test {
 }
 
 tasks.check {
-    // dependsOn("jvmCoverageVerification")
+    dependsOn("jvmCoverageVerification")
 }
 
 configure<SourceSetContainer> {
