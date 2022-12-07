@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.publishing.api
 
 import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.CustomArtifact
 import tech.antibytes.gradle.publishing.PublishingApiContract.ContributorConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.LicenseConfiguration
@@ -15,9 +16,10 @@ import tech.antibytes.gradle.publishing.PublishingApiContract.SourceControlConfi
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 
 data class PackageConfiguration(
+    override val customArtifacts: List<CustomArtifact<out Any>> = emptyList(),
     override val artifactId: String? = null,
     override val groupId: String? = null,
-    override val type: Type = Type.MIXED,
+    override val type: Type = Type.DEFAULT,
     override val pom: PomConfiguration,
     override val developers: List<DeveloperConfiguration>,
     override val contributors: List<ContributorConfiguration> = emptyList(),

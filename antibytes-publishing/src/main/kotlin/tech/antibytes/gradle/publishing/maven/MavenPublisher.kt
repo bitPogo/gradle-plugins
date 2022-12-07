@@ -20,6 +20,7 @@ import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
+import tech.antibytes.gradle.publishing.PublishingApiContract.CustomArtifact
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
 internal object MavenPublisher : PublisherContract.MavenPublisher {
@@ -37,7 +38,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
             publication.artifactId = configuration.artifactId
         }
 
-        if (docs != null) {
+        if (docs != null && configuration.type != Type.CUSTOM) {
             publication.artifact(docs)
         }
 
@@ -121,6 +122,19 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
         publication.from(project.components.asMap[component])
     }
 
+    private fun PublicationContainer.configureArtifact(
+        project: Project,
+        customArtifacts: List<CustomArtifact<out Any>>
+    ) {
+        val publication = create(project.name, MavenPublication::class.java)
+        customArtifacts.forEach { customArtifact ->
+            publication.artifact(customArtifact.handle) {
+                extension = customArtifact.extension
+                classifier = customArtifact.classifier
+            }
+        }
+    }
+
     override fun configure(
         project: Project,
         configuration: PublishingApiContract.PackageConfiguration,
@@ -132,7 +146,8 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
                 when (configuration.type) {
                     Type.PURE_JAVA -> configureComponent(project, "java")
                     Type.VERSION_CATALOG -> configureComponent(project, "versionCatalog")
-                    else -> { /* Do nothing */ }
+                    Type.CUSTOM -> configureArtifact(project, configuration.customArtifacts)
+                    Type.DEFAULT -> { /* Do nothing */ }
                 }
 
                 withType(MavenPublication::class.java) {

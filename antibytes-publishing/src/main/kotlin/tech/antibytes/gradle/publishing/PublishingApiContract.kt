@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.publishing
 
+import org.gradle.api.component.Artifact
 import java.io.File
 
 interface PublishingApiContract {
@@ -48,10 +49,18 @@ interface PublishingApiContract {
     enum class Type {
         PURE_JAVA,
         VERSION_CATALOG,
-        MIXED,
+        CUSTOM,
+        DEFAULT,
+    }
+
+    interface CustomArtifact<T> {
+        val handle: T
+        val classifier: String
+        val extension: String
     }
 
     interface PackageConfiguration {
+        val customArtifacts: List<CustomArtifact<out Any>>
         val artifactId: String?
         val groupId: String?
         val type: Type

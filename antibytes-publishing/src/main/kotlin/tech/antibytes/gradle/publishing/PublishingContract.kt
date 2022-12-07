@@ -47,7 +47,6 @@ internal interface PublishingContract {
     companion object {
         const val EXTENSION_ID = "antiBytesPublishing"
         val DEPENDENCIES = arrayOf(
-            "com.palantir.git-version",
             "maven-publish",
             "org.gradle.signing",
         )

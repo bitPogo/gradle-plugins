@@ -13,6 +13,7 @@ import tech.antibytes.gradle.publishing.PublishingContract.Companion.EXTENSION_I
 import tech.antibytes.gradle.publishing.publisher.PublisherController
 import tech.antibytes.gradle.publishing.signing.SigningController
 import tech.antibytes.gradle.util.applyIfNotExists
+import tech.antibytes.gradle.versioning.AntibytesVersioning
 
 class AntiBytesPublishing : Plugin<Project> {
     override fun apply(target: Project) {
@@ -22,6 +23,7 @@ class AntiBytesPublishing : Plugin<Project> {
         )
 
         target.applyIfNotExists(*DEPENDENCIES)
+        AntibytesVersioning().apply(target)
 
         PublisherController.configure(project = target, extension = extension)
         SigningController.configure(project = target, extension = extension)
