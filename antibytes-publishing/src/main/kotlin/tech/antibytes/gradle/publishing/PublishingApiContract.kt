@@ -6,7 +6,6 @@
 
 package tech.antibytes.gradle.publishing
 
-import org.gradle.api.component.Artifact
 import java.io.File
 
 interface PublishingApiContract {
@@ -55,7 +54,7 @@ interface PublishingApiContract {
 
     interface CustomArtifact<T> {
         val handle: T
-        val classifier: String
+        val classifier: String?
         val extension: String
     }
 

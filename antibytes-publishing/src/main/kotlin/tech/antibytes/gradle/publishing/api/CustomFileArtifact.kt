@@ -6,11 +6,11 @@
 
 package tech.antibytes.gradle.publishing.api
 
-import tech.antibytes.gradle.publishing.PublishingApiContract.CustomArtifact
 import java.io.File
+import tech.antibytes.gradle.publishing.PublishingApiContract.CustomArtifact
 
 data class CustomFileArtifact(
     override val handle: File,
-    override val classifier: String,
-    override val extension: String
+    override val classifier: String? = null,
+    override val extension: String,
 ) : CustomArtifact<File>

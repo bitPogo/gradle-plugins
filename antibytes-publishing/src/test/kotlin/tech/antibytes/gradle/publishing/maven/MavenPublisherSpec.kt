@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import java.io.File
 import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.component.SoftwareComponent
@@ -41,7 +42,6 @@ import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.test.invokeGradleAction
-import java.io.File
 
 class MavenPublisherSpec {
     private val fixture = kotlinFixture()
@@ -502,13 +502,12 @@ class MavenPublisherSpec {
             publicationContainer.create(projectName, MavenPublication::class.java)
         } returns publication
 
-
         invokeGradleAction(
             { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
             mockk(),
         )
-        
+
         invokeGradleAction(
             { probe -> publication.artifact(any(), probe) },
             artifact,

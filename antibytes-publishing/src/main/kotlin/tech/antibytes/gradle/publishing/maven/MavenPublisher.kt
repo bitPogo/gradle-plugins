@@ -19,8 +19,8 @@ import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.PublishingApiContract.CustomArtifact
+import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
 internal object MavenPublisher : PublisherContract.MavenPublisher {
@@ -124,7 +124,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
 
     private fun PublicationContainer.configureArtifact(
         project: Project,
-        customArtifacts: List<CustomArtifact<out Any>>
+        customArtifacts: List<CustomArtifact<out Any>>,
     ) {
         val publication = create(project.name, MavenPublication::class.java)
         customArtifacts.forEach { customArtifact ->

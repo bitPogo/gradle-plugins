@@ -7,8 +7,8 @@
 package tech.antibytes.gradle.publishing.api
 
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingApiContract.CustomArtifact
 import tech.antibytes.gradle.publishing.PublishingApiContract.ContributorConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.CustomArtifact
 import tech.antibytes.gradle.publishing.PublishingApiContract.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.LicenseConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.PomConfiguration
