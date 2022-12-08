@@ -19,6 +19,7 @@ import org.gradle.api.publish.maven.MavenPomLicense
 import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.CustomArtifact
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
@@ -37,7 +38,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
             publication.artifactId = configuration.artifactId
         }
 
-        if (docs != null) {
+        if (docs != null && configuration.type != Type.CUSTOM_ARTIFACT) {
             publication.artifact(docs)
         }
 
@@ -121,6 +122,19 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
         publication.from(project.components.asMap[component])
     }
 
+    private fun PublicationContainer.configureArtifact(
+        project: Project,
+        customArtifacts: List<CustomArtifact<out Any>>,
+    ) {
+        val publication = create(project.name, MavenPublication::class.java)
+        customArtifacts.forEach { customArtifact ->
+            publication.artifact(customArtifact.handle) {
+                extension = customArtifact.extension
+                classifier = customArtifact.classifier
+            }
+        }
+    }
+
     override fun configure(
         project: Project,
         configuration: PublishingApiContract.PackageConfiguration,
@@ -129,10 +143,16 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             publications {
+                @Suppress("UNCHECKED_CAST")
                 when (configuration.type) {
                     Type.PURE_JAVA -> configureComponent(project, "java")
                     Type.VERSION_CATALOG -> configureComponent(project, "versionCatalog")
-                    else -> { /* Do nothing */ }
+                    Type.CUSTOM_COMPONENT -> configureComponent(project, configuration.custom as String)
+                    Type.CUSTOM_ARTIFACT -> configureArtifact(
+                        project,
+                        configuration.custom as List<CustomArtifact<out Any>>,
+                    )
+                    Type.DEFAULT -> { /* Do nothing */ }
                 }
 
                 withType(MavenPublication::class.java) {

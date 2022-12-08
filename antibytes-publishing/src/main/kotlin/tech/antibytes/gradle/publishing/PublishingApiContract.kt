@@ -48,10 +48,19 @@ interface PublishingApiContract {
     enum class Type {
         PURE_JAVA,
         VERSION_CATALOG,
-        MIXED,
+        CUSTOM_ARTIFACT,
+        CUSTOM_COMPONENT,
+        DEFAULT,
+    }
+
+    interface CustomArtifact<T> {
+        val handle: T
+        val classifier: String?
+        val extension: String
     }
 
     interface PackageConfiguration {
+        val custom: Any?
         val artifactId: String?
         val groupId: String?
         val type: Type

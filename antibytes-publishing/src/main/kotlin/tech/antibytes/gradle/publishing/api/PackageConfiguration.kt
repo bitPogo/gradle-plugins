@@ -15,9 +15,10 @@ import tech.antibytes.gradle.publishing.PublishingApiContract.SourceControlConfi
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 
 data class PackageConfiguration(
+    override val custom: Any? = null,
     override val artifactId: String? = null,
     override val groupId: String? = null,
-    override val type: Type = Type.MIXED,
+    override val type: Type = Type.DEFAULT,
     override val pom: PomConfiguration,
     override val developers: List<DeveloperConfiguration>,
     override val contributors: List<ContributorConfiguration> = emptyList(),
