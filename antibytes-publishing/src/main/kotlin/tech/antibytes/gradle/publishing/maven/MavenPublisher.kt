@@ -38,7 +38,7 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
             publication.artifactId = configuration.artifactId
         }
 
-        if (docs != null && configuration.type != Type.CUSTOM) {
+        if (docs != null && configuration.type != Type.CUSTOM_ARTIFACT) {
             publication.artifact(docs)
         }
 
@@ -143,10 +143,15 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
     ) {
         project.extensions.configure(PublishingExtension::class.java) {
             publications {
+                @Suppress("UNCHECKED_CAST")
                 when (configuration.type) {
                     Type.PURE_JAVA -> configureComponent(project, "java")
                     Type.VERSION_CATALOG -> configureComponent(project, "versionCatalog")
-                    Type.CUSTOM -> configureArtifact(project, configuration.customArtifacts)
+                    Type.CUSTOM_COMPONENT -> configureComponent(project, configuration.custom as String)
+                    Type.CUSTOM_ARTIFACT -> configureArtifact(
+                        project,
+                        configuration.custom as List<CustomArtifact<out Any>>,
+                    )
                     Type.DEFAULT -> { /* Do nothing */ }
                 }
 

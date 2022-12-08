@@ -27,7 +27,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            customArtifacts = listOf(
+            custom = listOf(
                 CustomFileArtifact(
                     handle = file("${projectDir.absolutePath.trimEnd('/')}/src/config.yml"),
                     extension = "yml",
@@ -35,7 +35,7 @@ antiBytesPublishing {
                 )
             ),
             groupId = LibraryConfig.PublishConfig.groupId,
-            type = Type.CUSTOM,
+            type = Type.CUSTOM_ARTIFACT,
             pom = PomConfiguration(
                 name = "antibytes-detekt-configuration",
                 description = "General configuration for Detekt for Antibytes projects.",

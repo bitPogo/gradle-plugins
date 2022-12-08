@@ -390,6 +390,130 @@ class MavenPublisherSpec {
     }
 
     @Test
+    fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the Publication, while creating a Publishing Task for an Custom Component`() {
+        // Given
+        val artifactId: String = fixture()
+        val groupId: String = fixture()
+        val version: String = fixture()
+        val projectName: String = fixture()
+        val components: SoftwareComponentContainer = mockk()
+        val componentKey: String = fixture()
+        val component: SoftwareComponent = mockk()
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val publicationContainer: PublicationContainer = mockk()
+        val publication: MavenPublication = mockk(relaxed = true)
+
+        every { project.extensions } returns extensions
+        every { project.name } returns projectName
+        every { publishingExtension.publications } returns publicationContainer
+
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension,
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.publications(probe) },
+            publicationContainer,
+            mockk(),
+        )
+
+        every {
+            hint(String::class, 0)
+            hint(MavenPublication::class, 1)
+            publicationContainer.create(projectName, MavenPublication::class.java)
+        } returns publication
+
+        every { project.components } returns components
+        every { project.components.asMap[componentKey] } returns component
+        every { publication.from(any()) } just Runs
+
+        invokeGradleAction(
+            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
+            publication,
+            mockk(),
+        )
+
+        val configuration = registryTestConfig.copy(
+            custom = componentKey,
+            artifactId = artifactId,
+            groupId = groupId,
+            type = PublishingApiContract.Type.CUSTOM_COMPONENT,
+        )
+
+        // When
+        MavenPublisher.configure(project, configuration, null, version)
+
+        // Then
+        verify(exactly = 1) { publication.from(component) }
+    }
+
+    @Test
+    fun `Given configureMavenTask is called with a Project, it adds the Documentation Artifact if given for an Custom Component`() {
+        // Given
+        val artifactId: String = fixture()
+        val groupId: String = fixture()
+        val version: String = fixture()
+        val projectName: String = fixture()
+        val components: SoftwareComponentContainer = mockk()
+        val componentKey: String = fixture()
+        val component: SoftwareComponent = mockk()
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val publicationContainer: PublicationContainer = mockk()
+        val publication: MavenPublication = mockk(relaxed = true)
+        val documentation: Jar = mockk()
+
+        every { project.extensions } returns extensions
+        every { project.name } returns projectName
+        every { publishingExtension.publications } returns publicationContainer
+
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension,
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.publications(probe) },
+            publicationContainer,
+            mockk(),
+        )
+
+        every {
+            hint(String::class, 0)
+            hint(MavenPublication::class, 1)
+            publicationContainer.create(projectName, MavenPublication::class.java)
+        } returns publication
+
+        every { project.components } returns components
+        every { project.components.asMap[componentKey] } returns component
+        every { publication.from(any()) } just Runs
+
+        invokeGradleAction(
+            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
+            publication,
+            mockk(),
+        )
+
+        val configuration = registryTestConfig.copy(
+            custom = componentKey,
+            artifactId = artifactId,
+            groupId = groupId,
+            type = PublishingApiContract.Type.CUSTOM_COMPONENT,
+        )
+
+        // When
+        MavenPublisher.configure(project, configuration, documentation, version)
+
+        // Then
+        verify(exactly = 1) { publication.from(component) }
+        verify(exactly = 1) { publication.artifact(documentation) }
+    }
+
+    @Test
     fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the Publication, while creating a Publishing Task for a CustomArtifact`() {
         // Given
         val artifactId: String = fixture()
@@ -442,7 +566,7 @@ class MavenPublisherSpec {
 
         val configuration = registryTestConfig.copy(
             artifactId = artifactId,
-            customArtifacts = listOf(
+            custom = listOf(
                 CustomFileArtifact(
                     handle = artifactHandle,
                     classifier = artifactClassifier,
@@ -450,7 +574,7 @@ class MavenPublisherSpec {
                 ),
             ),
             groupId = groupId,
-            type = PublishingApiContract.Type.CUSTOM,
+            type = PublishingApiContract.Type.CUSTOM_ARTIFACT,
         )
 
         // When
@@ -515,7 +639,7 @@ class MavenPublisherSpec {
         )
 
         val configuration = registryTestConfig.copy(
-            customArtifacts = listOf(
+            custom = listOf(
                 CustomFileArtifact(
                     handle = artifactHandle,
                     classifier = artifactClassifier,
@@ -524,7 +648,7 @@ class MavenPublisherSpec {
             ),
             artifactId = artifactId,
             groupId = groupId,
-            type = PublishingApiContract.Type.CUSTOM,
+            type = PublishingApiContract.Type.CUSTOM_ARTIFACT,
         )
 
         // When

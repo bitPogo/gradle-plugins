@@ -31,6 +31,8 @@ detekt = "1.21.0"
 sonarqube = "3.3"
 # [Binary Compatibility](https://github.com/Kotlin/binary-compatibility-validator)
 stableApi = "0.12.1"
+# [maven-archeologist](https://github.com/square/maven-archeologist)
+mavenArtifacts = "0.0.10"
 
 ## Libs
 # [JFlex](https://jflex.de/)
@@ -63,6 +65,8 @@ ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 sonarqube = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarqube" }
 stableApi = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "stableApi" }
+
+mavenArtifacts = { module = "com.squareup.tools.build:maven-archeologist", version.ref = "mavenArtifacts" }
 
 ## Libs
 jflex = { module = "de.jflex:jflex", version.ref = "jflex" }
