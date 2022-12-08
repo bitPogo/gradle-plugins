@@ -19,6 +19,7 @@ includeBuild("versioning")
 includeBuild("dependency-bridge")
 includeBuild("shared-version-catalog")
 includeBuild("quality")
+includeBuild("custom-component")
 
 include(
     ":antibytes-configuration",
@@ -35,7 +36,8 @@ include(
     ":antibytes-grammar-tools",
     ":antibytes-runtime-configuration",
     ":antibytes-quality",
-    ":antibytes-detekt-configuration"
+    ":antibytes-detekt-configuration",
+    ":antibytes-custom-component"
 )
 
 buildCache {

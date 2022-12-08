@@ -12,11 +12,27 @@ import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
-import tech.antibytes.gradle.publishing.api.CustomFileArtifact
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 
 plugins {
+    id("tech.antibytes.gradle.component.local")
     id("tech.antibytes.gradle.publishing.local")
+}
+
+val componentId = "antibytesCustomComponent"
+val componentAttributes = mutableMapOf<Any, Any>(
+    /*Category.CATEGORY_ATTRIBUTE to objects.named(Category.LIBRARY),
+    Usage.USAGE_ATTRIBUTE to objects.named("shared-detekt-configuration"),
+    Bundling.BUNDLING_ATTRIBUTE to objects.named(Bundling.EXTERNAL),*/
+    LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE to objects.named<LibraryElements>(componentId)
+)
+
+antibytesCustomComponent {
+    name.set(componentId)
+    type.set("yml")
+    typeExtension.set("yml")
+    componentHandle.set(file("${projectDir.absolutePath.trimEnd('/')}/src/config.yml"))
+    attributes.set(componentAttributes)
 }
 
 antiBytesPublishing {
@@ -27,15 +43,9 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            custom = listOf(
-                CustomFileArtifact(
-                    handle = file("${projectDir.absolutePath.trimEnd('/')}/src/config.yml"),
-                    extension = "yml",
-                    classifier = "src",
-                )
-            ),
+            custom = componentId,
             groupId = LibraryConfig.PublishConfig.groupId,
-            type = Type.CUSTOM_ARTIFACT,
+            type = Type.CUSTOM_COMPONENT,
             pom = PomConfiguration(
                 name = "antibytes-detekt-configuration",
                 description = "General configuration for Detekt for Antibytes projects.",
