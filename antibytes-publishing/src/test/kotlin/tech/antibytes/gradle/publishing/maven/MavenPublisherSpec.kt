@@ -662,7 +662,7 @@ class MavenPublisherSpec {
     }
 
     @Test
-    fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the POM`() {
+    fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the POM without packageing`() {
         // Given
         val artifactId: String = fixture()
         val name: String = fixture()
@@ -723,6 +723,75 @@ class MavenPublisherSpec {
         verify(exactly = 1) { pom.name.set(name) }
         verify(exactly = 1) { pom.description.set(description) }
         verify(exactly = 1) { pom.inceptionYear.set(year.toString()) }
+        verify(exactly = 1) { pom.url.set(url) }
+        verify(exactly = 1) { pom.properties.set(additionalProperties) }
+    }
+
+    @Test
+    fun `Given configureMavenTask is called with a Project and a PackageRegistry, it sets up the POM with packageing`() {
+        // Given
+        val artifactId: String = fixture()
+        val name: String = fixture()
+        val groupId: String = fixture()
+        val description: String = fixture()
+        val year: Int = fixture()
+        val url = "http://example.org/${fixture<String>()}"
+        val additionalProperties = fixture<Map<String, String>>()
+        val packageing: String = fixture()
+
+        val pomConfiguration = PomConfiguration(
+            name = name,
+            description = description,
+            year = year,
+            url = url,
+            packageing = packageing,
+            additionalInformation = additionalProperties,
+        )
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val publicationContainer: PublicationContainer = mockk()
+        val publication: MavenPublication = mockk(relaxed = true)
+        val pom: MavenPom = mockk(relaxed = true)
+
+        every { project.extensions } returns extensions
+        every { publishingExtension.publications } returns publicationContainer
+
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension,
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.publications(probe) },
+            publicationContainer,
+            mockk(),
+        )
+        invokeGradleAction(
+            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
+            publication,
+            mockk(),
+        )
+        invokeGradleAction(
+            { probe -> publication.pom(probe) },
+            pom,
+            mockk(),
+        )
+
+        val configuration = registryTestConfig.copy(
+            artifactId = artifactId,
+            groupId = groupId,
+            pom = pomConfiguration,
+        )
+
+        // When
+        MavenPublisher.configure(project, configuration, null, fixture())
+
+        // Then
+        verify(exactly = 1) { pom.name.set(name) }
+        verify(exactly = 1) { pom.description.set(description) }
+        verify(exactly = 1) { pom.inceptionYear.set(year.toString()) }
+        verify(exactly = 1) { pom.packaging = packageing }
         verify(exactly = 1) { pom.url.set(url) }
         verify(exactly = 1) { pom.properties.set(additionalProperties) }
     }

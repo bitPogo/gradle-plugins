@@ -30,7 +30,7 @@ class MavenArtifactResolverSpec {
             repositories = listOf(repository),
         )
         val (pom, artifact) = resolver.download(
-            "tech.antibytes.gradle-plugins:antibytes-detekt-configuration:03118a6",
+            "tech.antibytes.gradle-plugins:antibytes-dependency-catalog:119a046",
         )
 
         println(pom)
