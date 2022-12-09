@@ -4,6 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import tech.antibytes.gradle.component.CustomComponentApiContract.Artifact
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.publishing.api.PackageConfiguration
@@ -19,19 +20,25 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
-val componentId = "antibytesCustomComponent"
+val artifactName = "shared-detekt-configuration"
 val componentAttributes = mutableMapOf<Any, Any>(
-    /*Category.CATEGORY_ATTRIBUTE to objects.named(Category.LIBRARY),
-    Usage.USAGE_ATTRIBUTE to objects.named("shared-detekt-configuration"),
+    Category.CATEGORY_ATTRIBUTE to objects.named<Category>(Category.LIBRARY),
+   /* Usage.USAGE_ATTRIBUTE to objects.named("shared-detekt-configuration"),
     Bundling.BUNDLING_ATTRIBUTE to objects.named(Bundling.EXTERNAL),*/
-    LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE to objects.named<LibraryElements>(componentId)
+    LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE to objects.named<LibraryElements>(artifactName)
+)
+val artifacts = listOf(
+    Artifact(
+        name = artifactName,
+        type = "yml",
+        typeExtension = "yml",
+        componentHandle = file("${projectDir.absolutePath.trimEnd('/')}/src/config.yml"),
+        classifier = "configuration",
+    )
 )
 
 antibytesCustomComponent {
-    name.set(componentId)
-    type.set("yml")
-    typeExtension.set("yml")
-    componentHandle.set(file("${projectDir.absolutePath.trimEnd('/')}/src/config.yml"))
+    customArtifacts.set(artifacts)
     attributes.set(componentAttributes)
 }
 
@@ -43,7 +50,7 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            custom = componentId,
+            custom = "antibytesCustomComponent",
             groupId = LibraryConfig.PublishConfig.groupId,
             type = Type.CUSTOM_COMPONENT,
             pom = PomConfiguration(

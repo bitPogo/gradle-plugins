@@ -6,21 +6,14 @@
 
 package tech.antibytes.gradle.component
 
-import java.util.Date
-import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.TaskDependency
+import org.gradle.api.provider.SetProperty
 
 internal interface CustomComponentContract {
     interface Extension {
-        val buildDependencies: Property<TaskDependency>
-        val name: Property<String>
-        val typeExtension: Property<String>
-        val type: Property<String>
-        val classifier: Property<String?>
-        val componentHandle: RegularFileProperty
-        val date: Property<Date?>
+        val scope: Property<String>
+        val customArtifacts: SetProperty<CustomComponentApiContract.Artifact>
         val attributes: MapProperty<Any, Any>
     }
 

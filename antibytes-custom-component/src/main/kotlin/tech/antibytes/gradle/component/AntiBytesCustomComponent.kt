@@ -17,47 +17,44 @@ import org.gradle.api.attributes.Attribute
 import org.gradle.api.component.AdhocComponentWithVariants
 import org.gradle.api.component.SoftwareComponentFactory
 import org.gradle.api.tasks.TaskDependency
-import org.gradle.kotlin.dsl.named
 import tech.antibytes.gradle.component.CustomComponentContract.Companion.EXTENSION_ID
 
 class AntiBytesCustomComponent @Inject constructor(
     private val softwareComponentFactory: SoftwareComponentFactory,
 ) : Plugin<Project> {
     private class CustomArtifact(
-        private val configuration: CustomComponentContract.Extension,
+        private val artifact: CustomComponentApiContract.Artifact,
     ) : PublishArtifact {
-        override fun getBuildDependencies(): TaskDependency = configuration.buildDependencies.get()
+        override fun getBuildDependencies(): TaskDependency = artifact.buildDependencies
 
-        override fun getName(): String = configuration.name.get()
+        override fun getName(): String = artifact.name
 
-        override fun getExtension(): String = configuration.typeExtension.get()
+        override fun getExtension(): String = artifact.typeExtension
 
-        override fun getType(): String = configuration.type.get()
+        override fun getType(): String = artifact.type
 
-        override fun getClassifier(): String? = configuration.classifier.orNull
+        override fun getClassifier(): String? = artifact.classifier
 
-        override fun getFile(): File = configuration.componentHandle.asFile.get().also {
-            println(it)
-        }
+        override fun getFile(): File = artifact.componentHandle
 
-        override fun getDate(): Date? = configuration.date.orNull
+        override fun getDate(): Date? = artifact.date
     }
 
     private fun Project.createConfiguration(extension: CustomComponentContract.Extension): Configuration {
-        return configurations.create(EXTENSION_ID) {
+        return configurations.create(EXTENSION_ID).apply {
             isCanBeResolved = false
             isCanBeConsumed = true
 
-            artifacts {
-                add(EXTENSION_ID, CustomArtifact(extension))
+            extension.customArtifacts.get().forEach { artifact ->
+                artifacts.add(CustomArtifact(artifact))
             }
         }
     }
 
-    private fun addAttributes(project: Project, extension: CustomComponentContract.Extension) {
-        project.configurations.named(EXTENSION_ID) {
+    private fun Project.addAttributes(extension: CustomComponentContract.Extension) {
+        configurations.named(EXTENSION_ID).get().apply {
             extension.attributes.get().forEach { (attributeKey, value) ->
-                attributes {
+                attributes.apply {
                     @Suppress("UNCHECKED_CAST")
                     attribute(attributeKey as Attribute<Any>, value)
                 }
@@ -65,22 +62,27 @@ class AntiBytesCustomComponent @Inject constructor(
         }
     }
 
-    private fun AdhocComponentWithVariants.configure(configuration: Configuration) {
+    private fun AdhocComponentWithVariants.configure(
+        configuration: Configuration,
+        extension: CustomComponentContract.Extension,
+    ) {
         addVariantsFromConfiguration(configuration) {
-            mapToMavenScope("compile")
+            mapToMavenScope(extension.scope.get())
         }
     }
 
     override fun apply(target: Project) {
-        val extension = target.extensions.create(EXTENSION_ID, AntibytesCustomComponentPluginExtension::class.java)
+        val extension = target.extensions.create(EXTENSION_ID, AntibytesCustomComponentExtension::class.java)
 
         val component = softwareComponentFactory.adhoc(EXTENSION_ID)
         target.components.add(component)
 
-        component.configure(target.createConfiguration(extension))
-
         target.afterEvaluate {
-            addAttributes(this, extension)
+            component.configure(
+                target.createConfiguration(extension),
+                extension,
+            )
+            addAttributes(extension)
         }
     }
 }

@@ -29,7 +29,7 @@ gradlePlugin {
         id = "tech.antibytes.gradle.component.local"
         implementationClass = "tech.antibytes.gradle.component.AntiBytesCustomComponent"
         displayName = "${id}.gradle.plugin"
-        description = "Custom Components for Antibytes projects"
+        description = "Publish custom components/artifacts for Antibytes projects."
         version = "0.1.0"
     }
 }
