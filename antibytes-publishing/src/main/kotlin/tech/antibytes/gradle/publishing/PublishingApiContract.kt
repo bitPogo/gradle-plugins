@@ -14,6 +14,7 @@ interface PublishingApiContract {
         val description: String
         val year: Int
         val url: String
+        val packageing: String?
         val additionalInformation: Map<String, String>
     }
 

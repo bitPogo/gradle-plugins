@@ -50,6 +50,9 @@ internal object MavenPublisher : PublisherContract.MavenPublisher {
         configuration: PublishingApiContract.PomConfiguration,
     ) {
         pom.name.set(configuration.name)
+        if (configuration.packageing != null) {
+            pom.packaging = configuration.packageing
+        }
         pom.description.set(configuration.description)
         pom.inceptionYear.set(configuration.year.toString())
         pom.url.set(configuration.url)

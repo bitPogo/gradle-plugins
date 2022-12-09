@@ -13,5 +13,6 @@ data class PomConfiguration(
     override val description: String,
     override val year: Int,
     override val url: String,
+    override val packageing: String? = null,
     override val additionalInformation: Map<String, String> = emptyMap(),
 ) : PublishingApiContract.PomConfiguration

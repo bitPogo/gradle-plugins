@@ -23,8 +23,8 @@ plugins {
 val artifactName = "shared-detekt-configuration"
 val componentAttributes = mutableMapOf<Any, Any>(
     Category.CATEGORY_ATTRIBUTE to objects.named<Category>(Category.LIBRARY),
-   /* Usage.USAGE_ATTRIBUTE to objects.named("shared-detekt-configuration"),
-    Bundling.BUNDLING_ATTRIBUTE to objects.named(Bundling.EXTERNAL),*/
+    Usage.USAGE_ATTRIBUTE to objects.named<Usage>("shared-detekt-configuration"),
+    Bundling.BUNDLING_ATTRIBUTE to objects.named<Bundling>(Bundling.EXTERNAL),
     LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE to objects.named<LibraryElements>(artifactName)
 )
 val artifacts = listOf(
@@ -58,6 +58,7 @@ antiBytesPublishing {
                 description = "General configuration for Detekt for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
+                packageing = "yml",
             ),
             developers = listOf(
                 DeveloperConfiguration(
