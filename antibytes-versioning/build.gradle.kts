@@ -132,8 +132,8 @@ antiBytesCoverage {
     val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
         project,
         verificationRules = setOf(
-            // branchCoverage,
-            // instructionCoverage
+            branchCoverage,
+            instructionCoverage
         )
     )
 
@@ -147,7 +147,7 @@ tasks.test {
 }
 
 tasks.check {
-    // dependsOn("jvmCoverageVerification")
+    dependsOn("jvmCoverageVerification")
 }
 
 

@@ -95,6 +95,34 @@ antiBytesPublishing {
     )
 }
 
+
+
+antiBytesCoverage {
+    val branchCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.BRANCH,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.98)
+    )
+
+    val instructionCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.INSTRUCTION,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.95)
+    )
+
+    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
+        project,
+        verificationRules = setOf(
+            branchCoverage,
+            instructionCoverage
+        )
+    )
+
+    configurations.set(
+        mapOf("jvm" to jvmCoverage)
+    )
+}
+
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
@@ -126,32 +154,6 @@ gradlePlugin {
         implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
         description = "Publishing tasks for Antibytes projects"
     }
-}
-
-antiBytesCoverage {
-    val branchCoverage = JacocoVerificationRule(
-        counter = JacocoCounter.BRANCH,
-        measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.98)
-    )
-
-    val instructionCoverage = JacocoVerificationRule(
-        counter = JacocoCounter.INSTRUCTION,
-        measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.95)
-    )
-
-    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
-        project,
-        verificationRules = setOf(
-            branchCoverage,
-            instructionCoverage
-        )
-    )
-
-    configurations.set(
-        mapOf("jvm" to jvmCoverage)
-    )
 }
 
 tasks.test {

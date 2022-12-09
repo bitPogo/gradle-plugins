@@ -18,9 +18,9 @@ class MavenArtifactResolverSpec {
     @Test
     fun `xxx`() {
         val repository = Repository().apply {
-            id = "Dev"
+            id = "Snap"
             releases = RepositoryPolicy().apply { enabled = "true" }
-            url = "https://raw.github.com/bitPogo/maven-dev/main/dev"
+            url = "https://raw.github.com/bitPogo/maven-snapshots/main/snapshots"
         }
 
         val resolver = ArtifactResolver(
@@ -30,7 +30,7 @@ class MavenArtifactResolverSpec {
             repositories = listOf(repository),
         )
         val (pom, artifact) = resolver.download(
-            "tech.antibytes.gradle-plugins:antibytes-detekt-configuration:6ad5323-add-shared-detekt-config",
+            "tech.antibytes.gradle-plugins:antibytes-detekt-configuration:03118a6",
         )
 
         println(pom)

@@ -4,42 +4,25 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-import tech.antibytes.gradle.component.CustomComponentApiContract.Artifact
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
+import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
+import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
 import tech.antibytes.gradle.publishing.api.PackageConfiguration
 import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
-import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 
 plugins {
-    id("tech.antibytes.gradle.component.local")
+    `kotlin-dsl`
+    `java-gradle-plugin`
+
+    id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
-}
-
-val artifactName = "shared-detekt-configuration"
-val componentAttributes = mutableMapOf<Any, Any>(
-    Category.CATEGORY_ATTRIBUTE to objects.named<Category>(Category.LIBRARY),
-   /* Usage.USAGE_ATTRIBUTE to objects.named("shared-detekt-configuration"),
-    Bundling.BUNDLING_ATTRIBUTE to objects.named(Bundling.EXTERNAL),*/
-    LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE to objects.named<LibraryElements>(artifactName)
-)
-val artifacts = listOf(
-    Artifact(
-        name = artifactName,
-        type = "yml",
-        typeExtension = "yml",
-        componentHandle = file("${projectDir.absolutePath.trimEnd('/')}/src/config.yml"),
-        classifier = "configuration",
-    )
-)
-
-antibytesCustomComponent {
-    customArtifacts.set(artifacts)
-    attributes.set(componentAttributes)
 }
 
 antiBytesPublishing {
@@ -50,12 +33,10 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            custom = "antibytesCustomComponent",
             groupId = LibraryConfig.PublishConfig.groupId,
-            type = Type.CUSTOM_COMPONENT,
             pom = PomConfiguration(
-                name = "antibytes-detekt-configuration",
-                description = "General configuration for Detekt for Antibytes projects.",
+                name = "antibytes-custom-component",
+                description = "Publish custom components/artifacts for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
             ),
@@ -113,5 +94,57 @@ antiBytesPublishing {
     )
 }
 
+antiBytesCoverage {
+    val instructionCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.INSTRUCTION,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.89)
+    )
+
+    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
+        project,
+        verificationRules = setOf(instructionCoverage)
+    )
+
+    configurations.set(
+        mapOf("jvm" to jvmCoverage)
+    )
+}
+
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
+
+dependencies {
+    implementation(libs.kotlin)
+
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.mockk)
+    testImplementation(libs.jvmFixture)
+    testImplementation(libs.jupiter)
+    testImplementation(project(":antibytes-gradle-test-utils"))
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+gradlePlugin {
+    plugins.register("${LibraryConfig.group}.gradle.component") {
+        group = LibraryConfig.group
+        id = "${LibraryConfig.group}.gradle.component"
+        implementationClass = "tech.antibytes.gradle.component.AntiBytesCustomComponent"
+        displayName = "${id}.gradle.plugin"
+        description = "Publish custom components/artifacts for Antibytes projects."
+        version = "0.1.0"
+    }
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+tasks.check {
+    dependsOn("jvmCoverageVerification")
+}
