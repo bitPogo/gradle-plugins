@@ -29,11 +29,20 @@ class MavenArtifactResolverSpec {
             ).toPath(),
             repositories = listOf(repository),
         )
-        val (pom, artifact) = resolver.download(
-            "tech.antibytes.gradle-plugins:antibytes-dependency-catalog:119a046",
+        /*val result = resolver.download(
+            "tech.antibytes.gradle-plugins:antibytes-detekt-configuration:150b2e1",
+            false
         )
 
-        println(pom)
-        println(artifact)
+        println(result)*/
+
+        val artifact = resolver.artifactFor("tech.antibytes.gradle-plugins:antibytes-detekt-configuration:150b2e1")
+        val resolution = resolver.resolve(artifact)
+        val resolvedArtifact = resolution.artifact
+        val result = resolver.downloadArtifact(resolution.artifact!!)
+
+        println(resolution.status)
+
+        println(resolvedArtifact?.main?.artifact)
     }
 }

@@ -33,7 +33,7 @@ val artifacts = listOf(
         type = "yml",
         typeExtension = "yml",
         componentHandle = file("${projectDir.absolutePath.trimEnd('/')}/src/config.yml"),
-        classifier = "configuration",
+        classifier = "",
     )
 )
 
