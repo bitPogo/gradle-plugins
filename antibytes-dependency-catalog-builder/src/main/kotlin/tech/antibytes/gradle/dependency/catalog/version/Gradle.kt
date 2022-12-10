@@ -80,5 +80,7 @@ internal object Gradle {
         val grammarTools = GradleBundleVersion(version)
         const val utils = version
         const val testUtils = version
+        val customComponent = GradleBundleVersion(version)
+        const val detektConfiguration = version
     }
 }
