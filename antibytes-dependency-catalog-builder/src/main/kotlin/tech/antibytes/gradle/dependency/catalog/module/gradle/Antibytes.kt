@@ -50,4 +50,13 @@ internal object Antibytes {
         group = group,
         id = "antibytes-gradle-test-utils",
     )
+    val customComponent = GradleBundle(
+        group = group,
+        id = "antibytes-custom-component",
+        plugin = "tech.antibytes.gradle.component",
+    )
+    val detektConfiguration = GradleArtifact(
+        group = group,
+        id = "antibytes-detekt-configuration",
+    )
 }
