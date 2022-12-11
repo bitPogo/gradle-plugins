@@ -32,15 +32,18 @@ internal object Vendor {
      */
     const val uuid = GradleVersions.uuidKmp
 
+    /**
+     * [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
+     */
+    val mkdocs = GradleBundleVersion(GradleVersions.mkDocs)
+
     val test = Test
 
     internal object Test {
         /**
          * [Paparazzi](https://github.com/cashapp/paparazzi)
          */
-        val paparazzi = GradleBundleVersion(
-            GradleVersions.paparazzi,
-        )
+        val paparazzi = GradleBundleVersion(GradleVersions.paparazzi)
 
         /**
          * [mockk](http://mockk.io)

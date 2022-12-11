@@ -11,6 +11,14 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("antibytes") {
+            from(files("./gradle/antibytes.catalog.toml"))
+        }
+    }
+}
+
 includeBuild("runtime-configuration")
 includeBuild("dependency-helper")
 includeBuild("coverage")
@@ -37,7 +45,8 @@ include(
     ":antibytes-runtime-configuration",
     ":antibytes-quality",
     ":antibytes-detekt-configuration",
-    ":antibytes-custom-component"
+    ":antibytes-custom-component",
+    ":antibytes-mkdocs"
 )
 
 buildCache {

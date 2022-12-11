@@ -6,18 +6,23 @@
 
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import tech.antibytes.gradle.dependency.catalog.addSharedAntibytesConfiguration
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
+import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
+import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
 import tech.antibytes.gradle.publishing.api.PackageConfiguration
 import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
-import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 
 plugins {
-    `version-catalog`
+    `kotlin-dsl`
+    `java-gradle-plugin`
 
+    id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
 }
 
@@ -30,10 +35,9 @@ antiBytesPublishing {
     packaging.set(
         PackageConfiguration(
             groupId = LibraryConfig.PublishConfig.groupId,
-            type = Type.VERSION_CATALOG,
             pom = PomConfiguration(
-                name = "antibytes-dependency-catalog",
-                description = "General dependencies for Antibytes projects.",
+                name = "antibytes-docs",
+                description = "Setup for documentation.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
             ),
@@ -94,22 +98,64 @@ antiBytesPublishing {
 // To make it available as direct dependency
 group = LibraryConfig.PublishConfig.groupId
 
-catalog {
-    addSharedAntibytesConfiguration()
+dependencies {
+    implementation(libs.kotlin)
+    implementation(antibytes.gradle.mkdocs)
+    implementation(project(":antibytes-versioning"))
+
+    testImplementation(libs.kotlinTest)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.jupiter)
+    testImplementation(libs.mockk)
+    testImplementation(libs.jvmFixture)
+    testImplementation(project(":antibytes-gradle-test-utils"))
 }
 
-val addSharedConfiguration by tasks.creating(Copy::class.java) {
-    dependsOn("generateCatalogAsToml")
-    mustRunAfter("clean")
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 
-    include("libs.versions.toml")
-    from(File(buildDir, "version-catalog/libs.versions.toml"))
-    into(File(rootProject.projectDir, "gradle"))
-    rename {
-        "antibytes.catalog.toml"
+gradlePlugin {
+    plugins.register("${LibraryConfig.group}.gradle.docs") {
+        group = LibraryConfig.group
+        id = "${LibraryConfig.group}.gradle.docs"
+        implementationClass = "tech.antibytes.gradle.mkdocs.AntiBytesDocumentation"
+        displayName = "${id}.gradle.plugin"
+        description = "Setup for MkDocs documentation."
     }
 }
 
-tasks.named("check") {
-    dependsOn(addSharedConfiguration)
+antiBytesCoverage {
+    val branchCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.BRANCH,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.96)
+    )
+
+    val instructionCoverage = JacocoVerificationRule(
+        counter = JacocoCounter.INSTRUCTION,
+        measurement = JacocoMeasurement.COVERED_RATIO,
+        minimum = BigDecimal(0.95)
+    )
+
+    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
+        project,
+        verificationRules = setOf(
+            branchCoverage,
+            instructionCoverage
+        )
+    )
+
+    configurations.set(
+        mapOf("jvm" to jvmCoverage)
+    )
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+tasks.check {
+    dependsOn("jvmCoverageVerification")
 }
