@@ -6,7 +6,6 @@
 
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
@@ -17,6 +16,9 @@ import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
+import tech.antibytes.gradle.dependency.asPythonPackage
 
 plugins {
     `kotlin-dsl`
@@ -24,6 +26,7 @@ plugins {
 
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
+    id("tech.antibytes.gradle.runtime.local")
 }
 
 antiBytesPublishing {
@@ -36,8 +39,8 @@ antiBytesPublishing {
         PackageConfiguration(
             groupId = LibraryConfig.PublishConfig.groupId,
             pom = PomConfiguration(
-                name = "antibytes-docs",
-                description = "Setup for documentation.",
+                name = "antibytes-mkdocs",
+                description = "Setup for MkDocs documentation.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
             ),
@@ -100,8 +103,10 @@ group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.kotlin)
+    implementation(libs.python)
     implementation(antibytes.gradle.mkdocs)
-    implementation(project(":antibytes-versioning"))
+    api(project(":antibytes-versioning"))
+    implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
@@ -117,9 +122,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.docs") {
+    plugins.register("${LibraryConfig.group}.gradle.mkdocs") {
         group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.docs"
+        id = "${LibraryConfig.group}.gradle.mkdocs"
         implementationClass = "tech.antibytes.gradle.mkdocs.AntiBytesDocumentation"
         displayName = "${id}.gradle.plugin"
         description = "Setup for MkDocs documentation."
@@ -141,6 +146,7 @@ antiBytesCoverage {
 
     val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
         project,
+        classFilter = setOf("**/MainConfig**"),
         verificationRules = setOf(
             branchCoverage,
             instructionCoverage
@@ -149,6 +155,39 @@ antiBytesCoverage {
 
     configurations.set(
         mapOf("jvm" to jvmCoverage)
+    )
+}
+
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
+
+    packageName.set("tech.antibytes.gradle.mkdocs.config")
+    stringFields.set(
+        mapOf(
+            "includeMarkdown" to antibytes.python.mkdocs.includeMarkdown.asPythonPackage(),
+            "kroki" to antibytes.python.mkdocs.kroki.asPythonPackage(),
+            "extraData" to antibytes.python.mkdocs.extraData.asPythonPackage(),
+            "material" to antibytes.python.mkdocs.material.asPythonPackage(),
+            "minify" to antibytes.python.mkdocs.minify.asPythonPackage(),
+            "redirects" to antibytes.python.mkdocs.redirects.asPythonPackage(),
+            "pygments" to antibytes.python.mkdocs.pygments.asPythonPackage(),
+            "pymdown" to antibytes.python.mkdocs.pymdown.asPythonPackage(),
+        )
+    )
+}
+
+configure<SourceSetContainer> {
+    main {
+        java.srcDirs(
+            "src/main/kotlin",
+            "build/generated/antibytes/main/kotlin",
+        )
+    }
+}
+
+tasks.withType<KotlinCompile> {
+    dependsOn(
+        provideConfig,
     )
 }
 

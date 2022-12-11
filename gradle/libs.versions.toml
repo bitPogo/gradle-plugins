@@ -35,6 +35,8 @@ stableApi = "0.12.1"
 mavenArtifacts = "0.0.10"
 # [dokka](https://github.com/Kotlin/dokka)
 dokka = "1.7.20"
+# [Python for Gradle](https://github.com/xvik/gradle-use-python-plugin/blob/master/README.md)
+python = "3.0.0"
 
 ## Libs
 # [JFlex](https://jflex.de/)
@@ -70,6 +72,7 @@ stableApi = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", v
 
 mavenArtifacts = { module = "com.squareup.tools.build:maven-archeologist", version.ref = "mavenArtifacts" }
 dokka = {module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka"}
+python = {module = "ru.vyarus:gradle-use-python-plugin", version.ref = "python"}
 
 ## Libs
 jflex = { module = "de.jflex:jflex", version.ref = "jflex" }

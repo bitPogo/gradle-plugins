@@ -152,8 +152,11 @@ tasks.check {
 
 
 gradlePlugin {
-    plugins.register("tech.antibytes.gradle.versioning") {
-        id = "tech.antibytes.gradle.versioning"
+    plugins.register("${LibraryConfig.group}.gradle.versioning") {
+        group = LibraryConfig.group
+        id = "${LibraryConfig.group}.gradle.versioning"
         implementationClass = "tech.antibytes.gradle.versioning.AntibytesVersioning"
+        displayName = "${id}.gradle.plugin"
+        description = "Setup for Antibytes Versioning."
     }
 }

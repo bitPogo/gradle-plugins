@@ -59,4 +59,9 @@ internal object Antibytes {
         group = group,
         id = "antibytes-detekt-configuration",
     )
+    val mkDocs = GradleBundle(
+        group = group,
+        id = "antibytes-mkdocs",
+        plugin = "tech.antibytes.gradle.mkdocs",
+    )
 }
