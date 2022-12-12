@@ -37,11 +37,11 @@ class DependencyCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.library("mkDocs-includeMarkdown", "python", "mkdocs-include-markdown-plugin")
+            catalog.library("python-mkdocs-includeMarkdown", "python", "mkdocs-include-markdown-plugin")
         }
 
         verify(exactly = 1) {
-            module.versionRef("mkDocs-includeMarkdown")
+            module.versionRef("python-mkdocs-includeMarkdown")
         }
     }
 

@@ -15,8 +15,8 @@ import tech.antibytes.gradle.dependency.catalog.module.Koin
 import tech.antibytes.gradle.dependency.catalog.module.Kotlin
 import tech.antibytes.gradle.dependency.catalog.module.Kotlinx
 import tech.antibytes.gradle.dependency.catalog.module.Ktor
-import tech.antibytes.gradle.dependency.catalog.module.MkDocs
 import tech.antibytes.gradle.dependency.catalog.module.Node
+import tech.antibytes.gradle.dependency.catalog.module.Python
 import tech.antibytes.gradle.dependency.catalog.module.Square
 import tech.antibytes.gradle.dependency.catalog.module.Stately
 import tech.antibytes.gradle.dependency.catalog.module.Vendor
@@ -240,7 +240,7 @@ internal fun VersionCatalogBuilder.addDependencies() {
     addDependencies(Kotlin)
     addDependencies(Kotlinx)
     addDependencies(Ktor)
-    addDependencies(MkDocs)
+    addDependencies(Python)
     addDependencies(Node)
     addDependencies(Stately)
     addDependencies(Square)

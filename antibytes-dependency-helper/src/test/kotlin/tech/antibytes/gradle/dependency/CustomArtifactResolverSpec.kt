@@ -47,8 +47,7 @@ class CustomArtifactResolverSpec {
         // Given
         val project: Project = mockk()
 
-        every { project.rootProject } returns project
-        every { project.projectDir } returns File("/somewhere/in/the/root/null")
+        every { project.rootDir } returns File("/somewhere/in/the/root/null")
         every { project.repositories.asMap } returns sortedMapOf<String, ArtifactRepository>()
 
         // Then
@@ -69,8 +68,7 @@ class CustomArtifactResolverSpec {
         val project: Project = mockk()
 
         File(projectDir, ".gradle/artifactCache").mkdirs()
-        every { project.rootProject } returns project
-        every { project.projectDir } returns projectDir
+        every { project.rootDir } returns projectDir
         every { project.repositories.asMap } returns sortedMapOf<String, ArtifactRepository>()
 
         // When
@@ -85,8 +83,7 @@ class CustomArtifactResolverSpec {
         // Given
         val project: Project = mockk()
 
-        every { project.rootProject } returns project
-        every { project.projectDir } returns projectDir
+        every { project.rootDir } returns projectDir
         every { project.repositories.asMap } returns sortedMapOf()
 
         // When
@@ -122,8 +119,7 @@ class CustomArtifactResolverSpec {
         val path = slot<Path>()
         val repositories = slot<List<Repository>>()
 
-        every { project.rootProject } returns project
-        every { project.projectDir } returns projectDir
+        every { project.rootDir } returns projectDir
         every { project.repositories.asMap } returns givenRepositories
         every { SquareArtifactResolverFactory.getInstance(capture(path), capture(repositories)) } returns mockk()
 
@@ -167,8 +163,7 @@ class CustomArtifactResolverSpec {
 
         // When
         every { SquareArtifactResolverFactory.getInstance(any(), any()) } returns resolver
-        every { project.rootProject } returns project
-        every { project.projectDir } returns projectDir
+        every { project.rootDir } returns projectDir
         every { project.repositories.asMap } returns sortedMapOf()
 
         every { resolver.download(any(), any()) } returns mockk {

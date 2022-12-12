@@ -8,13 +8,13 @@ package tech.antibytes.gradle.configuration.android
 
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Project
-import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.AndroidApplicationConfiguration
 import tech.antibytes.gradle.configuration.ConfigurationContract
 
-internal object AndroidApplicationConfigurator : ConfigurationContract.AndroidApplicationConfigurator {
+internal object AndroidApplicationConfigurator : ConfigurationContract.Configurator<AndroidApplicationConfiguration> {
     private fun setupAndroidExtension(
         extension: ApplicationExtension,
-        configuration: AndroidConfigurationApiContract.AndroidApplicationConfiguration,
+        configuration: AndroidApplicationConfiguration,
     ) {
         extension.compileSdk = configuration.compileSdkVersion
 
@@ -51,7 +51,7 @@ internal object AndroidApplicationConfigurator : ConfigurationContract.AndroidAp
 
     override fun configure(
         project: Project,
-        configuration: AndroidConfigurationApiContract.AndroidApplicationConfiguration,
+        configuration: AndroidApplicationConfiguration,
     ) {
         project.extensions.configure(ApplicationExtension::class.java) {
             setupAndroidExtension(this, configuration)

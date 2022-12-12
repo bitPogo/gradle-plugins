@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.catalog.module
 
+import tech.antibytes.gradle.dependency.catalog.GradleBundle
 import tech.antibytes.gradle.dependency.catalog.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.catalog.Platform
 import tech.antibytes.gradle.dependency.catalog.module.vendor.Test
@@ -38,6 +39,12 @@ internal object Vendor {
             Platform.WATCHOS_X64,
             Platform.WATCHOS_X86,
         ),
+    )
+
+    val mkdocs = GradleBundle(
+        group = "ru.vyarus",
+        id = "gradle-mkdocs-plugin",
+        plugin = "ru.vyarus.mkdocs",
     )
 
     val test = Test

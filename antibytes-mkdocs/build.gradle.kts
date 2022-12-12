@@ -4,6 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
@@ -14,17 +15,18 @@ import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
-import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
-import tech.antibytes.gradle.versioning.api.VersioningConfiguration
-
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
+import tech.antibytes.gradle.dependency.asPythonPackage
 
 plugins {
     `kotlin-dsl`
-    `java-library`
+    `java-gradle-plugin`
 
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
+    id("tech.antibytes.gradle.runtime.local")
 }
 
 antiBytesPublishing {
@@ -36,10 +38,9 @@ antiBytesPublishing {
     packaging.set(
         PackageConfiguration(
             groupId = LibraryConfig.PublishConfig.groupId,
-            type = Type.PURE_JAVA,
             pom = PomConfiguration(
-                name = "antibytes-versioning",
-                description = "Autoversioning for Antibytes Projects.",
+                name = "antibytes-mkdocs",
+                description = "Setup for MkDocs documentation.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
             ),
@@ -101,7 +102,11 @@ antiBytesPublishing {
 group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
-    implementation(libs.versioning)
+    implementation(libs.kotlin)
+    implementation(libs.python)
+    implementation(antibytes.gradle.mkdocs)
+    api(project(":antibytes-versioning"))
+    implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
@@ -116,11 +121,21 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+gradlePlugin {
+    plugins.register("${LibraryConfig.group}.gradle.mkdocs") {
+        group = LibraryConfig.group
+        id = "${LibraryConfig.group}.gradle.mkdocs"
+        implementationClass = "tech.antibytes.gradle.mkdocs.AntiBytesDocumentation"
+        displayName = "${id}.gradle.plugin"
+        description = "Setup for MkDocs documentation."
+    }
+}
+
 antiBytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.99)
+        minimum = BigDecimal(0.96)
     )
 
     val instructionCoverage = JacocoVerificationRule(
@@ -131,6 +146,7 @@ antiBytesCoverage {
 
     val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
         project,
+        classFilter = setOf("**/MainConfig**"),
         verificationRules = setOf(
             branchCoverage,
             instructionCoverage
@@ -142,21 +158,43 @@ antiBytesCoverage {
     )
 }
 
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
+
+    packageName.set("tech.antibytes.gradle.mkdocs.config")
+    stringFields.set(
+        mapOf(
+            "includeMarkdown" to antibytes.python.mkdocs.includeMarkdown.asPythonPackage(),
+            "kroki" to antibytes.python.mkdocs.kroki.asPythonPackage(),
+            "extraData" to antibytes.python.mkdocs.extraData.asPythonPackage(),
+            "material" to antibytes.python.mkdocs.material.asPythonPackage(),
+            "minify" to antibytes.python.mkdocs.minify.asPythonPackage(),
+            "redirects" to antibytes.python.mkdocs.redirects.asPythonPackage(),
+            "pygments" to antibytes.python.mkdocs.pygments.asPythonPackage(),
+            "pymdown" to antibytes.python.mkdocs.pymdown.asPythonPackage(),
+        )
+    )
+}
+
+configure<SourceSetContainer> {
+    main {
+        java.srcDirs(
+            "src/main/kotlin",
+            "build/generated/antibytes/main/kotlin",
+        )
+    }
+}
+
+tasks.withType<KotlinCompile> {
+    dependsOn(
+        provideConfig,
+    )
+}
+
 tasks.test {
     useJUnitPlatform()
 }
 
 tasks.check {
     dependsOn("jvmCoverageVerification")
-}
-
-
-gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.versioning") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.versioning"
-        implementationClass = "tech.antibytes.gradle.versioning.AntibytesVersioning"
-        displayName = "${id}.gradle.plugin"
-        description = "Setup for Antibytes Versioning."
-    }
 }

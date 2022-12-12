@@ -25,6 +25,11 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.configuration.apple.ensureAppleDeviceCompatibility
 
+/*
+ * DO NOT MOVE THIS FILE
+ *
+ * Even if it seems appropriate to move it into `apple`, this leads to a bug where mockk will not resolve the static mock.
+ */
 class DefaultAppleDeviceResolverSpec {
     @BeforeEach
     fun setUp() {

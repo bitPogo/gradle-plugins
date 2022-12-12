@@ -4,17 +4,11 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency.catalog.version
+package tech.antibytes.gradle.dependency.catalog.version.python
 
-import tech.antibytes.gradle.dependency.config.GradleVersions
 import tech.antibytes.gradle.dependency.config.PythonVersions
 
 internal object MkDocs {
-    /**
-     * [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
-     */
-    const val core = GradleVersions.mkDocs
-
     /**
      * [MkDocs Include Plugin](https://github.com/mondeja/mkdocs-include-markdown-plugin/releases)
      */

@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.configuration
+package tech.antibytes.gradle.configuration.android
 
 import com.android.build.api.dsl.AndroidSourceDirectorySet
 import com.android.build.api.dsl.AndroidSourceFile
@@ -24,7 +24,7 @@ import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.configuration.android.AndroidApplicationConfigurator
+import tech.antibytes.gradle.configuration.ConfigurationContract
 import tech.antibytes.gradle.configuration.api.AndroidApplicationConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource
@@ -36,10 +36,10 @@ class AndroidApplicationConfiguratorSpec {
     private val fixture = kotlinFixture()
 
     @Test
-    fun `It fulfils AndroidApplicationConfigurator`() {
+    fun `It fulfils Configurator`() {
         val configurator: Any = AndroidApplicationConfigurator
 
-        assertTrue(configurator is ConfigurationContract.AndroidApplicationConfigurator)
+        assertTrue(configurator is ConfigurationContract.Configurator<*>)
     }
 
     @Test

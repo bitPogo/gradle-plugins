@@ -25,7 +25,8 @@ import tech.antibytes.gradle.configuration.api.TestSource
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import tech.antibytes.gradle.util.PlatformContextResolver
 
-internal object DefaultAndroidLibraryConfigurationProvider : ConfigurationContract.DefaultAndroidLibraryConfigurationProvider {
+internal object DefaultAndroidLibraryConfigurationProvider :
+    ConfigurationContract.DefaultConfigurationProvider<AndroidConfigurationApiContract.AndroidLibraryConfiguration> {
     private fun determineTestSource(sourceDir: String): TestSource {
         return TestSource(
             sourceDirectories = setOf("src/$sourceDir/kotlin"),

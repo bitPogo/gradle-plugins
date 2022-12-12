@@ -27,7 +27,7 @@ private fun <T> Provider<MinimalExternalModuleDependency>.guardDependency(
 
 fun Provider<MinimalExternalModuleDependency>.asPythonPackage(): String {
     return guardDependency("python") {
-        "${module.name}:$versionConstraint"
+        "${module.name}==$versionConstraint"
     }
 }
 

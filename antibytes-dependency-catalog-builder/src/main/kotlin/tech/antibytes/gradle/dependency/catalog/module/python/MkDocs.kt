@@ -4,14 +4,11 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency.catalog.module
+package tech.antibytes.gradle.dependency.catalog.module.python
 
-import tech.antibytes.gradle.dependency.catalog.GradlePlugin
 import tech.antibytes.gradle.dependency.catalog.PythonArtifact
 
 internal object MkDocs {
-    val core = GradlePlugin("ru.vyarus.mkdocs")
-
     val includeMarkdown = PythonArtifact(
         id = "mkdocs-include-markdown-plugin",
     )

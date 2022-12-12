@@ -97,3 +97,19 @@ group = LibraryConfig.PublishConfig.groupId
 catalog {
     addSharedAntibytesConfiguration()
 }
+
+val addSharedConfiguration by tasks.creating(Copy::class.java) {
+    dependsOn("generateCatalogAsToml")
+    mustRunAfter("clean")
+
+    include("libs.versions.toml")
+    from(File(buildDir, "version-catalog/libs.versions.toml"))
+    into(File(rootProject.projectDir, "gradle"))
+    rename {
+        "antibytes.catalog.toml"
+    }
+}
+
+tasks.named("check") {
+    dependsOn(addSharedConfiguration)
+}

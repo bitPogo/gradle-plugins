@@ -451,7 +451,7 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("mkDocs-includeMarkdown", any<String>())
+            catalog.version("python-mkdocs-includeMarkdown", any<String>())
         }
     }
 

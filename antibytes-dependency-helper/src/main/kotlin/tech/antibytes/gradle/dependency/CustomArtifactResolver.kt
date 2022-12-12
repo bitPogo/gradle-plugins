@@ -63,7 +63,7 @@ internal class CustomArtifactResolver private constructor(
         }
 
         override fun getInstance(project: Project): DependencyContract.CustomArtifactResolver {
-            val cacheDir = File(project.rootProject.projectDir, ".gradle/artifactCache").apply {
+            val cacheDir = File(project.rootDir, ".gradle/artifactCache").apply {
                 ensure()
             }
 
