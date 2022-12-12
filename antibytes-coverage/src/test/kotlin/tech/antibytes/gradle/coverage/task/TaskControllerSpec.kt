@@ -1,10 +1,10 @@
-/* ktlint-disable argument-list-wrapping */
 /*
  * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+/* ktlint-disable argument-list-wrapping */
 package tech.antibytes.gradle.coverage.task
 
 import com.appmattus.kotlinfixture.kotlinFixture
