@@ -16,6 +16,7 @@ import io.mockk.verify
 import kotlin.test.assertTrue
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.PluginContainer
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.quality.QualityContract.Companion.EXTENSION_ID
 import tech.antibytes.gradle.quality.analysis.Detekt
@@ -31,6 +32,40 @@ class AntiBytesQualitySpec {
         val plugin: Any = AntiBytesQuality()
 
         assertTrue(plugin is Plugin<*>)
+    }
+
+    @Test
+    fun `Given apply is called it applies the DependencyHelper Plugin if it is not already applied`() {
+        // Given
+        val project: Project = mockk(relaxed = true)
+        val plugins: PluginContainer = mockk(relaxed = true)
+
+        every { project.extensions.create(EXTENSION_ID, AntiBytesQualityExtension::class.java) } returns mockk()
+        every { project.plugins } returns plugins
+        every { plugins.hasPlugin(any<String>()) } returns false
+
+        // When
+        AntiBytesQuality().apply(project)
+
+        // Then
+        verify(exactly = 1) { plugins.apply("tech.antibytes.gradle.dependency.helper") }
+    }
+
+    @Test
+    fun `Given apply is called it ignores the DependencyHelper Plugin if it is already applied`() {
+        // Given
+        val project: Project = mockk(relaxed = true)
+        val plugins: PluginContainer = mockk(relaxed = true)
+
+        every { project.extensions.create(EXTENSION_ID, AntiBytesQualityExtension::class.java) } returns mockk()
+        every { project.plugins } returns plugins
+        every { plugins.hasPlugin(any<String>()) } returns true
+
+        // When
+        AntiBytesQuality().apply(project)
+
+        // Then
+        verify(exactly = 0) { plugins.apply("tech.antibytes.gradle.dependency.helper") }
     }
 
     @Test

@@ -18,7 +18,7 @@ import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
-import tech.antibytes.gradle.dependency.asPythonPackage
+import tech.antibytes.gradle.dependency.helper.asPythonPackage
 
 plugins {
     `kotlin-dsl`

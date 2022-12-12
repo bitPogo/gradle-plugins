@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency
+package tech.antibytes.gradle.dependency.helper
 
 import io.mockk.mockk
 import io.mockk.verify
@@ -13,7 +13,7 @@ import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.artifacts.repositories.PasswordCredentials
 import org.gradle.api.artifacts.repositories.RepositoryContentDescriptor
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.dependency.DependencyContract.Credentials
+import tech.antibytes.gradle.dependency.helper.DependencyContract.Credentials
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class AntiBytesCustomDependenciesSpec {

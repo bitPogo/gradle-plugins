@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
  *
- * Use of this source code is governed by Apache v2.0
+ * Use of this source code is governed by Apache License, Version 2.0
  */
-package tech.antibytes.gradle.dependency
+package tech.antibytes.gradle.dependency.helper
 
 import org.gradle.api.artifacts.dsl.RepositoryHandler
-import tech.antibytes.gradle.dependency.DependencyContract.Credentials
-import tech.antibytes.gradle.dependency.DependencyContract.Repository
+import tech.antibytes.gradle.dependency.helper.DependencyContract.Credentials
+import tech.antibytes.gradle.dependency.helper.DependencyContract.Repository
 
 data class CustomRepository(
     override val url: String,

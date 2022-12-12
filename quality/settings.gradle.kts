@@ -12,5 +12,11 @@ dependencyResolutionManagement {
         create("libs") {
             from(files("../gradle/libs.versions.toml"))
         }
+        create("antibytes") {
+            from(files("../gradle/antibytes.catalog.toml"))
+        }
     }
 }
+
+include("utils")
+include("helper")

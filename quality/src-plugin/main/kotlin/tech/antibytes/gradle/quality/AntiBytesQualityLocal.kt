@@ -13,9 +13,8 @@ import tech.antibytes.gradle.quality.analysis.Detekt
 import tech.antibytes.gradle.quality.gate.Sonarqube
 import tech.antibytes.gradle.quality.linter.Spotless
 import tech.antibytes.gradle.quality.stableapi.StableApi
-import tech.antibytes.gradle.util.applyIfNotExists
 
-class AntiBytesQuality : Plugin<Project> {
+class AntiBytesQualityLocal : Plugin<Project> {
     private val phases = setOf(
         Spotless,
         Detekt,
@@ -37,7 +36,6 @@ class AntiBytesQuality : Plugin<Project> {
             AntiBytesQualityExtension::class.java,
         )
 
-        target.applyIfNotExists("tech.antibytes.gradle.dependency.helper")
         target.applyPlugin(extension)
     }
 }
