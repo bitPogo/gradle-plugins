@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.configuration
+package tech.antibytes.gradle.configuration.android
 
 import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
@@ -18,8 +18,8 @@ import org.gradle.api.Project
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.configuration.android.DefaultAndroidApplicationConfigurationProvider
-import tech.antibytes.gradle.configuration.api.AndroidApplicationConfiguration
+import tech.antibytes.gradle.configuration.ConfigurationContract
+import tech.antibytes.gradle.configuration.api.AndroidLibraryConfiguration
 import tech.antibytes.gradle.configuration.api.Compatibility
 import tech.antibytes.gradle.configuration.api.MainSource
 import tech.antibytes.gradle.configuration.api.TestRunner
@@ -27,7 +27,7 @@ import tech.antibytes.gradle.configuration.api.TestSource
 import tech.antibytes.gradle.util.GradleUtilApiContract
 import tech.antibytes.gradle.util.PlatformContextResolver
 
-class DefaultAndroidApplicationConfigurationProviderSpec {
+class DefaultAndroidLibraryConfigurationProviderSpec {
     private val fixture = kotlinFixture()
 
     @BeforeEach
@@ -41,14 +41,14 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
     }
 
     @Test
-    fun `It fulfils DefaultAndroidApplicationConfigurationProvider`() {
-        val provider: Any = DefaultAndroidApplicationConfigurationProvider
+    fun `It fulfils DefaultConfigurationProvider`() {
+        val provider: Any = DefaultAndroidLibraryConfigurationProvider
 
-        assertTrue(provider is ConfigurationContract.DefaultAndroidApplicationConfigurationProvider)
+        assertTrue(provider is ConfigurationContract.DefaultConfigurationProvider<*>)
     }
 
     @Test
-    fun `Given createDefaultConfiguration is called with a Project it returns a AndroidApplicationConfiguration with default settings, if it is an AndroidLibrary`() {
+    fun `Given createDefaultConfiguration is called with a Project it returns a AndroidLibraryConfiguration with default settings, if it is an AndroidLibrary`() {
         // Given
         val project: Project = mockk()
         val projectName: String = fixture()
@@ -56,15 +56,17 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
         every { PlatformContextResolver.getType(any()) } returns setOf(GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY)
         every { project.name } returns projectName
         // When
-        val result = DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(project)
+        val result = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
 
         // Then
         assertEquals(
             actual = result,
-            expected = AndroidApplicationConfiguration(
+            expected = AndroidLibraryConfiguration(
                 compileSdkVersion = 33,
                 minSdkVersion = 23,
                 targetSdkVersion = 33,
+                prefix = "antibytes_${projectName.replace("-", "_")}_",
+                publishVariants = emptySet(),
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
                     source = JavaVersion.VERSION_1_8,
@@ -101,24 +103,26 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
     }
 
     @Test
-    fun `Given createDefaultConfiguration is called with a Project it returns a AndroidAppConfiguration with default settings, if it is an AndroidApp in KMP Context`() {
+    fun `Given createDefaultConfiguration is called with a Project it returns a AndroidLibraryConfiguration with default settings, if it is an AndroidLibrary in KMP Context`() {
         // Given
         val project: Project = mockk()
         val projectName: String = fixture()
 
-        every { PlatformContextResolver.getType(any()) } returns setOf(GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP)
+        every { PlatformContextResolver.getType(any()) } returns setOf(GradleUtilApiContract.PlatformContext.ANDROID_LIBRARY_KMP)
         every { project.name } returns projectName
 
         // When
-        val result = DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(project)
+        val result = DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(project)
 
         // Then
         assertEquals(
             actual = result,
-            expected = AndroidApplicationConfiguration(
+            expected = AndroidLibraryConfiguration(
                 compileSdkVersion = 33,
                 minSdkVersion = 23,
                 targetSdkVersion = 33,
+                publishVariants = setOf("release"),
+                prefix = "antibytes_${projectName.replace("-", "_")}_",
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
                     source = JavaVersion.VERSION_1_8,

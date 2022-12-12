@@ -12,6 +12,7 @@ import tech.antibytes.gradle.configuration.android.AndroidApplicationConfigurato
 import tech.antibytes.gradle.configuration.android.AndroidLibraryConfigurator
 import tech.antibytes.gradle.configuration.android.DefaultAndroidApplicationConfigurationProvider
 import tech.antibytes.gradle.configuration.android.DefaultAndroidLibraryConfigurationProvider
+import tech.antibytes.gradle.configuration.docs.DokkaConfigurator
 import tech.antibytes.gradle.util.isAndroidApplication
 import tech.antibytes.gradle.util.isAndroidLibrary
 
@@ -29,6 +30,10 @@ class AntiBytesConfiguration : Plugin<Project> {
                 target,
                 DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(target),
             )
+        }
+
+        if (target.plugins.hasPlugin("org.jetbrains.dokka")) {
+            DokkaConfigurator.configure(target, Unit)
         }
     }
 }

@@ -101,6 +101,7 @@ group = LibraryConfig.PublishConfig.groupId
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.agp)
+    implementation(libs.dokka)
     implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(libs.kotlinTest)

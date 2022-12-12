@@ -9,14 +9,15 @@ package tech.antibytes.gradle.configuration.android
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.AndroidLibraryConfiguration
+import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract.TestSource
 import tech.antibytes.gradle.configuration.ConfigurationContract
 import tech.antibytes.gradle.util.isKmp
 
-internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibraryConfigurator {
+internal object AndroidLibraryConfigurator : ConfigurationContract.Configurator<AndroidLibraryConfiguration> {
     private fun setupAndroidExtension(
         extension: LibraryExtension,
-        configuration: AndroidConfigurationApiContract.AndroidLibraryConfiguration,
+        configuration: AndroidLibraryConfiguration,
     ) {
         extension.compileSdk = configuration.compileSdkVersion
         extension.resourcePrefix = configuration.prefix
@@ -46,7 +47,7 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
             test.java.setSrcDirs(configuration.unitTestSource.sourceDirectories)
             test.res.setSrcDirs(configuration.unitTestSource.resourceDirectories)
 
-            if (configuration.androidTest is AndroidConfigurationApiContract.TestSource) {
+            if (configuration.androidTest is TestSource) {
                 val androidTest = getByName("androidTest")
                 androidTest.java.setSrcDirs(configuration.androidTest!!.sourceDirectories)
                 androidTest.res.setSrcDirs(configuration.androidTest!!.resourceDirectories)
@@ -56,7 +57,7 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
 
     private fun setupKmp(
         project: Project,
-        configuration: AndroidConfigurationApiContract.AndroidLibraryConfiguration,
+        configuration: AndroidLibraryConfiguration,
     ) {
         project.extensions.configure(KotlinMultiplatformExtension::class.java) {
             android().publishLibraryVariants(*configuration.publishVariants.toTypedArray())
@@ -65,7 +66,7 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.AndroidLibrar
 
     override fun configure(
         project: Project,
-        configuration: AndroidConfigurationApiContract.AndroidLibraryConfiguration,
+        configuration: AndroidLibraryConfiguration,
     ) {
         project.extensions.configure(LibraryExtension::class.java) {
             setupAndroidExtension(this, configuration)

@@ -61,6 +61,8 @@ internal interface AndroidConfigurationApiContract {
         val androidTest: TestSource
     }
 
+    interface DokkaConfiguration
+
     companion object {
         const val ANDROID_PREFIX = "antibytes"
         const val ANDROID_PREFIX_SEPARATOR = "_"
