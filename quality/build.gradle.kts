@@ -30,6 +30,8 @@ dependencies {
     implementation(libs.detekt)
     implementation(libs.sonarqube)
     implementation(libs.stableApi)
+    implementation(project(":utils"))
+    implementation(project(":helper"))
 }
 
 java {
@@ -40,7 +42,7 @@ java {
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.quality.local") {
         id = "tech.antibytes.gradle.quality.local"
-        implementationClass = "tech.antibytes.gradle.quality.AntiBytesQuality"
+        implementationClass = "tech.antibytes.gradle.quality.AntiBytesQualityLocal"
     }
 }
 
@@ -48,6 +50,7 @@ configure<SourceSetContainer> {
     main {
         java.srcDirs(
             "src/main/kotlin",
+            "src-plugin/main/kotlin",
             "build/generated/antibytes/main/kotlin"
         )
     }
@@ -61,6 +64,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
         mapOf(
             "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
+            "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.get().toString(),
         )
     )
 }

@@ -10,8 +10,10 @@ import java.io.File
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileCollection
+import tech.antibytes.gradle.dependency.helper.customArtifact
 import tech.antibytes.gradle.quality.QualityApiContract
 import tech.antibytes.gradle.quality.QualityApiContract.CodeAnalysisConfiguration.Report
+import tech.antibytes.gradle.quality.config.MainConfig
 
 data class DetektReport(
     override val html: Boolean = true,
@@ -111,7 +113,7 @@ data class CodeAnalysisConfiguration(
         exclude = exclude,
         excludeBaseline = excludeBaseline,
         reports = reports,
-        configurationFiles = project.files("${project.projectDir}/detekt/config.yml"),
+        configurationFiles = project.files(project.customArtifact(MainConfig.remoteDetektConfig)),
         baselineFile = project.file("${project.projectDir}/detekt/baseline.xml"),
         sourceFiles = project.files(project.projectDir),
     )

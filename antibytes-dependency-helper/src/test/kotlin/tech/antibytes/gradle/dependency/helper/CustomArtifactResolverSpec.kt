@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-package tech.antibytes.gradle.dependency
+package tech.antibytes.gradle.dependency.helper
 
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.squareup.tools.maven.resolution.ArtifactResolver

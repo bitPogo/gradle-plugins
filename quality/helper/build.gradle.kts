@@ -14,14 +14,6 @@ plugins {
     id("tech.antibytes.gradle.runtime.local")
 }
 
-allprojects {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-        google()
-    }
-}
-
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.dependencyUpdate)
@@ -53,13 +45,6 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
             "kotlin" to libs.versions.kotlin.get(),
         )
     )
-}
-
-gradlePlugin {
-    plugins.register("tech.antibytes.gradle.dependency.helper.local") {
-        id = "tech.antibytes.gradle.dependency.helper.local"
-        implementationClass = "tech.antibytes.gradle.dependency.helper.AntiBytesDependencyHelper"
-    }
 }
 
 tasks.withType<KotlinCompile> {

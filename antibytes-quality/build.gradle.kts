@@ -108,6 +108,8 @@ dependencies {
     implementation(libs.detekt)
     implementation(libs.sonarqube)
     implementation(libs.stableApi)
+    implementation(project(":antibytes-gradle-utils"))
+    implementation(project(":antibytes-dependency-helper"))
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
@@ -183,6 +185,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
         mapOf(
             "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
+            "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.get().toString(),
         )
     )
 }
