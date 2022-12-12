@@ -20,6 +20,7 @@ interface VersioningContract {
 
         val versionPrefix: String
         val normalization: Set<String>
+        val suppressSnapshot: Boolean
     }
 
     interface Versioning {
