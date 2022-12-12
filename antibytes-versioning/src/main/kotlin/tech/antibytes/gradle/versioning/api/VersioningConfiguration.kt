@@ -17,4 +17,5 @@ data class VersioningConfiguration(
     override val useGitHashSnapshotSuffix: Boolean = false,
     override val versionPrefix: String = "v",
     override val normalization: Set<String> = emptySet(),
+    override val suppressSnapshot: Boolean = false,
 ) : VersioningContract.VersioningConfiguration

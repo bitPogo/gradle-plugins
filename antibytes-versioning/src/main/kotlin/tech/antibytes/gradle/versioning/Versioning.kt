@@ -24,6 +24,12 @@ class Versioning private constructor(
         return version.substringAfter(configuration.versionPrefix)
     }
 
+    private fun MutableList<String>.addSnapshotSuffix() {
+        if (!configuration.suppressSnapshot) {
+            add(NON_RELEASE_SUFFIX)
+        }
+    }
+
     private fun String.amendRC(fullName: String): String {
         val suffix = if (fullName.contains(RELEASE_CANDIDATE_SUFFIX)) {
             val rcNumber = fullName.substringAfter(RELEASE_CANDIDATE_SUFFIX).substringBefore(SEPARATOR)
@@ -68,7 +74,7 @@ class Versioning private constructor(
             snapShotName.add(details.gitHash)
         }
 
-        snapShotName.add(NON_RELEASE_SUFFIX)
+        snapShotName.addSnapshotSuffix()
 
         return snapShotName.joinToString(SEPARATOR)
     }
@@ -128,7 +134,9 @@ class Versioning private constructor(
 
         // Schema:
         // version '-' 'bump '-' infix '-' 'SNAPSHOT'
-        return "$versionName${SEPARATOR}bump$SEPARATOR$infix$SEPARATOR$NON_RELEASE_SUFFIX"
+        return mutableListOf(versionName, "bump", infix).apply {
+            addSnapshotSuffix()
+        }.joinToString(SEPARATOR)
     }
 
     private fun createFeatureVersionName(
@@ -146,7 +154,7 @@ class Versioning private constructor(
             version.add(details.gitHash)
         }
 
-        version.add(NON_RELEASE_SUFFIX)
+        version.addSnapshotSuffix()
 
         return version.joinToString(SEPARATOR)
     }
