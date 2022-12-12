@@ -54,16 +54,20 @@ class PublisherStandaloneControllerSpec {
 
     @BeforeEach
     fun setUp() {
-        mockkObject(MavenPublisher)
-        mockkObject(MavenRepository)
-        mockkObject(GitRepository)
+        mockkObject(
+            MavenPublisher,
+            MavenRepository,
+            GitRepository,
+        )
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(MavenPublisher)
-        unmockkObject(MavenRepository)
-        unmockkObject(GitRepository)
+        unmockkObject(
+            MavenPublisher,
+            MavenRepository,
+            GitRepository,
+        )
     }
 
     @Test

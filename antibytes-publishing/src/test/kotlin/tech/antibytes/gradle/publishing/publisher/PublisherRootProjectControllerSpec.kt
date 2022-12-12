@@ -53,14 +53,18 @@ class PublisherRootProjectControllerSpec {
 
     @BeforeEach
     fun setUp() {
-        mockkObject(MavenRepository)
-        mockkObject(GitRepository)
+        mockkObject(
+            MavenRepository,
+            GitRepository,
+        )
     }
 
     @AfterEach
     fun tearDown() {
-        mockkObject(MavenRepository)
-        unmockkObject(GitRepository)
+        unmockkObject(
+            MavenRepository,
+            GitRepository,
+        )
     }
 
     @Test

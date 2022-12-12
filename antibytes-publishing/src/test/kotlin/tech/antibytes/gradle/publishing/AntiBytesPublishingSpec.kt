@@ -33,8 +33,10 @@ class AntiBytesPublishingSpec {
 
     @Test
     fun `Given apply is called  with a Project, it creates the PluginExtension, apply the plugin dependencies and delegates it to the Publishing Controller`() {
-        mockkObject(PublisherController)
-        mockkObject(SigningController)
+        mockkObject(
+            PublisherController,
+            SigningController,
+        )
         // Given
         val project: Project = mockk()
         val plugins: PluginContainer = mockk()
@@ -83,13 +85,18 @@ class AntiBytesPublishingSpec {
         verify(exactly = 1) { plugins.apply("maven-publish") }
         verify(exactly = 1) { plugins.apply("org.gradle.signing") }
 
-        unmockkObject(PublisherController)
+        unmockkObject(
+            PublisherController,
+            SigningController,
+        )
     }
 
     @Test
     fun `Given apply is called  with a Project, it creates the PluginExtension, ignores apply the plugin dependencies, if they already are applied and delegates it to the Publishing Controller`() {
-        mockkObject(PublisherController)
-        mockkObject(SigningController)
+        mockkObject(
+            PublisherController,
+            SigningController,
+        )
         // Given
         val project: Project = mockk()
         val plugins: PluginContainer = mockk()
@@ -140,6 +147,9 @@ class AntiBytesPublishingSpec {
         verify(exactly = 0) { plugins.apply("maven-publish") }
         verify(exactly = 0) { plugins.apply("org.gradle.signing") }
 
-        unmockkObject(PublisherController)
+        unmockkObject(
+            PublisherController,
+            SigningController,
+        )
     }
 }

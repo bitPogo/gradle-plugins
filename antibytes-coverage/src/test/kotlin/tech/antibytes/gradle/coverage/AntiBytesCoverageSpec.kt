@@ -32,14 +32,18 @@ import tech.antibytes.gradle.test.invokeGradleAction
 class AntiBytesCoverageSpec {
     @BeforeEach
     fun setup() {
-        mockkObject(TaskController)
-        mockkObject(DefaultConfigurationProvider)
+        mockkObject(
+            TaskController,
+            DefaultConfigurationProvider,
+        )
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(TaskController)
-        unmockkObject(DefaultConfigurationProvider)
+        unmockkObject(
+            TaskController,
+            DefaultConfigurationProvider,
+        )
     }
 
     @Test
