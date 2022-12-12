@@ -36,14 +36,18 @@ class SigningControllerSpec {
 
     @BeforeEach
     fun setUp() {
-        mockkObject(MemorySignature)
-        mockkObject(CommonSignature)
+        mockkObject(
+            MemorySignature,
+            CommonSignature,
+        )
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(MemorySignature)
-        unmockkObject(CommonSignature)
+        unmockkObject(
+            MemorySignature,
+            CommonSignature,
+        )
     }
 
     @Test

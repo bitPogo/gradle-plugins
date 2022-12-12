@@ -50,14 +50,18 @@ class PublisherSubProjectControllerSpec {
 
     @BeforeEach
     fun setUp() {
-        mockkObject(MavenPublisher)
-        mockkObject(MavenRepository)
+        mockkObject(
+            MavenPublisher,
+            MavenRepository,
+        )
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(MavenPublisher)
-        unmockkObject(MavenRepository)
+        unmockkObject(
+            MavenPublisher,
+            MavenRepository,
+        )
     }
 
     @Test

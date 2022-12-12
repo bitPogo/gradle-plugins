@@ -35,20 +35,24 @@ class PublisherControllerSpec {
 
     @BeforeEach
     fun setUp() {
-        mockkObject(DocumentationController)
-        mockkObject(VersionController)
-        mockkObject(PublisherRootProjectController)
-        mockkObject(PublisherSubProjectController)
-        mockkObject(PublisherStandaloneController)
+        mockkObject(
+            DocumentationController,
+            VersionController,
+            PublisherRootProjectController,
+            PublisherSubProjectController,
+            PublisherStandaloneController,
+        )
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(DocumentationController)
-        unmockkObject(VersionController)
-        unmockkObject(PublisherRootProjectController)
-        unmockkObject(PublisherSubProjectController)
-        unmockkObject(PublisherStandaloneController)
+        unmockkObject(
+            DocumentationController,
+            VersionController,
+            PublisherRootProjectController,
+            PublisherSubProjectController,
+            PublisherStandaloneController,
+        )
     }
 
     @Test

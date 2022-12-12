@@ -26,16 +26,20 @@ import tech.antibytes.gradle.util.PlatformContextResolver
 class DefaultConfigurationProviderSpec {
     @BeforeEach
     fun setup() {
-        mockkObject(PlatformContextResolver)
-        mockkObject(JvmConfigurationProvider)
-        mockkObject(AndroidConfigurationProvider)
+        mockkObject(
+            PlatformContextResolver,
+            JvmConfigurationProvider,
+            AndroidConfigurationProvider,
+        )
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(PlatformContextResolver)
-        unmockkObject(JvmConfigurationProvider)
-        unmockkObject(AndroidConfigurationProvider)
+        unmockkObject(
+            PlatformContextResolver,
+            JvmConfigurationProvider,
+            AndroidConfigurationProvider,
+        )
     }
 
     @Test
