@@ -13,6 +13,11 @@ import tech.antibytes.gradle.dependency.catalog.GradleTestArtifact
 internal object Antibytes {
     private const val group = "tech.antibytes.gradle-plugins"
 
+    val dependencyHelper = GradleBundle(
+        group = group,
+        id = "antibytes-dependency-helper",
+        plugin = "tech.antibytes.gradle.dependency.helper",
+    )
     val publishing = GradleBundle(
         group = group,
         id = "antibytes-publishing",
