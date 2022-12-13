@@ -118,9 +118,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.dependency.settings") {
+    plugins.register("${LibraryConfig.group}.gradle-plugins.antibytes-dependency-settings") {
         group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.dependency.settings"
+        id = "${LibraryConfig.group}.gradle-plugins.antibytes-dependency-settings"
         displayName = "${id}.gradle.plugin"
         implementationClass = "tech.antibytes.gradle.dependency.settings.AntiBytesDependencySettings"
         description = "Inital Gradle Dependency Settings for Antibytes Projects."
