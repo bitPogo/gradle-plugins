@@ -32,7 +32,8 @@ plugins {
 antiBytesPublishing {
     versioning.set(
         VersioningConfiguration(
-            featurePrefixes = listOf("feature")
+            featurePrefixes = listOf("feature"),
+            suppressSnapshot = true
         )
     )
     packaging.set(
