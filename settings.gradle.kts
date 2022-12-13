@@ -47,7 +47,6 @@ include(
     ":antibytes-detekt-configuration",
     ":antibytes-custom-component",
     ":antibytes-mkdocs",
-    ":antibytes-dependency-settings"
 )
 
 buildCache {
