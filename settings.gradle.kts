@@ -32,6 +32,7 @@ includeBuild("custom-component")
 include(
     ":antibytes-configuration",
     ":antibytes-coverage",
+    ":antibytes-gradle-utils",
     ":antibytes-gradle-test-utils",
     ":antibytes-dependency",
     ":antibytes-dependency-bridge",
@@ -40,13 +41,13 @@ include(
     ":antibytes-dependency-helper",
     ":antibytes-publishing",
     ":antibytes-versioning",
-    ":antibytes-gradle-utils",
     ":antibytes-grammar-tools",
     ":antibytes-runtime-configuration",
     ":antibytes-quality",
     ":antibytes-detekt-configuration",
     ":antibytes-custom-component",
-    ":antibytes-mkdocs"
+    ":antibytes-mkdocs",
+    ":antibytes-dependency-settings"
 )
 
 buildCache {
