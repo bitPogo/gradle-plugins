@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.dependency.catalog.version
 
 import tech.antibytes.gradle.dependency.catalog.GradleBundleVersion
+import tech.antibytes.gradle.dependency.catalog.module.gradle.Antibytes
 import tech.antibytes.gradle.dependency.config.GradleVersions
 import tech.antibytes.gradle.dependency.config.MainConfig
 
@@ -72,6 +73,7 @@ internal object Gradle {
     internal object Antibytes {
         private const val version = MainConfig.antibytes
 
+        val dependencyHelper = GradleBundleVersion(version)
         val publishing = GradleBundleVersion(version)
         val versioning = GradleBundleVersion(version)
         val coverage = GradleBundleVersion(version)
