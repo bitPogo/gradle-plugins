@@ -17,6 +17,7 @@ import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -93,7 +94,11 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }

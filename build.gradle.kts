@@ -8,6 +8,7 @@ import tech.antibytes.gradle.dependency.helper.ensureKotlinVersion
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     id("tech.antibytes.gradle.publishing.local")
@@ -52,7 +53,11 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }

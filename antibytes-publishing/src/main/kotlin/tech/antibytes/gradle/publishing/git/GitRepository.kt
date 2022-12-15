@@ -8,8 +8,8 @@ package tech.antibytes.gradle.publishing.git
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.GitRepositoryConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingError
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 

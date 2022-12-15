@@ -10,8 +10,8 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
 import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.MavenRepositoryConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
 internal object MavenRepository : PublisherContract.MavenRepository {
@@ -19,7 +19,9 @@ internal object MavenRepository : PublisherContract.MavenRepository {
         configuration: RepositoryConfiguration<out Any>,
         dryRun: Boolean,
     ): Boolean {
-        return configuration is MavenRepositoryConfiguration && !dryRun
+        return configuration is MavenRepositoryConfiguration &&
+            !dryRun &&
+            configuration.username != null
     }
 
     private fun getUrl(

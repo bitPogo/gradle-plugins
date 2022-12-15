@@ -12,8 +12,8 @@ import org.eclipse.jgit.api.ResetCommand
 import org.eclipse.jgit.transport.PushResult
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.gradle.api.Project
-import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.Credentials
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 
 internal object GitActions : GitContract.GitActions {
     private fun update(
