@@ -29,6 +29,8 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
 }
 
+val pluginId = "${LibraryConfig.group}.coverage"
+
 antiBytesPublishing {
     versioning.set(
         VersioningConfiguration(
@@ -38,9 +40,9 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-coverage",
+                name = name,
                 description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -125,12 +127,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.coverage") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.coverage"
-        displayName = "${id}.gradle.plugin"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "Plugin for Codecoverage for Antibytes Projects."
         implementationClass = "tech.antibytes.gradle.coverage.AntiBytesCoverage"
-        description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes"
+        description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes Projects."
     }
 }
 

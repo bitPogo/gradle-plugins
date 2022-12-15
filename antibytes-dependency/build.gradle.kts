@@ -21,6 +21,8 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.dependency"
+
 jacoco {
     toolVersion = libs.versions.jacoco.get()
 }
@@ -34,9 +36,9 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-dependency",
+                name = name,
                 description = "General dependencies for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -95,9 +97,6 @@ antiBytesPublishing {
     )
 }
 
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
-
 dependencies {
     implementation(libs.agp)
     implementation(libs.dependencyUpdate)
@@ -125,9 +124,8 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.dependency") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.dependency"
+    plugins.create(pluginId) {
+        id = pluginId
         implementationClass = "tech.antibytes.gradle.dependency.AntiBytesDependency"
         displayName = "${id}.gradle.plugin"
         description = "General dependencies for Antibytes projects"

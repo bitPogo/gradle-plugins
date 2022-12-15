@@ -27,6 +27,8 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.versioning"
+
 antiBytesPublishing {
     versioning.set(
         VersioningConfiguration(
@@ -36,10 +38,10 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             type = Type.PURE_JAVA,
             pom = PomConfiguration(
-                name = "antibytes-versioning",
+                name = name,
                 description = "Autoversioning for Antibytes Projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -157,11 +159,10 @@ tasks.check {
 
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.versioning") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.versioning"
+    plugins.create(pluginId) {
+        id = pluginId
         implementationClass = "tech.antibytes.gradle.versioning.AntibytesVersioning"
-        displayName = "${id}.gradle.plugin"
+        displayName = "Setup for Antibytes Versioning."
         description = "Setup for Antibytes Versioning."
     }
 }

@@ -30,6 +30,8 @@ plugins {
     id("tech.antibytes.gradle.runtime.local")
 }
 
+val pluginId = "${LibraryConfig.group}.mkdocs"
+
 antiBytesPublishing {
     versioning.set(
         VersioningConfiguration(
@@ -39,9 +41,9 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-mkdocs",
+                name = name,
                 description = "Setup for MkDocs documentation.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -128,12 +130,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.mkdocs") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.mkdocs"
+    plugins.create(pluginId) {
+        id = pluginId
         implementationClass = "tech.antibytes.gradle.mkdocs.AntiBytesDocumentation"
-        displayName = "${id}.gradle.plugin"
-        description = "Setup for MkDocs documentation."
+        displayName = "Setup for MkDocs documentation tool."
+        description = "Setup for MkDocs documentation tool."
     }
 }
 

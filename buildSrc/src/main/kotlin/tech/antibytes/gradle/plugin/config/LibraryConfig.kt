@@ -12,14 +12,13 @@ object LibraryConfig {
     val username = System.getenv("PACKAGE_REGISTRY_UPLOAD_USERNAME")?.toString() ?: ""
     val password = System.getenv("PACKAGE_REGISTRY_UPLOAD_TOKEN")?.toString() ?: ""
 
-    const val group = "tech.antibytes"
+    const val group = "tech.antibytes.gradle"
     const val name = "gradle-plugins"
 
     const val githubOwner = "bitPogo"
     const val githubRepository = "gradle-plugins"
 
     object PublishConfig {
-        const val groupId = "tech.antibytes.gradle-plugins"
         const val description = "Plugins for gradle to ease project configurations."
 
         const val year = "2022"

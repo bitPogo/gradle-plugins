@@ -30,6 +30,8 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.dependency.settings"
+
 val versioningConfiguration = VersioningConfiguration(
     featurePrefixes = listOf("feature"),
     suppressSnapshot = true
@@ -39,9 +41,9 @@ antiBytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-dependency-settings",
+                name = name,
                 description = "Inital Gradle settings for Antibytes Projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -122,10 +124,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.dependency.settings") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.dependency.settings"
-        displayName = "${id}.gradle.plugin"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "Inital Gradle Dependency Settings for Antibytes Projects."
         implementationClass = "tech.antibytes.gradle.dependency.settings.AntiBytesDependencySettings"
         description = "Inital Gradle Dependency Settings for Antibytes Projects."
     }

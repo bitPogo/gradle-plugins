@@ -36,10 +36,10 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = LibraryConfig.group,
             type = Type.PURE_JAVA,
             pom = PomConfiguration(
-                name = "antibytes-gradle-utils",
+                name = name,
                 description = "Helpers to ease working with Gradle.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -101,9 +101,6 @@ antiBytesPublishing {
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.kotlin)

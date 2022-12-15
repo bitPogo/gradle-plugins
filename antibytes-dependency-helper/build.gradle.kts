@@ -29,6 +29,8 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.dependency.helper"
+
 antiBytesPublishing {
     versioning.set(
         VersioningConfiguration(
@@ -38,9 +40,9 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-dependency-helper",
+                name = name,
                 description = "Helpers to bridge TOMLs to Dependencies and to keep repos up to date.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -103,9 +105,6 @@ antiBytesPublishing {
     )
 }
 
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
-
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.dependencyUpdate)
@@ -127,12 +126,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.dependency.helper") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.dependency.helper"
+    plugins.create(pluginId) {
+        id = pluginId
         implementationClass = "tech.antibytes.gradle.dependency.helper.AntiBytesDependencyHelper"
-        displayName = "${id}.gradle.plugin"
-        description = "Dependency Helper for Antibytes projects"
+        displayName = "Dependency Helper for Antibytes projects."
+        description = "Dependency Helper for Antibytes projects."
     }
 }
 

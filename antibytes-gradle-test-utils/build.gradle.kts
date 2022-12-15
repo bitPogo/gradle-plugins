@@ -36,10 +36,10 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = LibraryConfig.group,
             type = Type.PURE_JAVA,
             pom = PomConfiguration(
-                name = "antibytes-gradle-test-utils",
+                name = name,
                 description = "Helpers to make Gradle testable.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,

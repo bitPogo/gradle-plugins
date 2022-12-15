@@ -36,10 +36,10 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = LibraryConfig.group,
             type = Type.PURE_JAVA,
             pom = PomConfiguration(
-                name = "antibytes-runtime-configuration",
+                name = name,
                 description = "Auxilary Task for BuildConfigs for KotlinKmp.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,

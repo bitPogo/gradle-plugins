@@ -36,10 +36,10 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = LibraryConfig.group,
             type = Type.PURE_JAVA,
             pom = PomConfiguration(
-                name = "antibytes-dependency-bridge",
+                name = name,
                 description = "Helpers to bridge TOMLs to the pragmatic Api of VersionsCatalogs.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -101,9 +101,6 @@ antiBytesPublishing {
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.gson)

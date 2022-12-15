@@ -53,10 +53,10 @@ antiBytesPublishing {
     packaging.set(
         PackageConfiguration(
             custom = "antibytesCustomComponent",
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = LibraryConfig.group,
             type = Type.CUSTOM_COMPONENT,
             pom = PomConfiguration(
-                name = "antibytes-detekt-configuration",
+                name = name,
                 description = "General configuration for Detekt for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,

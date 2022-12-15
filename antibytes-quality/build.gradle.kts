@@ -18,6 +18,7 @@ import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
+import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
@@ -29,18 +30,19 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.quality"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-quality",
+                name = name,
                 description = "Linter and Codeanalysis for Antibytes Projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -130,12 +132,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.quality") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.quality"
-        displayName = "${id}.gradle.plugin"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "Qualitytools for Antibytes projects."
         implementationClass = "tech.antibytes.gradle.quality.AntiBytesQuality"
-        description = "Linter and Codeanalysis for Antibytes Projects."
+        description = "Linter, Codeanalysis, Qualitygate and Apichecks for Antibytes projects."
     }
 }
 

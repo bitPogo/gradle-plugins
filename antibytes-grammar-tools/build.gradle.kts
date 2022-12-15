@@ -29,6 +29,8 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.grammar"
+
 antiBytesPublishing {
     versioning.set(
         VersioningConfiguration(
@@ -38,9 +40,9 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-grammar-tools",
+                name = name,
                 description = "A Bison and JFlex plugin for Gradle.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -150,11 +152,11 @@ dependencies {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.grammar") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.grammar"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "A Bison and JFlex plugin for Gradle and Kotlin."
         implementationClass = "tech.antibytes.gradle.grammar.GrammarToolsPlugin"
-        description = "A Bison and JFlex plugin for Gradle"
+        description = "A Bison and JFlex plugin for Gradle and Kotlin."
     }
     testSourceSets(sourceSets.getByName("integrationTest"))
 }

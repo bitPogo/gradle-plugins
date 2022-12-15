@@ -31,10 +31,10 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = LibraryConfig.group,
             type = Type.VERSION_CATALOG,
             pom = PomConfiguration(
-                name = "antibytes-dependency-catalog",
+                name = name,
                 description = "General dependencies for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -96,9 +96,6 @@ antiBytesPublishing {
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 catalog {
     addSharedAntibytesConfiguration()
