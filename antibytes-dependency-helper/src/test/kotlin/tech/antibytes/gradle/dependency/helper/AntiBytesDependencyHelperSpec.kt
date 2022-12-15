@@ -50,7 +50,7 @@ class AntiBytesDependencyHelperSpec {
 
         every { project.extensions } returns extensions
         every {
-            extensions.create("antiBytesDependency", any<Class<*>>())
+            extensions.create("antiBytesDependencyHelper", any<Class<*>>())
         } returns extension
 
         every { project.plugins } returns plugins
@@ -61,7 +61,7 @@ class AntiBytesDependencyHelperSpec {
         AntiBytesDependencyHelper().apply(project)
 
         // Then
-        verify(exactly = 1) { extensions.create("antiBytesDependency", any<Class<*>>()) }
+        verify(exactly = 1) { extensions.create("antiBytesDependencyHelper", any<Class<*>>()) }
         verify(exactly = 1) { DependencyUpdate.configure(project, extension) }
     }
 
@@ -75,7 +75,7 @@ class AntiBytesDependencyHelperSpec {
 
         every { project.extensions } returns extensions
         every {
-            extensions.create("antiBytesDependency", any<Class<*>>())
+            extensions.create("antiBytesDependencyHelper", any<Class<*>>())
         } returns extension
 
         every { project.plugins } returns plugins
@@ -104,7 +104,7 @@ class AntiBytesDependencyHelperSpec {
 
         every { project.extensions } returns extensions
         every {
-            extensions.create("antiBytesDependency", any<Class<*>>())
+            extensions.create("antiBytesDependencyHelper", any<Class<*>>())
         } returns extension
 
         every { project.plugins } returns plugins
@@ -132,7 +132,7 @@ class AntiBytesDependencyHelperSpec {
 
         every { project.extensions } returns extensions
         every {
-            extensions.create("antiBytesDependency", any<Class<*>>())
+            extensions.create("antiBytesDependencyHelper", any<Class<*>>())
         } returns extension
 
         every { project.plugins } returns plugins

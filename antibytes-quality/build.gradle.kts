@@ -36,6 +36,13 @@ val versioningConfiguration = VersioningConfiguration(
     suppressSnapshot = true
 )
 
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(

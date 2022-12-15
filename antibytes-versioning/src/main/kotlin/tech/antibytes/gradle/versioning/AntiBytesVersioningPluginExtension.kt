@@ -6,8 +6,26 @@
 
 package tech.antibytes.gradle.versioning
 
-abstract class AntiBytesVersioningPluginExtension : VersioningInternalContract.Extension {
-    init {
-        configuration.convention(null)
+import org.gradle.api.Project
+import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
+
+abstract class AntiBytesVersioningPluginExtension(
+    private val project: Project,
+) : VersioningInternalContract.Extension {
+    private var _configuration: VersioningConfiguration? = null
+
+    override var configuration: VersioningConfiguration?
+        get() = _configuration
+        set(value) {
+            propagateVersion(value)
+            _configuration = value
+        }
+
+    private fun propagateVersion(configuration: VersioningConfiguration?) {
+        project.version = if (configuration != null) {
+            Versioning.getInstance(project, configuration).versionName()
+        } else {
+            "unspecified"
+        }
     }
 }

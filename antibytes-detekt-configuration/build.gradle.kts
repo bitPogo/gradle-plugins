@@ -38,6 +38,9 @@ val artifacts = listOf(
     )
 )
 
+// To make it available as direct dependency
+group = LibraryConfig.group
+
 antibytesCustomComponent {
     customArtifacts.set(artifacts)
     attributes.set(componentAttributes)

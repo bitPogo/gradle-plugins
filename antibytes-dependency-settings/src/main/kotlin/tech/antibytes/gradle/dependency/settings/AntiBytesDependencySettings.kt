@@ -18,13 +18,19 @@ class AntiBytesDependencySettings : Plugin<Settings> {
                 maven {
                     setUrl("https://raw.github.com/bitPogo/maven-snapshots/main/snapshots")
                     content {
-                        includeGroup("tech.antibytes.gradle-plugins")
+                        includeGroup(MainConfig.pluginGroup)
                     }
                 }
                 maven {
                     setUrl("https://raw.github.com/bitPogo/maven-rolling-releases/main/rolling")
                     content {
-                        includeGroup("tech.antibytes.gradle-plugins")
+                        includeGroup(MainConfig.pluginGroup)
+                    }
+                }
+                maven {
+                    setUrl(MainConfig.gradlePluginsDir)
+                    content {
+                        includeGroup(MainConfig.pluginGroup)
                     }
                 }
             }
@@ -32,7 +38,7 @@ class AntiBytesDependencySettings : Plugin<Settings> {
             versionCatalogs.apply {
                 create("antibytesCatalog").apply {
                     from(
-                        "tech.antibytes.gradle-plugins:antibytes-dependency-catalog:${MainConfig.antibytesVersion}",
+                        "tech.antibytes.gradle:antibytes-dependency-catalog:${MainConfig.antibytesVersion}",
                     )
                 }
             }

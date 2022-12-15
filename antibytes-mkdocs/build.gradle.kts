@@ -31,14 +31,20 @@ plugins {
 }
 
 val pluginId = "${LibraryConfig.group}.mkdocs"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
 
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
             groupId = pluginId,

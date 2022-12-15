@@ -31,11 +31,17 @@ plugins {
 }
 
 val pluginId = "${LibraryConfig.group}.dependency.settings"
-
 val versioningConfiguration = VersioningConfiguration(
     featurePrefixes = listOf("feature"),
     suppressSnapshot = true
 )
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
 
 antiBytesPublishing {
     versioning.set(versioningConfiguration)
@@ -179,6 +185,8 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     stringFields.set(
         mapOf(
             "antibytesVersion" to Versioning.getInstance(project, versioningConfiguration).versionName(),
+            "gradlePluginsDir" to rootProject.buildDir.absolutePath,
+            "pluginGroup" to LibraryConfig.group
         )
     )
 }

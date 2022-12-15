@@ -6,11 +6,9 @@
 
 package tech.antibytes.gradle.versioning
 
-import org.gradle.api.provider.Property
-
 internal interface VersioningInternalContract {
     interface Extension {
-        val configuration: Property<VersioningContract.VersioningConfiguration?>
+        var configuration: VersioningContract.VersioningConfiguration?
     }
 
     companion object {

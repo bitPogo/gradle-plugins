@@ -27,6 +27,9 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+// To make it available as direct dependency
+group = LibraryConfig.group
+
 antiBytesPublishing {
     versioning.set(
         VersioningConfiguration(
