@@ -10,21 +10,25 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublishingExtension
 import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.MavenRepositoryConfiguration
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 
 internal object MavenRepository : PublisherContract.MavenRepository {
     private fun useCredentials(
-        configuration: PublishingApiContract.RepositoryConfiguration,
+        configuration: RepositoryConfiguration<out Any>,
         dryRun: Boolean,
     ): Boolean {
-        return configuration is PublishingApiContract.MavenRepositoryConfiguration && !dryRun
+        return configuration is MavenRepositoryConfiguration &&
+            !dryRun &&
+            configuration.username != null
     }
 
     private fun getUrl(
         project: Project,
-        configuration: PublishingApiContract.RepositoryConfiguration,
+        configuration: RepositoryConfiguration<out Any>,
         dryRun: Boolean,
-    ): String {
+    ): Any {
         val localBasePath = "file://${project.rootProject.buildDir.absolutePath}/${configuration.name}"
 
         return when {
@@ -37,7 +41,7 @@ internal object MavenRepository : PublisherContract.MavenRepository {
     private fun setRepository(
         project: Project,
         repository: MavenArtifactRepository,
-        configuration: PublishingApiContract.RepositoryConfiguration,
+        configuration: RepositoryConfiguration<out Any>,
         dryRun: Boolean,
     ) {
         repository.name = configuration.name.capitalize()
@@ -59,7 +63,7 @@ internal object MavenRepository : PublisherContract.MavenRepository {
 
     override fun configure(
         project: Project,
-        configuration: PublishingApiContract.RepositoryConfiguration,
+        configuration: RepositoryConfiguration<out Any>,
         dryRun: Boolean,
     ) {
         project.extensions.configure(PublishingExtension::class.java) {

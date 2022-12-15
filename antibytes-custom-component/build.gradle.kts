@@ -16,6 +16,7 @@ import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -25,18 +26,26 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.custom-component"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-custom-component",
+                name = name,
                 description = "Publish custom components/artifacts for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -90,7 +99,11 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
@@ -112,9 +125,6 @@ antiBytesCoverage {
     )
 }
 
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
-
 dependencies {
     implementation(libs.kotlin)
 
@@ -132,11 +142,10 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.component") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.component"
+    plugins.create(pluginId) {
+        id = pluginId
         implementationClass = "tech.antibytes.gradle.component.AntiBytesCustomComponent"
-        displayName = "${id}.gradle.plugin"
+        displayName = "Custom Maven Artifact Component definition."
         description = "Publish custom components/artifacts for Antibytes projects."
         version = "0.1.0"
     }

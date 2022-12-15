@@ -7,11 +7,22 @@ package tech.antibytes.gradle.versioning
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import tech.antibytes.gradle.versioning.VersioningInternalContract.Companion.EXTENSION_ID
+import tech.antibytes.gradle.versioning.VersioningInternalContract.Extension
 
 class AntibytesVersioning : Plugin<Project> {
-    override fun apply(target: Project) {
-        if (!target.plugins.hasPlugin("com.palantir.git-version")) {
-            target.plugins.apply("com.palantir.git-version")
+    private fun Project.applyGitVersionPlugin() {
+        if (!plugins.hasPlugin("com.palantir.git-version")) {
+            plugins.apply("com.palantir.git-version")
         }
+    }
+
+    private fun Project.createExtension(): Extension {
+        return extensions.create(EXTENSION_ID, AntiBytesVersioningPluginExtension::class.java)
+    }
+
+    override fun apply(target: Project) {
+        target.applyGitVersionPlugin()
+        target.createExtension()
     }
 }

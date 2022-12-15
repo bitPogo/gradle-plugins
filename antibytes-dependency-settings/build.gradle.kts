@@ -19,7 +19,7 @@ import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.versioning.Versioning
-
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -30,18 +30,26 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.dependency.settings"
 val versioningConfiguration = VersioningConfiguration(
     featurePrefixes = listOf("feature"),
     suppressSnapshot = true
 )
 
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-dependency-settings",
+                name = name,
                 description = "Inital Gradle settings for Antibytes Projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -95,13 +103,14 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     testImplementation(libs.kotlinTest)
@@ -118,10 +127,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.dependency.settings") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.dependency.settings"
-        displayName = "${id}.gradle.plugin"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "Inital Gradle Dependency Settings for Antibytes Projects."
         implementationClass = "tech.antibytes.gradle.dependency.settings.AntiBytesDependencySettings"
         description = "Inital Gradle Dependency Settings for Antibytes Projects."
     }
@@ -177,6 +185,8 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     stringFields.set(
         mapOf(
             "antibytesVersion" to Versioning.getInstance(project, versioningConfiguration).versionName(),
+            "gradlePluginsDir" to rootProject.buildDir.absolutePath,
+            "pluginGroup" to LibraryConfig.group
         )
     )
 }

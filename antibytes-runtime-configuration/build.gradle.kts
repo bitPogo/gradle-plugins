@@ -17,7 +17,7 @@ import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
-
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -26,6 +26,9 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
 }
+
+// To make it available as direct dependency
+group = LibraryConfig.group
 
 antiBytesPublishing {
     versioning.set(
@@ -36,10 +39,10 @@ antiBytesPublishing {
     )
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = LibraryConfig.group,
             type = Type.PURE_JAVA,
             pom = PomConfiguration(
-                name = "antibytes-runtime-configuration",
+                name = name,
                 description = "Auxilary Task for BuildConfigs for KotlinKmp.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -93,13 +96,14 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.kotlin)

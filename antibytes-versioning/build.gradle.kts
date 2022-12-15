@@ -17,7 +17,7 @@ import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
-
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -27,19 +27,27 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.versioning"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             type = Type.PURE_JAVA,
             pom = PomConfiguration(
-                name = "antibytes-versioning",
+                name = name,
                 description = "Autoversioning for Antibytes Projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -93,13 +101,14 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.versioning)
@@ -153,11 +162,10 @@ tasks.check {
 
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.versioning") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.versioning"
+    plugins.create(pluginId) {
+        id = pluginId
         implementationClass = "tech.antibytes.gradle.versioning.AntibytesVersioning"
-        displayName = "${id}.gradle.plugin"
+        displayName = "Setup for Antibytes Versioning."
         description = "Setup for Antibytes Versioning."
     }
 }

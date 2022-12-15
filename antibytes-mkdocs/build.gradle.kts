@@ -19,6 +19,7 @@ import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 import tech.antibytes.gradle.dependency.helper.asPythonPackage
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -29,18 +30,26 @@ plugins {
     id("tech.antibytes.gradle.runtime.local")
 }
 
+val pluginId = "${LibraryConfig.group}.mkdocs"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-mkdocs",
+                name = name,
                 description = "Setup for MkDocs documentation.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -94,13 +103,14 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.kotlin)
@@ -123,12 +133,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.mkdocs") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.mkdocs"
+    plugins.create(pluginId) {
+        id = pluginId
         implementationClass = "tech.antibytes.gradle.mkdocs.AntiBytesDocumentation"
-        displayName = "${id}.gradle.plugin"
-        description = "Setup for MkDocs documentation."
+        displayName = "Setup for MkDocs documentation tool."
+        description = "Setup for MkDocs documentation tool."
     }
 }
 

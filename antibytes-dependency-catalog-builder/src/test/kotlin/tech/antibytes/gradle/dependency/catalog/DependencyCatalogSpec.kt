@@ -1585,7 +1585,7 @@ class DependencyCatalogSpec {
         verify(exactly = 1) {
             catalog.library(
                 "gradle-test-antibytes-testUtils",
-                "tech.antibytes.gradle-plugins",
+                "tech.antibytes.gradle",
                 "antibytes-gradle-test-utils",
             )
         }

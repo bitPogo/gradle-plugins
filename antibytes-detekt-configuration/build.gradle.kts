@@ -14,6 +14,7 @@ import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     id("tech.antibytes.gradle.component.local")
@@ -37,6 +38,9 @@ val artifacts = listOf(
     )
 )
 
+// To make it available as direct dependency
+group = LibraryConfig.group
+
 antibytesCustomComponent {
     customArtifacts.set(artifacts)
     attributes.set(componentAttributes)
@@ -52,10 +56,10 @@ antiBytesPublishing {
     packaging.set(
         PackageConfiguration(
             custom = "antibytesCustomComponent",
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = LibraryConfig.group,
             type = Type.CUSTOM_COMPONENT,
             pom = PomConfiguration(
-                name = "antibytes-detekt-configuration",
+                name = name,
                 description = "General configuration for Detekt for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -110,10 +114,11 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId

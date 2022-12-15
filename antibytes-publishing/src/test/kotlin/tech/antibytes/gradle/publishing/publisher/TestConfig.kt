@@ -19,7 +19,7 @@ import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfigurati
 data class TestConfig(
     override val excludeProjects: SetProperty<String>,
     override val versioning: Property<VersioningConfiguration>,
-    override val repositories: SetProperty<RepositoryConfiguration>,
+    override val repositories: SetProperty<RepositoryConfiguration<out Any>>,
     override val packaging: Property<PackageConfiguration>,
     override val dryRun: Property<Boolean>,
     override val standalone: Property<Boolean>,

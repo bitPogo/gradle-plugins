@@ -11,7 +11,7 @@ import tech.antibytes.gradle.dependency.catalog.GradleBundle
 import tech.antibytes.gradle.dependency.catalog.GradleTestArtifact
 
 internal object Antibytes {
-    private const val group = "tech.antibytes.gradle-plugins"
+    private const val group = "tech.antibytes.gradle"
 
     val dependencyHelper = GradleBundle(
         group = group,

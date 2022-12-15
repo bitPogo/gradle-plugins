@@ -8,12 +8,12 @@ package tech.antibytes.gradle.publishing.publisher
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 
 internal abstract class SharedPublisherFunctions {
     protected fun addPublishingTask(
         project: Project,
-        configuration: PublishingApiContract.RepositoryConfiguration,
+        configuration: RepositoryConfiguration<out Any>,
     ): Task {
         return project.tasks.create("publish${configuration.name.capitalize()}") {
             group = "Publishing"

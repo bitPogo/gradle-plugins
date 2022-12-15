@@ -18,6 +18,7 @@ import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -28,18 +29,26 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
 }
 
+val pluginId = "${LibraryConfig.group}.coverage"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-coverage",
+                name = name,
                 description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -93,13 +102,14 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.agp)
@@ -120,12 +130,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.coverage") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.coverage"
-        displayName = "${id}.gradle.plugin"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "Plugin for Codecoverage for Antibytes Projects."
         implementationClass = "tech.antibytes.gradle.coverage.AntiBytesCoverage"
-        description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes"
+        description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes Projects."
     }
 }
 

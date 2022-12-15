@@ -722,4 +722,4 @@ private data class TestRepositoryConfiguration(
     override val url: String,
     override val username: String = "",
     override val password: String = "",
-) : PublishingApiContract.RepositoryConfiguration
+) : PublishingApiContract.RepositoryConfiguration<String>

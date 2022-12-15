@@ -44,8 +44,8 @@ class MavenRepositorySpec {
         val configuration = MavenRepositoryConfiguration(
             name = fixture(),
             url = fixture(),
-            username = fixture(),
-            password = fixture(),
+            username = fixture<String>(),
+            password = fixture<String>(),
         )
 
         val project: Project = mockk()
@@ -99,8 +99,8 @@ class MavenRepositorySpec {
         val configuration = GitRepositoryConfiguration(
             name = fixture(),
             url = fixture(),
-            username = fixture(),
-            password = fixture(),
+            username = fixture<String>(),
+            password = fixture<String>(),
             gitWorkDirectory = fixture(),
         )
 
@@ -153,7 +153,60 @@ class MavenRepositorySpec {
         val configuration = MavenRepositoryConfiguration(
             name = fixture(),
             url = fixture(),
-            username = fixture(),
+            username = fixture<String>(),
+            password = fixture<String>(),
+        )
+
+        val project: Project = mockk()
+        val extensions: ExtensionContainer = mockk()
+        val publishingExtension: PublishingExtension = mockk()
+        val repositoryContainer: RepositoryHandler = mockk()
+        val repository: MavenArtifactRepository = mockk(relaxed = true)
+        val credentials: PasswordCredentials = mockk(relaxed = true)
+
+        every { project.extensions } returns extensions
+        every { project.rootProject.buildDir } returns mockk(relaxed = true)
+        every { publishingExtension.repositories } returns repositoryContainer
+        invokeGradleAction(
+            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
+            publishingExtension,
+        )
+        invokeGradleAction(
+            { probe -> publishingExtension.repositories(probe) },
+            repositoryContainer,
+            mockk(),
+        )
+        invokeGradleAction(
+            { probe -> repositoryContainer.maven(probe) },
+            repository,
+            mockk(),
+        )
+        invokeGradleAction(
+            { probe -> repository.credentials(probe) },
+            credentials,
+            mockk(),
+        )
+
+        // When
+        MavenRepository.configure(
+            project,
+            configuration,
+            dryRun,
+        )
+
+        // Then
+        verify(exactly = 0) { credentials.username = any() }
+        verify(exactly = 0) { credentials.password = any() }
+    }
+
+    @Test
+    fun `Given configure is called with a Project, MavenRepositoryConfiguration and a DryRun flag, it will not set credentials if the username is empty`() {
+        // Given
+        val dryRun = true
+        val configuration = MavenRepositoryConfiguration(
+            name = fixture(),
+            url = fixture(),
+            username = null,
             password = fixture(),
         )
 
@@ -205,9 +258,9 @@ class MavenRepositorySpec {
         val dryRun = false
         val configuration = MavenRepositoryConfiguration(
             name = fixture(),
-            url = fixture(),
-            username = fixture(),
-            password = fixture(),
+            url = fixture<String>(),
+            username = fixture<String>(),
+            password = fixture<String>(),
         )
 
         val project: Project = mockk()
@@ -259,8 +312,8 @@ class MavenRepositorySpec {
         val configuration = MavenRepositoryConfiguration(
             name = fixture(),
             url = fixture(),
-            username = fixture(),
-            password = fixture(),
+            username = fixture<String>(),
+            password = fixture<String>(),
         )
         val rootBuildDir = "somewhere"
 
@@ -313,8 +366,8 @@ class MavenRepositorySpec {
         val configuration = GitRepositoryConfiguration(
             name = fixture(),
             url = fixture(),
-            username = fixture(),
-            password = fixture(),
+            username = fixture<String>(),
+            password = fixture<String>(),
             gitWorkDirectory = fixture(),
         )
         val rootBuildDir = "somewhere"
@@ -368,8 +421,8 @@ class MavenRepositorySpec {
         val configuration = GitRepositoryConfiguration(
             name = fixture(),
             url = fixture(),
-            username = fixture(),
-            password = fixture(),
+            username = fixture<String>(),
+            password = fixture<String>(),
             gitWorkDirectory = fixture(),
         )
         val rootBuildDir = "somewhere"
@@ -423,8 +476,8 @@ class MavenRepositorySpec {
         val configuration = GitRepositoryConfiguration(
             name = fixture(),
             url = fixture(),
-            username = fixture(),
-            password = fixture(),
+            username = fixture<String>(),
+            password = fixture<String>(),
             gitWorkDirectory = fixture(),
         )
         val rootBuildDir = "somewhere"
@@ -527,7 +580,7 @@ class MavenRepositorySpec {
         // Then
         assertEquals(
             actual = url.captured,
-            expected = ""//""file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
         )
     }
 
@@ -587,7 +640,7 @@ class MavenRepositorySpec {
         // Then
         assertEquals(
             actual = url.captured,
-            expected = ""//""file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
+            expected = "file://${File(rootBuildDir).absolutePath}/${configuration.name}/${configuration.gitWorkDirectory}"
         )
     }*/
 }

@@ -16,7 +16,7 @@ import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
-
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -26,18 +26,26 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
 }
 
+val pluginId = "${LibraryConfig.group}.configuration"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-configuration",
+                name = name,
                 description = "General Configuration for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -91,13 +99,14 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
-
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
 
 dependencies {
     implementation(libs.kotlin)
@@ -120,10 +129,9 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.configuration") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.configuration"
-        displayName = "${id}.gradle.plugin"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "Configuration Plugin for Antibytes projects."
         implementationClass = "tech.antibytes.gradle.configuration.AntiBytesConfiguration"
         description = "General Configuration for Antibytes projects."
     }

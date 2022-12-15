@@ -12,12 +12,13 @@ import org.eclipse.jgit.api.ResetCommand
 import org.eclipse.jgit.transport.PushResult
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.gradle.api.Project
-import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.Credentials
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 
 internal object GitActions : GitContract.GitActions {
     private fun update(
         git: Git,
-        credentials: PublishingApiContract.Credentials,
+        credentials: Credentials,
     ) {
         git.fetch()
             .setForceUpdate(true)
@@ -39,7 +40,7 @@ internal object GitActions : GitContract.GitActions {
 
     private fun updateAndReset(
         targetDirectory: File,
-        repository: PublishingApiContract.RepositoryConfiguration,
+        repository: RepositoryConfiguration<out Any>,
     ) {
         val git = Git.open(targetDirectory)
 
@@ -52,7 +53,7 @@ internal object GitActions : GitContract.GitActions {
 
     private fun clone(
         targetDirectory: File,
-        repository: PublishingApiContract.RepositoryConfiguration,
+        repository: RepositoryConfiguration<String>,
     ) {
         Git.cloneRepository()
             .setURI(repository.url)
@@ -68,7 +69,7 @@ internal object GitActions : GitContract.GitActions {
 
     override fun checkout(
         project: Project,
-        repository: PublishingApiContract.RepositoryConfiguration,
+        repository: RepositoryConfiguration<String>,
     ) {
         val targetDirectory = File("${project.rootProject.buildDir.absolutePath}/${repository.name}")
 
@@ -102,7 +103,7 @@ internal object GitActions : GitContract.GitActions {
 
     private fun push(
         git: Git,
-        credentials: PublishingApiContract.Credentials,
+        credentials: Credentials,
         dryRun: Boolean,
     ): Boolean {
         val push = git.push()
@@ -119,7 +120,7 @@ internal object GitActions : GitContract.GitActions {
 
     private fun push(
         git: Git,
-        credentials: PublishingApiContract.Credentials,
+        credentials: Credentials,
         commitMessage: String,
         dryRun: Boolean,
     ): Boolean {
@@ -129,7 +130,7 @@ internal object GitActions : GitContract.GitActions {
 
     override fun push(
         project: Project,
-        repository: PublishingApiContract.RepositoryConfiguration,
+        repository: RepositoryConfiguration<String>,
         commitMessage: String,
         dryRun: Boolean,
     ): Boolean {

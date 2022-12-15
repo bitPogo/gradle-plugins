@@ -17,6 +17,7 @@ import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -28,18 +29,26 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.grammar"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-grammar-tools",
+                name = name,
                 description = "A Bison and JFlex plugin for Gradle.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -93,7 +102,11 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
@@ -145,11 +158,11 @@ dependencies {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.grammar") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.grammar"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "A Bison and JFlex plugin for Gradle and Kotlin."
         implementationClass = "tech.antibytes.gradle.grammar.GrammarToolsPlugin"
-        description = "A Bison and JFlex plugin for Gradle"
+        description = "A Bison and JFlex plugin for Gradle and Kotlin."
     }
     testSourceSets(sourceSets.getByName("integrationTest"))
 }

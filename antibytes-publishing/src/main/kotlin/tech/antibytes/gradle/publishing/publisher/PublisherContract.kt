@@ -18,12 +18,12 @@ internal interface PublisherContract {
     interface GitRepository {
         fun configureCloneTask(
             project: Project,
-            configuration: RepositoryConfiguration,
+            configuration: RepositoryConfiguration<out Any>,
         ): Task?
 
         fun configurePushTask(
             project: Project,
-            configuration: RepositoryConfiguration,
+            configuration: RepositoryConfiguration<out Any>,
             version: String,
             dryRun: Boolean,
         ): Task?
@@ -41,7 +41,7 @@ internal interface PublisherContract {
     fun interface MavenRepository {
         fun configure(
             project: Project,
-            configuration: RepositoryConfiguration,
+            configuration: RepositoryConfiguration<out Any>,
             dryRun: Boolean,
         )
     }

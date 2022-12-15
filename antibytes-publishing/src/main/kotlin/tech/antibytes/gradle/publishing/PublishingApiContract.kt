@@ -73,20 +73,20 @@ interface PublishingApiContract {
     }
 
     interface Credentials {
-        val username: String
-        val password: String
+        val username: String?
+        val password: String?
     }
 
-    interface RepositoryConfiguration : Credentials {
+    interface RepositoryConfiguration<T : Any> : Credentials {
         val name: String
-        val url: String
+        val url: T
     }
 
-    interface GitRepositoryConfiguration : RepositoryConfiguration {
+    interface GitRepositoryConfiguration : RepositoryConfiguration<String> {
         val gitWorkDirectory: String
     }
 
-    interface MavenRepositoryConfiguration : RepositoryConfiguration
+    interface MavenRepositoryConfiguration<T : Any> : RepositoryConfiguration<T>
 
     interface MemorySigning {
         val key: String?

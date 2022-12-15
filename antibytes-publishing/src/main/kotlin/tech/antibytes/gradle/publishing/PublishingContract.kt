@@ -20,7 +20,7 @@ internal interface PublishingContract {
     interface PublishingPluginExtension {
         val excludeProjects: SetProperty<String>
         val versioning: Property<VersioningConfiguration>
-        val repositories: SetProperty<RepositoryConfiguration>
+        val repositories: SetProperty<RepositoryConfiguration<out Any>>
         val packaging: Property<PackageConfiguration>
         val signing: Property<MemorySigning>
         val documentation: Property<DocumentationConfiguration>

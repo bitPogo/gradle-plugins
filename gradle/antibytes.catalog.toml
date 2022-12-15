@@ -77,26 +77,26 @@ android-test-robolectric = "4.8.2"
 android-test-rules = "1.4.0"
 android-test-runner = "1.4.0"
 android-test-uiAutomator = "2.2.0"
-gradle-antibytes-coverage-dependency = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-coverage-plugin = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-customComponent-dependency = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-customComponent-plugin = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-dependencyHelper-dependency = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-dependencyHelper-plugin = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-detektConfiguration = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-grammarTools-dependency = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-grammarTools-plugin = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-mkDocs-dependency = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-mkDocs-plugin = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-projectConfig-dependency = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-projectConfig-plugin = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-publishing-dependency = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-publishing-plugin = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-runtimeConfig = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-testUtils = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-utils = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-versioning-dependency = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
-gradle-antibytes-versioning-plugin = "6941575-add-antibytes-settings-plugin-SNAPSHOT"
+gradle-antibytes-coverage-dependency = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-coverage-plugin = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-customComponent-dependency = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-customComponent-plugin = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-dependencyHelper-dependency = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-dependencyHelper-plugin = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-detektConfiguration = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-grammarTools-dependency = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-grammarTools-plugin = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-mkDocs-dependency = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-mkDocs-plugin = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-projectConfig-dependency = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-projectConfig-plugin = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-publishing-dependency = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-publishing-plugin = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-runtimeConfig = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-testUtils = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-utils = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-versioning-dependency = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-versioning-plugin = "460733c-change-plugins-SNAPSHOT"
 gradle-dependencyUpdate-dependency = "0.42.0"
 gradle-dependencyUpdate-plugin = "0.42.0"
 gradle-jacoco-dependency = "0.8.8"
@@ -480,17 +480,17 @@ common-test-mockk = {group = "io.mockk", name = "mockk", version.ref = "test-moc
 common-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem", version.ref = "square-okio-fakefilesystem" }
 common-uuid = {group = "com.benasher44", name = "uuid", version.ref = "uuid" }
 gradle-agp = {group = "com.android.tools.build", name = "gradle", version.ref = "android-agp" }
-gradle-antibytes-coverage = {group = "tech.antibytes.gradle-plugins", name = "antibytes-coverage", version.ref = "gradle-antibytes-coverage-dependency" }
-gradle-antibytes-customComponent = {group = "tech.antibytes.gradle-plugins", name = "antibytes-custom-component", version.ref = "gradle-antibytes-customComponent-dependency" }
-gradle-antibytes-dependencyHelper = {group = "tech.antibytes.gradle-plugins", name = "antibytes-dependency-helper", version.ref = "gradle-antibytes-dependencyHelper-dependency" }
-gradle-antibytes-detektConfiguration = {group = "tech.antibytes.gradle-plugins", name = "antibytes-detekt-configuration", version.ref = "gradle-antibytes-detektConfiguration" }
-gradle-antibytes-grammarTools = {group = "tech.antibytes.gradle-plugins", name = "antibytes-grammar-tools", version.ref = "gradle-antibytes-grammarTools-dependency" }
-gradle-antibytes-mkDocs = {group = "tech.antibytes.gradle-plugins", name = "antibytes-mkdocs", version.ref = "gradle-antibytes-mkDocs-dependency" }
-gradle-antibytes-projectConfig = {group = "tech.antibytes.gradle-plugins", name = "antibytes-configuration", version.ref = "gradle-antibytes-projectConfig-dependency" }
-gradle-antibytes-publishing = {group = "tech.antibytes.gradle-plugins", name = "antibytes-publishing", version.ref = "gradle-antibytes-publishing-dependency" }
-gradle-antibytes-runtimeConfig = {group = "tech.antibytes.gradle-plugins", name = "antibytes-runtime-configuration", version.ref = "gradle-antibytes-runtimeConfig" }
-gradle-antibytes-utils = {group = "tech.antibytes.gradle-plugins", name = "antibytes-gradle-utils", version.ref = "gradle-antibytes-utils" }
-gradle-antibytes-versioning = {group = "tech.antibytes.gradle-plugins", name = "antibytes-versioning", version.ref = "gradle-antibytes-versioning-dependency" }
+gradle-antibytes-coverage = {group = "tech.antibytes.gradle", name = "antibytes-coverage", version.ref = "gradle-antibytes-coverage-dependency" }
+gradle-antibytes-customComponent = {group = "tech.antibytes.gradle", name = "antibytes-custom-component", version.ref = "gradle-antibytes-customComponent-dependency" }
+gradle-antibytes-dependencyHelper = {group = "tech.antibytes.gradle", name = "antibytes-dependency-helper", version.ref = "gradle-antibytes-dependencyHelper-dependency" }
+gradle-antibytes-detektConfiguration = {group = "tech.antibytes.gradle", name = "antibytes-detekt-configuration", version.ref = "gradle-antibytes-detektConfiguration" }
+gradle-antibytes-grammarTools = {group = "tech.antibytes.gradle", name = "antibytes-grammar-tools", version.ref = "gradle-antibytes-grammarTools-dependency" }
+gradle-antibytes-mkDocs = {group = "tech.antibytes.gradle", name = "antibytes-mkdocs", version.ref = "gradle-antibytes-mkDocs-dependency" }
+gradle-antibytes-projectConfig = {group = "tech.antibytes.gradle", name = "antibytes-configuration", version.ref = "gradle-antibytes-projectConfig-dependency" }
+gradle-antibytes-publishing = {group = "tech.antibytes.gradle", name = "antibytes-publishing", version.ref = "gradle-antibytes-publishing-dependency" }
+gradle-antibytes-runtimeConfig = {group = "tech.antibytes.gradle", name = "antibytes-runtime-configuration", version.ref = "gradle-antibytes-runtimeConfig" }
+gradle-antibytes-utils = {group = "tech.antibytes.gradle", name = "antibytes-gradle-utils", version.ref = "gradle-antibytes-utils" }
+gradle-antibytes-versioning = {group = "tech.antibytes.gradle", name = "antibytes-versioning", version.ref = "gradle-antibytes-versioning-dependency" }
 gradle-dependencyUpdate = {group = "com.github.ben-manes", name = "gradle-versions-plugin", version.ref = "gradle-dependencyUpdate-dependency" }
 gradle-hilt-gradle = {group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "android-hilt-gradle-dependency" }
 gradle-jacoco = {group = "org.jacoco", name = "org.jacoco.core", version.ref = "gradle-jacoco-dependency" }
@@ -505,7 +505,7 @@ gradle-paparazzi = {group = "app.cash.paparazzi", name = "paparazzi-gradle-plugi
 gradle-publishing = {group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "gradle-publishing" }
 gradle-spotless = {group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "gradle-spotless-dependency" }
 gradle-square-sqldelight = {group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight-gradle" }
-gradle-test-antibytes-testUtils = {group = "tech.antibytes.gradle-plugins", name = "antibytes-gradle-test-utils", version.ref = "gradle-antibytes-testUtils" }
+gradle-test-antibytes-testUtils = {group = "tech.antibytes.gradle", name = "antibytes-gradle-test-utils", version.ref = "gradle-antibytes-testUtils" }
 gradle-versioning = {group = "com.palantir.gradle.gitversion", name = "gradle-git-version", version.ref = "gradle-versioning-dependency" }
 iosarm32-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-iosarm32", version.ref = "koin-annotations" }
 iosarm32-koin-core = {group = "io.insert-koin", name = "koin-core-iosarm32", version.ref = "koin-core" }

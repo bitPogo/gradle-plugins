@@ -67,15 +67,18 @@ class AntiBytesDependencySettingsSpec {
         verify(exactly = 1) {
             mavenArtifactRepository.setUrl("https://raw.github.com/bitPogo/maven-rolling-releases/main/rolling")
         }
-        verify(exactly = 2) {
-            contentDescriptor.includeGroup("tech.antibytes.gradle-plugins")
+        verify(exactly = 1) {
+            mavenArtifactRepository.setUrl(MainConfig.gradlePluginsDir)
+        }
+        verify(exactly = 3) {
+            contentDescriptor.includeGroup(MainConfig.pluginGroup)
         }
         verify(exactly = 1) {
             versionCatalog.create("antibytesCatalog")
         }
         verify(exactly = 1) {
             versionCatalogBuilder.from(
-                "tech.antibytes.gradle-plugins:antibytes-dependency-catalog:${MainConfig.antibytesVersion}",
+                "tech.antibytes.gradle:antibytes-dependency-catalog:${MainConfig.antibytesVersion}",
             )
         }
     }

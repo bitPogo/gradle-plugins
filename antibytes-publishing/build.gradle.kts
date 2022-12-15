@@ -16,7 +16,7 @@ import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
-
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
@@ -26,18 +26,26 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
+val pluginId = "${LibraryConfig.group}.publishing"
+val versioningConfiguration = VersioningConfiguration(
+    featurePrefixes = listOf("feature"),
+    suppressSnapshot = true
+)
+
+// To make it available as direct dependency
+group = pluginId
+
+antibytesVersioning {
+    configuration = versioningConfiguration
+}
+
 antiBytesPublishing {
-    versioning.set(
-        VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
-    )
+    versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
-            groupId = LibraryConfig.PublishConfig.groupId,
+            groupId = pluginId,
             pom = PomConfiguration(
-                name = "antibytes-publishing",
+                name = name,
                 description = "Publishing tasks for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
@@ -91,7 +99,11 @@ antiBytesPublishing {
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
                 password = LibraryConfig.password
-            )
+            ),
+            MavenRepositoryConfiguration(
+                name = "Local",
+                url = uri(rootProject.buildDir),
+            ),
         )
     )
 }
@@ -124,9 +136,6 @@ antiBytesCoverage {
     )
 }
 
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
-
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.publishing)
@@ -148,12 +157,11 @@ java {
 }
 
 gradlePlugin {
-    plugins.register("${LibraryConfig.group}.gradle.publishing") {
-        group = LibraryConfig.group
-        id = "${LibraryConfig.group}.gradle.publishing"
-        displayName = "${id}.gradle.plugin"
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "Publishing setup for Antibytes projects."
         implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
-        description = "Publishing tasks for Antibytes projects"
+        description = "Publishing setup for Antibytes projects."
     }
 }
 
