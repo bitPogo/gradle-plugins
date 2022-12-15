@@ -16,7 +16,9 @@ import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 
 internal object PublisherSubProjectController : PublisherController {
-    private fun Project.determineRepositories(extension: PublishingPluginExtension): Set<RepositoryConfiguration> {
+    private fun Project.determineRepositories(
+        extension: PublishingPluginExtension
+    ): Set<RepositoryConfiguration<out Any>> {
         val repositories = extension.repositories.get()
 
         return if (repositories.isEmpty()) {
@@ -26,7 +28,9 @@ internal object PublisherSubProjectController : PublisherController {
         }
     }
 
-    private fun PublishingPluginExtension.isApplicable(repositories: Set<RepositoryConfiguration>): Boolean {
+    private fun PublishingPluginExtension.isApplicable(
+        repositories: Set<RepositoryConfiguration<out Any>>
+    ): Boolean {
         return repositories.isNotEmpty() &&
             packaging.orNull is PublishingApiContract.PackageConfiguration
     }

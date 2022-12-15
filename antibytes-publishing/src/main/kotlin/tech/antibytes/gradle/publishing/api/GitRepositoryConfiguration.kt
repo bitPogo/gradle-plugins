@@ -12,6 +12,6 @@ data class GitRepositoryConfiguration(
     override val gitWorkDirectory: String,
     override val name: String,
     override val url: String,
-    override val username: String,
-    override val password: String,
+    override val username: String? = null,
+    override val password: String? = null,
 ) : PublishingApiContract.GitRepositoryConfiguration

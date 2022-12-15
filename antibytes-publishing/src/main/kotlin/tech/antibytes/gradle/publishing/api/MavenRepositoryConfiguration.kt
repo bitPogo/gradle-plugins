@@ -8,9 +8,9 @@ package tech.antibytes.gradle.publishing.api
 
 import tech.antibytes.gradle.publishing.PublishingApiContract
 
-data class MavenRepositoryConfiguration(
-    override val username: String,
-    override val password: String,
+data class MavenRepositoryConfiguration<T : Any>(
     override val name: String,
-    override val url: String,
-) : PublishingApiContract.MavenRepositoryConfiguration
+    override val url: T,
+    override val username: String? = null,
+    override val password: String? = null,
+) : PublishingApiContract.MavenRepositoryConfiguration<T>

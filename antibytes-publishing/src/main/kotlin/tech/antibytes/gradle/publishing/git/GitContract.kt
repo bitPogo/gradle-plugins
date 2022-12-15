@@ -7,18 +7,18 @@
 package tech.antibytes.gradle.publishing.git
 
 import org.gradle.api.Project
-import tech.antibytes.gradle.publishing.PublishingApiContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 
 internal interface GitContract {
     interface GitActions {
         fun checkout(
             project: Project,
-            repository: PublishingApiContract.RepositoryConfiguration,
+            repository: RepositoryConfiguration<String>,
         )
 
         fun push(
             project: Project,
-            repository: PublishingApiContract.RepositoryConfiguration,
+            repository: RepositoryConfiguration<String>,
             commitMessage: String,
             dryRun: Boolean,
         ): Boolean

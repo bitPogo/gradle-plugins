@@ -156,7 +156,7 @@ class PublisherStandaloneControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
@@ -261,7 +261,7 @@ class PublisherStandaloneControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
@@ -334,7 +334,7 @@ class PublisherStandaloneControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
@@ -415,7 +415,7 @@ class PublisherStandaloneControllerSpec {
         val version: String = fixture()
         val documentation: Task = mockk()
 
-        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
@@ -516,7 +516,7 @@ class PublisherStandaloneControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
@@ -585,7 +585,7 @@ class PublisherStandaloneControllerSpec {
         val dryRun: Boolean = fixture()
         val version: String = fixture()
 
-        val repositoriesConfiguration: Set<RepositoryConfiguration> = setOf(registry1, registry2)
+        val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
         val packageConfiguration: PackageConfiguration = mockk()
         val versioningConfiguration: VersioningConfiguration = mockk()
 
