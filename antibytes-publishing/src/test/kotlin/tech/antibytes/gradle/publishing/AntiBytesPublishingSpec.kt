@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.publisher.PublisherController
 import tech.antibytes.gradle.publishing.signing.SigningController
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.versioning.AntiBytesVersioningPluginExtension
 
 class AntiBytesPublishingSpec {
     @Test
@@ -38,7 +39,7 @@ class AntiBytesPublishingSpec {
             SigningController,
         )
         // Given
-        val project: Project = mockk()
+        val project: Project = mockk(relaxed = true)
         val plugins: PluginContainer = mockk()
         val extensionContainer: ExtensionContainer = mockk()
         val extension: AntiBytesPublishingPluginExtension = mockk()
@@ -59,6 +60,12 @@ class AntiBytesPublishingSpec {
             mockk(),
         )
 
+        every {
+            extensionContainer.create(
+                any(),
+                AntiBytesVersioningPluginExtension::class.java,
+            )
+        } returns mockk()
         every {
             extensionContainer.create(
                 "antiBytesPublishing",
@@ -98,9 +105,9 @@ class AntiBytesPublishingSpec {
             SigningController,
         )
         // Given
-        val project: Project = mockk()
+        val project: Project = mockk(relaxed = true)
         val plugins: PluginContainer = mockk()
-        val extensionContainer: ExtensionContainer = mockk()
+        val extensionContainer: ExtensionContainer = mockk(relaxed = true)
         val extension: AntiBytesPublishingPluginExtension = mockk()
 
         every { project.extensions } returns extensionContainer
@@ -119,6 +126,12 @@ class AntiBytesPublishingSpec {
             mockk(),
         )
 
+        every {
+            extensionContainer.create(
+                any(),
+                AntiBytesVersioningPluginExtension::class.java,
+            )
+        } returns mockk()
         every {
             extensionContainer.create(
                 "antiBytesPublishing",

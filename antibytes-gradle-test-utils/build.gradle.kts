@@ -102,9 +102,6 @@ antiBytesPublishing {
     )
 }
 
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
-
 dependencies {
     implementation(libs.mockk)
     implementation(libs.jvmFixture)

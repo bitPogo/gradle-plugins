@@ -106,9 +106,6 @@ antiBytesPublishing {
     )
 }
 
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
-
 dependencies {
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))

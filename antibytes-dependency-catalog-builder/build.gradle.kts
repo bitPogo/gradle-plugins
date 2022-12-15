@@ -25,9 +25,6 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
 }
 
-// To make it available as direct dependency
-group = LibraryConfig.PublishConfig.groupId
-
 val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesDependencyVersionTask::class.java) {
     packageName.set("tech.antibytes.gradle.dependency.config")
     val externalDependencies = listOf(File("${projectDir.absolutePath.trimEnd('/')}/../shared-dependencies"))
