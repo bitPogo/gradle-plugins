@@ -18,19 +18,19 @@ class AntiBytesDependencySettings : Plugin<Settings> {
                 maven {
                     setUrl("https://raw.github.com/bitPogo/maven-snapshots/main/snapshots")
                     content {
-                        includeGroup(MainConfig.pluginGroup)
+                        includeGroupByRegex(MainConfig.pluginGroup)
                     }
                 }
                 maven {
                     setUrl("https://raw.github.com/bitPogo/maven-rolling-releases/main/rolling")
                     content {
-                        includeGroup(MainConfig.pluginGroup)
+                        includeGroupByRegex(MainConfig.pluginGroup)
                     }
                 }
                 maven {
                     setUrl(MainConfig.gradlePluginsDir)
                     content {
-                        includeGroup(MainConfig.pluginGroup)
+                        includeGroupByRegex(MainConfig.pluginGroup)
                     }
                 }
             }
