@@ -855,14 +855,41 @@ class DependencyCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.library(
-                "jvm-test-kotlin",
+                "jvm-test-kotlin-core",
                 "org.jetbrains.kotlin",
                 "kotlin-test",
             )
         }
 
         verify(exactly = 1) {
-            module.versionRef("kotlin-test-jvm")
+            module.versionRef("kotlin-test-core-jvm")
+        }
+    }
+
+    @Test
+    fun `It contains Kotlin Test Tools for WASM`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "wasm32-test-kotlin-core-wasm",
+                "org.jetbrains.kotlin",
+                "kotlin-test-wasm",
+            )
+        }
+
+        verify(exactly = 1) {
+            module.versionRef("kotlin-test-core-wasm")
         }
     }
 

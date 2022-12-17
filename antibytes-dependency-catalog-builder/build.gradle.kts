@@ -4,7 +4,6 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-import tech.antibytes.gradle.plugin.config.LibraryConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration

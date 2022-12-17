@@ -13,32 +13,36 @@ import tech.antibytes.gradle.dependency.catalog.module.Kotlin
 internal object Test {
     val annotations = MavenTestArtifact(
         group = Kotlin.group,
-        id = "kotlin-test-annotations",
-        platform = Platform.JVM,
-    )
-    val annotationsCommon = MavenTestArtifact(
-        group = Kotlin.group,
         id = "kotlin-test-annotations-common",
         platform = Platform.COMMON,
     )
-    val jvm = MavenTestArtifact(
-        group = Kotlin.group,
-        id = "kotlin-test",
-        platform = Platform.JVM,
-    )
-    val common = MavenTestArtifact(
-        group = Kotlin.group,
-        id = "kotlin-test-common",
-        platform = Platform.COMMON,
-    )
-    val js = MavenTestArtifact(
-        group = Kotlin.group,
-        id = "kotlin-test-js",
-        platform = Platform.JS,
-    )
+
+    val core = Core
+    internal object Core {
+        val common = MavenTestArtifact(
+            group = Kotlin.group,
+            id = "kotlin-test-common",
+            platform = Platform.COMMON,
+        )
+        val jvm = MavenTestArtifact(
+            group = Kotlin.group,
+            id = "kotlin-test",
+            platform = Platform.JVM,
+        )
+        val js = MavenTestArtifact(
+            group = Kotlin.group,
+            id = "kotlin-test-js",
+            platform = Platform.JS,
+        )
+        val wasm = MavenTestArtifact(
+            group = Kotlin.group,
+            id = "kotlin-test-wasm",
+            platform = Platform.WASM32,
+        )
+    }
     val junit4 = MavenTestArtifact(
         group = Kotlin.group,
-        id = "kotlin-test-junit4",
+        id = "kotlin-test-junit",
         platform = Platform.JVM,
     )
     val junit5 = MavenTestArtifact(
@@ -50,10 +54,5 @@ internal object Test {
         group = Kotlin.group,
         id = "kotlin-test-testng",
         platform = Platform.JVM,
-    )
-    val wasm = MavenTestArtifact(
-        group = Kotlin.group,
-        id = "kotlin-test-wasm",
-        platform = Platform.WASM32,
     )
 }

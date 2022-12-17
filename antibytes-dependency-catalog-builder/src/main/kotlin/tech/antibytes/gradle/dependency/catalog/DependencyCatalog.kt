@@ -70,6 +70,10 @@ private fun String.remove(double: String): String {
     }
 }
 
+private fun String.trimDoubles(): String {
+    return this.replace("test-kotlin-test", "test-kotlin")
+}
+
 private fun VersionCatalogBuilder.addDependencies(
     aliasName: String,
     artifact: KmpArtifact,
@@ -78,6 +82,7 @@ private fun VersionCatalogBuilder.addDependencies(
         val infix = artifact.determineInfix()
         val name = aliasName.remove("test")
             .injectPlatform(platform, infix)
+            .trimDoubles()
 
         if (platform == Platform.COMMON) {
             library(
@@ -103,6 +108,7 @@ private fun VersionCatalogBuilder.addDependencies(
     val name = aliasName.remove(artifact.platform.platform)
         .remove("test")
         .injectPlatform(artifact.platform, infix)
+        .trimDoubles()
 
     val dependency = library(
         name,
@@ -121,6 +127,7 @@ private fun VersionCatalogBuilder.addDependencies(
     val name = aliasName.remove(artifact.platform.platform)
         .remove("test")
         .injectPlatform(artifact.platform, infix)
+        .trimDoubles()
 
     library(
         name,
@@ -155,6 +162,7 @@ private fun VersionCatalogBuilder.addDependencies(
         .remove("test")
         .remove("dependency")
         .injectGradle(infix)
+        .trimDoubles()
 
     library(
         name,

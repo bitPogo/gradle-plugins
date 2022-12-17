@@ -14,36 +14,41 @@ internal object Antibytes {
     private const val group = "tech.antibytes.gradle"
 
     val dependencyHelper = GradleBundle(
-        group = group,
+        group = "$group.dependency.helper",
         id = "antibytes-dependency-helper",
         plugin = "tech.antibytes.gradle.dependency.helper",
     )
     val publishing = GradleBundle(
-        group = group,
+        group = "$group.publishing",
         id = "antibytes-publishing",
         plugin = "tech.antibytes.gradle.publishing",
     )
     val versioning = GradleBundle(
-        group = group,
+        group = "$group.versioning",
         id = "antibytes-versioning",
         plugin = "tech.antibytes.gradle.versioning",
     )
     val coverage = GradleBundle(
-        group = group,
+        group = "$group.coverage",
         id = "antibytes-coverage",
         plugin = "tech.antibytes.gradle.coverage",
     )
-    val projectConfig = GradleBundle(
-        group = group,
+    val projectConfiguration = GradleBundle(
+        group = "$group.configuration",
         id = "antibytes-configuration",
         plugin = "tech.antibytes.gradle.configuration",
+    )
+    val quality = GradleBundle(
+        group = "$group.quality",
+        id = "antibytes-quality",
+        plugin = "tech.antibytes.gradle.quality",
     )
     val runtimeConfig = GradleArtifact(
         group = group,
         id = "antibytes-runtime-configuration",
     )
     val grammarTools = GradleBundle(
-        group = group,
+        group = "$group.grammar",
         id = "antibytes-grammar-tools",
         plugin = "tech.antibytes.gradle.grammar",
     )
@@ -56,7 +61,7 @@ internal object Antibytes {
         id = "antibytes-gradle-test-utils",
     )
     val customComponent = GradleBundle(
-        group = group,
+        group = "$group.custom-component",
         id = "antibytes-custom-component",
         plugin = "tech.antibytes.gradle.component",
     )
@@ -65,7 +70,7 @@ internal object Antibytes {
         id = "antibytes-detekt-configuration",
     )
     val mkDocs = GradleBundle(
-        group = group,
+        group = "$group.mkdocs",
         id = "antibytes-mkdocs",
         plugin = "tech.antibytes.gradle.mkdocs",
     )
