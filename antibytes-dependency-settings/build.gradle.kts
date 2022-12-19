@@ -186,7 +186,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
         mapOf(
             "antibytesVersion" to Versioning.getInstance(project, versioningConfiguration).versionName(),
             "gradlePluginsDir" to rootProject.buildDir.absolutePath,
-            "pluginGroup" to LibraryConfig.group
+            "pluginGroup" to "^tech\\\\.antibytes\\\\.[\\\\.a-z\\\\-]+"
         )
     )
 }

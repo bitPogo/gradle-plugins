@@ -71,7 +71,7 @@ class AntiBytesDependencySettingsSpec {
             mavenArtifactRepository.setUrl(MainConfig.gradlePluginsDir)
         }
         verify(exactly = 3) {
-            contentDescriptor.includeGroup(MainConfig.pluginGroup)
+            contentDescriptor.includeGroupByRegex(MainConfig.pluginGroup)
         }
         verify(exactly = 1) {
             versionCatalog.create("antibytesCatalog")

@@ -77,26 +77,28 @@ android-test-robolectric = "4.8.2"
 android-test-rules = "1.4.0"
 android-test-runner = "1.4.0"
 android-test-uiAutomator = "2.2.0"
-gradle-antibytes-coverage-dependency = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-coverage-plugin = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-customComponent-dependency = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-customComponent-plugin = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-dependencyHelper-dependency = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-dependencyHelper-plugin = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-detektConfiguration = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-grammarTools-dependency = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-grammarTools-plugin = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-mkDocs-dependency = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-mkDocs-plugin = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-projectConfig-dependency = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-projectConfig-plugin = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-publishing-dependency = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-publishing-plugin = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-runtimeConfig = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-testUtils = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-utils = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-versioning-dependency = "460733c-change-plugins-SNAPSHOT"
-gradle-antibytes-versioning-plugin = "460733c-change-plugins-SNAPSHOT"
+gradle-antibytes-coverage-dependency = "c7bea70-change-plugins"
+gradle-antibytes-coverage-plugin = "c7bea70-change-plugins"
+gradle-antibytes-customComponent-dependency = "c7bea70-change-plugins"
+gradle-antibytes-customComponent-plugin = "c7bea70-change-plugins"
+gradle-antibytes-dependencyHelper-dependency = "c7bea70-change-plugins"
+gradle-antibytes-dependencyHelper-plugin = "c7bea70-change-plugins"
+gradle-antibytes-detektConfiguration = "c7bea70-change-plugins"
+gradle-antibytes-grammarTools-dependency = "c7bea70-change-plugins"
+gradle-antibytes-grammarTools-plugin = "c7bea70-change-plugins"
+gradle-antibytes-mkDocs-dependency = "c7bea70-change-plugins"
+gradle-antibytes-mkDocs-plugin = "c7bea70-change-plugins"
+gradle-antibytes-projectConfiguration-dependency = "c7bea70-change-plugins"
+gradle-antibytes-projectConfiguration-plugin = "c7bea70-change-plugins"
+gradle-antibytes-publishing-dependency = "c7bea70-change-plugins"
+gradle-antibytes-publishing-plugin = "c7bea70-change-plugins"
+gradle-antibytes-quality-dependency = "c7bea70-change-plugins"
+gradle-antibytes-quality-plugin = "c7bea70-change-plugins"
+gradle-antibytes-runtimeConfig = "c7bea70-change-plugins"
+gradle-antibytes-testUtils = "c7bea70-change-plugins"
+gradle-antibytes-utils = "c7bea70-change-plugins"
+gradle-antibytes-versioning-dependency = "c7bea70-change-plugins"
+gradle-antibytes-versioning-plugin = "c7bea70-change-plugins"
 gradle-dependencyUpdate-dependency = "0.42.0"
 gradle-dependencyUpdate-plugin = "0.42.0"
 gradle-jacoco-dependency = "0.8.8"
@@ -139,15 +141,13 @@ kotlin-stdlib-js = "1.7.10"
 kotlin-stdlib-jvm = "1.7.10"
 kotlin-stdlib-wasm = "1.7.10"
 kotlin-test-annotations = "1.7.10"
-kotlin-test-annotationsCommon = "1.7.10"
-kotlin-test-common = "1.7.10"
-kotlin-test-core = "1.7.10"
-kotlin-test-js = "1.7.10"
+kotlin-test-core-common = "1.7.10"
+kotlin-test-core-js = "1.7.10"
+kotlin-test-core-jvm = "1.7.10"
+kotlin-test-core-wasm = "1.7.10"
 kotlin-test-junit4 = "1.7.10"
 kotlin-test-junit5 = "1.7.10"
-kotlin-test-jvm = "1.7.10"
 kotlin-test-testng = "1.7.10"
-kotlin-test-wasm = "1.7.10"
 kotlinx-atomicfu-core = "0.18.3"
 kotlinx-atomicfu-gradle = "0.18.3"
 kotlinx-atomicfu-plugin = "0.18.3"
@@ -471,8 +471,8 @@ common-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency
 common-stately-freeze = {group = "co.touchlab", name = "stately-common", version.ref = "stately-freeze" }
 common-stately-isolate = {group = "co.touchlab", name = "stately-isolate", version.ref = "stately-isolate" }
 common-test-koin = {group = "io.insert-koin", name = "koin-test", version.ref = "koin-test" }
-common-test-kotlin = {group = "org.jetbrains.kotlin", name = "kotlin-test-common", version.ref = "kotlin-test-common" }
-common-test-kotlin-test-annotationsCommon = {group = "org.jetbrains.kotlin", name = "kotlin-test-annotations-common", version.ref = "kotlin-test-annotationsCommon" }
+common-test-kotlin-annotations = {group = "org.jetbrains.kotlin", name = "kotlin-test-annotations-common", version.ref = "kotlin-test-annotations" }
+common-test-kotlin-core = {group = "org.jetbrains.kotlin", name = "kotlin-test-common", version.ref = "kotlin-test-core-common" }
 common-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 common-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor-client-mockClient" }
 common-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host", version.ref = "ktor-server-testHost" }
@@ -480,17 +480,18 @@ common-test-mockk = {group = "io.mockk", name = "mockk", version.ref = "test-moc
 common-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem", version.ref = "square-okio-fakefilesystem" }
 common-uuid = {group = "com.benasher44", name = "uuid", version.ref = "uuid" }
 gradle-agp = {group = "com.android.tools.build", name = "gradle", version.ref = "android-agp" }
-gradle-antibytes-coverage = {group = "tech.antibytes.gradle", name = "antibytes-coverage", version.ref = "gradle-antibytes-coverage-dependency" }
-gradle-antibytes-customComponent = {group = "tech.antibytes.gradle", name = "antibytes-custom-component", version.ref = "gradle-antibytes-customComponent-dependency" }
-gradle-antibytes-dependencyHelper = {group = "tech.antibytes.gradle", name = "antibytes-dependency-helper", version.ref = "gradle-antibytes-dependencyHelper-dependency" }
+gradle-antibytes-coverage = {group = "tech.antibytes.gradle.coverage", name = "antibytes-coverage", version.ref = "gradle-antibytes-coverage-dependency" }
+gradle-antibytes-customComponent = {group = "tech.antibytes.gradle.custom-component", name = "antibytes-custom-component", version.ref = "gradle-antibytes-customComponent-dependency" }
+gradle-antibytes-dependencyHelper = {group = "tech.antibytes.gradle.dependency.helper", name = "antibytes-dependency-helper", version.ref = "gradle-antibytes-dependencyHelper-dependency" }
 gradle-antibytes-detektConfiguration = {group = "tech.antibytes.gradle", name = "antibytes-detekt-configuration", version.ref = "gradle-antibytes-detektConfiguration" }
-gradle-antibytes-grammarTools = {group = "tech.antibytes.gradle", name = "antibytes-grammar-tools", version.ref = "gradle-antibytes-grammarTools-dependency" }
-gradle-antibytes-mkDocs = {group = "tech.antibytes.gradle", name = "antibytes-mkdocs", version.ref = "gradle-antibytes-mkDocs-dependency" }
-gradle-antibytes-projectConfig = {group = "tech.antibytes.gradle", name = "antibytes-configuration", version.ref = "gradle-antibytes-projectConfig-dependency" }
-gradle-antibytes-publishing = {group = "tech.antibytes.gradle", name = "antibytes-publishing", version.ref = "gradle-antibytes-publishing-dependency" }
+gradle-antibytes-grammarTools = {group = "tech.antibytes.gradle.grammar", name = "antibytes-grammar-tools", version.ref = "gradle-antibytes-grammarTools-dependency" }
+gradle-antibytes-mkDocs = {group = "tech.antibytes.gradle.mkdocs", name = "antibytes-mkdocs", version.ref = "gradle-antibytes-mkDocs-dependency" }
+gradle-antibytes-projectConfiguration = {group = "tech.antibytes.gradle.configuration", name = "antibytes-configuration", version.ref = "gradle-antibytes-projectConfiguration-dependency" }
+gradle-antibytes-publishing = {group = "tech.antibytes.gradle.publishing", name = "antibytes-publishing", version.ref = "gradle-antibytes-publishing-dependency" }
+gradle-antibytes-quality = {group = "tech.antibytes.gradle.quality", name = "antibytes-quality", version.ref = "gradle-antibytes-quality-dependency" }
 gradle-antibytes-runtimeConfig = {group = "tech.antibytes.gradle", name = "antibytes-runtime-configuration", version.ref = "gradle-antibytes-runtimeConfig" }
 gradle-antibytes-utils = {group = "tech.antibytes.gradle", name = "antibytes-gradle-utils", version.ref = "gradle-antibytes-utils" }
-gradle-antibytes-versioning = {group = "tech.antibytes.gradle", name = "antibytes-versioning", version.ref = "gradle-antibytes-versioning-dependency" }
+gradle-antibytes-versioning = {group = "tech.antibytes.gradle.versioning", name = "antibytes-versioning", version.ref = "gradle-antibytes-versioning-dependency" }
 gradle-dependencyUpdate = {group = "com.github.ben-manes", name = "gradle-versions-plugin", version.ref = "gradle-dependencyUpdate-dependency" }
 gradle-hilt-gradle = {group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "android-hilt-gradle-dependency" }
 gradle-jacoco = {group = "org.jacoco", name = "org.jacoco.core", version.ref = "gradle-jacoco-dependency" }
@@ -836,7 +837,7 @@ js-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-js"
 js-stately-freeze = {group = "co.touchlab", name = "stately-common-js", version.ref = "stately-freeze" }
 js-stately-isolate = {group = "co.touchlab", name = "stately-isolate-js", version.ref = "stately-isolate" }
 js-test-koin = {group = "io.insert-koin", name = "koin-test-js", version.ref = "koin-test" }
-js-test-kotlin = {group = "org.jetbrains.kotlin", name = "kotlin-test-js", version.ref = "kotlin-test-js" }
+js-test-kotlin-core = {group = "org.jetbrains.kotlin", name = "kotlin-test-js", version.ref = "kotlin-test-core-js" }
 js-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test-js", version.ref = "kotlinx-coroutines-test" }
 js-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-js", version.ref = "ktor-client-mockClient" }
 js-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-js", version.ref = "square-okio-fakefilesystem" }
@@ -983,11 +984,10 @@ jvm-test-junit-runtime = {group = "org.junit.jupiter", name = "junit-jupiter", v
 jvm-test-koin = {group = "io.insert-koin", name = "koin-test-jvm", version.ref = "koin-test" }
 jvm-test-koin-junit4 = {group = "io.insert-koin", name = "koin-test-junit4", version.ref = "koin-junit4" }
 jvm-test-koin-junit5 = {group = "io.insert-koin", name = "koin-test-junit5", version.ref = "koin-junit5" }
-jvm-test-kotlin = {group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin-test-jvm" }
-jvm-test-kotlin-test-annotations = {group = "org.jetbrains.kotlin", name = "kotlin-test-annotations", version.ref = "kotlin-test-annotations" }
-jvm-test-kotlin-test-junit4 = {group = "org.jetbrains.kotlin", name = "kotlin-test-junit4", version.ref = "kotlin-test-junit4" }
-jvm-test-kotlin-test-junit5 = {group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin-test-junit5" }
-jvm-test-kotlin-test-testng = {group = "org.jetbrains.kotlin", name = "kotlin-test-testng", version.ref = "kotlin-test-testng" }
+jvm-test-kotlin-core = {group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin-test-core-jvm" }
+jvm-test-kotlin-junit4 = {group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin-test-junit4" }
+jvm-test-kotlin-junit5 = {group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin-test-junit5" }
+jvm-test-kotlin-testng = {group = "org.jetbrains.kotlin", name = "kotlin-test-testng", version.ref = "kotlin-test-testng" }
 jvm-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test-jvm", version.ref = "kotlinx-coroutines-test" }
 jvm-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-jvm", version.ref = "ktor-client-mockClient" }
 jvm-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-jvm", version.ref = "ktor-server-testHost" }
@@ -1531,7 +1531,7 @@ wasm32-kotlinx-serialization-cbor = {group = "org.jetbrains.kotlinx", name = "ko
 wasm32-kotlinx-serialization-hocon = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-hocon-wasm32", version.ref = "kotlinx-serialization-hocon" }
 wasm32-kotlinx-serialization-properties = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-properties-wasm32", version.ref = "kotlinx-serialization-properties" }
 wasm32-kotlinx-serialization-protobuf = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf-wasm32", version.ref = "kotlinx-serialization-protobuf" }
-wasm32-test-kotlin-test-wasm = {group = "org.jetbrains.kotlin", name = "kotlin-test-wasm", version.ref = "kotlin-test-wasm" }
+wasm32-test-kotlin-core-wasm = {group = "org.jetbrains.kotlin", name = "kotlin-test-wasm", version.ref = "kotlin-test-core-wasm" }
 watchosarm32-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-watchosarm32", version.ref = "koin-annotations" }
 watchosarm32-koin-core = {group = "io.insert-koin", name = "koin-core-watchosarm32", version.ref = "koin-core" }
 watchosarm32-kotlinx-atomicfu-core = {group = "org.jetbrains.kotlinx", name = "atomicfu-watchosarm32", version.ref = "kotlinx-atomicfu-core" }
@@ -1902,8 +1902,9 @@ gradle-antibytes-customComponent = {id = "tech.antibytes.gradle.component", vers
 gradle-antibytes-dependencyHelper = {id = "tech.antibytes.gradle.dependency.helper", version.ref = "gradle-antibytes-dependencyHelper-plugin" }
 gradle-antibytes-grammarTools = {id = "tech.antibytes.gradle.grammar", version.ref = "gradle-antibytes-grammarTools-plugin" }
 gradle-antibytes-mkDocs = {id = "tech.antibytes.gradle.mkdocs", version.ref = "gradle-antibytes-mkDocs-plugin" }
-gradle-antibytes-projectConfig = {id = "tech.antibytes.gradle.configuration", version.ref = "gradle-antibytes-projectConfig-plugin" }
+gradle-antibytes-projectConfiguration = {id = "tech.antibytes.gradle.configuration", version.ref = "gradle-antibytes-projectConfiguration-plugin" }
 gradle-antibytes-publishing = {id = "tech.antibytes.gradle.publishing", version.ref = "gradle-antibytes-publishing-plugin" }
+gradle-antibytes-quality = {id = "tech.antibytes.gradle.quality", version.ref = "gradle-antibytes-quality-plugin" }
 gradle-antibytes-versioning = {id = "tech.antibytes.gradle.versioning", version.ref = "gradle-antibytes-versioning-plugin" }
 gradle-dependencyUpdate = {id = "com.github.ben-manes.versions", version.ref = "gradle-dependencyUpdate-plugin" }
 gradle-jacoco = {id = "jacoco", version.ref = "gradle-jacoco-plugin" }

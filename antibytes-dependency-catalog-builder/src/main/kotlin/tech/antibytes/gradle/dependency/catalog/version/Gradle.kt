@@ -77,7 +77,8 @@ internal object Gradle {
         val publishing = GradleBundleVersion(version)
         val versioning = GradleBundleVersion(version)
         val coverage = GradleBundleVersion(version)
-        val projectConfig = GradleBundleVersion(version)
+        val projectConfiguration = GradleBundleVersion(version)
+        val quality = GradleBundleVersion(version)
         const val runtimeConfig = version
         val grammarTools = GradleBundleVersion(version)
         const val utils = version

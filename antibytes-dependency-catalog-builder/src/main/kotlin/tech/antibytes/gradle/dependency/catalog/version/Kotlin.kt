@@ -45,16 +45,19 @@ internal object Kotlin {
     val test = Test
 
     internal object Test {
-        const val annotations = version
-        const val annotationsCommon = version
-        const val core = version
-        const val common = version
-        const val jvm = version
-        const val js = version
+        val annotations = version
+
+        val core = Core
+        internal object Core {
+            const val common = version
+            const val jvm = version
+            const val js = version
+            const val wasm = version
+        }
+
         const val junit4 = version
         const val junit5 = version
         const val testng = version
-        const val wasm = version
     }
 
     val kotlin = GradleBundleVersion(version)
