@@ -78,6 +78,8 @@ internal object Gradle {
         val versioning = GradleBundleVersion(version)
         val coverage = GradleBundleVersion(version)
         val projectConfiguration = GradleBundleVersion(version)
+        val androidLibraryConfiguration = GradleBundleVersion(version)
+        val androidApplicationConfiguration = GradleBundleVersion(version)
         val quality = GradleBundleVersion(version)
         const val runtimeConfig = version
         val grammarTools = GradleBundleVersion(version)

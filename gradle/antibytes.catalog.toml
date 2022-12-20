@@ -79,28 +79,32 @@ android-test-robolectric = "4.8.2"
 android-test-rules = "1.4.0"
 android-test-runner = "1.4.0"
 android-test-uiAutomator = "2.2.0"
-gradle-antibytes-coverage-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-coverage-plugin = "1a2b612-change-plugin-resolution"
-gradle-antibytes-customComponent-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-customComponent-plugin = "1a2b612-change-plugin-resolution"
-gradle-antibytes-dependencyHelper-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-dependencyHelper-plugin = "1a2b612-change-plugin-resolution"
-gradle-antibytes-detektConfiguration = "1a2b612-change-plugin-resolution"
-gradle-antibytes-grammarTools-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-grammarTools-plugin = "1a2b612-change-plugin-resolution"
-gradle-antibytes-mkDocs-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-mkDocs-plugin = "1a2b612-change-plugin-resolution"
-gradle-antibytes-projectConfiguration-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-projectConfiguration-plugin = "1a2b612-change-plugin-resolution"
-gradle-antibytes-publishing-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-publishing-plugin = "1a2b612-change-plugin-resolution"
-gradle-antibytes-quality-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-quality-plugin = "1a2b612-change-plugin-resolution"
-gradle-antibytes-runtimeConfig = "1a2b612-change-plugin-resolution"
-gradle-antibytes-testUtils = "1a2b612-change-plugin-resolution"
-gradle-antibytes-utils = "1a2b612-change-plugin-resolution"
-gradle-antibytes-versioning-dependency = "1a2b612-change-plugin-resolution"
-gradle-antibytes-versioning-plugin = "1a2b612-change-plugin-resolution"
+gradle-antibytes-androidApplicationConfiguration-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-androidApplicationConfiguration-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-androidLibraryConfiguration-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-androidLibraryConfiguration-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-coverage-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-coverage-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-customComponent-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-customComponent-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-dependencyHelper-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-dependencyHelper-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-detektConfiguration = "6c9977a-change-plugin-cut"
+gradle-antibytes-grammarTools-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-grammarTools-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-mkDocs-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-mkDocs-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-projectConfiguration-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-projectConfiguration-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-publishing-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-publishing-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-quality-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-quality-plugin = "6c9977a-change-plugin-cut"
+gradle-antibytes-runtimeConfig = "6c9977a-change-plugin-cut"
+gradle-antibytes-testUtils = "6c9977a-change-plugin-cut"
+gradle-antibytes-utils = "6c9977a-change-plugin-cut"
+gradle-antibytes-versioning-dependency = "6c9977a-change-plugin-cut"
+gradle-antibytes-versioning-plugin = "6c9977a-change-plugin-cut"
 gradle-dependencyUpdate-dependency = "0.42.0"
 gradle-dependencyUpdate-plugin = "0.42.0"
 gradle-jacoco-dependency = "0.8.8"
@@ -482,6 +486,8 @@ common-test-mockk = {group = "io.mockk", name = "mockk", version.ref = "test-moc
 common-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem", version.ref = "square-okio-fakefilesystem" }
 common-uuid = {group = "com.benasher44", name = "uuid", version.ref = "uuid" }
 gradle-agp = {group = "com.android.tools.build", name = "gradle", version.ref = "android-agp" }
+gradle-antibytes-androidApplicationConfiguration = {group = "tech.antibytes.gradle.configuration.android", name = "antibytes-android-configuration", version.ref = "gradle-antibytes-androidApplicationConfiguration-dependency" }
+gradle-antibytes-androidLibraryConfiguration = {group = "tech.antibytes.gradle.configuration.android", name = "antibytes-android-configuration", version.ref = "gradle-antibytes-androidLibraryConfiguration-dependency" }
 gradle-antibytes-coverage = {group = "tech.antibytes.gradle.coverage", name = "antibytes-coverage", version.ref = "gradle-antibytes-coverage-dependency" }
 gradle-antibytes-customComponent = {group = "tech.antibytes.gradle.custom-component", name = "antibytes-custom-component", version.ref = "gradle-antibytes-customComponent-dependency" }
 gradle-antibytes-dependencyHelper = {group = "tech.antibytes.gradle.dependency.helper", name = "antibytes-dependency-helper", version.ref = "gradle-antibytes-dependencyHelper-dependency" }
@@ -1899,6 +1905,8 @@ watchosx86-uuid = {group = "com.benasher44", name = "uuid-watchosx86", version.r
 android-application = {id = "com.android.application", version.ref = "android-application" }
 android-hilt-gradle = {id = "dagger.hilt.android.plugin", version.ref = "android-hilt-gradle-plugin" }
 android-library = {id = "com.android.library", version.ref = "android-library" }
+gradle-antibytes-androidApplicationConfiguration = {id = "tech.antibytes.gradle.configuration.android.application", version.ref = "gradle-antibytes-androidApplicationConfiguration-plugin" }
+gradle-antibytes-androidLibraryConfiguration = {id = "tech.antibytes.gradle.configuration.android.library", version.ref = "gradle-antibytes-androidLibraryConfiguration-plugin" }
 gradle-antibytes-coverage = {id = "tech.antibytes.gradle.coverage", version.ref = "gradle-antibytes-coverage-plugin" }
 gradle-antibytes-customComponent = {id = "tech.antibytes.gradle.component", version.ref = "gradle-antibytes-customComponent-plugin" }
 gradle-antibytes-dependencyHelper = {id = "tech.antibytes.gradle.dependency.helper", version.ref = "gradle-antibytes-dependencyHelper-plugin" }

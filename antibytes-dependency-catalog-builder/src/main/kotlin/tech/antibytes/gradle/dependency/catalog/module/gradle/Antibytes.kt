@@ -38,6 +38,17 @@ internal object Antibytes {
         id = "antibytes-configuration",
         plugin = "tech.antibytes.gradle.configuration",
     )
+
+    val androidLibraryConfiguration = GradleBundle(
+        group = "$group.configuration.android",
+        id = "antibytes-android-configuration",
+        plugin = "tech.antibytes.gradle.configuration.android.library",
+    )
+    val androidApplicationConfiguration = GradleBundle(
+        group = "$group.configuration.android",
+        id = "antibytes-android-configuration",
+        plugin = "tech.antibytes.gradle.configuration.android.application",
+    )
     val quality = GradleBundle(
         group = "$group.quality",
         id = "antibytes-quality",
