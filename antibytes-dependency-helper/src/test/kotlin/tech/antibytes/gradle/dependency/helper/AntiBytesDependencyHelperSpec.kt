@@ -25,12 +25,18 @@ import org.junit.jupiter.api.Test
 class AntiBytesDependencyHelperSpec {
     @BeforeEach
     fun setup() {
-        mockkObject(DependencyUpdate)
+        mockkObject(
+            DependencyUpdate,
+            GradleCompositeBuilds,
+        )
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(DependencyUpdate)
+        unmockkObject(
+            DependencyUpdate,
+            GradleCompositeBuilds,
+        )
     }
 
     @Test
@@ -56,6 +62,7 @@ class AntiBytesDependencyHelperSpec {
         every { project.plugins } returns plugins
         every { plugins.hasPlugin(any<String>()) } returns true
         every { DependencyUpdate.configure(project, extension) } just Runs
+        every { GradleCompositeBuilds.configure(any()) } just Runs
 
         // When
         AntiBytesDependencyHelper().apply(project)
@@ -85,6 +92,7 @@ class AntiBytesDependencyHelperSpec {
         every { plugins.hasPlugin("com.github.ben-manes.versions") } returns false
         every { plugins.apply("com.github.ben-manes.versions") } returns mockk()
         every { DependencyUpdate.configure(project, extension) } just Runs
+        every { GradleCompositeBuilds.configure(any()) } just Runs
 
         // When
         AntiBytesDependencyHelper().apply(project)
@@ -111,6 +119,7 @@ class AntiBytesDependencyHelperSpec {
 
         every { plugins.hasPlugin(any<String>()) } returns true
         every { DependencyUpdate.configure(any(), any()) } just Runs
+        every { GradleCompositeBuilds.configure(any()) } just Runs
 
         every { plugins.hasPlugin("org.owasp.dependencycheck") } returns false
         every { plugins.apply("org.owasp.dependencycheck") } returns mockk()
@@ -139,6 +148,7 @@ class AntiBytesDependencyHelperSpec {
         every { plugins.hasPlugin(any<String>()) } returns true
         every { plugins.apply(any()) } returns mockk()
         every { DependencyUpdate.configure(project, extension) } just Runs
+        every { GradleCompositeBuilds.configure(any()) } just Runs
 
         // When
         AntiBytesDependencyHelper().apply(project)
@@ -148,5 +158,25 @@ class AntiBytesDependencyHelperSpec {
         verify(exactly = 0) { plugins.apply("org.owasp.dependencycheck") }
         verify(exactly = 0) { plugins.apply("com.diffplug.spotless") }
         verify(exactly = 1) { DependencyUpdate.configure(project, extension) }
+    }
+
+    @Test
+    fun `Given apply is called with a Project it delegates the Project to Composite builds`() {
+        // Given
+        val project: Project = mockk(relaxed = true)
+        val extensions: ExtensionContainer = mockk()
+        val extension: AntiBytesDependencyPluginExtension = mockk()
+
+        every { project.extensions } returns extensions
+        every {
+            extensions.create("antiBytesDependencyHelper", any<Class<*>>())
+        } returns extension
+        every { GradleCompositeBuilds.configure(any()) } just Runs
+
+        // When
+        AntiBytesDependencyHelper().apply(project)
+
+        // Then
+        verify(exactly = 1) { GradleCompositeBuilds.configure(project) }
     }
 }

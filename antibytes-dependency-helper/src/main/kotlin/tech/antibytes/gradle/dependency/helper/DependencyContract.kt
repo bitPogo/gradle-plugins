@@ -43,6 +43,10 @@ interface DependencyContract {
         fun getInstance(project: Project): CustomArtifactResolver
     }
 
+    fun interface Configurator {
+        fun configure(project: Project)
+    }
+
     companion object {
         const val EXTENSION_ID = "antiBytesDependencyHelper"
         val DEPENDENCIES = listOf(

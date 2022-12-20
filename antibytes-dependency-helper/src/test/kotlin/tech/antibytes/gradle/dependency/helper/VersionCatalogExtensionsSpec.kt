@@ -13,35 +13,12 @@ import io.mockk.verify
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.provider.Provider
-import org.gradle.kotlin.dsl.PluginDependenciesSpecScope
-import org.gradle.plugin.use.PluginDependency
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 
 class VersionCatalogExtensionsSpec {
     private val fixture = kotlinFixture()
-
-    @Test
-    fun `Given id is called in a PluginDependenciesSpecScope with a VersionCatalogProvider it delegates the call to the scope`() {
-        // Given
-        val id: String = fixture()
-        val spec: PluginDependenciesSpecScope = mockk(relaxed = true)
-        val pluginValue: PluginDependency = mockk {
-            every { pluginId } returns id
-        }
-        val provider: Provider<PluginDependency> = makeProperty(PluginDependency::class.java, pluginValue)
-
-        fun plugins(scope: PluginDependenciesSpecScope.() -> Unit) = scope.invoke(spec)
-
-        // When
-        plugins {
-            id(provider)
-        }
-
-        // Then
-        verify(exactly = 1) { spec.id(id) }
-    }
 
     @Test
     fun `Given implementation is called in a KotlinDependencyHandler with a VersionCatalogProvider it delegates the call to the scope`() {
@@ -53,7 +30,7 @@ class VersionCatalogExtensionsSpec {
         }
         val provider: Provider<MinimalExternalModuleDependency> = makeProperty(
             MinimalExternalModuleDependency::class.java,
-            implementationValue
+            implementationValue,
         )
         val configuration: Function1<ExternalModuleDependency, Unit> = mockk()
 

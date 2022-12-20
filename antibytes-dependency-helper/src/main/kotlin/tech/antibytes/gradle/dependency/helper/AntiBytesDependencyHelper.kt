@@ -22,5 +22,6 @@ class AntiBytesDependencyHelper : Plugin<Project> {
         target.applyIfNotExists(*DEPENDENCIES.toTypedArray())
 
         DependencyUpdate.configure(target, extension)
+        GradleCompositeBuilds.configure(target)
     }
 }
