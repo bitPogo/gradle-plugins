@@ -33,22 +33,28 @@ internal object Antibytes {
         id = "antibytes-coverage",
         plugin = "tech.antibytes.gradle.coverage",
     )
-    val projectConfiguration = GradleBundle(
-        group = "$group.configuration",
-        id = "antibytes-configuration",
-        plugin = "tech.antibytes.gradle.configuration",
-    )
 
     val androidLibraryConfiguration = GradleBundle(
-        group = "$group.configuration.android",
+        group = "$group.configuration.android.library",
         id = "antibytes-android-configuration",
         plugin = "tech.antibytes.gradle.configuration.android.library",
     )
     val androidApplicationConfiguration = GradleBundle(
-        group = "$group.configuration.android",
+        group = "$group.configuration.android.application",
         id = "antibytes-android-configuration",
         plugin = "tech.antibytes.gradle.configuration.android.application",
     )
+    val dokkaConfiguration = GradleBundle(
+        group = "$group.configuration.dokka",
+        id = "antibytes-dokka-configuration",
+        plugin = "tech.antibytes.gradle.configuration.dokka",
+    )
+    val kmpConfiguration = GradleBundle(
+        group = "$group.configuration.kmp",
+        id = "antibytes-kmp-configuration",
+        plugin = "tech.antibytes.gradle.configuration.kmp",
+    )
+
     val quality = GradleBundle(
         group = "$group.quality",
         id = "antibytes-quality",

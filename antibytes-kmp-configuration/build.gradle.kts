@@ -26,7 +26,7 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
 }
 
-val pluginId = "${LibraryConfig.group}.configuration"
+val pluginId = "${LibraryConfig.group}.configuration.kmp"
 val versioningConfiguration = VersioningConfiguration(
     featurePrefixes = listOf("feature"),
     suppressSnapshot = true
@@ -46,7 +46,7 @@ antiBytesPublishing {
             groupId = pluginId,
             pom = PomConfiguration(
                 name = name,
-                description = "General Configuration for Antibytes projects.",
+                description = "KMP Configuration for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
             ),
@@ -110,8 +110,6 @@ antiBytesPublishing {
 
 dependencies {
     implementation(libs.kotlin)
-    implementation(libs.agp)
-    implementation(libs.dokka)
     implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(libs.kotlinTest)
@@ -131,9 +129,9 @@ java {
 gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
-        displayName = "Configuration Plugin for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.configuration.AntiBytesConfiguration"
-        description = "General Configuration for Antibytes projects."
+        displayName = "Configuration Plugin for Antibytes KMP projects."
+        implementationClass = "tech.antibytes.gradle.configuration.AntiBytesKmpConfiguration"
+        description = "KMP Configuration for Antibytes projects."
     }
 }
 
@@ -141,13 +139,13 @@ antiBytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.98)
+        minimum = BigDecimal(0.95)
     )
 
     val instructionCoverage = JacocoVerificationRule(
         counter = JacocoCounter.INSTRUCTION,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.98)
+        minimum = BigDecimal(0.97)
     )
 
     val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
