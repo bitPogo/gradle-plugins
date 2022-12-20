@@ -148,24 +148,24 @@ internal class GradleBundle(
     group: String,
     id: String,
     plugin: String,
-) {
-    val dependency = GradleArtifact(
+) : Bundle {
+    override val dependency = GradleArtifact(
         group = group,
         id = id,
     )
 
-    val plugin = GradlePlugin(plugin)
+    override val plugin = GradlePlugin(plugin)
 }
 
 internal class GradleTestBundle(
     group: String,
     id: String,
     plugin: String,
-) {
-    val dependency = GradleTestArtifact(
+) : Bundle {
+    override val dependency = GradleTestArtifact(
         group = group,
         id = id,
     )
 
-    val plugin = GradlePlugin(plugin)
+    override val plugin = GradlePlugin(plugin)
 }

@@ -85,7 +85,7 @@ antiBytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.99)
+        minimum = BigDecimal(0.97)
     )
 
     val instructionCoverage = JacocoVerificationRule(
