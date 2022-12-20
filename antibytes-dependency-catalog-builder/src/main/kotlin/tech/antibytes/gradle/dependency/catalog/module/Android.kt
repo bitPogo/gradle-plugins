@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.dependency.catalog.module
 
 import tech.antibytes.gradle.dependency.catalog.GradleArtifact
+import tech.antibytes.gradle.dependency.catalog.GradlePlugin
 import tech.antibytes.gradle.dependency.catalog.MavenArtifact
 import tech.antibytes.gradle.dependency.catalog.Platform
 import tech.antibytes.gradle.dependency.catalog.VersionlessGradlePlugin
@@ -27,8 +28,8 @@ internal object Android {
         id = "gradle",
     )
 
-    val library = VersionlessGradlePlugin("com.android.library")
-    val application = VersionlessGradlePlugin("com.android.application")
+    val library = GradlePlugin("com.android.library")
+    val application = GradlePlugin("com.android.application")
 
     val appCompact = AppCompact
     val coil = Coil
