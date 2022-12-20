@@ -22,96 +22,12 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
 
-    id("tech.antibytes.gradle.publishing.local")
     id("tech.antibytes.gradle.coverage.local")
-}
-
-val pluginId = "${LibraryConfig.group}.configuration.android"
-val versioningConfiguration = VersioningConfiguration(
-    featurePrefixes = listOf("feature"),
-    suppressSnapshot = true
-)
-
-// To make it available as direct dependency
-group = pluginId
-
-antibytesVersioning {
-    configuration = versioningConfiguration
-}
-
-antiBytesPublishing {
-    versioning.set(versioningConfiguration)
-    packaging.set(
-        PackageConfiguration(
-            groupId = pluginId,
-            pom = PomConfiguration(
-                name = name,
-                description = "Android Configuration for Antibytes projects.",
-                year = 2022,
-                url = LibraryConfig.publishing.url,
-            ),
-            developers = listOf(
-                DeveloperConfiguration(
-                    id = LibraryConfig.publishing.developerId,
-                    name = LibraryConfig.publishing.developerName,
-                    url = LibraryConfig.publishing.developerUrl,
-                    email = LibraryConfig.publishing.developerEmail,
-                )
-            ),
-            license = LicenseConfiguration(
-                name = LibraryConfig.publishing.licenseName,
-                url = LibraryConfig.publishing.licenseUrl,
-                distribution = LibraryConfig.publishing.licenseDistribution,
-            ),
-            scm = SourceControlConfiguration(
-                url = LibraryConfig.publishing.scmUrl,
-                connection = LibraryConfig.publishing.scmConnection,
-                developerConnection = LibraryConfig.publishing.scmDeveloperConnection,
-            ),
-        )
-    )
-    repositories.set(
-        setOf(
-            GitRepositoryConfiguration(
-                name = "Development",
-                gitWorkDirectory = "dev",
-                url = "https://github.com/${LibraryConfig.githubOwner}/maven-dev",
-                username = LibraryConfig.username,
-                password = LibraryConfig.password
-            ),
-            GitRepositoryConfiguration(
-                name = "Snapshot",
-                gitWorkDirectory = "snapshots",
-                url = "https://github.com/${LibraryConfig.githubOwner}/maven-snapshots",
-                username = LibraryConfig.username,
-                password = LibraryConfig.password
-            ),
-            GitRepositoryConfiguration(
-                name = "RollingRelease",
-                gitWorkDirectory = "rolling",
-                url = "https://github.com/${LibraryConfig.githubOwner}/maven-rolling-releases",
-                username = LibraryConfig.username,
-                password = LibraryConfig.password
-            ),
-            GitRepositoryConfiguration(
-                name = "Release",
-                gitWorkDirectory = "releases",
-                url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
-                username = LibraryConfig.username,
-                password = LibraryConfig.password
-            ),
-            MavenRepositoryConfiguration(
-                name = "Local",
-                url = uri(rootProject.buildDir),
-            ),
-        )
-    )
 }
 
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.agp)
-    implementation(libs.dokka)
     implementation(project(":antibytes-gradle-utils"))
 
     testImplementation(libs.kotlinTest)
@@ -126,21 +42,6 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
-}
-
-gradlePlugin {
-    plugins.create("$pluginId.library") {
-        id = "$pluginId.library"
-        displayName = "Android Library Plugin for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.configuration.AntiBytesLibraryConfiguration"
-        description = "Android Library Configuration for Antibytes projects."
-    }
-    plugins.create("$pluginId.application") {
-        id = "$pluginId.application"
-        displayName = "Android Application Plugin for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.configuration.AntiBytesApplicationConfiguration"
-        description = "Android Application Configuration for Antibytes projects."
-    }
 }
 
 antiBytesCoverage {
