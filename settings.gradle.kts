@@ -30,7 +30,11 @@ includeBuild("quality")
 includeBuild("custom-component")
 
 include(
-    ":antibytes-configuration",
+    ":antibytes-android-configuration",
+    ":antibytes-android-application-configuration",
+    ":antibytes-android-library-configuration",
+    ":antibytes-dokka-configuration",
+    ":antibytes-kmp-configuration",
     ":antibytes-coverage",
     ":antibytes-gradle-utils",
     ":antibytes-gradle-test-utils",
