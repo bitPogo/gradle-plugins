@@ -6,15 +6,15 @@
 
 package tech.antibytes.gradle.dependency.node.reader
 
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.io.TempDir
-import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.ReaderFactory
-import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.Reader
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
+import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.Reader
+import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.ReaderFactory
 
 class NodeReaderSpec {
     @TempDir
@@ -25,7 +25,7 @@ class NodeReaderSpec {
     fun setup() {
         file = File(fileDir, "file")
     }
-    
+
     @Test
     fun `It fulfils ReaderFactory`() {
         val reader: Any = NodeReader

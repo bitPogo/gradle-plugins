@@ -75,3 +75,13 @@ fun KotlinDependencyHandler.asNodeOptionalPackage(provider: Provider<MinimalExte
         optionalNpm(module.name, versionConstraint.toString())
     }
 }
+
+fun KotlinDependencyHandler.asNodePackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+    return when (provider.get().module.group) {
+        "node-production" -> asNodeProdPackage(provider)
+        "node-development" -> asNodeDevPackage(provider)
+        "node-peer" -> asNodePeerPackage(provider)
+        "node-optional" -> asNodeOptionalPackage(provider)
+        else -> throw IllegalArgumentException("Unknown package type.")
+    }
+}

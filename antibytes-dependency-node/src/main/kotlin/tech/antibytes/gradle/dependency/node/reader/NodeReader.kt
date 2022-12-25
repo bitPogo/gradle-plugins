@@ -6,15 +6,15 @@
 
 package tech.antibytes.gradle.dependency.node.reader
 
+import java.io.File
 import org.gradle.internal.impldep.com.google.gson.Gson
-import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.ReaderFactory
-import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.Reader
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.NodeDependencies
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.PackageDependencies
-import java.io.File
+import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.Reader
+import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.ReaderFactory
 
 internal class NodeReader private constructor(
-    private val nodePackages: File
+    private val nodePackages: File,
 ) : Reader {
 
     override fun extractPackages(): NodeDependencies = nodePackages.readPackageJson()

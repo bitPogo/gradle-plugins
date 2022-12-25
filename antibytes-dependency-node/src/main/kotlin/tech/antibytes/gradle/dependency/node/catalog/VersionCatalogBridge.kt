@@ -15,7 +15,7 @@ internal object VersionCatalogBridge : Bridge {
         PRODUCTION,
         DEVELOPMENT,
         PEER,
-        OPTIONAL
+        OPTIONAL,
     }
 
     private fun String.toPropertyName(): String {
@@ -62,7 +62,7 @@ internal object VersionCatalogBridge : Bridge {
 
     override fun addNodeDependencies(
         builder: VersionCatalogBuilder,
-        dependencies: NodeDependencies
+        dependencies: NodeDependencies,
     ) {
         builder.addProductionDependencies(dependencies)
         builder.addDevelopmentDependencies(dependencies)

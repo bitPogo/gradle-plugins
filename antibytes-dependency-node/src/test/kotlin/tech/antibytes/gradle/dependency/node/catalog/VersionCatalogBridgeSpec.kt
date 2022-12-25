@@ -9,11 +9,11 @@ package tech.antibytes.gradle.dependency.node.catalog
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlin.test.assertTrue
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.Bridge
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.NodeDependencies
-import kotlin.test.assertTrue
 
 class VersionCatalogBridgeSpec {
     @Test
@@ -31,7 +31,7 @@ class VersionCatalogBridgeSpec {
                 "eslint" to "^5.9.0",
                 "copy-webpack-plugin" to "11.0.0",
                 "sql.js" to "1.8.0",
-            )
+            ),
         )
         val version: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk {
@@ -49,7 +49,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-eslint",
                 "node-production",
-                "eslint"
+                "eslint",
             )
         }
         verify(exactly = 1) {
@@ -60,7 +60,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-copyWebpackPlugin",
                 "node-production",
-                "copy-webpack-plugin"
+                "copy-webpack-plugin",
             )
         }
         verify(exactly = 1) {
@@ -71,7 +71,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-sqlJs",
                 "node-production",
-                "sql.js"
+                "sql.js",
             )
         }
         verify(exactly = 1) {
@@ -87,7 +87,7 @@ class VersionCatalogBridgeSpec {
                 "eslint" to "^5.9.0",
                 "copy-webpack-plugin" to "11.0.0",
                 "sql.js" to "1.8.0",
-            )
+            ),
         )
         val version: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk {
@@ -105,7 +105,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-eslint",
                 "node-development",
-                "eslint"
+                "eslint",
             )
         }
         verify(exactly = 1) {
@@ -116,7 +116,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-copyWebpackPlugin",
                 "node-development",
-                "copy-webpack-plugin"
+                "copy-webpack-plugin",
             )
         }
         verify(exactly = 1) {
@@ -127,7 +127,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-sqlJs",
                 "node-development",
-                "sql.js"
+                "sql.js",
             )
         }
         verify(exactly = 1) {
@@ -143,7 +143,7 @@ class VersionCatalogBridgeSpec {
                 "eslint" to "^5.9.0",
                 "copy-webpack-plugin" to "11.0.0",
                 "sql.js" to "1.8.0",
-            )
+            ),
         )
         val version: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk {
@@ -161,7 +161,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-eslint",
                 "node-peer",
-                "eslint"
+                "eslint",
             )
         }
         verify(exactly = 1) {
@@ -172,7 +172,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-copyWebpackPlugin",
                 "node-peer",
-                "copy-webpack-plugin"
+                "copy-webpack-plugin",
             )
         }
         verify(exactly = 1) {
@@ -183,7 +183,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-sqlJs",
                 "node-peer",
-                "sql.js"
+                "sql.js",
             )
         }
         verify(exactly = 1) {
@@ -199,7 +199,7 @@ class VersionCatalogBridgeSpec {
                 "eslint" to "^5.9.0",
                 "copy-webpack-plugin" to "11.0.0",
                 "sql.js" to "1.8.0",
-            )
+            ),
         )
         val version: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
         val catalog: VersionCatalogBuilder = mockk {
@@ -217,7 +217,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-eslint",
                 "node-optional",
-                "eslint"
+                "eslint",
             )
         }
         verify(exactly = 1) {
@@ -228,7 +228,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-copyWebpackPlugin",
                 "node-optional",
-                "copy-webpack-plugin"
+                "copy-webpack-plugin",
             )
         }
         verify(exactly = 1) {
@@ -239,7 +239,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-sqlJs",
                 "node-optional",
-                "sql.js"
+                "sql.js",
             )
         }
         verify(exactly = 1) {

@@ -6,8 +6,8 @@
 
 package tech.antibytes.gradle.dependency.node
 
-import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import java.io.File
+import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 
 internal interface NodeDependencyTransformerContract {
     data class PackageDependencies(
@@ -35,7 +35,7 @@ internal interface NodeDependencyTransformerContract {
     fun interface Bridge {
         fun addNodeDependencies(
             builder: VersionCatalogBuilder,
-            dependencies: NodeDependencies
+            dependencies: NodeDependencies,
         )
     }
 }
