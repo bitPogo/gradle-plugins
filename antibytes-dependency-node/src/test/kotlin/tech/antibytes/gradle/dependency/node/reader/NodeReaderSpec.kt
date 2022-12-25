@@ -33,7 +33,6 @@ class NodeReaderSpec {
         assertTrue(reader is ReaderFactory)
     }
 
-
     @Test
     fun `Given getInstance is called it fails if the File does not exists`() {
         // Then
