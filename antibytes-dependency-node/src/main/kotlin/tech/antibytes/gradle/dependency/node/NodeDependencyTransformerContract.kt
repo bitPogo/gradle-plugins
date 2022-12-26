@@ -25,11 +25,7 @@ internal interface NodeDependencyTransformerContract {
     )
 
     fun interface Reader {
-        fun extractPackages(): NodeDependencies
-    }
-
-    fun interface ReaderFactory {
-        fun getInstance(file: File): Reader
+        fun extractPackages(file: File): NodeDependencies
     }
 
     fun interface Bridge {
