@@ -125,16 +125,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-/*
-gradlePlugin {
-    plugins.create(pluginId) {
-        id = pluginId
-        implementationClass = "tech.antibytes.gradle.dependency.node.AntiBytesNodePackages"
-        displayName = "Helpers to bridge Node packages into VersionCatalogs."
-        description = "Helpers to bridge Node packages into VersionCatalogs"
-    }
-}*/
-
 antiBytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
