@@ -59,7 +59,7 @@ class DependencyCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.library("node-production-axios", "node-production", "axios")
+            catalog.library("node-axios", "node-production", "axios")
         }
 
         verify(exactly = 1) {
@@ -81,7 +81,7 @@ class DependencyCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.library("node-development-copyWebpackPlugin", "node-development", "copy-webpack-plugin")
+            catalog.library("node-copyWebpackPlugin", "node-development", "copy-webpack-plugin")
         }
 
         verify(exactly = 1) {

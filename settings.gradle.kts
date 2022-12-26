@@ -43,6 +43,7 @@ include(
     ":antibytes-dependency-catalog",
     ":antibytes-dependency-catalog-builder",
     ":antibytes-dependency-helper",
+    ":antibytes-dependency-node",
     ":antibytes-publishing",
     ":antibytes-versioning",
     ":antibytes-grammar-tools",

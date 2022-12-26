@@ -21,9 +21,9 @@ import tech.antibytes.gradle.dependency.catalog.module.Square
 import tech.antibytes.gradle.dependency.catalog.module.Stately
 import tech.antibytes.gradle.dependency.catalog.module.Vendor
 
-private fun String.extractNodeNamespace(): String = "node-${split('-', limit = 3)[1]}"
+private fun String.extractNodePackageSpace(): String = "node-${split('-', limit = 3)[1]}"
 
-private fun String.extractNodeVersion(): String = "node-${split('-', limit = 3)[2]}"
+private fun String.extractNodeModuleName(): String = "node-${split('-', limit = 3)[2]}"
 
 private val Platform.platformId: String
     get() = platform.toLowerCase()
@@ -175,11 +175,12 @@ private fun VersionCatalogBuilder.addDependencies(
     aliasName: String,
     artifact: NodeArtifact,
 ) {
+    val moduleName = aliasName.extractNodeModuleName()
     library(
-        aliasName,
-        aliasName.extractNodeNamespace(),
+        moduleName,
+        aliasName.extractNodePackageSpace(),
         artifact.id,
-    ).versionRef(aliasName.extractNodeVersion())
+    ).versionRef(moduleName)
 }
 
 private fun VersionCatalogBuilder.addDependencies(
