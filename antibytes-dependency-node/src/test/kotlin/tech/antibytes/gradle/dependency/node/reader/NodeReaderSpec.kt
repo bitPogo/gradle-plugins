@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.Reader
-import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.ReaderFactory
 
 class NodeReaderSpec {
     @TempDir
@@ -27,18 +26,18 @@ class NodeReaderSpec {
     }
 
     @Test
-    fun `It fulfils ReaderFactory`() {
+    fun `It fulfils Reader`() {
         val reader: Any = NodeReader
 
-        assertTrue(reader is ReaderFactory)
+        assertTrue(reader is Reader)
     }
 
     @Test
-    fun `Given getInstance is called it fails if the File does not exists`() {
+    fun `Given extractPackages is called it fails if the File does not exists`() {
         // Then
         val error = assertFailsWith<IllegalArgumentException> {
             // When
-            NodeReader.getInstance(file)
+            NodeReader.extractPackages(file)
         }
 
         assertEquals(
@@ -48,11 +47,11 @@ class NodeReaderSpec {
     }
 
     @Test
-    fun `Given getInstance is called it fails if the File is not a File`() {
+    fun `Given extractPackages is called it fails if the File is not a File`() {
         // Then
         val error = assertFailsWith<IllegalArgumentException> {
             // When
-            NodeReader.getInstance(fileDir)
+            NodeReader.extractPackages(fileDir)
         }
 
         assertEquals(
@@ -62,7 +61,7 @@ class NodeReaderSpec {
     }
 
     @Test
-    fun `Given getInstance is called it fails if the File is readable`() {
+    fun `Given extractPackages is called it fails if the File is readable`() {
         // Given
         file.createNewFile()
         file.setReadable(false)
@@ -70,25 +69,13 @@ class NodeReaderSpec {
         // Then
         val error = assertFailsWith<IllegalArgumentException> {
             // When
-            NodeReader.getInstance(file)
+            NodeReader.extractPackages(file)
         }
 
         assertEquals(
             expected = "The given file is not readable.",
             actual = error.message,
         )
-    }
-
-    @Test
-    fun `Given getInstance is returns a Reader`() {
-        // Given
-        file.createNewFile()
-
-        // When
-        val reader: Any = NodeReader.getInstance(file)
-
-        // Then
-        assertTrue(reader is Reader)
     }
 
     @Test
@@ -100,7 +87,7 @@ class NodeReaderSpec {
         }
 
         // When
-        val versions = NodeReader.getInstance(file).extractPackages()
+        val versions = NodeReader.extractPackages(file)
 
         // Then
         assertEquals(
@@ -118,7 +105,7 @@ class NodeReaderSpec {
         }
 
         // When
-        val versions = NodeReader.getInstance(file).extractPackages()
+        val versions = NodeReader.extractPackages(file)
 
         // Then
         assertEquals(
@@ -139,7 +126,7 @@ class NodeReaderSpec {
         }
 
         // When
-        val versions = NodeReader.getInstance(file).extractPackages()
+        val versions = NodeReader.extractPackages(file)
 
         // Then
         assertEquals(
@@ -157,7 +144,7 @@ class NodeReaderSpec {
         }
 
         // When
-        val versions = NodeReader.getInstance(file).extractPackages()
+        val versions = NodeReader.extractPackages(file)
 
         // Then
         assertEquals(
@@ -178,7 +165,7 @@ class NodeReaderSpec {
         }
 
         // When
-        val versions = NodeReader.getInstance(file).extractPackages()
+        val versions = NodeReader.extractPackages(file)
 
         // Then
         assertEquals(
@@ -196,7 +183,7 @@ class NodeReaderSpec {
         }
 
         // When
-        val versions = NodeReader.getInstance(file).extractPackages()
+        val versions = NodeReader.extractPackages(file)
 
         // Then
         assertEquals(
@@ -217,7 +204,7 @@ class NodeReaderSpec {
         }
 
         // When
-        val versions = NodeReader.getInstance(file).extractPackages()
+        val versions = NodeReader.extractPackages(file)
 
         // Then
         assertEquals(
@@ -235,7 +222,7 @@ class NodeReaderSpec {
         }
 
         // When
-        val versions = NodeReader.getInstance(file).extractPackages()
+        val versions = NodeReader.extractPackages(file)
 
         // Then
         assertEquals(
