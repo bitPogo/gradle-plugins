@@ -113,6 +113,8 @@ antiBytesPublishing {
 }
 
 dependencies {
+    api(project(":antibytes-dependency-node"))
+
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
