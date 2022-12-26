@@ -40,12 +40,12 @@ internal object Antibytes {
 
     val androidLibraryConfiguration = GradleBundle(
         group = "$group.configuration.android.library",
-        id = "antibytes-android-configuration",
+        id = "antibytes-android-library-configuration",
         plugin = "tech.antibytes.gradle.configuration.android.library",
     )
     val androidApplicationConfiguration = GradleBundle(
         group = "$group.configuration.android.application",
-        id = "antibytes-android-configuration",
+        id = "antibytes-android-application-configuration",
         plugin = "tech.antibytes.gradle.configuration.android.application",
     )
     val dokkaConfiguration = GradleBundle(

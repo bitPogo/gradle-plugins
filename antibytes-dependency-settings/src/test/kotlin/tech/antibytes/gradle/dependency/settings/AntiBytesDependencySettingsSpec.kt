@@ -70,6 +70,15 @@ class AntiBytesDependencySettingsSpec {
         verify(exactly = 1) {
             mavenArtifactRepository.setUrl(MainConfig.gradlePluginsDir)
         }
+        verify(exactly = 1) {
+            repositoryHandler.mavenCentral()
+        }
+        verify(exactly = 1) {
+            repositoryHandler.google()
+        }
+        verify(exactly = 1) {
+            repositoryHandler.gradlePluginPortal()
+        }
         verify(exactly = 3) {
             contentDescriptor.includeGroupByRegex(MainConfig.pluginGroup)
         }
