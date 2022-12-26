@@ -4,6 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import tech.antibytes.gradle.dependency.helper.GradleCompositeBuilds
 import tech.antibytes.gradle.dependency.helper.ensureKotlinVersion
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
@@ -71,6 +72,8 @@ allprojects {
 
     ensureKotlinVersion(libs.versions.kotlin.get())
 }
+
+GradleCompositeBuilds.configure(project)
 
 tasks.named<Wrapper>("wrapper") {
     gradleVersion = libs.versions.gradle.get()

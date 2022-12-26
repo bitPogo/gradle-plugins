@@ -8,7 +8,7 @@ package tech.antibytes.gradle.dependency.helper
 
 import org.gradle.api.Project
 
-internal object GradleCompositeBuilds : DependencyContract.Configurator {
+object GradleCompositeBuilds : DependencyContract.Configurator {
     private fun Project.configureClean() {
         tasks.named("clean") {
             gradle.includedBuilds.forEach { project ->
