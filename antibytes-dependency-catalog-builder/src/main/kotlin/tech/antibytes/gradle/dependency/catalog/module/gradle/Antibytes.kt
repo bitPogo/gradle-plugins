@@ -18,6 +18,10 @@ internal object Antibytes {
         id = "antibytes-dependency-helper",
         plugin = "tech.antibytes.gradle.dependency.helper",
     )
+    val nodeHelper = GradleArtifact(
+        group = "$group.dependency.node",
+        id = "antibytes-dependency-node",
+    )
     val publishing = GradleBundle(
         group = "$group.publishing",
         id = "antibytes-publishing",

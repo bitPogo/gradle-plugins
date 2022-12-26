@@ -74,6 +74,7 @@ internal object Gradle {
         private const val version = MainConfig.antibytes
 
         val dependencyHelper = GradleBundleVersion(version)
+        val nodeHelper = version
         val publishing = GradleBundleVersion(version)
         val versioning = GradleBundleVersion(version)
         val coverage = GradleBundleVersion(version)
