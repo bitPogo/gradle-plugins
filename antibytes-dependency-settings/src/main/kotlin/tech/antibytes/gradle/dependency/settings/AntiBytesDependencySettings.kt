@@ -33,6 +33,9 @@ class AntiBytesDependencySettings : Plugin<Settings> {
                         includeGroupByRegex(MainConfig.pluginGroup)
                     }
                 }
+                gradlePluginPortal()
+                mavenCentral()
+                google()
             }
 
             versionCatalogs.apply {
