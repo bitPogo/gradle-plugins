@@ -18,7 +18,7 @@ internal interface CoverageContract {
     }
 
     fun interface TaskController {
-        fun configure(project: Project, extension: AntiBytesCoveragePluginExtension)
+        fun configure(project: Project, extension: AntibytesCoveragePluginExtension)
     }
 
     fun interface DefaultConfigurationProvider {
@@ -26,7 +26,7 @@ internal interface CoverageContract {
     }
 
     companion object CONSTANTS {
-        const val EXTENSION_ID = "antiBytesCoverage"
+        const val EXTENSION_ID = "antibytesCoverage"
         const val DEFAULT_ANDROID_VARIANT = "debug"
         const val DEFAULT_ANDROID_FLAVOUR = ""
         val DEFAULT_ANDROID_MARKER = DEFAULT_ANDROID_FLAVOUR.capitalize() + DEFAULT_ANDROID_VARIANT.capitalize()

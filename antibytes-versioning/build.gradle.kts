@@ -40,7 +40,7 @@ antibytesVersioning {
     configuration = versioningConfiguration
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
@@ -126,7 +126,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-antiBytesCoverage {
+antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,

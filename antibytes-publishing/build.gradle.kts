@@ -39,7 +39,7 @@ antibytesVersioning {
     configuration = versioningConfiguration
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
@@ -110,7 +110,7 @@ antiBytesPublishing {
 
 
 
-antiBytesCoverage {
+antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
@@ -160,7 +160,7 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Publishing setup for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
+        implementationClass = "tech.antibytes.gradle.publishing.AntibytesPublishing"
         description = "Publishing setup for Antibytes projects."
     }
 }

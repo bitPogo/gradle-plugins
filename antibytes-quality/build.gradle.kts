@@ -43,7 +43,7 @@ antibytesVersioning {
     configuration = versioningConfiguration
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
@@ -139,12 +139,12 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Qualitytools for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.quality.AntiBytesQuality"
+        implementationClass = "tech.antibytes.gradle.quality.AntibytesQuality"
         description = "Linter, Codeanalysis, Qualitygate and Apichecks for Antibytes projects."
     }
 }
 
-antiBytesCoverage {
+antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,

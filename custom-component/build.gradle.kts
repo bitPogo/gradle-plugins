@@ -27,7 +27,7 @@ java {
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.component.local") {
         id = "tech.antibytes.gradle.component.local"
-        implementationClass = "tech.antibytes.gradle.component.AntiBytesCustomComponent"
+        implementationClass = "tech.antibytes.gradle.component.AntibytesCustomComponent"
         displayName = "${id}.gradle.plugin"
         description = "Publish custom components/artifacts for Antibytes projects."
         version = "0.1.0"

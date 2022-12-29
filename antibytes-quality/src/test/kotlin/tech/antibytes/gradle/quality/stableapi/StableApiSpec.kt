@@ -20,7 +20,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.quality.AntiBytesQualityExtension
+import tech.antibytes.gradle.quality.AntibytesQualityExtension
 import tech.antibytes.gradle.quality.QualityContract.Configurator
 import tech.antibytes.gradle.quality.api.StableApiConfiguration
 import tech.antibytes.gradle.test.createExtension
@@ -40,7 +40,7 @@ class StableApiSpec {
     fun `Given configure is called it does nothing if no stable api configuration was given`() {
         // Given
         val project: Project = mockk()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
         extension.stableApi.convention(null)
 
         // When
@@ -57,7 +57,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val stableApi: ApiValidationExtension = mockk(relaxed = true)
 
@@ -116,7 +116,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val subproject: Project = mockk()
         val subprojects: Set<Project> = setOf(subproject)
@@ -154,7 +154,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val subproject: Project = mockk()
         val subprojects: Set<Project> = setOf(subproject)
@@ -191,7 +191,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val subproject: Project = mockk()
         val subprojects: Set<Project> = setOf(subproject)
@@ -229,7 +229,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val subproject: Project = mockk()
         val subprojects: Set<Project> = setOf(subproject)
@@ -266,7 +266,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val subproject: Project = mockk()
         val subprojects: Set<Project> = setOf(subproject)
@@ -304,7 +304,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val subproject: Project = mockk()
         val subprojects: Set<Project> = setOf(subproject)
@@ -341,7 +341,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val subproject: Project = mockk()
         val subprojects: Set<Project> = setOf(subproject)
@@ -379,7 +379,7 @@ class StableApiSpec {
             excludeClasses = fixture(),
             nonPublicMarkers = fixture(),
         )
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val subproject: Project = mockk()
         val subprojects: Set<Project> = setOf(subproject)

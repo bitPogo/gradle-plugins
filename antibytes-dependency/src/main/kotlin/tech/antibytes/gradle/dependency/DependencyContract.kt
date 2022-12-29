@@ -34,7 +34,7 @@ object DependencyContract {
         val credentials: Credentials?
     }
 
-    const val EXTENSION_ID = "antiBytesDependency"
+    const val EXTENSION_ID = "antibytesDependency"
     val DEPENDENCIES = listOf(
         "com.github.ben-manes.versions",
         "org.owasp.dependencycheck",

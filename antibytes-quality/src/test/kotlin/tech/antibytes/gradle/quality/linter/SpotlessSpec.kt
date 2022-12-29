@@ -19,7 +19,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.quality.AntiBytesQualityExtension
+import tech.antibytes.gradle.quality.AntibytesQualityExtension
 import tech.antibytes.gradle.quality.QualityContract.Configurator
 import tech.antibytes.gradle.quality.api.LinterConfiguration
 import tech.antibytes.gradle.quality.api.PartialLinterConfiguration
@@ -40,7 +40,7 @@ class SpotlessSpec {
     fun `Given configure is called it does nothing if no linter configuration was given`() {
         // Given
         val project: Project = mockk()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
         extension.linter.convention(null)
 
         // When
@@ -51,7 +51,7 @@ class SpotlessSpec {
     fun `Given configure is called it adds the targets and basic rules for the code linter`() {
         // Given
         val includes: Set<String> = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
@@ -111,7 +111,7 @@ class SpotlessSpec {
         // Given
         val includes: Set<String> = fixture()
         val excludes: Set<String> = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
@@ -166,7 +166,7 @@ class SpotlessSpec {
         // Given
         val includes: Set<String> = fixture()
         val disable: Map<String, String> = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
@@ -213,7 +213,7 @@ class SpotlessSpec {
     fun `Given configure is called it adds the targets and basic rules for the gradle linter`() {
         // Given
         val includes: Set<String> = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
@@ -273,7 +273,7 @@ class SpotlessSpec {
         // Given
         val includes: Set<String> = fixture()
         val excludes: Set<String> = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
@@ -328,7 +328,7 @@ class SpotlessSpec {
         // Given
         val includes: Set<String> = fixture()
         val disable: Map<String, String> = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
@@ -375,7 +375,7 @@ class SpotlessSpec {
     fun `Given configure is called it adds the targets and basic rules for the Misc linter`() {
         // Given
         val includes: Set<String> = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
@@ -433,7 +433,7 @@ class SpotlessSpec {
         // Given
         val includes: Set<String> = fixture()
         val excludes: Set<String> = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)

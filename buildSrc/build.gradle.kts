@@ -15,9 +15,6 @@ repositories {
 
 dependencies {
     implementation(libs.kotlin)
-    // spotless
-    implementation(libs.spotless)
-    implementation(libs.ktlint)
 }
 
 with(extensions.getByType<JavaPluginExtension>()) {

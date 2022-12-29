@@ -39,7 +39,7 @@ antibytesVersioning {
     configuration = versioningConfiguration
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
@@ -130,12 +130,12 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Configuration Plugin for Antibytes KMP projects."
-        implementationClass = "tech.antibytes.gradle.configuration.AntiBytesKmpConfiguration"
+        implementationClass = "tech.antibytes.gradle.configuration.AntibytesKmpConfiguration"
         description = "KMP Configuration for Antibytes projects."
     }
 }
 
-antiBytesCoverage {
+antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,

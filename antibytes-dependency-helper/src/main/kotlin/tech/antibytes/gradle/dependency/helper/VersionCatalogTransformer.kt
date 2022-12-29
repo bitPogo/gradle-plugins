@@ -32,7 +32,7 @@ fun Provider<MinimalExternalModuleDependency>.asPythonPackage(): String {
     }
 }
 
-fun KotlinDependencyHandler.asNodeProdPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodeProductionPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
     val logger = project.logger
 
     return provider.guardDependency(
@@ -43,7 +43,7 @@ fun KotlinDependencyHandler.asNodeProdPackage(provider: Provider<MinimalExternal
     }
 }
 
-fun KotlinDependencyHandler.asNodeDevPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodeDevelopmentPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
     val logger = project.logger
 
     return provider.guardDependency(
@@ -54,7 +54,7 @@ fun KotlinDependencyHandler.asNodeDevPackage(provider: Provider<MinimalExternalM
     }
 }
 
-fun KotlinDependencyHandler.asNodePeerPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodePeerPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
     val logger = project.logger
 
     return provider.guardDependency(
@@ -65,7 +65,7 @@ fun KotlinDependencyHandler.asNodePeerPackage(provider: Provider<MinimalExternal
     }
 }
 
-fun KotlinDependencyHandler.asNodeOptionalPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodeOptionalPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
     val logger = project.logger
 
     return provider.guardDependency(
@@ -76,12 +76,12 @@ fun KotlinDependencyHandler.asNodeOptionalPackage(provider: Provider<MinimalExte
     }
 }
 
-fun KotlinDependencyHandler.asNodePackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodePackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
     return when (provider.get().module.group) {
-        "node-production" -> asNodeProdPackage(provider)
-        "node-development" -> asNodeDevPackage(provider)
-        "node-peer" -> asNodePeerPackage(provider)
-        "node-optional" -> asNodeOptionalPackage(provider)
+        "node-production" -> nodeProductionPackage(provider)
+        "node-development" -> nodeDevelopmentPackage(provider)
+        "node-peer" -> nodePeerPackage(provider)
+        "node-optional" -> nodeOptionalPackage(provider)
         else -> throw IllegalArgumentException("Unknown package type.")
     }
 }

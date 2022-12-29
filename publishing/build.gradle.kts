@@ -34,6 +34,6 @@ java {
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.publishing.local") {
         id = "tech.antibytes.gradle.publishing.local"
-        implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
+        implementationClass = "tech.antibytes.gradle.publishing.AntibytesPublishing"
     }
 }

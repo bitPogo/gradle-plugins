@@ -48,7 +48,7 @@ interface DependencyContract {
     }
 
     companion object {
-        const val EXTENSION_ID = "antiBytesDependencyHelper"
+        const val EXTENSION_ID = "antibytesDependencyHelper"
         val DEPENDENCIES = listOf(
             "com.github.ben-manes.versions",
             "org.owasp.dependencycheck",

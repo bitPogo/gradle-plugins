@@ -26,6 +26,6 @@ internal interface QualityContract {
     }
 
     companion object {
-        const val EXTENSION_ID = "antiBytesQuality"
+        const val EXTENSION_ID = "antibytesQuality"
     }
 }

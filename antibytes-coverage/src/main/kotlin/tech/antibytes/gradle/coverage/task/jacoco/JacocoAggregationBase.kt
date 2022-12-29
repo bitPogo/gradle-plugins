@@ -12,7 +12,7 @@ import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.api.file.FileTree
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.JacocoReportBase
-import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
+import tech.antibytes.gradle.coverage.AntibytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract.AndroidJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.AndroidJacocoCoverageConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.CoverageConfiguration
@@ -83,7 +83,7 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
         subproject: Project,
         contextId: String,
         aggregationConfiguration: JacocoAggregationConfiguration,
-        extension: AntiBytesCoveragePluginExtension,
+        extension: AntibytesCoveragePluginExtension,
         aggregator: AggregationData,
     ) {
         val configurations = extension.configurations.get()
@@ -119,9 +119,9 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
     ): AggregationData {
         val aggregator = AggregationData()
         project.subprojects.forEach { subproject ->
-            val extension = subproject.extensions.findByType(AntiBytesCoveragePluginExtension::class.java)
+            val extension = subproject.extensions.findByType(AntibytesCoveragePluginExtension::class.java)
 
-            if (extension is AntiBytesCoveragePluginExtension && !configuration.exclude.contains(subproject.name)) {
+            if (extension is AntibytesCoveragePluginExtension && !configuration.exclude.contains(subproject.name)) {
                 filterAndResolveSubprojectConfiguration(
                     subproject,
                     contextId,

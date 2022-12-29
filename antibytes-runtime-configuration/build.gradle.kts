@@ -30,7 +30,7 @@ plugins {
 // To make it available as direct dependency
 group = LibraryConfig.group
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(
         VersioningConfiguration(
             featurePrefixes = listOf("feature"),
@@ -127,7 +127,7 @@ tasks.test {
     useJUnitPlatform()
 }
 
-antiBytesCoverage {
+antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,

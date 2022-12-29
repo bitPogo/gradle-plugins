@@ -39,7 +39,7 @@ antibytesVersioning {
     configuration = versioningConfiguration
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
@@ -108,7 +108,7 @@ antiBytesPublishing {
     )
 }
 
-antiBytesCoverage {
+antibytesCoverage {
     val instructionCoverage = JacocoVerificationRule(
         counter = JacocoCounter.INSTRUCTION,
         measurement = JacocoMeasurement.COVERED_RATIO,
@@ -144,7 +144,7 @@ java {
 gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
-        implementationClass = "tech.antibytes.gradle.component.AntiBytesCustomComponent"
+        implementationClass = "tech.antibytes.gradle.component.AntibytesCustomComponent"
         displayName = "Custom Maven Artifact Component definition."
         description = "Publish custom components/artifacts for Antibytes projects."
         version = "0.1.0"

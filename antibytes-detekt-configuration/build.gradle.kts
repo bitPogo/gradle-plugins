@@ -46,7 +46,7 @@ antibytesCustomComponent {
     attributes.set(componentAttributes)
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(
         VersioningConfiguration(
             featurePrefixes = listOf("feature"),

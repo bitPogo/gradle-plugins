@@ -4,6 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 import tech.antibytes.gradle.plugin.config.LibraryConfig
@@ -25,6 +26,7 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
 
+    alias(libs.plugins.fatJar)
     id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
@@ -39,11 +41,15 @@ val versioningConfiguration = VersioningConfiguration(
 // To make it available as direct dependency
 group = pluginId
 
+tasks.named<ShadowJar>("shadowJar") {
+    archiveClassifier.set("")
+}
+
 antibytesVersioning {
     configuration = versioningConfiguration
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
@@ -114,6 +120,7 @@ antiBytesPublishing {
 
 dependencies {
     api(project(":antibytes-dependency-node"))
+    api(libs.gson)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
@@ -132,12 +139,12 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Inital Gradle Dependency Settings for Antibytes Projects."
-        implementationClass = "tech.antibytes.gradle.dependency.settings.AntiBytesDependencySettings"
+        implementationClass = "tech.antibytes.gradle.dependency.settings.AntibytesDependencySettings"
         description = "Inital Gradle Dependency Settings for Antibytes Projects."
     }
 }
 
-antiBytesCoverage {
+antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,

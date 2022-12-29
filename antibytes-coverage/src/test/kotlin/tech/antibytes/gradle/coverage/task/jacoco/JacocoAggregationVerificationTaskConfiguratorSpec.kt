@@ -30,7 +30,7 @@ import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
+import tech.antibytes.gradle.coverage.AntibytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.api.AndroidJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration
@@ -79,13 +79,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val subproject1: Project = mockk()
         val subproject1BuildDir: File = mockk()
         val subproject1ProjectDir: File = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
         every { project.subprojects } returns setOf(subproject1)
 
         every { subproject1.name } returns fixture()
 
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
 
         every { subproject1.projectDir } returns subproject1ProjectDir
 
@@ -115,7 +115,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val contextId: String = fixture()
         val configuration = JvmJacocoAggregationConfiguration()
 
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
         val subproject1: Project = mockk()
 
@@ -124,7 +124,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { project.subprojects } returns setOf(subproject1)
 
         every { subproject1.name } returns subprojectName
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
         every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
@@ -171,13 +171,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val subproject1: Project = mockk()
         val subproject1BuildDir: File = mockk()
         val subproject1ProjectDir: File = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
         every { project.subprojects } returns setOf(subproject1)
 
         every { subproject1.name } returns fixture()
 
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
 
         every { subproject1.projectDir } returns subproject1ProjectDir
 
@@ -218,8 +218,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { project.subprojects } returns setOf(subproject1, subproject2)
 
         every { subproject1.name } returns fixture()
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns null
-        every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns null
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
+        every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
@@ -243,14 +243,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             ),
         )
 
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
         val subproject1: Project = mockk()
 
         every { project.subprojects } returns setOf(subproject1)
 
         every { subproject1.name } returns subprojectName
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
@@ -291,17 +291,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         val subproject1: Project = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
         val subproject2: Project = mockk()
 
         every { project.subprojects } returns setOf(subproject1, subproject2)
 
         every { subproject1.name } returns fixture()
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
 
         every { subproject2.name } returns fixture()
-        every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns null
+        every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
         every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
             String::class.java,
@@ -368,13 +368,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val subproject1: Project = mockk()
         val subproject1BuildDir: File = mockk()
         val subproject1ProjectDir: File = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject1Reporter: JacocoReport = mockk()
 
         val subproject2: Project = mockk()
         val subproject2BuildDir: File = mockk()
         val subproject2ProjectDir: File = mockk()
-        val subproject2CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject2CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject2Reporter: JacocoReport = mockk()
 
         val jacocoTask: JacocoCoverageVerification = mockk(relaxed = true)
@@ -401,8 +401,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.name } returns fixture()
         every { subproject2.name } returns fixture()
 
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
-        every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject2CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject2CoverageExtension
 
         every { subproject1.projectDir } returns subproject1ProjectDir
         every { subproject2.projectDir } returns subproject2ProjectDir
@@ -604,13 +604,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val subproject1: Project = mockk()
         val subproject1BuildDir: File = mockk()
         val subproject1ProjectDir: File = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject1Reporter: JacocoReport = mockk()
 
         val subproject2: Project = mockk()
         val subproject2BuildDir: File = mockk()
         val subproject2ProjectDir: File = mockk()
-        val subproject2CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject2CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject2Reporter: JacocoReport = mockk()
 
         val jacocoTask: JacocoCoverageVerification = mockk(relaxed = true)
@@ -637,8 +637,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.name } returns fixture()
         every { subproject2.name } returns fixture()
 
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
-        every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject2CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject2CoverageExtension
 
         every { subproject1.projectDir } returns subproject1ProjectDir
         every { subproject2.projectDir } returns subproject2ProjectDir
@@ -817,7 +817,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         val subproject1: Project = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
         val subproject2: Project = mockk()
 
@@ -826,8 +826,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.name } returns fixture()
         every { subproject2.name } returns fixture()
 
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
-        every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns null
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
         every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
             String::class.java,
@@ -876,7 +876,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         val subproject1: Project = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
         val subproject2: Project = mockk()
 
@@ -885,8 +885,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.name } returns fixture()
         every { subproject2.name } returns fixture()
 
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
-        every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns null
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
         every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
             String::class.java,
@@ -962,13 +962,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val subproject1: Project = mockk()
         val subproject1BuildDir: File = mockk()
         val subproject1ProjectDir: File = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject1Reporter: JacocoReport = mockk()
 
         val subproject2: Project = mockk()
         val subproject2BuildDir: File = mockk()
         val subproject2ProjectDir: File = mockk()
-        val subproject2CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject2CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject2Reporter: JacocoReport = mockk()
 
         val jacocoTask: JacocoCoverageVerification = mockk(relaxed = true)
@@ -995,8 +995,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.name } returns fixture()
         every { subproject2.name } returns fixture()
 
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
-        every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject2CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject2CoverageExtension
 
         every { subproject1.projectDir } returns subproject1ProjectDir
         every { subproject2.projectDir } returns subproject2ProjectDir
@@ -1229,13 +1229,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         val subproject1: Project = mockk()
         val subproject1BuildDir: File = mockk()
         val subproject1ProjectDir: File = mockk()
-        val subproject1CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject1Reporter: JacocoReport = mockk()
 
         val subproject2: Project = mockk()
         val subproject2BuildDir: File = mockk()
         val subproject2ProjectDir: File = mockk()
-        val subproject2CoverageExtension: AntiBytesCoveragePluginExtension = mockk()
+        val subproject2CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject2Reporter: JacocoReport = mockk()
 
         val jacocoTask: JacocoCoverageVerification = mockk(relaxed = true)
@@ -1262,8 +1262,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.name } returns fixture()
         every { subproject2.name } returns fixture()
 
-        every { subproject1.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
-        every { subproject2.extensions.findByType(AntiBytesCoveragePluginExtension::class.java) } returns subproject2CoverageExtension
+        every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
+        every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject2CoverageExtension
 
         every { subproject1.projectDir } returns subproject1ProjectDir
         every { subproject2.projectDir } returns subproject2ProjectDir
