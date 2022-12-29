@@ -110,7 +110,6 @@ antiBytesPublishing {
 
 dependencies {
     implementation(libs.gson)
-    implementation(libs.kotlin)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
