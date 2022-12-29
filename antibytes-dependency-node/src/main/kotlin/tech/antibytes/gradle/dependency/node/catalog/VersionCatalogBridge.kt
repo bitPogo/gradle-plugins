@@ -19,7 +19,7 @@ internal object VersionCatalogBridge : Bridge {
     }
 
     private fun String.toPropertyName(): String {
-        return this.split('-', '.')
+        return this.split('-', '.', '/', '@')
             .joinToString("") { part -> part.capitalize() }
             .decapitalize()
     }

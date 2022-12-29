@@ -141,7 +141,7 @@ class VersionCatalogBridgeSpec {
         val dependencies = NodeDependencies(
             peer = mapOf(
                 "eslint" to "^5.9.0",
-                "copy-webpack-plugin" to "11.0.0",
+                "copy@webpack@plugin" to "11.0.0",
                 "sql.js" to "1.8.0",
             ),
         )
@@ -172,7 +172,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-copyWebpackPlugin",
                 "node-peer",
-                "copy-webpack-plugin",
+                "copy@webpack@plugin",
             )
         }
         verify(exactly = 1) {
@@ -197,7 +197,7 @@ class VersionCatalogBridgeSpec {
         val dependencies = NodeDependencies(
             optional = mapOf(
                 "eslint" to "^5.9.0",
-                "copy-webpack-plugin" to "11.0.0",
+                "copy/webpack/plugin" to "11.0.0",
                 "sql.js" to "1.8.0",
             ),
         )
@@ -228,7 +228,7 @@ class VersionCatalogBridgeSpec {
             catalog.library(
                 "node-copyWebpackPlugin",
                 "node-optional",
-                "copy-webpack-plugin",
+                "copy/webpack/plugin",
             )
         }
         verify(exactly = 1) {
