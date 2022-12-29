@@ -62,7 +62,7 @@ class AntiBytesCoverageSpec {
         val plugins: PluginContainer = mockk()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
+            project.extensions.create("antibytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
@@ -85,7 +85,7 @@ class AntiBytesCoverageSpec {
         // Then
         verify(exactly = 1) {
             project.extensions.create(
-                "antiBytesCoverage",
+                "antibytesCoverage",
                 AntiBytesCoveragePluginExtension::class.java,
                 project,
             )
@@ -117,7 +117,7 @@ class AntiBytesCoverageSpec {
         )
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
+            project.extensions.create("antibytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
@@ -171,7 +171,7 @@ class AntiBytesCoverageSpec {
         )
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
+            project.extensions.create("antibytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
@@ -223,7 +223,7 @@ class AntiBytesCoverageSpec {
         )
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
+            project.extensions.create("antibytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
@@ -277,7 +277,7 @@ class AntiBytesCoverageSpec {
         )
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
+            project.extensions.create("antibytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins
@@ -318,7 +318,7 @@ class AntiBytesCoverageSpec {
         val plugins: PluginContainer = mockk()
 
         every {
-            project.extensions.create("antiBytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
+            project.extensions.create("antibytesCoverage", AntiBytesCoveragePluginExtension::class.java, any())
         } returns extension
 
         every { project.plugins } returns plugins

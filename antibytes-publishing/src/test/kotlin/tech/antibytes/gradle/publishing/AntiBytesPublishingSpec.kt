@@ -68,7 +68,7 @@ class AntiBytesPublishingSpec {
         } returns mockk()
         every {
             extensionContainer.create(
-                "antiBytesPublishing",
+                "antibytesPublishing",
                 AntiBytesPublishingPluginExtension::class.java,
             )
         } returns extension
@@ -81,7 +81,7 @@ class AntiBytesPublishingSpec {
         // Then
         verify(exactly = 1) {
             extensionContainer.create(
-                "antiBytesPublishing",
+                "antibytesPublishing",
                 AntiBytesPublishingPluginExtension::class.java,
             )
         }
@@ -134,7 +134,7 @@ class AntiBytesPublishingSpec {
         } returns mockk()
         every {
             extensionContainer.create(
-                "antiBytesPublishing",
+                "antibytesPublishing",
                 AntiBytesPublishingPluginExtension::class.java,
             )
         } returns extension
@@ -149,7 +149,7 @@ class AntiBytesPublishingSpec {
         // Then
         verify(exactly = 1) {
             extensionContainer.create(
-                "antiBytesPublishing",
+                "antibytesPublishing",
                 AntiBytesPublishingPluginExtension::class.java,
             )
         }

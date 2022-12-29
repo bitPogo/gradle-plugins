@@ -25,7 +25,7 @@ plugins {
 // To make it available as direct dependency
 group = LibraryConfig.group
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(
         VersioningConfiguration(
             featurePrefixes = listOf("feature"),

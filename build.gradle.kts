@@ -18,7 +18,7 @@ plugins {
     id("tech.antibytes.gradle.quality.local")
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(
         VersioningConfiguration(
             featurePrefixes = listOf("feature"),

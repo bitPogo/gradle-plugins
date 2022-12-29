@@ -42,7 +42,7 @@ antibytesVersioning {
     configuration = versioningConfiguration
 }
 
-antiBytesPublishing {
+antibytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
@@ -158,7 +158,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     )
 }
 
-antiBytesCoverage {
+antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,

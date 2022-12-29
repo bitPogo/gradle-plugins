@@ -81,7 +81,7 @@ tasks.withType<KotlinCompile> {
     )
 }
 
-antiBytesCoverage {
+antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
