@@ -139,7 +139,7 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Inital Gradle Dependency Settings for Antibytes Projects."
-        implementationClass = "tech.antibytes.gradle.dependency.settings.AntiBytesDependencySettings"
+        implementationClass = "tech.antibytes.gradle.dependency.settings.AntibytesDependencySettings"
         description = "Inital Gradle Dependency Settings for Antibytes Projects."
     }
 }

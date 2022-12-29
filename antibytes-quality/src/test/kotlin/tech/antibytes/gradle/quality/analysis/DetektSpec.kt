@@ -20,7 +20,7 @@ import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskCollection
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.quality.AntiBytesQualityExtension
+import tech.antibytes.gradle.quality.AntibytesQualityExtension
 import tech.antibytes.gradle.quality.QualityContract
 import tech.antibytes.gradle.quality.api.CodeAnalysisConfiguration
 import tech.antibytes.gradle.quality.api.DetektReport
@@ -41,7 +41,7 @@ class DetektSpec {
     fun `Given configure is called and no analysis Config was given it does nothing`() {
         // Given
         val project: Project = mockk()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         extension.codeAnalysis.set(null)
 
@@ -53,7 +53,7 @@ class DetektSpec {
     fun `Given configure is called with an analysis Config it configures the detekt extension`() {
         // Given
         val project: Project = mockk()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val configuration = CodeAnalysisConfiguration(
             jvmVersion = fixture(),
@@ -101,7 +101,7 @@ class DetektSpec {
     fun `Given configure is called with an analysis Config it configures the DetektTask`() {
         // Given
         val project: Project = mockk()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val configuration = CodeAnalysisConfiguration(
             jvmVersion = fixture(),
@@ -168,7 +168,7 @@ class DetektSpec {
     fun `Given configure is called with an analysis Config it configures the DetektBaselineTask`() {
         // Given
         val project: Project = mockk()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val configuration = CodeAnalysisConfiguration(
             jvmVersion = fixture(),

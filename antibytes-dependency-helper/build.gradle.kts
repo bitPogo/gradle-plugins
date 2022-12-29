@@ -134,7 +134,7 @@ java {
 gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
-        implementationClass = "tech.antibytes.gradle.dependency.helper.AntiBytesDependencyHelper"
+        implementationClass = "tech.antibytes.gradle.dependency.helper.AntibytesDependencyHelper"
         displayName = "Dependency Helper for Antibytes projects."
         description = "Dependency Helper for Antibytes projects."
     }

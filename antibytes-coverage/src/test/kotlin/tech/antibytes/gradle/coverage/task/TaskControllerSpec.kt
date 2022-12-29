@@ -24,7 +24,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskContainer
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
+import tech.antibytes.gradle.coverage.AntibytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageContract
 import tech.antibytes.gradle.coverage.CoverageError
@@ -51,7 +51,7 @@ class TaskControllerSpec {
     fun `Given configure is called with a Project and AntiBytesCoverageExtension, it fails if the the map contains a unknown CoverageConfigurations Type`() {
         // Given
         val project: Project = mockk()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
@@ -80,7 +80,7 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.JacocoCoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
@@ -121,7 +121,7 @@ class TaskControllerSpec {
         val project: Project = mockk()
         val contextId: String = fixture()
         val reporter: Task = mockk()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
@@ -164,7 +164,7 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
         val jacocoReporterTask: Task = mockk()
 
@@ -218,7 +218,7 @@ class TaskControllerSpec {
         val project: Project = mockk()
         val tasks: TaskContainer = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
@@ -261,7 +261,7 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
         val jacocoVerificationTask: Task = mockk()
 
@@ -306,7 +306,7 @@ class TaskControllerSpec {
     fun `Given configure is called with a Project, which is the ProjectRoot and AntiBytesCoverageExtension, it fails if the the map contains a unknown CoverageConfigurations Type`() {
         // Given
         val project: Project = mockk()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
         every { project.rootProject } returns project
@@ -335,7 +335,7 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration: CoverageApiContract.JacocoAggregationConfiguration = mockk()
 
         every { project.rootProject } returns project
@@ -375,7 +375,7 @@ class TaskControllerSpec {
         val project: Project = mockk()
         val contextId1: String = fixture()
         val contextId2: String = fixture()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
         val configuration1: CoverageApiContract.AndroidJacocoAggregationConfiguration = mockk()
         val configuration2: CoverageApiContract.AndroidJacocoAggregationConfiguration = mockk()
         val task1: Task = mockk()
@@ -442,7 +442,7 @@ class TaskControllerSpec {
         val tasks: TaskContainer = mockk()
         val contextId1: String = fixture()
         val contextId2: String = fixture()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
 
         val configuration1: CoverageApiContract.AndroidJacocoAggregationConfiguration = mockk()
         val configuration2: CoverageApiContract.AndroidJacocoAggregationConfiguration = mockk()
@@ -504,7 +504,7 @@ class TaskControllerSpec {
         // Given
         val project: Project = mockk()
         val tasks: TaskContainer = mockk()
-        val extension: AntiBytesCoveragePluginExtension = mockk()
+        val extension: AntibytesCoveragePluginExtension = mockk()
 
         val contextId1: String = fixture()
         val contextId2: String = fixture()

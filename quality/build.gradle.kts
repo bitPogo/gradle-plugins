@@ -42,7 +42,7 @@ java {
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.quality.local") {
         id = "tech.antibytes.gradle.quality.local"
-        implementationClass = "tech.antibytes.gradle.quality.AntiBytesQualityLocal"
+        implementationClass = "tech.antibytes.gradle.quality.AntibytesQualityLocal"
     }
 }
 

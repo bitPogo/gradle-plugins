@@ -18,7 +18,7 @@ import org.gradle.api.Project
 import org.junit.jupiter.api.Test
 import org.sonarqube.gradle.SonarQubeExtension
 import org.sonarqube.gradle.SonarQubeProperties
-import tech.antibytes.gradle.quality.AntiBytesQualityExtension
+import tech.antibytes.gradle.quality.AntibytesQualityExtension
 import tech.antibytes.gradle.quality.QualityContract
 import tech.antibytes.gradle.quality.api.QualityGateConfiguration
 import tech.antibytes.gradle.test.createExtension
@@ -38,7 +38,7 @@ class SonarqubeSpec {
     fun `Given configure is called it does nothing if no QualityGate configuration was given`() {
         // Given
         val project: Project = mockk()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
         extension.qualityGate.convention(null)
 
         // When
@@ -49,7 +49,7 @@ class SonarqubeSpec {
     fun `Given configure is called with an analysis Config it configures the SonarQube extension`() {
         // Given
         val project: Project = mockk()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val config = QualityGateConfiguration(
             projectKey = fixture(),
@@ -96,7 +96,7 @@ class SonarqubeSpec {
         val project: Project = mockk()
         val subProject: Project = mockk()
         val subprojectName: String = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val config = QualityGateConfiguration(
             projectKey = fixture(),
@@ -139,7 +139,7 @@ class SonarqubeSpec {
         val project: Project = mockk()
         val subProject: Project = mockk()
         val subprojectName: String = fixture()
-        val extension = createExtension<AntiBytesQualityExtension>()
+        val extension = createExtension<AntibytesQualityExtension>()
 
         val config = QualityGateConfiguration(
             projectKey = fixture(),

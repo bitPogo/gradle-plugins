@@ -8,12 +8,12 @@ package tech.antibytes.gradle.coverage.task
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.coverage.AntiBytesCoveragePluginExtension
+import tech.antibytes.gradle.coverage.AntibytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.CoverageApiContract
 
 internal interface TaskContract {
     fun interface JacocoExtensionConfigurator {
-        fun configure(project: Project, configuration: AntiBytesCoveragePluginExtension)
+        fun configure(project: Project, configuration: AntibytesCoveragePluginExtension)
     }
 
     fun interface AndroidExtensionConfigurator {

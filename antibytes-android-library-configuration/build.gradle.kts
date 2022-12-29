@@ -131,7 +131,7 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Android Library Plugin for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.configuration.AntiBytesLibraryConfiguration"
+        implementationClass = "tech.antibytes.gradle.configuration.AntibytesLibraryConfiguration"
         description = "Android Library Configuration for Antibytes projects."
     }
 }

@@ -58,7 +58,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.dependency.helper.local") {
         id = "tech.antibytes.gradle.dependency.helper.local"
-        implementationClass = "tech.antibytes.gradle.dependency.helper.AntiBytesDependencyHelper"
+        implementationClass = "tech.antibytes.gradle.dependency.helper.AntibytesDependencyHelper"
     }
 }
 

@@ -160,7 +160,7 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Publishing setup for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.publishing.AntiBytesPublishing"
+        implementationClass = "tech.antibytes.gradle.publishing.AntibytesPublishing"
         description = "Publishing setup for Antibytes projects."
     }
 }

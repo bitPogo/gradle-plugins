@@ -18,7 +18,7 @@ internal interface CoverageContract {
     }
 
     fun interface TaskController {
-        fun configure(project: Project, extension: AntiBytesCoveragePluginExtension)
+        fun configure(project: Project, extension: AntibytesCoveragePluginExtension)
     }
 
     fun interface DefaultConfigurationProvider {

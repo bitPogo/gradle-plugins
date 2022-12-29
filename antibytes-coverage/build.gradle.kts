@@ -133,7 +133,7 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Plugin for Codecoverage for Antibytes Projects."
-        implementationClass = "tech.antibytes.gradle.coverage.AntiBytesCoverage"
+        implementationClass = "tech.antibytes.gradle.coverage.AntibytesCoverage"
         description = "Coverage Plugin for Kotlin Multiplatform project of Antibytes Projects."
     }
 }

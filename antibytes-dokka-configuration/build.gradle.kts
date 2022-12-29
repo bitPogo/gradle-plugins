@@ -131,7 +131,7 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Dokka Plugin for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.configuration.AntiBytesDokkaConfiguration"
+        implementationClass = "tech.antibytes.gradle.configuration.AntibytesDokkaConfiguration"
         description = "Dokka Configuration for Antibytes projects."
     }
 }

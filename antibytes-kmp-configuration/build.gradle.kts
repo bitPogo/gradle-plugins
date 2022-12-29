@@ -130,7 +130,7 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "Configuration Plugin for Antibytes KMP projects."
-        implementationClass = "tech.antibytes.gradle.configuration.AntiBytesKmpConfiguration"
+        implementationClass = "tech.antibytes.gradle.configuration.AntibytesKmpConfiguration"
         description = "KMP Configuration for Antibytes projects."
     }
 }

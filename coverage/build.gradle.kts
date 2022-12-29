@@ -56,7 +56,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
 gradlePlugin {
     plugins.register("tech.antibytes.gradle.coverage.local") {
         id = "tech.antibytes.gradle.coverage.local"
-        implementationClass = "tech.antibytes.gradle.coverage.AntiBytesCoverage"
+        implementationClass = "tech.antibytes.gradle.coverage.AntibytesCoverage"
     }
 }
 
