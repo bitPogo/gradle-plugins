@@ -88,7 +88,7 @@ class VersionCatalogTransformerSpec {
             every { npm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodeProdPackage(provider)
+            val actual = nodeProductionPackage(provider)
 
             // Then
             assertSame(
@@ -121,7 +121,7 @@ class VersionCatalogTransformerSpec {
             every { npm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodeProdPackage(provider)
+            val actual = nodeProductionPackage(provider)
 
             // Then
             assertSame(
@@ -158,7 +158,7 @@ class VersionCatalogTransformerSpec {
             every { devNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodeDevPackage(provider)
+            val actual = nodeDevelopmentPackage(provider)
 
             // Then
             assertSame(
@@ -191,7 +191,7 @@ class VersionCatalogTransformerSpec {
             every { devNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodeDevPackage(provider)
+            val actual = nodeDevelopmentPackage(provider)
 
             // Then
             assertSame(
@@ -228,7 +228,7 @@ class VersionCatalogTransformerSpec {
             every { peerNpm(any(), any()) } returns dependency
 
             // When
-            val actual = asNodePeerPackage(provider)
+            val actual = nodePeerPackage(provider)
 
             // Then
             assertSame(
@@ -261,7 +261,7 @@ class VersionCatalogTransformerSpec {
             every { peerNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodePeerPackage(provider)
+            val actual = nodePeerPackage(provider)
 
             // Then
             assertSame(
@@ -298,7 +298,7 @@ class VersionCatalogTransformerSpec {
             every { optionalNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodeOptionalPackage(provider)
+            val actual = nodeOptionalPackage(provider)
 
             // Then
             assertSame(
@@ -331,7 +331,7 @@ class VersionCatalogTransformerSpec {
             every { optionalNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodeOptionalPackage(provider)
+            val actual = nodeOptionalPackage(provider)
 
             // Then
             assertSame(
@@ -365,7 +365,7 @@ class VersionCatalogTransformerSpec {
         applyDependencyContext(kotlinDependencyHandler) {
             assertFailsWith<IllegalArgumentException> {
                 // When
-                asNodePackage(provider)
+                nodePackage(provider)
             }
         }
     }
@@ -390,7 +390,7 @@ class VersionCatalogTransformerSpec {
             every { npm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodePackage(provider)
+            val actual = nodePackage(provider)
 
             // Then
             assertSame(
@@ -424,7 +424,7 @@ class VersionCatalogTransformerSpec {
             every { devNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodePackage(provider)
+            val actual = nodePackage(provider)
 
             // Then
             assertSame(
@@ -458,7 +458,7 @@ class VersionCatalogTransformerSpec {
             every { peerNpm(any(), any()) } returns dependency
 
             // When
-            val actual = asNodePackage(provider)
+            val actual = nodePackage(provider)
 
             // Then
             assertSame(
@@ -492,7 +492,7 @@ class VersionCatalogTransformerSpec {
             every { optionalNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = asNodePackage(provider)
+            val actual = nodePackage(provider)
 
             // Then
             assertSame(
