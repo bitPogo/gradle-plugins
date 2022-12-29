@@ -37,7 +37,3 @@ gradlePlugin {
 tasks.test {
     useJUnitPlatform()
 }
-
-tasks.check {
-
-}
