@@ -4,6 +4,7 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
+import org.jetbrains.kotlin.utils.addToStdlib.applyIf
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.dependency.catalog.addSharedAntibytesConfiguration
@@ -111,6 +112,13 @@ val addSharedConfiguration by tasks.creating(Copy::class.java) {
     include("libs.versions.toml")
     from(File(buildDir, "version-catalog/libs.versions.toml"))
     into(File(rootProject.projectDir, "gradle"))
+
+    filter { content ->
+        content.replace(
+            "^gradle-antibytes([\\-a-zA-Z]+)\\s*=\\s*\"[\\-0-9a-zA-Z]+\"".toRegex(),
+            "gradle-antibytes$1 = \"xxx\""
+        )
+    }
     rename {
         "antibytes.catalog.toml"
     }
