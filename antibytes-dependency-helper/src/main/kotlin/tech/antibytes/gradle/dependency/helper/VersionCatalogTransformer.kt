@@ -32,51 +32,51 @@ fun Provider<MinimalExternalModuleDependency>.asPythonPackage(): String {
     }
 }
 
-fun KotlinDependencyHandler.nodeProductionPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodeProductionPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency? {
     val logger = project.logger
 
     return provider.guardDependency(
         "node-production",
         { message -> logger.warn(message()) },
     ) {
-        npm(module.name, versionConstraint.toString())
+        implementation(npm(module.name, versionConstraint.toString()))
     }
 }
 
-fun KotlinDependencyHandler.nodeDevelopmentPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodeDevelopmentPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency? {
     val logger = project.logger
 
     return provider.guardDependency(
         "node-development",
         { message -> logger.warn(message()) },
     ) {
-        devNpm(module.name, versionConstraint.toString())
+        implementation(devNpm(module.name, versionConstraint.toString()))
     }
 }
 
-fun KotlinDependencyHandler.nodePeerPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodePeerPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency? {
     val logger = project.logger
 
     return provider.guardDependency(
         "node-peer",
         { message -> logger.warn(message()) },
     ) {
-        peerNpm(module.name, versionConstraint.toString())
+        implementation(peerNpm(module.name, versionConstraint.toString()))
     }
 }
 
-fun KotlinDependencyHandler.nodeOptionalPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodeOptionalPackage(provider: Provider<MinimalExternalModuleDependency>): Dependency? {
     val logger = project.logger
 
     return provider.guardDependency(
         "node-optional",
         { message -> logger.warn(message()) },
     ) {
-        optionalNpm(module.name, versionConstraint.toString())
+        implementation(optionalNpm(module.name, versionConstraint.toString()))
     }
 }
 
-fun KotlinDependencyHandler.nodePackage(provider: Provider<MinimalExternalModuleDependency>): Dependency {
+fun KotlinDependencyHandler.nodePackage(provider: Provider<MinimalExternalModuleDependency>): Dependency? {
     return when (provider.get().module.group) {
         "node-production" -> nodeProductionPackage(provider)
         "node-development" -> nodeDevelopmentPackage(provider)
