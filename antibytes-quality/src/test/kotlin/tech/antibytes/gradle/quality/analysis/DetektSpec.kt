@@ -79,10 +79,11 @@ class DetektSpec {
         every { project.tasks.withType(DetektCreateBaselineTask::class.java) } returns mockk(relaxed = true)
 
         invokeGradleAction(
-            { probe -> project.extensions.configure(DetektExtension::class.java, probe) },
             detekt,
             detekt,
-        )
+        ) { probe ->
+            project.extensions.configure(DetektExtension::class.java, probe)
+        }
         // When
         Detekt.configure(project, extension)
 
@@ -131,10 +132,9 @@ class DetektSpec {
             project.extensions.configure(any<Class<DetektExtension>>(), any())
         } returns mockk(relaxed = true)
 
-        invokeGradleAction(
-            { probe -> collection.configureEach(probe) },
-            detektTask,
-        )
+        invokeGradleAction(detektTask) { probe ->
+            collection.configureEach(probe)
+        }
 
         every { detektTask.jvmTarget = any() } just Runs
         every { detektTask.exclude(*anyVararg()) } answers {
@@ -198,10 +198,9 @@ class DetektSpec {
             project.extensions.configure(any<Class<DetektExtension>>(), any())
         } returns mockk(relaxed = true)
 
-        invokeGradleAction(
-            { probe -> collection.configureEach(probe) },
-            detektTask,
-        )
+        invokeGradleAction(detektTask) { probe ->
+            collection.configureEach(probe)
+        }
 
         every { detektTask.jvmTarget = any() } just Runs
         every { detektTask.exclude(*anyVararg()) } answers {

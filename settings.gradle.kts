@@ -38,7 +38,6 @@ include(
     ":antibytes-coverage",
     ":antibytes-gradle-utils",
     ":antibytes-gradle-test-utils",
-    ":antibytes-dependency",
     ":antibytes-dependency-bridge",
     ":antibytes-dependency-catalog",
     ":antibytes-dependency-catalog-builder",

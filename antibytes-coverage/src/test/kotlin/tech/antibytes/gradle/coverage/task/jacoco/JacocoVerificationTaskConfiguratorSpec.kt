@@ -167,16 +167,15 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { tasks.getByName("${contextId}Coverage") } returns reportTask
 
         invokeGradleAction(
-            { probe ->
-                tasks.create(
-                    "${contextId}CoverageVerification",
-                    JacocoCoverageVerification::class.java,
-                    probe,
-                )
-            },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            tasks.create(
+                "${contextId}CoverageVerification",
+                JacocoCoverageVerification::class.java,
+                probe,
+            )
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -189,19 +188,17 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> project.fileTree(projectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe -> project.fileTree(projectDir, probe) }
 
         every { fileTreeClassFiles.setExcludes(configuration.classFilter) } returns mockk()
         every { fileTreeClassFiles.setIncludes(configuration.classPattern) } returns mockk()
 
         invokeGradleAction(
-            { probe -> project.fileTree(buildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe -> project.fileTree(buildDir, probe) }
 
         every {
             fileTreeExecutionFiles.setIncludes(
@@ -210,10 +207,9 @@ class JacocoVerificationTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> jacocoTask.violationRules(probe) },
             violationRules,
             mockk(),
-        )
+        ) { probe -> jacocoTask.violationRules(probe) }
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 
@@ -305,16 +301,15 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { tasks.getByName("${contextId}Coverage") } returns reportTask
 
         invokeGradleAction(
-            { probe ->
-                tasks.create(
-                    "${contextId}CoverageVerification",
-                    JacocoCoverageVerification::class.java,
-                    probe,
-                )
-            },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            tasks.create(
+                "${contextId}CoverageVerification",
+                JacocoCoverageVerification::class.java,
+                probe,
+            )
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -327,19 +322,17 @@ class JacocoVerificationTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> project.fileTree(projectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe -> project.fileTree(projectDir, probe) }
 
         every { fileTreeClassFiles.setExcludes(configuration.classFilter) } returns mockk()
         every { fileTreeClassFiles.setIncludes(configuration.classPattern) } returns mockk()
 
         invokeGradleAction(
-            { probe -> project.fileTree(buildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe -> project.fileTree(buildDir, probe) }
 
         every {
             fileTreeExecutionFiles.setIncludes(
@@ -360,10 +353,9 @@ class JacocoVerificationTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> jacocoTask.violationRules(probe) },
             violationRules,
             mockk(),
-        )
+        ) { probe -> jacocoTask.violationRules(probe) }
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 

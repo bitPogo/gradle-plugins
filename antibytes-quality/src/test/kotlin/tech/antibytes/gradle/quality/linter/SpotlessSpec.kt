@@ -81,15 +81,17 @@ class SpotlessSpec {
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
-            { probe -> project.extensions.configure(SpotlessExtension::class.java, probe) },
             spotless,
             spotless,
-        )
+        ) { probe ->
+            project.extensions.configure(SpotlessExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> spotless.kotlin(probe) },
             kotlin,
             kotlin,
-        )
+        ) { probe ->
+            spotless.kotlin(probe)
+        }
 
         // When
         Spotless.configure(project, extension)
@@ -141,15 +143,17 @@ class SpotlessSpec {
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
-            { probe -> project.extensions.configure(SpotlessExtension::class.java, probe) },
             spotless,
             spotless,
-        )
+        ) { probe ->
+            project.extensions.configure(SpotlessExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> spotless.kotlin(probe) },
             kotlin,
             kotlin,
-        )
+        ) { probe ->
+            spotless.kotlin(probe)
+        }
 
         // When
         Spotless.configure(project, extension)
@@ -189,15 +193,17 @@ class SpotlessSpec {
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
-            { probe -> project.extensions.configure(SpotlessExtension::class.java, probe) },
             spotless,
             spotless,
-        )
+        ) { probe ->
+            project.extensions.configure(SpotlessExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> spotless.kotlin(probe) },
             kotlin,
             kotlin,
-        )
+        ) { probe ->
+            spotless.kotlin(probe)
+        }
 
         // When
         Spotless.configure(project, extension)
@@ -243,15 +249,17 @@ class SpotlessSpec {
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
-            { probe -> project.extensions.configure(SpotlessExtension::class.java, probe) },
             spotless,
             spotless,
-        )
+        ) { probe ->
+            project.extensions.configure(SpotlessExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> spotless.kotlinGradle(probe) },
             gradle,
             gradle,
-        )
+        ) { probe ->
+            spotless.kotlinGradle(probe)
+        }
 
         // When
         Spotless.configure(project, extension)
@@ -303,15 +311,17 @@ class SpotlessSpec {
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
-            { probe -> project.extensions.configure(SpotlessExtension::class.java, probe) },
             spotless,
             spotless,
-        )
+        ) { probe ->
+            project.extensions.configure(SpotlessExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> spotless.kotlinGradle(probe) },
             gradle,
             gradle,
-        )
+        ) { probe ->
+            spotless.kotlinGradle(probe)
+        }
 
         // When
         Spotless.configure(project, extension)
@@ -351,15 +361,17 @@ class SpotlessSpec {
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
-            { probe -> project.extensions.configure(SpotlessExtension::class.java, probe) },
             spotless,
             spotless,
-        )
+        ) { probe ->
+            project.extensions.configure(SpotlessExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> spotless.kotlinGradle(probe) },
             gradle,
             gradle,
-        )
+        ) { probe ->
+            spotless.kotlinGradle(probe)
+        }
 
         // When
         Spotless.configure(project, extension)
@@ -404,15 +416,17 @@ class SpotlessSpec {
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
-            { probe -> project.extensions.configure(SpotlessExtension::class.java, probe) },
             spotless,
             spotless,
-        )
+        ) { probe ->
+            project.extensions.configure(SpotlessExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> spotless.format("misc", probe) },
             misc,
             misc,
-        )
+        ) { probe ->
+            spotless.format("misc", probe)
+        }
 
         // When
         Spotless.configure(project, extension)
@@ -462,15 +476,17 @@ class SpotlessSpec {
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
-            { probe -> project.extensions.configure(SpotlessExtension::class.java, probe) },
             spotless,
             spotless,
-        )
+        ) { probe ->
+            project.extensions.configure(SpotlessExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> spotless.format("misc", probe) },
             misc,
             misc,
-        )
+        ) { probe ->
+            spotless.format("misc", probe)
+        }
 
         // When
         Spotless.configure(project, extension)

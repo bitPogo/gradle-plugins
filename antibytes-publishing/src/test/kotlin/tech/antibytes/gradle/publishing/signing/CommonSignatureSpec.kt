@@ -49,10 +49,9 @@ class CommonSignatureSpec {
         every { gradle.taskGraph } returns taskExecutionGraph
         every { taskExecutionGraph.allTasks } returns allTasks
 
-        invokeGradleAction(
-            { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension,
-        )
+        invokeGradleAction(signingExtension) { probe ->
+            extensions.configure(SigningExtension::class.java, probe)
+        }
 
         CommonSignature.configure(project)
 
@@ -76,10 +75,9 @@ class CommonSignatureSpec {
         every { gradle.taskGraph } returns taskExecutionGraph
         every { taskExecutionGraph.allTasks } returns allTasks
 
-        invokeGradleAction(
-            { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension,
-        )
+        invokeGradleAction(signingExtension) { probe ->
+            extensions.configure(SigningExtension::class.java, probe)
+        }
 
         CommonSignature.configure(project)
 

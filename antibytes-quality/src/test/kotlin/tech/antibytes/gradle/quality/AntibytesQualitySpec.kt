@@ -89,10 +89,11 @@ class AntibytesQualitySpec {
         } returns extension
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             project,
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         AntibytesQuality().apply(project)

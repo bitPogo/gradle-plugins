@@ -48,14 +48,14 @@ class AntibytesDependencySettingsSpec {
         every { dependencyResolutionManagement.versionCatalogs } returns versionCatalog
         every { versionCatalog.create(any()) } returns versionCatalogBuilder
         invokeGradleAction(
-            { probe -> repositoryHandler.maven(probe) },
             mavenArtifactRepository,
             mavenArtifactRepository,
-        )
-        invokeGradleAction(
-            { probe -> mavenArtifactRepository.content(probe) },
-            contentDescriptor,
-        )
+        ) { probe ->
+            repositoryHandler.maven(probe)
+        }
+        invokeGradleAction(contentDescriptor) { probe ->
+            mavenArtifactRepository.content(probe)
+        }
 
         // When
         AntibytesDependencySettings().apply(settings)

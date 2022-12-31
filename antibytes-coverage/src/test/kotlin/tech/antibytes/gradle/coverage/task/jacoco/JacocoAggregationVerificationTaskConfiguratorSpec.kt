@@ -132,10 +132,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
@@ -422,16 +423,15 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe ->
-                project.tasks.create(
-                    "${contextId}AggregationVerification",
-                    JacocoCoverageVerification::class.java,
-                    probe,
-                )
-            },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create(
+                "${contextId}AggregationVerification",
+                JacocoCoverageVerification::class.java,
+                probe,
+            )
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -444,15 +444,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1ProjectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2ProjectDir, probe)
+        }
 
         every {
             fileTreeClassFiles.setIncludes(subConfiguration1.classPattern)
@@ -471,15 +473,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1BuildDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2BuildDir, probe)
+        }
 
         every { subproject1.tasks.getByName("${contextId}Coverage") } returns subproject1Reporter
         every { subproject2.tasks.getByName("${contextId}Coverage") } returns subproject2Reporter
@@ -520,10 +524,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } just Runs
 
         invokeGradleAction(
-            { probe -> jacocoTask.violationRules(probe) },
             violationRules,
             mockk(),
-        )
+        ) { probe ->
+            jacocoTask.violationRules(probe)
+        }
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 
@@ -658,16 +663,15 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe ->
-                project.tasks.create(
-                    "${contextId}AggregationVerification",
-                    JacocoCoverageVerification::class.java,
-                    probe,
-                )
-            },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create(
+                "${contextId}AggregationVerification",
+                JacocoCoverageVerification::class.java,
+                probe,
+            )
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -680,15 +684,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1ProjectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2ProjectDir, probe)
+        }
 
         every {
             fileTreeClassFiles.setIncludes(subConfiguration1.classPattern)
@@ -707,15 +713,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1BuildDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2BuildDir, probe)
+        }
 
         every { subproject1.tasks.getByName("${contextId}Coverage") } returns subproject1Reporter
         every { subproject2.tasks.getByName("${contextId}Coverage") } returns subproject2Reporter
@@ -751,10 +759,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } just Runs
 
         invokeGradleAction(
-            { probe -> jacocoTask.violationRules(probe) },
             violationRules,
             mockk(),
-        )
+        ) { probe ->
+            jacocoTask.violationRules(probe)
+        }
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 
@@ -1016,16 +1025,15 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe ->
-                project.tasks.create(
-                    "${contextId}AggregationVerification",
-                    JacocoCoverageVerification::class.java,
-                    probe,
-                )
-            },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create(
+                "${contextId}AggregationVerification",
+                JacocoCoverageVerification::class.java,
+                probe,
+            )
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -1038,15 +1046,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1ProjectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2ProjectDir, probe)
+        }
 
         every {
             fileTreeClassFiles.setIncludes(subConfiguration1.classPattern)
@@ -1065,15 +1075,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1BuildDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2BuildDir, probe)
+        }
 
         every { subproject1.tasks.getByName("${contextId}Coverage") } returns subproject1Reporter
         every { subproject2.tasks.getByName("${contextId}Coverage") } returns subproject2Reporter
@@ -1136,10 +1148,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } just Runs
 
         invokeGradleAction(
-            { probe -> jacocoTask.violationRules(probe) },
             violationRules,
             mockk(),
-        )
+        ) { probe ->
+            jacocoTask.violationRules(probe)
+        }
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 
@@ -1283,16 +1296,15 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe ->
-                project.tasks.create(
-                    "${contextId}AggregationVerification",
-                    JacocoCoverageVerification::class.java,
-                    probe,
-                )
-            },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create(
+                "${contextId}AggregationVerification",
+                JacocoCoverageVerification::class.java,
+                probe,
+            )
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -1305,15 +1317,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1ProjectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2ProjectDir, probe)
+        }
 
         every {
             fileTreeClassFiles.setIncludes(subConfiguration1.classPattern)
@@ -1332,15 +1346,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1BuildDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2BuildDir, probe)
+        }
 
         every { subproject1.tasks.getByName("${contextId}Coverage") } returns subproject1Reporter
         every { subproject2.tasks.getByName("${contextId}Coverage") } returns subproject2Reporter
@@ -1399,10 +1415,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } just Runs
 
         invokeGradleAction(
-            { probe -> jacocoTask.violationRules(probe) },
             violationRules,
             mockk(),
-        )
+        ) { probe ->
+            jacocoTask.violationRules(probe)
+        }
 
         every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
 

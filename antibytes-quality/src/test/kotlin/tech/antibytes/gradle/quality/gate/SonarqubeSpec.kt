@@ -68,15 +68,17 @@ class SonarqubeSpec {
         every { project.plugins.apply(any()) } returns mockk()
         every { project.subprojects(any<Action<Any>>()) } just Runs
         invokeGradleAction(
-            { probe -> project.extensions.configure(SonarQubeExtension::class.java, probe) },
             sonarExtension,
             sonarExtension,
-        )
+        ) { probe ->
+            project.extensions.configure(SonarQubeExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> sonarExtension.properties(probe) },
             sonarProperties,
             sonarProperties,
-        )
+        ) { probe ->
+            sonarExtension.properties(probe)
+        }
 
         // When
         Sonarqube.configure(project, extension)
@@ -117,14 +119,17 @@ class SonarqubeSpec {
         every { subProject.name } returns subprojectName
 
         invokeGradleAction(
-            { probe -> project.subprojects(probe) },
             subProject,
-        )
+        ) { probe ->
+            project.subprojects(probe)
+        }
+
         invokeGradleAction(
-            { probe -> subProject.extensions.configure(SonarQubeExtension::class.java, probe) },
             sonarExtension,
             sonarExtension,
-        )
+        ) { probe ->
+            subProject.extensions.configure(SonarQubeExtension::class.java, probe)
+        }
 
         // When
         Sonarqube.configure(project, extension)
@@ -160,14 +165,17 @@ class SonarqubeSpec {
         every { subProject.name } returns subprojectName
 
         invokeGradleAction(
-            { probe -> project.subprojects(probe) },
             subProject,
-        )
+        ) { probe ->
+            project.subprojects(probe)
+        }
+
         invokeGradleAction(
-            { probe -> subProject.extensions.configure(SonarQubeExtension::class.java, probe) },
             sonarExtension,
             sonarExtension,
-        )
+        ) { probe ->
+            subProject.extensions.configure(SonarQubeExtension::class.java, probe)
+        }
 
         // When
         Sonarqube.configure(project, extension)

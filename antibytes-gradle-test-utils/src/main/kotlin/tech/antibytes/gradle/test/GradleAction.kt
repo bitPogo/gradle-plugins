@@ -19,9 +19,9 @@ import org.gradle.api.Action
  * @param T: return value of the Gradle Action
  */
 inline fun <T : Any, reified R> invokeGradleAction(
-    crossinline caller: MockKMatcherScope.(Action<T>) -> R,
     probe: T,
     returnValue: R,
+    crossinline caller: MockKMatcherScope.(Action<T>) -> R,
 ) {
     val action = slot<Action<T>>()
     every {
@@ -38,8 +38,8 @@ inline fun <T : Any, reified R> invokeGradleAction(
  * @param T: Object which is wrapped by the Action
  */
 inline fun <T : Any> invokeGradleAction(
-    crossinline caller: MockKMatcherScope.(Action<T>) -> Unit,
     probe: T,
+    crossinline caller: MockKMatcherScope.(Action<T>) -> Unit,
 ) {
     val action = slot<Action<T>>()
     every {

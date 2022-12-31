@@ -127,10 +127,11 @@ class SigningControllerSpec {
         every { CommonSignature.configure(any()) } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         SigningController.configure(project, config)
@@ -179,10 +180,11 @@ class SigningControllerSpec {
         every { CommonSignature.configure(any()) } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         SigningController.configure(project, config)
@@ -235,10 +237,11 @@ class SigningControllerSpec {
         every { project.evaluationDependsOnChildren() } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         SigningController.configure(project, config)
@@ -294,10 +297,11 @@ class SigningControllerSpec {
         every { project.evaluationDependsOnChildren() } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         SigningController.configure(project, config)
@@ -356,10 +360,11 @@ class SigningControllerSpec {
         every { project.evaluationDependsOnChildren() } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         SigningController.configure(project, config)
@@ -419,10 +424,11 @@ class SigningControllerSpec {
         every { project.evaluationDependsOnChildren() } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         SigningController.configure(project, config)
@@ -484,10 +490,11 @@ class SigningControllerSpec {
         every { project.evaluationDependsOnChildren() } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         SigningController.configure(project, config)
@@ -549,10 +556,11 @@ class SigningControllerSpec {
         every { project.evaluationDependsOnChildren() } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         SigningController.configure(project, config)

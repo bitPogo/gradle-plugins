@@ -81,10 +81,9 @@ class AndroidApplicationConfiguratorSpec {
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns fixture()
 
-        invokeGradleAction(
-            { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            libraryExtension,
-        )
+        invokeGradleAction(libraryExtension) { probe ->
+            extensions.configure(ApplicationExtension::class.java, probe)
+        }
 
         // When
         AndroidApplicationConfigurator.configure(project, configuration)
@@ -134,10 +133,9 @@ class AndroidApplicationConfiguratorSpec {
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
-        invokeGradleAction(
-            { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            libraryExtension,
-        )
+        invokeGradleAction(libraryExtension) { probe ->
+            extensions.configure(ApplicationExtension::class.java, probe)
+        }
 
         every { libraryExtension.defaultConfig(captureLambda()) } answers {
             lambda<(ApplicationDefaultConfig) -> Unit>().invoke(defaultConfiguration)
@@ -198,10 +196,9 @@ class AndroidApplicationConfiguratorSpec {
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
-        invokeGradleAction(
-            { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            libraryExtension,
-        )
+        invokeGradleAction(libraryExtension) { probe ->
+            extensions.configure(ApplicationExtension::class.java, probe)
+        }
 
         every { libraryExtension.compileOptions(captureLambda()) } answers {
             lambda<(CompileOptions) -> Unit>().invoke(compileOptions)
@@ -267,10 +264,9 @@ class AndroidApplicationConfiguratorSpec {
         every { extensions.configure(any<Class<Any>>(), any()) } returns mockk()
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
 
-        invokeGradleAction(
-            { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            libraryExtension,
-        )
+        invokeGradleAction(libraryExtension) { probe ->
+            extensions.configure(ApplicationExtension::class.java, probe)
+        }
 
         every { libraryExtension.sourceSets(captureLambda()) } answers {
             lambda<(NamedDomainObjectContainer<out AndroidSourceSet>) -> Unit>().invoke(sourceSets)
