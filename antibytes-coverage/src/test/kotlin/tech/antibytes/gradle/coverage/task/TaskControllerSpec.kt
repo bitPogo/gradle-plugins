@@ -184,10 +184,11 @@ class TaskControllerSpec {
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         invokeGradleAction(
-            { probe -> project.tasks.create("multiplatformCoverage", probe) },
             kmpReporterTask,
             mockk(),
-        )
+        ) { probe ->
+            project.tasks.create("multiplatformCoverage", probe)
+        }
 
         // When
         TaskController.configure(project, extension)
@@ -281,10 +282,11 @@ class TaskControllerSpec {
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         invokeGradleAction(
-            { probe -> project.tasks.create("multiplatformCoverageVerification", probe) },
             kmpVerificationTask,
             mockk(),
-        )
+        ) { probe ->
+            project.tasks.create("multiplatformCoverageVerification", probe)
+        }
 
         // When
         TaskController.configure(project, extension)
@@ -404,10 +406,11 @@ class TaskControllerSpec {
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         invokeGradleAction(
-            { probe -> project.tasks.create("multiplatformCoverage", probe) },
             kmpReporterTask,
             mockk(),
-        )
+        ) { probe ->
+            project.tasks.create("multiplatformCoverage", probe)
+        }
 
         every { kmpReporterTask.dependsOn(capture(dependencies)) } returns mockk()
 
@@ -473,10 +476,11 @@ class TaskControllerSpec {
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         invokeGradleAction(
-            { probe -> project.tasks.create("multiplatformCoverage", probe) },
             kmpReporterTask,
             mockk(),
-        )
+        ) { probe ->
+            project.tasks.create("multiplatformCoverage", probe)
+        }
 
         every { kmpReporterTask.dependsOn(capture(dependencies)) } returns mockk()
 

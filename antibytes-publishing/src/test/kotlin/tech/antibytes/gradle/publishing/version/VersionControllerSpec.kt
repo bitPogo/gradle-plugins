@@ -123,16 +123,18 @@ class VersionControllerSpec {
         every { versioning.versionName() } returns fixture()
 
         invokeGradleAction(
-            { probe -> tasks.create("versionInfo", probe) },
             versioningTask,
             mockk(),
-        )
+        ) { probe ->
+            tasks.create("versionInfo", probe)
+        }
 
         invokeGradleAction(
-            { probe -> versioningTask.doLast(probe) },
             versioningTask,
             mockk(),
-        )
+        ) { probe ->
+            versioningTask.doLast(probe)
+        }
 
         // When
         VersionController.configure(project = project, configuration = config)
@@ -181,16 +183,18 @@ class VersionControllerSpec {
         every { versioning.versionName() } returns fixture()
 
         invokeGradleAction(
-            { probe -> tasks.create("versionInfo", probe) },
             versioningTask,
             mockk(),
-        )
+        ) { probe ->
+            tasks.create("versionInfo", probe)
+        }
 
         invokeGradleAction(
-            { probe -> versioningTask.doLast(probe) },
             versioningTask,
             mockk(),
-        )
+        ) { probe ->
+            versioningTask.doLast(probe)
+        }
 
         // When
         VersionController.configure(project = project, configuration = config)

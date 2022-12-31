@@ -69,10 +69,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // When
         val aggregator = JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
@@ -114,10 +115,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // When
         val aggregator = JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
@@ -156,10 +158,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // When
         val aggregator = JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
@@ -223,10 +226,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // When
         val aggregator = JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
@@ -356,10 +360,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -372,15 +377,17 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1ProjectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2ProjectDir, probe)
+        }
 
         every {
             fileTreeClassFiles.setIncludes(subConfiguration1.classPattern)
@@ -399,15 +406,17 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1BuildDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2BuildDir, probe)
+        }
 
         every {
             fileTreeExecutionFiles.setIncludes(
@@ -424,10 +433,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { subproject2.tasks.getByName("${contextId}Coverage") } returns subproject2Reporter
 
         invokeGradleAction(
-            { probe -> jacocoTask.reports(probe) },
             reports,
             reports,
-        )
+        ) { probe ->
+            jacocoTask.reports(probe)
+        }
 
         every { reports.html } returns html
         every { html.required } returns isHtmlUsed
@@ -636,10 +646,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -652,15 +663,17 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1ProjectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2ProjectDir, probe)
+        }
 
         every {
             fileTreeClassFiles.setIncludes(subConfiguration1.classPattern)
@@ -679,15 +692,17 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1BuildDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2BuildDir, probe)
+        }
 
         every {
             fileTreeExecutionFiles.setIncludes(
@@ -704,10 +719,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { subproject2.tasks.getByName("${contextId}Coverage") } returns subproject2Reporter
 
         invokeGradleAction(
-            { probe -> jacocoTask.reports(probe) },
             reports,
             reports,
-        )
+        ) { probe ->
+            jacocoTask.reports(probe)
+        }
 
         every { reports.html } returns html
         every { html.required } returns isHtmlUsed
@@ -847,10 +863,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // When
         val aggregator = JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
@@ -917,10 +934,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // When
         val aggregator = JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
@@ -987,10 +1005,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // When
         val aggregator = JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration)
@@ -1132,10 +1151,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -1148,15 +1168,17 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1ProjectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2ProjectDir, probe)
+        }
 
         every {
             fileTreeClassFiles.setIncludes(subConfiguration1.classPattern)
@@ -1175,15 +1197,17 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1BuildDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2BuildDir, probe)
+        }
 
         every {
             fileTreeExecutionFiles.setIncludes(
@@ -1222,10 +1246,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { subproject2.tasks.getByName("${contextId}Coverage") } returns subproject2Reporter
 
         invokeGradleAction(
-            { probe -> jacocoTask.reports(probe) },
             reports,
             reports,
-        )
+        ) { probe ->
+            jacocoTask.reports(probe)
+        }
 
         every { reports.html } returns html
         every { html.required } returns isHtmlUsed
@@ -1440,10 +1465,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         )
 
         invokeGradleAction(
-            { probe -> project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            project.tasks.create("${contextId}CoverageAggregation", JacocoReport::class.java, probe)
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -1456,15 +1482,17 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1ProjectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2ProjectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2ProjectDir, probe)
+        }
 
         every {
             fileTreeClassFiles.setIncludes(subConfiguration1.classPattern)
@@ -1483,15 +1511,17 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> subproject1.fileTree(subproject1BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject1.fileTree(subproject1BuildDir, probe)
+        }
         invokeGradleAction(
-            { probe -> subproject2.fileTree(subproject2BuildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            subproject2.fileTree(subproject2BuildDir, probe)
+        }
 
         every {
             fileTreeExecutionFiles.setIncludes(
@@ -1530,10 +1560,11 @@ class JacocoAggregationReportTaskConfiguratorSpec {
         every { subproject2.tasks.getByName("${contextId}Coverage") } returns subproject2Reporter
 
         invokeGradleAction(
-            { probe -> jacocoTask.reports(probe) },
             reports,
             reports,
-        )
+        ) { probe ->
+            jacocoTask.reports(probe)
+        }
 
         every { reports.html } returns html
         every { html.required } returns isHtmlUsed

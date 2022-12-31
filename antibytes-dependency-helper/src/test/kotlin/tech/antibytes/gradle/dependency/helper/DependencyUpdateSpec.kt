@@ -64,28 +64,32 @@ class DependencyUpdateSpec {
         every { selection.reject(any()) } just Runs
 
         invokeGradleAction(
-            { probe -> taskProvider.configure(probe) },
             dependencyTask,
             mockk(),
-        )
+        ) { probe ->
+            taskProvider.configure(probe)
+        }
 
         invokeGradleAction(
-            { probe -> dependencyTask.resolutionStrategy(probe) },
             strategy,
             mockk(),
-        )
+        ) { probe ->
+            dependencyTask.resolutionStrategy(probe)
+        }
 
         invokeGradleAction(
-            { probe -> strategy.componentSelection(probe) },
             ruledSelection,
             mockk(),
-        )
+        ) { probe ->
+            strategy.componentSelection(probe)
+        }
 
         invokeGradleAction(
-            { probe -> ruledSelection.all(probe) },
             selection,
             mockk(),
-        )
+        ) { probe ->
+            ruledSelection.all(probe)
+        }
 
         every { selection.currentVersion } returns currentVersion
         every { selection.candidate.version } returns candidateVersion
@@ -131,28 +135,32 @@ class DependencyUpdateSpec {
         every { selection.reject(any()) } just Runs
 
         invokeGradleAction(
-            { probe -> taskProvider.configure(probe) },
             dependencyTask,
             mockk(),
-        )
+        ) { probe ->
+            taskProvider.configure(probe)
+        }
 
         invokeGradleAction(
-            { probe -> dependencyTask.resolutionStrategy(probe) },
             strategy,
             mockk(),
-        )
+        ) { probe ->
+            dependencyTask.resolutionStrategy(probe)
+        }
 
         invokeGradleAction(
-            { probe -> strategy.componentSelection(probe) },
             ruledSelection,
             mockk(),
-        )
+        ) { probe ->
+            strategy.componentSelection(probe)
+        }
 
         invokeGradleAction(
-            { probe -> ruledSelection.all(probe) },
             selection,
             mockk(),
-        )
+        ) { probe ->
+            ruledSelection.all(probe)
+        }
 
         every { selection.currentVersion } returns currentVersion
         every { selection.candidate.version } returns candidateVersion
@@ -198,28 +206,32 @@ class DependencyUpdateSpec {
         every { selection.reject(any()) } just Runs
 
         invokeGradleAction(
-            { probe -> taskProvider.configure(probe) },
             dependencyTask,
             mockk(),
-        )
+        ) { probe ->
+            taskProvider.configure(probe)
+        }
 
         invokeGradleAction(
-            { probe -> dependencyTask.resolutionStrategy(probe) },
             strategy,
             mockk(),
-        )
+        ) { probe ->
+            dependencyTask.resolutionStrategy(probe)
+        }
 
         invokeGradleAction(
-            { probe -> strategy.componentSelection(probe) },
             ruledSelection,
             mockk(),
-        )
+        ) { probe ->
+            strategy.componentSelection(probe)
+        }
 
         invokeGradleAction(
-            { probe -> ruledSelection.all(probe) },
             selection,
             mockk(),
-        )
+        ) { probe ->
+            ruledSelection.all(probe)
+        }
 
         every { selection.currentVersion } returns currentVersion
         every { selection.candidate.version } returns candidateVersion
@@ -265,28 +277,32 @@ class DependencyUpdateSpec {
         every { selection.reject(any()) } just Runs
 
         invokeGradleAction(
-            { probe -> taskProvider.configure(probe) },
             dependencyTask,
             mockk(),
-        )
+        ) { probe ->
+            taskProvider.configure(probe)
+        }
 
         invokeGradleAction(
-            { probe -> dependencyTask.resolutionStrategy(probe) },
             strategy,
             mockk(),
-        )
+        ) { probe ->
+            dependencyTask.resolutionStrategy(probe)
+        }
 
         invokeGradleAction(
-            { probe -> strategy.componentSelection(probe) },
             ruledSelection,
             mockk(),
-        )
+        ) { probe ->
+            strategy.componentSelection(probe)
+        }
 
         invokeGradleAction(
-            { probe -> ruledSelection.all(probe) },
             selection,
             mockk(),
-        )
+        ) { probe ->
+            ruledSelection.all(probe)
+        }
 
         every { selection.currentVersion } returns currentVersion
         every { selection.candidate.version } returns candidateVersion

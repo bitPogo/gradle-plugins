@@ -87,10 +87,9 @@ class AndroidExtensionConfiguratorSpec {
             jacocoExtension.excludes = any()
         } just Runs
 
-        invokeGradleAction(
-            { probe -> extensions.configure(ApplicationExtension::class.java, probe) },
-            extension,
-        )
+        invokeGradleAction(extension) { probe ->
+            extensions.configure(ApplicationExtension::class.java, probe)
+        }
 
         // When
         AndroidExtensionConfigurator.configure(project)
@@ -158,10 +157,9 @@ class AndroidExtensionConfiguratorSpec {
             jacocoExtension.excludes = any()
         } just Runs
 
-        invokeGradleAction(
-            { probe -> extensions.configure(LibraryExtension::class.java, probe) },
-            extension,
-        )
+        invokeGradleAction(extension) { probe ->
+            extensions.configure(LibraryExtension::class.java, probe)
+        }
 
         // When
         AndroidExtensionConfigurator.configure(project)

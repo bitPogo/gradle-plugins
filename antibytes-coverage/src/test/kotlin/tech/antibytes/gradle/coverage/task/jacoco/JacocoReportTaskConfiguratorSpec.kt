@@ -115,10 +115,11 @@ class JacocoReportTaskConfiguratorSpec {
         every { tasks.findByName(testDependencies[1]) } returns testTasks2
 
         invokeGradleAction(
-            { probe -> tasks.create("${contextId}Coverage", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            tasks.create("${contextId}Coverage", JacocoReport::class.java, probe)
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -131,19 +132,21 @@ class JacocoReportTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> project.fileTree(projectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            project.fileTree(projectDir, probe)
+        }
 
         every { fileTreeClassFiles.setExcludes(configuration.classFilter) } returns mockk()
         every { fileTreeClassFiles.setIncludes(configuration.classPattern) } returns mockk()
 
         invokeGradleAction(
-            { probe -> project.fileTree(buildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            project.fileTree(buildDir, probe)
+        }
         every {
             fileTreeExecutionFiles.setIncludes(
                 testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
@@ -151,10 +154,11 @@ class JacocoReportTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> jacocoTask.reports(probe) },
             reports,
             reports,
-        )
+        ) { probe ->
+            jacocoTask.reports(probe)
+        }
 
         every { reports.html } returns html
         every { html.required } returns isHtmlUsed
@@ -265,25 +269,28 @@ class JacocoReportTaskConfiguratorSpec {
         every { tasks.findByName(testDependencies[1]) } returns null
 
         invokeGradleAction(
-            { probe -> tasks.create("${contextId}Coverage", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            tasks.create("${contextId}Coverage", JacocoReport::class.java, probe)
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
         every { jacocoTask.setDependsOn(capture(dependencies)) } just Runs
 
         invokeGradleAction(
-            { probe -> project.fileTree(projectDir, probe) },
             mockk<ConfigurableFileTree>(relaxed = true),
             mockk(),
-        )
+        ) { probe ->
+            project.fileTree(projectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> project.fileTree(buildDir, probe) },
             mockk<ConfigurableFileTree>(relaxed = true),
             mockk(),
-        )
+        ) { probe ->
+            project.fileTree(buildDir, probe)
+        }
 
         // When
         JacocoReportTaskConfigurator.configure(project, contextId, configuration)
@@ -373,10 +380,11 @@ class JacocoReportTaskConfiguratorSpec {
         every { tasks.findByName(instrumentedTestDependencies[1]) } returns instrumentedTestTasks2
 
         invokeGradleAction(
-            { probe -> tasks.create("${contextId}Coverage", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            tasks.create("${contextId}Coverage", JacocoReport::class.java, probe)
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
@@ -389,19 +397,21 @@ class JacocoReportTaskConfiguratorSpec {
         every { jacocoTask.executionData } returns executionData
 
         invokeGradleAction(
-            { probe -> project.fileTree(projectDir, probe) },
             fileTreeClassFiles,
             classFiles,
-        )
+        ) { probe ->
+            project.fileTree(projectDir, probe)
+        }
 
         every { fileTreeClassFiles.setExcludes(configuration.classFilter) } returns mockk()
         every { fileTreeClassFiles.setIncludes(configuration.classPattern) } returns mockk()
 
         invokeGradleAction(
-            { probe -> project.fileTree(buildDir, probe) },
             fileTreeExecutionFiles,
             executionFiles,
-        )
+        ) { probe ->
+            project.fileTree(buildDir, probe)
+        }
 
         every {
             fileTreeExecutionFiles.setIncludes(
@@ -422,10 +432,11 @@ class JacocoReportTaskConfiguratorSpec {
         } returns mockk()
 
         invokeGradleAction(
-            { probe -> jacocoTask.reports(probe) },
             reports,
             reports,
-        )
+        ) { probe ->
+            jacocoTask.reports(probe)
+        }
 
         every { reports.html } returns html
         every { html.required } returns isHtmlUsed
@@ -543,25 +554,28 @@ class JacocoReportTaskConfiguratorSpec {
         every { tasks.findByName(instrumentedTestDependencies[1]) } returns instrumentedTestTasks1
 
         invokeGradleAction(
-            { probe -> tasks.create("${contextId}Coverage", JacocoReport::class.java, probe) },
             jacocoTask,
             jacocoTask,
-        )
+        ) { probe ->
+            tasks.create("${contextId}Coverage", JacocoReport::class.java, probe)
+        }
 
         // please note there is a bug in Mockk which prevents to simply verify the provided arguments
         val dependencies: CapturingSlot<Set<Task>> = slot()
         every { jacocoTask.setDependsOn(capture(dependencies)) } just Runs
 
         invokeGradleAction(
-            { probe -> project.fileTree(projectDir, probe) },
             mockk<ConfigurableFileTree>(relaxed = true),
             mockk(),
-        )
+        ) { probe ->
+            project.fileTree(projectDir, probe)
+        }
         invokeGradleAction(
-            { probe -> project.fileTree(buildDir, probe) },
             mockk<ConfigurableFileTree>(relaxed = true),
             mockk(),
-        )
+        ) { probe ->
+            project.fileTree(buildDir, probe)
+        }
 
         // When
         JacocoReportTaskConfigurator.configure(project, contextId, configuration)

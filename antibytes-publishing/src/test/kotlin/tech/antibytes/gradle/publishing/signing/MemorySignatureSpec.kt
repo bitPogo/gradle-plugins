@@ -57,25 +57,27 @@ class MemorySignatureSpec {
         every { signingExtension.sign(any<DomainObjectCollection<Publication>>()) } returns emptyList()
         every { signingExtension.useInMemoryPgpKeys(any(), any()) } just Runs
 
-        invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension,
-        )
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
+
+        invokeGradleAction(signingExtension) { probe ->
+            extensions.configure(SigningExtension::class.java, probe)
+        }
 
         invokeGradleAction(
-            { probe -> publishingExtension.publications(probe) },
             publicationContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.publications(probe)
+        }
+
         invokeGradleAction(
-            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
             mockk(),
-        )
+        ) { probe ->
+            publicationContainer.withType(MavenPublication::class.java, probe)
+        }
 
         val signingConfiguration = MemorySigningConfiguration(
             key = fixture(),
@@ -111,25 +113,27 @@ class MemorySignatureSpec {
         every { signingExtension.sign(any<DomainObjectCollection<Publication>>()) } returns emptyList()
         every { signingExtension.useInMemoryPgpKeys(any(), any()) } just Runs
 
-        invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension,
-        )
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
+
+        invokeGradleAction(signingExtension) { probe ->
+            extensions.configure(SigningExtension::class.java, probe)
+        }
 
         invokeGradleAction(
-            { probe -> publishingExtension.publications(probe) },
             publicationContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.publications(probe)
+        }
+
         invokeGradleAction(
-            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
             mockk(),
-        )
+        ) { probe ->
+            publicationContainer.withType(MavenPublication::class.java, probe)
+        }
 
         val signingConfiguration = CompleteMemorySigningConfiguration(
             key = fixture(),
@@ -170,25 +174,27 @@ class MemorySignatureSpec {
         every { signingExtension.sign(any<DomainObjectCollection<Publication>>()) } returns emptyList()
         every { signingExtension.useInMemoryPgpKeys(any(), any()) } just Runs
 
-        invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> extensions.configure(SigningExtension::class.java, probe) },
-            signingExtension,
-        )
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
+
+        invokeGradleAction(signingExtension) { probe ->
+            extensions.configure(SigningExtension::class.java, probe)
+        }
 
         invokeGradleAction(
-            { probe -> publishingExtension.publications(probe) },
             publicationContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.publications(probe)
+        }
+
         invokeGradleAction(
-            { probe -> publicationContainer.withType(MavenPublication::class.java, probe) },
             publication,
             mockk(),
-        )
+        ) { probe ->
+            publicationContainer.withType(MavenPublication::class.java, probe)
+        }
 
         val signingConfiguration = CompleteMemorySigningConfiguration(
             key = fixture(),

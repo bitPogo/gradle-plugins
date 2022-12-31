@@ -45,15 +45,13 @@ class DokkaConfiguratorSpec {
         every { project.tasks.withType(DokkaTask::class.java) } returns taskCollection
         every { dokkaTask.dokkaSourceSets } returns builderContainer
 
-        invokeGradleAction(
-            { probe -> taskCollection.configureEach(probe) },
-            dokkaTask,
-        )
+        invokeGradleAction(dokkaTask) { probe ->
+            taskCollection.configureEach(probe)
+        }
 
-        invokeGradleAction(
-            { probe -> builderContainer.configureEach(probe) },
-            dokkaBuilder,
-        )
+        invokeGradleAction(dokkaBuilder) { probe ->
+            builderContainer.configureEach(probe)
+        }
 
         // When
         DokkaConfigurator.configure(project, Any())

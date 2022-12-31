@@ -25,10 +25,11 @@ class AntiBytesCustomDependenciesSpec {
         val repository = CustomRepository("test")
 
         invokeGradleAction(
-            { probe -> handler.maven(probe) },
             mavenRepository,
             mavenRepository,
-        )
+        ) { probe ->
+            handler.maven(probe)
+        }
 
         // When
         handler.addCustomRepositories(listOf(repository, repository))
@@ -50,16 +51,18 @@ class AntiBytesCustomDependenciesSpec {
         )
 
         invokeGradleAction(
-            { probe -> handler.maven(probe) },
             mavenRepository,
             mavenRepository,
-        )
+        ) { probe ->
+            handler.maven(probe)
+        }
 
         invokeGradleAction(
-            { probe -> mavenRepository.content(probe) },
             content,
             content,
-        )
+        ) { probe ->
+            mavenRepository.content(probe)
+        }
 
         // When
         handler.addCustomRepositories(listOf(repository, repository))
@@ -86,16 +89,18 @@ class AntiBytesCustomDependenciesSpec {
         )
 
         invokeGradleAction(
-            { probe -> handler.maven(probe) },
             mavenRepository,
             mavenRepository,
-        )
+        ) { probe ->
+            handler.maven(probe)
+        }
 
         invokeGradleAction(
-            { probe -> mavenRepository.credentials(probe) },
             mavenCredentials,
             mavenCredentials,
-        )
+        ) { probe ->
+            mavenRepository.credentials(probe)
+        }
 
         // When
         handler.addCustomRepositories(listOf(repository, repository))

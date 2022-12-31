@@ -222,10 +222,11 @@ class AntibytesDocumentationSpec {
         } returns mockk(relaxed = true)
 
         invokeGradleAction(
-            { probe -> project.tasks.register("clean", Delete::class.java, probe) },
             cleanUpTask,
             mockk(),
-        )
+        ) { probe ->
+            project.tasks.register("clean", Delete::class.java, probe)
+        }
 
         // When
         AntibytesDocumentation().apply(project)
@@ -265,10 +266,11 @@ class AntibytesDocumentationSpec {
         every { mkDocs.publish } returns publishing
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             project,
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         every { project.extensions.getByType(MkdocsExtension::class.java) } returns mkDocs
         every { Versioning.getInstance(any(), any()).versionName() } returns version
@@ -317,10 +319,11 @@ class AntibytesDocumentationSpec {
         every { mkDocs.publish } returns publishing
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             project,
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         every { project.extensions.getByType(MkdocsExtension::class.java) } returns mkDocs
         every { Versioning.getInstance(any(), any()).versionName() } returns version

@@ -105,14 +105,12 @@ class AntibytesCustomComponentSpec {
         every { componentConfiguration.artifacts.add(capture(capturedArtifact)) } returns fixture()
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             project,
-        )
-        invokeGradleAction(
-            { probe -> component.addVariantsFromConfiguration(any(), probe) },
-            variantDetails,
-        )
+        ) { probe -> project.afterEvaluate(probe) }
+        invokeGradleAction(variantDetails) { probe ->
+            component.addVariantsFromConfiguration(any(), probe)
+        }
 
         // When
         AntibytesCustomComponent(componentFactory).apply(project)

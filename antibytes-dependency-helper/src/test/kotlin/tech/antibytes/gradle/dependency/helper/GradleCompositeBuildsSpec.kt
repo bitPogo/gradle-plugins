@@ -46,10 +46,11 @@ class GradleCompositeBuildsSpec {
         }
 
         invokeGradleAction(
-            { probe -> taskContainer.named(any(), probe) },
             clean,
             mockk(),
-        )
+        ) { probe ->
+            taskContainer.named(any(), probe)
+        }
 
         // When
         GradleCompositeBuilds.configure(project)

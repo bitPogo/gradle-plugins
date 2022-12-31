@@ -301,15 +301,17 @@ class PublisherStandaloneControllerSpec {
         every { publishingTask.description = any() } just Runs
 
         invokeGradleAction(
-            { probe -> tasks.create("publish${registry1.name.capitalize()}", probe) },
             publishingTask,
             publishingTask,
-        )
+        ) { probe ->
+            tasks.create("publish${registry1.name.capitalize()}", probe)
+        }
         invokeGradleAction(
-            { probe -> tasks.create("publish${registry2.name.capitalize()}", probe) },
             publishingTask,
             publishingTask,
-        )
+        ) { probe ->
+            tasks.create("publish${registry2.name.capitalize()}", probe)
+        }
 
         // When
         PublisherStandaloneController.configure(

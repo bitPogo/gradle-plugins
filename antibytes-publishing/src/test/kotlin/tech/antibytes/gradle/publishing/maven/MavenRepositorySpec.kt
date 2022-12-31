@@ -58,25 +58,30 @@ class MavenRepositorySpec {
         every { project.rootProject.buildDir } returns File(fixture<String>())
         every { project.extensions } returns extensions
         every { publishingExtension.repositories } returns repositoryContainer
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
+
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
+
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
+
         invokeGradleAction(
-            { probe -> repository.credentials(probe) },
             credentials,
             mockk(),
-        )
+        ) { probe ->
+            repository.credentials(probe)
+        }
 
         // When
         MavenRepository.configure(
@@ -114,25 +119,28 @@ class MavenRepositorySpec {
         every { project.rootProject.buildDir } returns File(fixture<String>())
         every { project.extensions } returns extensions
         every { publishingExtension.repositories } returns repositoryContainer
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
+
         invokeGradleAction(
-            { probe -> repository.credentials(probe) },
             credentials,
             mockk(),
-        )
+        ) { probe ->
+            repository.credentials(probe)
+        }
 
         // When
         MavenRepository.configure(
@@ -167,25 +175,28 @@ class MavenRepositorySpec {
         every { project.extensions } returns extensions
         every { project.rootProject.buildDir } returns mockk(relaxed = true)
         every { publishingExtension.repositories } returns repositoryContainer
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
+
         invokeGradleAction(
-            { probe -> repository.credentials(probe) },
             credentials,
             mockk(),
-        )
+        ) { probe ->
+            repository.credentials(probe)
+        }
 
         // When
         MavenRepository.configure(
@@ -220,25 +231,28 @@ class MavenRepositorySpec {
         every { project.extensions } returns extensions
         every { project.rootProject.buildDir } returns mockk(relaxed = true)
         every { publishingExtension.repositories } returns repositoryContainer
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
+
         invokeGradleAction(
-            { probe -> repository.credentials(probe) },
             credentials,
             mockk(),
-        )
+        ) { probe ->
+            repository.credentials(probe)
+        }
 
         // When
         MavenRepository.configure(
@@ -276,20 +290,21 @@ class MavenRepositorySpec {
 
         every { repository.setUrl(capture(url)) } just Runs
 
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
 
         // When
         MavenRepository.configure(
@@ -330,20 +345,21 @@ class MavenRepositorySpec {
 
         every { repository.setUrl(capture(url)) } just Runs
 
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
 
         // When
         MavenRepository.configure(
@@ -385,20 +401,21 @@ class MavenRepositorySpec {
 
         every { repository.setUrl(capture(url)) } just Runs
 
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
 
         // When
         MavenRepository.configure(
@@ -440,20 +457,21 @@ class MavenRepositorySpec {
 
         every { repository.setUrl(capture(url)) } just Runs
 
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
 
         // When
         MavenRepository.configure(
@@ -495,20 +513,21 @@ class MavenRepositorySpec {
 
         every { repository.setUrl(capture(url)) } just Runs
 
+        invokeGradleAction(publishingExtension) { probe ->
+            extensions.configure(PublishingExtension::class.java, probe)
+        }
         invokeGradleAction(
-            { probe -> extensions.configure(PublishingExtension::class.java, probe) },
-            publishingExtension,
-        )
-        invokeGradleAction(
-            { probe -> publishingExtension.repositories(probe) },
             repositoryContainer,
             mockk(),
-        )
+        ) { probe ->
+            publishingExtension.repositories(probe)
+        }
         invokeGradleAction(
-            { probe -> repositoryContainer.maven(probe) },
             repository,
             mockk(),
-        )
+        ) { probe ->
+            repositoryContainer.maven(probe)
+        }
 
         // When
         MavenRepository.configure(

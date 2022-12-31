@@ -30,16 +30,16 @@ class InsuranceSpec {
         every { project.configurations } returns configurations
         every { configuration.resolutionStrategy } returns resolutionStrategy
 
-        invokeGradleAction(
-            { probe -> configurations.all(probe) },
-            configuration,
-        )
+        invokeGradleAction(configuration) { probe ->
+            configurations.all(probe)
+        }
 
         invokeGradleAction(
-            { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
             resolutionStrategy,
-        )
+        ) { probe ->
+            resolutionStrategy.eachDependency(probe)
+        }
 
         // When
         project.ensureKotlinVersion()
@@ -62,16 +62,16 @@ class InsuranceSpec {
         every { selector.requested.group } returns "org.jetbrains.kotlin"
         every { selector.target.name } returns "any"
 
-        invokeGradleAction(
-            { probe -> configurations.all(probe) },
-            configuration,
-        )
+        invokeGradleAction(configuration) { probe ->
+            configurations.all(probe)
+        }
 
         invokeGradleAction(
-            { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
             resolutionStrategy,
-        )
+        ) { probe ->
+            resolutionStrategy.eachDependency(probe)
+        }
 
         // When
         project.ensureKotlinVersion()
@@ -102,16 +102,16 @@ class InsuranceSpec {
         every { selector.requested.name } returnsMany toEnsure
         every { selector.target.name } returns "any"
 
-        invokeGradleAction(
-            { probe -> configurations.all(probe) },
-            configuration,
-        )
+        invokeGradleAction(configuration) { probe ->
+            configurations.all(probe)
+        }
 
         invokeGradleAction(
-            { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
             resolutionStrategy,
-        )
+        ) { probe ->
+            resolutionStrategy.eachDependency(probe)
+        }
 
         // When
         repeat(toEnsure.size) {
@@ -145,16 +145,16 @@ class InsuranceSpec {
         every { selector.requested.name } returnsMany toEnsure
         every { selector.target.name } returns "any"
 
-        invokeGradleAction(
-            { probe -> configurations.all(probe) },
-            configuration,
-        )
+        invokeGradleAction(configuration) { probe ->
+            configurations.all(probe)
+        }
 
         invokeGradleAction(
-            { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
             resolutionStrategy,
-        )
+        ) { probe ->
+            resolutionStrategy.eachDependency(probe)
+        }
 
         // When
         repeat(toEnsure.size) {
@@ -188,16 +188,16 @@ class InsuranceSpec {
         every { selector.requested.name } returnsMany toEnsure
         every { selector.target.name } returns "someThing"
 
-        invokeGradleAction(
-            { probe -> configurations.all(probe) },
-            configuration,
-        )
+        invokeGradleAction(configuration) { probe ->
+            configurations.all(probe)
+        }
 
         invokeGradleAction(
-            { probe -> resolutionStrategy.eachDependency(probe) },
             selector,
             resolutionStrategy,
-        )
+        ) { probe ->
+            resolutionStrategy.eachDependency(probe)
+        }
 
         // When
         repeat(toEnsure.size) {

@@ -74,10 +74,11 @@ class StableApiSpec {
         every { stableApi.nonPublicMarkers.addAll(capture(nonPublicMarkers)) } returns fixture()
 
         invokeGradleAction(
-            { probe -> project.extensions.configure(ApiValidationExtension::class.java, probe) },
             stableApi,
             stableApi,
-        )
+        ) { probe ->
+            project.extensions.configure(ApiValidationExtension::class.java, probe)
+        }
 
         every { project.subprojects } returns mockk(relaxed = true)
         every { project.plugins.apply(any()) } returns mockk()

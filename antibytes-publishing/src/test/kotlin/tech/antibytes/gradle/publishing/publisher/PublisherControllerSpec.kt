@@ -93,10 +93,11 @@ class PublisherControllerSpec {
         every { PublisherSubProjectController.configure(any(), any(), any(), any()) } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         PublisherController.configure(project = project, extension = config)
@@ -140,10 +141,11 @@ class PublisherControllerSpec {
         every { PublisherSubProjectController.configure(any(), any(), any(), any()) } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         PublisherController.configure(project = project, extension = config)
@@ -195,10 +197,11 @@ class PublisherControllerSpec {
         every { PublisherSubProjectController.configure(any(), any(), any(), any()) } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         PublisherController.configure(
@@ -245,10 +248,11 @@ class PublisherControllerSpec {
         every { PublisherSubProjectController.configure(any(), any(), any(), any()) } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         PublisherController.configure(project = project, extension = config)
@@ -297,10 +301,11 @@ class PublisherControllerSpec {
         every { PublisherSubProjectController.configure(any(), any(), any(), any()) } just Runs
 
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             project,
             mockk(),
-        )
+        ) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         // When
         PublisherController.configure(

@@ -31,10 +31,9 @@ class GradleActionSpec {
 
         // When
         invokeGradleAction(
-            { probe -> project.fileTree(buildDir, probe) },
             fileTreeProbe,
             givenFiles,
-        )
+        ) { probe -> project.fileTree(buildDir, probe) }
 
         val result = project.fileTree(project.buildDir) {
             setExcludes(proof)
@@ -59,9 +58,8 @@ class GradleActionSpec {
 
         // When
         invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
             scopedProject,
-        )
+        ) { probe -> project.afterEvaluate(probe) }
 
         project.afterEvaluate {
             buildDir = proof

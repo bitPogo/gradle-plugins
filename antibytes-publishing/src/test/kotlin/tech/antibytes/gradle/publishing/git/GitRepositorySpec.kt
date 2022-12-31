@@ -92,20 +92,23 @@ class GitRepositorySpec {
         every { taskContainer.create(any<String>(), any<Closure<*>>()) } returns mockk()
 
         invokeGradleAction(
-            { probe -> taskContainer.create("clone${name.capitalize()}", probe) },
             task,
             mockk(),
-        )
+        ) { probe ->
+            taskContainer.create("clone${name.capitalize()}", probe)
+        }
         invokeGradleAction(
-            { probe -> taskContainer.create("push${name.capitalize()}", probe) },
             mockk<Task>(relaxed = true),
             mockk(),
-        )
+        ) { probe ->
+            taskContainer.create("push${name.capitalize()}", probe)
+        }
         invokeGradleAction(
-            { probe -> task.doLast(probe) },
             task,
             mockk(),
-        )
+        ) { probe ->
+            task.doLast(probe)
+        }
 
         every { GitActions.checkout(project, configuration) } just Runs
 
@@ -167,20 +170,23 @@ class GitRepositorySpec {
         every { project.tasks } returns taskContainer
 
         invokeGradleAction(
-            { probe -> taskContainer.create("push${name.capitalize()}", probe) },
             task,
             mockk(),
-        )
+        ) { probe ->
+            taskContainer.create("push${name.capitalize()}", probe)
+        }
         invokeGradleAction(
-            { probe -> taskContainer.create("clone${name.capitalize()}", probe) },
             mockk<Task>(relaxed = true),
             mockk(),
-        )
+        ) { probe ->
+            taskContainer.create("clone${name.capitalize()}", probe)
+        }
         invokeGradleAction(
-            { probe -> task.doLast(probe) },
             task,
             mockk(),
-        )
+        ) { probe ->
+            task.doLast(probe)
+        }
 
         every {
             GitActions.push(
@@ -232,20 +238,23 @@ class GitRepositorySpec {
         every { project.tasks } returns taskContainer
 
         invokeGradleAction(
-            { probe -> taskContainer.create("push${name.capitalize()}", probe) },
             task,
             mockk(),
-        )
+        ) { probe ->
+            taskContainer.create("push${name.capitalize()}", probe)
+        }
         invokeGradleAction(
-            { probe -> taskContainer.create("clone${name.capitalize()}", probe) },
             mockk<Task>(relaxed = true),
             mockk(),
-        )
+        ) { probe ->
+            taskContainer.create("clone${name.capitalize()}", probe)
+        }
         invokeGradleAction(
-            { probe -> task.doLast(probe) },
             task,
             mockk(),
-        )
+        ) { probe ->
+            task.doLast(probe)
+        }
 
         every {
             task.dependsOn(

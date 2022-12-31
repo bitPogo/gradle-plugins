@@ -72,10 +72,9 @@ class AntibytesCoverageSpec {
 
         every { project.evaluationDependsOnChildren() } just Runs
 
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-        )
+        invokeGradleAction(project) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         every { TaskController.configure(any(), any()) } just Runs
 
@@ -126,10 +125,9 @@ class AntibytesCoverageSpec {
 
         every { project.evaluationDependsOnChildren() } just Runs
 
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-        )
+        invokeGradleAction(project) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         every { TaskController.configure(any(), any()) } just Runs
 
@@ -180,10 +178,9 @@ class AntibytesCoverageSpec {
 
         every { project.evaluationDependsOnChildren() } just Runs
 
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-        )
+        invokeGradleAction(project) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         every { TaskController.configure(any(), any()) } just Runs
 
@@ -232,10 +229,9 @@ class AntibytesCoverageSpec {
 
         every { project.evaluationDependsOnChildren() } just Runs
 
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-        )
+        invokeGradleAction(project) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         every { TaskController.configure(any(), any()) } just Runs
 
@@ -286,10 +282,9 @@ class AntibytesCoverageSpec {
 
         every { project.evaluationDependsOnChildren() } just Runs
 
-        invokeGradleAction(
-            { probe -> project.afterEvaluate(probe) },
-            project,
-        )
+        invokeGradleAction(project) { probe ->
+            project.afterEvaluate(probe)
+        }
 
         every { TaskController.configure(any(), any()) } just Runs
 
