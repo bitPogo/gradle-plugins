@@ -13,7 +13,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertSame
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
@@ -41,7 +40,7 @@ class VersionCatalogTransformerSpec {
     }
 
     @Test
-    fun `Given asPythonPackage is called it returns a string composed of the id and version`() {
+    fun `Given asPythonPackage is called it adds the transformed NodeVersion to Production`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
         val artifactId: String = fixture()
@@ -69,10 +68,10 @@ class VersionCatalogTransformerSpec {
     }
 
     @Test
-    fun `Given asNodeProdPackage is called it returns a string composed of the id and version`() {
+    fun `Given nodeProductionPackage is called it adds the transformed NodeVersion to Production`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -88,25 +87,23 @@ class VersionCatalogTransformerSpec {
             every { npm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodeProductionPackage(provider)
+            nodeProductionPackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 npm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
         }
     }
 
     @Test
-    fun `Given asNodeProdPackage is called it logs an error is not a NodeProductionPackage`() {
+    fun `Given nodeProductionPackage is called it logs an error is not a NodeProductionPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val project: Project = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
@@ -121,16 +118,14 @@ class VersionCatalogTransformerSpec {
             every { npm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodeProductionPackage(provider)
+            nodeProductionPackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 npm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
             verify(atLeast = 1) {
                 project.logger.warn("This is not a production package.")
@@ -139,10 +134,10 @@ class VersionCatalogTransformerSpec {
     }
 
     @Test
-    fun `Given asNodeDevPackage is called it returns a string composed of the id and version`() {
+    fun `Given nodeDevelopmentPackage is called it adds the transformed NodeVersion to Development`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -158,25 +153,23 @@ class VersionCatalogTransformerSpec {
             every { devNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodeDevelopmentPackage(provider)
+            nodeDevelopmentPackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 devNpm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
         }
     }
 
     @Test
-    fun `Given asNodeDevPackage is called it logs an error is not a NodeDevelopmentPackage`() {
+    fun `Given nodeDevelopmentPackage is called it logs an error is not a NodeDevelopmentPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val project: Project = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
@@ -191,16 +184,14 @@ class VersionCatalogTransformerSpec {
             every { devNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodeDevelopmentPackage(provider)
+            nodeDevelopmentPackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 devNpm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
             verify(atLeast = 1) {
                 project.logger.warn("This is not a development package.")
@@ -209,10 +200,10 @@ class VersionCatalogTransformerSpec {
     }
 
     @Test
-    fun `Given asNodePeerPackage is called it returns a string composed of the id and version`() {
+    fun `Given nodePeerPackage is called it adds the transformed NodeVersion as PeerPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -228,25 +219,23 @@ class VersionCatalogTransformerSpec {
             every { peerNpm(any(), any()) } returns dependency
 
             // When
-            val actual = nodePeerPackage(provider)
+            nodePeerPackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 peerNpm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
         }
     }
 
     @Test
-    fun `Given asNodePeerPackage is called it logs an error is not a NodePeerPackage`() {
+    fun `Given nodePeerPackage is called it logs an error is not a NodePeerPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val project: Project = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
@@ -258,31 +247,29 @@ class VersionCatalogTransformerSpec {
         every { kotlinDependencyHandler.project } returns project
 
         applyDependencyContext(kotlinDependencyHandler) {
-            every { peerNpm(any(), any<String>()) } returns dependency
+            every { peerNpm(any(), any()) } returns dependency
 
             // When
-            val actual = nodePeerPackage(provider)
+            nodePeerPackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 peerNpm(artifactId, version)
             }
             verify(atLeast = 1) {
                 project.logger.warn("This is not a peer package.")
             }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
+            }
         }
     }
 
     @Test
-    fun `Given asNodeOptionalPackage is called it returns a string composed of the id and version`() {
+    fun `Given nodeOptionalPackage is called it adds the transformed NodeVersion as OptionalPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -298,25 +285,23 @@ class VersionCatalogTransformerSpec {
             every { optionalNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodeOptionalPackage(provider)
+            nodeOptionalPackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 optionalNpm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
         }
     }
 
     @Test
-    fun `Given asNodeOptionalPackage is called it logs an error is not a NodeOptionalPackage`() {
+    fun `Given nodeOptionalPackage is called it logs an error is not a NodeOptionalPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val project: Project = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
@@ -331,28 +316,26 @@ class VersionCatalogTransformerSpec {
             every { optionalNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodeOptionalPackage(provider)
+            nodeOptionalPackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 optionalNpm(artifactId, version)
             }
             verify(atLeast = 1) {
                 project.logger.warn("This is not a optional package.")
             }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
+            }
         }
     }
 
     @Test
-    fun `Given asNodePackage is called it fails due to a unknown package`() {
+    fun `Given nodePackage is called it fails due to a unknown package`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val project: Project = mockk(relaxed = true)
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -371,10 +354,10 @@ class VersionCatalogTransformerSpec {
     }
 
     @Test
-    fun `Given asNodePackage is called it returns a string composed of the id and version for NodeProductionPackage`() {
+    fun `Given nodePackage is called it adds the transformed NodeVersion to Production as NodeProductionPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -390,25 +373,23 @@ class VersionCatalogTransformerSpec {
             every { npm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodePackage(provider)
+            nodePackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 npm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
         }
     }
 
     @Test
-    fun `Given asNodePackage is called it returns a string composed of the id and version for NodeDevelopmentPackage`() {
+    fun `Given nodePackage is called it adds the transformed NodeVersion to Production as NodeDevelopmentPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -424,25 +405,23 @@ class VersionCatalogTransformerSpec {
             every { devNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodePackage(provider)
+            nodePackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 devNpm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
         }
     }
 
     @Test
-    fun `Given asNodePeerPackage is called it returns a string composed of the id and version for NodePeerPackage`() {
+    fun `Given nodePeerPackage is called it adds the transformed NodeVersion to Production as NodePeerPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -458,25 +437,23 @@ class VersionCatalogTransformerSpec {
             every { peerNpm(any(), any()) } returns dependency
 
             // When
-            val actual = nodePackage(provider)
+            nodePackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 peerNpm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
         }
     }
 
     @Test
-    fun `Given asNodeOptionalPackage is called it returns a string composed of the id and version for NodeOptionalPackage`() {
+    fun `Given nodeOptionalPackage is called it adds the transformed NodeVersion to Production as NodeOptionalPackage`() {
         // Given
         val provider: Provider<MinimalExternalModuleDependency> = mockk()
-        val kotlinDependencyHandler: KotlinDependencyHandler = mockk()
+        val kotlinDependencyHandler: KotlinDependencyHandler = mockk(relaxed = true)
         val dependency: Dependency = mockk()
         val artifactId: String = fixture()
         val version: String = fixture()
@@ -492,16 +469,14 @@ class VersionCatalogTransformerSpec {
             every { optionalNpm(any(), any<String>()) } returns dependency
 
             // When
-            val actual = nodePackage(provider)
+            nodePackage(provider)
 
             // Then
-            assertSame(
-                actual = actual,
-                expected = dependency,
-            )
-
             verify(exactly = 1) {
                 optionalNpm(artifactId, version)
+            }
+            verify(exactly = 1) {
+                kotlinDependencyHandler.implementation(dependency)
             }
         }
     }
