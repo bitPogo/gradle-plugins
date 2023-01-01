@@ -56,7 +56,7 @@ class VersionCatalogTransformerSpec {
         // Then
         assertEquals(
             actual = actual,
-            expected = "$artifactId==$version",
+            expected = "$artifactId:$version",
         )
     }
 
