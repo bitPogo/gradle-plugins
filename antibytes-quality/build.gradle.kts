@@ -195,7 +195,9 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
         mapOf(
             "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
-            "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.get().toString(),
+            "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.let { provider ->
+               "${provider.get().module}:${Versioning.getInstance(project, versioningConfiguration).versionName()}"
+            },
         )
     )
 }
