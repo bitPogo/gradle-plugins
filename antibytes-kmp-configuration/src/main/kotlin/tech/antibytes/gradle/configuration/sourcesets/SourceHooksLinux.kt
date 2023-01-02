@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun KotlinMultiplatformExtension.linuxArm(
     namePrefix: String = "linuxArm",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     linuxArm64("${namePrefix}64", configuration)
     linuxArm32Hfp("${namePrefix}32Hfp", configuration)
@@ -27,13 +27,13 @@ fun KotlinMultiplatformExtension.linuxArm(
     depends(
         targets = targets,
         mainDependency = linuxMain,
-        testDependency = linuxTest
+        testDependency = linuxTest,
     )
 }
 
 fun KotlinMultiplatformExtension.linuxMips(
     namePrefix: String = "linuxMips",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     linuxMips32("${namePrefix}32", configuration)
     linuxMipsel32("${namePrefix}el32", configuration)
@@ -49,13 +49,13 @@ fun KotlinMultiplatformExtension.linuxMips(
     depends(
         targets = targets,
         mainDependency = linuxMain,
-        testDependency = linuxTest
+        testDependency = linuxTest,
     )
 }
 
 fun KotlinMultiplatformExtension.linux(
     namePrefix: String = "linux",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     linuxX64("${namePrefix}X64", configuration)
     linuxMips("${namePrefix}Mips", configuration)
@@ -73,6 +73,6 @@ fun KotlinMultiplatformExtension.linux(
     depends(
         targets = targets,
         mainDependency = linuxMain,
-        testDependency = linuxTest
+        testDependency = linuxTest,
     )
 }

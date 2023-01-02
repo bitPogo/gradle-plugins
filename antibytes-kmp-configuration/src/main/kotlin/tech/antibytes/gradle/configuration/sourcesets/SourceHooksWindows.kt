@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun KotlinMultiplatformExtension.windows(
     namePrefix: String = "mingw",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     mingwX64("${namePrefix}X64", configuration)
     mingwX86("${namePrefix}X86", configuration)
@@ -27,6 +27,6 @@ fun KotlinMultiplatformExtension.windows(
     depends(
         targets = targets,
         mainDependency = windowsMain,
-        testDependency = windowsTest
+        testDependency = windowsTest,
     )
 }

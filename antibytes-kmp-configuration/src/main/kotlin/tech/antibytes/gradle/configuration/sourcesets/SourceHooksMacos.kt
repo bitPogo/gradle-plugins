@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun KotlinMultiplatformExtension.macos(
     namePrefix: String = "macos",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     macosArm64("${namePrefix}Arm64", configuration)
     macosX64("${namePrefix}X64", configuration)
@@ -27,6 +27,6 @@ fun KotlinMultiplatformExtension.macos(
     depends(
         targets = targets,
         mainDependency = macosMain,
-        testDependency = macosTest
+        testDependency = macosTest,
     )
 }

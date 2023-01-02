@@ -6,14 +6,14 @@
 
 package tech.antibytes.gradle.configuration
 
+import java.util.function.BiFunction
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.Transformer
 import org.gradle.api.provider.Provider
-import java.util.function.BiFunction
 
 class TestNamedProvider<T>(
-    private val value: T?
+    private val value: T?,
 ) : NamedDomainObjectProvider<T> {
     override fun get(): T = value!!
 

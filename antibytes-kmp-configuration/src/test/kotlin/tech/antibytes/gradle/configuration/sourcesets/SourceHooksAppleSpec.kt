@@ -84,7 +84,6 @@ class SourceHooksAppleSpec {
         verify(exactly = 1) { extension.tvosx(configuration = configuration) }
         verify(exactly = 1) { extension.watchosx(configuration = configuration) }
 
-
         verify(exactly = 1) { sourceSets.named("iosMain", any()) }
         verify(exactly = 1) { sourceSets.named("iosTest", any()) }
 
@@ -132,7 +131,6 @@ class SourceHooksAppleSpec {
         verify(exactly = 1) { extension.macos(configuration = configuration) }
         verify(exactly = 1) { extension.tvosx(configuration = configuration) }
         verify(exactly = 1) { extension.watchosxWithLegacy(configuration = configuration) }
-
 
         verify(exactly = 1) { sourceSets.named("iosMain", any()) }
         verify(exactly = 1) { sourceSets.named("iosTest", any()) }

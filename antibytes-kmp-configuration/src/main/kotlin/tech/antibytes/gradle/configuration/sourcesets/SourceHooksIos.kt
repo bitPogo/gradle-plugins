@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun KotlinMultiplatformExtension.iosx(
     namePrefix: String = "ios",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     ios(namePrefix, configuration)
     iosSimulatorArm64("${namePrefix}SimulatorArm64", configuration)
@@ -32,10 +32,10 @@ private fun KotlinMultiplatformExtension.legacyIos(
 
 fun KotlinMultiplatformExtension.iosWithLegacy(
     namePrefix: String = "ios",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) = legacyIos(namePrefix, configuration) { ios(namePrefix, configuration) }
 
 fun KotlinMultiplatformExtension.iosxWithLegacy(
     namePrefix: String = "ios",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) = legacyIos(namePrefix, configuration) { iosx(namePrefix, configuration) }

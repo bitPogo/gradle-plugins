@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun KotlinMultiplatformExtension.watchosx(
     namePrefix: String = "watchos",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     watchosSimulatorArm64("${namePrefix}SimulatorArm64", configuration)
     watchos(namePrefix, configuration)
@@ -32,10 +32,10 @@ private fun KotlinMultiplatformExtension.legacyWatchos(
 
 fun KotlinMultiplatformExtension.watchosWithLegacy(
     namePrefix: String = "watchos",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) = legacyWatchos(namePrefix, configuration) { watchos(namePrefix, configuration) }
 
 fun KotlinMultiplatformExtension.watchosxWithLegacy(
     namePrefix: String = "watchos",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) = legacyWatchos(namePrefix, configuration) { watchosx(namePrefix, configuration) }

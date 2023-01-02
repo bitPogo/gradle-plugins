@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun KotlinMultiplatformExtension.apple(
     name: String = "apple",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     iosx(configuration = configuration)
     macos(configuration = configuration)
@@ -31,13 +31,13 @@ fun KotlinMultiplatformExtension.apple(
     depends(
         targets = targets,
         mainDependency = appleMain,
-        testDependency = appleTest
+        testDependency = appleTest,
     )
 }
 
 fun KotlinMultiplatformExtension.appleWithLegacy(
     name: String = "apple",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     iosxWithLegacy(configuration = configuration)
     macos(configuration = configuration)
@@ -57,6 +57,6 @@ fun KotlinMultiplatformExtension.appleWithLegacy(
     depends(
         targets = targets,
         mainDependency = appleMain,
-        testDependency = appleTest
+        testDependency = appleTest,
     )
 }

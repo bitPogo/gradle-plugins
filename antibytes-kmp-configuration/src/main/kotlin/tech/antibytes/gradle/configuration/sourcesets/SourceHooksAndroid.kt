@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun KotlinMultiplatformExtension.androidNativeArm(
     namePrefix: String = "androidNativeArm",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     androidNativeArm32("${namePrefix}32", configuration)
     androidNativeArm64("${namePrefix}64", configuration)
@@ -33,7 +33,7 @@ fun KotlinMultiplatformExtension.androidNativeArm(
 
 fun KotlinMultiplatformExtension.androidNativeX(
     namePrefix: String = "androidNativeX",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     androidNativeX64("${namePrefix}64", configuration)
     androidNativeX86("${namePrefix}86", configuration)
@@ -55,7 +55,7 @@ fun KotlinMultiplatformExtension.androidNativeX(
 
 fun KotlinMultiplatformExtension.androidNative(
     namePrefix: String = "androidNative",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     androidNativeArm("${namePrefix}Arm", configuration)
     androidNativeX("${namePrefix}X", configuration)

@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 fun KotlinMultiplatformExtension.tvosx(
     namePrefix: String = "tvos",
-    configuration: KotlinNativeTarget.() -> Unit = { }
+    configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     tvosSimulatorArm64("${namePrefix}SimulatorArm64", configuration)
     tvos(namePrefix, configuration)
