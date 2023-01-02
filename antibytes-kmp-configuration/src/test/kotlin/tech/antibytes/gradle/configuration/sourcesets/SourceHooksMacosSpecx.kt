@@ -17,7 +17,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.invokeGradleAction
 
-class SourceHooksMacOsSpec {
+class SourceHooksMacosSpecx {
     private val fixture = kotlinFixture()
 
     @Test
