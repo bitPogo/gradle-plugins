@@ -15,6 +15,8 @@ import io.mockk.mockkStatic
 import io.mockk.unmockkObject
 import io.mockk.verify
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.plugins.ExtensionContainer
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
@@ -52,7 +54,11 @@ class SourceHooksNativeSpec {
     @Test
     fun `Given native is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val name: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val native: KotlinSourceSet = mockk()
@@ -65,6 +71,10 @@ class SourceHooksNativeSpec {
         every { sourceSets.create(any()) } returns native
         invokeGradleAction(nativeSubset, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
         every { extension.androidNative(any(), any()) } just Runs
         every { extension.apple(any(), any()) } just Runs
@@ -105,7 +115,11 @@ class SourceHooksNativeSpec {
     @Test
     fun `Given nativeLegacy is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val name: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val native: KotlinSourceSet = mockk()
@@ -117,6 +131,10 @@ class SourceHooksNativeSpec {
         every { sourceSets.create(any()) } returns native
         invokeGradleAction(nativeSubset, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
         every { extension.androidNative(any(), any()) } just Runs
         every { extension.appleWithLegacy(any(), any()) } just Runs

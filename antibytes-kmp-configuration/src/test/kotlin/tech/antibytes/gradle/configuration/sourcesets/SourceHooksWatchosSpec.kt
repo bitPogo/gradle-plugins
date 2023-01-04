@@ -11,6 +11,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.plugins.ExtensionContainer
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
@@ -24,7 +26,11 @@ class SourceHooksWatchosSpec {
     @Test
     fun `Given watchosx is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val watchosSimulator: KotlinSourceSet = mockk(relaxed = true)
@@ -35,6 +41,10 @@ class SourceHooksWatchosSpec {
         every { sourceSets.named(any()) } returns TestNamedProvider(watchos)
         invokeGradleAction(watchosSimulator, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When
@@ -51,7 +61,11 @@ class SourceHooksWatchosSpec {
     @Test
     fun `Given legacyIos is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val watchosX86: KotlinSourceSet = mockk(relaxed = true)
@@ -62,6 +76,10 @@ class SourceHooksWatchosSpec {
         every { sourceSets.named(any()) } returns TestNamedProvider(watchos)
         invokeGradleAction(watchosX86, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When
@@ -78,7 +96,11 @@ class SourceHooksWatchosSpec {
     @Test
     fun `Given watchosxLegacy is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = {}
         val watchosMix: KotlinSourceSet = mockk(relaxed = true)
@@ -89,6 +111,10 @@ class SourceHooksWatchosSpec {
         every { sourceSets.named(any()) } returns TestNamedProvider(watchos)
         invokeGradleAction(watchosMix, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When

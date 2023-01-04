@@ -6,21 +6,30 @@
 
 package tech.antibytes.gradle.configuration.sourcesets
 
+import org.gradle.api.Action
+import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.plugins.ExtensionAware
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+
+private fun KotlinMultiplatformExtension.sourceSets(
+    configuration: Action<NamedDomainObjectContainer<KotlinSourceSet>>,
+): Unit = (this as ExtensionAware).extensions.configure("sourceSets", configuration)
 
 internal fun KotlinMultiplatformExtension.depends(
     targets: Set<String>,
     mainDependency: KotlinSourceSet,
     testDependency: KotlinSourceSet,
 ) {
-    targets.forEach { name ->
-        sourceSets.named("${name}Main") {
-            dependsOn(mainDependency)
-        }
+    sourceSets {
+        targets.forEach { target ->
+            named("${target}Main") {
+                dependsOn(mainDependency)
+            }
 
-        sourceSets.named("${name}Test") {
-            dependsOn(testDependency)
+            named("${target}Test") {
+                dependsOn(testDependency)
+            }
         }
     }
 }
@@ -28,8 +37,16 @@ internal fun KotlinMultiplatformExtension.depends(
 internal fun KotlinMultiplatformExtension.depends(
     targets: Set<String>,
     dependency: String,
-) = depends(
-    targets,
-    sourceSets.named("${dependency}Main").get(),
-    sourceSets.named("${dependency}Test").get(),
-)
+) {
+    sourceSets {
+        targets.forEach { target ->
+            named("${target}Main") {
+                dependsOn(this@sourceSets.named("${dependency}Main").get())
+            }
+
+            named("${target}Test") {
+                dependsOn(this@sourceSets.named("${dependency}Test").get())
+            }
+        }
+    }
+}
