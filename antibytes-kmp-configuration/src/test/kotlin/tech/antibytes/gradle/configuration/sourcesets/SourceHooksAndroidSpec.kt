@@ -11,6 +11,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.plugins.ExtensionContainer
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
@@ -23,7 +25,11 @@ class SourceHooksAndroidSpec {
     @Test
     fun `Given androidNativeArm is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val androidNativeArmSets: KotlinSourceSet = mockk(relaxed = true)
@@ -34,6 +40,10 @@ class SourceHooksAndroidSpec {
         every { sourceSets.create(any()) } returns androidNativeArm
         invokeGradleAction(androidNativeArmSets, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When
@@ -54,7 +64,11 @@ class SourceHooksAndroidSpec {
     @Test
     fun `Given androidNativeX is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val androidNativeXSets: KotlinSourceSet = mockk(relaxed = true)
@@ -65,6 +79,10 @@ class SourceHooksAndroidSpec {
         every { sourceSets.create(any()) } returns androidNativeX
         invokeGradleAction(androidNativeXSets, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When
@@ -85,7 +103,11 @@ class SourceHooksAndroidSpec {
     @Test
     fun `Given androidNative is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val androidNativeSets: KotlinSourceSet = mockk(relaxed = true)
@@ -96,6 +118,10 @@ class SourceHooksAndroidSpec {
         every { sourceSets.create(any()) } returns androidNative
         invokeGradleAction(androidNativeSets, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When

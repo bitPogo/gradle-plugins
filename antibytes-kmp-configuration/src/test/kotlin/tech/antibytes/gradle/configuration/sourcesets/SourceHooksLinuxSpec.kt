@@ -11,6 +11,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.plugins.ExtensionContainer
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
@@ -23,7 +25,11 @@ class SourceHooksLinuxSpec {
     @Test
     fun `Given linuxArm is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val linuxArmSets: KotlinSourceSet = mockk(relaxed = true)
@@ -34,6 +40,10 @@ class SourceHooksLinuxSpec {
         every { sourceSets.create(any()) } returns linuxArm
         invokeGradleAction(linuxArmSets, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When
@@ -54,7 +64,11 @@ class SourceHooksLinuxSpec {
     @Test
     fun `Given linuxMips is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val linuxMipsSets: KotlinSourceSet = mockk(relaxed = true)
@@ -65,6 +79,10 @@ class SourceHooksLinuxSpec {
         every { sourceSets.create(any()) } returns linuxMips
         invokeGradleAction(linuxMipsSets, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When
@@ -85,7 +103,11 @@ class SourceHooksLinuxSpec {
     @Test
     fun `Given linux is called it delegates the given parameter to the KMP configuration`() {
         // Given
-        val extension: KotlinMultiplatformExtension = mockk(relaxed = true)
+        val extension: KotlinMultiplatformExtension = mockk(
+            relaxed = true,
+            moreInterfaces = arrayOf(ExtensionAware::class),
+        )
+        val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
         val linuxSets: KotlinSourceSet = mockk(relaxed = true)
@@ -96,6 +118,10 @@ class SourceHooksLinuxSpec {
         every { sourceSets.create(any()) } returns linux
         invokeGradleAction(linuxSets, mockk()) { sourceSet ->
             sourceSets.named(any(), sourceSet)
+        }
+        every { (extension as ExtensionAware).extensions } returns extensions
+        invokeGradleAction(sourceSets) { sources ->
+            extensions.configure("sourceSets", sources)
         }
 
         // When
