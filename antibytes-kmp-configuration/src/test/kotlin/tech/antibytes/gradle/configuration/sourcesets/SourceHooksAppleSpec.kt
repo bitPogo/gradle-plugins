@@ -14,6 +14,7 @@ import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.unmockkObject
 import io.mockk.verify
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.ExtensionContainer
@@ -23,7 +24,6 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.configuration.TestNamedProvider
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class SourceHooksAppleSpec {
@@ -63,16 +63,19 @@ class SourceHooksAppleSpec {
         val extensions: ExtensionContainer = mockk()
         val name: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
-        val apple: KotlinSourceSet = mockk()
+        val apple: KotlinSourceSet = mockk(relaxed = true)
         val appleSubset: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.named(any()) } returns TestNamedProvider(appleSubset)
-        every { sourceSets.create(any()) } returns apple
+        every { sourceSets.getByName(any()) } returns appleSubset
+        every { sourceSets.maybeCreate(any()) } returns apple
         invokeGradleAction(appleSubset, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName("commonMain") } returns common
+        every { sourceSets.getByName("commonTest") } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -86,27 +89,31 @@ class SourceHooksAppleSpec {
         extension.apple(name, configuration)
 
         // Then
-        verify(exactly = 1) { sourceSets.create("${name}Main") }
-        verify(exactly = 1) { sourceSets.create("${name}Test") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${name}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${name}Test") }
 
         verify(exactly = 1) { extension.iosx(configuration = configuration) }
         verify(exactly = 1) { extension.macos(configuration = configuration) }
         verify(exactly = 1) { extension.tvosx(configuration = configuration) }
         verify(exactly = 1) { extension.watchosx(configuration = configuration) }
 
-        verify(exactly = 1) { sourceSets.named("iosMain", any()) }
-        verify(exactly = 1) { sourceSets.named("iosTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("iosMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("iosTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("macosMain", any()) }
-        verify(exactly = 1) { sourceSets.named("macosTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("macosMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("macosTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("tvosMain", any()) }
-        verify(exactly = 1) { sourceSets.named("tvosTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("tvosMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("tvosTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("watchosMain", any()) }
-        verify(exactly = 1) { sourceSets.named("watchosTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("watchosMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("watchosTest", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 8) { appleSubset.dependsOn(apple) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { apple.dependsOn(common) }
     }
 
     @Test
@@ -119,16 +126,19 @@ class SourceHooksAppleSpec {
         val extensions: ExtensionContainer = mockk()
         val name: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
-        val apple: KotlinSourceSet = mockk()
+        val apple: KotlinSourceSet = mockk(relaxed = true)
         val appleSubset: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.named(any()) } returns TestNamedProvider(appleSubset)
-        every { sourceSets.create(any()) } returns apple
+        every { sourceSets.getByName(any()) } returns appleSubset
+        every { sourceSets.maybeCreate(any()) } returns apple
         invokeGradleAction(appleSubset, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName("commonMain") } returns common
+        every { sourceSets.getByName("commonTest") } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -142,26 +152,30 @@ class SourceHooksAppleSpec {
         extension.appleWithLegacy(name, configuration)
 
         // Then
-        verify(exactly = 1) { sourceSets.create("${name}Main") }
-        verify(exactly = 1) { sourceSets.create("${name}Test") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${name}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${name}Test") }
 
         verify(exactly = 1) { extension.iosxWithLegacy(configuration = configuration) }
         verify(exactly = 1) { extension.macos(configuration = configuration) }
         verify(exactly = 1) { extension.tvosx(configuration = configuration) }
         verify(exactly = 1) { extension.watchosxWithLegacy(configuration = configuration) }
 
-        verify(exactly = 1) { sourceSets.named("iosMain", any()) }
-        verify(exactly = 1) { sourceSets.named("iosTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("iosMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("iosTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("macosMain", any()) }
-        verify(exactly = 1) { sourceSets.named("macosTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("macosMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("macosTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("tvosMain", any()) }
-        verify(exactly = 1) { sourceSets.named("tvosTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("tvosMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("tvosTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("watchosMain", any()) }
-        verify(exactly = 1) { sourceSets.named("watchosTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("watchosMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("watchosTest", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 8) { appleSubset.dependsOn(apple) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { apple.dependsOn(common) }
     }
 }

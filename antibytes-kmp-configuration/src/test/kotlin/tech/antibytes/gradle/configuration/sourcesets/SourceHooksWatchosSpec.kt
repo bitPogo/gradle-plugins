@@ -10,6 +10,7 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.ExtensionContainer
@@ -17,7 +18,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.configuration.TestNamedProvider
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class SourceHooksWatchosSpec {
@@ -38,9 +38,9 @@ class SourceHooksWatchosSpec {
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.named(any()) } returns TestNamedProvider(watchos)
+        every { sourceSets.getByName(any()) } returns watchos
         invokeGradleAction(watchosSimulator, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
@@ -53,8 +53,8 @@ class SourceHooksWatchosSpec {
         // Then
         verify(exactly = 1) { extension.watchos(prefix, configuration) }
         verify(exactly = 1) { extension.watchosSimulatorArm64("${prefix}SimulatorArm64", configuration) }
-        verify(exactly = 1) { sourceSets.named("${prefix}SimulatorArm64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}SimulatorArm64Test", any()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 2) { watchosSimulator.dependsOn(watchos) }
     }
 
@@ -73,9 +73,9 @@ class SourceHooksWatchosSpec {
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.named(any()) } returns TestNamedProvider(watchos)
+        every { sourceSets.getByName(any()) } returns watchos
         invokeGradleAction(watchosX86, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
@@ -88,8 +88,8 @@ class SourceHooksWatchosSpec {
         // Then
         verify(exactly = 1) { extension.watchos(prefix, configuration) }
         verify(exactly = 1) { extension.watchosX86("${prefix}X86", configuration) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X86Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X86Test", any()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 2) { watchosX86.dependsOn(watchos) }
     }
 
@@ -108,9 +108,9 @@ class SourceHooksWatchosSpec {
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.named(any()) } returns TestNamedProvider(watchos)
+        every { sourceSets.getByName(any()) } returns watchos
         invokeGradleAction(watchosMix, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
@@ -123,11 +123,11 @@ class SourceHooksWatchosSpec {
         // Then
         verify(exactly = 1) { extension.watchos(prefix, configuration) }
         verify(exactly = 1) { extension.watchosX86("${prefix}X86", configuration) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X86Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X86Test", any()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { extension.watchosSimulatorArm64("${prefix}SimulatorArm64", configuration) }
-        verify(exactly = 1) { sourceSets.named("${prefix}SimulatorArm64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}SimulatorArm64Test", any()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 4) { watchosMix.dependsOn(watchos) }
     }
 }

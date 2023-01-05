@@ -10,6 +10,7 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.ExtensionContainer
@@ -35,12 +36,14 @@ class SourceHooksWindowsSpec {
         val windowsSets: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
         val windows: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.create(any()) } returns windows
+        every { sourceSets.maybeCreate(any()) } returns windows
         invokeGradleAction(windowsSets, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName(any()) } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -52,12 +55,16 @@ class SourceHooksWindowsSpec {
         // Then
         verify(exactly = 1) { extension.mingwX64("${prefix}X64", configuration) }
         verify(exactly = 1) { extension.mingwX86("${prefix}X86", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}Main") }
-        verify(exactly = 1) { sourceSets.create("${prefix}Test") }
-        verify(exactly = 1) { sourceSets.named("${prefix}X64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X64Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X86Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X86Test", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 4) { windowsSets.dependsOn(windows) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { windows.dependsOn(common) }
     }
 }

@@ -16,6 +16,16 @@ private fun KotlinMultiplatformExtension.sourceSets(
     configuration: Action<NamedDomainObjectContainer<KotlinSourceSet>>,
 ): Unit = (this as ExtensionAware).extensions.configure("sourceSets", configuration)
 
+internal fun KotlinMultiplatformExtension.dependsOnCommon(
+    main: KotlinSourceSet,
+    test: KotlinSourceSet,
+) {
+    sourceSets {
+        main.dependsOn(this@sourceSets.getByName("commonMain"))
+        test.dependsOn(this@sourceSets.getByName("commonTest"))
+    }
+}
+
 internal fun KotlinMultiplatformExtension.depends(
     targets: Set<String>,
     mainDependency: KotlinSourceSet,
@@ -23,11 +33,11 @@ internal fun KotlinMultiplatformExtension.depends(
 ) {
     sourceSets {
         targets.forEach { target ->
-            named("${target}Main") {
+            getByName("${target}Main") {
                 dependsOn(mainDependency)
             }
 
-            named("${target}Test") {
+            getByName("${target}Test") {
                 dependsOn(testDependency)
             }
         }
@@ -40,13 +50,29 @@ internal fun KotlinMultiplatformExtension.depends(
 ) {
     sourceSets {
         targets.forEach { target ->
-            named("${target}Main") {
-                dependsOn(this@sourceSets.named("${dependency}Main").get())
+            getByName("${target}Main") {
+                dependsOn(this@sourceSets.getByName("${dependency}Main"))
             }
 
-            named("${target}Test") {
-                dependsOn(this@sourceSets.named("${dependency}Test").get())
+            getByName("${target}Test") {
+                dependsOn(this@sourceSets.getByName("${dependency}Test"))
             }
         }
     }
+}
+
+internal fun KotlinMultiplatformExtension.wireDependencies(
+    main: KotlinSourceSet,
+    test: KotlinSourceSet,
+    targets: Set<String>,
+) {
+    dependsOnCommon(
+        main = main,
+        test = test,
+    )
+    depends(
+        targets = targets,
+        mainDependency = main,
+        testDependency = test,
+    )
 }

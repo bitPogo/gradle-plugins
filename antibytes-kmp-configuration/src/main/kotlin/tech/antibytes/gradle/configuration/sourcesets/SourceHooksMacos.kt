@@ -16,17 +16,17 @@ fun KotlinMultiplatformExtension.macos(
     macosArm64("${namePrefix}Arm64", configuration)
     macosX64("${namePrefix}X64", configuration)
 
-    val macosMain = sourceSets.create("${namePrefix}Main")
-    val macosTest = sourceSets.create("${namePrefix}Test")
+    val macosMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val macosTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}Arm64",
         "${namePrefix}X64",
     )
 
-    depends(
+    wireDependencies(
+        main = macosMain,
+        test = macosTest,
         targets = targets,
-        mainDependency = macosMain,
-        testDependency = macosTest,
     )
 }

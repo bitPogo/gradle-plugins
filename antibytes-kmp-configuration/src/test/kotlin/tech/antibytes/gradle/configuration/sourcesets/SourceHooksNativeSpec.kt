@@ -14,6 +14,7 @@ import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.unmockkObject
 import io.mockk.verify
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.ExtensionContainer
@@ -23,7 +24,6 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.configuration.TestNamedProvider
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class SourceHooksNativeSpec {
@@ -61,17 +61,20 @@ class SourceHooksNativeSpec {
         val extensions: ExtensionContainer = mockk()
         val name: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
-        val native: KotlinSourceSet = mockk()
+        val native: KotlinSourceSet = mockk(relaxed = true)
         val nativeSubset: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
         every { extension.wasm32(any(), any<KotlinNativeTarget.() -> Unit>()) } returns mockk()
-        every { sourceSets.named(any()) } returns TestNamedProvider(nativeSubset)
-        every { sourceSets.create(any()) } returns native
+        every { sourceSets.getByName(any()) } returns nativeSubset
+        every { sourceSets.maybeCreate(any()) } returns native
         invokeGradleAction(nativeSubset, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName("commonMain") } returns common
+        every { sourceSets.getByName("commonTest") } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -85,8 +88,8 @@ class SourceHooksNativeSpec {
         extension.native(name, configuration)
 
         // Then
-        verify(exactly = 1) { sourceSets.create("${name}Main") }
-        verify(exactly = 1) { sourceSets.create("${name}Test") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${name}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${name}Test") }
 
         verify(exactly = 1) { extension.androidNative(configuration = configuration) }
         verify(exactly = 1) { extension.apple(configuration = configuration) }
@@ -94,22 +97,26 @@ class SourceHooksNativeSpec {
         verify(exactly = 1) { extension.wasm32(configure = configuration) }
         verify(exactly = 1) { extension.windows(configuration = configuration) }
 
-        verify(exactly = 1) { sourceSets.named("androidNativeMain", any()) }
-        verify(exactly = 1) { sourceSets.named("androidNativeTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("androidNativeMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("androidNativeTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("appleMain", any()) }
-        verify(exactly = 1) { sourceSets.named("appleTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("appleMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("appleTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("linuxMain", any()) }
-        verify(exactly = 1) { sourceSets.named("linuxTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("linuxMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("linuxTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("wasm32Main", any()) }
-        verify(exactly = 1) { sourceSets.named("wasm32Test", any()) }
+        verify(exactly = 1) { sourceSets.getByName("wasm32Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("wasm32Test", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("windowsMain", any()) }
-        verify(exactly = 1) { sourceSets.named("windowsTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("windowsMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("windowsTest", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 10) { nativeSubset.dependsOn(native) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { native.dependsOn(common) }
     }
 
     @Test
@@ -122,16 +129,19 @@ class SourceHooksNativeSpec {
         val extensions: ExtensionContainer = mockk()
         val name: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
-        val native: KotlinSourceSet = mockk()
+        val native: KotlinSourceSet = mockk(relaxed = true)
         val nativeSubset: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.named(any()) } returns TestNamedProvider(nativeSubset)
-        every { sourceSets.create(any()) } returns native
+        every { sourceSets.getByName(any()) } returns nativeSubset
+        every { sourceSets.maybeCreate(any()) } returns native
         invokeGradleAction(nativeSubset, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName("commonMain") } returns common
+        every { sourceSets.getByName("commonTest") } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -145,8 +155,8 @@ class SourceHooksNativeSpec {
         extension.nativeWithLegacy(name, configuration)
 
         // Then
-        verify(exactly = 1) { sourceSets.create("${name}Main") }
-        verify(exactly = 1) { sourceSets.create("${name}Test") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${name}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${name}Test") }
 
         verify(exactly = 1) { extension.androidNative(configuration = configuration) }
         verify(exactly = 1) { extension.appleWithLegacy(configuration = configuration) }
@@ -154,21 +164,25 @@ class SourceHooksNativeSpec {
         verify(exactly = 1) { extension.wasm32(configure = configuration) }
         verify(exactly = 1) { extension.windows(configuration = configuration) }
 
-        verify(exactly = 1) { sourceSets.named("androidNativeMain", any()) }
-        verify(exactly = 1) { sourceSets.named("androidNativeTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("androidNativeMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("androidNativeTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("appleMain", any()) }
-        verify(exactly = 1) { sourceSets.named("appleTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("appleMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("appleTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("linuxMain", any()) }
-        verify(exactly = 1) { sourceSets.named("linuxTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("linuxMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("linuxTest", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("wasm32Main", any()) }
-        verify(exactly = 1) { sourceSets.named("wasm32Test", any()) }
+        verify(exactly = 1) { sourceSets.getByName("wasm32Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("wasm32Test", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.named("windowsMain", any()) }
-        verify(exactly = 1) { sourceSets.named("windowsTest", any()) }
+        verify(exactly = 1) { sourceSets.getByName("windowsMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("windowsTest", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 10) { nativeSubset.dependsOn(native) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { native.dependsOn(common) }
     }
 }
