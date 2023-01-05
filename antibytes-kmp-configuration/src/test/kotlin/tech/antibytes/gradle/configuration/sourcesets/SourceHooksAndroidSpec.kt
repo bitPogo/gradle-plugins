@@ -10,6 +10,7 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.ExtensionContainer
@@ -35,12 +36,14 @@ class SourceHooksAndroidSpec {
         val androidNativeArmSets: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
         val androidNativeArm: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.create(any()) } returns androidNativeArm
+        every { sourceSets.maybeCreate(any()) } returns androidNativeArm
         invokeGradleAction(androidNativeArmSets, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName(any()) } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -52,13 +55,17 @@ class SourceHooksAndroidSpec {
         // Then
         verify(exactly = 1) { extension.androidNativeArm32("${prefix}32", configuration) }
         verify(exactly = 1) { extension.androidNativeArm64("${prefix}64", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}Main") }
-        verify(exactly = 1) { sourceSets.create("${prefix}Test") }
-        verify(exactly = 1) { sourceSets.named("${prefix}32Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}32Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}64Test", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}32Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}32Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}64Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 4) { androidNativeArmSets.dependsOn(androidNativeArm) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { androidNativeArm.dependsOn(common) }
     }
 
     @Test
@@ -74,12 +81,14 @@ class SourceHooksAndroidSpec {
         val androidNativeXSets: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
         val androidNativeX: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.create(any()) } returns androidNativeX
+        every { sourceSets.maybeCreate(any()) } returns androidNativeX
         invokeGradleAction(androidNativeXSets, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName(any()) } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -91,13 +100,17 @@ class SourceHooksAndroidSpec {
         // Then
         verify(exactly = 1) { extension.androidNativeX64("${prefix}64", configuration) }
         verify(exactly = 1) { extension.androidNativeX86("${prefix}86", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}Main") }
-        verify(exactly = 1) { sourceSets.create("${prefix}Test") }
-        verify(exactly = 1) { sourceSets.named("${prefix}64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}64Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}86Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}86Test", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}64Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}86Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}86Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 4) { androidNativeXSets.dependsOn(androidNativeX) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { androidNativeX.dependsOn(common) }
     }
 
     @Test
@@ -113,12 +126,14 @@ class SourceHooksAndroidSpec {
         val androidNativeSets: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
         val androidNative: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.create(any()) } returns androidNative
+        every { sourceSets.maybeCreate(any()) } returns androidNative
         invokeGradleAction(androidNativeSets, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName(any()) } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -128,27 +143,31 @@ class SourceHooksAndroidSpec {
         extension.androidNative(prefix, configuration)
 
         // Then
-        verify(exactly = 1) { sourceSets.create("${prefix}Main") }
-        verify(exactly = 1) { sourceSets.create("${prefix}Test") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
 
         verify(exactly = 1) { extension.androidNativeArm32("${prefix}Arm32", configuration) }
         verify(exactly = 1) { extension.androidNativeArm64("${prefix}Arm64", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}ArmMain") }
-        verify(exactly = 1) { sourceSets.create("${prefix}ArmTest") }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm32Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm32Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm64Test", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}ArmMain") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}ArmTest") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Test", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 1) { extension.androidNativeX64("${prefix}X64", configuration) }
         verify(exactly = 1) { extension.androidNativeX86("${prefix}X86", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}XMain") }
-        verify(exactly = 1) { sourceSets.create("${prefix}XTest") }
-        verify(exactly = 1) { sourceSets.named("${prefix}X64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X64Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X86Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X86Test", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}XMain") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}XTest") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Test", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 12) { androidNativeSets.dependsOn(androidNative) }
+
+        verify(exactly = 3) { sourceSets.getByName("commonMain") }
+        verify(exactly = 3) { sourceSets.getByName("commonTest") }
+        verify(exactly = 6) { androidNative.dependsOn(common) }
     }
 }

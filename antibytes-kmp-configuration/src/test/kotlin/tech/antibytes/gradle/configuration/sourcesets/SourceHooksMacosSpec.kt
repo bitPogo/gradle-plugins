@@ -10,6 +10,7 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.ExtensionContainer
@@ -35,12 +36,14 @@ class SourceHooksMacosSpec {
         val macosSets: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
         val macos: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.create(any()) } returns macos
+        every { sourceSets.maybeCreate(any()) } returns macos
         invokeGradleAction(macosSets, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName(any()) } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -52,12 +55,16 @@ class SourceHooksMacosSpec {
         // Then
         verify(exactly = 1) { extension.macosX64("${prefix}X64", configuration) }
         verify(exactly = 1) { extension.macosArm64("${prefix}Arm64", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}Main") }
-        verify(exactly = 1) { sourceSets.create("${prefix}Test") }
-        verify(exactly = 1) { sourceSets.named("${prefix}X64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X64Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm64Test", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 4) { macosSets.dependsOn(macos) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { macos.dependsOn(common) }
     }
 }

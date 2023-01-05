@@ -16,17 +16,17 @@ fun KotlinMultiplatformExtension.windows(
     mingwX64("${namePrefix}X64", configuration)
     mingwX86("${namePrefix}X86", configuration)
 
-    val windowsMain = sourceSets.create("${namePrefix}Main")
-    val windowsTest = sourceSets.create("${namePrefix}Test")
+    val windowsMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val windowsTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}X64",
         "${namePrefix}X86",
     )
 
-    depends(
+    wireDependencies(
+        main = windowsMain,
+        test = windowsTest,
         targets = targets,
-        mainDependency = windowsMain,
-        testDependency = windowsTest,
     )
 }

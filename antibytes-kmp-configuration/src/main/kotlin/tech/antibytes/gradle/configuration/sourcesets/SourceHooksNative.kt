@@ -19,8 +19,8 @@ fun KotlinMultiplatformExtension.native(
     wasm32(configure = configuration)
     windows(configuration = configuration)
 
-    val nativeMain = sourceSets.create("${name}Main")
-    val nativeTest = sourceSets.create("${name}Test")
+    val nativeMain = sourceSets.maybeCreate("${name}Main")
+    val nativeTest = sourceSets.maybeCreate("${name}Test")
 
     val targets = setOf(
         "androidNative",
@@ -30,10 +30,10 @@ fun KotlinMultiplatformExtension.native(
         "windows",
     )
 
-    depends(
+    wireDependencies(
+        main = nativeMain,
+        test = nativeTest,
         targets = targets,
-        mainDependency = nativeMain,
-        testDependency = nativeTest,
     )
 }
 
@@ -47,8 +47,8 @@ fun KotlinMultiplatformExtension.nativeWithLegacy(
     wasm32(configure = configuration)
     windows(configuration = configuration)
 
-    val nativeMain = sourceSets.create("${name}Main")
-    val nativeTest = sourceSets.create("${name}Test")
+    val nativeMain = sourceSets.maybeCreate("${name}Main")
+    val nativeTest = sourceSets.maybeCreate("${name}Test")
 
     val targets = setOf(
         "androidNative",
@@ -58,9 +58,9 @@ fun KotlinMultiplatformExtension.nativeWithLegacy(
         "windows",
     )
 
-    depends(
+    wireDependencies(
+        main = nativeMain,
+        test = nativeTest,
         targets = targets,
-        mainDependency = nativeMain,
-        testDependency = nativeTest,
     )
 }

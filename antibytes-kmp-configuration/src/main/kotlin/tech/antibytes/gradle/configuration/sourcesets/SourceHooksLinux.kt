@@ -16,18 +16,18 @@ fun KotlinMultiplatformExtension.linuxArm(
     linuxArm64("${namePrefix}64", configuration)
     linuxArm32Hfp("${namePrefix}32Hfp", configuration)
 
-    val linuxMain = sourceSets.create("${namePrefix}Main")
-    val linuxTest = sourceSets.create("${namePrefix}Test")
+    val linuxMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val linuxTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}64",
         "${namePrefix}32Hfp",
     )
 
-    depends(
+    wireDependencies(
+        main = linuxMain,
+        test = linuxTest,
         targets = targets,
-        mainDependency = linuxMain,
-        testDependency = linuxTest,
     )
 }
 
@@ -38,18 +38,18 @@ fun KotlinMultiplatformExtension.linuxMips(
     linuxMips32("${namePrefix}32", configuration)
     linuxMipsel32("${namePrefix}el32", configuration)
 
-    val linuxMain = sourceSets.create("${namePrefix}Main")
-    val linuxTest = sourceSets.create("${namePrefix}Test")
+    val linuxMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val linuxTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}32",
         "${namePrefix}el32",
     )
 
-    depends(
+    wireDependencies(
+        main = linuxMain,
+        test = linuxTest,
         targets = targets,
-        mainDependency = linuxMain,
-        testDependency = linuxTest,
     )
 }
 
@@ -61,8 +61,8 @@ fun KotlinMultiplatformExtension.linux(
     linuxMips("${namePrefix}Mips", configuration)
     linuxArm("${namePrefix}Arm", configuration)
 
-    val linuxMain = sourceSets.create("${namePrefix}Main")
-    val linuxTest = sourceSets.create("${namePrefix}Test")
+    val linuxMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val linuxTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}X64",
@@ -70,9 +70,9 @@ fun KotlinMultiplatformExtension.linux(
         "${namePrefix}Mips",
     )
 
-    depends(
+    wireDependencies(
+        main = linuxMain,
+        test = linuxTest,
         targets = targets,
-        mainDependency = linuxMain,
-        testDependency = linuxTest,
     )
 }

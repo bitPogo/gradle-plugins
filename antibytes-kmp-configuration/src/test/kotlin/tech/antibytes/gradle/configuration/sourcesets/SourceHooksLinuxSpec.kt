@@ -10,6 +10,7 @@ import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.ExtensionContainer
@@ -35,12 +36,14 @@ class SourceHooksLinuxSpec {
         val linuxArmSets: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
         val linuxArm: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.create(any()) } returns linuxArm
+        every { sourceSets.maybeCreate(any()) } returns linuxArm
         invokeGradleAction(linuxArmSets, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName(any()) } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -52,13 +55,17 @@ class SourceHooksLinuxSpec {
         // Then
         verify(exactly = 1) { extension.linuxArm64("${prefix}64", configuration) }
         verify(exactly = 1) { extension.linuxArm32Hfp("${prefix}32Hfp", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}Main") }
-        verify(exactly = 1) { sourceSets.create("${prefix}Test") }
-        verify(exactly = 1) { sourceSets.named("${prefix}64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}64Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}32HfpMain", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}32HfpTest", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}64Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}32HfpMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}32HfpTest", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 4) { linuxArmSets.dependsOn(linuxArm) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { linuxArm.dependsOn(common) }
     }
 
     @Test
@@ -74,12 +81,14 @@ class SourceHooksLinuxSpec {
         val linuxMipsSets: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
         val linuxMips: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.create(any()) } returns linuxMips
+        every { sourceSets.maybeCreate(any()) } returns linuxMips
         invokeGradleAction(linuxMipsSets, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName(any()) } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -91,13 +100,17 @@ class SourceHooksLinuxSpec {
         // Then
         verify(exactly = 1) { extension.linuxMips32("${prefix}32", configuration) }
         verify(exactly = 1) { extension.linuxMipsel32("${prefix}el32", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}Main") }
-        verify(exactly = 1) { sourceSets.create("${prefix}Test") }
-        verify(exactly = 1) { sourceSets.named("${prefix}32Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}32Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}el32Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}el32Test", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}32Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}32Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}el32Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}el32Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 4) { linuxMipsSets.dependsOn(linuxMips) }
+
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
+        verify(exactly = 2) { linuxMips.dependsOn(common) }
     }
 
     @Test
@@ -113,12 +126,14 @@ class SourceHooksLinuxSpec {
         val linuxSets: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
         val linux: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.create(any()) } returns linux
+        every { sourceSets.maybeCreate(any()) } returns linux
         invokeGradleAction(linuxSets, mockk()) { sourceSet ->
-            sourceSets.named(any(), sourceSet)
+            sourceSets.getByName(any(), sourceSet)
         }
+        every { sourceSets.getByName(any()) } returns common
         every { (extension as ExtensionAware).extensions } returns extensions
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
@@ -128,30 +143,34 @@ class SourceHooksLinuxSpec {
         extension.linux(prefix, configuration)
 
         // Then
-        verify(exactly = 1) { sourceSets.create("${prefix}Main") }
-        verify(exactly = 1) { sourceSets.create("${prefix}Test") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
         verify(exactly = 1) { extension.linuxX64("${prefix}X64", configuration) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}X64Test", any()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Test", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 1) { extension.linuxMips32("${prefix}Mips32", configuration) }
         verify(exactly = 1) { extension.linuxMipsel32("${prefix}Mipsel32", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}MipsMain") }
-        verify(exactly = 1) { sourceSets.create("${prefix}MipsTest") }
-        verify(exactly = 1) { sourceSets.named("${prefix}Mips32Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Mips32Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Mipsel32Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Mipsel32Test", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}MipsMain") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}MipsTest") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Mips32Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Mips32Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Mipsel32Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Mipsel32Test", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 1) { extension.linuxArm64("${prefix}Arm64", configuration) }
         verify(exactly = 1) { extension.linuxArm32Hfp("${prefix}Arm32Hfp", configuration) }
-        verify(exactly = 1) { sourceSets.create("${prefix}ArmMain") }
-        verify(exactly = 1) { sourceSets.create("${prefix}ArmTest") }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm64Main", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm64Test", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm32HfpMain", any()) }
-        verify(exactly = 1) { sourceSets.named("${prefix}Arm32HfpTest", any()) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}ArmMain") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}ArmTest") }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Test", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32HfpMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32HfpTest", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 14) { linuxSets.dependsOn(linux) }
+
+        verify(exactly = 3) { sourceSets.getByName("commonMain") }
+        verify(exactly = 3) { sourceSets.getByName("commonTest") }
+        verify(exactly = 6) { linux.dependsOn(common) }
     }
 }

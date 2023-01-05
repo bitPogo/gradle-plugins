@@ -18,8 +18,8 @@ fun KotlinMultiplatformExtension.apple(
     tvosx(configuration = configuration)
     watchosx(configuration = configuration)
 
-    val appleMain = sourceSets.create("${name}Main")
-    val appleTest = sourceSets.create("${name}Test")
+    val appleMain = sourceSets.maybeCreate("${name}Main")
+    val appleTest = sourceSets.maybeCreate("${name}Test")
 
     val targets = setOf(
         "ios",
@@ -28,10 +28,10 @@ fun KotlinMultiplatformExtension.apple(
         "watchos",
     )
 
-    depends(
+    wireDependencies(
+        main = appleMain,
+        test = appleTest,
         targets = targets,
-        mainDependency = appleMain,
-        testDependency = appleTest,
     )
 }
 
@@ -44,8 +44,8 @@ fun KotlinMultiplatformExtension.appleWithLegacy(
     tvosx(configuration = configuration)
     watchosxWithLegacy(configuration = configuration)
 
-    val appleMain = sourceSets.create("${name}Main")
-    val appleTest = sourceSets.create("${name}Test")
+    val appleMain = sourceSets.maybeCreate("${name}Main")
+    val appleTest = sourceSets.maybeCreate("${name}Test")
 
     val targets = setOf(
         "ios",
@@ -54,9 +54,9 @@ fun KotlinMultiplatformExtension.appleWithLegacy(
         "watchos",
     )
 
-    depends(
+    wireDependencies(
+        main = appleMain,
+        test = appleTest,
         targets = targets,
-        mainDependency = appleMain,
-        testDependency = appleTest,
     )
 }

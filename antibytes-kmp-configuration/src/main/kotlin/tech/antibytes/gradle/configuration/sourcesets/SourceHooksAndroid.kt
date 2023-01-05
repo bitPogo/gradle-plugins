@@ -16,18 +16,18 @@ fun KotlinMultiplatformExtension.androidNativeArm(
     androidNativeArm32("${namePrefix}32", configuration)
     androidNativeArm64("${namePrefix}64", configuration)
 
-    val androidMain = sourceSets.create("${namePrefix}Main")
-    val androidTest = sourceSets.create("${namePrefix}Test")
+    val androidMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val androidTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}32",
         "${namePrefix}64",
     )
 
-    depends(
+    wireDependencies(
+        main = androidMain,
+        test = androidTest,
         targets = targets,
-        mainDependency = androidMain,
-        testDependency = androidTest,
     )
 }
 
@@ -38,18 +38,18 @@ fun KotlinMultiplatformExtension.androidNativeX(
     androidNativeX64("${namePrefix}64", configuration)
     androidNativeX86("${namePrefix}86", configuration)
 
-    val androidMain = sourceSets.create("${namePrefix}Main")
-    val androidTest = sourceSets.create("${namePrefix}Test")
+    val androidMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val androidTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}64",
         "${namePrefix}86",
     )
 
-    depends(
+    wireDependencies(
+        main = androidMain,
+        test = androidTest,
         targets = targets,
-        mainDependency = androidMain,
-        testDependency = androidTest,
     )
 }
 
@@ -60,17 +60,17 @@ fun KotlinMultiplatformExtension.androidNative(
     androidNativeArm("${namePrefix}Arm", configuration)
     androidNativeX("${namePrefix}X", configuration)
 
-    val androidMain = sourceSets.create("${namePrefix}Main")
-    val androidTest = sourceSets.create("${namePrefix}Test")
+    val androidMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val androidTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}Arm",
         "${namePrefix}X",
     )
 
-    depends(
+    wireDependencies(
+        main = androidMain,
+        test = androidTest,
         targets = targets,
-        mainDependency = androidMain,
-        testDependency = androidTest,
     )
 }
