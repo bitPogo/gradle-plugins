@@ -9,7 +9,7 @@ package tech.antibytes.gradle.configuration.sourcesets
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
-fun KotlinMultiplatformExtension.windows(
+fun KotlinMultiplatformExtension.mingw(
     namePrefix: String = "mingw",
     configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
