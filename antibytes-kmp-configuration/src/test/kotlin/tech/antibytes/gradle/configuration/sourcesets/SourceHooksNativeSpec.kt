@@ -36,7 +36,7 @@ class SourceHooksNativeSpec {
             KotlinMultiplatformExtension::apple,
             KotlinMultiplatformExtension::appleWithLegacy,
             KotlinMultiplatformExtension::linux,
-            KotlinMultiplatformExtension::windows,
+            KotlinMultiplatformExtension::mingw,
         )
     }
 
@@ -47,7 +47,7 @@ class SourceHooksNativeSpec {
             KotlinMultiplatformExtension::apple,
             KotlinMultiplatformExtension::appleWithLegacy,
             KotlinMultiplatformExtension::linux,
-            KotlinMultiplatformExtension::windows,
+            KotlinMultiplatformExtension::mingw,
         )
     }
 
@@ -82,7 +82,7 @@ class SourceHooksNativeSpec {
         every { extension.androidNative(any(), any()) } just Runs
         every { extension.apple(any(), any()) } just Runs
         every { extension.linux(any(), any()) } just Runs
-        every { extension.windows(any(), any()) } just Runs
+        every { extension.mingw(any(), any()) } just Runs
 
         // When
         extension.native(name, configuration)
@@ -95,7 +95,7 @@ class SourceHooksNativeSpec {
         verify(exactly = 1) { extension.apple(configuration = configuration) }
         verify(exactly = 1) { extension.linux(configuration = configuration) }
         verify(exactly = 1) { extension.wasm32(configure = configuration) }
-        verify(exactly = 1) { extension.windows(configuration = configuration) }
+        verify(exactly = 1) { extension.mingw(configuration = configuration) }
 
         verify(exactly = 1) { sourceSets.getByName("androidNativeMain", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("androidNativeTest", any<Action<KotlinSourceSet>>()) }
@@ -149,7 +149,7 @@ class SourceHooksNativeSpec {
         every { extension.androidNative(any(), any()) } just Runs
         every { extension.appleWithLegacy(any(), any()) } just Runs
         every { extension.linux(any(), any()) } just Runs
-        every { extension.windows(any(), any()) } just Runs
+        every { extension.mingw(any(), any()) } just Runs
 
         // When
         extension.nativeWithLegacy(name, configuration)
@@ -162,7 +162,7 @@ class SourceHooksNativeSpec {
         verify(exactly = 1) { extension.appleWithLegacy(configuration = configuration) }
         verify(exactly = 1) { extension.linux(configuration = configuration) }
         verify(exactly = 1) { extension.wasm32(configure = configuration) }
-        verify(exactly = 1) { extension.windows(configuration = configuration) }
+        verify(exactly = 1) { extension.mingw(configuration = configuration) }
 
         verify(exactly = 1) { sourceSets.getByName("androidNativeMain", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("androidNativeTest", any<Action<KotlinSourceSet>>()) }

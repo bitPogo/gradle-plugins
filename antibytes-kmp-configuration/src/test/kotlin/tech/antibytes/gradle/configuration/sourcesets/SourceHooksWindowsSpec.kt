@@ -50,7 +50,7 @@ class SourceHooksWindowsSpec {
         }
 
         // When
-        extension.windows(prefix, configuration)
+        extension.mingw(prefix, configuration)
 
         // Then
         verify(exactly = 1) { extension.mingwX64("${prefix}X64", configuration) }

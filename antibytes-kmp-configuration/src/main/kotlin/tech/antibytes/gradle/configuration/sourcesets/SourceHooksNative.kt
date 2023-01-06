@@ -17,7 +17,7 @@ fun KotlinMultiplatformExtension.native(
     apple(configuration = configuration)
     linux(configuration = configuration)
     wasm32(configure = configuration)
-    windows(configuration = configuration)
+    mingw(configuration = configuration)
 
     val nativeMain = sourceSets.maybeCreate("${name}Main")
     val nativeTest = sourceSets.maybeCreate("${name}Test")
@@ -45,7 +45,7 @@ fun KotlinMultiplatformExtension.nativeWithLegacy(
     appleWithLegacy(configuration = configuration)
     linux(configuration = configuration)
     wasm32(configure = configuration)
-    windows(configuration = configuration)
+    mingw(configuration = configuration)
 
     val nativeMain = sourceSets.maybeCreate("${name}Main")
     val nativeTest = sourceSets.maybeCreate("${name}Test")
