@@ -27,7 +27,7 @@ fun KotlinMultiplatformExtension.native(
         "apple",
         "linux",
         "wasm32",
-        "windows",
+        "mingw",
     )
 
     wireDependencies(
@@ -55,7 +55,7 @@ fun KotlinMultiplatformExtension.nativeWithLegacy(
         "apple",
         "linux",
         "wasm32",
-        "windows",
+        "mingw",
     )
 
     wireDependencies(

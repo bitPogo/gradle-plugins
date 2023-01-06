@@ -109,8 +109,8 @@ class SourceHooksNativeSpec {
         verify(exactly = 1) { sourceSets.getByName("wasm32Main", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("wasm32Test", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.getByName("windowsMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("windowsTest", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("mingwMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("mingwTest", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 10) { nativeSubset.dependsOn(native) }
 
@@ -176,8 +176,8 @@ class SourceHooksNativeSpec {
         verify(exactly = 1) { sourceSets.getByName("wasm32Main", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("wasm32Test", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { sourceSets.getByName("windowsMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("windowsTest", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("mingwMain", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("mingwTest", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 10) { nativeSubset.dependsOn(native) }
 
