@@ -8,6 +8,7 @@ package tech.antibytes.gradle.publishing
 
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import tech.antibytes.gradle.publishing.PublishingApiContract.DocumentationConfiguration
@@ -20,6 +21,7 @@ internal interface PublishingContract {
     interface PublishingPluginExtension {
         val excludeProjects: SetProperty<String>
         val versioning: Property<VersioningConfiguration>
+        val additionalPublishingTasks: MapProperty<String, Set<String>>
         val repositories: SetProperty<RepositoryConfiguration<out Any>>
         val packaging: Property<PackageConfiguration>
         val signing: Property<MemorySigning>

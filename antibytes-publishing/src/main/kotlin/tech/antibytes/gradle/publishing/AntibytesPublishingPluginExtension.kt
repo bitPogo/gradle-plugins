@@ -22,5 +22,7 @@ abstract class AntibytesPublishingPluginExtension : PublishingContract.Publishin
         signing.convention(null)
 
         excludeProjects.convention(mutableSetOf())
+
+        additionalPublishingTasks.convention(emptyMap())
     }
 }

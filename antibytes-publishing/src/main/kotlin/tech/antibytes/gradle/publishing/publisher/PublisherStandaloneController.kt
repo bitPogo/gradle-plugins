@@ -8,18 +8,19 @@ package tech.antibytes.gradle.publishing.publisher
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.publishing.PublishingApiContract
-import tech.antibytes.gradle.publishing.PublishingContract
+import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
+import tech.antibytes.gradle.publishing.PublishingContract.PublisherController
+import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 
-internal object PublisherStandaloneController : PublishingContract.PublisherController, SharedPublisherFunctions() {
+internal object PublisherStandaloneController : PublisherController, SharedPublisherFunctions() {
     private fun isApplicable(
-        extension: PublishingContract.PublishingPluginExtension,
+        extension: PublishingPluginExtension,
     ): Boolean {
         return extension.repositories.get().isNotEmpty() &&
-            extension.packaging.orNull is PublishingApiContract.PackageConfiguration
+            extension.packaging.orNull is PackageConfiguration
     }
 
     private fun wireDependencies(
@@ -45,7 +46,7 @@ internal object PublisherStandaloneController : PublishingContract.PublisherCont
         project: Project,
         version: String,
         documentation: Task?,
-        extension: PublishingContract.PublishingPluginExtension,
+        extension: PublishingPluginExtension,
     ) {
         if (isApplicable(extension)) {
             val dryRun = extension.dryRun.get()

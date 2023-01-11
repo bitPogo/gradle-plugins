@@ -16,6 +16,7 @@ import io.mockk.unmockkObject
 import io.mockk.verify
 import kotlin.test.assertTrue
 import org.gradle.api.Project
+import org.gradle.api.provider.MapProperty
 import org.gradle.jvm.tasks.Jar
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -25,11 +26,13 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.api.DocumentationConfiguration
 import tech.antibytes.gradle.publishing.doc.DocumentationController
 import tech.antibytes.gradle.publishing.version.VersionController
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
+@Suppress("UNCHECKED_CAST")
 class PublisherControllerSpec {
     private val fixture = kotlinFixture()
 
@@ -73,6 +76,11 @@ class PublisherControllerSpec {
         val config = TestConfig(
             repositories = mockk(),
             packaging = mockk(),
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf(name)),
             versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
@@ -121,6 +129,11 @@ class PublisherControllerSpec {
         val config = TestConfig(
             repositories = mockk(),
             packaging = mockk(),
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf()),
             versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
@@ -170,6 +183,11 @@ class PublisherControllerSpec {
         val config = TestConfig(
             repositories = mockk(),
             packaging = mockk(),
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf()),
             versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
@@ -228,6 +246,11 @@ class PublisherControllerSpec {
         val config = TestConfig(
             repositories = mockk(),
             packaging = mockk(),
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf()),
             versioning = makeProperty(VersioningConfiguration::class.java, mockk(relaxed = true)),
@@ -274,6 +297,11 @@ class PublisherControllerSpec {
         val config = TestConfig(
             repositories = mockk(),
             packaging = mockk(),
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf()),
             versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),

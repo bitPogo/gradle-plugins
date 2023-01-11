@@ -19,6 +19,7 @@ import kotlin.test.assertTrue
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.tasks.TaskContainer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -31,11 +32,13 @@ import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
+@Suppress("UNCHECKED_CAST")
 class PublisherStandaloneControllerSpec {
     private val fixture = kotlinFixture()
     private val gitRegistryTestConfig = GitRepositoryConfiguration(
@@ -83,6 +86,11 @@ class PublisherStandaloneControllerSpec {
         val project: Project = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -115,8 +123,13 @@ class PublisherStandaloneControllerSpec {
     @Test
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it does nothing if no registryConfiguration was given`() {
         // Given
-        val project: Project = mockk()
+        val project: Project = mockk(relaxed = true)
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 emptySet(),
@@ -132,7 +145,6 @@ class PublisherStandaloneControllerSpec {
         )
 
         every { project.name } returns fixture()
-        every { project.tasks } returns mockk()
 
         // When
         PublisherStandaloneController.configure(
@@ -161,6 +173,11 @@ class PublisherStandaloneControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 repositoriesConfiguration,
@@ -176,12 +193,11 @@ class PublisherStandaloneControllerSpec {
         )
 
         val tasks: TaskContainer = mockk()
-        val task: Task = mockk()
+        val task: Task = mockk(relaxed = true)
 
         every { project.name } returns fixture()
         every { project.tasks } returns tasks
         every { tasks.findByName(any()) } returns task
-        every { task.dependsOn(any()) } returns task
 
         every { tasks.create(any(), any<Action<Task>>()) } returns task
 
@@ -266,6 +282,11 @@ class PublisherStandaloneControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 repositoriesConfiguration,
@@ -281,16 +302,14 @@ class PublisherStandaloneControllerSpec {
         )
 
         val tasks: TaskContainer = mockk()
-        val publishingTask: Task = mockk()
-        val task: Task = mockk()
+        val publishingTask: Task = mockk(relaxed = true)
+        val task: Task = mockk(relaxed = true)
 
         every { project.name } returns fixture()
         every { project.tasks } returns tasks
-        every { publishingTask.dependsOn(any()) } returns publishingTask
 
         every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
         every { tasks.findByName(any()) } returns task
-        every { task.dependsOn(any()) } returns task
 
         every { MavenPublisher.configure(project, packageConfiguration, any(), version) } just Runs
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
@@ -341,6 +360,11 @@ class PublisherStandaloneControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 repositoriesConfiguration,
@@ -357,12 +381,12 @@ class PublisherStandaloneControllerSpec {
 
         val tasks: TaskContainer = mockk()
 
-        val gitCloneTask: Task = mockk()
-        val maven1Task: Task = mockk()
-        val maven2Task: Task = mockk()
-        val gitPushTask: Task = mockk()
-        val publishingTask: Task = mockk()
-        val documentation: Task = mockk()
+        val gitCloneTask: Task = mockk(relaxed = true)
+        val maven1Task: Task = mockk(relaxed = true)
+        val maven2Task: Task = mockk(relaxed = true)
+        val gitPushTask: Task = mockk(relaxed = true)
+        val publishingTask: Task = mockk(relaxed = true)
+        val documentation: Task = mockk(relaxed = true)
 
         every { project.name } returns fixture()
         every { project.tasks } returns tasks
@@ -380,12 +404,6 @@ class PublisherStandaloneControllerSpec {
         every { GitRepository.configureCloneTask(project, any()) } returns gitCloneTask
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns gitPushTask
 
-        every { maven1Task.dependsOn(any()) } returns maven1Task
-
-        every { maven2Task.dependsOn(any()) } returns maven2Task
-        every { gitPushTask.dependsOn(any()) } returns gitPushTask
-        every { publishingTask.dependsOn(any()) } returns publishingTask
-
         // When
         PublisherStandaloneController.configure(
             project,
@@ -399,12 +417,17 @@ class PublisherStandaloneControllerSpec {
         verify(exactly = 1) { tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository") }
 
         verify(exactly = 1) { maven1Task.dependsOn(gitCloneTask) }
+        verify(exactly = 1) { maven1Task.mustRunAfter(gitCloneTask) }
+
+        verify(exactly = 1) { gitPushTask.mustRunAfter(listOf(maven1Task)) }
         verify(exactly = 1) { gitPushTask.dependsOn(listOf(maven1Task)) }
 
         verify(exactly = 1) { maven2Task.dependsOn(gitCloneTask) }
+        verify(exactly = 1) { gitPushTask.mustRunAfter(listOf(maven2Task)) }
         verify(exactly = 1) { gitPushTask.dependsOn(listOf(maven2Task)) }
 
-        verify(exactly = 2) { publishingTask.dependsOn(gitPushTask) }
+        verify(exactly = 2) { publishingTask.mustRunAfter(listOf(gitPushTask)) }
+        verify(exactly = 2) { publishingTask.dependsOn(listOf(gitPushTask)) }
     }
 
     @Test
@@ -422,6 +445,11 @@ class PublisherStandaloneControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 repositoriesConfiguration,
@@ -438,11 +466,11 @@ class PublisherStandaloneControllerSpec {
 
         val tasks: TaskContainer = mockk()
 
-        val gitCloneTask: Task = mockk()
-        val maven1Task: Task = mockk()
-        val maven2Task: Task = mockk()
-        val gitPushTask: Task = mockk()
-        val publishingTask: Task = mockk()
+        val gitCloneTask: Task = mockk(relaxed = true)
+        val maven1Task: Task = mockk(relaxed = true)
+        val maven2Task: Task = mockk(relaxed = true)
+        val gitPushTask: Task = mockk(relaxed = true)
+        val publishingTask: Task = mockk(relaxed = true)
 
         every { project.name } returns fixture()
         every { project.tasks } returns tasks
@@ -459,12 +487,6 @@ class PublisherStandaloneControllerSpec {
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns gitCloneTask
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns gitPushTask
-
-        every { maven1Task.dependsOn(any()) } returns maven1Task
-        every { maven2Task.dependsOn(any()) } returns maven2Task
-
-        every { gitPushTask.dependsOn(any()) } returns gitPushTask
-        every { publishingTask.dependsOn(any()) } returns publishingTask
 
         // When
         PublisherStandaloneController.configure(
@@ -492,8 +514,14 @@ class PublisherStandaloneControllerSpec {
             tasks.findByName("publishAllPublicationsTo${registry1.name.capitalize()}Repository")
 
             maven1Task.dependsOn(gitCloneTask)
+            maven1Task.mustRunAfter(gitCloneTask)
+
             gitPushTask.dependsOn(listOf(maven1Task))
-            publishingTask.dependsOn(gitPushTask)
+            gitPushTask.mustRunAfter(listOf(maven1Task))
+
+            publishingTask.dependsOn(listOf(gitPushTask))
+            publishingTask.mustRunAfter(listOf(gitPushTask))
+
 
             MavenRepository.configure(project, registry2, dryRun)
 
@@ -504,8 +532,13 @@ class PublisherStandaloneControllerSpec {
             tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository")
 
             maven2Task.dependsOn(gitCloneTask)
+            maven2Task.mustRunAfter(gitCloneTask)
+
             gitPushTask.dependsOn(listOf(maven2Task))
-            publishingTask.dependsOn(gitPushTask)
+            gitPushTask.mustRunAfter(listOf(maven2Task))
+
+            publishingTask.dependsOn(listOf(gitPushTask))
+            publishingTask.mustRunAfter(listOf(gitPushTask))
         }
     }
 
@@ -523,6 +556,11 @@ class PublisherStandaloneControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 repositoriesConfiguration,
@@ -540,9 +578,9 @@ class PublisherStandaloneControllerSpec {
 
         val tasks: TaskContainer = mockk()
 
-        val maven1Task: Task = mockk()
-        val maven2Task: Task = mockk()
-        val publishingTask: Task = mockk()
+        val maven1Task: Task = mockk(relaxed = true)
+        val maven2Task: Task = mockk(relaxed = true)
+        val publishingTask: Task = mockk(relaxed = true)
 
         every { project.name } returns fixture()
         every { project.tasks } returns tasks
@@ -560,8 +598,6 @@ class PublisherStandaloneControllerSpec {
         every { GitRepository.configureCloneTask(project, any()) } returns null
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns null
 
-        every { publishingTask.dependsOn(any()) } returns publishingTask
-
         // When
         PublisherStandaloneController.configure(
             project,
@@ -575,7 +611,9 @@ class PublisherStandaloneControllerSpec {
         verify(exactly = 1) { tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository") }
 
         verify(exactly = 1) { publishingTask.dependsOn(listOf(maven1Task)) }
+        verify(exactly = 1) { publishingTask.mustRunAfter(listOf(maven1Task)) }
         verify(exactly = 1) { publishingTask.dependsOn(listOf(maven2Task)) }
+        verify(exactly = 1) { publishingTask.mustRunAfter(listOf(maven2Task)) }
     }
 
     @Test
@@ -592,6 +630,11 @@ class PublisherStandaloneControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap()
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 repositoriesConfiguration,
@@ -609,9 +652,9 @@ class PublisherStandaloneControllerSpec {
 
         val tasks: TaskContainer = mockk()
 
-        val maven1Task: Task = mockk()
-        val maven2Task: Task = mockk()
-        val publishingTask: Task = mockk()
+        val maven1Task: Task = mockk(relaxed = true)
+        val maven2Task: Task = mockk(relaxed = true)
+        val publishingTask: Task = mockk(relaxed = true)
 
         every { project.name } returns fixture()
         every { project.tasks } returns tasks
@@ -628,8 +671,6 @@ class PublisherStandaloneControllerSpec {
         every { MavenRepository.configure(project, any(), dryRun) } just Runs
         every { GitRepository.configureCloneTask(project, any()) } returns null
         every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns null
-
-        every { publishingTask.dependsOn(any()) } returns publishingTask
 
         // When
         PublisherStandaloneController.configure(
@@ -657,6 +698,7 @@ class PublisherStandaloneControllerSpec {
             tasks.findByName("publishAllPublicationsTo${registry1.name.capitalize()}Repository")
 
             publishingTask.dependsOn(listOf(maven1Task))
+            publishingTask.mustRunAfter(listOf(maven1Task))
 
             MavenRepository.configure(project, registry2, dryRun)
 
@@ -667,6 +709,7 @@ class PublisherStandaloneControllerSpec {
             tasks.findByName("publishAllPublicationsTo${registry2.name.capitalize()}Repository")
 
             publishingTask.dependsOn(listOf(maven2Task))
+            publishingTask.mustRunAfter(listOf(maven2Task))
         }
     }
 }
