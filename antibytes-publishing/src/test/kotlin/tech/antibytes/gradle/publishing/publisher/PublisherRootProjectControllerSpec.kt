@@ -612,23 +612,23 @@ class PublisherRootProjectControllerSpec {
 
         every {
             tasks1.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         } returns maven1Task
         every {
             tasks1.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         } returns maven2Task
 
         every {
             tasks2.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         } returns maven3Task
         every {
             tasks2.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         } returns maven4Task
 
@@ -655,23 +655,23 @@ class PublisherRootProjectControllerSpec {
         // Then
         verify(exactly = 1) {
             tasks1.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         }
         verify(exactly = 1) {
             tasks1.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         }
 
         verify(exactly = 1) {
             tasks2.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         }
         verify(exactly = 1) {
             tasks2.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         }
 
@@ -984,23 +984,23 @@ class PublisherRootProjectControllerSpec {
 
         every {
             tasks1.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         } returns maven1Task
         every {
             tasks1.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         } returns maven2Task
 
         every {
             tasks2.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         } returns maven3Task
         every {
             tasks2.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         } returns maven4Task
 
@@ -1019,23 +1019,23 @@ class PublisherRootProjectControllerSpec {
         // Then
         verify(exactly = 1) {
             tasks1.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         }
         verify(exactly = 1) {
             tasks1.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         }
 
         verify(exactly = 1) {
             tasks2.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         }
         verify(exactly = 1) {
             tasks2.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         }
 

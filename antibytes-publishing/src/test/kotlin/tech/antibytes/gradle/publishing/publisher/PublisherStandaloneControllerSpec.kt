@@ -704,12 +704,12 @@ class PublisherStandaloneControllerSpec {
 
         every {
             tasks.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         } returns maven1Task
         every {
             tasks.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         } returns maven2Task
 
@@ -729,12 +729,12 @@ class PublisherStandaloneControllerSpec {
         // Then
         verify(exactly = 1) {
             tasks.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         }
         verify(exactly = 1) {
             tasks.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         }
 
@@ -1004,12 +1004,12 @@ class PublisherStandaloneControllerSpec {
 
         every {
             tasks.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         } returns maven1Task
         every {
             tasks.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         } returns maven2Task
 
@@ -1029,12 +1029,12 @@ class PublisherStandaloneControllerSpec {
         // Then
         verify(exactly = 1) {
             tasks.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().first().capitalize()}PublicationTo${registry1.name.capitalize()}Repository",
             )
         }
         verify(exactly = 1) {
             tasks.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationTo${registry2.name.capitalize()}Repository",
             )
         }
 
