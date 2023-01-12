@@ -26,7 +26,7 @@ internal interface PublisherContract {
             configuration: RepositoryConfiguration<out Any>,
             version: String,
             dryRun: Boolean,
-            taskSuffix: String = ""
+            taskSuffix: String = "",
         ): Task?
     }
 

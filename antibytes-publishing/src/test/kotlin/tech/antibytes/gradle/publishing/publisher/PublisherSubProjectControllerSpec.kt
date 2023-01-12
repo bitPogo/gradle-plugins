@@ -82,7 +82,7 @@ class PublisherSubProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
@@ -123,7 +123,7 @@ class PublisherSubProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
@@ -142,7 +142,7 @@ class PublisherSubProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
@@ -196,7 +196,7 @@ class PublisherSubProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -256,7 +256,7 @@ class PublisherSubProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, emptySet()),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -270,7 +270,7 @@ class PublisherSubProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, null),

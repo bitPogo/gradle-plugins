@@ -10,11 +10,12 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
+import tech.antibytes.gradle.publishing.git.GitRepository
 
 internal abstract class SharedPublisherFunctions {
     private fun resolveDescription(
         repositoryName: String,
-        publishingId: String
+        publishingId: String,
     ): String {
         return if (publishingId.isEmpty()) {
             "Publish $repositoryName"
@@ -23,24 +24,23 @@ internal abstract class SharedPublisherFunctions {
         }
     }
 
-    protected fun addPublishingTask(
-        project: Project,
+    private fun Project.addPublishingTask(
         configuration: RepositoryConfiguration<out Any>,
-        publishingId: String = ""
+        publishingId: String = "",
     ): Task {
         val repositoryName = configuration.name.capitalize()
         val taskNameInfix = publishingId.capitalize()
 
-        return project.tasks.create("publish$taskNameInfix$repositoryName") {
+        return tasks.create("publish$taskNameInfix$repositoryName") {
             group = "Publishing"
             description = resolveDescription(
                 repositoryName = repositoryName,
-                publishingId = taskNameInfix
+                publishingId = taskNameInfix,
             )
         }
     }
 
-    protected fun Project.findTasksInSubproject(
+    protected fun Project.findPublishingTasks(
         repositoryName: String,
         platforms: Set<String>,
     ): List<Task?> {
@@ -87,23 +87,78 @@ internal abstract class SharedPublisherFunctions {
         wireGitTasksIfNeeded(
             cloneTask = cloneTask,
             pushTask = pushTask,
-            mavenTasks = mavenTasks
+            mavenTasks = mavenTasks,
         )
 
         val pushOrMaven = determinePublishingDependencyTask(
             mavenTasks = mavenTasks,
-            pushTask = pushTask
+            pushTask = pushTask,
         )
 
         publishingTask.dependsOn(pushOrMaven)
         publishingTask.mustRunAfter(pushOrMaven)
     }
 
-    protected fun resolvePublishingTasks(extension: PublishingPluginExtension): Map<String, Set<String>> {
+    private fun resolvePublishingTasks(extension: PublishingPluginExtension): Map<String, Set<String>> {
         return mutableMapOf(
             "" to setOf("all"),
         ).apply {
             putAll(extension.additionalPublishingTasks.get())
         }
+    }
+
+    protected abstract fun Project.wireDependencies(
+        cloneTask: Task?,
+        pushTask: Task?,
+        publishingTask: Task,
+        repositoryName: String,
+        platforms: Set<String>,
+    )
+
+    private fun Project.configurePublishingVariants(
+        version: String,
+        cloneTask: Task?,
+        variants: Map<String, Set<String>>,
+        repository: RepositoryConfiguration<out Any>,
+        extension: PublishingPluginExtension,
+    ) {
+        variants.forEach { (variantName, dependencies) ->
+            val pushTask = GitRepository.configurePushTask(
+                project = this,
+                configuration = repository,
+                version = version,
+                dryRun = extension.dryRun.get(),
+                publishingId = variantName,
+            )
+
+            val publishTask = addPublishingTask(
+                configuration = repository,
+                publishingId = variantName,
+            )
+
+            wireDependencies(
+                cloneTask = cloneTask,
+                pushTask = pushTask,
+                publishingTask = publishTask,
+                repositoryName = repository.name,
+                platforms = dependencies,
+            )
+        }
+    }
+
+    protected fun Project.configurePublishingTasks(
+        version: String,
+        repository: RepositoryConfiguration<out Any>,
+        extension: PublishingPluginExtension,
+    ) {
+        val cloneTask = GitRepository.configureCloneTask(project, repository)
+        val publishingVariants = resolvePublishingTasks(extension)
+        configurePublishingVariants(
+            extension = extension,
+            cloneTask = cloneTask,
+            version = version,
+            variants = publishingVariants,
+            repository = repository,
+        )
     }
 }

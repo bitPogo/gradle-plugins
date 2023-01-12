@@ -11,7 +11,6 @@ import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract.PublisherController
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
-import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
 
@@ -23,20 +22,21 @@ internal object PublisherStandaloneController : PublisherController, SharedPubli
             extension.packaging.orNull is PackageConfiguration
     }
 
-    private fun wireDependencies(
-        project: Project,
+    override fun Project.wireDependencies(
         cloneTask: Task?,
         pushTask: Task?,
         publishingTask: Task,
-        registryName: String,
+        repositoryName: String,
+        platforms: Set<String>,
     ) {
-        val mavenTask = project.tasks.findByName(
-            "publishAllPublicationsTo${registryName.capitalize()}Repository",
-        ) as Task
+        val mavenTasks = findPublishingTasks(
+            repositoryName = repositoryName,
+            platforms = platforms,
+        ).filterNotNull()
 
         wireDependencies(
             cloneTask = cloneTask,
-            mavenTasks = listOf(mavenTask),
+            mavenTasks = mavenTasks,
             pushTask = pushTask,
             publishingTask = publishingTask,
         )
@@ -50,29 +50,23 @@ internal object PublisherStandaloneController : PublisherController, SharedPubli
     ) {
         if (isApplicable(extension)) {
             val dryRun = extension.dryRun.get()
-            val registryConfigurations = extension.repositories.get()
-            val packageConfiguration = extension.packaging.get()
+            val repositories = extension.repositories.get()
+            val packages = extension.packaging.get()
 
             MavenPublisher.configure(
                 project = project,
-                configuration = packageConfiguration,
+                configuration = packages,
                 docs = documentation,
                 version = version,
             )
 
-            registryConfigurations.forEach { registry ->
-                MavenRepository.configure(project, registry, dryRun)
+            repositories.forEach { repository ->
+                MavenRepository.configure(project, repository, dryRun)
 
-                val clone = GitRepository.configureCloneTask(project, registry)
-                val push = GitRepository.configurePushTask(project, registry, version, dryRun)
-                val publish = addPublishingTask(project, registry)
-
-                wireDependencies(
-                    project = project,
-                    cloneTask = clone,
-                    pushTask = push,
-                    publishingTask = publish,
-                    registryName = registry.name,
+                project.configurePublishingTasks(
+                    version = version,
+                    repository = repository,
+                    extension = extension,
                 )
             }
         }

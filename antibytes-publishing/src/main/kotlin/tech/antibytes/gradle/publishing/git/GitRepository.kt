@@ -37,10 +37,10 @@ internal object GitRepository : PublisherContract.GitRepository {
         configuration: RepositoryConfiguration<out Any>,
         version: String,
         dryRun: Boolean,
-        publishingId: String
+        publishingId: String,
     ): Task? {
         return if (configuration is GitRepositoryConfiguration) {
-            project.tasks.create("push${configuration.name.capitalize()}$publishingId") {
+            project.tasks.create("push${configuration.name.capitalize()}${publishingId.capitalize()}") {
                 doLast {
                     val succeeded = GitActions.push(
                         project,

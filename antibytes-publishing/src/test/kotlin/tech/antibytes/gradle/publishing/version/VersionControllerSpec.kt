@@ -65,7 +65,7 @@ class VersionControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = mockk(),
             packaging = mockk(),
@@ -104,7 +104,7 @@ class VersionControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = mockk(),
             packaging = mockk(),
@@ -169,7 +169,7 @@ class VersionControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = mockk(),
             packaging = mockk(),

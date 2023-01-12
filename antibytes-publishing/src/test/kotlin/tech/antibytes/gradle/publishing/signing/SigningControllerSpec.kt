@@ -69,7 +69,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
@@ -110,7 +110,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
@@ -162,7 +162,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
@@ -221,7 +221,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
@@ -282,7 +282,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
@@ -348,7 +348,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
@@ -416,7 +416,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
@@ -486,7 +486,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
@@ -557,7 +557,7 @@ class SigningControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,

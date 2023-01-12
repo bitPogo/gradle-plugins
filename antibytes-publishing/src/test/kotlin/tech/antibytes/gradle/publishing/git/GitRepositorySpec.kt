@@ -230,7 +230,7 @@ class GitRepositorySpec {
             task,
             mockk(),
         ) { probe ->
-            taskContainer.create("push${name.capitalize()}$suffix", probe)
+            taskContainer.create("push${name.capitalize()}${suffix.capitalize()}", probe)
         }
         invokeGradleAction(
             task,

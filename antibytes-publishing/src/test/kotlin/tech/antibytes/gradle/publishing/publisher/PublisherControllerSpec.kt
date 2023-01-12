@@ -79,7 +79,7 @@ class PublisherControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf(name)),
@@ -132,7 +132,7 @@ class PublisherControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf()),
@@ -186,7 +186,7 @@ class PublisherControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf()),
@@ -249,7 +249,7 @@ class PublisherControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf()),
@@ -300,7 +300,7 @@ class PublisherControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, setOf()),

@@ -87,7 +87,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             dryRun = makeProperty(Boolean::class.java, false),
             excludeProjects = makeSetProperty(String::class.java, emptySet()),
@@ -130,7 +130,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
             dryRun = makeProperty(Boolean::class.java, dryRun),
@@ -195,6 +195,96 @@ class PublisherRootProjectControllerSpec {
     }
 
     @Test
+    fun `Given configure is called with a Project and PublishingPluginConfiguration, it distributes the configurations for additional dependencies`() {
+        // Given
+        val project: Project = mockk {
+            every { project } returns this
+        }
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
+        val dryRun: Boolean = fixture()
+        val version: String = fixture()
+
+        val additionalSources: Map<String, Set<String>> = mapOf(
+            "x${fixture<String>()}" to setOf(fixture(), fixture()),
+        )
+
+        val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
+        val packageConfiguration: PackageConfiguration = mockk()
+        val versioningConfiguration: VersioningConfiguration = mockk()
+
+        val config = TestConfig(
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                additionalSources,
+            ) as MapProperty<String, Set<String>>,
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
+        )
+
+        val tasks: TaskContainer = mockk()
+        val task: Task = mockk(relaxed = true)
+
+        every { project.name } returns fixture()
+        every { project.tasks } returns tasks
+        every { project.subprojects } returns setOf(project)
+
+        every { tasks.create(any(), any<Action<Task>>()) } returns task
+        every { tasks.findByName(any()) } returns task
+
+        every { GitRepository.configureCloneTask(project, any()) } returns task
+        every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns task
+
+        // When
+        PublisherRootProjectController.configure(
+            project,
+            version,
+            null,
+            config,
+        )
+
+        // Then
+        verify(exactly = 1) {
+            GitRepository.configureCloneTask(
+                project,
+                registry1,
+            )
+        }
+
+        verify(exactly = 1) {
+            GitRepository.configurePushTask(
+                project,
+                registry1,
+                version,
+                dryRun,
+                publishingId = additionalSources.keys.first(),
+            )
+        }
+
+        verify(exactly = 1) {
+            GitRepository.configureCloneTask(
+                project,
+                registry2,
+            )
+        }
+
+        verify(exactly = 1) {
+            GitRepository.configurePushTask(
+                project,
+                registry2,
+                version,
+                dryRun,
+                publishingId = additionalSources.keys.first(),
+            )
+        }
+    }
+
+    @Test
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it adds a publishing Task`() {
         // Given
         val project: Project = mockk {
@@ -213,7 +303,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -242,15 +332,11 @@ class PublisherRootProjectControllerSpec {
         invokeGradleAction(
             publishingTask,
             publishingTask,
-        ) { probe ->
-            tasks.create(any(), probe)
-        }
+        ) { probe -> tasks.create(any(), probe) }
         invokeGradleAction(
             publishingTask,
             publishingTask,
-        ) { probe ->
-            tasks.create(any(), probe)
-        }
+        ) { probe -> tasks.create(any(), probe) }
 
         // When
         PublisherRootProjectController.configure(
@@ -281,7 +367,7 @@ class PublisherRootProjectControllerSpec {
         val version: String = fixture()
 
         val additionalSources: Map<String, Set<String>> = mapOf(
-            "x${fixture<String>()}" to setOf(fixture(), fixture())
+            "x${fixture<String>()}" to setOf(fixture(), fixture()),
         )
 
         val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
@@ -292,7 +378,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                additionalSources
+                additionalSources,
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -339,13 +425,13 @@ class PublisherRootProjectControllerSpec {
         verify(exactly = 1) {
             tasks.create(
                 "publish${additionalSources.keys.first().capitalize()}${registry1.name.capitalize()}",
-                any<Action<Task>>()
+                any<Action<Task>>(),
             )
         }
         verify(exactly = 1) {
             tasks.create(
                 "publish${additionalSources.keys.first().capitalize()}${registry2.name.capitalize()}",
-                any<Action<Task>>()
+                any<Action<Task>>(),
             )
         }
 
@@ -377,7 +463,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -474,7 +560,7 @@ class PublisherRootProjectControllerSpec {
         val version: String = fixture()
 
         val additionalSources: Map<String, Set<String>> = mapOf(
-            "x${fixture<String>()}" to setOf("t${fixture<String>()}", "s${fixture<String>()}")
+            "x${fixture<String>()}" to setOf("t${fixture<String>()}", "s${fixture<String>()}"),
         )
 
         val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
@@ -526,23 +612,23 @@ class PublisherRootProjectControllerSpec {
 
         every {
             tasks1.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository"
+                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
             )
         } returns maven1Task
         every {
             tasks1.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository"
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
             )
         } returns maven2Task
 
         every {
             tasks2.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository"
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
             )
         } returns maven3Task
         every {
             tasks2.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository"
+                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
             )
         } returns maven4Task
 
@@ -554,7 +640,7 @@ class PublisherRootProjectControllerSpec {
                 configuration = any(),
                 version = version,
                 dryRun = dryRun,
-                publishingId = additionalSources.keys.first()
+                publishingId = additionalSources.keys.first(),
             )
         } returns gitPushTask
 
@@ -569,22 +655,23 @@ class PublisherRootProjectControllerSpec {
         // Then
         verify(exactly = 1) {
             tasks1.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository"
+                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
             )
         }
         verify(exactly = 1) {
             tasks1.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository")
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+            )
         }
 
         verify(exactly = 1) {
             tasks2.findByName(
-                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository"
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
             )
         }
         verify(exactly = 1) {
             tasks2.findByName(
-                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository"
+                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
             )
         }
 
@@ -599,22 +686,22 @@ class PublisherRootProjectControllerSpec {
 
         verify(exactly = 1) {
             gitPushTask.dependsOn(
-                listOf(maven1Task, publishAllMavenTask, publishAllMavenTask, maven3Task)
+                listOf(maven1Task, publishAllMavenTask, publishAllMavenTask, maven3Task),
             )
         }
         verify(exactly = 1) {
             gitPushTask.mustRunAfter(
-                listOf(maven1Task, publishAllMavenTask, publishAllMavenTask, maven3Task)
+                listOf(maven1Task, publishAllMavenTask, publishAllMavenTask, maven3Task),
             )
         }
         verify(exactly = 1) {
             gitPushTask.dependsOn(
-                listOf(publishAllMavenTask, maven2Task, maven4Task, publishAllMavenTask)
+                listOf(publishAllMavenTask, maven2Task, maven4Task, publishAllMavenTask),
             )
         }
         verify(exactly = 1) {
             gitPushTask.mustRunAfter(
-                listOf(publishAllMavenTask, maven2Task, maven4Task, publishAllMavenTask)
+                listOf(publishAllMavenTask, maven2Task, maven4Task, publishAllMavenTask),
             )
         }
 
@@ -641,7 +728,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -763,7 +850,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -836,6 +923,146 @@ class PublisherRootProjectControllerSpec {
     }
 
     @Test
+    fun `Given configure is called with a Project and PublishingPluginConfiguration, it wires the dependencies while Git is not in use for additional dependencies`() {
+        // Given
+        val project: Project = mockk {
+            every { project } returns this
+        }
+        val registry1 = gitRegistryTestConfig.copy(name = "a")
+        val registry2 = mavenRegistryTestConfig.copy(name = "b")
+        val dryRun: Boolean = fixture()
+        val version: String = fixture()
+
+        val additionalSources: Map<String, Set<String>> = mapOf(
+            "x${fixture<String>()}" to setOf("t${fixture<String>()}", "s${fixture<String>()}"),
+        )
+
+        val repositoriesConfiguration: Set<RepositoryConfiguration<out Any>> = setOf(registry1, registry2)
+        val packageConfiguration: PackageConfiguration = mockk()
+        val versioningConfiguration: VersioningConfiguration = mockk()
+
+        val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                additionalSources,
+            ) as MapProperty<String, Set<String>>,
+            repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
+            packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
+            dryRun = makeProperty(Boolean::class.java, dryRun),
+            excludeProjects = makeSetProperty(String::class.java, emptySet()),
+            versioning = makeProperty(VersioningConfiguration::class.java, versioningConfiguration),
+            standalone = makeProperty(Boolean::class.java, false),
+        )
+
+        val subproject1: Project = mockk()
+        val subproject2: Project = mockk()
+
+        val tasks: TaskContainer = mockk()
+        val tasks1: TaskContainer = mockk()
+        val tasks2: TaskContainer = mockk()
+
+        val maven1Task: Task = mockk(relaxed = true)
+        val maven2Task: Task = mockk(relaxed = true)
+        val maven3Task: Task = mockk(relaxed = true)
+        val maven4Task: Task = mockk(relaxed = true)
+        val publishingTask: Task = mockk(relaxed = true)
+
+        val publishAllMavenTask: Task = mockk(relaxed = true)
+
+        every { project.name } returns fixture()
+        every { project.tasks } returns tasks
+        every { project.subprojects } returns setOf(subproject1, subproject2)
+
+        every { subproject1.tasks } returns tasks1
+        every { subproject2.tasks } returns tasks2
+
+        every { tasks.create(any(), any<Action<Task>>()) } returns publishingTask
+
+        every { tasks1.findByName(any()) } returns publishAllMavenTask
+        every { tasks2.findByName(any()) } returns publishAllMavenTask
+
+        every {
+            tasks1.findByName(
+                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+            )
+        } returns maven1Task
+        every {
+            tasks1.findByName(
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+            )
+        } returns maven2Task
+
+        every {
+            tasks2.findByName(
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+            )
+        } returns maven3Task
+        every {
+            tasks2.findByName(
+                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+            )
+        } returns maven4Task
+
+        every { MavenRepository.configure(project, any(), dryRun) } just Runs
+        every { GitRepository.configureCloneTask(project, any()) } returns null
+        every { GitRepository.configurePushTask(project, any(), version, dryRun) } returns null
+
+        // When
+        PublisherRootProjectController.configure(
+            project,
+            version,
+            null,
+            config,
+        )
+
+        // Then
+        verify(exactly = 1) {
+            tasks1.findByName(
+                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+            )
+        }
+        verify(exactly = 1) {
+            tasks1.findByName(
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+            )
+        }
+
+        verify(exactly = 1) {
+            tasks2.findByName(
+                "publish${additionalSources.values.first().toList()[1].capitalize()}PublicationsTo${registry1.name.capitalize()}Repository",
+            )
+        }
+        verify(exactly = 1) {
+            tasks2.findByName(
+                "publish${additionalSources.values.first().first().capitalize()}PublicationsTo${registry2.name.capitalize()}Repository",
+            )
+        }
+
+        verify(exactly = 1) {
+            publishingTask.dependsOn(
+                listOf(maven1Task, publishAllMavenTask, publishAllMavenTask, maven3Task),
+            )
+        }
+        verify(exactly = 1) {
+            publishingTask.mustRunAfter(
+                listOf(maven1Task, publishAllMavenTask, publishAllMavenTask, maven3Task),
+            )
+        }
+
+        verify(exactly = 1) {
+            publishingTask.dependsOn(
+                listOf(publishAllMavenTask, maven2Task, maven4Task, publishAllMavenTask),
+            )
+        }
+        verify(exactly = 1) {
+            publishingTask.mustRunAfter(
+                listOf(publishAllMavenTask, maven2Task, maven4Task, publishAllMavenTask),
+            )
+        }
+    }
+
+    @Test
     fun `Given configure is called with a Project and PublishingPluginConfiguration, it runs the tasks in order while Git is not in use`() {
         // Given
         val project: Project = mockk {
@@ -854,7 +1081,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -955,7 +1182,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
@@ -1055,7 +1282,7 @@ class PublisherRootProjectControllerSpec {
             additionalPublishingTasks = makeMapProperty(
                 String::class.java,
                 Set::class.java,
-                emptyMap()
+                emptyMap(),
             ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
