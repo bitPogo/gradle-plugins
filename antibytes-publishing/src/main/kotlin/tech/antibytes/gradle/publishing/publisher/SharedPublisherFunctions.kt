@@ -40,13 +40,21 @@ internal abstract class SharedPublisherFunctions {
         }
     }
 
+    private fun Set<String>.determinePlural(): String {
+        return if (this == defaultTaskDependencies) {
+            "s"
+        } else {
+            ""
+        }
+    }
+
     protected fun Project.findPublishingTasks(
         repositoryName: String,
         platforms: Set<String>,
     ): List<Task?> {
         return platforms.map { platform ->
             tasks.findByName(
-                "publish${platform.capitalize()}PublicationsTo${repositoryName.capitalize()}Repository",
+                "publish${platform.capitalize()}Publication${platforms.determinePlural()}To${repositoryName.capitalize()}Repository",
             )
         }
     }
@@ -101,7 +109,7 @@ internal abstract class SharedPublisherFunctions {
 
     private fun resolvePublishingTasks(extension: PublishingPluginExtension): Map<String, Set<String>> {
         return mutableMapOf(
-            "" to setOf("all"),
+            "" to defaultTaskDependencies,
         ).apply {
             putAll(extension.additionalPublishingTasks.get())
         }
@@ -160,5 +168,9 @@ internal abstract class SharedPublisherFunctions {
             variants = publishingVariants,
             repository = repository,
         )
+    }
+
+    private companion object {
+        val defaultTaskDependencies = setOf("all")
     }
 }
