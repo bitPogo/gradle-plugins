@@ -4,7 +4,6 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-// import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 import tech.antibytes.gradle.plugin.config.LibraryConfig
@@ -26,7 +25,6 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
 
-    // alias(libs.plugins.fatJar)
     id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
@@ -40,10 +38,6 @@ val versioningConfiguration = VersioningConfiguration(
 
 // To make it available as direct dependency
 group = pluginId
-
-/*tasks.named<ShadowJar>("shadowJar") {
-    archiveClassifier.set("")
-}*/
 
 antibytesVersioning {
     configuration = versioningConfiguration
