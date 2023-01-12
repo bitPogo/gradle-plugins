@@ -8,26 +8,31 @@ package tech.antibytes.gradle.publishing.publisher
 
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.publishing.git.GitRepository
+import tech.antibytes.gradle.publishing.PublishingContract.PublisherController
+import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 
-internal object PublisherRootProjectController : PublishingContract.PublisherController, SharedPublisherFunctions() {
-    private fun Project.wireDependencies(
+internal object PublisherRootProjectController : PublisherController, SharedPublisherFunctions() {
+    private fun Project.findTasks(
+        repositoryName: String,
+        platforms: Set<String>,
+    ): List<Task> {
+        return subprojects
+            .asSequence()
+            .map { subproject ->
+                subproject.findPublishingTasks(repositoryName, platforms)
+            }.flatten()
+            .filterNotNull()
+            .toList()
+    }
+
+    override fun Project.wireDependencies(
         cloneTask: Task?,
         pushTask: Task?,
         publishingTask: Task,
         repositoryName: String,
+        platforms: Set<String>,
     ) {
-        val mavenTasks = mutableListOf<Task>()
-        subprojects.forEach { subproject ->
-            subproject.tasks.findByName(
-                "publishAllPublicationsTo${repositoryName.capitalize()}Repository",
-            ).also { task ->
-                if (task is Task) {
-                    mavenTasks.add(task)
-                }
-            }
-        }
+        val mavenTasks = findTasks(repositoryName, platforms)
 
         wireDependencies(
             cloneTask = cloneTask,
@@ -41,28 +46,14 @@ internal object PublisherRootProjectController : PublishingContract.PublisherCon
         project: Project,
         version: String,
         documentation: Task?,
-        extension: PublishingContract.PublishingPluginExtension,
+        extension: PublishingPluginExtension,
     ) {
-        val repositories = extension.repositories.get()
-        if (repositories.isNotEmpty()) {
-            repositories.forEach { repository ->
-                val cloneTask = GitRepository.configureCloneTask(project, repository)
-                val pushTask = GitRepository.configurePushTask(
-                    project,
-                    repository,
-                    version,
-                    extension.dryRun.get(),
-                )
-
-                val publishTask = addPublishingTask(project, repository)
-
-                project.wireDependencies(
-                    cloneTask = cloneTask,
-                    pushTask = pushTask,
-                    publishingTask = publishTask,
-                    repositoryName = repository.name,
-                )
-            }
+        extension.repositories.get().forEach { repository ->
+            project.configurePublishingTasks(
+                version = version,
+                repository = repository,
+                extension = extension,
+            )
         }
     }
 }

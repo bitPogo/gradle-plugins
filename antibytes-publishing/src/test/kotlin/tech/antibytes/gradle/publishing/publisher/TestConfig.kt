@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.publishing.publisher
 
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import tech.antibytes.gradle.publishing.PublishingApiContract.DocumentationConfiguration
@@ -21,6 +22,7 @@ data class TestConfig(
     override val versioning: Property<VersioningConfiguration>,
     override val repositories: SetProperty<RepositoryConfiguration<out Any>>,
     override val packaging: Property<PackageConfiguration>,
+    override val additionalPublishingTasks: MapProperty<String, Set<String>>,
     override val dryRun: Property<Boolean>,
     override val standalone: Property<Boolean>,
     override val documentation: Property<DocumentationConfiguration> = makeProperty(

@@ -17,19 +17,23 @@ import io.mockk.verify
 import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.tasks.TaskContainer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.publishing.publisher.TestConfig
-import tech.antibytes.gradle.test.GradlePropertyBuilder
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.Versioning
 import tech.antibytes.gradle.versioning.VersioningContract
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 import tech.antibytes.gradle.versioning.api.VersionInfo
 
+@Suppress("UNCHECKED_CAST")
 class VersionControllerSpec {
     private val fixture = kotlinFixture()
 
@@ -58,12 +62,17 @@ class VersionControllerSpec {
         val versionConfig: VersioningConfiguration = mockk(relaxed = true)
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = mockk(),
             packaging = mockk(),
-            dryRun = GradlePropertyBuilder.makeProperty(Boolean::class.java, false),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(String::class.java, setOf(name)),
-            versioning = GradlePropertyBuilder.makeProperty(VersioningConfiguration::class.java, versionConfig),
-            standalone = GradlePropertyBuilder.makeProperty(Boolean::class.java, true),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf(name)),
+            versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
+            standalone = makeProperty(Boolean::class.java, true),
         )
 
         val project: Project = mockk()
@@ -92,12 +101,17 @@ class VersionControllerSpec {
         val versionConfig: VersioningConfiguration = mockk(relaxed = true)
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = mockk(),
             packaging = mockk(),
-            dryRun = GradlePropertyBuilder.makeProperty(Boolean::class.java, false),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(String::class.java, setOf(name)),
-            versioning = GradlePropertyBuilder.makeProperty(VersioningConfiguration::class.java, versionConfig),
-            standalone = GradlePropertyBuilder.makeProperty(Boolean::class.java, true),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf(name)),
+            versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
+            standalone = makeProperty(Boolean::class.java, true),
         )
 
         val project: Project = mockk()
@@ -152,12 +166,17 @@ class VersionControllerSpec {
         val versionConfig: VersioningConfiguration = mockk(relaxed = true)
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = mockk(),
             packaging = mockk(),
-            dryRun = GradlePropertyBuilder.makeProperty(Boolean::class.java, false),
-            excludeProjects = GradlePropertyBuilder.makeSetProperty(String::class.java, setOf(name)),
-            versioning = GradlePropertyBuilder.makeProperty(VersioningConfiguration::class.java, versionConfig),
-            standalone = GradlePropertyBuilder.makeProperty(Boolean::class.java, true),
+            dryRun = makeProperty(Boolean::class.java, false),
+            excludeProjects = makeSetProperty(String::class.java, setOf(name)),
+            versioning = makeProperty(VersioningConfiguration::class.java, versionConfig),
+            standalone = makeProperty(Boolean::class.java, true),
         )
 
         val project: Project = mockk()

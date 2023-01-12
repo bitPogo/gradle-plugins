@@ -16,6 +16,7 @@ import io.mockk.unmockkObject
 import io.mockk.verify
 import kotlin.test.assertTrue
 import org.gradle.api.Project
+import org.gradle.api.provider.MapProperty
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -25,12 +26,14 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
 import tech.antibytes.gradle.publishing.publisher.TestConfig
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.createExtension
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.VersioningContract
 
+@Suppress("UNCHECKED_CAST")
 class SigningControllerSpec {
     private val fixture = kotlinFixture()
 
@@ -63,6 +66,11 @@ class SigningControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -99,6 +107,11 @@ class SigningControllerSpec {
         val name: String = fixture()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -146,6 +159,11 @@ class SigningControllerSpec {
         // Given
         val name: String = fixture()
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -200,6 +218,11 @@ class SigningControllerSpec {
         val name: String = fixture()
         val subName: String = fixture()
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -256,6 +279,11 @@ class SigningControllerSpec {
         // Given
         val name: String = fixture()
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -317,6 +345,11 @@ class SigningControllerSpec {
         val name: String = fixture()
         val subprojectExtension: PublishingPluginExtension = createExtension()
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -380,6 +413,11 @@ class SigningControllerSpec {
         val name: String = fixture()
         val subprojectExtension: PublishingPluginExtension = createExtension()
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -445,6 +483,11 @@ class SigningControllerSpec {
         val subName: String = fixture()
         val subprojectExtension: PublishingPluginExtension = createExtension()
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -511,6 +554,11 @@ class SigningControllerSpec {
         val subName: String = fixture()
         val subprojectExtension: PublishingPluginExtension = createExtension()
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 PublishingApiContract.RepositoryConfiguration::class.java,
                 setOf(mockk()),

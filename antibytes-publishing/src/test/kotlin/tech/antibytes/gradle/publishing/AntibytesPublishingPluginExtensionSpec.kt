@@ -121,4 +121,14 @@ class AntibytesPublishingPluginExtensionSpec {
 
         assertFalse(extension.standalone.get())
     }
+
+    @Test
+    fun `It has no additional PublicationTasks by default`() {
+        val extension: AntibytesPublishingPluginExtension = createExtension()
+
+        assertEquals(
+            extension.additionalPublishingTasks.get(),
+            emptyMap(),
+        )
+    }
 }

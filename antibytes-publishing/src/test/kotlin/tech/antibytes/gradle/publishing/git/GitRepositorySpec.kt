@@ -98,12 +98,6 @@ class GitRepositorySpec {
             taskContainer.create("clone${name.capitalize()}", probe)
         }
         invokeGradleAction(
-            mockk<Task>(relaxed = true),
-            mockk(),
-        ) { probe ->
-            taskContainer.create("push${name.capitalize()}", probe)
-        }
-        invokeGradleAction(
             task,
             mockk(),
         ) { probe ->
@@ -149,7 +143,7 @@ class GitRepositorySpec {
     }
 
     @Test
-    fun `Given configureCloneTasks is called with a Project, GitRepositoryConfiguration, Version and a DryRunFlag it adds a push task`() {
+    fun `Given configurePushTask is called with a Project, GitRepositoryConfiguration, Version and a DryRunFlag it adds a push task`() {
         // Given
         val name: String = fixture()
         val version: String = fixture()
@@ -176,10 +170,67 @@ class GitRepositorySpec {
             taskContainer.create("push${name.capitalize()}", probe)
         }
         invokeGradleAction(
-            mockk<Task>(relaxed = true),
+            task,
             mockk(),
         ) { probe ->
-            taskContainer.create("clone${name.capitalize()}", probe)
+            task.doLast(probe)
+        }
+
+        every {
+            GitActions.push(
+                project,
+                configuration,
+                version,
+                dryRun,
+            )
+        } returns true
+
+        // When
+        GitRepository.configurePushTask(
+            project,
+            configuration,
+            version,
+            dryRun,
+        )
+
+        // Then
+        verify(exactly = 1) {
+            GitActions.push(
+                project,
+                configuration,
+                version,
+                dryRun,
+            )
+        }
+    }
+
+    @Test
+    fun `Given configurePushTask is called with a Project, GitRepositoryConfiguration, Version, a DryRunFlag and a Suffix it adds a push task`() {
+        // Given
+        val name: String = fixture()
+        val suffix: String = fixture()
+        val version: String = fixture()
+        val dryRun: Boolean = fixture()
+
+        val project: Project = mockk()
+        val configuration = GitRepositoryConfiguration(
+            name = name,
+            gitWorkDirectory = fixture(),
+            url = fixture(),
+            username = "",
+            password = "",
+        )
+
+        val taskContainer: TaskContainer = mockk(relaxed = true)
+        val task: Task = mockk()
+
+        every { project.tasks } returns taskContainer
+
+        invokeGradleAction(
+            task,
+            mockk(),
+        ) { probe ->
+            taskContainer.create("push${name.capitalize()}${suffix.capitalize()}", probe)
         }
         invokeGradleAction(
             task,
@@ -203,6 +254,7 @@ class GitRepositorySpec {
             configuration,
             version,
             dryRun,
+            suffix,
         )
 
         // Then
@@ -242,12 +294,6 @@ class GitRepositorySpec {
             mockk(),
         ) { probe ->
             taskContainer.create("push${name.capitalize()}", probe)
-        }
-        invokeGradleAction(
-            mockk<Task>(relaxed = true),
-            mockk(),
-        ) { probe ->
-            taskContainer.create("clone${name.capitalize()}", probe)
         }
         invokeGradleAction(
             task,

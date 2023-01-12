@@ -17,6 +17,7 @@ import io.mockk.verify
 import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.provider.MapProperty
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -28,10 +29,12 @@ import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
+@Suppress("UNCHECKED_CAST")
 class PublisherSubProjectControllerSpec {
     private val fixture = kotlinFixture()
     private val gitRegistryTestConfig = GitRepositoryConfiguration(
@@ -76,6 +79,11 @@ class PublisherSubProjectControllerSpec {
         // Given
         val project: Project = mockk()
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 setOf(mockk()),
@@ -112,6 +120,11 @@ class PublisherSubProjectControllerSpec {
         val rootProject: Project = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 emptySet(),
@@ -126,6 +139,11 @@ class PublisherSubProjectControllerSpec {
             standalone = makeProperty(Boolean::class.java, false),
         )
         val rootConfig = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(
                 RepositoryConfiguration::class.java,
                 emptySet(),
@@ -175,6 +193,11 @@ class PublisherSubProjectControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
             dryRun = makeProperty(Boolean::class.java, dryRun),
@@ -230,6 +253,11 @@ class PublisherSubProjectControllerSpec {
         val versioningConfiguration: VersioningConfiguration = mockk()
 
         val config = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, emptySet()),
             packaging = makeProperty(PackageConfiguration::class.java, packageConfiguration),
             dryRun = makeProperty(Boolean::class.java, dryRun),
@@ -239,6 +267,11 @@ class PublisherSubProjectControllerSpec {
         )
 
         val rootConfig = TestConfig(
+            additionalPublishingTasks = makeMapProperty(
+                String::class.java,
+                Set::class.java,
+                emptyMap(),
+            ) as MapProperty<String, Set<String>>,
             repositories = makeSetProperty(RepositoryConfiguration::class.java, repositoriesConfiguration),
             packaging = makeProperty(PackageConfiguration::class.java, null),
             dryRun = makeProperty(Boolean::class.java, null),

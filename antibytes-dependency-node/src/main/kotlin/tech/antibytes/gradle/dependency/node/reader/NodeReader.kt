@@ -6,8 +6,8 @@
 
 package tech.antibytes.gradle.dependency.node.reader
 
+import com.google.gson.Gson
 import java.io.File
-import org.gradle.internal.impldep.com.google.gson.Gson
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.NodeDependencies
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.PackageDependencies
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.Reader
