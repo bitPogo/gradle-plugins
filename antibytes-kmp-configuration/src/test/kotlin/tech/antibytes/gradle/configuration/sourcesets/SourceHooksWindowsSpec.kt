@@ -24,7 +24,7 @@ class SourceHooksWindowsSpec {
     private val fixture = kotlinFixture()
 
     @Test
-    fun `Given windows is called it delegates the given parameter to the KMP configuration`() {
+    fun `Given mingw is called it delegates the given parameter to the KMP configuration`() {
         // Given
         val extension: KotlinMultiplatformExtension = mockk(
             relaxed = true,
