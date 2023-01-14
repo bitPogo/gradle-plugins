@@ -56,6 +56,8 @@ junit = "5.9.0"
 mockk = "1.12.8"
 # [kotlinFixture](https://github.com/appmattus/kotlinfixture)
 jvmFixture = "1.2.0"
+# [JUnit Extensions](https://github.com/junit-pioneer/junit-pioneer/releases)
+junitExt = "2.0.0-RC1"
 
 [libraries]
 ## Gradle
@@ -82,6 +84,7 @@ jflex = { module = "de.jflex:jflex", version.ref = "jflex" }
 turtle = { module = "com.lordcodes.turtle:turtle", version.ref = "turtle" }
 kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
+fatJar = { module = "gradle.plugin.com.github.jengelman.gradle.plugins:shadow", version.ref = "fatJar" }
 
 ## Test
 kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -90,7 +93,7 @@ jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockkInstumented = { module = "io.mockk:mockk-jvm", version.ref = "mockk" }
 jvmFixture = { module = "com.appmattus.fixture:fixture", version.ref = "jvmFixture" }
-fatJar = { module = "gradle.plugin.com.github.jengelman.gradle.plugins:shadow", version.ref = "fatJar" }
+junitExt = { module = "org.junit-pioneer:junit-pioneer", version.ref = "junitExt" }
 
 [plugins]
 fatJar = { id = "com.github.johnrengelman.shadow", version.ref = "fatJar" }

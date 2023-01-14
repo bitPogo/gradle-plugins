@@ -121,6 +121,7 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(libs.junitExt)
 }
 
 java {
