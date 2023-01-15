@@ -44,6 +44,7 @@ include(
     ":antibytes-dependency-helper",
     ":antibytes-dependency-node",
     ":antibytes-publishing",
+    ":antibytes-publishing-configuration",
     ":antibytes-versioning",
     ":antibytes-grammar-tools",
     ":antibytes-runtime-configuration",

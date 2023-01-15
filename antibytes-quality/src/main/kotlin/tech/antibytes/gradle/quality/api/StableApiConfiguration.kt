@@ -10,7 +10,9 @@ import tech.antibytes.gradle.quality.QualityApiContract
 
 data class StableApiConfiguration(
     override val excludePackages: Set<String> = emptySet(),
-    override val excludeProjects: Set<String> = emptySet(),
+    override val excludeProjects: Set<String> = setOf(
+        "docs",
+    ),
     override val excludeClasses: Set<String> = emptySet(),
     override val nonPublicMarkers: Set<String> = emptySet(),
 ) : QualityApiContract.StableApiConfiguration
