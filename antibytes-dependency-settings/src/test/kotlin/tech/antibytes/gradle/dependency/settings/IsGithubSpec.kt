@@ -24,7 +24,7 @@ class IsGithubSpec {
     }
 
     @Test
-    @SetEnvironmentVariable(key = "GITHUB", value = "true")
+    @SetEnvironmentVariable(key = "GITHUB", value = "any")
     fun `Given isGitHub is called it returns true if the Github Environment Variable is present`() {
         // When
         val actual = isGitHub()
