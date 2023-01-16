@@ -89,6 +89,13 @@ abstract class BasePublishingConfiguration(
             password = password,
         ),
         GitRepositoryConfiguration(
+            name = "RollingRelease",
+            gitWorkDirectory = "rolling",
+            url = "https://$gitHubOwnerPath/maven-rolling-releases",
+            username = username,
+            password = password,
+        ),
+        GitRepositoryConfiguration(
             name = "Release",
             gitWorkDirectory = "releases",
             url = "https://$gitHubOwnerPath/maven-releases",

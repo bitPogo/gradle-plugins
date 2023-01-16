@@ -124,6 +124,13 @@ class BasePublishingConfigurationSpec {
                     password = "PACKAGE_REGISTRY_UPLOAD_TOKEN",
                 ),
                 GitRepositoryConfiguration(
+                    name = "RollingRelease",
+                    gitWorkDirectory = "rolling",
+                    url = "https://github.com/bitPogo/maven-rolling-releases",
+                    username = "PACKAGE_REGISTRY_UPLOAD_USERNAME",
+                    password = "PACKAGE_REGISTRY_UPLOAD_TOKEN",
+                ),
+                GitRepositoryConfiguration(
                     name = "Release",
                     gitWorkDirectory = "releases",
                     url = "https://github.com/bitPogo/maven-releases",
@@ -238,6 +245,13 @@ class BasePublishingConfigurationSpec {
                     name = "Snapshot",
                     gitWorkDirectory = "snapshots",
                     url = "https://github.com/bitPogo/maven-snapshots",
+                    username = "",
+                    password = "",
+                ),
+                GitRepositoryConfiguration(
+                    name = "RollingRelease",
+                    gitWorkDirectory = "rolling",
+                    url = "https://github.com/bitPogo/maven-rolling-releases",
                     username = "",
                     password = "",
                 ),
