@@ -26,7 +26,7 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
 }
 
-val pluginId = "${LibraryConfig.group}.publishing"
+val pluginId = "${LibraryConfig.group}.configuration.publishing"
 val versioningConfiguration = VersioningConfiguration(
     featurePrefixes = listOf("feature"),
     suppressSnapshot = true

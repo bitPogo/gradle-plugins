@@ -48,6 +48,10 @@ internal object Antibytes {
         id = "antibytes-android-application-configuration",
         plugin = "tech.antibytes.gradle.configuration.android.application",
     )
+    val publishingConfiguration = GradleArtifact(
+        group = "$group.configuration.publishing",
+        id = "antibytes-publishing-configuration",
+    )
     val dokkaConfiguration = GradleBundle(
         group = "$group.configuration.dokka",
         id = "antibytes-dokka-configuration",

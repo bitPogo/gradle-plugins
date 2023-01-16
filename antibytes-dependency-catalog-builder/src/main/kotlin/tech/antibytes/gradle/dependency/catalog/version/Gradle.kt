@@ -80,6 +80,7 @@ internal object Gradle {
         val coverage = GradleBundleVersion(version)
         val androidLibraryConfiguration = GradleBundleVersion(version)
         val androidApplicationConfiguration = GradleBundleVersion(version)
+        val publishingConfiguration = version
         val dokkaConfiguration = GradleBundleVersion(version)
         val kmpConfiguration = GradleBundleVersion(version)
         val quality = GradleBundleVersion(version)
