@@ -30,6 +30,12 @@ internal object Kotlin {
     val multiplatform = GradlePlugin(
         id = "org.jetbrains.kotlin.multiplatform",
     )
+    val android = GradlePlugin(
+        id = "org.jetbrains.kotlin.android",
+    )
+    val jvm = GradlePlugin(
+        id = "org.jetbrains.kotlin.jvm",
+    )
     val reflect = MavenArtifact(
         group = group,
         id = "kotlin-reflect",

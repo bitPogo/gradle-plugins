@@ -62,5 +62,7 @@ internal object Kotlin {
 
     val kotlin = GradleBundleVersion(version)
     const val multiplatform = version
+    const val android = version
+    const val jvm = version
     const val reflect = version
 }
