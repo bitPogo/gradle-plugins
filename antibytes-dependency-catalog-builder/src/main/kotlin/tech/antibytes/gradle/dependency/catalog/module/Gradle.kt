@@ -9,6 +9,7 @@ package tech.antibytes.gradle.dependency.catalog.module
 import tech.antibytes.gradle.dependency.catalog.GradleArtifact
 import tech.antibytes.gradle.dependency.catalog.GradleBundle
 import tech.antibytes.gradle.dependency.catalog.module.gradle.Antibytes
+import tech.antibytes.gradle.dependency.catalog.module.gradle.KSP
 
 internal object Gradle {
     val dependencyUpdate = GradleBundle(
@@ -45,10 +46,6 @@ internal object Gradle {
         group = "com.pinterest",
         id = "ktlint",
     )
-    val ksp = GradleBundle(
-        group = "com.google.devtools.ksp",
-        id = "symbol-processing-api",
-        plugin = "com.google.devtools.ksp",
-    )
+    val ksp = KSP
     val antibytes = Antibytes
 }

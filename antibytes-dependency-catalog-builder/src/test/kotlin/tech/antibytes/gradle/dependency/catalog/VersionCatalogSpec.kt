@@ -769,4 +769,19 @@ class VersionCatalogSpec {
             catalog.version("gradle-antibytes-runtimeConfig", any<String>())
         }
     }
+
+    @Test
+    fun `It contains KSP Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("gradle-ksp-runtime", any<String>())
+        }
+    }
 }

@@ -7,7 +7,6 @@
 package tech.antibytes.gradle.dependency.catalog.version
 
 import tech.antibytes.gradle.dependency.catalog.GradleBundleVersion
-import tech.antibytes.gradle.dependency.catalog.module.gradle.Antibytes
 import tech.antibytes.gradle.dependency.config.GradleVersions
 import tech.antibytes.gradle.dependency.config.MainConfig
 
@@ -63,10 +62,12 @@ internal object Gradle {
     /**
      * [KSP DevTools on MavenCentral](https://mvnrepository.com/artifact/com.google.devtools.ksp/com.google.devtools.ksp.gradle.plugin)
      */
-    // GradleVersions.dependencyUpdate
-    val ksp = GradleBundleVersion(
-        GradleVersions.ksp,
-    )
+    val ksp = KSP
+    internal object KSP {
+        private const val version = GradleVersions.ksp
+        val plugin = GradleBundleVersion(version)
+        const val runtime = version
+    }
 
     val antibytes = Antibytes
 
@@ -74,13 +75,13 @@ internal object Gradle {
         private const val version = MainConfig.antibytes
 
         val dependencyHelper = GradleBundleVersion(version)
-        val nodeHelper = version
+        const val nodeHelper = version
         val publishing = GradleBundleVersion(version)
         val versioning = GradleBundleVersion(version)
         val coverage = GradleBundleVersion(version)
         val androidLibraryConfiguration = GradleBundleVersion(version)
         val androidApplicationConfiguration = GradleBundleVersion(version)
-        val publishingConfiguration = version
+        const val publishingConfiguration = version
         val dokkaConfiguration = GradleBundleVersion(version)
         val kmpConfiguration = GradleBundleVersion(version)
         val quality = GradleBundleVersion(version)
