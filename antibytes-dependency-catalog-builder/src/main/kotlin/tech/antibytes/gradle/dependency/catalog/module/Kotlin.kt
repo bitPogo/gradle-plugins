@@ -33,6 +33,9 @@ internal object Kotlin {
     val android = GradlePlugin(
         id = "org.jetbrains.kotlin.android",
     )
+    val jvm = GradlePlugin(
+        id = "org.jetbrains.kotlin.jvm",
+    )
     val reflect = MavenArtifact(
         group = group,
         id = "kotlin-reflect",
