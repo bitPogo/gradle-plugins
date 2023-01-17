@@ -22,7 +22,7 @@ internal object Kotlin {
 
     internal object StdLib {
         const val common = version
-        const val jvm = version
+        const val jdk = version
         const val jdk7 = version
         const val jdk8 = version
         const val js = version
