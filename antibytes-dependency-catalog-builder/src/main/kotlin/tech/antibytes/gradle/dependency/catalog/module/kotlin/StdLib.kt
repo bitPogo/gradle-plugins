@@ -16,7 +16,7 @@ internal object StdLib {
         id = "kotlin-stdlib-common",
         platform = Platform.COMMON,
     )
-    val jvm = MavenArtifact(
+    val jdk = MavenArtifact(
         group = group,
         id = "kotlin-stdlib",
         platform = Platform.JVM,
