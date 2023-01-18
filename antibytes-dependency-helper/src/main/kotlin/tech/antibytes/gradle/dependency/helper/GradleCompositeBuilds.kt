@@ -17,7 +17,22 @@ object GradleCompositeBuilds : DependencyContract.Configurator {
         }
     }
 
+    private fun Project.configureCheck(enabled: Boolean) {
+        if (enabled) {
+            tasks.named("check") {
+                gradle.includedBuilds.forEach { project ->
+                    dependsOn(gradle.includedBuild(project.name).task(":check"))
+                }
+            }
+        }
+    }
+
     override fun configure(project: Project) {
         project.configureClean()
+    }
+
+    fun configure(project: Project, deepCheck: Boolean) {
+        configure(project)
+        project.configureCheck(deepCheck)
     }
 }
