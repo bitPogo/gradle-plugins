@@ -13,7 +13,7 @@ fun BuildCacheConfiguration.localGithub() {
     local {
         isEnabled = isGitHub()
         directory = File(
-            "${gitHubHomeDir()}.gradle${File.separator}caches",
+            ".gradle",
             "build-cache",
         )
         removeUnusedEntriesAfterDays = 3

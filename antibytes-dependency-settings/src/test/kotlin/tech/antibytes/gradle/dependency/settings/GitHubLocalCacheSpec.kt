@@ -34,7 +34,7 @@ class GitHubLocalCacheSpec {
         verify(exactly = 1) { gitHubCache.isEnabled = true }
         verify(exactly = 1) {
             gitHubCache.directory = File(
-                "/User/runner/.gradle/caches",
+                ".gradle",
                 "build-cache",
             )
         }
@@ -58,7 +58,7 @@ class GitHubLocalCacheSpec {
         verify(exactly = 1) { gitHubCache.isEnabled = false }
         verify(exactly = 1) {
             gitHubCache.directory = File(
-                ".gradle/caches",
+                ".gradle",
                 "build-cache",
             )
         }
