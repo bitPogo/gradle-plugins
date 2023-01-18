@@ -101,6 +101,7 @@ gradle-antibytes-mkDocs-plugin = "xxx"
 gradle-antibytes-nodeHelper = "xxx"
 gradle-antibytes-publishing-dependency = "xxx"
 gradle-antibytes-publishing-plugin = "xxx"
+gradle-antibytes-publishingConfiguration = "xxx"
 gradle-antibytes-quality-dependency = "xxx"
 gradle-antibytes-quality-plugin = "xxx"
 gradle-antibytes-runtimeConfig = "xxx"
@@ -112,8 +113,9 @@ gradle-dependencyUpdate-dependency = "0.42.0"
 gradle-dependencyUpdate-plugin = "0.42.0"
 gradle-jacoco-dependency = "0.8.8"
 gradle-jacoco-plugin = "0.8.8"
-gradle-ksp-dependency = "1.7.10-1.0.6"
-gradle-ksp-plugin = "1.7.10-1.0.6"
+gradle-ksp-plugin-dependency = "1.7.10-1.0.6"
+gradle-ksp-plugin-plugin = "1.7.10-1.0.6"
+gradle-ksp-runtime = "1.7.10-1.0.6"
 gradle-ktlint = "0.47.1"
 gradle-owasp-dependency = "7.2.0"
 gradle-owasp-plugin = "7.2.0"
@@ -129,7 +131,9 @@ koin-junit5 = "3.2.1"
 koin-ktor = "3.2.1"
 koin-slf4j = "3.2.1"
 koin-test = "3.2.1"
+kotlin-android = "1.7.10"
 kotlin-bom = "1.7.10"
+kotlin-jvm = "1.7.10"
 kotlin-kotlin-dependency = "1.7.10"
 kotlin-kotlin-plugin = "1.7.10"
 kotlin-language = "1.7.10"
@@ -144,10 +148,10 @@ kotlin-scripting-jsr223Unshaded = "1.7.10"
 kotlin-scripting-jvm = "1.7.10"
 kotlin-scripting-jvmHostUnshaded = "1.7.10"
 kotlin-stdlib-common = "1.7.10"
+kotlin-stdlib-jdk = "1.7.10"
 kotlin-stdlib-jdk7 = "1.7.10"
 kotlin-stdlib-jdk8 = "1.7.10"
 kotlin-stdlib-js = "1.7.10"
-kotlin-stdlib-jvm = "1.7.10"
 kotlin-stdlib-wasm = "1.7.10"
 kotlin-test-annotations = "1.7.10"
 kotlin-test-core-common = "1.7.10"
@@ -501,6 +505,7 @@ gradle-antibytes-kmpConfiguration = {group = "tech.antibytes.gradle.configuratio
 gradle-antibytes-mkDocs = {group = "tech.antibytes.gradle.mkdocs", name = "antibytes-mkdocs", version.ref = "gradle-antibytes-mkDocs-dependency" }
 gradle-antibytes-nodeHelper = {group = "tech.antibytes.gradle.dependency.node", name = "antibytes-dependency-node", version.ref = "gradle-antibytes-nodeHelper" }
 gradle-antibytes-publishing = {group = "tech.antibytes.gradle.publishing", name = "antibytes-publishing", version.ref = "gradle-antibytes-publishing-dependency" }
+gradle-antibytes-publishingConfiguration = {group = "tech.antibytes.gradle.configuration.publishing", name = "antibytes-publishing-configuration", version.ref = "gradle-antibytes-publishingConfiguration" }
 gradle-antibytes-quality = {group = "tech.antibytes.gradle.quality", name = "antibytes-quality", version.ref = "gradle-antibytes-quality-dependency" }
 gradle-antibytes-runtimeConfig = {group = "tech.antibytes.gradle", name = "antibytes-runtime-configuration", version.ref = "gradle-antibytes-runtimeConfig" }
 gradle-antibytes-utils = {group = "tech.antibytes.gradle", name = "antibytes-gradle-utils", version.ref = "gradle-antibytes-utils" }
@@ -511,7 +516,8 @@ gradle-jacoco = {group = "org.jacoco", name = "org.jacoco.core", version.ref = "
 gradle-kotlin-kotlin = {group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-kotlin-dependency" }
 gradle-kotlinx-atomicfu = {group = "org.jetbrains.kotlinx", name = "atomicfu-gradle-plugin", version.ref = "kotlinx-atomicfu-gradle" }
 gradle-kotlinx-serialization = {group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlinx-serialization-gradle" }
-gradle-ksp = {group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "gradle-ksp-dependency" }
+gradle-ksp-plugin = {group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "gradle-ksp-plugin-dependency" }
+gradle-ksp-runtime = {group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "gradle-ksp-runtime" }
 gradle-ktlint = {group = "com.pinterest", name = "ktlint", version.ref = "gradle-ktlint" }
 gradle-mkdocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref = "mkdocs-dependency" }
 gradle-owasp = {group = "org.owasp", name = "dependency-check-gradle", version.ref = "gradle-owasp-dependency" }
@@ -869,7 +875,7 @@ jvm-kotlin-scripting-dependenciesMaven = {group = "org.jetbrains.kotlin", name =
 jvm-kotlin-scripting-jsr223 = {group = "org.jetbrains.kotlin", name = "kotlin-scripting-jsr223", version.ref = "kotlin-scripting-jsr223" }
 jvm-kotlin-scripting-jsr223Unshaded = {group = "org.jetbrains.kotlin", name = "kotlin-scripting-jsr223-unshaded", version.ref = "kotlin-scripting-jsr223Unshaded" }
 jvm-kotlin-scripting-jvmHostUnshaded = {group = "org.jetbrains.kotlin", name = "kotlin-scripting-jvm-host-unshaded", version.ref = "kotlin-scripting-jvmHostUnshaded" }
-jvm-kotlin-stdlib = {group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin-stdlib-jvm" }
+jvm-kotlin-stdlib-jdk = {group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin-stdlib-jdk" }
 jvm-kotlin-stdlib-jdk7 = {group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk7", version.ref = "kotlin-stdlib-jdk7" }
 jvm-kotlin-stdlib-jdk8 = {group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin-stdlib-jdk8" }
 jvm-kotlinx-atomicfu-core = {group = "org.jetbrains.kotlinx", name = "atomicfu-jvm", version.ref = "kotlinx-atomicfu-core" }
@@ -1924,10 +1930,12 @@ gradle-antibytes-quality = {id = "tech.antibytes.gradle.quality", version.ref = 
 gradle-antibytes-versioning = {id = "tech.antibytes.gradle.versioning", version.ref = "gradle-antibytes-versioning-plugin" }
 gradle-dependencyUpdate = {id = "com.github.ben-manes.versions", version.ref = "gradle-dependencyUpdate-plugin" }
 gradle-jacoco = {id = "jacoco", version.ref = "gradle-jacoco-plugin" }
-gradle-ksp = {id = "com.google.devtools.ksp", version.ref = "gradle-ksp-plugin" }
+gradle-ksp-plugin = {id = "com.google.devtools.ksp", version.ref = "gradle-ksp-plugin-plugin" }
 gradle-owasp = {id = "org.owasp.dependencycheck", version.ref = "gradle-owasp-plugin" }
 gradle-spotless = {id = "com.diffplug.spotless", version.ref = "gradle-spotless-plugin" }
 gradle-versioning = {id = "com.palantir.git-version", version.ref = "gradle-versioning-plugin" }
+kotlin-android = {id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android" }
+kotlin-jvm = {id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-jvm" }
 kotlin-kotlin = {id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin-kotlin-plugin" }
 kotlin-multiplatform = {id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-multiplatform" }
 kotlinx-atomicfu = {id = "kotlinx-atomicfu", version.ref = "kotlinx-atomicfu-plugin" }
