@@ -12,7 +12,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
-import io.mockk.unmockkObject
+import io.mockk.unmockkStatic
 import io.mockk.verify
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
@@ -43,7 +43,7 @@ class SourceHooksAppleSpec {
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(
+        unmockkStatic(
             KotlinMultiplatformExtension::iosx,
             KotlinMultiplatformExtension::iosxWithLegacy,
             KotlinMultiplatformExtension::macos,

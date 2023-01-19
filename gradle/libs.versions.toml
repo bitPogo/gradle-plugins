@@ -1,6 +1,6 @@
 [versions]
 # [Kotlin](https://kotlinlang.org/docs/releases.html)
-kotlin = "1.7.10"
+kotlin = "1.7.20"
 
 gradle = "7.5.1"
 
@@ -23,13 +23,13 @@ publishing = "6.3.0.202209071007-r"
 versioning = "0.15.0" # see: https://github.com/palantir/gradle-git-version/issues/353
 ## [AGP](https://developer.android.com/studio/releases/gradle-plugin)
 ## [AGP on Maven](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
-agp = "7.3.0"
+agp = "7.3.1"
 # [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
 spotless = "6.11.0"
 # [KTLint](https://github.com/pinterest/ktlint)
 ktlint = "0.47.1"
 # [Detekt](https://github.com/detekt/detekt)
-detekt = "1.21.0"
+detekt = "1.22.0"
 # [Sonarqube](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle/)
 sonarqube = "3.3"
 # [Binary Compatibility](https://github.com/Kotlin/binary-compatibility-validator)
@@ -51,9 +51,9 @@ kotlinPoet = "1.12.0"
 
 ## Test
 # [JUnit](https://github.com/junit-team/junit5/)
-junit = "5.9.0"
+junit = "5.9.2"
 # [mockk](http://mockk.io)
-mockk = "1.12.8"
+mockk = "1.13.3"
 # [kotlinFixture](https://github.com/appmattus/kotlinfixture)
 jvmFixture = "1.2.0"
 # [JUnit Extensions](https://github.com/junit-pioneer/junit-pioneer/releases)
