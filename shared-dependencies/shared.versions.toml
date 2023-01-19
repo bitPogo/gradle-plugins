@@ -1,6 +1,6 @@
 [versions]
 ## [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
-agp = "7.3.0"
+agp = "7.3.1"
 ## [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
 appCompact = "1.5.1"
 ## [Coil](https://github.com/coil-kt/coil)
@@ -15,7 +15,7 @@ constraintLayout-compose = "1.0.1"
 ## [Overview](https://developer.android.com/jetpack/compose/setup)
 android-compose-animation = "1.2.1"
 android-compose-bom = "2022.11.00"
-android-compose-compiler = "1.3.1"
+android-compose-compiler = "1.3.2"
 android-compose-foundation = "1.2.1"
 android-compose-runtime = "1.2.1"
 android-compose-saveable = "1.2.1"
@@ -84,11 +84,11 @@ junit4 = "4.13.2"
 
 
 ## (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
-kotlinx-atomicfu = "0.18.3"
+kotlinx-atomicfu = "0.18.5"
 ## [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 kotlinx-coroutines = "1.6.4"
 ## [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
-kotlinx-serialization = "1.4.0"
+kotlinx-serialization = "1.4.1"
 ## [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
 kotlinx-dateTime = "0.4.0"
 ## [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
@@ -96,7 +96,7 @@ kotlinx-nodeJs = "0.0.7"
 
 
 ## [Ktor](https://github.com/ktorio/ktor)
-ktor = "2.1.1"
+ktor = "2.1.3"
 
 
 ## [Koin](https://github.com/InsertKoinIO/koin)
@@ -105,7 +105,7 @@ koin-core = "3.2.1"
 
 ## [KSP](https://github.com/google/ksp)
 ## [KSP DevTools on MavenCentral](https://mvnrepository.com/artifact/com.google.devtools.ksp/com.google.devtools.ksp.gradle.plugin)
-ksp = "1.7.10-1.0.6"
+ksp = "1.7.20-1.0.6"
 
 ## [Compiler Test](https://github.com/tschuchortdev/kotlin-compile-testing)
 compilerTest = "1.4.9"
