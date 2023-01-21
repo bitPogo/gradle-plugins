@@ -9,6 +9,7 @@ package tech.antibytes.gradle.dependency.helper
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.DependencyResolveDetails
+import org.gradle.api.provider.Provider
 import tech.antibytes.gradle.dependency.config.MainConfig
 
 private val modules = listOf(
@@ -41,3 +42,11 @@ fun Project.ensureKotlinVersion(
         }
     }
 }
+
+fun Project.ensureKotlinVersion(
+    version: Provider<String>,
+    excludes: List<String> = emptyList(),
+) = ensureKotlinVersion(
+    version = version.get(),
+    excludes = excludes,
+)
