@@ -16,8 +16,8 @@ fun KotlinMultiplatformExtension.native(
     androidNative(configuration = configuration)
     apple(configuration = configuration)
     linux(configuration = configuration)
-    wasm32(configure = configuration)
     mingw(configuration = configuration)
+    wasm32(configure = configuration)
 
     val nativeMain = sourceSets.maybeCreate("${name}Main")
     val nativeTest = sourceSets.maybeCreate("${name}Test")
@@ -44,8 +44,8 @@ fun KotlinMultiplatformExtension.nativeWithLegacy(
     androidNative(configuration = configuration)
     appleWithLegacy(configuration = configuration)
     linux(configuration = configuration)
-    wasm32(configure = configuration)
     mingw(configuration = configuration)
+    wasm32(configure = configuration)
 
     val nativeMain = sourceSets.maybeCreate("${name}Main")
     val nativeTest = sourceSets.maybeCreate("${name}Test")
@@ -54,8 +54,8 @@ fun KotlinMultiplatformExtension.nativeWithLegacy(
         "androidNative",
         "apple",
         "linux",
-        "wasm32",
         "mingw",
+        "wasm32",
     )
 
     wireDependencies(
