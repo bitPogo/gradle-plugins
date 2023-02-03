@@ -12,6 +12,7 @@ import tech.antibytes.gradle.dependency.catalog.MavenArtifact
 import tech.antibytes.gradle.dependency.catalog.module.kotlin.Scripting
 import tech.antibytes.gradle.dependency.catalog.module.kotlin.StdLib
 import tech.antibytes.gradle.dependency.catalog.module.kotlin.Test
+import tech.antibytes.gradle.dependency.catalog.module.kotlin.Wrappers
 
 internal object Kotlin {
     /**
@@ -45,4 +46,5 @@ internal object Kotlin {
         id = "kotlin-gradle-plugin",
         plugin = "org.gradle.kotlin.kotlin-dsl",
     )
+    val wrappers = Wrappers
 }

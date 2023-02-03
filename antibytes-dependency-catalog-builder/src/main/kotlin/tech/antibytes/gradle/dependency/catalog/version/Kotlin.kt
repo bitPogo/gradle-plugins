@@ -65,4 +65,69 @@ internal object Kotlin {
     const val android = version
     const val jvm = version
     const val reflect = version
+
+    /**
+     * [Kotlinx Wrappers](https://github.com/JetBrains/kotlin-wrappers/releases)
+     */
+    val wrappers = Wrappers
+
+    object Wrappers {
+        private const val version = GradleVersions.kotlinWrappers
+
+        const val bom = version
+        const val web = version
+        const val typescript = version
+        const val popper = version
+        const val node = version
+        const val mui = version
+        const val muiIcons = version
+        const val js = version
+        const val history = version
+        const val extensions = version
+        const val emotion = version
+        const val cssType = version
+        const val css = version
+        const val cesium = version
+        const val browser = version
+
+        val tanstack = Tanstack
+
+        object Tanstack {
+            const val virtualCore = version
+            const val queryCore = version
+            const val tableCore = version
+
+            val react = React
+
+            object React {
+                const val query = version
+                const val queryDevtools = version
+                const val table = version
+                const val virtual = version
+            }
+        }
+
+        const val styledNext = version
+        const val ringUi = version
+        const val remixRunRouter = version
+        const val redux = version
+
+        val react = React
+
+        object React {
+            const val main = version
+            const val beautifulDnD = version
+            const val core = version
+            const val dom = version
+            const val legacyDom = version
+            const val domTestUtils = version
+            const val legacy = version
+            const val redux = version
+            const val router = version
+            const val routerDom = version
+            const val popper = version
+            const val select = version
+            const val use = version
+        }
+    }
 }

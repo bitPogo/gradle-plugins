@@ -1648,4 +1648,139 @@ class DependencyCatalogSpec {
             module.versionRef("gradle-ksp-plugin-dependency")
         }
     }
+
+    @Test
+    fun `It contains Wrapper Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "js-kotlin-wrappers-popper",
+                "org.jetbrains.kotlin-wrappers",
+                "kotlin-popper",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("kotlin-wrappers-popper")
+        }
+    }
+
+    @Test
+    fun `It contains Wrappers react Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "js-kotlin-wrappers-react-popper",
+                "org.jetbrains.kotlin-wrappers",
+                "kotlin-react-popper",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("kotlin-wrappers-react-popper")
+        }
+    }
+
+    @Test
+    fun `It contains Wrappers tanstack Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "js-kotlin-wrappers-tanstack-queryCore",
+                "org.jetbrains.kotlin-wrappers",
+                "kotlin-tanstack-query-core",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("kotlin-wrappers-tanstack-queryCore")
+        }
+    }
+
+    @Test
+    fun `It contains Wrappers tanstack react Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "js-kotlin-wrappers-tanstack-react-query",
+                "org.jetbrains.kotlin-wrappers",
+                "kotlin-tanstack-react-query",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("kotlin-wrappers-tanstack-react-query")
+        }
+    }
+
+    @Test
+    fun `It contains Jetbrains Compose`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "gradle-jetbrains-compose",
+                "org.jetbrains.compose",
+                "compose-gradle-plugin",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("jetbrains-compose-dependency")
+        }
+    }
 }

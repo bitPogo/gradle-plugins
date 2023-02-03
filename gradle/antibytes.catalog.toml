@@ -124,6 +124,8 @@ gradle-spotless-dependency = "6.11.0"
 gradle-spotless-plugin = "6.11.0"
 gradle-versioning-dependency = "0.15.0"
 gradle-versioning-plugin = "0.15.0"
+jetbrains-compose-dependency = "1.2.2"
+jetbrains-compose-plugin = "1.2.2"
 koin-annotations = "1.0.3"
 koin-core = "3.2.1"
 koin-junit4 = "3.2.1"
@@ -161,6 +163,45 @@ kotlin-test-core-wasm = "1.7.20"
 kotlin-test-junit4 = "1.7.20"
 kotlin-test-junit5 = "1.7.20"
 kotlin-test-testng = "1.7.20"
+kotlin-wrappers-bom = "1.0.0-pre.396"
+kotlin-wrappers-browser = "1.0.0-pre.396"
+kotlin-wrappers-cesium = "1.0.0-pre.396"
+kotlin-wrappers-css = "1.0.0-pre.396"
+kotlin-wrappers-cssType = "1.0.0-pre.396"
+kotlin-wrappers-emotion = "1.0.0-pre.396"
+kotlin-wrappers-extensions = "1.0.0-pre.396"
+kotlin-wrappers-history = "1.0.0-pre.396"
+kotlin-wrappers-js = "1.0.0-pre.396"
+kotlin-wrappers-mui = "1.0.0-pre.396"
+kotlin-wrappers-muiIcons = "1.0.0-pre.396"
+kotlin-wrappers-node = "1.0.0-pre.396"
+kotlin-wrappers-popper = "1.0.0-pre.396"
+kotlin-wrappers-react-beautifulDnD = "1.0.0-pre.396"
+kotlin-wrappers-react-core = "1.0.0-pre.396"
+kotlin-wrappers-react-dom = "1.0.0-pre.396"
+kotlin-wrappers-react-domTestUtils = "1.0.0-pre.396"
+kotlin-wrappers-react-legacy = "1.0.0-pre.396"
+kotlin-wrappers-react-legacyDom = "1.0.0-pre.396"
+kotlin-wrappers-react-main = "1.0.0-pre.396"
+kotlin-wrappers-react-popper = "1.0.0-pre.396"
+kotlin-wrappers-react-redux = "1.0.0-pre.396"
+kotlin-wrappers-react-router = "1.0.0-pre.396"
+kotlin-wrappers-react-routerDom = "1.0.0-pre.396"
+kotlin-wrappers-react-select = "1.0.0-pre.396"
+kotlin-wrappers-react-use = "1.0.0-pre.396"
+kotlin-wrappers-redux = "1.0.0-pre.396"
+kotlin-wrappers-remixRunRouter = "1.0.0-pre.396"
+kotlin-wrappers-ringUi = "1.0.0-pre.396"
+kotlin-wrappers-styledNext = "1.0.0-pre.396"
+kotlin-wrappers-tanstack-queryCore = "1.0.0-pre.396"
+kotlin-wrappers-tanstack-react-query = "1.0.0-pre.396"
+kotlin-wrappers-tanstack-react-queryDevtools = "1.0.0-pre.396"
+kotlin-wrappers-tanstack-react-table = "1.0.0-pre.396"
+kotlin-wrappers-tanstack-react-virtual = "1.0.0-pre.396"
+kotlin-wrappers-tanstack-tableCore = "1.0.0-pre.396"
+kotlin-wrappers-tanstack-virtualCore = "1.0.0-pre.396"
+kotlin-wrappers-typescript = "1.0.0-pre.396"
+kotlin-wrappers-web = "1.0.0-pre.396"
 kotlinx-atomicfu-core = "0.18.5"
 kotlinx-atomicfu-gradle = "0.18.5"
 kotlinx-atomicfu-plugin = "0.18.5"
@@ -289,10 +330,13 @@ square-kotlinPoet-ksp = "1.12.0"
 square-okhttp-bom = "4.10.0"
 square-okhttp-brotli = "4.10.0"
 square-okhttp-core = "4.10.0"
+square-okhttp-coroutines = "4.10.0"
 square-okhttp-curl = "4.10.0"
 square-okhttp-dnsOverHttps = "4.10.0"
 square-okhttp-logger = "4.10.0"
 square-okhttp-mockserver-core = "4.10.0"
+square-okhttp-mockserver-junit4 = "4.10.0"
+square-okhttp-mockserver-junit5 = "4.10.0"
 square-okhttp-sse = "4.10.0"
 square-okhttp-tls = "4.10.0"
 square-okhttp-urlConnection = "4.10.0"
@@ -475,6 +519,7 @@ common-ktor-server-websockets = {group = "io.ktor", name = "ktor-server-websocke
 common-ktor-utils = {group = "io.ktor", name = "ktor-utils", version.ref = "ktor-utils" }
 common-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization", version.ref = "ktor-websocketSerialization" }
 common-ktor-websockets = {group = "io.ktor", name = "ktor-websockets", version.ref = "ktor-websockets" }
+common-square-okhttp-coroutines = {group = "com.squareup.okhttp3", name = "okhttp-coroutines", version.ref = "square-okhttp-coroutines" }
 common-square-okio-bom = {group = "com.squareup.okio", name = "okio-bom", version.ref = "square-okio-bom" }
 common-square-okio-core = {group = "com.squareup.okio", name = "okio", version.ref = "square-okio-core" }
 common-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions", version.ref = "square-sqldelight-coroutines" }
@@ -513,6 +558,7 @@ gradle-antibytes-versioning = {group = "tech.antibytes.gradle.versioning", name 
 gradle-dependencyUpdate = {group = "com.github.ben-manes", name = "gradle-versions-plugin", version.ref = "gradle-dependencyUpdate-dependency" }
 gradle-hilt-gradle = {group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "android-hilt-gradle-dependency" }
 gradle-jacoco = {group = "org.jacoco", name = "org.jacoco.core", version.ref = "gradle-jacoco-dependency" }
+gradle-jetbrains-compose = {group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "jetbrains-compose-dependency" }
 gradle-kotlin-kotlin = {group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-kotlin-dependency" }
 gradle-kotlinx-atomicfu = {group = "org.jetbrains.kotlinx", name = "atomicfu-gradle-plugin", version.ref = "kotlinx-atomicfu-gradle" }
 gradle-kotlinx-serialization = {group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlinx-serialization-gradle" }
@@ -816,6 +862,44 @@ iosx64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "o
 iosx64-uuid = {group = "com.benasher44", name = "uuid-iosx64", version.ref = "uuid" }
 js-koin-core = {group = "io.insert-koin", name = "koin-core-js", version.ref = "koin-core" }
 js-kotlin-stdlib = {group = "org.jetbrains.kotlin", name = "kotlin-stdlib-js", version.ref = "kotlin-stdlib-js" }
+js-kotlin-wrappers = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-js", version.ref = "kotlin-wrappers-js" }
+js-kotlin-wrappers-bom = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-wrappers-bom", version.ref = "kotlin-wrappers-bom" }
+js-kotlin-wrappers-browser = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-browser", version.ref = "kotlin-wrappers-browser" }
+js-kotlin-wrappers-cesium = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-cesium", version.ref = "kotlin-wrappers-cesium" }
+js-kotlin-wrappers-css = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-css", version.ref = "kotlin-wrappers-css" }
+js-kotlin-wrappers-cssType = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-csstype", version.ref = "kotlin-wrappers-cssType" }
+js-kotlin-wrappers-emotion = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-emotion", version.ref = "kotlin-wrappers-emotion" }
+js-kotlin-wrappers-extensions = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-extensions", version.ref = "kotlin-wrappers-extensions" }
+js-kotlin-wrappers-history = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-history", version.ref = "kotlin-wrappers-history" }
+js-kotlin-wrappers-mui = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-mui", version.ref = "kotlin-wrappers-mui" }
+js-kotlin-wrappers-muiIcons = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-mui-icons", version.ref = "kotlin-wrappers-muiIcons" }
+js-kotlin-wrappers-node = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-node", version.ref = "kotlin-wrappers-node" }
+js-kotlin-wrappers-popper = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-popper", version.ref = "kotlin-wrappers-popper" }
+js-kotlin-wrappers-react-beautifulDnD = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-beautiful-dnd", version.ref = "kotlin-wrappers-react-beautifulDnD" }
+js-kotlin-wrappers-react-core = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-core", version.ref = "kotlin-wrappers-react-core" }
+js-kotlin-wrappers-react-dom = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-dom", version.ref = "kotlin-wrappers-react-dom" }
+js-kotlin-wrappers-react-legacy = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-legacy", version.ref = "kotlin-wrappers-react-legacy" }
+js-kotlin-wrappers-react-legacyDom = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-dom-legacy", version.ref = "kotlin-wrappers-react-legacyDom" }
+js-kotlin-wrappers-react-main = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react", version.ref = "kotlin-wrappers-react-main" }
+js-kotlin-wrappers-react-popper = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-popper", version.ref = "kotlin-wrappers-react-popper" }
+js-kotlin-wrappers-react-redux = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-redux", version.ref = "kotlin-wrappers-react-redux" }
+js-kotlin-wrappers-react-router = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-router", version.ref = "kotlin-wrappers-react-router" }
+js-kotlin-wrappers-react-routerDom = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-router-dom", version.ref = "kotlin-wrappers-react-routerDom" }
+js-kotlin-wrappers-react-select = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-select", version.ref = "kotlin-wrappers-react-select" }
+js-kotlin-wrappers-react-use = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-use", version.ref = "kotlin-wrappers-react-use" }
+js-kotlin-wrappers-redux = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-redux", version.ref = "kotlin-wrappers-redux" }
+js-kotlin-wrappers-remixRunRouter = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-remix-run-router", version.ref = "kotlin-wrappers-remixRunRouter" }
+js-kotlin-wrappers-ringUi = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-ring-ui", version.ref = "kotlin-wrappers-ringUi" }
+js-kotlin-wrappers-styledNext = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-styled-next", version.ref = "kotlin-wrappers-styledNext" }
+js-kotlin-wrappers-tanstack-queryCore = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-query-core", version.ref = "kotlin-wrappers-tanstack-queryCore" }
+js-kotlin-wrappers-tanstack-react-query = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-react-query", version.ref = "kotlin-wrappers-tanstack-react-query" }
+js-kotlin-wrappers-tanstack-react-queryDevtools = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-react-query-devtools", version.ref = "kotlin-wrappers-tanstack-react-queryDevtools" }
+js-kotlin-wrappers-tanstack-react-table = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-react-table", version.ref = "kotlin-wrappers-tanstack-react-table" }
+js-kotlin-wrappers-tanstack-react-virtual = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-react-virtual", version.ref = "kotlin-wrappers-tanstack-react-virtual" }
+js-kotlin-wrappers-tanstack-tableCore = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-table-core", version.ref = "kotlin-wrappers-tanstack-tableCore" }
+js-kotlin-wrappers-tanstack-virtualCore = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-virtual-core", version.ref = "kotlin-wrappers-tanstack-virtualCore" }
+js-kotlin-wrappers-typescript = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-typescript", version.ref = "kotlin-wrappers-typescript" }
+js-kotlin-wrappers-web = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-web", version.ref = "kotlin-wrappers-web" }
 js-kotlinx-atomicfu-core = {group = "org.jetbrains.kotlinx", name = "atomicfu-js", version.ref = "kotlinx-atomicfu-core" }
 js-kotlinx-coroutines-core = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core-js", version.ref = "kotlinx-coroutines-core" }
 js-kotlinx-dateTime = {group = "org.jetbrains.kotlinx", name = "kotlinx-datetime-js", version.ref = "kotlinx-dateTime" }
@@ -847,6 +931,7 @@ js-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotl
 js-ktor-utils = {group = "io.ktor", name = "ktor-utils-js", version.ref = "ktor-utils" }
 js-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-js", version.ref = "ktor-websocketSerialization" }
 js-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-js", version.ref = "ktor-websockets" }
+js-square-okhttp-coroutines = {group = "com.squareup.okhttp3", name = "okhttp-coroutines-js", version.ref = "square-okhttp-coroutines" }
 js-square-okio-core = {group = "com.squareup.okio", name = "okio-js", version.ref = "square-okio-core" }
 js-square-okio-nodefilesystem = {group = "com.squareup.okio", name = "okio-nodefilesystem", version.ref = "square-okio-nodefilesystem" }
 js-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-js", version.ref = "square-sqldelight-coroutines" }
@@ -857,6 +942,7 @@ js-stately-freeze = {group = "co.touchlab", name = "stately-common-js", version.
 js-stately-isolate = {group = "co.touchlab", name = "stately-isolate-js", version.ref = "stately-isolate" }
 js-test-koin = {group = "io.insert-koin", name = "koin-test-js", version.ref = "koin-test" }
 js-test-kotlin-core = {group = "org.jetbrains.kotlin", name = "kotlin-test-js", version.ref = "kotlin-test-core-js" }
+js-test-kotlin-wrappers-react-domTestUtils = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-dom-test-utils", version.ref = "kotlin-wrappers-react-domTestUtils" }
 js-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test-js", version.ref = "kotlinx-coroutines-test" }
 js-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-js", version.ref = "ktor-client-mockClient" }
 js-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-js", version.ref = "square-okio-fakefilesystem" }
@@ -977,10 +1063,13 @@ jvm-square-kotlinPoet-ksp = {group = "com.squareup", name = "kotlinpoet-ksp", ve
 jvm-square-okhttp-bom = {group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "square-okhttp-bom" }
 jvm-square-okhttp-brotli = {group = "com.squareup.okhttp3", name = "okhttp-brotli", version.ref = "square-okhttp-brotli" }
 jvm-square-okhttp-core = {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "square-okhttp-core" }
+jvm-square-okhttp-coroutines = {group = "com.squareup.okhttp3", name = "okhttp-coroutines-jvm", version.ref = "square-okhttp-coroutines" }
 jvm-square-okhttp-curl = {group = "com.squareup.okhttp3", name = "okcurl", version.ref = "square-okhttp-curl" }
 jvm-square-okhttp-dnsOverHttps = {group = "com.squareup.okhttp3", name = "okhttp-dnsoverhttps", version.ref = "square-okhttp-dnsOverHttps" }
 jvm-square-okhttp-logger = {group = "com.squareup.okhttp3", name = "okhttp-logging-interceptor", version.ref = "square-okhttp-logger" }
 jvm-square-okhttp-mockserver-core = {group = "com.squareup.okhttp3", name = "okhttp-mockserver", version.ref = "square-okhttp-mockserver-core" }
+jvm-square-okhttp-mockserver-junit4 = {group = "com.squareup.okhttp3", name = "mockwebserver3-junit4", version.ref = "square-okhttp-mockserver-junit4" }
+jvm-square-okhttp-mockserver-junit5 = {group = "com.squareup.okhttp3", name = "mockwebserver3-junit5", version.ref = "square-okhttp-mockserver-junit5" }
 jvm-square-okhttp-sse = {group = "com.squareup.okhttp3", name = "okhttp-sse", version.ref = "square-okhttp-sse" }
 jvm-square-okhttp-tls = {group = "com.squareup.okhttp3", name = "okhttp-tls", version.ref = "square-okhttp-tls" }
 jvm-square-okhttp-urlConnection = {group = "com.squareup.okhttp3", name = "okhttp-urlconnection", version.ref = "square-okhttp-urlConnection" }
@@ -1924,6 +2013,7 @@ gradle-ksp-plugin = {id = "com.google.devtools.ksp", version.ref = "gradle-ksp-p
 gradle-owasp = {id = "org.owasp.dependencycheck", version.ref = "gradle-owasp-plugin" }
 gradle-spotless = {id = "com.diffplug.spotless", version.ref = "gradle-spotless-plugin" }
 gradle-versioning = {id = "com.palantir.git-version", version.ref = "gradle-versioning-plugin" }
+jetbrains-compose = {id = "org.jetbrains.compose", version.ref = "jetbrains-compose-plugin" }
 kotlin-android = {id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android" }
 kotlin-jvm = {id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-jvm" }
 kotlin-kotlin = {id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin-kotlin-plugin" }

@@ -7,6 +7,8 @@
 package tech.antibytes.gradle.dependency.catalog.module.square
 
 import tech.antibytes.gradle.dependency.catalog.MavenArtifact
+import tech.antibytes.gradle.dependency.catalog.MavenKmpArtifact
+import tech.antibytes.gradle.dependency.catalog.Platform
 import tech.antibytes.gradle.dependency.catalog.module.Square
 
 internal object OkHttp {
@@ -16,16 +18,15 @@ internal object OkHttp {
         id = "okhttp",
     )
 
-    /*val coroutines = MavenKmpArtifact(
+    val coroutines = MavenKmpArtifact(
         group = group,
         id = "okhttp-coroutines",
         platforms = listOf(
             Platform.COMMON,
-            // Platform.ANDROID,
             Platform.JVM,
-            Platform.JS
-        )
-    )*/
+            Platform.JS,
+        ),
+    )
     val bom = MavenArtifact(
         group = group,
         id = "okhttp-bom",
@@ -66,13 +67,13 @@ internal object OkHttp {
             group = group,
             id = "okhttp-mockserver",
         )
-        /* val junit4 = MavenArtifact(
+        val junit4 = MavenArtifact(
             group = group,
             id = "mockwebserver3-junit4",
         )
         val junit5 = MavenArtifact(
             group = group,
             id = "mockwebserver3-junit5",
-        )*/
+        )
     }
 }
