@@ -53,7 +53,7 @@ internal object Square {
         private const val version = GradleVersions.squareOkhttp
         const val core = version
 
-        // const val coroutines = version
+        const val coroutines = version
         const val bom = version
         const val brotli = version
         const val dnsOverHttps = version
@@ -67,8 +67,8 @@ internal object Square {
 
         internal object Mockserver {
             const val core = version
-            // const val junit4 = version
-            // const val junit5 = version
+            const val junit4 = version
+            const val junit5 = version
         }
     }
 

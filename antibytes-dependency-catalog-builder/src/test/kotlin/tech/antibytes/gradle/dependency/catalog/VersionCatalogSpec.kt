@@ -844,4 +844,19 @@ class VersionCatalogSpec {
             catalog.version("kotlin-wrappers-tanstack-react-query", any<String>())
         }
     }
+
+    @Test
+    fun `It contains Jetbrains Compose`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("jetbrains-compose-plugin", any<String>())
+        }
+    }
 }

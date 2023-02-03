@@ -12,7 +12,6 @@ import tech.antibytes.gradle.dependency.catalog.Platform
 import tech.antibytes.gradle.dependency.catalog.module.kotlinx.AtomicFu
 import tech.antibytes.gradle.dependency.catalog.module.kotlinx.Coroutines
 import tech.antibytes.gradle.dependency.catalog.module.kotlinx.Serialization
-import tech.antibytes.gradle.dependency.config.GradleVersions
 
 internal object Kotlinx {
     internal const val group = "org.jetbrains.kotlinx"

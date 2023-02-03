@@ -12,6 +12,7 @@ import kotlin.reflect.full.memberProperties
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import tech.antibytes.gradle.dependency.catalog.version.Android
 import tech.antibytes.gradle.dependency.catalog.version.Gradle
+import tech.antibytes.gradle.dependency.catalog.version.Jetbrains
 import tech.antibytes.gradle.dependency.catalog.version.Koin
 import tech.antibytes.gradle.dependency.catalog.version.Kotlin
 import tech.antibytes.gradle.dependency.catalog.version.Kotlinx
@@ -84,6 +85,7 @@ private fun VersionCatalogBuilder.addVersions(
 internal fun VersionCatalogBuilder.addVersions() {
     addVersions(Android)
     addVersions(Gradle)
+    addVersions(Jetbrains)
     addVersions(Koin)
     addVersions(Kotlin)
     addVersions(Kotlinx)

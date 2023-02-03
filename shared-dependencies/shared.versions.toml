@@ -208,7 +208,7 @@ kotlinx-dateTime = {group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", 
 kotlinx-nodeJs = {group = "org.jetbrains.kotlinx", name = "kotlinx-nodejs", version.ref = "kotlinx-nodeJs" }
 kotlin-wrappers = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-wrappers-bom", version.ref = "kotlin-wrappers" }
 
-compose-multiplaform = {group = "org.jetbrains.compose" name = "compose-gradle-plugin", version.ref = "multiplaform" }
+compose-multiplaform = {group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose-multiplaform" }
 
 koin-annotations = {group = "io.insert-koin", name = "koin-annotations", version.ref = "koin-annotations" }
 koin-core = {group = "io.insert-koin", name = "koin-core", version.ref = "koin-core" }
