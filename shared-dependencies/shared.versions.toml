@@ -94,7 +94,7 @@ kotlinx-dateTime = "0.4.0"
 ## [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
 kotlinx-nodeJs = "0.0.7"
 ## [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers/releases)
-kotlinx-wrappers = "1.0.0-pre.396"
+kotlin-wrappers = "1.0.0-pre.396"
 
 ## [Ktor](https://github.com/ktorio/ktor)
 ktor = "2.1.3"
@@ -140,7 +140,8 @@ paparazzi = "1.0.0"
 ## [UUID](https://github.com/benasher44/uuid)
 uuidKmp = "0.5.0"
 
-
+## [Multiplatform Compose](https://github.com/JetBrains/compose-jb/blob/master/CHANGELOG.md)
+compose-multiplaform = "1.2.2"
 
 [libraries]
 agp = {group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -205,8 +206,9 @@ kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutine
 kotlinx-serialization-bom = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-bom", version.ref = "kotlinx-serialization" }
 kotlinx-dateTime = {group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-dateTime" }
 kotlinx-nodeJs = {group = "org.jetbrains.kotlinx", name = "kotlinx-nodejs", version.ref = "kotlinx-nodeJs" }
-kotlinx-wrappers = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-wrappers-bom", version.ref = "kotlinx-wrappers" }
+kotlin-wrappers = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-wrappers-bom", version.ref = "kotlin-wrappers" }
 
+compose-multiplaform = {group = "org.jetbrains.compose" name = "compose-gradle-plugin", version.ref = "multiplaform" }
 
 koin-annotations = {group = "io.insert-koin", name = "koin-annotations", version.ref = "koin-annotations" }
 koin-core = {group = "io.insert-koin", name = "koin-core", version.ref = "koin-core" }

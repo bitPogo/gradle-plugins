@@ -784,4 +784,64 @@ class VersionCatalogSpec {
             catalog.version("gradle-ksp-runtime", any<String>())
         }
     }
+
+    @Test
+    fun `It contains Wrappers Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("kotlin-wrappers-bom", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Wrappers react Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("kotlin-wrappers-react-main", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Wrappers tanstack Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("kotlin-wrappers-tanstack-virtualCore", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Wrappers tanstack react Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("kotlin-wrappers-tanstack-react-query", any<String>())
+        }
+    }
 }
