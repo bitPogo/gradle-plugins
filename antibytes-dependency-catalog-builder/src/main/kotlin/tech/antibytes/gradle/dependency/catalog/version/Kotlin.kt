@@ -64,6 +64,7 @@ internal object Kotlin {
     const val multiplatform = version
     const val android = version
     const val jvm = version
+    const val js = version
     const val reflect = version
     val parcelize = GradleBundleVersion(version)
 
