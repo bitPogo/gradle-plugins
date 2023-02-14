@@ -36,7 +36,7 @@ internal object Hilt {
     )
 
     val compose = MavenArtifact(
-        group = group,
+        group = "androidx.hilt",
         id = "hilt-navigation-compose",
         platform = Platform.ANDROID,
     )
