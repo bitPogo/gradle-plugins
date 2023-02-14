@@ -1261,7 +1261,7 @@ class DependencyCatalogSpec {
         verify(exactly = 1) {
             catalog.library(
                 "android-hilt-compose",
-                "com.google.dagger",
+                "androidx.hilt",
                 "hilt-navigation-compose",
             )
         }
