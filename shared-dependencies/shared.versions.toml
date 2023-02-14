@@ -39,6 +39,9 @@ android-ktx-paging-core = "3.1.1"
 android-ktx-viewmodel = "2.5.1"
 android-ktx-workmanager = "2.7.1"
 
+## [Android Splashscreen](https://developer.android.com/develop/ui/views/launch/splash-screen/migrate)
+android-ktx-splashscreen = "1.0.0-beta02"
+
 ## [Material Android](https://github.com/material-components/material-components-android)
 android-material = "1.7.0-rc01"
 android-material-compose = "1.2.1"
@@ -175,6 +178,7 @@ android-ktx-paging-compose = {group = "androidx.paging", name = "paging-compose"
 android-ktx-paging-core = {group = "androidx.paging", name = "paging-runtime", version.ref = "android-ktx-paging-core" }
 android-ktx-viewmodel = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "android-ktx-viewmodel" }
 android-ktx-workmanager = {group = "androidx.work", name = "work-runtime-ktx", version.ref = "android-ktx-workmanager" }
+android-ktx-splashscreen = {group = "androidx.core", name = "core-splashscreen", version.ref = "android-ktx-splashscreen" }
 
 android-material = {group = "com.google.android.material", name = "material", version.ref = "android-material" }
 android-material-compose = {group = "androidx.compose.material", name = "material", version.ref = "android-material-compose" }

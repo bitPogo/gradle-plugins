@@ -125,4 +125,10 @@ internal object Ktx {
         id = "work-runtime-ktx",
         platform = Platform.ANDROID,
     )
+
+    val splashscreen = MavenArtifact(
+        group = "androidx.core",
+        id = "core-splashscreen",
+        platform = Platform.ANDROID,
+    )
 }

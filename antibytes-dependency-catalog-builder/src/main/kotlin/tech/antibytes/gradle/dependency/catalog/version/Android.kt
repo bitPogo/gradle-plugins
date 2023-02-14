@@ -195,6 +195,8 @@ internal object Android {
         }
 
         const val workmanager = GradleVersions.androidKtxWorkmanager
+
+        const val splashscreen = GradleVersions.androidKtxSplashscreen
     }
 
     // Material
