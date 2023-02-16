@@ -49,6 +49,9 @@ internal object Kotlin {
         id = "kotlin-gradle-plugin",
         plugin = "org.gradle.kotlin.kotlin-dsl",
     )
+    val kapt = GradlePlugin(
+        id = "org.gradle.kotlin.kapt",
+    )
     val parcelize = GradleBundle(
         group = group,
         id = "kotlin-parcelize-runtime",
