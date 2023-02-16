@@ -72,13 +72,53 @@ internal object Serialization {
         id = "ktor-serialization-kotlinx-jackson",
     )
 
-    val json = MavenArtifact(
+    val json = MavenKmpArtifact(
         group = Ktor.group,
         id = "ktor-serialization-kotlinx-json",
+        platforms = listOf(
+            Platform.COMMON,
+            Platform.JS,
+            Platform.JVM,
+            Platform.IOS_ARM64,
+            Platform.IOS_SIMULATOR_ARM64,
+            Platform.IOS_X64,
+            Platform.WINDOWS_X64,
+            Platform.LINUX_X64,
+            Platform.MACOS_ARM64,
+            Platform.MACOS_X64,
+            Platform.TVOS_ARM64,
+            Platform.TVOS_SIMULATOR_ARM64,
+            Platform.TVOS_X64,
+            Platform.WATCHOS_ARM32,
+            Platform.WATCHOS_ARM64,
+            Platform.WATCHOS_SIMULATOR_ARM64,
+            Platform.WATCHOS_X64,
+            Platform.WATCHOS_X86,
+        ),
     )
 
-    val xml = MavenArtifact(
+    val xml = MavenKmpArtifact(
         group = Ktor.group,
         id = "ktor-serialization-kotlinx-xml",
+        platforms = listOf(
+            Platform.COMMON,
+            Platform.JS,
+            Platform.JVM,
+            Platform.IOS_ARM64,
+            Platform.IOS_SIMULATOR_ARM64,
+            Platform.IOS_X64,
+            Platform.WINDOWS_X64,
+            Platform.LINUX_X64,
+            Platform.MACOS_ARM64,
+            Platform.MACOS_X64,
+            Platform.TVOS_ARM64,
+            Platform.TVOS_SIMULATOR_ARM64,
+            Platform.TVOS_X64,
+            Platform.WATCHOS_ARM32,
+            Platform.WATCHOS_ARM64,
+            Platform.WATCHOS_SIMULATOR_ARM64,
+            Platform.WATCHOS_X64,
+            Platform.WATCHOS_X86,
+        ),
     )
 }
