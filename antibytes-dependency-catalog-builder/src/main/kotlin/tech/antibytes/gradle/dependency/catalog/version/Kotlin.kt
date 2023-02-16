@@ -65,6 +65,7 @@ internal object Kotlin {
     const val android = version
     const val jvm = version
     const val js = version
+    const val kapt = version
     const val reflect = version
     val parcelize = GradleBundleVersion(version)
 
