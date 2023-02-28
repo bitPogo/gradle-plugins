@@ -52,4 +52,6 @@ internal object Client {
     const val serialisation = Ktor.version
 
     const val websockets = Ktor.version
+
+    const val winhttp = Ktor.version
 }
