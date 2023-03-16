@@ -228,7 +228,7 @@ internal object Client {
         id = "ktor-client-winhttp",
         platforms = listOf(
             Platform.WINDOWS_X86,
-            Platform.WINDOWS_X64
-        )
+            Platform.WINDOWS_X64,
+        ),
     )
 }

@@ -110,7 +110,7 @@ class DefaultAppleDeviceResolverSpec {
 
         // Then
         verify(exactly = 1) {
-            testRun.deviceId = "iPhone 14"
+            testRun.deviceId = "iPhone 15"
         }
     }
 
