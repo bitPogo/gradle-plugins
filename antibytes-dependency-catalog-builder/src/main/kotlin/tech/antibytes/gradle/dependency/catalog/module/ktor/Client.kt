@@ -222,4 +222,13 @@ internal object Client {
         id = "ktor-client-websockets",
         platforms = allPlatforms,
     )
+
+    val winhttp = MavenKmpArtifact(
+        group = group,
+        id = "ktor-client-winhttp",
+        platforms = listOf(
+            Platform.WINDOWS_X86,
+            Platform.WINDOWS_X64,
+        ),
+    )
 }
