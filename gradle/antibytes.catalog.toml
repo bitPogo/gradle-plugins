@@ -52,6 +52,7 @@ android-ktx-navigation-ui = "2.5.2"
 android-ktx-paging-compose = "1.0.0-alpha16"
 android-ktx-paging-core = "3.1.1"
 android-ktx-palette = "1.0.0"
+android-ktx-splashscreen = "1.0.0-beta02"
 android-ktx-viewmodel-compose = "2.5.1"
 android-ktx-viewmodel-core = "2.5.1"
 android-ktx-viewmodel-saver = "2.5.1"
@@ -135,11 +136,15 @@ koin-slf4j = "3.2.1"
 koin-test = "3.2.1"
 kotlin-android = "1.7.20"
 kotlin-bom = "1.7.20"
+kotlin-js = "1.7.20"
 kotlin-jvm = "1.7.20"
+kotlin-kapt = "1.7.20"
 kotlin-kotlin-dependency = "1.7.20"
 kotlin-kotlin-plugin = "1.7.20"
 kotlin-language = "1.7.20"
 kotlin-multiplatform = "1.7.20"
+kotlin-parcelize-dependency = "1.7.20"
+kotlin-parcelize-plugin = "1.7.20"
 kotlin-reflect = "1.7.20"
 kotlin-scripting-common = "1.7.20"
 kotlin-scripting-core = "1.7.20"
@@ -246,6 +251,7 @@ ktor-client-okhttp = "2.1.3"
 ktor-client-resources = "2.1.3"
 ktor-client-serialisation = "2.1.3"
 ktor-client-websockets = "2.1.3"
+ktor-client-winhttp = "2.1.3"
 ktor-events = "2.1.3"
 ktor-http = "2.1.3"
 ktor-httpCio = "2.1.3"
@@ -253,6 +259,8 @@ ktor-io = "2.1.3"
 ktor-network = "2.1.3"
 ktor-networkTls = "2.1.3"
 ktor-networkTlsCertificates = "2.1.3"
+ktor-plugin-dependency = "2.1.3"
+ktor-plugin-plugin = "2.1.3"
 ktor-serialization-cbor = "2.1.3"
 ktor-serialization-core = "2.1.3"
 ktor-serialization-gson = "2.1.3"
@@ -395,7 +403,7 @@ android-constraintLayout-compose = {group = "androidx.constraintlayout", name = 
 android-constraintLayout-core = {group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "android-constraintLayout-core" }
 android-desugar = {group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "android-desugar" }
 android-hilt-compiler = {group = "com.google.dagger", name = "hilt-compiler", version.ref = "android-hilt-compiler" }
-android-hilt-compose = {group = "com.google.dagger", name = "hilt-navigation-compose", version.ref = "android-hilt-compose" }
+android-hilt-compose = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "android-hilt-compose" }
 android-hilt-core = {group = "com.google.dagger", name = "hilt-android", version.ref = "android-hilt-core" }
 android-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
 android-ktor-client = {group = "io.ktor", name = "ktor-client-android", version.ref = "ktor-client-android" }
@@ -413,6 +421,7 @@ android-ktx-navigation-ui = {group = "androidx.navigation", name = "navigation-u
 android-ktx-paging-compose = {group = "androidx.paging", name = "paging-compose", version.ref = "android-ktx-paging-compose" }
 android-ktx-paging-core = {group = "androidx.paging", name = "paging-runtime", version.ref = "android-ktx-paging-core" }
 android-ktx-palette = {group = "androidx.palette", name = "palette-ktx", version.ref = "android-ktx-palette" }
+android-ktx-splashscreen = {group = "androidx.core", name = "core-splashscreen", version.ref = "android-ktx-splashscreen" }
 android-ktx-viewmodel-compose = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "android-ktx-viewmodel-compose" }
 android-ktx-viewmodel-core = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "android-ktx-viewmodel-core" }
 android-ktx-viewmodel-saver = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "android-ktx-viewmodel-saver" }
@@ -492,6 +501,8 @@ common-ktor-network = {group = "io.ktor", name = "ktor-network", version.ref = "
 common-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls", version.ref = "ktor-networkTls" }
 common-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor", version.ref = "ktor-serialization-cbor" }
 common-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx", version.ref = "ktor-serialization-core" }
+common-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor-serialization-json" }
+common-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml", version.ref = "ktor-serialization-xml" }
 common-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth", version.ref = "ktor-server-auth" }
 common-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response", version.ref = "ktor-server-autoHeadResponse" }
 common-ktor-server-base = {group = "io.ktor", name = "ktor-server", version.ref = "ktor-server-base" }
@@ -560,11 +571,13 @@ gradle-hilt-gradle = {group = "com.google.dagger", name = "hilt-android-gradle-p
 gradle-jacoco = {group = "org.jacoco", name = "org.jacoco.core", version.ref = "gradle-jacoco-dependency" }
 gradle-jetbrains-compose = {group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "jetbrains-compose-dependency" }
 gradle-kotlin-kotlin = {group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-kotlin-dependency" }
+gradle-kotlin-parcelize = {group = "org.jetbrains.kotlin", name = "kotlin-parcelize-runtime", version.ref = "kotlin-parcelize-dependency" }
 gradle-kotlinx-atomicfu = {group = "org.jetbrains.kotlinx", name = "atomicfu-gradle-plugin", version.ref = "kotlinx-atomicfu-gradle" }
 gradle-kotlinx-serialization = {group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlinx-serialization-gradle" }
 gradle-ksp-plugin = {group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "gradle-ksp-plugin-dependency" }
 gradle-ksp-runtime = {group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "gradle-ksp-runtime" }
 gradle-ktlint = {group = "com.pinterest", name = "ktlint", version.ref = "gradle-ktlint" }
+gradle-ktor-plugin = {group = "io.ktor.plugin", name = "io.ktor.plugin", version.ref = "ktor-plugin-dependency" }
 gradle-mkdocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref = "mkdocs-dependency" }
 gradle-owasp = {group = "org.owasp", name = "dependency-check-gradle", version.ref = "gradle-owasp-dependency" }
 gradle-paparazzi = {group = "app.cash.paparazzi", name = "paparazzi-gradle-plugin", version.ref = "test-paparazzi-dependency" }
@@ -674,6 +687,8 @@ iosarm64-ktor-network = {group = "io.ktor", name = "ktor-network-iosarm64", vers
 iosarm64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-iosarm64", version.ref = "ktor-networkTls" }
 iosarm64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-iosarm64", version.ref = "ktor-serialization-cbor" }
 iosarm64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-iosarm64", version.ref = "ktor-serialization-core" }
+iosarm64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-iosarm64", version.ref = "ktor-serialization-json" }
+iosarm64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-iosarm64", version.ref = "ktor-serialization-xml" }
 iosarm64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-iosarm64", version.ref = "ktor-server-auth" }
 iosarm64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-iosarm64", version.ref = "ktor-server-autoHeadResponse" }
 iosarm64-ktor-server-base = {group = "io.ktor", name = "ktor-server-iosarm64", version.ref = "ktor-server-base" }
@@ -747,6 +762,8 @@ iossimulatorarm64-ktor-network = {group = "io.ktor", name = "ktor-network-iossim
 iossimulatorarm64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-iossimulatorarm64", version.ref = "ktor-networkTls" }
 iossimulatorarm64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-iossimulatorarm64", version.ref = "ktor-serialization-cbor" }
 iossimulatorarm64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-iossimulatorarm64", version.ref = "ktor-serialization-core" }
+iossimulatorarm64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-iossimulatorarm64", version.ref = "ktor-serialization-json" }
+iossimulatorarm64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-iossimulatorarm64", version.ref = "ktor-serialization-xml" }
 iossimulatorarm64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-iossimulatorarm64", version.ref = "ktor-server-auth" }
 iossimulatorarm64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-iossimulatorarm64", version.ref = "ktor-server-autoHeadResponse" }
 iossimulatorarm64-ktor-server-base = {group = "io.ktor", name = "ktor-server-iossimulatorarm64", version.ref = "ktor-server-base" }
@@ -820,6 +837,8 @@ iosx64-ktor-network = {group = "io.ktor", name = "ktor-network-iosx64", version.
 iosx64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-iosx64", version.ref = "ktor-networkTls" }
 iosx64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-iosx64", version.ref = "ktor-serialization-cbor" }
 iosx64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-iosx64", version.ref = "ktor-serialization-core" }
+iosx64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-iosx64", version.ref = "ktor-serialization-json" }
+iosx64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-iosx64", version.ref = "ktor-serialization-xml" }
 iosx64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-iosx64", version.ref = "ktor-server-auth" }
 iosx64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-iosx64", version.ref = "ktor-server-autoHeadResponse" }
 iosx64-ktor-server-base = {group = "io.ktor", name = "ktor-server-iosx64", version.ref = "ktor-server-base" }
@@ -928,6 +947,8 @@ js-ktor-network = {group = "io.ktor", name = "ktor-network-js", version.ref = "k
 js-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-js", version.ref = "ktor-networkTls" }
 js-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-js", version.ref = "ktor-serialization-cbor" }
 js-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-js", version.ref = "ktor-serialization-core" }
+js-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-js", version.ref = "ktor-serialization-json" }
+js-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-js", version.ref = "ktor-serialization-xml" }
 js-ktor-utils = {group = "io.ktor", name = "ktor-utils-js", version.ref = "ktor-utils" }
 js-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-js", version.ref = "ktor-websocketSerialization" }
 js-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-js", version.ref = "ktor-websockets" }
@@ -1006,8 +1027,8 @@ jvm-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kot
 jvm-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-jvm", version.ref = "ktor-serialization-core" }
 jvm-ktor-serialization-gson = {group = "io.ktor", name = "ktor-serialization-kotlinx-gson", version.ref = "ktor-serialization-gson" }
 jvm-ktor-serialization-jackson = {group = "io.ktor", name = "ktor-serialization-kotlinx-jackson", version.ref = "ktor-serialization-jackson" }
-jvm-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor-serialization-json" }
-jvm-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml", version.ref = "ktor-serialization-xml" }
+jvm-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-jvm", version.ref = "ktor-serialization-json" }
+jvm-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-jvm", version.ref = "ktor-serialization-xml" }
 jvm-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-jvm", version.ref = "ktor-server-auth" }
 jvm-ktor-server-authJwt = {group = "io.ktor", name = "ktor-server-auth-jwt", version.ref = "ktor-server-authJwt" }
 jvm-ktor-server-authLdap = {group = "io.ktor", name = "ktor-server-auth-ldap", version.ref = "ktor-server-authLdap" }
@@ -1157,6 +1178,8 @@ linuxx64-ktor-network = {group = "io.ktor", name = "ktor-network-linuxx64", vers
 linuxx64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-linuxx64", version.ref = "ktor-networkTls" }
 linuxx64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-linuxx64", version.ref = "ktor-serialization-cbor" }
 linuxx64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-linuxx64", version.ref = "ktor-serialization-core" }
+linuxx64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-linuxx64", version.ref = "ktor-serialization-json" }
+linuxx64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-linuxx64", version.ref = "ktor-serialization-xml" }
 linuxx64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-linuxx64", version.ref = "ktor-server-auth" }
 linuxx64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-linuxx64", version.ref = "ktor-server-autoHeadResponse" }
 linuxx64-ktor-server-base = {group = "io.ktor", name = "ktor-server-linuxx64", version.ref = "ktor-server-base" }
@@ -1230,6 +1253,8 @@ macosarm64-ktor-network = {group = "io.ktor", name = "ktor-network-macosarm64", 
 macosarm64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-macosarm64", version.ref = "ktor-networkTls" }
 macosarm64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-macosarm64", version.ref = "ktor-serialization-cbor" }
 macosarm64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-macosarm64", version.ref = "ktor-serialization-core" }
+macosarm64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-macosarm64", version.ref = "ktor-serialization-json" }
+macosarm64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-macosarm64", version.ref = "ktor-serialization-xml" }
 macosarm64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-macosarm64", version.ref = "ktor-server-auth" }
 macosarm64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-macosarm64", version.ref = "ktor-server-autoHeadResponse" }
 macosarm64-ktor-server-base = {group = "io.ktor", name = "ktor-server-macosarm64", version.ref = "ktor-server-base" }
@@ -1302,6 +1327,8 @@ macosx64-ktor-network = {group = "io.ktor", name = "ktor-network-macosx64", vers
 macosx64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-macosx64", version.ref = "ktor-networkTls" }
 macosx64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-macosx64", version.ref = "ktor-serialization-cbor" }
 macosx64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-macosx64", version.ref = "ktor-serialization-core" }
+macosx64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-macosx64", version.ref = "ktor-serialization-json" }
+macosx64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-macosx64", version.ref = "ktor-serialization-xml" }
 macosx64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-macosx64", version.ref = "ktor-server-auth" }
 macosx64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-macosx64", version.ref = "ktor-server-autoHeadResponse" }
 macosx64-ktor-server-base = {group = "io.ktor", name = "ktor-server-macosx64", version.ref = "ktor-server-base" }
@@ -1365,12 +1392,15 @@ mingwx64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-m
 mingwx64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-mingwx64", version.ref = "ktor-client-resources" }
 mingwx64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-mingwx64", version.ref = "ktor-client-serialisation" }
 mingwx64-ktor-client-websockets = {group = "io.ktor", name = "ktor-client-websockets-mingwx64", version.ref = "ktor-client-websockets" }
+mingwx64-ktor-client-winhttp = {group = "io.ktor", name = "ktor-client-winhttp-mingwx64", version.ref = "ktor-client-winhttp" }
 mingwx64-ktor-events = {group = "io.ktor", name = "ktor-events-mingwx64", version.ref = "ktor-events" }
 mingwx64-ktor-http = {group = "io.ktor", name = "ktor-http-mingwx64", version.ref = "ktor-http" }
 mingwx64-ktor-httpCio = {group = "io.ktor", name = "ktor-http-cio-mingwx64", version.ref = "ktor-httpCio" }
 mingwx64-ktor-io = {group = "io.ktor", name = "ktor-io-mingwx64", version.ref = "ktor-io" }
 mingwx64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-mingwx64", version.ref = "ktor-serialization-cbor" }
 mingwx64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-mingwx64", version.ref = "ktor-serialization-core" }
+mingwx64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-mingwx64", version.ref = "ktor-serialization-json" }
+mingwx64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-mingwx64", version.ref = "ktor-serialization-xml" }
 mingwx64-ktor-utils = {group = "io.ktor", name = "ktor-utils-mingwx64", version.ref = "ktor-utils" }
 mingwx64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-mingwx64", version.ref = "ktor-websocketSerialization" }
 mingwx64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-mingwx64", version.ref = "ktor-websockets" }
@@ -1392,6 +1422,7 @@ mingwx86-kotlinx-serialization-hocon = {group = "org.jetbrains.kotlinx", name = 
 mingwx86-kotlinx-serialization-json = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json-mingwx86", version.ref = "kotlinx-serialization-json" }
 mingwx86-kotlinx-serialization-properties = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-properties-mingwx86", version.ref = "kotlinx-serialization-properties" }
 mingwx86-kotlinx-serialization-protobuf = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf-mingwx86", version.ref = "kotlinx-serialization-protobuf" }
+mingwx86-ktor-client-winhttp = {group = "io.ktor", name = "ktor-client-winhttp-mingwx86", version.ref = "ktor-client-winhttp" }
 mingwx86-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-mingwx86", version.ref = "stately-collections" }
 mingwx86-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-mingwx86", version.ref = "stately-concurrency" }
 mingwx86-stately-freeze = {group = "co.touchlab", name = "stately-common-mingwx86", version.ref = "stately-freeze" }
@@ -1440,6 +1471,8 @@ tvosarm64-ktor-network = {group = "io.ktor", name = "ktor-network-tvosarm64", ve
 tvosarm64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-tvosarm64", version.ref = "ktor-networkTls" }
 tvosarm64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-tvosarm64", version.ref = "ktor-serialization-cbor" }
 tvosarm64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-tvosarm64", version.ref = "ktor-serialization-core" }
+tvosarm64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-tvosarm64", version.ref = "ktor-serialization-json" }
+tvosarm64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-tvosarm64", version.ref = "ktor-serialization-xml" }
 tvosarm64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-tvosarm64", version.ref = "ktor-server-auth" }
 tvosarm64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-tvosarm64", version.ref = "ktor-server-autoHeadResponse" }
 tvosarm64-ktor-server-base = {group = "io.ktor", name = "ktor-server-tvosarm64", version.ref = "ktor-server-base" }
@@ -1512,6 +1545,8 @@ tvossimulatorarm64-ktor-network = {group = "io.ktor", name = "ktor-network-tvoss
 tvossimulatorarm64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-tvossimulatorarm64", version.ref = "ktor-networkTls" }
 tvossimulatorarm64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-tvossimulatorarm64", version.ref = "ktor-serialization-cbor" }
 tvossimulatorarm64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-tvossimulatorarm64", version.ref = "ktor-serialization-core" }
+tvossimulatorarm64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-tvossimulatorarm64", version.ref = "ktor-serialization-json" }
+tvossimulatorarm64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-tvossimulatorarm64", version.ref = "ktor-serialization-xml" }
 tvossimulatorarm64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-tvossimulatorarm64", version.ref = "ktor-server-auth" }
 tvossimulatorarm64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-tvossimulatorarm64", version.ref = "ktor-server-autoHeadResponse" }
 tvossimulatorarm64-ktor-server-base = {group = "io.ktor", name = "ktor-server-tvossimulatorarm64", version.ref = "ktor-server-base" }
@@ -1584,6 +1619,8 @@ tvosx64-ktor-network = {group = "io.ktor", name = "ktor-network-tvosx64", versio
 tvosx64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-tvosx64", version.ref = "ktor-networkTls" }
 tvosx64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-tvosx64", version.ref = "ktor-serialization-cbor" }
 tvosx64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-tvosx64", version.ref = "ktor-serialization-core" }
+tvosx64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-tvosx64", version.ref = "ktor-serialization-json" }
+tvosx64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-tvosx64", version.ref = "ktor-serialization-xml" }
 tvosx64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-tvosx64", version.ref = "ktor-server-auth" }
 tvosx64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-tvosx64", version.ref = "ktor-server-autoHeadResponse" }
 tvosx64-ktor-server-base = {group = "io.ktor", name = "ktor-server-tvosx64", version.ref = "ktor-server-base" }
@@ -1662,6 +1699,8 @@ watchosarm32-ktor-network = {group = "io.ktor", name = "ktor-network-watchosarm3
 watchosarm32-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-watchosarm32", version.ref = "ktor-networkTls" }
 watchosarm32-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-watchosarm32", version.ref = "ktor-serialization-cbor" }
 watchosarm32-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-watchosarm32", version.ref = "ktor-serialization-core" }
+watchosarm32-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-watchosarm32", version.ref = "ktor-serialization-json" }
+watchosarm32-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-watchosarm32", version.ref = "ktor-serialization-xml" }
 watchosarm32-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-watchosarm32", version.ref = "ktor-server-auth" }
 watchosarm32-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-watchosarm32", version.ref = "ktor-server-autoHeadResponse" }
 watchosarm32-ktor-server-base = {group = "io.ktor", name = "ktor-server-watchosarm32", version.ref = "ktor-server-base" }
@@ -1734,6 +1773,8 @@ watchosarm64-ktor-network = {group = "io.ktor", name = "ktor-network-watchosarm6
 watchosarm64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-watchosarm64", version.ref = "ktor-networkTls" }
 watchosarm64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-watchosarm64", version.ref = "ktor-serialization-cbor" }
 watchosarm64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-watchosarm64", version.ref = "ktor-serialization-core" }
+watchosarm64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-watchosarm64", version.ref = "ktor-serialization-json" }
+watchosarm64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-watchosarm64", version.ref = "ktor-serialization-xml" }
 watchosarm64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-watchosarm64", version.ref = "ktor-server-auth" }
 watchosarm64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-watchosarm64", version.ref = "ktor-server-autoHeadResponse" }
 watchosarm64-ktor-server-base = {group = "io.ktor", name = "ktor-server-watchosarm64", version.ref = "ktor-server-base" }
@@ -1806,6 +1847,8 @@ watchossimulatorarm64-ktor-network = {group = "io.ktor", name = "ktor-network-wa
 watchossimulatorarm64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-watchossimulatorarm64", version.ref = "ktor-networkTls" }
 watchossimulatorarm64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-watchossimulatorarm64", version.ref = "ktor-serialization-cbor" }
 watchossimulatorarm64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-watchossimulatorarm64", version.ref = "ktor-serialization-core" }
+watchossimulatorarm64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-watchossimulatorarm64", version.ref = "ktor-serialization-json" }
+watchossimulatorarm64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-watchossimulatorarm64", version.ref = "ktor-serialization-xml" }
 watchossimulatorarm64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-watchossimulatorarm64", version.ref = "ktor-server-auth" }
 watchossimulatorarm64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-watchossimulatorarm64", version.ref = "ktor-server-autoHeadResponse" }
 watchossimulatorarm64-ktor-server-base = {group = "io.ktor", name = "ktor-server-watchossimulatorarm64", version.ref = "ktor-server-base" }
@@ -1878,6 +1921,8 @@ watchosx64-ktor-network = {group = "io.ktor", name = "ktor-network-watchosx64", 
 watchosx64-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-watchosx64", version.ref = "ktor-networkTls" }
 watchosx64-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-watchosx64", version.ref = "ktor-serialization-cbor" }
 watchosx64-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-watchosx64", version.ref = "ktor-serialization-core" }
+watchosx64-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-watchosx64", version.ref = "ktor-serialization-json" }
+watchosx64-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-watchosx64", version.ref = "ktor-serialization-xml" }
 watchosx64-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-watchosx64", version.ref = "ktor-server-auth" }
 watchosx64-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-watchosx64", version.ref = "ktor-server-autoHeadResponse" }
 watchosx64-ktor-server-base = {group = "io.ktor", name = "ktor-server-watchosx64", version.ref = "ktor-server-base" }
@@ -1950,6 +1995,8 @@ watchosx86-ktor-network = {group = "io.ktor", name = "ktor-network-watchosx86", 
 watchosx86-ktor-networkTls = {group = "io.ktor", name = "ktor-network-tls-watchosx86", version.ref = "ktor-networkTls" }
 watchosx86-ktor-serialization-cbor = {group = "io.ktor", name = "ktor-serialization-kotlinx-cbor-watchosx86", version.ref = "ktor-serialization-cbor" }
 watchosx86-ktor-serialization-core = {group = "io.ktor", name = "ktor-serialization-kotlinx-watchosx86", version.ref = "ktor-serialization-core" }
+watchosx86-ktor-serialization-json = {group = "io.ktor", name = "ktor-serialization-kotlinx-json-watchosx86", version.ref = "ktor-serialization-json" }
+watchosx86-ktor-serialization-xml = {group = "io.ktor", name = "ktor-serialization-kotlinx-xml-watchosx86", version.ref = "ktor-serialization-xml" }
 watchosx86-ktor-server-auth = {group = "io.ktor", name = "ktor-server-auth-watchosx86", version.ref = "ktor-server-auth" }
 watchosx86-ktor-server-autoHeadResponse = {group = "io.ktor", name = "ktor-server-auto-head-response-watchosx86", version.ref = "ktor-server-autoHeadResponse" }
 watchosx86-ktor-server-base = {group = "io.ktor", name = "ktor-server-watchosx86", version.ref = "ktor-server-base" }
@@ -2015,11 +2062,15 @@ gradle-spotless = {id = "com.diffplug.spotless", version.ref = "gradle-spotless-
 gradle-versioning = {id = "com.palantir.git-version", version.ref = "gradle-versioning-plugin" }
 jetbrains-compose = {id = "org.jetbrains.compose", version.ref = "jetbrains-compose-plugin" }
 kotlin-android = {id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android" }
+kotlin-js = {id = "org.jetbrains.kotlin.js", version.ref = "kotlin-js" }
 kotlin-jvm = {id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-jvm" }
+kotlin-kapt = {id = "org.gradle.kotlin.kapt", version.ref = "kotlin-kapt" }
 kotlin-kotlin = {id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin-kotlin-plugin" }
 kotlin-multiplatform = {id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-multiplatform" }
+kotlin-parcelize = {id = "kotlin-parcelize", version.ref = "kotlin-parcelize-plugin" }
 kotlinx-atomicfu = {id = "kotlinx-atomicfu", version.ref = "kotlinx-atomicfu-plugin" }
 kotlinx-serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization-plugin" }
+ktor-plugin = {id = "io.ktor.plugin.gradle.plugin", version.ref = "ktor-plugin-plugin" }
 mkdocs = {id = "ru.vyarus.mkdocs", version.ref = "mkdocs-plugin" }
 square-sqldelight = {id = "com.squareup.sqldelight", version.ref = "square-sqldelight-plugin" }
 test-paparazzi = {id = "app.cash.paparazzi", version.ref = "test-paparazzi-plugin" }

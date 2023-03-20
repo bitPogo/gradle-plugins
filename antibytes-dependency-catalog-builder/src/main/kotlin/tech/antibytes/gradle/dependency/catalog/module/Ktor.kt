@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.catalog.module
 
+import tech.antibytes.gradle.dependency.catalog.GradleBundle
 import tech.antibytes.gradle.dependency.catalog.MavenArtifact
 import tech.antibytes.gradle.dependency.catalog.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.catalog.Platform
@@ -138,5 +139,11 @@ internal object Ktor {
         group = group,
         id = "ktor-websockets",
         platforms = allPlatforms,
+    )
+
+    val plugin = GradleBundle(
+        group = "io.ktor.plugin",
+        id = "io.ktor.plugin",
+        plugin = "io.ktor.plugin.gradle.plugin",
     )
 }
