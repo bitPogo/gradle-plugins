@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.catalog.version
 
+import tech.antibytes.gradle.dependency.catalog.GradleBundleVersion
 import tech.antibytes.gradle.dependency.catalog.version.ktor.Client
 import tech.antibytes.gradle.dependency.catalog.version.ktor.Serialization
 import tech.antibytes.gradle.dependency.catalog.version.ktor.Server
@@ -34,4 +35,5 @@ internal object Ktor {
     const val utils = version
     const val websocketSerialization = version
     const val websockets = version
+    val plugin = GradleBundleVersion(version)
 }
