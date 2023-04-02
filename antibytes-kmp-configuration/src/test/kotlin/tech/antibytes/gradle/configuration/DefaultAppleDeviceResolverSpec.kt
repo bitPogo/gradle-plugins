@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.configuration
 
+import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -31,6 +32,8 @@ import tech.antibytes.gradle.configuration.apple.ensureAppleDeviceCompatibility
  * Even if it seems appropriate to move it into `apple`, this leads to a bug where mockk will not resolve the static mock.
  */
 class DefaultAppleDeviceResolverSpec {
+    private val fixture = kotlinFixture()
+
     @BeforeEach
     fun setUp() {
         mockkStatic(OperatingSystem::class)
@@ -150,10 +153,81 @@ class DefaultAppleDeviceResolverSpec {
     }
 
     @Test
-    fun `Given ensureAppleDeviceCompatibility is called in a MacOsX Environment and the iOS version is greater equal then 13 2 it sets a new default device`() {
+    fun `Given ensureAppleDeviceCompatibility is called in a MacOsX Environment and a customIos device is ignores pure blanks`() {
         // Given
         val kmpExtension: KotlinMultiplatformExtension = mockk()
         val os: OperatingSystem = mockk()
+        val device = "    "
+        val targets: NamedDomainObjectCollection<KotlinTarget> = mockk()
+        val actualTargets = mutableListOf<KotlinNativeTargetWithSimulatorTests>(
+            mockk(),
+        )
+        val testRuns: NamedDomainObjectContainer<KotlinNativeSimulatorTestRun> = mockk()
+        val testRun: KotlinNativeSimulatorTestRun = mockk()
+
+        every { OperatingSystem.current() } returns os
+        every { os.isMacOsX } returns true
+        every { os.version } returns "11.2"
+
+        every { kmpExtension.targets } returns targets
+        every {
+            targets.withType(KotlinNativeTargetWithSimulatorTests::class.java).iterator()
+        } returns actualTargets.listIterator()
+        every { actualTargets[0].name } returns "ios"
+        every { actualTargets[0].testRuns } returns testRuns
+        every { testRuns.getByName("test") } returns testRun
+        every { testRun.deviceId = any() } just Runs
+
+        // When
+        kmpExtension.ensureAppleDeviceCompatibility(device)
+
+        // Then
+        verify(exactly = 0) {
+            testRun.deviceId = any()
+        }
+    }
+
+    @Test
+    fun `Given ensureAppleDeviceCompatibility is called in a MacOsX Environment less then 12 6 and a customIos device is set it sets a new default device`() {
+        // Given
+        val kmpExtension: KotlinMultiplatformExtension = mockk()
+        val os: OperatingSystem = mockk()
+        val device: String = fixture()
+        val targets: NamedDomainObjectCollection<KotlinTarget> = mockk()
+        val actualTargets = mutableListOf<KotlinNativeTargetWithSimulatorTests>(
+            mockk(),
+        )
+        val testRuns: NamedDomainObjectContainer<KotlinNativeSimulatorTestRun> = mockk()
+        val testRun: KotlinNativeSimulatorTestRun = mockk()
+
+        every { OperatingSystem.current() } returns os
+        every { os.isMacOsX } returns true
+        every { os.version } returns "11.2"
+
+        every { kmpExtension.targets } returns targets
+        every {
+            targets.withType(KotlinNativeTargetWithSimulatorTests::class.java).iterator()
+        } returns actualTargets.listIterator()
+        every { actualTargets[0].name } returns "ios"
+        every { actualTargets[0].testRuns } returns testRuns
+        every { testRuns.getByName("test") } returns testRun
+        every { testRun.deviceId = any() } just Runs
+
+        // When
+        kmpExtension.ensureAppleDeviceCompatibility(device)
+
+        // Then
+        verify(exactly = 1) {
+            testRun.deviceId = device
+        }
+    }
+
+    @Test
+    fun `Given ensureAppleDeviceCompatibility is called in a MacOsX Environment and a customIos device is set it sets a new default device`() {
+        // Given
+        val kmpExtension: KotlinMultiplatformExtension = mockk()
+        val os: OperatingSystem = mockk()
+        val device: String = fixture()
         val targets: NamedDomainObjectCollection<KotlinTarget> = mockk()
         val actualTargets = mutableListOf<KotlinNativeTargetWithSimulatorTests>(
             mockk(),
@@ -175,46 +249,11 @@ class DefaultAppleDeviceResolverSpec {
         every { testRun.deviceId = any() } just Runs
 
         // When
-        kmpExtension.ensureAppleDeviceCompatibility()
+        kmpExtension.ensureAppleDeviceCompatibility(device)
 
         // Then
         verify(exactly = 1) {
-            testRun.deviceId = "iPhone 16"
-        }
-    }
-
-    @Test
-    fun `Given ensureAppleDeviceCompatibility is called in a MacOsX Environment and the WatchOS version is greater equal then 13 2 it sets a new default device`() {
-        // Given
-        val kmpExtension: KotlinMultiplatformExtension = mockk()
-        val os: OperatingSystem = mockk()
-        val targets: NamedDomainObjectCollection<KotlinTarget> = mockk()
-        val actualTargets = mutableListOf<KotlinNativeTargetWithSimulatorTests>(
-            mockk(),
-        )
-        val testRuns: NamedDomainObjectContainer<KotlinNativeSimulatorTestRun> = mockk()
-        val testRun: KotlinNativeSimulatorTestRun = mockk()
-
-        every { OperatingSystem.current() } returns os
-        every { os.isMacOsX } returns true
-        every { os.version } returns "13.2"
-
-        every { kmpExtension.targets } returns targets
-
-        every {
-            targets.withType(KotlinNativeTargetWithSimulatorTests::class.java).iterator()
-        } returns actualTargets.listIterator()
-        every { actualTargets[0].name } returns "watchos"
-        every { actualTargets[0].testRuns } returns testRuns
-        every { testRuns.getByName("test") } returns testRun
-        every { testRun.deviceId = any() } just Runs
-
-        // When
-        kmpExtension.ensureAppleDeviceCompatibility()
-
-        // Then
-        verify(exactly = 1) {
-            testRun.deviceId = "Apple Watch Series 7 (45mm)"
+            testRun.deviceId = device
         }
     }
 }
