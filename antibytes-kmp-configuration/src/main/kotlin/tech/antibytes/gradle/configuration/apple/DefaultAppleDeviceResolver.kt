@@ -10,22 +10,27 @@ import org.gradle.internal.os.OperatingSystem
 import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
-import tech.antibytes.gradle.configuration.AppleConfigurationApiContract.Companion.IOS_DEFAULT_DEVICE
-import tech.antibytes.gradle.configuration.AppleConfigurationApiContract.Companion.WATCH_DEFAULT_DEVICE
+import tech.antibytes.gradle.configuration.AppleConfigurationApiContract.Companion.IOS_14
+import tech.antibytes.gradle.configuration.AppleConfigurationApiContract.Companion.IOS_16
+import tech.antibytes.gradle.configuration.AppleConfigurationApiContract.Companion.WATCH_7
 import tech.antibytes.gradle.configuration.VersionDescriptor
 
-private val THRESHOLD = VersionDescriptor(12, 6, 0)
+private val THRESHOLD_IPHONE14 = VersionDescriptor(12, 6, 0)
+private val THRESHOLD_IPHONE16 = VersionDescriptor(13, 2, 0)
 
-private fun KotlinMultiplatformExtension.overrideAppleDevice() {
+private fun KotlinMultiplatformExtension.overrideAppleDevice(
+    iPhoneVersion: String,
+    watchVersion: String,
+) {
     val appleTargets = targets.withType(KotlinNativeTargetWithSimulatorTests::class.java)
 
     appleTargets.forEach { target ->
         when {
             target.name.startsWith("ios") -> {
-                target.testRuns["test"].deviceId = IOS_DEFAULT_DEVICE
+                target.testRuns["test"].deviceId = iPhoneVersion
             }
             target.name.startsWith("watchos") -> {
-                target.testRuns["test"].deviceId = WATCH_DEFAULT_DEVICE
+                target.testRuns["test"].deviceId = watchVersion
             }
             else -> { /* Do nothing*/ }
         }
@@ -35,8 +40,15 @@ private fun KotlinMultiplatformExtension.overrideAppleDevice() {
 private fun KotlinMultiplatformExtension.ensureAppleDeviceCompatibility(os: OperatingSystem) {
     val version = VersionDescriptor(os.version)
 
-    if (version >= THRESHOLD) {
-        overrideAppleDevice()
+    when {
+        version >= THRESHOLD_IPHONE16 -> overrideAppleDevice(
+            IOS_16,
+            WATCH_7,
+        )
+        version >= THRESHOLD_IPHONE14 -> overrideAppleDevice(
+            IOS_14,
+            WATCH_7,
+        )
     }
 }
 

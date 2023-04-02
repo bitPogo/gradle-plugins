@@ -9,9 +9,10 @@ package tech.antibytes.gradle.configuration
 internal interface AppleConfigurationApiContract {
     companion object {
         // iOS
-        const val IOS_DEFAULT_DEVICE = "iPhone 16"
+        const val IOS_14 = "iPhone 14"
+        const val IOS_16 = "iPhone 16"
 
         // watchOS
-        const val WATCH_DEFAULT_DEVICE = "Apple Watch Series 7 (45mm)"
+        const val WATCH_7 = "Apple Watch Series 7 (45mm)"
     }
 }

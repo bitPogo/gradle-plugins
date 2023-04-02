@@ -110,7 +110,7 @@ class DefaultAppleDeviceResolverSpec {
 
         // Then
         verify(exactly = 1) {
-            testRun.deviceId = "iPhone 16"
+            testRun.deviceId = "iPhone 14"
         }
     }
 
@@ -129,6 +129,75 @@ class DefaultAppleDeviceResolverSpec {
         every { OperatingSystem.current() } returns os
         every { os.isMacOsX } returns true
         every { os.version } returns "12.6"
+
+        every { kmpExtension.targets } returns targets
+
+        every {
+            targets.withType(KotlinNativeTargetWithSimulatorTests::class.java).iterator()
+        } returns actualTargets.listIterator()
+        every { actualTargets[0].name } returns "watchos"
+        every { actualTargets[0].testRuns } returns testRuns
+        every { testRuns.getByName("test") } returns testRun
+        every { testRun.deviceId = any() } just Runs
+
+        // When
+        kmpExtension.ensureAppleDeviceCompatibility()
+
+        // Then
+        verify(exactly = 1) {
+            testRun.deviceId = "Apple Watch Series 7 (45mm)"
+        }
+    }
+
+    @Test
+    fun `Given ensureAppleDeviceCompatibility is called in a MacOsX Environment and the iOS version is greater equal then 13 2 it sets a new default device`() {
+        // Given
+        val kmpExtension: KotlinMultiplatformExtension = mockk()
+        val os: OperatingSystem = mockk()
+        val targets: NamedDomainObjectCollection<KotlinTarget> = mockk()
+        val actualTargets = mutableListOf<KotlinNativeTargetWithSimulatorTests>(
+            mockk(),
+        )
+        val testRuns: NamedDomainObjectContainer<KotlinNativeSimulatorTestRun> = mockk()
+        val testRun: KotlinNativeSimulatorTestRun = mockk()
+
+        every { OperatingSystem.current() } returns os
+        every { os.isMacOsX } returns true
+        every { os.version } returns "13.2"
+
+        every { kmpExtension.targets } returns targets
+        every {
+            targets.withType(KotlinNativeTargetWithSimulatorTests::class.java).iterator()
+        } returns actualTargets.listIterator()
+        every { actualTargets[0].name } returns "ios"
+        every { actualTargets[0].testRuns } returns testRuns
+        every { testRuns.getByName("test") } returns testRun
+        every { testRun.deviceId = any() } just Runs
+
+        // When
+        kmpExtension.ensureAppleDeviceCompatibility()
+
+        // Then
+        verify(exactly = 1) {
+            testRun.deviceId = "iPhone 16"
+        }
+    }
+
+    @Test
+    fun `Given ensureAppleDeviceCompatibility is called in a MacOsX Environment and the WatchOS version is greater equal then 13 2 it sets a new default device`() {
+        // Given
+        val kmpExtension: KotlinMultiplatformExtension = mockk()
+        val os: OperatingSystem = mockk()
+        val targets: NamedDomainObjectCollection<KotlinTarget> = mockk()
+        val actualTargets = mutableListOf<KotlinNativeTargetWithSimulatorTests>(
+            mockk(),
+        )
+        val testRuns: NamedDomainObjectContainer<KotlinNativeSimulatorTestRun> = mockk()
+        val testRun: KotlinNativeSimulatorTestRun = mockk()
+
+        every { OperatingSystem.current() } returns os
+        every { os.isMacOsX } returns true
+        every { os.version } returns "13.2"
 
         every { kmpExtension.targets } returns targets
 
