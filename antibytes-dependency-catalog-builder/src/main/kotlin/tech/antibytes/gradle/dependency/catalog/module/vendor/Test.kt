@@ -29,6 +29,39 @@ internal object Test {
         plugin = "app.cash.paparazzi",
     )
 
+    val roborazzi = GradleBundle(
+        group = "io.github.takahirom",
+        id = "roborazzi-gradle-plugin",
+        plugin = "io.github.takahirom.roborazzi",
+    )
+
+    val turbine = MavenKmpTestArtifact(
+        group = "app.cash.turbine",
+        id = "turbine",
+        platforms = listOf(
+            Platform.COMMON,
+            Platform.JS,
+            Platform.JVM,
+            Platform.IOS_ARM32,
+            Platform.IOS_ARM64,
+            Platform.IOS_SIMULATOR_ARM64,
+            Platform.IOS_X64,
+            Platform.WINDOWS_X64,
+            Platform.LINUX_X64,
+            Platform.LINUX_ARM32_HFP,
+            Platform.MACOS_ARM64,
+            Platform.MACOS_X64,
+            Platform.TVOS_ARM64,
+            Platform.TVOS_SIMULATOR_ARM64,
+            Platform.TVOS_X64,
+            Platform.WATCHOS_ARM32,
+            Platform.WATCHOS_ARM64,
+            Platform.WATCHOS_SIMULATOR_ARM64,
+            Platform.WATCHOS_X64,
+            Platform.WATCHOS_X86,
+        ),
+    )
+
     val junit = JUnit
 
     internal object JUnit {
@@ -66,15 +99,15 @@ internal object Test {
     val compiler = Compiler
 
     internal object Compiler {
-        private val group = "com.github.tschuchortdev"
+        private val group = "dev.zacsweers.kctfork"
 
         val core = MavenTestArtifact(
             group = group,
-            id = "kotlin-compile-testing",
+            id = "core",
         )
         val ksp = MavenTestArtifact(
             group = group,
-            id = "kotlin-compile-testing-ksp",
+            id = "ksp",
         )
     }
 }

@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.catalog
 
+import java.util.Locale
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
@@ -27,7 +28,7 @@ private fun String.extractNodePackageSpace(): String = "node-${split('-', limit 
 private fun String.extractNodeModuleName(): String = "node-${split('-', limit = 3)[2]}"
 
 private val Platform.platformId: String
-    get() = platform.toLowerCase()
+    get() = platform.lowercase(Locale.getDefault())
 
 private fun String.injectPlatform(platform: Platform, infix: String = ""): String {
     return if (infix.isEmpty()) {

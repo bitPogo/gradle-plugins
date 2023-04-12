@@ -11,7 +11,6 @@ import tech.antibytes.gradle.configuration.AndroidConfigurationApiContract
 internal data class AndroidLibraryConfiguration(
     override val compileSdkVersion: Int,
     override val minSdkVersion: Int,
-    override val targetSdkVersion: Int,
     override val prefix: String,
     override val compatibilityTargets: AndroidConfigurationApiContract.Compatibility,
     override val fallbacks: Map<String, Set<String>>,

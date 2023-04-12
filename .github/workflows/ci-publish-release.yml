@@ -22,8 +22,8 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-java@v2
         with:
-          distribution: 'adopt' # See 'Supported distributions' for available options
-          java-version: '11'
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
       - name: Install Bison
         shell: bash
         run: sudo apt-get install -y bison

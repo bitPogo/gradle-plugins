@@ -10,7 +10,7 @@ import org.gradle.api.Project
 
 object GradleCompositeBuilds : DependencyContract.Configurator {
     private fun Project.configureClean() {
-        tasks.named("clean") {
+        tasks.findByName("clean")?.run {
             gradle.includedBuilds.forEach { project ->
                 dependsOn(gradle.includedBuild(project.name).task(":clean"))
             }
@@ -19,7 +19,7 @@ object GradleCompositeBuilds : DependencyContract.Configurator {
 
     private fun Project.configureCheck(enabled: Boolean) {
         if (enabled) {
-            tasks.named("check") {
+            tasks.findByName("check")?.run {
                 gradle.includedBuilds.forEach { project ->
                     dependsOn(gradle.includedBuild(project.name).task(":check"))
                 }

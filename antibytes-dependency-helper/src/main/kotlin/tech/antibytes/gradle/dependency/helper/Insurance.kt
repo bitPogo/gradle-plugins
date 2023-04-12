@@ -4,7 +4,8 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-/* ktlint-disable filename */
+@file:Suppress("ktlint:standard:filename")
+
 package tech.antibytes.gradle.dependency.helper
 
 import org.gradle.api.Project

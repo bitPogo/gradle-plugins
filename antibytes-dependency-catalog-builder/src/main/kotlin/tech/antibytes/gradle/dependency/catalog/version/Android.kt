@@ -46,8 +46,9 @@ internal object Android {
      * [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
      */
     internal object ConstraintLayout {
-        const val core = GradleVersions.constraintLayout
+        const val runtime = GradleVersions.constraintLayout
         const val compose = GradleVersions.constraintLayoutCompose
+        const val core = GradleVersions.constraintLayoutCore
     }
 
     /**

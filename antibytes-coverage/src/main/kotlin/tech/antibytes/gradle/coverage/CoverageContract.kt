@@ -9,6 +9,7 @@ package tech.antibytes.gradle.coverage
 import org.gradle.api.Project
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
+import tech.antibytes.gradle.util.capitalize
 
 internal interface CoverageContract {
     interface CoveragePluginExtension {

@@ -21,9 +21,9 @@ internal object Detekt : Configurator() {
             toolVersion = MainConfig.detektVersion
             buildUponDefaultConfig = true
             allRules = false
-            config = configuration.configurationFiles
+            config.setFrom(configuration.configurationFiles)
             baseline = configuration.baselineFile
-            source = configuration.sourceFiles
+            source.setFrom(configuration.sourceFiles)
             autoCorrect = configuration.autoCorrection
         }
     }

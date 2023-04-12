@@ -106,7 +106,7 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
@@ -117,7 +117,7 @@ dependencies {
     implementation(libs.spotless)
     implementation(libs.ktlint)
     implementation(libs.detekt)
-    implementation(libs.sonarqube)
+    api(libs.sonarqube)
     implementation(libs.stableApi)
     implementation(project(":antibytes-gradle-utils"))
     implementation(project(":antibytes-dependency-helper"))
@@ -128,11 +128,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
 }
 
 gradlePlugin {
@@ -172,6 +167,13 @@ antibytesCoverage {
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs = listOf(
+        jvmArgs ?: emptyList(),
+        listOf(
+                "--add-opens=java.base/java.util=ALL-UNNAMED",
+                "--add-opens=java.base/java.lang=ALL-UNNAMED",
+        )
+    ).flatten()
 }
 
 tasks.check {

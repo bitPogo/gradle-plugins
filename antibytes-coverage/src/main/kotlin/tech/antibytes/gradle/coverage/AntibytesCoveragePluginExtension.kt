@@ -12,7 +12,12 @@ import tech.antibytes.gradle.coverage.config.MainConfig
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.util.isRoot
 
-abstract class AntibytesCoveragePluginExtension(project: Project) : CoverageContract.CoveragePluginExtension {
+abstract class AntibytesCoveragePluginExtension internal constructor(
+    project: Project,
+    private val defaultConfiguration: DefaultConfigurationProvider,
+) : CoverageContract.CoveragePluginExtension {
+    constructor(project: Project) : this(project, DefaultConfigurationProvider())
+
     init {
         configurations.convention(determineDefaultConfiguration(project))
         jacocoVersion.convention(MainConfig.jacoco)
@@ -23,7 +28,7 @@ abstract class AntibytesCoveragePluginExtension(project: Project) : CoverageCont
         return if (project.isRoot()) {
             mutableMapOf()
         } else {
-            DefaultConfigurationProvider.createDefaultCoverageConfiguration(project)
+            defaultConfiguration.createDefaultCoverageConfiguration(project)
         }
     }
 }

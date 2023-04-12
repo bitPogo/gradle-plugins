@@ -54,7 +54,7 @@ abstract class BasePublishingConfiguration(
 
     val documentation = DocumentationConfiguration(
         tasks = setOf("dokkaHtml"),
-        outputDir = project.buildDir.resolve("dokka"),
+        outputDir = project.layout.buildDirectory.get().asFile.resolve("dokka"),
     )
 
     protected val sourceControl = SourceControlConfiguration(
@@ -104,7 +104,7 @@ abstract class BasePublishingConfiguration(
         ),
         MavenRepositoryConfiguration(
             name = "Local",
-            url = project.uri(project.rootProject.buildDir),
+            url = project.uri(project.rootProject.layout.buildDirectory),
         ),
     )
 

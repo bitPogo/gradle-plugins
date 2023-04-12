@@ -28,8 +28,6 @@ class DefaultConfigurationProviderSpec {
     fun setup() {
         mockkObject(
             PlatformContextResolver,
-            JvmConfigurationProvider,
-            AndroidConfigurationProvider,
         )
     }
 
@@ -37,14 +35,12 @@ class DefaultConfigurationProviderSpec {
     fun tearDown() {
         unmockkObject(
             PlatformContextResolver,
-            JvmConfigurationProvider,
-            AndroidConfigurationProvider,
         )
     }
 
     @Test
     fun `It fulfils DefaultConfigurationProvider`() {
-        val provider: Any = DefaultConfigurationProvider
+        val provider: Any = DefaultConfigurationProvider()
 
         assertTrue(provider is DefaultConfigurationProvider)
     }
@@ -57,7 +53,7 @@ class DefaultConfigurationProviderSpec {
         every { PlatformContextResolver.getType(project) } returns emptySet()
 
         // When
-        val result = DefaultConfigurationProvider.createDefaultCoverageConfiguration(project)
+        val result = DefaultConfigurationProvider().createDefaultCoverageConfiguration(project)
 
         // Then
         assertEquals(
@@ -70,19 +66,22 @@ class DefaultConfigurationProviderSpec {
     fun `Given configure is called createDefaultCoverageConfiguration with a Project, it returns the default JVM configuration if the project is JVM`() {
         // Given
         val project: Project = mockk()
-
         val config: CoverageApiContract.JacocoCoverageConfiguration = mockk()
+        val jvmConfigurationProvider: JvmConfigurationProvider = mockk {
+            every {
+                createDefaultCoverageConfiguration(
+                    project,
+                    PlatformContext.JVM,
+                )
+            } returns config
+        }
 
         every { PlatformContextResolver.getType(project) } returns setOf(PlatformContext.JVM)
-        every {
-            JvmConfigurationProvider.createDefaultCoverageConfiguration(
-                project,
-                PlatformContext.JVM,
-            )
-        } returns config
 
         // When
-        val result = DefaultConfigurationProvider.createDefaultCoverageConfiguration(project)
+        val result = DefaultConfigurationProvider(
+            jvmConfigurationProvider = jvmConfigurationProvider,
+        ).createDefaultCoverageConfiguration(project)
 
         // Then
         assertEquals(
@@ -102,17 +101,20 @@ class DefaultConfigurationProviderSpec {
         val project: Project = mockk()
 
         val config: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
-
+        val androidConfigurationProvider: AndroidConfigurationProvider = mockk {
+            every {
+                createDefaultCoverageConfiguration(
+                    project,
+                    PlatformContext.ANDROID_APPLICATION,
+                )
+            } returns config
+        }
         every { PlatformContextResolver.getType(project) } returns setOf(PlatformContext.ANDROID_APPLICATION)
-        every {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
-                project,
-                PlatformContext.ANDROID_APPLICATION,
-            )
-        } returns config
 
         // When
-        val result = DefaultConfigurationProvider.createDefaultCoverageConfiguration(project)
+        val result = DefaultConfigurationProvider(
+            androidConfigurationProvider = androidConfigurationProvider,
+        ).createDefaultCoverageConfiguration(project)
 
         // Then
         assertEquals(
@@ -134,25 +136,32 @@ class DefaultConfigurationProviderSpec {
         val configAndroid: CoverageApiContract.AndroidJacocoCoverageConfiguration = mockk()
         val configJvm: CoverageApiContract.JacocoCoverageConfiguration = mockk()
 
+        val jvmConfigurationProvider: JvmConfigurationProvider = mockk {
+            every {
+                createDefaultCoverageConfiguration(
+                    project,
+                    PlatformContext.JVM,
+                )
+            } returns configJvm
+        }
+        val androidConfigurationProvider: AndroidConfigurationProvider = mockk {
+            every {
+                createDefaultCoverageConfiguration(
+                    project,
+                    PlatformContext.ANDROID_LIBRARY,
+                )
+            } returns configAndroid
+        }
         every { PlatformContextResolver.getType(project) } returns setOf(
-            PlatformContext.ANDROID_APPLICATION,
+            PlatformContext.ANDROID_LIBRARY,
             PlatformContext.JVM,
         )
-        every {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
-                project,
-                PlatformContext.ANDROID_APPLICATION,
-            )
-        } returns configAndroid
-        every {
-            JvmConfigurationProvider.createDefaultCoverageConfiguration(
-                project,
-                PlatformContext.JVM,
-            )
-        } returns configJvm
 
         // When
-        val result = DefaultConfigurationProvider.createDefaultCoverageConfiguration(project)
+        val result = DefaultConfigurationProvider(
+            androidConfigurationProvider = androidConfigurationProvider,
+            jvmConfigurationProvider = jvmConfigurationProvider,
+        ).createDefaultCoverageConfiguration(project)
 
         // Then
         assertEquals(

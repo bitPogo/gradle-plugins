@@ -21,11 +21,6 @@ dependencies {
     implementation(libs.kotlinPoet)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
 configure<SourceSetContainer> {
     main {
         java.srcDirs(
@@ -33,6 +28,16 @@ configure<SourceSetContainer> {
             "src-plugin/main/kotlin",
         )
     }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
+        vendor.set(JvmVendorSpec.ADOPTIUM)
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 gradlePlugin {

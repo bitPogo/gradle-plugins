@@ -11,6 +11,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
@@ -22,6 +23,7 @@ import tech.antibytes.gradle.local.DependencyVersionContract.DependencyVersionTa
 
 class AntibytesDependencyVersionTaskSpec {
     @TempDir
+    private lateinit var projectDir: File
     private lateinit var buildDir: File
 
     @TempDir
@@ -31,8 +33,10 @@ class AntibytesDependencyVersionTaskSpec {
 
     @BeforeEach
     fun setup() {
-        project = ProjectBuilder.builder().build()
-        project.buildDir = buildDir
+        project = ProjectBuilder.builder()
+            .withProjectDir(projectDir)
+            .build()
+        buildDir = File(projectDir, "build")
     }
 
     private fun loadResource(path: String): String {
@@ -85,8 +89,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it generates the buildDir if it does not exists`() {
         // Given
-        val buildDir = "build"
-        project.buildDir = File(this.buildDir, buildDir)
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
 
         // When
@@ -94,16 +96,18 @@ class AntibytesDependencyVersionTaskSpec {
         task.generate()
 
         // Then
-        assertEquals(
-            actual = this.buildDir.list()!!.first(),
-            expected = buildDir,
-        )
+        assertTrue {
+            project.layout.buildDirectory.get().asFile.absolutePath.endsWith(
+                buildDir.absolutePath,
+            )
+        }
+
+        assertTrue(buildDir.exists())
     }
 
     @Test
     fun `Given the task is executed it ignores if there are no files`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
 
         // When
@@ -124,7 +128,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a single requirements file for python`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val singleRequirements = File(root, "requirements.txt")
         singleRequirements.createNewFile().also {
@@ -158,7 +161,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a multiple requirements files for python`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val dependencyDir1 = File(root, "A")
         dependencyDir1.mkdir()
@@ -203,7 +205,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a single toml file for gradle`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val singleRequirements = File(root, "dependencies.toml")
         singleRequirements.createNewFile().also {
@@ -237,7 +238,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a multiple toml files in the same folders for gradle`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
 
         val firstDependencies = File(root, "base.toml")
@@ -277,7 +277,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a multiple toml files in different folders for gradle`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val dependencyDir1 = File(root, "A")
         dependencyDir1.mkdir()
@@ -322,7 +321,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a single package json file for node`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val singleRequirements = File(root, "package.json")
         singleRequirements.createNewFile().also {
@@ -356,7 +354,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a multiple package json for node while merging the production dependencies`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val dependencyDir1 = File(root, "A")
         dependencyDir1.mkdir()
@@ -401,7 +398,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a multiple package json for node while merging the development dependencies`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val dependencyDir1 = File(root, "A")
         dependencyDir1.mkdir()
@@ -446,7 +442,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a multiple package json for node while merging the peer dependencies`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val dependencyDir1 = File(root, "A")
         dependencyDir1.mkdir()
@@ -491,7 +486,6 @@ class AntibytesDependencyVersionTaskSpec {
     @Test
     fun `Given the task is executed it writes the content of a multiple package json for node while merging the optional dependencies`() {
         // Given
-        project.buildDir = File(buildDir, "build")
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
         val dependencyDir1 = File(root, "A")
         dependencyDir1.mkdir()

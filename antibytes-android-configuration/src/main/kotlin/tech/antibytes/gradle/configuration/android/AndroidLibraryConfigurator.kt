@@ -24,7 +24,6 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.Configurator<
 
         extension.defaultConfig {
             minSdk = configuration.minSdkVersion
-            targetSdk = configuration.targetSdkVersion
 
             testInstrumentationRunner = configuration.testRunner.runner
             testInstrumentationRunnerArguments.putAll(
@@ -60,7 +59,7 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.Configurator<
         configuration: AndroidLibraryConfiguration,
     ) {
         project.extensions.configure(KotlinMultiplatformExtension::class.java) {
-            android().publishLibraryVariants(*configuration.publishVariants.toTypedArray())
+            androidTarget().publishLibraryVariants(*configuration.publishVariants.toTypedArray())
         }
     }
 

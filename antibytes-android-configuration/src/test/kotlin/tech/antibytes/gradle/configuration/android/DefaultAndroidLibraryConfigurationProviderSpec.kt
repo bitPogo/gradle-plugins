@@ -64,7 +64,6 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
             expected = AndroidLibraryConfiguration(
                 compileSdkVersion = 33,
                 minSdkVersion = 23,
-                targetSdkVersion = 33,
                 prefix = "antibytes_${projectName.replace("-", "_")}_",
                 publishVariants = emptySet(),
                 compatibilityTargets = Compatibility(
@@ -120,7 +119,6 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
             expected = AndroidLibraryConfiguration(
                 compileSdkVersion = 33,
                 minSdkVersion = 23,
-                targetSdkVersion = 33,
                 publishVariants = setOf("release"),
                 prefix = "antibytes_${projectName.replace("-", "_")}_",
                 compatibilityTargets = Compatibility(

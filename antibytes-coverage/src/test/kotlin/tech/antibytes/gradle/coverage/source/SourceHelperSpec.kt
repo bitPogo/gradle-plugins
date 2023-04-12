@@ -76,7 +76,7 @@ class SourceHelperSpec {
 
     @Test
     fun `It fulfils SourceHelper`() {
-        val helper: Any = SourceHelper
+        val helper: Any = SourceHelper()
 
         assertTrue(helper is ConfigurationContract.SourceHelper)
     }
@@ -90,7 +90,7 @@ class SourceHelperSpec {
         every { project.projectDir } returns files.projectDir
 
         // When
-        val resolved = SourceHelper.resolveSources(project, PlatformContext.JVM)
+        val resolved = SourceHelper().resolveSources(project, PlatformContext.JVM)
 
         // Then
         assertEquals(
@@ -116,7 +116,7 @@ class SourceHelperSpec {
         every { project.projectDir } returns files.projectDir
 
         // When
-        val resolved = SourceHelper.resolveSources(project, PlatformContext.JVM_KMP)
+        val resolved = SourceHelper().resolveSources(project, PlatformContext.JVM_KMP)
 
         // Then
         assertEquals(

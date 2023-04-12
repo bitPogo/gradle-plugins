@@ -43,6 +43,7 @@ class AntibytesApplicationConfigurationSpec {
         )
     }
 
+    @Suppress("KotlinConstantConditions")
     @Test
     fun `It fulfils Plugin`() {
         val plugin: Any = AntibytesApplicationConfiguration()
@@ -62,7 +63,7 @@ class AntibytesApplicationConfigurationSpec {
 
         every { AndroidApplicationConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
-        every { CompileTaskConfigurator.configure(project, any()) } just Runs
+        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
 
         // When
         AntibytesApplicationConfiguration().apply(project)
@@ -83,7 +84,7 @@ class AntibytesApplicationConfigurationSpec {
 
         every { AndroidApplicationConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
-        every { CompileTaskConfigurator.configure(project, any()) } just Runs
+        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
 
         // When
         AntibytesApplicationConfiguration().apply(project)
@@ -106,7 +107,7 @@ class AntibytesApplicationConfigurationSpec {
 
         every { AndroidApplicationConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(any()) } returns androidConfig
-        every { CompileTaskConfigurator.configure(project, any()) } just Runs
+        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
 
         // When
         AntibytesApplicationConfiguration().apply(project)

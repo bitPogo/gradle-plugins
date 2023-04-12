@@ -11,7 +11,7 @@ import tech.antibytes.gradle.dependency.catalog.Platform
 
 internal object ConstraintLayout {
     private const val group = "androidx.constraintlayout"
-    val core = MavenArtifact(
+    val runtime = MavenArtifact(
         group = group,
         id = "constraintlayout",
         platform = Platform.ANDROID,
@@ -20,6 +20,12 @@ internal object ConstraintLayout {
     val compose = MavenArtifact(
         group = group,
         id = "constraintlayout-compose",
+        platform = Platform.ANDROID,
+    )
+
+    val core = MavenArtifact(
+        group = group,
+        id = "constraintlayout-core",
         platform = Platform.ANDROID,
     )
 }

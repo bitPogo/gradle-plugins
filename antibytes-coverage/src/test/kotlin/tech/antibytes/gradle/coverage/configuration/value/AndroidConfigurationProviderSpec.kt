@@ -6,17 +6,15 @@
 
 package tech.antibytes.gradle.coverage.configuration.value
 
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkObject
-import io.mockk.unmockkObject
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 import org.gradle.api.Project
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
@@ -25,29 +23,26 @@ import tech.antibytes.gradle.coverage.source.SourceHelper
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 
 class AndroidConfigurationProviderSpec {
+    private val sourceHelper: SourceHelper = mockk()
+
     @BeforeEach
     fun setup() {
-        mockkObject(SourceHelper)
-    }
-
-    @AfterEach
-    fun tearDown() {
-        unmockkObject(SourceHelper)
+        clearMocks(sourceHelper)
     }
 
     @Test
     fun `It fulfils DefaultPlatformConfigurationProvider`() {
-        val provider: Any = AndroidConfigurationProvider
+        val provider: Any = AndroidConfigurationProvider()
 
-        assertTrue(provider is ConfigurationContract.DefaultPlatformConfigurationProvider)
+        assertTrue(provider is ConfigurationContract.DefaultAndroidConfigurationProvider)
     }
 
     @Test
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration, which contains default ReportSettings`() {
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(
             mockk(),
             PlatformContext.ANDROID_LIBRARY,
         )
@@ -64,14 +59,14 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
-            actual = config.testDependencies,
+            actual = config.test,
             expected = setOf("testDebugUnitTest"),
         )
     }
@@ -81,14 +76,14 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
-            actual = config.instrumentedTestDependencies,
+            actual = config.instrumentedTest,
             expected = setOf(),
         )
     }
@@ -98,14 +93,14 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_LIBRARY_KMP
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
-            actual = config.instrumentedTestDependencies,
+            actual = config.instrumentedTest,
             expected = setOf(),
         )
     }
@@ -115,14 +110,14 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_APPLICATION
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
-            actual = config.instrumentedTestDependencies,
+            actual = config.instrumentedTest,
             expected = setOf("connectedDebugAndroidTest"),
         )
     }
@@ -132,10 +127,10 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
@@ -152,10 +147,10 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
@@ -181,10 +176,10 @@ class AndroidConfigurationProviderSpec {
         val project: Project = mockk()
         val sources: Set<File> = mockk()
 
-        every { SourceHelper.resolveSources(project, context) } returns sources
+        every { sourceHelper.resolveSources(project, context) } returns sources
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(project, context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(project, context)
 
         // Then
         assertSame(
@@ -198,10 +193,10 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertNull(config.additionalClasses)
@@ -212,10 +207,10 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
@@ -229,10 +224,10 @@ class AndroidConfigurationProviderSpec {
         // Given
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
@@ -245,10 +240,10 @@ class AndroidConfigurationProviderSpec {
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration which contains the default variant`() {
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(
@@ -261,10 +256,10 @@ class AndroidConfigurationProviderSpec {
     fun `Given createDefaultCoverageConfiguration is called with a Project and PlatformContext, it returns a CoverageConfiguration which contains the default flavour`() {
         val context = PlatformContext.ANDROID_LIBRARY
 
-        every { SourceHelper.resolveSources(any(), any()) } returns mockk()
+        every { sourceHelper.resolveSources(any(), any()) } returns mockk()
 
         // When
-        val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(mockk(), context)
+        val config = AndroidConfigurationProvider(sourceHelper).createDefaultCoverageConfiguration(mockk(), context)
 
         // Then
         assertEquals(

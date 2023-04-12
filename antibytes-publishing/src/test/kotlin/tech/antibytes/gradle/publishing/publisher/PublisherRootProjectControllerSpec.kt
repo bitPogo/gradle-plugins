@@ -35,6 +35,7 @@ import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.util.capitalize
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
 @Suppress("UNCHECKED_CAST")

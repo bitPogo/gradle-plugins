@@ -17,6 +17,7 @@ import io.mockk.slot
 import io.mockk.verify
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import org.gradle.api.Action
 import org.gradle.api.Project
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.quality.AntibytesQualityExtension
@@ -55,9 +56,7 @@ class SpotlessSpec {
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
-        val kotlin: KotlinExtension = mockk(relaxed = true)
-
-        val targets: MutableSet<String> = mutableSetOf()
+        val kotlin = KotlinExtensionFake(spotless, mockk())
 
         extension.linter.set(
             LinterConfiguration(
@@ -69,16 +68,6 @@ class SpotlessSpec {
             ),
         )
 
-        every {
-            kotlin.target(*anyVararg())
-        } answers {
-            @Suppress("UNCHECKED_CAST")
-            targets.addAll(this.args[0] as Array<String>)
-
-            mockk()
-        }
-        every { kotlin.ktlint(any()) } returns mockk()
-
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
             spotless,
@@ -90,7 +79,8 @@ class SpotlessSpec {
             kotlin,
             kotlin,
         ) { probe ->
-            spotless.kotlin(probe)
+            @Suppress("UNCHECKED_CAST")
+            spotless.kotlin(probe as Action<KotlinExtension>)
         }
 
         // When
@@ -98,14 +88,17 @@ class SpotlessSpec {
 
         // Then
         assertEquals(
-            actual = targets,
+            actual = kotlin.targetArguments.toSet(),
             expected = includes,
         )
+        assertTrue { kotlin.useEndWithNewline }
+        assertTrue { kotlin.useIndentWithSpaces }
+        assertTrue { kotlin.useTrimTrailingWhitespace }
+        assertEquals(
+            actual = kotlin.version,
+            expected = "0.50.0",
+        )
         verify(exactly = 1) { project.plugins.apply("com.diffplug.spotless") }
-        verify(exactly = 1) { kotlin.ktlint("0.47.1") }
-        verify(exactly = 1) { kotlin.trimTrailingWhitespace() }
-        verify(exactly = 1) { kotlin.indentWithSpaces() }
-        verify(exactly = 1) { kotlin.endWithNewline() }
     }
 
     @Test
@@ -117,9 +110,7 @@ class SpotlessSpec {
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
-        val kotlin: KotlinExtension = mockk(relaxed = true)
-
-        val excluded: MutableSet<String> = mutableSetOf()
+        val kotlin = KotlinExtensionFake(spotless, mockk())
 
         extension.linter.set(
             LinterConfiguration(
@@ -130,16 +121,6 @@ class SpotlessSpec {
                 ),
             ),
         )
-
-        every {
-            kotlin.targetExclude(*anyVararg())
-        } answers {
-            @Suppress("UNCHECKED_CAST")
-            excluded.addAll(this.args[0] as Array<String>)
-
-            mockk()
-        }
-        every { kotlin.ktlint(any()) } returns mockk()
 
         every { project.plugins.apply(any()) } returns mockk()
         invokeGradleAction(
@@ -152,7 +133,8 @@ class SpotlessSpec {
             kotlin,
             kotlin,
         ) { probe ->
-            spotless.kotlin(probe)
+            @Suppress("UNCHECKED_CAST")
+            spotless.kotlin(probe as Action<KotlinExtension>)
         }
 
         // When
@@ -160,7 +142,11 @@ class SpotlessSpec {
 
         // Then
         assertEquals(
-            actual = excluded,
+            actual = kotlin.targetArguments.toSet(),
+            expected = includes,
+        )
+        assertEquals(
+            actual = kotlin.excluded.toSet(),
             expected = excludes,
         )
     }
@@ -174,8 +160,8 @@ class SpotlessSpec {
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
-        val kotlin: KotlinExtension = mockk(relaxed = true)
         val rules: KotlinExtension.KotlinFormatExtension = mockk()
+        val kotlin = KotlinExtensionFake(spotless, rules)
 
         val disabled = slot<Map<String, String>>()
 
@@ -188,7 +174,6 @@ class SpotlessSpec {
                 ),
             ),
         )
-        every { kotlin.ktlint(any()) } returns rules
         every { rules.editorConfigOverride(capture(disabled)) } returns rules
 
         every { project.plugins.apply(any()) } returns mockk()
@@ -202,7 +187,8 @@ class SpotlessSpec {
             kotlin,
             kotlin,
         ) { probe ->
-            spotless.kotlin(probe)
+            @Suppress("UNCHECKED_CAST")
+            spotless.kotlin(probe as Action<KotlinExtension>)
         }
 
         // When
@@ -270,7 +256,7 @@ class SpotlessSpec {
             expected = includes,
         )
         verify(exactly = 1) { project.plugins.apply("com.diffplug.spotless") }
-        verify(exactly = 1) { gradle.ktlint("0.47.1") }
+        verify(exactly = 1) { gradle.ktlint("0.50.0") }
         verify(exactly = 1) { gradle.trimTrailingWhitespace() }
         verify(exactly = 1) { gradle.indentWithSpaces() }
         verify(exactly = 1) { gradle.endWithNewline() }
@@ -496,5 +482,43 @@ class SpotlessSpec {
             actual = excluded,
             expected = excludes,
         )
+    }
+
+    private class KotlinExtensionFake(
+        spotlessExtension: SpotlessExtension,
+        private val formatExtension: KotlinFormatExtension,
+    ) : KotlinExtension(spotlessExtension) {
+        var targetArguments: Array<out Any?> = emptyArray()
+        var excluded: Array<out Any?> = emptyArray()
+        var version: String? = null
+        var useTrimTrailingWhitespace = false
+        var useIndentWithSpaces = false
+        var useEndWithNewline = false
+
+        override fun target(vararg targets: Any?) {
+            targetArguments = targets
+        }
+
+        override fun targetExclude(vararg targets: Any?) {
+            excluded = targets
+        }
+
+        override fun ktlint(version: String?): KotlinFormatExtension {
+            this.version = version
+
+            return formatExtension
+        }
+
+        override fun trimTrailingWhitespace() {
+            useTrimTrailingWhitespace = true
+        }
+
+        override fun indentWithSpaces() {
+            useIndentWithSpaces = true
+        }
+
+        override fun endWithNewline() {
+            useEndWithNewline = true
+        }
     }
 }

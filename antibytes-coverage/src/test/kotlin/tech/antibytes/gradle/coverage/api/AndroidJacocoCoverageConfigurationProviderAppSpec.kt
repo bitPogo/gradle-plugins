@@ -25,7 +25,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
-import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationProvider
+import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration.Provider
 import tech.antibytes.gradle.util.GradleUtilApiContract
 
 class AndroidJacocoCoverageConfigurationProviderAppSpec {
@@ -33,12 +33,12 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
 
     @BeforeEach
     fun setUp() {
-        mockkObject(AndroidConfigurationProvider)
+        mockkObject(Provider)
     }
 
     @AfterEach
     fun tearDown() {
-        unmockkObject(AndroidConfigurationProvider)
+        unmockkObject(Provider)
     }
 
     @Test
@@ -54,7 +54,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         val project: Project = mockk()
         val config: AndroidJacocoConfiguration = mockk()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
         every { config.variant = any() } just Runs
         every { config.flavour = any() } just Runs
 
@@ -68,7 +68,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -81,7 +81,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         val project: Project = mockk()
         val config = defaultConfig.copy()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(project)
@@ -93,7 +93,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -107,7 +107,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         val config = defaultConfig.copy()
         val variant = ""
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -122,7 +122,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -136,7 +136,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         val config = defaultConfig.copy()
         val variant = ""
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -151,7 +151,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -159,13 +159,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and a Variant it returns the default settings with the given Variant for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and a Variant it returns settings for Variant for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val variant = "Variant"
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -180,7 +180,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -188,13 +188,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and a Variant it returns the default settings with the given Variant for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and a Variant it returns settings for Variant for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val variant = "Variant"
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -209,7 +209,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -223,7 +223,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         val config = defaultConfig.copy()
         val flavour = ""
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -238,7 +238,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -252,7 +252,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         val config = defaultConfig.copy()
         val flavour = ""
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -267,7 +267,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -275,13 +275,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and a Flavour it returns the default settings with the given Flavour for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and a Flavour it returns settings for Flavour for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val flavour = "Flavour"
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -296,7 +296,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -304,13 +304,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and a Flavour it returns the default settings with the given Flavour for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and a Flavour it returns settings for Flavour for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val flavour = "Flavour"
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -325,7 +325,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -333,13 +333,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ReportSettings it returns the default settings with the given ReportSettings for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ReportSettings it returns settings for ReportSettings for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val reporterSettings: CoverageApiContract.JacocoReporterSettings = mockk()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -354,7 +354,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -362,13 +362,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ReportSettings it returns the default settings with the given ReportSettings for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ReportSettings it returns settings for ReportSettings for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val reporterSettings: CoverageApiContract.JacocoReporterSettings = mockk()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -383,7 +383,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -391,13 +391,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and TestDependencies it returns the default settings with the given TestDependencies for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and TestDependencies it returns the default settings ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val testDependencies: Set<String> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -407,12 +407,12 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
 
         // Then
         assertEquals(
-            actual = result.testDependencies,
+            actual = result.test,
             expected = testDependencies,
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -420,13 +420,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and TestDependencies it returns the default settings with the given TestDependencies for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and TestDependencies it returns settings for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val testDependencies: Set<String> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -436,12 +436,12 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
 
         // Then
         assertEquals(
-            actual = result.testDependencies,
+            actual = result.test,
             expected = testDependencies,
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -455,7 +455,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         val config = defaultConfig.copy()
         val instrumentedTestDependencies: Set<String> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -465,12 +465,12 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
 
         // Then
         assertEquals(
-            actual = result.instrumentedTestDependencies,
+            actual = result.instrumentedTest,
             expected = instrumentedTestDependencies,
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -484,7 +484,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         val config = defaultConfig.copy()
         val instrumentedTestDependencies: Set<String> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -494,12 +494,12 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
 
         // Then
         assertEquals(
-            actual = result.instrumentedTestDependencies,
+            actual = result.instrumentedTest,
             expected = instrumentedTestDependencies,
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -507,13 +507,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ClassPattern it returns the default settings with the given ClassPattern for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ClassPattern it returns settings for ClassPattern for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val classPattern: Set<String> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -528,7 +528,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -536,13 +536,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ClassPattern it returns the default settings with the given ClassPattern for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ClassPattern it returns settings for ClassPattern for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val classPattern: Set<String> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -557,7 +557,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -565,13 +565,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ClassFilter it returns the default settings with the given ClassFilter for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ClassFilter it returns settings for ClassFilter for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val classFilter: Set<String> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -586,7 +586,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -594,13 +594,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ClassFilter it returns the default settings with the given ClassFilter for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and ClassFilter it returns settings for ClassFilter for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val classFilter: Set<String> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -615,7 +615,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -623,13 +623,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and Sources it returns the default settings with the given Sources for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and Sources it returns settings for Sources for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val sources: Set<File> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -644,7 +644,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -652,13 +652,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and Sources it returns the default settings with the given Sources for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and Sources it returns settings for Sources for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val sources: Set<File> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -673,7 +673,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -682,13 +682,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
 
     @Test
     @JvmName("AdditionalSources")
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and AdditionalSources it returns the default settings with the given AdditionalSources for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and AdditionalSources it returns settings for AdditionalSources for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val additionalSources: Set<File> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -703,7 +703,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -711,13 +711,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and AdditionalSources it returns the settings with the given AdditionalSources for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and AdditionalSources it returns the settings with AdditionalSources for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val additionalSources: Set<File> = fixture()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -732,7 +732,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -740,13 +740,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and AdditionalClasses it returns the default settings with the given AdditionalClasses for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and AdditionalClasses it returns settings for AdditionalClasses for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val additionalClasses: ConfigurableFileTree = mockk()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -761,7 +761,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -769,13 +769,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and AdditionalClasses it returns the default settings with the given AdditionalClasses for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and AdditionalClasses it returns settings for AdditionalClasses for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val additionalClasses: ConfigurableFileTree = mockk()
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -790,7 +790,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )
@@ -798,13 +798,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and VerificationRules it returns the default settings with the given VerificationRules for ANDROID_APPLICATION only`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and VerificationRules it returns settings for VerificationRules for ANDROID_APPLICATION only`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val verificationRules: Set<JacocoVerificationRule> = setOf(mockk())
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppOnlyConfiguration(
@@ -819,7 +819,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION,
             )
@@ -827,13 +827,13 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
     }
 
     @Test
-    fun `Given createAndroidAppOnlyConfiguration is called with a Project and VerificationRules it returns the default settings with the given VerificationRules for ANDROID_APPLICATION on KMP`() {
+    fun `Given createAndroidAppOnlyConfiguration is called with a Project and VerificationRules it returns settings for VerificationRules for ANDROID_APPLICATION on KMP`() {
         // Given
         val project: Project = mockk()
         val config = defaultConfig.copy()
         val verificationRules: Set<JacocoVerificationRule> = setOf(mockk())
 
-        every { AndroidConfigurationProvider.createDefaultCoverageConfiguration(any(), any()) } returns config
+        every { Provider.createDefaultCoverageConfiguration(any(), any()) } returns config
 
         // When
         val result = AndroidJacocoConfiguration.createAndroidAppKmpConfiguration(
@@ -848,7 +848,7 @@ class AndroidJacocoCoverageConfigurationProviderAppSpec {
         )
 
         verify(exactly = 1) {
-            AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            Provider.createDefaultCoverageConfiguration(
                 project,
                 GradleUtilApiContract.PlatformContext.ANDROID_APPLICATION_KMP,
             )

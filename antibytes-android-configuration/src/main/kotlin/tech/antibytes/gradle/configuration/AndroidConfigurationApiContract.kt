@@ -33,7 +33,6 @@ internal interface AndroidConfigurationApiContract {
     interface AndroidBaseConfiguration {
         val compileSdkVersion: Int
         val minSdkVersion: Int
-        val targetSdkVersion: Int
 
         val compatibilityTargets: Compatibility
         val fallbacks: Map<String, Set<String>>
@@ -58,6 +57,7 @@ internal interface AndroidConfigurationApiContract {
     }
 
     interface AndroidApplicationConfiguration : AndroidBaseConfiguration {
+        val targetSdkVersion: Int
         val androidTest: TestSource
     }
 

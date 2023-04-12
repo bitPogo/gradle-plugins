@@ -13,7 +13,7 @@ import tech.antibytes.gradle.coverage.configuration.makePath
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import tech.antibytes.gradle.util.isKmp
 
-internal object SourceHelper : ConfigurationContract.SourceHelper {
+internal class SourceHelper : ConfigurationContract.SourceHelper {
     private fun List<String>.toFile(): File {
         return File(makePath(this))
     }

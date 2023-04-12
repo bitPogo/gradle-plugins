@@ -36,13 +36,14 @@ import tech.antibytes.gradle.coverage.api.JacocoReporterSettings
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.util.capitalize
 
 class JacocoReportTaskConfiguratorSpec {
     private val fixture = kotlinFixture()
 
     @Test
     fun `It fulfils ReportTaskConfigurator`() {
-        val configurator: Any = JacocoReportTaskConfigurator
+        val configurator: Any = JacocoReportTaskConfigurator()
 
         assertTrue(configurator is TaskContract.ReportTaskConfigurator)
     }
@@ -59,7 +60,7 @@ class JacocoReportTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = mockk(),
@@ -90,9 +91,8 @@ class JacocoReportTaskConfiguratorSpec {
         val outputDir: DirectoryProperty = mockk(relaxUnitFun = true)
         val outputFile: RegularFileProperty = mockk()
 
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val projectDir: File = mockk()
-        val buildDirLayout: DirectoryProperty = mockk()
 
         val fileTreeClassFiles: ConfigurableFileTree = mockk()
         val fileTreeExecutionFiles: ConfigurableFileTree = mockk()
@@ -100,14 +100,14 @@ class JacocoReportTaskConfiguratorSpec {
         val classFiles: ConfigurableFileTree = mockk()
         val executionFiles: ConfigurableFileTree = mockk()
 
-        val testDependencies = configuration.testDependencies.toList()
+        val testDependencies = configuration.test.toList()
 
         val htmlDir: File = mockk()
         val csvFile: File = mockk()
         val xmlFile: File = mockk()
 
         every { project.tasks } returns tasks
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.projectDir } returns projectDir
         every { project.name } returns projectName
 
@@ -135,6 +135,7 @@ class JacocoReportTaskConfiguratorSpec {
             fileTreeClassFiles,
             classFiles,
         ) { probe ->
+            println(projectDir)
             project.fileTree(projectDir, probe)
         }
 
@@ -145,6 +146,7 @@ class JacocoReportTaskConfiguratorSpec {
             fileTreeExecutionFiles,
             executionFiles,
         ) { probe ->
+            println(buildDir)
             project.fileTree(buildDir, probe)
         }
         every {
@@ -175,30 +177,29 @@ class JacocoReportTaskConfiguratorSpec {
         every { outputDir.set(any<File>()) } just Runs
         every { outputFile.set(any<File>()) } just Runs
 
-        every { project.layout.buildDirectory } returns buildDirLayout
         every {
-            buildDirLayout
-                .dir("reports/jacoco/$contextId/$projectName")
+            buildDir
                 .get()
+                .dir("reports/jacoco/$contextId/$projectName")
                 .asFile
         } returns htmlDir
 
         every {
-            buildDirLayout
-                .file("reports/jacoco/$contextId/$projectName.csv")
+            buildDir
                 .get()
+                .file("reports/jacoco/$contextId/$projectName.csv")
                 .asFile
         } returns csvFile
 
         every {
-            buildDirLayout
-                .file("reports/jacoco/$contextId/$projectName.xml")
+            buildDir
                 .get()
+                .file("reports/jacoco/$contextId/$projectName.xml")
                 .asFile
         } returns xmlFile
 
         // When
-        val reporter = JacocoReportTaskConfigurator.configure(project, contextId, configuration)
+        val reporter = JacocoReportTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -242,7 +243,7 @@ class JacocoReportTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = mockk(),
@@ -255,13 +256,13 @@ class JacocoReportTaskConfiguratorSpec {
         val testTasks1: Task = mockk()
 
         val jacocoTask: JacocoReport = mockk(relaxed = true)
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val projectDir: File = mockk()
 
-        val testDependencies = configuration.testDependencies.toList()
+        val testDependencies = configuration.test.toList()
 
         every { project.tasks } returns tasks
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.projectDir } returns projectDir
         every { project.name } returns projectName
 
@@ -289,11 +290,13 @@ class JacocoReportTaskConfiguratorSpec {
             mockk<ConfigurableFileTree>(relaxed = true),
             mockk(),
         ) { probe ->
-            project.fileTree(buildDir, probe)
+            project.fileTree(any(), probe)
         }
 
+        every { buildDir.get() } returns mockk(relaxed = true)
+
         // When
-        JacocoReportTaskConfigurator.configure(project, contextId, configuration)
+        JacocoReportTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         verify(exactly = 1) { tasks.create("${contextId}Coverage", JacocoReport::class.java, any()) }
@@ -316,8 +319,8 @@ class JacocoReportTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
-            instrumentedTestDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
+            instrumentedTest = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = mockk(),
@@ -352,9 +355,8 @@ class JacocoReportTaskConfiguratorSpec {
         val outputDir: DirectoryProperty = mockk(relaxUnitFun = true)
         val outputFile: RegularFileProperty = mockk()
 
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val projectDir: File = mockk()
-        val buildDirLayout: DirectoryProperty = mockk()
 
         val fileTreeClassFiles: ConfigurableFileTree = mockk()
         val fileTreeExecutionFiles: ConfigurableFileTree = mockk()
@@ -362,15 +364,15 @@ class JacocoReportTaskConfiguratorSpec {
         val classFiles: ConfigurableFileTree = mockk()
         val executionFiles: ConfigurableFileTree = mockk()
 
-        val testDependencies = configuration.testDependencies.toList()
-        val instrumentedTestDependencies = configuration.instrumentedTestDependencies.toList()
+        val testDependencies = configuration.test.toList()
+        val instrumentedTestDependencies = configuration.instrumentedTest.toList()
 
         val htmlDir: File = mockk()
         val csvFile: File = mockk()
         val xmlFile: File = mockk()
 
         every { project.tasks } returns tasks
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.projectDir } returns projectDir
         every { project.name } returns projectName
 
@@ -453,30 +455,29 @@ class JacocoReportTaskConfiguratorSpec {
         every { outputDir.set(any<File>()) } just Runs
         every { outputFile.set(any<File>()) } just Runs
 
-        every { project.layout.buildDirectory } returns buildDirLayout
         every {
-            buildDirLayout
-                .dir("reports/jacoco/$contextId/$projectName")
+            buildDir
                 .get()
+                .dir("reports/jacoco/$contextId/$projectName")
                 .asFile
         } returns htmlDir
 
         every {
-            buildDirLayout
-                .file("reports/jacoco/$contextId/$projectName.csv")
+            buildDir
                 .get()
+                .file("reports/jacoco/$contextId/$projectName.csv")
                 .asFile
         } returns csvFile
 
         every {
-            buildDirLayout
-                .file("reports/jacoco/$contextId/$projectName.xml")
+            buildDir
                 .get()
+                .file("reports/jacoco/$contextId/$projectName.xml")
                 .asFile
         } returns xmlFile
 
         // When
-        val reporter = JacocoReportTaskConfigurator.configure(project, contextId, configuration)
+        val reporter = JacocoReportTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -520,8 +521,8 @@ class JacocoReportTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
-            instrumentedTestDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
+            instrumentedTest = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = mockk(),
@@ -537,14 +538,14 @@ class JacocoReportTaskConfiguratorSpec {
         val instrumentedTestTasks1: Task = mockk()
 
         val jacocoTask: JacocoReport = mockk(relaxed = true)
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val projectDir: File = mockk()
 
-        val testDependencies = configuration.testDependencies.toList()
-        val instrumentedTestDependencies = configuration.instrumentedTestDependencies.toList()
+        val testDependencies = configuration.test.toList()
+        val instrumentedTestDependencies = configuration.instrumentedTest.toList()
 
         every { project.tasks } returns tasks
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.projectDir } returns projectDir
         every { project.name } returns projectName
 
@@ -552,6 +553,8 @@ class JacocoReportTaskConfiguratorSpec {
         every { tasks.findByName(testDependencies[1]) } returns null
         every { tasks.findByName(instrumentedTestDependencies[0]) } returns null
         every { tasks.findByName(instrumentedTestDependencies[1]) } returns instrumentedTestTasks1
+
+        every { buildDir.get() } returns mockk(relaxed = true)
 
         invokeGradleAction(
             jacocoTask,
@@ -578,7 +581,7 @@ class JacocoReportTaskConfiguratorSpec {
         }
 
         // When
-        JacocoReportTaskConfigurator.configure(project, contextId, configuration)
+        JacocoReportTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         verify(exactly = 1) { tasks.create("${contextId}Coverage", JacocoReport::class.java, any()) }

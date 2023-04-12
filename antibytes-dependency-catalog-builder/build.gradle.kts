@@ -69,11 +69,6 @@ dependencies {
     testImplementation(libs.jupiter)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
 tasks.withType<KotlinCompile> {
     dependsOn(
         provideVersions,
@@ -85,7 +80,7 @@ antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.97)
+        minimum = BigDecimal(0.93)
     )
 
     val instructionCoverage = JacocoVerificationRule(

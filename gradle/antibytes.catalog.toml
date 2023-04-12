@@ -5,75 +5,76 @@
 format.version = "1.1"
 
 [versions]
-android-agp = "7.3.1"
-android-appCompact-core = "1.5.1"
-android-appCompact-resources = "1.5.1"
-android-application = "7.3.1"
-android-coil-compose = "2.2.1"
-android-coil-core = "2.2.1"
-android-compose-animation-core = "1.2.1"
-android-compose-animation-graphics = "1.2.1"
-android-compose-animation-runtime = "1.2.1"
+android-agp = "8.1.2"
+android-appCompact-core = "1.6.1"
+android-appCompact-resources = "1.6.1"
+android-application = "8.1.2"
+android-coil-compose = "2.4.0"
+android-coil-core = "2.4.0"
+android-compose-animation-core = "1.5.4"
+android-compose-animation-graphics = "1.5.4"
+android-compose-animation-runtime = "1.5.4"
 android-compose-bom = "2022.11.00"
 android-compose-compiler = "1.3.2"
-android-compose-foundation-core = "1.2.1"
-android-compose-foundation-layout = "1.2.1"
+android-compose-foundation-core = "1.5.2"
+android-compose-foundation-layout = "1.5.2"
 android-compose-runtime = "1.2.1"
 android-compose-saveable = "1.2.1"
-android-compose-ui-core = "1.2.1"
-android-compose-ui-geometry = "1.2.1"
-android-compose-ui-graphics = "1.2.1"
-android-compose-ui-text = "1.2.1"
-android-compose-ui-tooling-core = "1.2.1"
-android-compose-ui-tooling-data = "1.2.1"
-android-compose-ui-tooling-preview = "1.2.1"
-android-compose-ui-unit = "1.2.1"
-android-compose-ui-util = "1.2.1"
+android-compose-ui-core = "1.5.4"
+android-compose-ui-geometry = "1.5.4"
+android-compose-ui-graphics = "1.5.4"
+android-compose-ui-text = "1.5.4"
+android-compose-ui-tooling-core = "1.5.1"
+android-compose-ui-tooling-data = "1.5.1"
+android-compose-ui-tooling-preview = "1.5.1"
+android-compose-ui-unit = "1.5.4"
+android-compose-ui-util = "1.5.4"
 android-constraintLayout-compose = "1.0.1"
-android-constraintLayout-core = "2.1.4"
+android-constraintLayout-core = "1.0.4"
+android-constraintLayout-runtime = "2.1.4"
 android-desugar = "1.1.5"
-android-hilt-compiler = "2.43.2"
+android-hilt-compiler = "2.44"
 android-hilt-compose = "1.0.0"
-android-hilt-core = "2.43.2"
-android-hilt-gradle-dependency = "2.43.2"
-android-hilt-gradle-plugin = "2.43.2"
-android-hilt-test = "2.43.2"
-android-ktx-activity-compose = "1.5.1"
-android-ktx-activity-core = "1.5.1"
+android-hilt-core = "2.44"
+android-hilt-gradle-dependency = "2.44"
+android-hilt-gradle-plugin = "2.44"
+android-hilt-test = "2.44"
+android-ktx-activity-compose = "1.8.0"
+android-ktx-activity-core = "1.8.0"
 android-ktx-annotation = "1.4.0"
 android-ktx-collections = "1.2.0"
 android-ktx-core = "1.9.0"
 android-ktx-fragment = "1.5.2"
 android-ktx-lifecycle = "2.5.1"
-android-ktx-navigation-compose = "2.5.2"
-android-ktx-navigation-fragment = "2.5.2"
-android-ktx-navigation-runtime = "2.5.2"
-android-ktx-navigation-ui = "2.5.2"
+android-ktx-navigation-compose = "2.7.3"
+android-ktx-navigation-fragment = "2.7.3"
+android-ktx-navigation-runtime = "2.7.3"
+android-ktx-navigation-ui = "2.7.3"
 android-ktx-paging-compose = "1.0.0-alpha16"
 android-ktx-paging-core = "3.1.1"
 android-ktx-palette = "1.0.0"
 android-ktx-splashscreen = "1.0.0-beta02"
-android-ktx-viewmodel-compose = "2.5.1"
-android-ktx-viewmodel-core = "2.5.1"
-android-ktx-viewmodel-saver = "2.5.1"
+android-ktx-viewmodel-compose = "2.6.2"
+android-ktx-viewmodel-core = "2.6.2"
+android-ktx-viewmodel-saver = "2.6.2"
 android-ktx-workmanager = "2.7.1"
-android-library = "7.3.1"
-android-material-compose-core = "1.2.1"
-android-material-compose-extendedIcons = "1.2.1"
-android-material-compose-icons = "1.2.1"
-android-material-compose-ripple = "1.2.1"
-android-material-core = "1.7.0-rc01"
-android-material3-core = "1.0.1"
-android-material3-windowSize = "1.0.1"
-android-test-compose-core = "1.2.1"
-android-test-compose-junit4 = "1.2.1"
-android-test-compose-manifest = "1.2.1"
+android-library = "8.1.2"
+android-material-compose-core = "1.5.4"
+android-material-compose-extendedIcons = "1.5.4"
+android-material-compose-icons = "1.5.4"
+android-material-compose-ripple = "1.5.4"
+android-material-core = "1.10.0-rc01"
+android-material3-core = "1.1.2"
+android-material3-windowSize = "1.1.2"
+android-test-compose-core = "1.5.1"
+android-test-compose-junit4 = "1.5.1"
+android-test-compose-manifest = "1.5.1"
 android-test-core = "1.4.0"
-android-test-espresso-core = "3.4.0"
-android-test-espresso-intents = "3.4.0"
-android-test-espresso-web = "3.4.0"
-android-test-junit-core = "1.1.3"
-android-test-junit-ktx = "1.1.3"
+android-test-espresso-core = "3.5.1"
+android-test-espresso-intents = "3.5.1"
+android-test-espresso-web = "3.5.1"
+android-test-junit-core = "1.1.5"
+android-test-junit-ktx = "1.1.5"
 android-test-ktx = "1.4.0"
 android-test-orchestrator = "1.4.1"
 android-test-robolectric = "4.8.2"
@@ -110,23 +111,23 @@ gradle-antibytes-testUtils = "xxx"
 gradle-antibytes-utils = "xxx"
 gradle-antibytes-versioning-dependency = "xxx"
 gradle-antibytes-versioning-plugin = "xxx"
-gradle-dependencyUpdate-dependency = "0.42.0"
-gradle-dependencyUpdate-plugin = "0.42.0"
-gradle-jacoco-dependency = "0.8.8"
-gradle-jacoco-plugin = "0.8.8"
-gradle-ksp-plugin-dependency = "1.7.20-1.0.6"
-gradle-ksp-plugin-plugin = "1.7.20-1.0.6"
-gradle-ksp-runtime = "1.7.20-1.0.6"
-gradle-ktlint = "0.47.1"
-gradle-owasp-dependency = "7.2.0"
-gradle-owasp-plugin = "7.2.0"
-gradle-publishing = "6.3.0.202209071007-r"
-gradle-spotless-dependency = "6.11.0"
-gradle-spotless-plugin = "6.11.0"
-gradle-versioning-dependency = "0.15.0"
-gradle-versioning-plugin = "0.15.0"
-jetbrains-compose-dependency = "1.2.2"
-jetbrains-compose-plugin = "1.2.2"
+gradle-dependencyUpdate-dependency = "0.49.0"
+gradle-dependencyUpdate-plugin = "0.49.0"
+gradle-jacoco-dependency = "0.8.11"
+gradle-jacoco-plugin = "0.8.11"
+gradle-ksp-plugin-dependency = "1.9.20-1.0.14"
+gradle-ksp-plugin-plugin = "1.9.20-1.0.14"
+gradle-ksp-runtime = "1.9.20-1.0.14"
+gradle-ktlint = "0.50.0"
+gradle-owasp-dependency = "8.4.2"
+gradle-owasp-plugin = "8.4.2"
+gradle-publishing = "6.7.0.202309050840-r"
+gradle-spotless-dependency = "6.22.0"
+gradle-spotless-plugin = "6.22.0"
+gradle-versioning-dependency = "3.0.0"
+gradle-versioning-plugin = "3.0.0"
+jetbrains-compose-dependency = "1.5.10"
+jetbrains-compose-plugin = "1.5.10"
 koin-annotations = "1.0.3"
 koin-core = "3.2.1"
 koin-junit4 = "3.2.1"
@@ -134,207 +135,207 @@ koin-junit5 = "3.2.1"
 koin-ktor = "3.2.1"
 koin-slf4j = "3.2.1"
 koin-test = "3.2.1"
-kotlin-android = "1.7.20"
-kotlin-bom = "1.7.20"
-kotlin-js = "1.7.20"
-kotlin-jvm = "1.7.20"
-kotlin-kapt = "1.7.20"
-kotlin-kotlin-dependency = "1.7.20"
-kotlin-kotlin-plugin = "1.7.20"
-kotlin-language = "1.7.20"
-kotlin-multiplatform = "1.7.20"
-kotlin-parcelize-dependency = "1.7.20"
-kotlin-parcelize-plugin = "1.7.20"
-kotlin-reflect = "1.7.20"
-kotlin-scripting-common = "1.7.20"
-kotlin-scripting-core = "1.7.20"
-kotlin-scripting-dependencies = "1.7.20"
-kotlin-scripting-dependenciesMaven = "1.7.20"
-kotlin-scripting-jsr223 = "1.7.20"
-kotlin-scripting-jsr223Unshaded = "1.7.20"
-kotlin-scripting-jvm = "1.7.20"
-kotlin-scripting-jvmHostUnshaded = "1.7.20"
-kotlin-stdlib-common = "1.7.20"
-kotlin-stdlib-jdk = "1.7.20"
-kotlin-stdlib-jdk7 = "1.7.20"
-kotlin-stdlib-jdk8 = "1.7.20"
-kotlin-stdlib-js = "1.7.20"
-kotlin-stdlib-wasm = "1.7.20"
-kotlin-test-annotations = "1.7.20"
-kotlin-test-core-common = "1.7.20"
-kotlin-test-core-js = "1.7.20"
-kotlin-test-core-jvm = "1.7.20"
-kotlin-test-core-wasm = "1.7.20"
-kotlin-test-junit4 = "1.7.20"
-kotlin-test-junit5 = "1.7.20"
-kotlin-test-testng = "1.7.20"
-kotlin-wrappers-bom = "1.0.0-pre.396"
-kotlin-wrappers-browser = "1.0.0-pre.396"
-kotlin-wrappers-cesium = "1.0.0-pre.396"
-kotlin-wrappers-css = "1.0.0-pre.396"
-kotlin-wrappers-cssType = "1.0.0-pre.396"
-kotlin-wrappers-emotion = "1.0.0-pre.396"
-kotlin-wrappers-extensions = "1.0.0-pre.396"
-kotlin-wrappers-history = "1.0.0-pre.396"
-kotlin-wrappers-js = "1.0.0-pre.396"
-kotlin-wrappers-mui = "1.0.0-pre.396"
-kotlin-wrappers-muiIcons = "1.0.0-pre.396"
-kotlin-wrappers-node = "1.0.0-pre.396"
-kotlin-wrappers-popper = "1.0.0-pre.396"
-kotlin-wrappers-react-beautifulDnD = "1.0.0-pre.396"
-kotlin-wrappers-react-core = "1.0.0-pre.396"
-kotlin-wrappers-react-dom = "1.0.0-pre.396"
-kotlin-wrappers-react-domTestUtils = "1.0.0-pre.396"
-kotlin-wrappers-react-legacy = "1.0.0-pre.396"
-kotlin-wrappers-react-legacyDom = "1.0.0-pre.396"
-kotlin-wrappers-react-main = "1.0.0-pre.396"
-kotlin-wrappers-react-popper = "1.0.0-pre.396"
-kotlin-wrappers-react-redux = "1.0.0-pre.396"
-kotlin-wrappers-react-router = "1.0.0-pre.396"
-kotlin-wrappers-react-routerDom = "1.0.0-pre.396"
-kotlin-wrappers-react-select = "1.0.0-pre.396"
-kotlin-wrappers-react-use = "1.0.0-pre.396"
-kotlin-wrappers-redux = "1.0.0-pre.396"
-kotlin-wrappers-remixRunRouter = "1.0.0-pre.396"
-kotlin-wrappers-ringUi = "1.0.0-pre.396"
-kotlin-wrappers-styledNext = "1.0.0-pre.396"
-kotlin-wrappers-tanstack-queryCore = "1.0.0-pre.396"
-kotlin-wrappers-tanstack-react-query = "1.0.0-pre.396"
-kotlin-wrappers-tanstack-react-queryDevtools = "1.0.0-pre.396"
-kotlin-wrappers-tanstack-react-table = "1.0.0-pre.396"
-kotlin-wrappers-tanstack-react-virtual = "1.0.0-pre.396"
-kotlin-wrappers-tanstack-tableCore = "1.0.0-pre.396"
-kotlin-wrappers-tanstack-virtualCore = "1.0.0-pre.396"
-kotlin-wrappers-typescript = "1.0.0-pre.396"
-kotlin-wrappers-web = "1.0.0-pre.396"
-kotlinx-atomicfu-core = "0.18.5"
-kotlinx-atomicfu-gradle = "0.18.5"
-kotlinx-atomicfu-plugin = "0.18.5"
-kotlinx-coroutines-android = "1.6.4"
-kotlinx-coroutines-bom = "1.6.4"
-kotlinx-coroutines-core = "1.6.4"
-kotlinx-coroutines-javafx = "1.6.4"
-kotlinx-coroutines-jdk8 = "1.6.4"
-kotlinx-coroutines-jdk9 = "1.6.4"
-kotlinx-coroutines-test = "1.6.4"
+kotlin-android = "1.9.10"
+kotlin-bom = "1.9.10"
+kotlin-js = "1.9.10"
+kotlin-jvm = "1.9.10"
+kotlin-kapt = "1.9.10"
+kotlin-kotlin-dependency = "1.9.10"
+kotlin-kotlin-plugin = "1.9.10"
+kotlin-language = "1.9.10"
+kotlin-multiplatform = "1.9.10"
+kotlin-parcelize-dependency = "1.9.10"
+kotlin-parcelize-plugin = "1.9.10"
+kotlin-reflect = "1.9.10"
+kotlin-scripting-common = "1.9.10"
+kotlin-scripting-core = "1.9.10"
+kotlin-scripting-dependencies = "1.9.10"
+kotlin-scripting-dependenciesMaven = "1.9.10"
+kotlin-scripting-jsr223 = "1.9.10"
+kotlin-scripting-jsr223Unshaded = "1.9.10"
+kotlin-scripting-jvm = "1.9.10"
+kotlin-scripting-jvmHostUnshaded = "1.9.10"
+kotlin-stdlib-common = "1.9.10"
+kotlin-stdlib-jdk = "1.9.10"
+kotlin-stdlib-jdk7 = "1.9.10"
+kotlin-stdlib-jdk8 = "1.9.10"
+kotlin-stdlib-js = "1.9.10"
+kotlin-stdlib-wasm = "1.9.10"
+kotlin-test-annotations = "1.9.10"
+kotlin-test-core-common = "1.9.10"
+kotlin-test-core-js = "1.9.10"
+kotlin-test-core-jvm = "1.9.10"
+kotlin-test-core-wasm = "1.9.10"
+kotlin-test-junit4 = "1.9.10"
+kotlin-test-junit5 = "1.9.10"
+kotlin-test-testng = "1.9.10"
+kotlin-wrappers-bom = "1.0.0-pre.628"
+kotlin-wrappers-browser = "1.0.0-pre.628"
+kotlin-wrappers-cesium = "1.0.0-pre.628"
+kotlin-wrappers-css = "1.0.0-pre.628"
+kotlin-wrappers-cssType = "1.0.0-pre.628"
+kotlin-wrappers-emotion = "1.0.0-pre.628"
+kotlin-wrappers-extensions = "1.0.0-pre.628"
+kotlin-wrappers-history = "1.0.0-pre.628"
+kotlin-wrappers-js = "1.0.0-pre.628"
+kotlin-wrappers-mui = "1.0.0-pre.628"
+kotlin-wrappers-muiIcons = "1.0.0-pre.628"
+kotlin-wrappers-node = "1.0.0-pre.628"
+kotlin-wrappers-popper = "1.0.0-pre.628"
+kotlin-wrappers-react-beautifulDnD = "1.0.0-pre.628"
+kotlin-wrappers-react-core = "1.0.0-pre.628"
+kotlin-wrappers-react-dom = "1.0.0-pre.628"
+kotlin-wrappers-react-domTestUtils = "1.0.0-pre.628"
+kotlin-wrappers-react-legacy = "1.0.0-pre.628"
+kotlin-wrappers-react-legacyDom = "1.0.0-pre.628"
+kotlin-wrappers-react-main = "1.0.0-pre.628"
+kotlin-wrappers-react-popper = "1.0.0-pre.628"
+kotlin-wrappers-react-redux = "1.0.0-pre.628"
+kotlin-wrappers-react-router = "1.0.0-pre.628"
+kotlin-wrappers-react-routerDom = "1.0.0-pre.628"
+kotlin-wrappers-react-select = "1.0.0-pre.628"
+kotlin-wrappers-react-use = "1.0.0-pre.628"
+kotlin-wrappers-redux = "1.0.0-pre.628"
+kotlin-wrappers-remixRunRouter = "1.0.0-pre.628"
+kotlin-wrappers-ringUi = "1.0.0-pre.628"
+kotlin-wrappers-styledNext = "1.0.0-pre.628"
+kotlin-wrappers-tanstack-queryCore = "1.0.0-pre.628"
+kotlin-wrappers-tanstack-react-query = "1.0.0-pre.628"
+kotlin-wrappers-tanstack-react-queryDevtools = "1.0.0-pre.628"
+kotlin-wrappers-tanstack-react-table = "1.0.0-pre.628"
+kotlin-wrappers-tanstack-react-virtual = "1.0.0-pre.628"
+kotlin-wrappers-tanstack-tableCore = "1.0.0-pre.628"
+kotlin-wrappers-tanstack-virtualCore = "1.0.0-pre.628"
+kotlin-wrappers-typescript = "1.0.0-pre.628"
+kotlin-wrappers-web = "1.0.0-pre.628"
+kotlinx-atomicfu-core = "0.22.0"
+kotlinx-atomicfu-gradle = "0.22.0"
+kotlinx-atomicfu-plugin = "0.22.0"
+kotlinx-coroutines-android = "1.7.3"
+kotlinx-coroutines-bom = "1.7.3"
+kotlinx-coroutines-core = "1.7.3"
+kotlinx-coroutines-javafx = "1.7.3"
+kotlinx-coroutines-jdk8 = "1.7.3"
+kotlinx-coroutines-jdk9 = "1.7.3"
+kotlinx-coroutines-test = "1.7.3"
 kotlinx-dateTime = "0.4.0"
 kotlinx-nodeJs = "0.0.7"
-kotlinx-serialization-bom = "1.4.1"
-kotlinx-serialization-cbor = "1.4.1"
-kotlinx-serialization-core = "1.4.1"
-kotlinx-serialization-gradle = "1.7.20"
-kotlinx-serialization-hocon = "1.4.1"
-kotlinx-serialization-json = "1.4.1"
-kotlinx-serialization-jsonOkio = "1.4.1"
-kotlinx-serialization-plugin = "1.7.20"
-kotlinx-serialization-properties = "1.4.1"
-kotlinx-serialization-protobuf = "1.4.1"
-ktor-client-android = "2.1.3"
-ktor-client-apache = "2.1.3"
-ktor-client-auth = "2.1.3"
-ktor-client-cio = "2.1.3"
-ktor-client-contentNegotiation = "2.1.3"
-ktor-client-core = "2.1.3"
-ktor-client-curl = "2.1.3"
-ktor-client-darwin = "2.1.3"
-ktor-client-darwinLegacy = "2.1.3"
-ktor-client-encoding = "2.1.3"
-ktor-client-gson = "2.1.3"
-ktor-client-ios = "2.1.3"
-ktor-client-jackson = "2.1.3"
-ktor-client-java = "2.1.3"
-ktor-client-jetty = "2.1.3"
-ktor-client-json = "2.1.3"
-ktor-client-logging = "2.1.3"
-ktor-client-mockClient = "2.1.3"
-ktor-client-okhttp = "2.1.3"
-ktor-client-resources = "2.1.3"
-ktor-client-serialisation = "2.1.3"
-ktor-client-websockets = "2.1.3"
-ktor-client-winhttp = "2.1.3"
-ktor-events = "2.1.3"
-ktor-http = "2.1.3"
-ktor-httpCio = "2.1.3"
-ktor-io = "2.1.3"
-ktor-network = "2.1.3"
-ktor-networkTls = "2.1.3"
-ktor-networkTlsCertificates = "2.1.3"
-ktor-plugin-dependency = "2.1.3"
-ktor-plugin-plugin = "2.1.3"
-ktor-serialization-cbor = "2.1.3"
-ktor-serialization-core = "2.1.3"
-ktor-serialization-gson = "2.1.3"
-ktor-serialization-jackson = "2.1.3"
-ktor-serialization-json = "2.1.3"
-ktor-serialization-xml = "2.1.3"
-ktor-server-auth = "2.1.3"
-ktor-server-authJwt = "2.1.3"
-ktor-server-authLdap = "2.1.3"
-ktor-server-autoHeadResponse = "2.1.3"
-ktor-server-base = "2.1.3"
-ktor-server-cachingHeaders = "2.1.3"
-ktor-server-callId = "2.1.3"
-ktor-server-callLogging = "2.1.3"
-ktor-server-cio = "2.1.3"
-ktor-server-compression = "2.1.3"
-ktor-server-conditionalHeaders = "2.1.3"
-ktor-server-configYaml = "2.1.3"
-ktor-server-contentNegotiation = "2.1.3"
-ktor-server-core = "2.1.3"
-ktor-server-cors = "2.1.3"
-ktor-server-dataConversion = "2.1.3"
-ktor-server-defaultHeaders = "2.1.3"
-ktor-server-doubleReceive = "2.1.3"
-ktor-server-forwardedHeader = "2.1.3"
-ktor-server-freemaker = "2.1.3"
-ktor-server-hostCommon = "2.1.3"
-ktor-server-hsts = "2.1.3"
-ktor-server-htmlBuilder = "2.1.3"
-ktor-server-httpRedirect = "2.1.3"
-ktor-server-jetty = "2.1.3"
-ktor-server-jite = "2.1.3"
-ktor-server-locations = "2.1.3"
-ktor-server-methodOverride = "2.1.3"
-ktor-server-metrics = "2.1.3"
-ktor-server-metricsMicrometer = "2.1.3"
-ktor-server-mustache = "2.1.3"
-ktor-server-netty = "2.1.3"
-ktor-server-partialContent = "2.1.3"
-ktor-server-pebble = "2.1.3"
-ktor-server-plugins = "2.1.3"
-ktor-server-requestValidation = "2.1.3"
-ktor-server-resources = "2.1.3"
-ktor-server-servlet = "2.1.3"
-ktor-server-sessions = "2.1.3"
-ktor-server-statusPages = "2.1.3"
-ktor-server-testHost = "2.1.3"
-ktor-server-thymeleaf = "2.1.3"
-ktor-server-tomcat = "2.1.3"
-ktor-server-velocity = "2.1.3"
-ktor-server-webjars = "2.1.3"
-ktor-server-websockets = "2.1.3"
-ktor-utils = "2.1.3"
-ktor-version = "2.1.3"
-ktor-websocketSerialization = "2.1.3"
-ktor-websockets = "2.1.3"
-mkdocs-dependency = "2.4.0"
-mkdocs-plugin = "2.4.0"
-node = "18.12.0"
-node-axios = "1.1.3"
+kotlinx-serialization-bom = "1.6.0"
+kotlinx-serialization-cbor = "1.6.0"
+kotlinx-serialization-core = "1.6.0"
+kotlinx-serialization-gradle = "1.9.10"
+kotlinx-serialization-hocon = "1.6.0"
+kotlinx-serialization-json = "1.6.0"
+kotlinx-serialization-jsonOkio = "1.6.0"
+kotlinx-serialization-plugin = "1.9.10"
+kotlinx-serialization-properties = "1.6.0"
+kotlinx-serialization-protobuf = "1.6.0"
+ktor-client-android = "2.3.5"
+ktor-client-apache = "2.3.5"
+ktor-client-auth = "2.3.5"
+ktor-client-cio = "2.3.5"
+ktor-client-contentNegotiation = "2.3.5"
+ktor-client-core = "2.3.5"
+ktor-client-curl = "2.3.5"
+ktor-client-darwin = "2.3.5"
+ktor-client-darwinLegacy = "2.3.5"
+ktor-client-encoding = "2.3.5"
+ktor-client-gson = "2.3.5"
+ktor-client-ios = "2.3.5"
+ktor-client-jackson = "2.3.5"
+ktor-client-java = "2.3.5"
+ktor-client-jetty = "2.3.5"
+ktor-client-json = "2.3.5"
+ktor-client-logging = "2.3.5"
+ktor-client-mockClient = "2.3.5"
+ktor-client-okhttp = "2.3.5"
+ktor-client-resources = "2.3.5"
+ktor-client-serialisation = "2.3.5"
+ktor-client-websockets = "2.3.5"
+ktor-client-winhttp = "2.3.5"
+ktor-events = "2.3.5"
+ktor-http = "2.3.5"
+ktor-httpCio = "2.3.5"
+ktor-io = "2.3.5"
+ktor-network = "2.3.5"
+ktor-networkTls = "2.3.5"
+ktor-networkTlsCertificates = "2.3.5"
+ktor-plugin-dependency = "2.3.5"
+ktor-plugin-plugin = "2.3.5"
+ktor-serialization-cbor = "2.3.5"
+ktor-serialization-core = "2.3.5"
+ktor-serialization-gson = "2.3.5"
+ktor-serialization-jackson = "2.3.5"
+ktor-serialization-json = "2.3.5"
+ktor-serialization-xml = "2.3.5"
+ktor-server-auth = "2.3.5"
+ktor-server-authJwt = "2.3.5"
+ktor-server-authLdap = "2.3.5"
+ktor-server-autoHeadResponse = "2.3.5"
+ktor-server-base = "2.3.5"
+ktor-server-cachingHeaders = "2.3.5"
+ktor-server-callId = "2.3.5"
+ktor-server-callLogging = "2.3.5"
+ktor-server-cio = "2.3.5"
+ktor-server-compression = "2.3.5"
+ktor-server-conditionalHeaders = "2.3.5"
+ktor-server-configYaml = "2.3.5"
+ktor-server-contentNegotiation = "2.3.5"
+ktor-server-core = "2.3.5"
+ktor-server-cors = "2.3.5"
+ktor-server-dataConversion = "2.3.5"
+ktor-server-defaultHeaders = "2.3.5"
+ktor-server-doubleReceive = "2.3.5"
+ktor-server-forwardedHeader = "2.3.5"
+ktor-server-freemaker = "2.3.5"
+ktor-server-hostCommon = "2.3.5"
+ktor-server-hsts = "2.3.5"
+ktor-server-htmlBuilder = "2.3.5"
+ktor-server-httpRedirect = "2.3.5"
+ktor-server-jetty = "2.3.5"
+ktor-server-jite = "2.3.5"
+ktor-server-locations = "2.3.5"
+ktor-server-methodOverride = "2.3.5"
+ktor-server-metrics = "2.3.5"
+ktor-server-metricsMicrometer = "2.3.5"
+ktor-server-mustache = "2.3.5"
+ktor-server-netty = "2.3.5"
+ktor-server-partialContent = "2.3.5"
+ktor-server-pebble = "2.3.5"
+ktor-server-plugins = "2.3.5"
+ktor-server-requestValidation = "2.3.5"
+ktor-server-resources = "2.3.5"
+ktor-server-servlet = "2.3.5"
+ktor-server-sessions = "2.3.5"
+ktor-server-statusPages = "2.3.5"
+ktor-server-testHost = "2.3.5"
+ktor-server-thymeleaf = "2.3.5"
+ktor-server-tomcat = "2.3.5"
+ktor-server-velocity = "2.3.5"
+ktor-server-webjars = "2.3.5"
+ktor-server-websockets = "2.3.5"
+ktor-utils = "2.3.5"
+ktor-version = "2.3.5"
+ktor-websocketSerialization = "2.3.5"
+ktor-websockets = "2.3.5"
+mkdocs-dependency = "3.0.0"
+mkdocs-plugin = "3.0.0"
+node = "21.1.0"
+node-axios = "1.6.0"
 node-copyWebpackPlugin = "11.0.0"
 node-sqlJs = "1.8.0"
 python-mkdocs-extraData = "0.2.5"
-python-mkdocs-includeMarkdown = "3.7.1"
-python-mkdocs-kroki = "0.3.0"
-python-mkdocs-material = "8.5.0"
-python-mkdocs-minify = "0.5.0"
-python-mkdocs-pygments = "2.13.0"
-python-mkdocs-pymdown = "9.5"
-python-mkdocs-redirects = "1.1.0"
-slf4j-api = "1.7.36"
-slf4j-noop = "1.7.36"
-square-kotlinPoet-core = "1.12.0"
-square-kotlinPoet-ksp = "1.12.0"
+python-mkdocs-includeMarkdown = "6.0.3"
+python-mkdocs-kroki = "0.6.1"
+python-mkdocs-material = "9.4.7"
+python-mkdocs-minify = "0.7.1"
+python-mkdocs-pygments = "2.16.1"
+python-mkdocs-pymdown = "10.3.1"
+python-mkdocs-redirects = "1.2.1"
+slf4j-api = "2.0.0"
+slf4j-noop = "2.0.0"
+square-kotlinPoet-core = "1.14.2"
+square-kotlinPoet-ksp = "1.14.2"
 square-okhttp-bom = "4.10.0"
 square-okhttp-brotli = "4.10.0"
 square-okhttp-core = "4.10.0"
@@ -348,33 +349,36 @@ square-okhttp-mockserver-junit5 = "4.10.0"
 square-okhttp-sse = "4.10.0"
 square-okhttp-tls = "4.10.0"
 square-okhttp-urlConnection = "4.10.0"
-square-okio-bom = "3.2.0"
-square-okio-core = "3.2.0"
-square-okio-fakefilesystem = "3.2.0"
-square-okio-nodefilesystem = "3.2.0"
-square-sqldelight-coroutines = "1.5.3"
-square-sqldelight-driver-android = "1.5.3"
-square-sqldelight-driver-jdbc = "1.5.3"
-square-sqldelight-driver-js = "1.5.3"
-square-sqldelight-driver-jvm = "1.5.3"
-square-sqldelight-driver-native = "1.5.3"
-square-sqldelight-gradle = "1.5.3"
-square-sqldelight-plugin = "1.5.3"
-stately-collections = "1.2.3"
-stately-concurrency = "1.2.3"
-stately-freeze = "1.2.3"
-stately-isolate = "1.2.3"
-test-compiler-core = "1.4.9"
-test-compiler-ksp = "1.4.9"
-test-junit-bom = "5.9.2"
-test-junit-core = "5.9.2"
+square-okio-bom = "3.5.0"
+square-okio-core = "3.5.0"
+square-okio-fakefilesystem = "3.5.0"
+square-okio-nodefilesystem = "3.5.0"
+square-sqldelight-coroutines = "2.0.0"
+square-sqldelight-driver-android = "2.0.0"
+square-sqldelight-driver-jdbc = "2.0.0"
+square-sqldelight-driver-js = "2.0.0"
+square-sqldelight-driver-jvm = "2.0.0"
+square-sqldelight-driver-native = "2.0.0"
+square-sqldelight-gradle = "2.0.0"
+square-sqldelight-plugin = "2.0.0"
+stately-collections = "2.0.4"
+stately-concurrency = "2.0.4"
+stately-freeze = "2.0.4"
+stately-isolate = "2.0.4"
+test-compiler-core = "0.3.2"
+test-compiler-ksp = "0.3.2"
+test-junit-bom = "5.10.0"
+test-junit-core = "5.10.0"
 test-junit-junit4 = "4.13.2"
-test-junit-legacyEngineJunit4 = "5.9.2"
-test-junit-parameterized = "5.9.2"
-test-mockk = "1.13.3"
-test-paparazzi-dependency = "1.0.0"
-test-paparazzi-plugin = "1.0.0"
-uuid = "0.5.0"
+test-junit-legacyEngineJunit4 = "5.10.0"
+test-junit-parameterized = "5.10.0"
+test-mockk = "1.13.7"
+test-paparazzi-dependency = "1.3.1"
+test-paparazzi-plugin = "1.3.1"
+test-roborazzi-dependency = "1.8.0-alpha-4"
+test-roborazzi-plugin = "1.8.0-alpha-4"
+test-turbine = "1.0.0"
+uuid = "0.8.1"
 
 [libraries]
 android-appCompact-core = {group = "androidx.appcompat", name = "appcompat", version.ref = "android-appCompact-core" }
@@ -400,7 +404,8 @@ android-compose-ui-tooling-preview = {group = "androidx.compose.ui", name = "ui-
 android-compose-ui-unit = {group = "androidx.compose.ui", name = "ui-unit", version.ref = "android-compose-ui-unit" }
 android-compose-ui-util = {group = "androidx.compose.ui", name = "ui-util", version.ref = "android-compose-ui-util" }
 android-constraintLayout-compose = {group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "android-constraintLayout-compose" }
-android-constraintLayout-core = {group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "android-constraintLayout-core" }
+android-constraintLayout-core = {group = "androidx.constraintlayout", name = "constraintlayout-core", version.ref = "android-constraintLayout-core" }
+android-constraintLayout-runtime = {group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "android-constraintLayout-runtime" }
 android-desugar = {group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "android-desugar" }
 android-hilt-compiler = {group = "com.google.dagger", name = "hilt-compiler", version.ref = "android-hilt-compiler" }
 android-hilt-compose = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "android-hilt-compose" }
@@ -547,6 +552,7 @@ common-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-moc
 common-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host", version.ref = "ktor-server-testHost" }
 common-test-mockk = {group = "io.mockk", name = "mockk", version.ref = "test-mockk" }
 common-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem", version.ref = "square-okio-fakefilesystem" }
+common-test-turbine = {group = "app.cash.turbine", name = "turbine", version.ref = "test-turbine" }
 common-uuid = {group = "com.benasher44", name = "uuid", version.ref = "uuid" }
 gradle-agp = {group = "com.android.tools.build", name = "gradle", version.ref = "android-agp" }
 gradle-antibytes-androidApplicationConfiguration = {group = "tech.antibytes.gradle.configuration.android.application", name = "antibytes-android-application-configuration", version.ref = "gradle-antibytes-androidApplicationConfiguration-dependency" }
@@ -582,6 +588,7 @@ gradle-mkdocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref
 gradle-owasp = {group = "org.owasp", name = "dependency-check-gradle", version.ref = "gradle-owasp-dependency" }
 gradle-paparazzi = {group = "app.cash.paparazzi", name = "paparazzi-gradle-plugin", version.ref = "test-paparazzi-dependency" }
 gradle-publishing = {group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "gradle-publishing" }
+gradle-roborazzi = {group = "io.github.takahirom", name = "roborazzi-gradle-plugin", version.ref = "test-roborazzi-dependency" }
 gradle-spotless = {group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "gradle-spotless-dependency" }
 gradle-square-sqldelight = {group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight-gradle" }
 gradle-test-antibytes-testUtils = {group = "tech.antibytes.gradle", name = "antibytes-gradle-test-utils", version.ref = "gradle-antibytes-testUtils" }
@@ -653,6 +660,7 @@ iosarm32-test-koin = {group = "io.insert-koin", name = "koin-test-iosarm32", ver
 iosarm32-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test-iosarm32", version.ref = "kotlinx-coroutines-test" }
 iosarm32-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-iosarm32", version.ref = "ktor-client-mockClient" }
 iosarm32-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-iosarm32", version.ref = "ktor-server-testHost" }
+iosarm32-test-turbine = {group = "app.cash.turbine", name = "turbine-iosarm32", version.ref = "test-turbine" }
 iosarm32-uuid = {group = "com.benasher44", name = "uuid-iosarm32", version.ref = "uuid" }
 iosarm64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-iosarm64", version.ref = "koin-annotations" }
 iosarm64-koin-core = {group = "io.insert-koin", name = "koin-core-iosarm64", version.ref = "koin-core" }
@@ -728,6 +736,7 @@ iosarm64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kot
 iosarm64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-iosarm64", version.ref = "ktor-client-mockClient" }
 iosarm64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-iosarm64", version.ref = "ktor-server-testHost" }
 iosarm64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-iosarm64", version.ref = "square-okio-fakefilesystem" }
+iosarm64-test-turbine = {group = "app.cash.turbine", name = "turbine-iosarm64", version.ref = "test-turbine" }
 iosarm64-uuid = {group = "com.benasher44", name = "uuid-iosarm64", version.ref = "uuid" }
 iossimulatorarm64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-iossimulatorarm64", version.ref = "koin-annotations" }
 iossimulatorarm64-koin-core = {group = "io.insert-koin", name = "koin-core-iossimulatorarm64", version.ref = "koin-core" }
@@ -803,6 +812,7 @@ iossimulatorarm64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", na
 iossimulatorarm64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-iossimulatorarm64", version.ref = "ktor-client-mockClient" }
 iossimulatorarm64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-iossimulatorarm64", version.ref = "ktor-server-testHost" }
 iossimulatorarm64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-iossimulatorarm64", version.ref = "square-okio-fakefilesystem" }
+iossimulatorarm64-test-turbine = {group = "app.cash.turbine", name = "turbine-iossimulatorarm64", version.ref = "test-turbine" }
 iossimulatorarm64-uuid = {group = "com.benasher44", name = "uuid-iossimulatorarm64", version.ref = "uuid" }
 iosx64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-iosx64", version.ref = "koin-annotations" }
 iosx64-koin-core = {group = "io.insert-koin", name = "koin-core-iosx64", version.ref = "koin-core" }
@@ -878,6 +888,7 @@ iosx64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotli
 iosx64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-iosx64", version.ref = "ktor-client-mockClient" }
 iosx64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-iosx64", version.ref = "ktor-server-testHost" }
 iosx64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-iosx64", version.ref = "square-okio-fakefilesystem" }
+iosx64-test-turbine = {group = "app.cash.turbine", name = "turbine-iosx64", version.ref = "test-turbine" }
 iosx64-uuid = {group = "com.benasher44", name = "uuid-iosx64", version.ref = "uuid" }
 js-koin-core = {group = "io.insert-koin", name = "koin-core-js", version.ref = "koin-core" }
 js-kotlin-stdlib = {group = "org.jetbrains.kotlin", name = "kotlin-stdlib-js", version.ref = "kotlin-stdlib-js" }
@@ -967,6 +978,7 @@ js-test-kotlin-wrappers-react-domTestUtils = {group = "org.jetbrains.kotlin-wrap
 js-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test-js", version.ref = "kotlinx-coroutines-test" }
 js-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-js", version.ref = "ktor-client-mockClient" }
 js-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-js", version.ref = "square-okio-fakefilesystem" }
+js-test-turbine = {group = "app.cash.turbine", name = "turbine-js", version.ref = "test-turbine" }
 js-uuid = {group = "com.benasher44", name = "uuid-js", version.ref = "uuid" }
 jvm-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-jvm", version.ref = "koin-annotations" }
 jvm-koin-core = {group = "io.insert-koin", name = "koin-core-jvm", version.ref = "koin-core" }
@@ -1102,8 +1114,8 @@ jvm-stately-collections = {group = "co.touchlab", name = "stately-iso-collection
 jvm-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-jvm", version.ref = "stately-concurrency" }
 jvm-stately-freeze = {group = "co.touchlab", name = "stately-common-jvm", version.ref = "stately-freeze" }
 jvm-stately-isolate = {group = "co.touchlab", name = "stately-isolate-jvm", version.ref = "stately-isolate" }
-jvm-test-compiler-core = {group = "com.github.tschuchortdev", name = "kotlin-compile-testing", version.ref = "test-compiler-core" }
-jvm-test-compiler-ksp = {group = "com.github.tschuchortdev", name = "kotlin-compile-testing-ksp", version.ref = "test-compiler-ksp" }
+jvm-test-compiler-core = {group = "dev.zacsweers.kctfork", name = "core", version.ref = "test-compiler-core" }
+jvm-test-compiler-ksp = {group = "dev.zacsweers.kctfork", name = "ksp", version.ref = "test-compiler-ksp" }
 jvm-test-junit-bom = {group = "org.junit", name = "junit-bom", version.ref = "test-junit-bom" }
 jvm-test-junit-core = {group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "test-junit-core" }
 jvm-test-junit-junit4 = {group = "junit", name = "junit", version.ref = "test-junit-junit4" }
@@ -1122,6 +1134,7 @@ jvm-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-j
 jvm-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-jvm", version.ref = "ktor-server-testHost" }
 jvm-test-mockk = {group = "io.mockk", name = "mockk-jvm", version.ref = "test-mockk" }
 jvm-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-jvm", version.ref = "square-okio-fakefilesystem" }
+jvm-test-turbine = {group = "app.cash.turbine", name = "turbine-jvm", version.ref = "test-turbine" }
 jvm-uuid = {group = "com.benasher44", name = "uuid-jvm", version.ref = "uuid" }
 linuxarm32hfp-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-linuxarm32hfp", version.ref = "koin-annotations" }
 linuxarm32hfp-koin-core = {group = "io.insert-koin", name = "koin-core-linuxarm32hfp", version.ref = "koin-core" }
@@ -1136,6 +1149,7 @@ linuxarm32hfp-stately-concurrency = {group = "co.touchlab", name = "stately-conc
 linuxarm32hfp-stately-freeze = {group = "co.touchlab", name = "stately-common-linuxarm32hfp", version.ref = "stately-freeze" }
 linuxarm32hfp-stately-isolate = {group = "co.touchlab", name = "stately-isolate-linuxarm32hfp", version.ref = "stately-isolate" }
 linuxarm32hfp-test-koin = {group = "io.insert-koin", name = "koin-test-linuxarm32hfp", version.ref = "koin-test" }
+linuxarm32hfp-test-turbine = {group = "app.cash.turbine", name = "turbine-linuxarm32hfp", version.ref = "test-turbine" }
 linuxarm32hfp-uuid = {group = "com.benasher44", name = "uuid-linuxarm32hfp", version.ref = "uuid" }
 linuxarm64-kotlinx-serialization-cbor = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-cbor-linuxarm64", version.ref = "kotlinx-serialization-cbor" }
 linuxarm64-kotlinx-serialization-core = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core-linuxarm64", version.ref = "kotlinx-serialization-core" }
@@ -1219,6 +1233,7 @@ linuxx64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kot
 linuxx64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-linuxx64", version.ref = "ktor-client-mockClient" }
 linuxx64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-linuxx64", version.ref = "ktor-server-testHost" }
 linuxx64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-linuxx64", version.ref = "square-okio-fakefilesystem" }
+linuxx64-test-turbine = {group = "app.cash.turbine", name = "turbine-linuxx64", version.ref = "test-turbine" }
 linuxx64-uuid = {group = "com.benasher44", name = "uuid-linuxx64", version.ref = "uuid" }
 macosarm64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-macosarm64", version.ref = "koin-annotations" }
 macosarm64-koin-core = {group = "io.insert-koin", name = "koin-core-macosarm64", version.ref = "koin-core" }
@@ -1294,6 +1309,7 @@ macosarm64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "k
 macosarm64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-macosarm64", version.ref = "ktor-client-mockClient" }
 macosarm64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-macosarm64", version.ref = "ktor-server-testHost" }
 macosarm64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-macosarm64", version.ref = "square-okio-fakefilesystem" }
+macosarm64-test-turbine = {group = "app.cash.turbine", name = "turbine-macosarm64", version.ref = "test-turbine" }
 macosarm64-uuid = {group = "com.benasher44", name = "uuid-macosarm64", version.ref = "uuid" }
 macosx64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-macosx64", version.ref = "koin-annotations" }
 macosx64-koin-core = {group = "io.insert-koin", name = "koin-core-macosx64", version.ref = "koin-core" }
@@ -1368,6 +1384,7 @@ macosx64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kot
 macosx64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-macosx64", version.ref = "ktor-client-mockClient" }
 macosx64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-macosx64", version.ref = "ktor-server-testHost" }
 macosx64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-macosx64", version.ref = "square-okio-fakefilesystem" }
+macosx64-test-turbine = {group = "app.cash.turbine", name = "turbine-macosx64", version.ref = "test-turbine" }
 macosx64-uuid = {group = "com.benasher44", name = "uuid-macosx64", version.ref = "uuid" }
 mingwx64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-mingwx64", version.ref = "koin-annotations" }
 mingwx64-koin-core = {group = "io.insert-koin", name = "koin-core-mingwx64", version.ref = "koin-core" }
@@ -1413,6 +1430,7 @@ mingwx64-test-koin = {group = "io.insert-koin", name = "koin-test-mingwx64", ver
 mingwx64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test-mingwx64", version.ref = "kotlinx-coroutines-test" }
 mingwx64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-mingwx64", version.ref = "ktor-client-mockClient" }
 mingwx64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-mingwx64", version.ref = "square-okio-fakefilesystem" }
+mingwx64-test-turbine = {group = "app.cash.turbine", name = "turbine-mingwx64", version.ref = "test-turbine" }
 mingwx64-uuid = {group = "com.benasher44", name = "uuid-mingwx64", version.ref = "uuid" }
 mingwx86-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-mingwx86", version.ref = "koin-annotations" }
 mingwx86-koin-core = {group = "io.insert-koin", name = "koin-core-mingwx86", version.ref = "koin-core" }
@@ -1512,6 +1530,7 @@ tvosarm64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "ko
 tvosarm64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-tvosarm64", version.ref = "ktor-client-mockClient" }
 tvosarm64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-tvosarm64", version.ref = "ktor-server-testHost" }
 tvosarm64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-tvosarm64", version.ref = "square-okio-fakefilesystem" }
+tvosarm64-test-turbine = {group = "app.cash.turbine", name = "turbine-tvosarm64", version.ref = "test-turbine" }
 tvosarm64-uuid = {group = "com.benasher44", name = "uuid-tvosarm64", version.ref = "uuid" }
 tvossimulatorarm64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-tvossimulatorarm64", version.ref = "koin-annotations" }
 tvossimulatorarm64-koin-core = {group = "io.insert-koin", name = "koin-core-tvossimulatorarm64", version.ref = "koin-core" }
@@ -1586,6 +1605,7 @@ tvossimulatorarm64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", n
 tvossimulatorarm64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-tvossimulatorarm64", version.ref = "ktor-client-mockClient" }
 tvossimulatorarm64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-tvossimulatorarm64", version.ref = "ktor-server-testHost" }
 tvossimulatorarm64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-tvossimulatorarm64", version.ref = "square-okio-fakefilesystem" }
+tvossimulatorarm64-test-turbine = {group = "app.cash.turbine", name = "turbine-tvossimulatorarm64", version.ref = "test-turbine" }
 tvossimulatorarm64-uuid = {group = "com.benasher44", name = "uuid-tvossimulatorarm64", version.ref = "uuid" }
 tvosx64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-tvosx64", version.ref = "koin-annotations" }
 tvosx64-koin-core = {group = "io.insert-koin", name = "koin-core-tvosx64", version.ref = "koin-core" }
@@ -1660,6 +1680,7 @@ tvosx64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotl
 tvosx64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-tvosx64", version.ref = "ktor-client-mockClient" }
 tvosx64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-tvosx64", version.ref = "ktor-server-testHost" }
 tvosx64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-tvosx64", version.ref = "square-okio-fakefilesystem" }
+tvosx64-test-turbine = {group = "app.cash.turbine", name = "turbine-tvosx64", version.ref = "test-turbine" }
 tvosx64-uuid = {group = "com.benasher44", name = "uuid-tvosx64", version.ref = "uuid" }
 wasm32-kotlin-stdlib-wasm = {group = "org.jetbrains.kotlin", name = "kotlin-stdlib-wasm", version.ref = "kotlin-stdlib-wasm" }
 wasm32-kotlinx-serialization-cbor = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-cbor-wasm32", version.ref = "kotlinx-serialization-cbor" }
@@ -1740,6 +1761,7 @@ watchosarm32-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = 
 watchosarm32-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-watchosarm32", version.ref = "ktor-client-mockClient" }
 watchosarm32-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-watchosarm32", version.ref = "ktor-server-testHost" }
 watchosarm32-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-watchosarm32", version.ref = "square-okio-fakefilesystem" }
+watchosarm32-test-turbine = {group = "app.cash.turbine", name = "turbine-watchosarm32", version.ref = "test-turbine" }
 watchosarm32-uuid = {group = "com.benasher44", name = "uuid-watchosarm32", version.ref = "uuid" }
 watchosarm64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-watchosarm64", version.ref = "koin-annotations" }
 watchosarm64-koin-core = {group = "io.insert-koin", name = "koin-core-watchosarm64", version.ref = "koin-core" }
@@ -1814,6 +1836,7 @@ watchosarm64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = 
 watchosarm64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-watchosarm64", version.ref = "ktor-client-mockClient" }
 watchosarm64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-watchosarm64", version.ref = "ktor-server-testHost" }
 watchosarm64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-watchosarm64", version.ref = "square-okio-fakefilesystem" }
+watchosarm64-test-turbine = {group = "app.cash.turbine", name = "turbine-watchosarm64", version.ref = "test-turbine" }
 watchosarm64-uuid = {group = "com.benasher44", name = "uuid-watchosarm64", version.ref = "uuid" }
 watchossimulatorarm64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-watchossimulatorarm64", version.ref = "koin-annotations" }
 watchossimulatorarm64-koin-core = {group = "io.insert-koin", name = "koin-core-watchossimulatorarm64", version.ref = "koin-core" }
@@ -1888,6 +1911,7 @@ watchossimulatorarm64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx"
 watchossimulatorarm64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-watchossimulatorarm64", version.ref = "ktor-client-mockClient" }
 watchossimulatorarm64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-watchossimulatorarm64", version.ref = "ktor-server-testHost" }
 watchossimulatorarm64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-watchossimulatorarm64", version.ref = "square-okio-fakefilesystem" }
+watchossimulatorarm64-test-turbine = {group = "app.cash.turbine", name = "turbine-watchossimulatorarm64", version.ref = "test-turbine" }
 watchossimulatorarm64-uuid = {group = "com.benasher44", name = "uuid-watchossimulatorarm64", version.ref = "uuid" }
 watchosx64-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-watchosx64", version.ref = "koin-annotations" }
 watchosx64-koin-core = {group = "io.insert-koin", name = "koin-core-watchosx64", version.ref = "koin-core" }
@@ -1962,6 +1986,7 @@ watchosx64-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "k
 watchosx64-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-watchosx64", version.ref = "ktor-client-mockClient" }
 watchosx64-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-watchosx64", version.ref = "ktor-server-testHost" }
 watchosx64-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-watchosx64", version.ref = "square-okio-fakefilesystem" }
+watchosx64-test-turbine = {group = "app.cash.turbine", name = "turbine-watchosx64", version.ref = "test-turbine" }
 watchosx64-uuid = {group = "com.benasher44", name = "uuid-watchosx64", version.ref = "uuid" }
 watchosx86-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-watchosx86", version.ref = "koin-annotations" }
 watchosx86-koin-core = {group = "io.insert-koin", name = "koin-core-watchosx86", version.ref = "koin-core" }
@@ -2036,6 +2061,7 @@ watchosx86-test-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "k
 watchosx86-test-ktor-client-mockClient = {group = "io.ktor", name = "ktor-client-mock-watchosx86", version.ref = "ktor-client-mockClient" }
 watchosx86-test-ktor-server-testHost = {group = "io.ktor", name = "ktor-server-test-host-watchosx86", version.ref = "ktor-server-testHost" }
 watchosx86-test-square-okio-fakefilesystem = {group = "com.squareup.okio", name = "okio-fakefilesystem-watchosx86", version.ref = "square-okio-fakefilesystem" }
+watchosx86-test-turbine = {group = "app.cash.turbine", name = "turbine-watchosx86", version.ref = "test-turbine" }
 watchosx86-uuid = {group = "com.benasher44", name = "uuid-watchosx86", version.ref = "uuid" }
 
 [plugins]
@@ -2074,4 +2100,5 @@ ktor-plugin = {id = "io.ktor.plugin.gradle.plugin", version.ref = "ktor-plugin-p
 mkdocs = {id = "ru.vyarus.mkdocs", version.ref = "mkdocs-plugin" }
 square-sqldelight = {id = "com.squareup.sqldelight", version.ref = "square-sqldelight-plugin" }
 test-paparazzi = {id = "app.cash.paparazzi", version.ref = "test-paparazzi-plugin" }
+test-roborazzi = {id = "io.github.takahirom.roborazzi", version.ref = "test-roborazzi-plugin" }
 

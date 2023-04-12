@@ -17,9 +17,12 @@ import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.configuration.makePath
 import tech.antibytes.gradle.coverage.source.SourceHelper
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
+import tech.antibytes.gradle.util.decapitalize
 import tech.antibytes.gradle.util.isAndroidLibrary
 
-internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlatformConfigurationProvider {
+internal class AndroidConfigurationProvider(
+    private val sourceHelper: SourceHelper = SourceHelper(),
+) : ConfigurationContract.DefaultAndroidConfigurationProvider {
     private fun resolveTestDependency(): Set<String> = setOf("test${DEFAULT_ANDROID_MARKER}UnitTest")
 
     private fun resolveInstrumentedTestTasks(context: PlatformContext): Set<String> {
@@ -53,17 +56,19 @@ internal object AndroidConfigurationProvider : ConfigurationContract.DefaultPlat
     override fun createDefaultCoverageConfiguration(
         project: Project,
         context: PlatformContext,
+        variant: String,
+        flavour: String,
     ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
         return AndroidJacocoConfiguration(
             reportSettings = JacocoReporterSettings(),
-            testDependencies = resolveTestDependency(),
+            test = resolveTestDependency(),
             classPattern = resolveClassPattern(),
             classFilter = resolveClassFilter(),
-            sources = SourceHelper.resolveSources(project, context),
+            sources = sourceHelper.resolveSources(project, context),
             additionalClasses = null,
             additionalSources = emptySet(),
             verificationRules = emptySet(),
-            instrumentedTestDependencies = resolveInstrumentedTestTasks(context),
+            instrumentedTest = resolveInstrumentedTestTasks(context),
             variant = DEFAULT_ANDROID_VARIANT,
             flavour = DEFAULT_ANDROID_FLAVOUR,
         )

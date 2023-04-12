@@ -12,6 +12,7 @@ import tech.antibytes.gradle.publishing.PublishingApiContract.GitRepositoryConfi
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingError
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
+import tech.antibytes.gradle.util.capitalize
 
 internal object GitRepository : PublisherContract.GitRepository {
     override fun configureCloneTask(

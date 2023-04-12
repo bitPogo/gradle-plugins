@@ -7,14 +7,14 @@
 package tech.antibytes.gradle.quality.gate
 
 import org.gradle.api.Project
-import org.sonarqube.gradle.SonarQubeExtension
+import org.sonarqube.gradle.SonarExtension
 import tech.antibytes.gradle.quality.Configurator
 import tech.antibytes.gradle.quality.QualityApiContract.QualityGateConfiguration
 import tech.antibytes.gradle.quality.QualityContract.Extension
 
 internal object Sonarqube : Configurator() {
     private fun Project.configure(configuration: QualityGateConfiguration) {
-        extensions.configure(SonarQubeExtension::class.java) {
+        extensions.configure(SonarExtension::class.java) {
             properties {
                 property("sonar.projectKey", configuration.projectKey)
                 property("sonar.organization", "antibytes")
@@ -28,14 +28,14 @@ internal object Sonarqube : Configurator() {
         }
     }
 
-    private fun SonarQubeExtension.excludeProject() {
+    private fun SonarExtension.excludeProject() {
         isSkipProject = true
     }
 
     private fun Project.excludeSubprojects(configuration: QualityGateConfiguration) {
         subprojects {
             if (name in configuration.exclude) {
-                extensions.configure(SonarQubeExtension::class.java) {
+                extensions.configure(SonarExtension::class.java) {
                     excludeProject()
                 }
             }

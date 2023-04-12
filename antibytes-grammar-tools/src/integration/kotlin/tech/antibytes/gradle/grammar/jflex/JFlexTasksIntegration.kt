@@ -70,7 +70,9 @@ class JFlexTasksIntegration {
         )
         assertTrue(generatedFile.exists())
         assertEquals(
-            actual = generatedFile.readText().replace("// source:[a-zA-Z0-9/ \\-.]+\n".toRegex(), ""),
+            actual = generatedFile.readText()
+                .replace("// source:[a-zA-Z0-9/ \\-.]+\n".toRegex(), "")
+                .replace("[ ]+\n".toRegex(), "\n"),
             expected = expected,
         )
     }

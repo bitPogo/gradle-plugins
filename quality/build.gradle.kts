@@ -23,6 +23,16 @@ allprojects {
     }
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
+        vendor.set(JvmVendorSpec.ADOPTIUM)
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.spotless)
@@ -32,11 +42,6 @@ dependencies {
     implementation(libs.stableApi)
     implementation(project(":utils"))
     implementation(project(":helper"))
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
 }
 
 gradlePlugin {

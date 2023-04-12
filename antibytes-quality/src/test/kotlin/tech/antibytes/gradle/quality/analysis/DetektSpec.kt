@@ -89,10 +89,10 @@ class DetektSpec {
 
         // Then
         verify(exactly = 1) { project.plugins.apply("io.gitlab.arturbosch.detekt") }
-        verify(exactly = 1) { detekt.toolVersion = "1.22.0" }
-        verify(exactly = 1) { detekt.config = configuration.configurationFiles }
+        verify(exactly = 1) { detekt.toolVersion = "1.23.3" }
+        verify(exactly = 1) { detekt.config.setFrom(configuration.configurationFiles) }
         verify(exactly = 1) { detekt.baseline = configuration.baselineFile }
-        verify(exactly = 1) { detekt.source = configuration.sourceFiles }
+        verify(exactly = 1) { detekt.source.setFrom(configuration.sourceFiles) }
         verify(exactly = 1) { detekt.autoCorrect = configuration.autoCorrection }
         verify(exactly = 1) { detekt.allRules = false }
         verify(exactly = 1) { detekt.buildUponDefaultConfig = true }

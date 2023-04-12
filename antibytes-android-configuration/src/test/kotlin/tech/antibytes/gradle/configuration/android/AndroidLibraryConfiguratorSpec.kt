@@ -51,7 +51,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
-            targetSdkVersion = fixture(),
             prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
@@ -101,7 +100,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
-            targetSdkVersion = fixture(),
             prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
@@ -149,7 +147,6 @@ class AndroidLibraryConfiguratorSpec {
 
         // Then
         verify(exactly = 1) { defaultConfiguration.minSdk = configuration.minSdkVersion }
-        verify(exactly = 1) { defaultConfiguration.targetSdk = configuration.targetSdkVersion }
         verify(exactly = 1) { defaultConfiguration.testInstrumentationRunner = configuration.testRunner.runner }
         assertEquals(
             actual = runnerArguments,
@@ -164,7 +161,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
-            targetSdkVersion = fixture(),
             prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
@@ -217,7 +213,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
-            targetSdkVersion = fixture(),
             prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
@@ -302,7 +297,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
-            targetSdkVersion = fixture(),
             prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
@@ -393,7 +387,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
-            targetSdkVersion = fixture(),
             prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
@@ -441,7 +434,6 @@ class AndroidLibraryConfiguratorSpec {
         val configuration = AndroidLibraryConfiguration(
             compileSdkVersion = fixture(),
             minSdkVersion = fixture(),
-            targetSdkVersion = fixture(),
             prefix = fixture(),
             publishVariants = emptySet(),
             compatibilityTargets = Compatibility(
@@ -481,7 +473,7 @@ class AndroidLibraryConfiguratorSpec {
             extensions.configure(KotlinMultiplatformExtension::class.java, probe)
         }
 
-        every { kmpExtension.android() } returns androidTarget
+        every { kmpExtension.androidTarget() } returns androidTarget
 
         // When
         AndroidLibraryConfigurator.configure(project, configuration)

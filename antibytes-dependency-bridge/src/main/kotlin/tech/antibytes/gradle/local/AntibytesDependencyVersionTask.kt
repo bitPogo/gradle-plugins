@@ -19,7 +19,7 @@ import tech.antibytes.gradle.local.writer.DependencyWriter
 
 abstract class AntibytesDependencyVersionTask : DefaultTask(), DependencyVersionTask {
     private val outputDirectory: File = File(
-        "${project.buildDir.absolutePath.trimEnd('/')}/generated/antibytes/main/kotlin",
+        "${project.layout.buildDirectory.asFile.get().absolutePath.trimEnd('/')}/generated/antibytes/main/kotlin",
     )
 
     init {
@@ -36,8 +36,10 @@ abstract class AntibytesDependencyVersionTask : DefaultTask(), DependencyVersion
     }
 
     private fun ensureBuildDir() {
-        if (!project.buildDir.exists()) {
-            project.buildDir.mkdir()
+        val buildDir = project.layout.buildDirectory.asFile.get()
+
+        if (!buildDir.exists()) {
+            buildDir.mkdir()
         }
     }
 

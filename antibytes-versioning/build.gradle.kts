@@ -9,7 +9,7 @@ import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
-import tech.antibytes.gradle.publishing.api.PackageConfiguration
+/*import tech.antibytes.gradle.publishing.api.PackageConfiguration
 import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
@@ -17,30 +17,30 @@ import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
-import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
+import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration*/
 
 plugins {
     `kotlin-dsl`
     `java-library`
 
     id("tech.antibytes.gradle.coverage.local")
-    id("tech.antibytes.gradle.publishing.local")
+    // id("tech.antibytes.gradle.publishing.local")
 }
 
 val pluginId = "${LibraryConfig.group}.versioning"
-val versioningConfiguration = VersioningConfiguration(
+/*val versioningConfiguration = VersioningConfiguration(
     featurePrefixes = listOf("feature"),
     suppressSnapshot = true
-)
+)*/
 
 // To make it available as direct dependency
 group = pluginId
 
-antibytesVersioning {
+/*antibytesVersioning {
     configuration = versioningConfiguration
-}
+}*/
 
-antibytesPublishing {
+/*antibytesPublishing {
     versioning.set(versioningConfiguration)
     packaging.set(
         PackageConfiguration(
@@ -104,11 +104,11 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
-}
+}*/
 
 dependencies {
     implementation(libs.versioning)
@@ -119,11 +119,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
 }
 
 antibytesCoverage {

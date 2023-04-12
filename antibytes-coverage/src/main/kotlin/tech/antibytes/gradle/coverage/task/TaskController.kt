@@ -23,15 +23,22 @@ import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigur
 import tech.antibytes.gradle.util.isKmp
 import tech.antibytes.gradle.util.isRoot
 
-internal object TaskController : CoverageContract.TaskController {
+internal class TaskController(
+    private val jacocoExtensionConfigurator: TaskContract.JacocoExtensionConfigurator = JacocoExtensionConfigurator(),
+    private val androidExtensionConfigurator: TaskContract.AndroidExtensionConfigurator = AndroidExtensionConfigurator(),
+    private val jacocoReporterTaskConfigurator: TaskContract.ReportTaskConfigurator = JacocoReportTaskConfigurator(),
+    private val jacocoVerificationTaskConfigurator: TaskContract.VerificationTaskConfigurator = JacocoVerificationTaskConfigurator(),
+    private val jacocoAggregationReportTaskConfigurator: TaskContract.ReportTaskConfigurator = JacocoAggregationReportTaskConfigurator(),
+    private val jacocoAggregationVerificationTaskConfigurator: TaskContract.VerificationTaskConfigurator = JacocoAggregationVerificationTaskConfigurator(),
+) : CoverageContract.TaskController {
     private fun configureJacocoTask(
         project: Project,
         contextId: String,
         configuration: JacocoCoverageConfiguration,
     ): Pair<Task, Task?> {
         return Pair(
-            JacocoReportTaskConfigurator.configure(project, contextId, configuration),
-            JacocoVerificationTaskConfigurator.configure(project, contextId, configuration),
+            jacocoReporterTaskConfigurator.configure(project, contextId, configuration),
+            jacocoVerificationTaskConfigurator.configure(project, contextId, configuration),
         )
     }
 
@@ -41,8 +48,8 @@ internal object TaskController : CoverageContract.TaskController {
         configuration: JacocoAggregationConfiguration,
     ): Pair<Task, Task?> {
         return Pair(
-            JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration),
-            JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration),
+            jacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration),
+            jacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration),
         )
     }
 
@@ -51,11 +58,11 @@ internal object TaskController : CoverageContract.TaskController {
         contextId: String,
         extension: AntibytesCoveragePluginExtension,
     ) {
-        JacocoExtensionConfigurator.configure(project, extension)
+        jacocoExtensionConfigurator.configure(project, extension)
         val configuration = extension.configurations.get()[contextId]
 
         if (configuration is AndroidJacocoCoverageConfiguration) {
-            AndroidExtensionConfigurator.configure(project)
+            androidExtensionConfigurator.configure(project)
         }
     }
 
@@ -125,7 +132,7 @@ internal object TaskController : CoverageContract.TaskController {
         extension.configurations.get().forEach { (contextId, configuration) ->
             val (reporter, verification) = when (configuration) {
                 is JacocoAggregationConfiguration -> configureAggregationJacocoTask(project, contextId, configuration).also {
-                    JacocoExtensionConfigurator.configure(project, extension)
+                    jacocoExtensionConfigurator.configure(project, extension)
                 }
                 else -> throw CoverageError.UnknownPlatformConfiguration()
             }

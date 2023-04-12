@@ -27,6 +27,7 @@ import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.util.capitalize
 
 class MavenRepositorySpec {
     private val fixture = kotlinFixture()
@@ -55,7 +56,7 @@ class MavenRepositorySpec {
         val repository: MavenArtifactRepository = mockk(relaxed = true)
         val credentials: PasswordCredentials = mockk(relaxed = true)
 
-        every { project.rootProject.buildDir } returns File(fixture<String>())
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File(fixture<String>())
         every { project.extensions } returns extensions
         every { publishingExtension.repositories } returns repositoryContainer
         invokeGradleAction(publishingExtension) { probe ->
@@ -116,7 +117,7 @@ class MavenRepositorySpec {
         val repository: MavenArtifactRepository = mockk(relaxed = true)
         val credentials: PasswordCredentials = mockk(relaxed = true)
 
-        every { project.rootProject.buildDir } returns File(fixture<String>())
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File(fixture<String>())
         every { project.extensions } returns extensions
         every { publishingExtension.repositories } returns repositoryContainer
         invokeGradleAction(publishingExtension) { probe ->
@@ -173,7 +174,7 @@ class MavenRepositorySpec {
         val credentials: PasswordCredentials = mockk(relaxed = true)
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns mockk(relaxed = true)
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns mockk(relaxed = true)
         every { publishingExtension.repositories } returns repositoryContainer
         invokeGradleAction(publishingExtension) { probe ->
             extensions.configure(PublishingExtension::class.java, probe)
@@ -229,7 +230,7 @@ class MavenRepositorySpec {
         val credentials: PasswordCredentials = mockk(relaxed = true)
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns mockk(relaxed = true)
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns mockk(relaxed = true)
         every { publishingExtension.repositories } returns repositoryContainer
         invokeGradleAction(publishingExtension) { probe ->
             extensions.configure(PublishingExtension::class.java, probe)
@@ -285,7 +286,7 @@ class MavenRepositorySpec {
         val url = slot<String>()
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns File("somewhere")
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File("somewhere")
         every { publishingExtension.repositories } returns repositoryContainer
 
         every { repository.setUrl(capture(url)) } just Runs
@@ -340,7 +341,7 @@ class MavenRepositorySpec {
         val url = slot<String>()
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns File("somewhere")
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File("somewhere")
         every { publishingExtension.repositories } returns repositoryContainer
 
         every { repository.setUrl(capture(url)) } just Runs
@@ -396,7 +397,7 @@ class MavenRepositorySpec {
         val url = slot<String>()
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns File("somewhere")
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File("somewhere")
         every { publishingExtension.repositories } returns repositoryContainer
 
         every { repository.setUrl(capture(url)) } just Runs
@@ -452,7 +453,7 @@ class MavenRepositorySpec {
         val url = slot<String>()
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns File("somewhere")
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File("somewhere")
         every { publishingExtension.repositories } returns repositoryContainer
 
         every { repository.setUrl(capture(url)) } just Runs
@@ -508,7 +509,7 @@ class MavenRepositorySpec {
         val url = slot<String>()
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns File("somewhere")
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File("somewhere")
         every { publishingExtension.repositories } returns repositoryContainer
 
         every { repository.setUrl(capture(url)) } just Runs
@@ -564,7 +565,7 @@ class MavenRepositorySpec {
         val url = slot<String>()
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns File("somewhere")
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File("somewhere")
         every { publishingExtension.repositories } returns repositoryContainer
 
         every { repository.setUrl(capture(url)) } just Runs
@@ -624,7 +625,7 @@ class MavenRepositorySpec {
         val url = slot<String>()
 
         every { project.extensions } returns extensions
-        every { project.rootProject.buildDir } returns File("somewhere")
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns File("somewhere")
         every { publishingExtension.repositories } returns repositoryContainer
 
         every { repository.setUrl(capture(url)) } just Runs

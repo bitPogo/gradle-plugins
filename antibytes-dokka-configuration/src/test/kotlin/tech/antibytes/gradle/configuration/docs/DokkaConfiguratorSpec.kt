@@ -41,7 +41,7 @@ class DokkaConfiguratorSpec {
         val taskCollection: TaskCollection<DokkaTask> = mockk()
         val builderContainer: NamedDomainObjectContainer<GradleDokkaSourceSetBuilder> = mockk()
 
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory.get().asFile } returns buildDir
         every { project.tasks.withType(DokkaTask::class.java) } returns taskCollection
         every { dokkaTask.dokkaSourceSets } returns builderContainer
 

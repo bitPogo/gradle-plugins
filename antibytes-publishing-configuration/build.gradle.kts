@@ -102,7 +102,7 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
@@ -146,13 +146,15 @@ dependencies {
     testImplementation(project(":antibytes-gradle-test-utils"))
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
 tasks.test {
     useJUnitPlatform()
+    jvmArgs = listOf(
+        jvmArgs ?: emptyList(),
+        listOf(
+            "--add-opens=java.base/java.util=ALL-UNNAMED",
+            "--add-opens=java.base/java.lang=ALL-UNNAMED",
+        )
+    ).flatten()
 }
 
 tasks.check {

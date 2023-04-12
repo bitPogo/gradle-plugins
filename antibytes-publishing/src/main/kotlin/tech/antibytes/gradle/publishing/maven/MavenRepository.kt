@@ -13,6 +13,7 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingApiContract.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
+import tech.antibytes.gradle.util.capitalize
 
 internal object MavenRepository : PublisherContract.MavenRepository {
     private fun useCredentials(
@@ -29,7 +30,7 @@ internal object MavenRepository : PublisherContract.MavenRepository {
         configuration: RepositoryConfiguration<out Any>,
         dryRun: Boolean,
     ): Any {
-        val localBasePath = "file://${project.rootProject.buildDir.absolutePath}/${configuration.name}"
+        val localBasePath = "file://${project.rootProject.layout.buildDirectory.asFile.get().absolutePath}/${configuration.name}"
 
         return when {
             configuration is PublishingApiContract.GitRepositoryConfiguration -> "$localBasePath/${configuration.gitWorkDirectory}"

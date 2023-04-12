@@ -13,7 +13,7 @@ import tech.antibytes.gradle.configuration.ConfigurationContract
 internal object DokkaConfigurator : ConfigurationContract.Configurator<Any> {
     override fun configure(project: Project, configuration: Any) {
         project.tasks.withType(DokkaTask::class.java).configureEach {
-            outputDirectory.set(project.buildDir.resolve("dokka"))
+            outputDirectory.set(project.layout.buildDirectory.get().asFile.resolve("dokka"))
 
             offlineMode.set(true)
             suppressObviousFunctions.set(true)

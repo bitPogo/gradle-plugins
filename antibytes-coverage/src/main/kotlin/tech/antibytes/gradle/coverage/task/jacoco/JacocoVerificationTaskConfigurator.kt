@@ -11,8 +11,11 @@ import org.gradle.api.Task
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.task.TaskContract
+import tech.antibytes.gradle.util.capitalize
 
-internal object JacocoVerificationTaskConfigurator : TaskContract.VerificationTaskConfigurator, JacocoTaskBase() {
+internal class JacocoVerificationTaskConfigurator(
+    private val mapper: JacocoContract.JacocoVerificationRuleMapper = JacocoVerificationRuleMapper(),
+) : TaskContract.VerificationTaskConfigurator, JacocoTaskBase() {
     private fun addVerificationTask(
         project: Project,
         contextId: String,
@@ -37,7 +40,7 @@ internal object JacocoVerificationTaskConfigurator : TaskContract.VerificationTa
 
             violationRules {
                 isFailOnViolation = true
-                JacocoVerificationRuleMapper.map(this, configuration.verificationRules)
+                mapper.map(this, configuration.verificationRules)
             }
         }
     }

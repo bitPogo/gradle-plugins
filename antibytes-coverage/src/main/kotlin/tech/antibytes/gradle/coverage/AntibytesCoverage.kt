@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.coverage
 
+import javax.inject.Inject
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.provider.MapProperty
@@ -15,12 +16,22 @@ import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.coverage.task.TaskController
 import tech.antibytes.gradle.util.applyIfNotExists
 import tech.antibytes.gradle.util.isKmp
+import tech.antibytes.gradle.util.isRoot
 
-class AntibytesCoverage : Plugin<Project> {
+class AntibytesCoverage internal constructor(
+    private val configurationProvider: CoverageContract.DefaultConfigurationProvider,
+    private val controller: CoverageContract.TaskController,
+) : Plugin<Project> {
+    @Suppress("unused")
+    @Inject
+    constructor() : this(DefaultConfigurationProvider(), TaskController())
+
+    private fun Project.isApplicableRoot(): Boolean = isRoot() && subprojects.isNotEmpty()
+
     private fun <T : Any, V : Any> MapProperty<T, V>.putIfAbsent(key: T, value: V) {
         val map = this.orNull
 
-        if (map != null && !map.containsKey(key)) {
+        if (map?.containsKey(key) == false) {
             this.put(key, value)
         }
     }
@@ -33,16 +44,21 @@ class AntibytesCoverage : Plugin<Project> {
         )
 
         target.applyIfNotExists(*DEPENDENCIES.toTypedArray())
-        target.evaluationDependsOnChildren()
+
+        if (target.isApplicableRoot()) {
+            target.allprojects.filter { it != target }.forEach { project ->
+                target.evaluationDependsOn(project.path)
+            }
+        }
 
         target.afterEvaluate {
             if (target.isKmp() && extension.appendKmpJvmTask.get()) {
-                DefaultConfigurationProvider.createDefaultCoverageConfiguration(target)["jvm"]?.also {
+                configurationProvider.createDefaultCoverageConfiguration(target)["jvm"]?.also {
                     extension.configurations.putIfAbsent("jvm", it)
                 }
             }
 
-            TaskController.configure(target, extension)
+            controller.configure(target, extension)
         }
     }
 }

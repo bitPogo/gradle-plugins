@@ -14,6 +14,7 @@ import java.io.File
 import kotlin.test.assertSame
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
+import org.gradle.api.file.DirectoryProperty
 import org.junit.jupiter.api.Test
 
 class GradleActionSpec {
@@ -22,11 +23,11 @@ class GradleActionSpec {
         // Given
         val givenFiles: ConfigurableFileTree = mockk()
         val project: Project = mockk()
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val fileTreeProbe: ConfigurableFileTree = mockk()
         val proof = setOf("")
 
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { fileTreeProbe.setExcludes(proof) } returns mockk()
 
         // When
@@ -35,7 +36,7 @@ class GradleActionSpec {
             givenFiles,
         ) { probe -> project.fileTree(buildDir, probe) }
 
-        val result = project.fileTree(project.buildDir) {
+        val result = project.fileTree(project.layout.buildDirectory) {
             setExcludes(proof)
         }
 
@@ -54,7 +55,7 @@ class GradleActionSpec {
         val scopedProject: Project = mockk()
         val proof: File = mockk()
 
-        every { scopedProject.buildDir = proof } just Runs
+        every { scopedProject.layout.buildDirectory.set(proof) } just Runs
 
         // When
         invokeGradleAction(
@@ -62,10 +63,10 @@ class GradleActionSpec {
         ) { probe -> project.afterEvaluate(probe) }
 
         project.afterEvaluate {
-            buildDir = proof
+            layout.buildDirectory.set(proof)
         }
 
         // Then
-        verify(exactly = 1) { scopedProject.buildDir = proof }
+        verify(exactly = 1) { scopedProject.layout.buildDirectory.set(proof) }
     }
 }

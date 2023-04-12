@@ -12,9 +12,9 @@ import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 
 plugins {
-    id("tech.antibytes.gradle.publishing.local")
     id("tech.antibytes.gradle.dependency.catalog")
     id("tech.antibytes.gradle.dependency.helper.local")
+    id("tech.antibytes.gradle.publishing.local")
     id("tech.antibytes.gradle.quality.local")
 }
 
@@ -22,8 +22,8 @@ antibytesPublishing {
     versioning.set(
         VersioningConfiguration(
             featurePrefixes = listOf("feature"),
-            suppressSnapshot = true
-        )
+            suppressSnapshot = true,
+        ),
     )
     repositories.set(
         setOf(
@@ -32,34 +32,34 @@ antibytesPublishing {
                 gitWorkDirectory = "dev",
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-dev",
                 username = LibraryConfig.username,
-                password = LibraryConfig.password
+                password = LibraryConfig.password,
             ),
             GitRepositoryConfiguration(
                 name = "Snapshot",
                 gitWorkDirectory = "snapshots",
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-snapshots",
                 username = LibraryConfig.username,
-                password = LibraryConfig.password
+                password = LibraryConfig.password,
             ),
             GitRepositoryConfiguration(
                 name = "RollingRelease",
                 gitWorkDirectory = "rolling",
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-rolling-releases",
                 username = LibraryConfig.username,
-                password = LibraryConfig.password
+                password = LibraryConfig.password,
             ),
             GitRepositoryConfiguration(
                 name = "Release",
                 gitWorkDirectory = "releases",
                 url = "https://github.com/${LibraryConfig.githubOwner}/maven-releases",
                 username = LibraryConfig.username,
-                password = LibraryConfig.password
+                password = LibraryConfig.password,
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir)
-            )
-        )
+                url = uri(rootProject.layout.buildDirectory),
+            ),
+        ),
     )
 }
 

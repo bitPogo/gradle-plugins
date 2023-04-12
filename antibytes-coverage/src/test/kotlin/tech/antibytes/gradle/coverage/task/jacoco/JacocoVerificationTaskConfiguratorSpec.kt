@@ -9,12 +9,11 @@ package tech.antibytes.gradle.coverage.task.jacoco
 import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.CapturingSlot
 import io.mockk.Runs
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkObject
 import io.mockk.slot
-import io.mockk.unmockkObject
 import io.mockk.verify
 import java.io.File
 import java.math.BigDecimal
@@ -26,11 +25,11 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.ConfigurableFileTree
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.api.AndroidJacocoConfiguration
@@ -39,23 +38,20 @@ import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.util.capitalize
 
 class JacocoVerificationTaskConfiguratorSpec {
     private val fixture = kotlinFixture()
+    private val mapper: JacocoVerificationRuleMapper = mockk()
 
     @BeforeEach
     fun setup() {
-        mockkObject(JacocoVerificationRuleMapper)
-    }
-
-    @AfterEach
-    fun tearDown() {
-        unmockkObject(JacocoVerificationRuleMapper)
+        clearMocks(mapper)
     }
 
     @Test
     fun `It fulfils VerificationTaskConfigurator`() {
-        val configurator: Any = JacocoVerificationTaskConfigurator
+        val configurator: Any = JacocoVerificationTaskConfigurator()
 
         assertTrue(configurator is TaskContract.VerificationTaskConfigurator)
     }
@@ -71,7 +67,7 @@ class JacocoVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = mockk(),
@@ -81,7 +77,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
 
         // When
-        val verificator = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -98,7 +94,7 @@ class JacocoVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = mockk(),
@@ -108,7 +104,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         )
 
         // When
-        val verificator = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -126,7 +122,7 @@ class JacocoVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = mockk(),
@@ -150,7 +146,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         val executionData: ConfigurableFileCollection = mockk(relaxUnitFun = true)
         val violationRules: JacocoViolationRulesContainer = mockk(relaxed = true)
 
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val projectDir: File = mockk()
 
         val fileTreeClassFiles: ConfigurableFileTree = mockk()
@@ -160,7 +156,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         val executionFiles: ConfigurableFileTree = mockk()
 
         every { project.tasks } returns tasks
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.projectDir } returns projectDir
         every { project.name } returns projectName
 
@@ -202,7 +198,7 @@ class JacocoVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                configuration.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
+                configuration.test.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
 
@@ -211,10 +207,10 @@ class JacocoVerificationTaskConfiguratorSpec {
             mockk(),
         ) { probe -> jacocoTask.violationRules(probe) }
 
-        every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val verificator = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -242,7 +238,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(executionFiles) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) }
+        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
     }
 
     @Test
@@ -257,8 +253,8 @@ class JacocoVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
-            instrumentedTestDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
+            instrumentedTest = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = mockk(),
@@ -284,7 +280,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         val executionData: ConfigurableFileCollection = mockk(relaxUnitFun = true)
         val violationRules: JacocoViolationRulesContainer = mockk(relaxed = true)
 
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val projectDir: File = mockk()
 
         val fileTreeClassFiles: ConfigurableFileTree = mockk()
@@ -294,7 +290,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         val executionFiles: ConfigurableFileTree = mockk()
 
         every { project.tasks } returns tasks
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.projectDir } returns projectDir
         every { project.name } returns projectName
 
@@ -336,7 +332,7 @@ class JacocoVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                configuration.testDependencies
+                configuration.test
                     .map { name -> "jacoco/$name.exec" }
                     .toMutableSet()
                     .also {
@@ -357,10 +353,10 @@ class JacocoVerificationTaskConfiguratorSpec {
             mockk(),
         ) { probe -> jacocoTask.violationRules(probe) }
 
-        every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val verificator = JacocoVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -388,6 +384,6 @@ class JacocoVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(executionFiles) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) }
+        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
     }
 }

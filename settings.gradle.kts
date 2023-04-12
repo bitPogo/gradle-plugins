@@ -19,15 +19,19 @@ dependencyResolutionManagement {
     }
 }
 
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version("0.7.0")
+}
+
 includeBuild("runtime-configuration")
 includeBuild("dependency-helper")
+includeBuild("dependency-bridge")
+includeBuild("custom-component")
+includeBuild("shared-version-catalog")
 includeBuild("coverage")
 includeBuild("publishing")
 includeBuild("versioning")
-includeBuild("dependency-bridge")
-includeBuild("shared-version-catalog")
 includeBuild("quality")
-includeBuild("custom-component")
 
 include(
     ":antibytes-android-configuration",
@@ -52,14 +56,14 @@ include(
     ":antibytes-detekt-configuration",
     ":antibytes-custom-component",
     ":antibytes-mkdocs",
-    ":antibytes-dependency-settings"
+    ":antibytes-dependency-settings",
 )
 
 buildCache {
     local {
         isEnabled = false
         directory = File(rootDir, "build-cache")
-        removeUnusedEntriesAfterDays = 30
+        removeUnusedEntriesAfterDays = 10
     }
 }
 

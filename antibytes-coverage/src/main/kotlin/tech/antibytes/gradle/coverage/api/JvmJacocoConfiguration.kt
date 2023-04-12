@@ -11,12 +11,13 @@ import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoReporterSettings
+import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.configuration.value.JvmConfigurationProvider
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 
 data class JvmJacocoConfiguration(
     override val reportSettings: JacocoReporterSettings,
-    override var testDependencies: Set<String>,
+    override var test: Set<String>,
     override var classPattern: Set<String>,
     override var classFilter: Set<String>,
     override var sources: Set<File>,
@@ -24,6 +25,18 @@ data class JvmJacocoConfiguration(
     override var additionalClasses: ConfigurableFileTree?,
     override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
 ) : CoverageApiContract.JacocoCoverageConfiguration {
+    internal object Provider : ConfigurationContract.DefaultJvmConfigurationProvider {
+        private val provider = JvmConfigurationProvider()
+
+        override fun createDefaultCoverageConfiguration(
+            project: Project,
+            context: PlatformContext,
+        ): CoverageApiContract.CoverageConfiguration = provider.createDefaultCoverageConfiguration(
+            project = project,
+            context = context,
+        )
+    }
+
     companion object : CoverageApiContract.JacocoCoverageConfigurationProvider {
         private fun overrideDefaults(
             configuration: JvmJacocoConfiguration,
@@ -37,7 +50,7 @@ data class JvmJacocoConfiguration(
             verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): JvmJacocoConfiguration {
             if (testDependencies.isNotEmpty()) {
-                configuration.testDependencies = testDependencies
+                configuration.test = testDependencies
             }
 
             if (classPattern.isNotEmpty()) {
@@ -83,7 +96,7 @@ data class JvmJacocoConfiguration(
             additionalClasses: ConfigurableFileTree?,
             verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): JvmJacocoConfiguration {
-            val config = JvmConfigurationProvider.createDefaultCoverageConfiguration(
+            val config = Provider.createDefaultCoverageConfiguration(
                 project,
                 context,
             )

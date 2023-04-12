@@ -56,7 +56,6 @@ abstract class JFlexTask : JFlexTaskContract, DefaultTask() {
         Options.setRootDirectory(rootDirectory)
         Options.no_backup = !backup.get()
         Options.directory = outputDirectory.get().asFile
-        Options.unused_warning = !disableUnusedWarning.get()
         Options.dump = showDump.get()
         Options.encoding = Charset.forName(encoding.get())
         Options.dot = generateDotFile.get()
