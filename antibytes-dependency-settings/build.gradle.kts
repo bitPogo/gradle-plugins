@@ -113,14 +113,15 @@ antibytesPublishing {
 }
 
 dependencies {
-    api(project(":antibytes-dependency-node"))
+    api(projects.antibytesDependencyNode)
+    implementation(libs.toolchainsResolver)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
     testImplementation(libs.junitExt)
 }
 
@@ -164,8 +165,8 @@ tasks.test {
     jvmArgs = listOf(
         jvmArgs ?: emptyList(),
         listOf(
-                "--add-opens=java.base/java.util=ALL-UNNAMED",
-                "--add-opens=java.base/java.lang=ALL-UNNAMED"
+            "--add-opens=java.base/java.util=ALL-UNNAMED",
+            "--add-opens=java.base/java.lang=ALL-UNNAMED"
         )
     ).flatten()
 }
@@ -191,7 +192,8 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
         mapOf(
             "antibytesVersion" to Versioning.getInstance(project, versioningConfiguration).versionName(),
             "gradlePluginsDir" to rootProject.layout.buildDirectory.asFile.get().absolutePath,
-            "pluginGroup" to "^tech\\\\.antibytes\\\\.[\\\\.a-z\\\\-]+"
+            "pluginGroup" to "^tech\\\\.antibytes\\\\.[\\\\.a-z\\\\-]+",
+            "toolchainPluginId" to libs.plugins.toolchainsResolver.get().pluginId
         )
     )
 }

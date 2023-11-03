@@ -18,6 +18,7 @@ import org.gradle.api.initialization.Settings
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import org.gradle.api.initialization.resolve.DependencyResolutionManagement
 import org.gradle.api.initialization.resolve.MutableVersionCatalogContainer
+import org.gradle.api.plugins.PluginContainer
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.dependency.settings.config.MainConfig
 import tech.antibytes.gradle.test.invokeGradleAction
@@ -32,7 +33,7 @@ class AntibytesDependencySettingsSpec {
     }
 
     @Test
-    fun `Given apply is called it add additional repositories and VersionCatalog`() {
+    fun `Given apply is called it add additional repositories and VersionCatalog and adds the toolchain`() {
         // Given
         val settings: Settings = mockk(relaxed = true)
         val dependencyResolutionManagement: DependencyResolutionManagement = mockk(relaxed = true)
@@ -42,17 +43,23 @@ class AntibytesDependencySettingsSpec {
         val versionCatalog: MutableVersionCatalogContainer = mockk(relaxed = true)
         val versionCatalogBuilder: VersionCatalogBuilder = mockk(relaxed = true)
 
+        val plugins: PluginContainer = mockk(relaxed = true)
+
         every { settings.dependencyResolutionManagement } returns dependencyResolutionManagement
         every { dependencyResolutionManagement.repositories } returns repositoryHandler
         every { dependencyResolutionManagement.versionCatalogs } returns versionCatalog
         every { dependencyResolutionManagement.versionCatalogs } returns versionCatalog
         every { versionCatalog.create(any()) } returns versionCatalogBuilder
+
+        every { settings.plugins } returns plugins
+
         invokeGradleAction(
             mavenArtifactRepository,
             mavenArtifactRepository,
         ) { probe ->
             repositoryHandler.maven(probe)
         }
+
         invokeGradleAction(contentDescriptor) { probe ->
             mavenArtifactRepository.content(probe)
         }
@@ -89,6 +96,9 @@ class AntibytesDependencySettingsSpec {
             versionCatalogBuilder.from(
                 "tech.antibytes.gradle:antibytes-dependency-catalog:${MainConfig.antibytesVersion}",
             )
+        }
+        verify(exactly = 1) {
+            plugins.apply(MainConfig.toolchainPluginId)
         }
     }
 }

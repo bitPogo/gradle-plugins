@@ -46,5 +46,7 @@ class AntibytesDependencySettings : Plugin<Settings> {
                 }
             }
         }
+
+        target.plugins.apply(MainConfig.toolchainPluginId)
     }
 }

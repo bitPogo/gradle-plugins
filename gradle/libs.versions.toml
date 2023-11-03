@@ -41,6 +41,8 @@ mavenArtifacts = "0.0.10"
 dokka = "1.9.10"
 # [Python for Gradle](https://github.com/xvik/gradle-use-python-plugin/blob/master/README.md)
 python = "3.0.0"
+## [Toolchains resolver](https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention)
+toolchainResolver = "0.7.0"
 
 ## Libs
 # [JFlex](https://jflex.de/)
@@ -86,6 +88,7 @@ turtle = { module = "com.lordcodes.turtle:turtle", version.ref = "turtle" }
 kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
 fatJar = { module = "gradle.plugin.com.github.jengelman.gradle.plugins:shadow", version.ref = "fatJar" }
+toolchainsResolver = { group = "org.gradle.toolchains", name = "foojay-resolver", version.ref = "toolchainResolver"}
 
 ## Test
 kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -98,3 +101,4 @@ junitExt = { module = "org.junit-pioneer:junit-pioneer", version.ref = "junitExt
 
 [plugins]
 fatJar = { id = "com.github.johnrengelman.shadow", version.ref = "fatJar" }
+toolchainsResolver = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "toolchainResolver"}
