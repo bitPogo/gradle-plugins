@@ -12,7 +12,7 @@ import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRule
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
 import tech.antibytes.gradle.coverage.CoverageApiContract
 
-internal object JacocoVerificationRuleMapper : JacocoContract.JacocoVerificationRuleMapper {
+internal class JacocoVerificationRuleMapper : JacocoContract.JacocoVerificationRuleMapper {
     private fun hasLimit(rule: CoverageApiContract.JacocoVerificationRule): Boolean {
         return rule.minimum is BigDecimal || rule.maximum is BigDecimal
     }

@@ -7,3 +7,5 @@
 package tech.antibytes.gradle.dependency.settings
 
 fun isGitHub(): Boolean = System.getenv("GITHUB")?.let { true } ?: false
+
+fun isAzureDevops(): Boolean = System.getenv("AZURE_HTTP_USER_AGENT")?.let { true } ?: false

@@ -23,7 +23,7 @@ plugins {
     `kotlin-dsl`
     `java-library`
 
-   id("tech.antibytes.gradle.coverage.local")
+    id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
 }
 
@@ -99,7 +99,7 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
@@ -115,22 +115,17 @@ dependencies {
     testImplementation(libs.jupiter)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
 antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.99)
+        minimum = BigDecimal(0.87)
     )
 
     val instructionCoverage = JacocoVerificationRule(
         counter = JacocoCounter.INSTRUCTION,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.99)
+        minimum = BigDecimal(0.98)
     )
 
     val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(

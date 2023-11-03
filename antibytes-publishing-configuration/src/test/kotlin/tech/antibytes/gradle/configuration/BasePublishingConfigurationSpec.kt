@@ -96,7 +96,7 @@ class BasePublishingConfigurationSpec {
             actual = config.documentation,
             expected = DocumentationConfiguration(
                 tasks = setOf("dokkaHtml"),
-                outputDir = project.buildDir.resolve("dokka"),
+                outputDir = project.layout.buildDirectory.get().asFile.resolve("dokka"),
             ),
         )
 
@@ -139,7 +139,7 @@ class BasePublishingConfigurationSpec {
                 ),
                 MavenRepositoryConfiguration(
                     name = "Local",
-                    url = project.uri(project.buildDir),
+                    url = project.uri(project.layout.buildDirectory),
                 ),
             ),
         )
@@ -214,7 +214,7 @@ class BasePublishingConfigurationSpec {
             actual = config.documentation,
             expected = DocumentationConfiguration(
                 tasks = setOf("dokkaHtml"),
-                outputDir = project.buildDir.resolve("dokka"),
+                outputDir = project.layout.buildDirectory.get().asFile.resolve("dokka"),
             ),
         )
 
@@ -264,7 +264,7 @@ class BasePublishingConfigurationSpec {
                 ),
                 MavenRepositoryConfiguration(
                     name = "Local",
-                    url = project.uri(project.buildDir),
+                    url = project.uri(project.layout.buildDirectory),
                 ),
             ),
         )

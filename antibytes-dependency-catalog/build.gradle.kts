@@ -95,7 +95,7 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
@@ -110,7 +110,7 @@ val addSharedConfiguration by tasks.creating(Copy::class.java) {
     mustRunAfter("clean")
 
     include("libs.versions.toml")
-    from(File(buildDir, "version-catalog/libs.versions.toml"))
+    from(File(layout.buildDirectory.asFile.get(), "version-catalog/libs.versions.toml"))
     into(File(rootProject.projectDir, "gradle"))
 
     filter { content ->

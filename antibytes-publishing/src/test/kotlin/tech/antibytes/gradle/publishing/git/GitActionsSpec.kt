@@ -75,7 +75,7 @@ class GitActionsSpec {
             url = fixture(),
         )
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.fetch() } returns fetch
@@ -137,7 +137,7 @@ class GitActionsSpec {
 
         val credentialsProvider = slot<UsernamePasswordCredentialsProvider>()
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.fetch() } returns fetch
@@ -210,7 +210,7 @@ class GitActionsSpec {
             url = url,
         )
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } answers {
             if (!firstOpen) {
                 firstOpen = false
@@ -267,7 +267,7 @@ class GitActionsSpec {
 
         val credentialsProvider = slot<UsernamePasswordCredentialsProvider>()
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } answers {
             if (!firstOpen) {
                 firstOpen = false
@@ -337,7 +337,7 @@ class GitActionsSpec {
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
@@ -414,7 +414,7 @@ class GitActionsSpec {
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
@@ -492,7 +492,7 @@ class GitActionsSpec {
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
@@ -576,7 +576,7 @@ class GitActionsSpec {
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add
@@ -677,7 +677,7 @@ class GitActionsSpec {
         val pushResult: PushResult = mockk()
         val referenceResult: RemoteRefUpdate = mockk()
 
-        every { project.rootProject.buildDir } returns buildDir
+        every { project.rootProject.layout.buildDirectory.asFile.get() } returns buildDir
         every { Git.open(File("${buildDir.absolutePath}/$name")) } returns git
 
         every { git.add() } returns add

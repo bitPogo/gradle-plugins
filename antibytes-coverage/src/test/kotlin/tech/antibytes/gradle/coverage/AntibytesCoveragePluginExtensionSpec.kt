@@ -6,35 +6,30 @@
 
 package tech.antibytes.gradle.coverage
 
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkObject
-import io.mockk.unmockkObject
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.test.createExtension
 
 class AntibytesCoveragePluginExtensionSpec {
+    private val defaultConfiguration: DefaultConfigurationProvider = mockk()
+
     @BeforeEach
     fun setup() {
-        mockkObject(DefaultConfigurationProvider)
-    }
-
-    @AfterEach
-    fun tearDown() {
-        unmockkObject(DefaultConfigurationProvider)
+        clearMocks(defaultConfiguration)
     }
 
     @Test
     fun `It fulfils CoveragePluginExtension`() {
-        every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns mockk()
+        every { defaultConfiguration.createDefaultCoverageConfiguration(any()) } returns mockk()
 
         val extension: Any = createExtension<AntibytesCoveragePluginExtension>(mockk<Project>(relaxed = true))
 
@@ -51,9 +46,9 @@ class AntibytesCoveragePluginExtensionSpec {
             "2" to mockk(),
         )
 
-        every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns config
+        every { defaultConfiguration.createDefaultCoverageConfiguration(any()) } returns config
 
-        val extension = createExtension<AntibytesCoveragePluginExtension>(project)
+        val extension = createExtension<AntibytesCoveragePluginExtension>(project, defaultConfiguration)
 
         assertEquals(
             actual = extension.configurations.get(),
@@ -67,9 +62,9 @@ class AntibytesCoveragePluginExtensionSpec {
         val config: MutableMap<String, CoverageApiContract.CoverageConfiguration> = mockk()
 
         every { project.rootProject } returns project
-        every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(project) } returns config
+        every { defaultConfiguration.createDefaultCoverageConfiguration(project) } returns config
 
-        val extension = createExtension<AntibytesCoveragePluginExtension>(project)
+        val extension = createExtension<AntibytesCoveragePluginExtension>(project, defaultConfiguration)
 
         assertEquals(
             actual = extension.configurations.get(),
@@ -79,21 +74,21 @@ class AntibytesCoveragePluginExtensionSpec {
 
     @Test
     fun `It has a default Jacoco version`() {
-        every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns mockk()
+        every { defaultConfiguration.createDefaultCoverageConfiguration(any()) } returns mockk()
 
-        val extension = createExtension<AntibytesCoveragePluginExtension>(mockk<Project>(relaxed = true))
+        val extension = createExtension<AntibytesCoveragePluginExtension>(mockk<Project>(relaxed = true), defaultConfiguration)
 
         assertSame(
             actual = extension.jacocoVersion.get(),
-            expected = "0.8.8",
+            expected = "0.8.11",
         )
     }
 
     @Test
     fun `It has a default Jvm append policy`() {
-        every { DefaultConfigurationProvider.createDefaultCoverageConfiguration(any()) } returns mockk()
+        every { defaultConfiguration.createDefaultCoverageConfiguration(any()) } returns mockk()
 
-        val extension = createExtension<AntibytesCoveragePluginExtension>(mockk<Project>(relaxed = true))
+        val extension = createExtension<AntibytesCoveragePluginExtension>(mockk<Project>(relaxed = true), defaultConfiguration)
 
         assertTrue(extension.appendKmpJvmTask.get())
     }

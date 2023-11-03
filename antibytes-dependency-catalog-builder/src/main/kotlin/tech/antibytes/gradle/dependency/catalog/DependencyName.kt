@@ -6,6 +6,10 @@
 
 package tech.antibytes.gradle.dependency.catalog
 
+import java.util.Locale
+
 internal fun List<String>.toDependencyName(): String = this.joinToString("-")
+
+private fun String.decapitalize(): String = replaceFirstChar { it.lowercase(Locale.getDefault()) }
 
 internal fun Any.toDependencyName(): String = this::class.simpleName!!.decapitalize()

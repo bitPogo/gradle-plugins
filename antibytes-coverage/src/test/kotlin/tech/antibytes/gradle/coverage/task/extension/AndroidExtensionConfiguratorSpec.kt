@@ -20,19 +20,21 @@ import io.mockk.verify
 import java.io.File
 import kotlin.test.assertTrue
 import org.gradle.api.Project
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.tasks.testing.Test as GradleTest
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.util.capitalize
 
 class AndroidExtensionConfiguratorSpec {
     private val fixture = kotlinFixture()
 
     @Test
     fun `It fulfils AndroidExtensionConfigurator`() {
-        val configurator: Any = AndroidExtensionConfigurator
+        val configurator: Any = AndroidExtensionConfigurator()
 
         assertTrue(configurator is TaskContract.AndroidExtensionConfigurator)
     }
@@ -51,13 +53,13 @@ class AndroidExtensionConfiguratorSpec {
         val testOptions: TestOptions = mockk()
         val unitTestOptions: UnitTestOptions = mockk()
         val test: GradleTest = mockk()
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val path = "soup"
 
         every { project.plugins.findPlugin("com.android.application") } returns mockk()
         every { project.extensions } returns extensions
-        every { project.buildDir } returns buildDir
-        every { buildDir.path } returns path
+        every { project.layout.buildDirectory } returns buildDir
+        every { buildDir.asFile.get().path } returns path
 
         every { extension.testOptions(captureLambda()) } answers {
             lambda<(TestOptions) -> Unit>().invoke(testOptions)
@@ -92,7 +94,7 @@ class AndroidExtensionConfiguratorSpec {
         }
 
         // When
-        AndroidExtensionConfigurator.configure(project)
+        AndroidExtensionConfigurator().configure(project)
 
         // Then
         verify(exactly = 1) { extensionContainer.getByType(JacocoTaskExtension::class.java) }
@@ -121,13 +123,13 @@ class AndroidExtensionConfiguratorSpec {
         val testOptions: TestOptions = mockk()
         val unitTestOptions: UnitTestOptions = mockk()
         val test: GradleTest = mockk()
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
         val path: String = fixture()
 
         every { project.plugins.findPlugin("com.android.application") } returns null
         every { project.extensions } returns extensions
-        every { project.buildDir } returns buildDir
-        every { buildDir.path } returns path
+        every { project.layout.buildDirectory } returns buildDir
+        every { buildDir.asFile.get().path } returns path
 
         every { extension.testOptions(captureLambda()) } answers {
             lambda<(TestOptions) -> Unit>().invoke(testOptions)
@@ -162,7 +164,7 @@ class AndroidExtensionConfiguratorSpec {
         }
 
         // When
-        AndroidExtensionConfigurator.configure(project)
+        AndroidExtensionConfigurator().configure(project)
 
         // Then
         verify(exactly = 1) { extensionContainer.getByType(JacocoTaskExtension::class.java) }

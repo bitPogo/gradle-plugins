@@ -222,7 +222,6 @@ class JFlexTaskSpec {
         task.outputDirectory.set(outPutDir)
 
         task.backup.set(flag)
-        task.disableUnusedWarning.set(flag)
         task.showDump.set(flag)
         task.encoding.set(encoding)
         task.generateDotFile.set(flag)
@@ -257,10 +256,6 @@ class JFlexTaskSpec {
         assertEquals(
             actual = Options.verbose,
             expected = flag,
-        )
-        assertEquals(
-            actual = Options.unused_warning,
-            expected = !flag,
         )
         assertEquals(
             actual = Options.jlex,

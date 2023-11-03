@@ -20,6 +20,7 @@ import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 
 plugins {
     `kotlin-dsl`
+    `java-library`
     `java-gradle-plugin`
 
     id("tech.antibytes.gradle.coverage.local")
@@ -102,13 +103,11 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
 }
-
-
 
 antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
@@ -152,8 +151,13 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
+        vendor.set(JvmVendorSpec.ADOPTIUM)
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 gradlePlugin {

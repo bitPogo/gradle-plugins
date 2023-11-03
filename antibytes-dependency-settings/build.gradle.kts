@@ -106,7 +106,7 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
@@ -122,11 +122,6 @@ dependencies {
     testImplementation(libs.jvmFixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
     testImplementation(libs.junitExt)
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
 }
 
 gradlePlugin {
@@ -166,6 +161,13 @@ antibytesCoverage {
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs = listOf(
+        jvmArgs ?: emptyList(),
+        listOf(
+                "--add-opens=java.base/java.util=ALL-UNNAMED",
+                "--add-opens=java.base/java.lang=ALL-UNNAMED"
+        )
+    ).flatten()
 }
 
 tasks.check {
@@ -188,7 +190,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     stringFields.set(
         mapOf(
             "antibytesVersion" to Versioning.getInstance(project, versioningConfiguration).versionName(),
-            "gradlePluginsDir" to rootProject.buildDir.absolutePath,
+            "gradlePluginsDir" to rootProject.layout.buildDirectory.asFile.get().absolutePath,
             "pluginGroup" to "^tech\\\\.antibytes\\\\.[\\\\.a-z\\\\-]+"
         )
     )

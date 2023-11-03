@@ -99,7 +99,7 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
@@ -112,11 +112,6 @@ dependencies {
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
 }
 
 antibytesCoverage {
@@ -151,4 +146,14 @@ tasks.test {
 
 tasks.check {
     dependsOn("jvmCoverageVerification")
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
+        vendor.set(JvmVendorSpec.ADOPTIUM)
+    }
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }

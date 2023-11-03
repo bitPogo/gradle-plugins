@@ -1,8 +1,8 @@
 mkdocs-markdownextradata-plugin==0.2.5
-mkdocs-include-markdown-plugin==3.7.1
-mkdocs-kroki-plugin==0.3.0
-mkdocs-material==8.5.0
-mkdocs-minify-plugin==0.5.0
-mkdocs-redirects==1.1.0
-pygments==2.13.0
-pymdown-extensions==9.5
+mkdocs-include-markdown-plugin==6.0.3
+mkdocs-kroki-plugin==0.6.1
+mkdocs-material==9.4.7
+mkdocs-minify-plugin==0.7.1
+mkdocs-redirects==1.2.1
+pygments==2.16.1
+pymdown-extensions==10.3.1

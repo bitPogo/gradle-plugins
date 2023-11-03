@@ -62,7 +62,7 @@ class AntibytesLibraryConfigurationSpec {
 
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
-        every { CompileTaskConfigurator.configure(project, any()) } just Runs
+        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
 
         // When
         AntibytesLibraryConfiguration().apply(project)
@@ -83,7 +83,7 @@ class AntibytesLibraryConfigurationSpec {
 
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
-        every { CompileTaskConfigurator.configure(project, any()) } just Runs
+        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
 
         // When
         AntibytesLibraryConfiguration().apply(project)
@@ -106,7 +106,7 @@ class AntibytesLibraryConfigurationSpec {
 
         every { AndroidLibraryConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(any()) } returns androidConfig
-        every { CompileTaskConfigurator.configure(project, any()) } just Runs
+        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
 
         // When
         AntibytesLibraryConfiguration().apply(project)

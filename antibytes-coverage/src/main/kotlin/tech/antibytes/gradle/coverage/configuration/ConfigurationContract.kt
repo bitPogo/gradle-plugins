@@ -9,6 +9,8 @@ package tech.antibytes.gradle.coverage.configuration
 import java.io.File
 import org.gradle.api.Project
 import tech.antibytes.gradle.coverage.CoverageApiContract
+import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_FLAVOUR
+import tech.antibytes.gradle.coverage.CoverageContract.CONSTANTS.DEFAULT_ANDROID_VARIANT
 import tech.antibytes.gradle.util.GradleUtilApiContract
 
 internal interface ConfigurationContract {
@@ -22,10 +24,19 @@ internal interface ConfigurationContract {
         fun resolveSources(project: Project, context: GradleUtilApiContract.PlatformContext): Set<File>
     }
 
-    fun interface DefaultPlatformConfigurationProvider {
+    fun interface DefaultJvmConfigurationProvider {
         fun createDefaultCoverageConfiguration(
             project: Project,
             context: GradleUtilApiContract.PlatformContext,
+        ): CoverageApiContract.CoverageConfiguration
+    }
+
+    interface DefaultAndroidConfigurationProvider {
+        fun createDefaultCoverageConfiguration(
+            project: Project,
+            context: GradleUtilApiContract.PlatformContext,
+            variant: String = DEFAULT_ANDROID_VARIANT,
+            flavour: String = DEFAULT_ANDROID_FLAVOUR,
         ): CoverageApiContract.CoverageConfiguration
     }
 }

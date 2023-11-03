@@ -11,22 +11,39 @@ import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.CoverageApiContract.AndroidJacocoCoverageConfigurationProvider
+import tech.antibytes.gradle.coverage.configuration.ConfigurationContract
 import tech.antibytes.gradle.coverage.configuration.value.AndroidConfigurationProvider
 import tech.antibytes.gradle.util.GradleUtilApiContract
 
 data class AndroidJacocoConfiguration(
     override val reportSettings: CoverageApiContract.JacocoReporterSettings,
-    override var testDependencies: Set<String>,
+    override var test: Set<String>,
     override var classPattern: Set<String>,
     override var classFilter: Set<String>,
     override var sources: Set<File>,
     override var additionalSources: Set<File>,
     override var additionalClasses: ConfigurableFileTree? = null,
     override var verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
-    override var instrumentedTestDependencies: Set<String>,
+    override var instrumentedTest: Set<String>,
     override var variant: String,
     override var flavour: String,
 ) : CoverageApiContract.AndroidJacocoCoverageConfiguration {
+    internal object Provider : ConfigurationContract.DefaultAndroidConfigurationProvider {
+        private val provider = AndroidConfigurationProvider()
+
+        override fun createDefaultCoverageConfiguration(
+            project: Project,
+            context: GradleUtilApiContract.PlatformContext,
+            variant: String,
+            flavour: String,
+        ): CoverageApiContract.CoverageConfiguration = provider.createDefaultCoverageConfiguration(
+            project = project,
+            context = context,
+            variant = variant,
+            flavour = flavour,
+        )
+    }
+
     companion object : AndroidJacocoCoverageConfigurationProvider {
         private fun overrideDefaults(
             configuration: AndroidJacocoConfiguration,
@@ -51,11 +68,11 @@ data class AndroidJacocoConfiguration(
             }
 
             if (testDependencies.isNotEmpty()) {
-                configuration.testDependencies = testDependencies
+                configuration.test = testDependencies
             }
 
             if (instrumentedTestDependencies.isNotEmpty()) {
-                configuration.instrumentedTestDependencies = instrumentedTestDependencies
+                configuration.instrumentedTest = instrumentedTestDependencies
             }
 
             if (classPattern.isNotEmpty()) {
@@ -104,7 +121,7 @@ data class AndroidJacocoConfiguration(
             additionalClasses: ConfigurableFileTree?,
             verificationRules: Set<CoverageApiContract.JacocoVerificationRule>,
         ): CoverageApiContract.AndroidJacocoCoverageConfiguration {
-            val config = AndroidConfigurationProvider.createDefaultCoverageConfiguration(
+            val config = Provider.createDefaultCoverageConfiguration(
                 project,
                 context,
             )

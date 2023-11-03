@@ -29,6 +29,7 @@ import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.publisher.PublisherContract
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.util.capitalize
 
 class GitRepositorySpec {
     private val fixture = kotlinFixture()

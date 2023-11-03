@@ -11,8 +11,11 @@ import org.gradle.api.Task
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.task.TaskContract
+import tech.antibytes.gradle.util.capitalize
 
-internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.VerificationTaskConfigurator, JacocoAggregationBase() {
+internal class JacocoAggregationVerificationTaskConfigurator(
+    private val mapper: JacocoContract.JacocoVerificationRuleMapper = JacocoVerificationRuleMapper(),
+) : TaskContract.VerificationTaskConfigurator, JacocoAggregationBase() {
     private fun addVerificationTask(
         project: Project,
         contextId: String,
@@ -25,6 +28,7 @@ internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.Ver
         ) {
             group = "Verification"
             description = "Verifies the aggregated coverage reports against a given set of rules for ${contextId.capitalize()}."
+            println(aggregation.dependencies)
             setDependsOn(aggregation.dependencies)
 
             configureJacocoAggregationBase(
@@ -34,7 +38,7 @@ internal object JacocoAggregationVerificationTaskConfigurator : TaskContract.Ver
 
             violationRules {
                 isFailOnViolation = true
-                JacocoVerificationRuleMapper.map(this, configuration.verificationRules)
+                mapper.map(this, configuration.verificationRules)
             }
         }
     }

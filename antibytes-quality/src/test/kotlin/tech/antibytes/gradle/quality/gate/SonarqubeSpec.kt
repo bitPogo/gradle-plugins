@@ -16,8 +16,8 @@ import kotlin.test.assertTrue
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.junit.jupiter.api.Test
-import org.sonarqube.gradle.SonarQubeExtension
-import org.sonarqube.gradle.SonarQubeProperties
+import org.sonarqube.gradle.SonarExtension
+import org.sonarqube.gradle.SonarProperties
 import tech.antibytes.gradle.quality.AntibytesQualityExtension
 import tech.antibytes.gradle.quality.QualityContract
 import tech.antibytes.gradle.quality.api.QualityGateConfiguration
@@ -60,8 +60,8 @@ class SonarqubeSpec {
             junit = fixture(),
             detekt = fixture(),
         )
-        val sonarExtension: SonarQubeExtension = mockk(relaxed = true)
-        val sonarProperties: SonarQubeProperties = mockk(relaxed = true)
+        val sonarExtension: SonarExtension = mockk(relaxed = true)
+        val sonarProperties: SonarProperties = mockk(relaxed = true)
 
         extension.qualityGate.set(config)
 
@@ -71,7 +71,7 @@ class SonarqubeSpec {
             sonarExtension,
             sonarExtension,
         ) { probe ->
-            project.extensions.configure(SonarQubeExtension::class.java, probe)
+            project.extensions.configure(SonarExtension::class.java, probe)
         }
         invokeGradleAction(
             sonarProperties,
@@ -110,12 +110,12 @@ class SonarqubeSpec {
             detekt = fixture(),
             exclude = fixture(),
         )
-        val sonarExtension: SonarQubeExtension = mockk(relaxed = true)
+        val sonarExtension: SonarExtension = mockk(relaxed = true)
 
         extension.qualityGate.set(config)
 
         every { project.plugins.apply(any()) } returns mockk()
-        every { project.extensions.configure(SonarQubeExtension::class.java, any()) } returns mockk()
+        every { project.extensions.configure(SonarExtension::class.java, any()) } returns mockk()
         every { subProject.name } returns subprojectName
 
         invokeGradleAction(
@@ -128,7 +128,7 @@ class SonarqubeSpec {
             sonarExtension,
             sonarExtension,
         ) { probe ->
-            subProject.extensions.configure(SonarQubeExtension::class.java, probe)
+            subProject.extensions.configure(SonarExtension::class.java, probe)
         }
 
         // When
@@ -156,12 +156,12 @@ class SonarqubeSpec {
             detekt = fixture(),
             exclude = setOf(subprojectName),
         )
-        val sonarExtension: SonarQubeExtension = mockk(relaxed = true)
+        val sonarExtension: SonarExtension = mockk(relaxed = true)
 
         extension.qualityGate.set(config)
 
         every { project.plugins.apply(any()) } returns mockk()
-        every { project.extensions.configure(SonarQubeExtension::class.java, any()) } returns mockk()
+        every { project.extensions.configure(SonarExtension::class.java, any()) } returns mockk()
         every { subProject.name } returns subprojectName
 
         invokeGradleAction(
@@ -174,7 +174,7 @@ class SonarqubeSpec {
             sonarExtension,
             sonarExtension,
         ) { probe ->
-            subProject.extensions.configure(SonarQubeExtension::class.java, probe)
+            subProject.extensions.configure(SonarExtension::class.java, probe)
         }
 
         // When

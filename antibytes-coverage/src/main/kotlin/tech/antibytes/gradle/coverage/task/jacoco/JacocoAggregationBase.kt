@@ -42,7 +42,7 @@ internal abstract class JacocoAggregationBase : JacocoTaskBase() {
             },
         )
         aggregator.executionFiles.add(
-            subproject.fileTree(subproject.buildDir) {
+            subproject.fileTree(subproject.layout.buildDirectory) {
                 setIncludes(
                     determineExecutionsFiles(configuration),
                 )

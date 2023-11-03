@@ -1585,8 +1585,8 @@ class DependencyCatalogSpec {
         verify(exactly = 1) {
             catalog.library(
                 "jvm-test-compiler-ksp",
-                "com.github.tschuchortdev",
-                "kotlin-compile-testing-ksp",
+                "dev.zacsweers.kctfork",
+                "ksp",
             )
         }
 

@@ -20,12 +20,14 @@ abstract class AntiBytesTestConfigurationTask : AntiBytesRuntimeConfigurationTas
             "test"
         }
 
-        if (!project.buildDir.exists()) {
-            project.buildDir.mkdir()
+        val buildDir = project.layout.buildDirectory.asFile.get()
+
+        if (!buildDir.exists()) {
+            buildDir.mkdir()
         }
 
         return File(
-            "${project.buildDir.absolutePath.trimEnd('/')}/generated/antibytes/$target/kotlin",
+            "${buildDir.absolutePath.trimEnd('/')}/generated/antibytes/$target/kotlin",
         )
     }
 }

@@ -36,6 +36,6 @@ data class QualityGateConfiguration(
         jacoco = jacoco,
         junit = junit,
         exclude = exclude,
-        detekt = "${project.buildDir}/reports/detekt/detekt.xml",
+        detekt = "${project.layout.buildDirectory}/reports/detekt/detekt.xml",
     )
 }

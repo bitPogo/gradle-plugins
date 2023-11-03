@@ -105,7 +105,7 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
@@ -127,10 +127,10 @@ sourceSets {
 idea {
     module {
         project.sourceSets["integrationTest"].java.srcDirs.forEach { src ->
-            testSourceDirs.add(src)
+            testSources.from(src)
         }
         project.sourceSets["integrationTest"].resources.srcDirs.forEach { src ->
-            testResourceDirs.add(src)
+            testResources.from(src)
         }
     }
 }
@@ -166,8 +166,6 @@ gradlePlugin {
     }
     testSourceSets(sourceSets.getByName("integrationTest"))
 }
-
-
 
 antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(

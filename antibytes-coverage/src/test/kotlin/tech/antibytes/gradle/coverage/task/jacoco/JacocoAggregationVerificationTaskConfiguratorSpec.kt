@@ -12,12 +12,11 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkObject
 import io.mockk.slot
-import io.mockk.unmockkObject
 import io.mockk.verify
 import java.io.File
 import java.math.BigDecimal
+import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
@@ -26,6 +25,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.ConfigurableFileTree
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
@@ -39,15 +39,16 @@ import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.task.TaskContract
-import tech.antibytes.gradle.test.GradlePropertyBuilder
+import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
 import tech.antibytes.gradle.test.invokeGradleAction
+import tech.antibytes.gradle.util.capitalize
 
 class JacocoAggregationVerificationTaskConfiguratorSpec {
     private val fixture = kotlinFixture()
 
     @Test
     fun `It fulfils VerificationTaskConfigurator`() {
-        val verificator: Any = JacocoAggregationVerificationTaskConfigurator
+        val verificator: Any = JacocoAggregationVerificationTaskConfigurator()
 
         assertTrue(verificator is TaskContract.VerificationTaskConfigurator)
     }
@@ -67,7 +68,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -77,7 +78,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         val subproject1: Project = mockk()
-        val subproject1BuildDir: File = mockk()
+        val subproject1BuildDir: DirectoryProperty = mockk()
         val subproject1ProjectDir: File = mockk()
         val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
@@ -89,9 +90,9 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { subproject1.projectDir } returns subproject1ProjectDir
 
-        every { subproject1.buildDir } returns subproject1BuildDir
+        every { subproject1.layout.buildDirectory } returns subproject1BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
@@ -101,7 +102,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.tasks.getByName(any()) } returns mockk<JacocoReport>()
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -125,7 +126,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { subproject1.name } returns subprojectName
         every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(fixture<String>() to mockk()),
@@ -139,7 +140,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         }
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -160,7 +161,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -170,7 +171,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         )
 
         val subproject1: Project = mockk()
-        val subproject1BuildDir: File = mockk()
+        val subproject1BuildDir: DirectoryProperty = mockk()
         val subproject1ProjectDir: File = mockk()
         val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
 
@@ -182,9 +183,9 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { subproject1.projectDir } returns subproject1ProjectDir
 
-        every { subproject1.buildDir } returns subproject1BuildDir
+        every { subproject1.layout.buildDirectory } returns subproject1BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
@@ -194,7 +195,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.tasks.getByName(any()) } returns mockk<JacocoReport>()
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -223,7 +224,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -254,7 +255,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -279,7 +280,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -288,7 +289,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             verificationRules = emptySet(),
             variant = "debug",
             flavour = "",
-            instrumentedTestDependencies = emptySet(),
+            instrumentedTest = emptySet(),
         )
 
         val subproject1: Project = mockk()
@@ -304,14 +305,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject2.name } returns fixture()
         every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
         )
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -319,9 +320,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
     @Test
     fun `Given configure is called with a Project, ContextId and Configuration it aggregates the Configurations from its Subprojects and adds a VerificationTask for Jvm`() {
-        mockkObject(JacocoVerificationRuleMapper)
-
         // Given
+        val mapper: JacocoVerificationRuleMapper = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val configuration = JvmJacocoAggregationConfiguration(
@@ -338,7 +338,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -353,7 +353,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -364,16 +364,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         val projectName: String = fixture()
         val projectDir: File = mockk()
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
 
         val subproject1: Project = mockk()
-        val subproject1BuildDir: File = mockk()
+        val subproject1BuildDir: DirectoryProperty = mockk()
         val subproject1ProjectDir: File = mockk()
         val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject1Reporter: JacocoReport = mockk()
 
         val subproject2: Project = mockk()
-        val subproject2BuildDir: File = mockk()
+        val subproject2BuildDir: DirectoryProperty = mockk()
         val subproject2ProjectDir: File = mockk()
         val subproject2CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject2Reporter: JacocoReport = mockk()
@@ -396,7 +396,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { project.name } returns projectName
         every { project.projectDir } returns projectDir
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.subprojects } returns setOf(subproject1, subproject2)
 
         every { subproject1.name } returns fixture()
@@ -408,15 +408,15 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.projectDir } returns subproject1ProjectDir
         every { subproject2.projectDir } returns subproject2ProjectDir
 
-        every { subproject1.buildDir } returns subproject1BuildDir
-        every { subproject2.buildDir } returns subproject2BuildDir
+        every { subproject1.layout.buildDirectory } returns subproject1BuildDir
+        every { subproject2.layout.buildDirectory } returns subproject2BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
         )
-        every { subproject2CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject2CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration2),
@@ -490,12 +490,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration1.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
+                subConfiguration1.test.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration2.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
+                subConfiguration2.test.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
 
@@ -530,10 +530,10 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             jacocoTask.violationRules(probe)
         }
 
-        every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -543,7 +543,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         verify(exactly = 1) { jacocoTask.group = "Verification" }
         verify(exactly = 1) { jacocoTask.description = "Verifies the aggregated coverage reports against a given set of rules for ${contextId.capitalize()}." }
-        verify(exactly = 1) { jacocoTask.setDependsOn(setOf(subproject1Reporter, subproject2Reporter)) }
+        assertEquals(
+            actual = dependencies.captured,
+            expected = setOf(subproject1Reporter, subproject2Reporter),
+        )
+        verify(exactly = 1) { jacocoTask.setDependsOn(any()) }
 
         verify(exactly = 1) { classDirectories.setFrom(setOf(classFiles)) }
         verify(exactly = 1) { sourceDirectories.setFrom(any()) }
@@ -552,16 +556,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(setOf(executionFiles)) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) }
-
-        unmockkObject(JacocoVerificationRuleMapper)
+        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
     }
 
     @Test
     fun `Given configure is called with a Project, ContextId and Configuration it aggregates the Configurations from its Subprojects, while filtering additional Classes for Jvm`() {
-        mockkObject(JacocoVerificationRuleMapper)
-
         // Given
+        val mapper: JacocoVerificationRuleMapper = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val configuration = JvmJacocoAggregationConfiguration(
@@ -578,7 +579,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -593,7 +594,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -604,16 +605,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         val projectName: String = fixture()
         val projectDir: File = mockk()
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
 
         val subproject1: Project = mockk()
-        val subproject1BuildDir: File = mockk()
+        val subproject1BuildDir: DirectoryProperty = mockk()
         val subproject1ProjectDir: File = mockk()
         val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject1Reporter: JacocoReport = mockk()
 
         val subproject2: Project = mockk()
-        val subproject2BuildDir: File = mockk()
+        val subproject2BuildDir: DirectoryProperty = mockk()
         val subproject2ProjectDir: File = mockk()
         val subproject2CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject2Reporter: JacocoReport = mockk()
@@ -636,7 +637,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { project.name } returns projectName
         every { project.projectDir } returns projectDir
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.subprojects } returns setOf(subproject1, subproject2)
 
         every { subproject1.name } returns fixture()
@@ -648,15 +649,15 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.projectDir } returns subproject1ProjectDir
         every { subproject2.projectDir } returns subproject2ProjectDir
 
-        every { subproject1.buildDir } returns subproject1BuildDir
-        every { subproject2.buildDir } returns subproject2BuildDir
+        every { subproject1.layout.buildDirectory } returns subproject1BuildDir
+        every { subproject2.layout.buildDirectory } returns subproject2BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
         )
-        every { subproject2CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject2CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration2),
@@ -730,12 +731,12 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration1.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
+                subConfiguration1.test.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration2.testDependencies.map { name -> "jacoco/$name.exec" }.toSet(),
+                subConfiguration2.test.map { name -> "jacoco/$name.exec" }.toSet(),
             )
         } returns mockk()
 
@@ -765,10 +766,10 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             jacocoTask.violationRules(probe)
         }
 
-        every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -778,7 +779,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         verify(exactly = 1) { jacocoTask.group = "Verification" }
         verify(exactly = 1) { jacocoTask.description = "Verifies the aggregated coverage reports against a given set of rules for ${contextId.capitalize()}." }
-        verify(exactly = 1) { jacocoTask.setDependsOn(setOf(subproject1Reporter, subproject2Reporter)) }
+        assertEquals(
+            actual = dependencies.captured,
+            expected = setOf(subproject1Reporter, subproject2Reporter),
+        )
+        verify(exactly = 1) { jacocoTask.setDependsOn(any()) }
 
         verify(exactly = 1) { classDirectories.setFrom(setOf(classFiles)) }
         verify(exactly = 1) { sourceDirectories.setFrom(any()) }
@@ -787,9 +792,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(setOf(executionFiles)) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) }
-
-        unmockkObject(JacocoVerificationRuleMapper)
+        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
     }
 
     @Test
@@ -813,7 +816,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -822,7 +825,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             verificationRules = emptySet(),
             variant = fixture(),
             flavour = "",
-            instrumentedTestDependencies = emptySet(),
+            instrumentedTest = emptySet(),
         )
 
         val subproject1: Project = mockk()
@@ -838,14 +841,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
         every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
         )
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -872,7 +875,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -881,7 +884,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             verificationRules = emptySet(),
             variant = fixture(),
             flavour = "",
-            instrumentedTestDependencies = emptySet(),
+            instrumentedTest = emptySet(),
         )
 
         val subproject1: Project = mockk()
@@ -897,14 +900,14 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns subproject1CoverageExtension
         every { subproject2.extensions.findByType(AntibytesCoveragePluginExtension::class.java) } returns null
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
         )
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator().configure(project, contextId, configuration)
 
         // Then
         assertNull(verificator)
@@ -912,8 +915,6 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
     @Test
     fun `Given configure is called with a Project, ContextId and Configuration it aggregates the Configurations from its Subprojects and adds a VerificationTask for Android`() {
-        mockkObject(JacocoVerificationRuleMapper)
-
         // Given
         val project: Project = mockk()
         val contextId: String = fixture()
@@ -934,8 +935,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
-            instrumentedTestDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
+            instrumentedTest = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -952,8 +953,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
-            instrumentedTestDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
+            instrumentedTest = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -966,16 +967,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         val projectName: String = fixture()
         val projectDir: File = mockk()
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
 
         val subproject1: Project = mockk()
-        val subproject1BuildDir: File = mockk()
+        val subproject1BuildDir: DirectoryProperty = mockk()
         val subproject1ProjectDir: File = mockk()
         val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject1Reporter: JacocoReport = mockk()
 
         val subproject2: Project = mockk()
-        val subproject2BuildDir: File = mockk()
+        val subproject2BuildDir: DirectoryProperty = mockk()
         val subproject2ProjectDir: File = mockk()
         val subproject2CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject2Reporter: JacocoReport = mockk()
@@ -998,7 +999,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { project.name } returns projectName
         every { project.projectDir } returns projectDir
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.subprojects } returns setOf(subproject1, subproject2)
 
         every { subproject1.name } returns fixture()
@@ -1010,15 +1011,15 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.projectDir } returns subproject1ProjectDir
         every { subproject2.projectDir } returns subproject2ProjectDir
 
-        every { subproject1.buildDir } returns subproject1BuildDir
-        every { subproject2.buildDir } returns subproject2BuildDir
+        every { subproject1.layout.buildDirectory } returns subproject1BuildDir
+        every { subproject2.layout.buildDirectory } returns subproject2BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
         )
-        every { subproject2CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject2CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration2),
@@ -1092,7 +1093,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration1.testDependencies.map { name -> "jacoco${File.separator}$name.exec" }
+                subConfiguration1.test.map { name -> "jacoco${File.separator}$name.exec" }
                     .toMutableSet()
                     .also {
                         it.add(
@@ -1108,7 +1109,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } returns mockk()
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration2.testDependencies.map { name -> "jacoco${File.separator}$name.exec" }
+                subConfiguration2.test.map { name -> "jacoco${File.separator}$name.exec" }
                     .toMutableSet()
                     .also {
                         it.add(
@@ -1154,10 +1155,17 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             jacocoTask.violationRules(probe)
         }
 
-        every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
+        val mapper: JacocoContract.JacocoVerificationRuleMapper = mockk {
+            every {
+                map(
+                    violationRules,
+                    configuration.verificationRules,
+                )
+            } just Runs
+        }
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -1167,7 +1175,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         verify(exactly = 1) { jacocoTask.group = "Verification" }
         verify(exactly = 1) { jacocoTask.description = "Verifies the aggregated coverage reports against a given set of rules for ${contextId.capitalize()}." }
-        verify(exactly = 1) { jacocoTask.setDependsOn(setOf(subproject1Reporter, subproject2Reporter)) }
+        assertEquals(
+            actual = dependencies.captured,
+            expected = setOf(subproject1Reporter, subproject2Reporter),
+        )
+        verify(exactly = 1) { jacocoTask.setDependsOn(any()) }
 
         verify(exactly = 1) { classDirectories.setFrom(setOf(classFiles)) }
         verify(exactly = 1) { sourceDirectories.setFrom(any()) }
@@ -1176,16 +1188,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(setOf(executionFiles)) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) }
-
-        unmockkObject(JacocoVerificationRuleMapper)
+        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
     }
 
     @Test
     fun `Given configure is called with a Project, ContextId and Configuration it aggregates the Configurations while filtering additional Classes for Android`() {
-        mockkObject(JacocoVerificationRuleMapper)
-
         // Given
+        val mapper: JacocoVerificationRuleMapper = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val variant: String = fixture()
@@ -1205,8 +1214,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
-            instrumentedTestDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
+            instrumentedTest = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -1223,8 +1232,8 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
                 useXml = fixture(),
                 useCsv = fixture(),
             ),
-            testDependencies = setOf(fixture(), fixture()),
-            instrumentedTestDependencies = setOf(fixture(), fixture()),
+            test = setOf(fixture(), fixture()),
+            instrumentedTest = setOf(fixture(), fixture()),
             classPattern = fixture(),
             classFilter = fixture(),
             sources = setOf(mockk()),
@@ -1237,16 +1246,16 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         val projectName: String = fixture()
         val projectDir: File = mockk()
-        val buildDir: File = mockk()
+        val buildDir: DirectoryProperty = mockk()
 
         val subproject1: Project = mockk()
-        val subproject1BuildDir: File = mockk()
+        val subproject1BuildDir: DirectoryProperty = mockk()
         val subproject1ProjectDir: File = mockk()
         val subproject1CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject1Reporter: JacocoReport = mockk()
 
         val subproject2: Project = mockk()
-        val subproject2BuildDir: File = mockk()
+        val subproject2BuildDir: DirectoryProperty = mockk()
         val subproject2ProjectDir: File = mockk()
         val subproject2CoverageExtension: AntibytesCoveragePluginExtension = mockk()
         val subproject2Reporter: JacocoReport = mockk()
@@ -1269,7 +1278,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every { project.name } returns projectName
         every { project.projectDir } returns projectDir
-        every { project.buildDir } returns buildDir
+        every { project.layout.buildDirectory } returns buildDir
         every { project.subprojects } returns setOf(subproject1, subproject2)
 
         every { subproject1.name } returns fixture()
@@ -1281,15 +1290,15 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         every { subproject1.projectDir } returns subproject1ProjectDir
         every { subproject2.projectDir } returns subproject2ProjectDir
 
-        every { subproject1.buildDir } returns subproject1BuildDir
-        every { subproject2.buildDir } returns subproject2BuildDir
+        every { subproject1.layout.buildDirectory } returns subproject1BuildDir
+        every { subproject2.layout.buildDirectory } returns subproject2BuildDir
 
-        every { subproject1CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject1CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration1),
         )
-        every { subproject2CoverageExtension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { subproject2CoverageExtension.configurations } returns makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(contextId to subConfiguration2),
@@ -1363,7 +1372,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration1.testDependencies.map { name -> "jacoco${File.separator}$name.exec" }
+                subConfiguration1.test.map { name -> "jacoco${File.separator}$name.exec" }
                     .toMutableSet()
                     .also {
                         it.add(
@@ -1379,7 +1388,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         } returns mockk()
         every {
             fileTreeExecutionFiles.setIncludes(
-                subConfiguration2.testDependencies.map { name -> "jacoco${File.separator}$name.exec" }
+                subConfiguration2.test.map { name -> "jacoco${File.separator}$name.exec" }
                     .toMutableSet()
                     .also {
                         it.add(
@@ -1421,10 +1430,10 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             jacocoTask.violationRules(probe)
         }
 
-        every { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
 
         // When
-        val verificator = JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration)
+        val verificator = JacocoAggregationVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
 
         // Then
         assertSame(
@@ -1434,7 +1443,11 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
 
         verify(exactly = 1) { jacocoTask.group = "Verification" }
         verify(exactly = 1) { jacocoTask.description = "Verifies the aggregated coverage reports against a given set of rules for ${contextId.capitalize()}." }
-        verify(exactly = 1) { jacocoTask.setDependsOn(setOf(subproject1Reporter, subproject2Reporter)) }
+        assertEquals(
+            actual = dependencies.captured,
+            expected = setOf(subproject1Reporter, subproject2Reporter),
+        )
+        verify(exactly = 1) { jacocoTask.setDependsOn(any()) }
 
         verify(exactly = 1) { classDirectories.setFrom(setOf(classFiles)) }
         verify(exactly = 1) { sourceDirectories.setFrom(any()) }
@@ -1443,8 +1456,6 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(setOf(executionFiles)) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { JacocoVerificationRuleMapper.map(violationRules, configuration.verificationRules) }
-
-        unmockkObject(JacocoVerificationRuleMapper)
+        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
     }
 }

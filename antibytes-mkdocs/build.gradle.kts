@@ -106,7 +106,7 @@ antibytesPublishing {
             ),
             MavenRepositoryConfiguration(
                 name = "Local",
-                url = uri(rootProject.buildDir),
+                url = uri(rootProject.layout.buildDirectory),
             ),
         )
     )
@@ -125,11 +125,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
     testImplementation(project(":antibytes-gradle-test-utils"))
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
 }
 
 gradlePlugin {

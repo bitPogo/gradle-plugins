@@ -3,9 +3,12 @@
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
-
-
-enableFeaturePreview("VERSION_CATALOGS")
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+    }
+}
 
 dependencyResolutionManagement {
     versionCatalogs {
@@ -13,4 +16,8 @@ dependencyResolutionManagement {
             from(files("../gradle/libs.versions.toml"))
         }
     }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version("0.7.0")
 }

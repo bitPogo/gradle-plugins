@@ -24,7 +24,7 @@ class JacocoVerificationRuleMapperSpec {
 
     @Test
     fun `It fulfils JacocoVerificationRuleMapper`() {
-        val mapper: Any = JacocoVerificationRuleMapper
+        val mapper: Any = JacocoVerificationRuleMapper()
 
         assertTrue(mapper is JacocoContract.JacocoVerificationRuleMapper)
     }
@@ -36,7 +36,7 @@ class JacocoVerificationRuleMapperSpec {
         val rules = emptySet<CoverageApiContract.JacocoVerificationRule>()
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         verify(exactly = 0) { generator.rule(any()) }
@@ -57,7 +57,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual1
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -86,7 +86,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -112,7 +112,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -138,7 +138,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -164,7 +164,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -188,7 +188,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -214,7 +214,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -240,7 +240,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -267,7 +267,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(
@@ -294,7 +294,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper.map(generator, rules)
+        JacocoVerificationRuleMapper().map(generator, rules)
 
         // Then
         assertEquals(

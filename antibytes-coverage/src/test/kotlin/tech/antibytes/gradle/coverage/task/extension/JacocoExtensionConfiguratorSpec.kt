@@ -25,7 +25,7 @@ class JacocoExtensionConfiguratorSpec {
 
     @Test
     fun `It fulfils JacocoExtensionConfigurator`() {
-        val extension: Any = JacocoExtensionConfigurator
+        val extension: Any = JacocoExtensionConfigurator()
 
         assertTrue(extension is TaskContract.JacocoExtensionConfigurator)
     }
@@ -44,7 +44,7 @@ class JacocoExtensionConfiguratorSpec {
         every { jacocoExtension.toolVersion = any() } just Runs
 
         // When
-        JacocoExtensionConfigurator.configure(project, configuration)
+        JacocoExtensionConfigurator().configure(project, configuration)
 
         // Then
         verify(exactly = 1) { jacocoExtension.toolVersion = version }

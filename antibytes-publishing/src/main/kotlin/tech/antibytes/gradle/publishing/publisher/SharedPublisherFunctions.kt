@@ -11,6 +11,7 @@ import org.gradle.api.Task
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.publishing.git.GitRepository
+import tech.antibytes.gradle.util.capitalize
 
 internal abstract class SharedPublisherFunctions {
     private fun resolveDescription(

@@ -71,7 +71,7 @@ internal object GitActions : GitContract.GitActions {
         project: Project,
         repository: RepositoryConfiguration<String>,
     ) {
-        val targetDirectory = File("${project.rootProject.buildDir.absolutePath}/${repository.name}")
+        val targetDirectory = File("${project.rootProject.layout.buildDirectory.asFile.get().absolutePath}/${repository.name}")
 
         try {
             updateAndReset(targetDirectory, repository)
@@ -135,7 +135,7 @@ internal object GitActions : GitContract.GitActions {
         dryRun: Boolean,
     ): Boolean {
         val git = Git.open(
-            File("${project.rootProject.buildDir.absolutePath}/${repository.name}"),
+            File("${project.rootProject.layout.buildDirectory.asFile.get().absolutePath}/${repository.name}"),
         )
 
         return push(

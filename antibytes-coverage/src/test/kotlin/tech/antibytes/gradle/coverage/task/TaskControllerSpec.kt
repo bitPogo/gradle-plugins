@@ -4,7 +4,8 @@
  * Use of this source code is governed by Apache License, Version 2.0
  */
 
-/* ktlint-disable argument-list-wrapping */
+@file:Suppress("ktlint:standard:argument-list-wrapping")
+
 package tech.antibytes.gradle.coverage.task
 
 import com.appmattus.kotlinfixture.kotlinFixture
@@ -12,9 +13,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkObject
 import io.mockk.slot
-import io.mockk.unmockkObject
 import io.mockk.verify
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -42,7 +41,7 @@ class TaskControllerSpec {
 
     @Test
     fun `It fulfils TaskController`() {
-        val configurator: Any = TaskController
+        val configurator: Any = TaskController()
 
         assertTrue(configurator is CoverageContract.TaskController)
     }
@@ -65,19 +64,16 @@ class TaskControllerSpec {
         // Then
         assertFailsWith<CoverageError.UnknownPlatformConfiguration> {
             // When
-            TaskController.configure(project, extension)
+            TaskController().configure(project, extension)
         }
     }
 
     @Test
     fun `Given configure is called with a Project and AntiBytesCoverageExtension, which contains a JacocoConfiguration it configures the coverage and verification task and extension`() {
-        mockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
-
         // Given
+        val jacocoReportTaskConfigurator: JacocoReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val verificationTaskConfigurator: JacocoVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val extension: AntibytesCoveragePluginExtension = mockk()
@@ -89,35 +85,30 @@ class TaskControllerSpec {
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
-        every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
-        every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { jacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
+        every { verificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoVerificationTaskConfigurator = verificationTaskConfigurator,
+            jacocoReporterTaskConfigurator = jacocoReportTaskConfigurator,
+        ).configure(project, extension)
 
         // Then
-        verify(exactly = 1) { JacocoReportTaskConfigurator.configure(project, contextId, configuration) }
-        verify(exactly = 1) { JacocoVerificationTaskConfigurator.configure(project, contextId, configuration) }
-        verify(exactly = 1) { JacocoExtensionConfigurator.configure(project, extension) }
-
-        unmockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
+        verify(exactly = 1) { jacocoReportTaskConfigurator.configure(project, contextId, configuration) }
+        verify(exactly = 1) { verificationTaskConfigurator.configure(project, contextId, configuration) }
+        verify(exactly = 1) { jacocoExtensionConfigurator.configure(project, extension) }
     }
 
     @Test
     fun `Given configure is called with a Project and AntiBytesCoverageExtension, which contains a AndroidJacocoConfiguration it configures the coverage and verification task and extensions`() {
-        mockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-            AndroidExtensionConfigurator,
-        )
-
         // Given
+        val jacocoReportTaskConfigurator: JacocoReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val androidExtensionConfigurator: AndroidExtensionConfigurator = mockk()
+        val verificationTaskConfigurator: JacocoVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val reporter: Task = mockk()
@@ -130,38 +121,33 @@ class TaskControllerSpec {
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
-        every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns reporter
-        every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
-        every { AndroidExtensionConfigurator.configure(any()) } just Runs
+        every { jacocoReportTaskConfigurator.configure(any(), any(), any()) } returns reporter
+        every { verificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { androidExtensionConfigurator.configure(any()) } just Runs
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            androidExtensionConfigurator = androidExtensionConfigurator,
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoReporterTaskConfigurator = jacocoReportTaskConfigurator,
+            jacocoVerificationTaskConfigurator = verificationTaskConfigurator,
+        ).configure(project, extension)
 
         // Then
-        verify(exactly = 1) { JacocoReportTaskConfigurator.configure(project, contextId, configuration) }
-        verify(exactly = 1) { JacocoVerificationTaskConfigurator.configure(project, contextId, configuration) }
-        verify(exactly = 1) { JacocoExtensionConfigurator.configure(project, extension) }
-        verify(exactly = 1) { AndroidExtensionConfigurator.configure(project) }
-
-        unmockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-            AndroidExtensionConfigurator,
-        )
+        verify(exactly = 1) { jacocoReportTaskConfigurator.configure(project, contextId, configuration) }
+        verify(exactly = 1) { verificationTaskConfigurator.configure(project, contextId, configuration) }
+        verify(exactly = 1) { jacocoExtensionConfigurator.configure(project, extension) }
+        verify(exactly = 1) { androidExtensionConfigurator.configure(project) }
     }
 
     @Test
     fun `Given configure is called with a Project and AntiBytesCoverageExtension, which indicates a KMP setup, it adds a multiplatform reporter task`() {
-        mockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-            AndroidExtensionConfigurator,
-        )
-
         // Given
+        val jacocoReportTaskConfigurator: JacocoReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val androidExtensionConfigurator: AndroidExtensionConfigurator = mockk()
+        val verificationTaskConfigurator: JacocoVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val extension: AntibytesCoveragePluginExtension = mockk()
@@ -175,10 +161,10 @@ class TaskControllerSpec {
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
-        every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns jacocoReporterTask
-        every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
-        every { AndroidExtensionConfigurator.configure(any()) } just Runs
+        every { jacocoReportTaskConfigurator.configure(any(), any(), any()) } returns jacocoReporterTask
+        every { verificationTaskConfigurator.configure(any(), any(), any()) } returns null
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { androidExtensionConfigurator.configure(any()) } just Runs
 
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
@@ -191,31 +177,26 @@ class TaskControllerSpec {
         }
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            androidExtensionConfigurator = androidExtensionConfigurator,
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoReporterTaskConfigurator = jacocoReportTaskConfigurator,
+            jacocoVerificationTaskConfigurator = verificationTaskConfigurator,
+        ).configure(project, extension)
 
         // Then
         verify(exactly = 1) { kmpReporterTask.group = "Verification" }
         verify(exactly = 1) { kmpReporterTask.description = "Generate a coverage reports for all platforms of multiplatform projects." }
         verify(exactly = 1) { kmpReporterTask.dependsOn(setOf(jacocoReporterTask)) }
-
-        unmockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-            AndroidExtensionConfigurator,
-        )
     }
 
     @Test
     fun `Given configure is called with a Project and AntiBytesCoverageExtension, which indicates a KMP setup it will not add a multiplatform verification task, if no verification tasks had been setup`() {
-        mockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-            AndroidExtensionConfigurator,
-        )
-
         // Given
+        val jacocoReportTaskConfigurator: JacocoReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val androidExtensionConfigurator: AndroidExtensionConfigurator = mockk()
+        val verificationTaskConfigurator: JacocoVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val tasks: TaskContainer = mockk()
         val contextId: String = fixture()
@@ -228,38 +209,33 @@ class TaskControllerSpec {
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
-        every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
-        every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
-        every { AndroidExtensionConfigurator.configure(any()) } just Runs
+        every { jacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
+        every { verificationTaskConfigurator.configure(any(), any(), any()) } returns null
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { androidExtensionConfigurator.configure(any()) } just Runs
 
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            androidExtensionConfigurator = androidExtensionConfigurator,
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoReporterTaskConfigurator = jacocoReportTaskConfigurator,
+            jacocoVerificationTaskConfigurator = verificationTaskConfigurator,
+        ).configure(project, extension)
 
         // Then
         verify(exactly = 0) { tasks.create("multiplatformCoverageVerification", any<Action<Task>>()) }
-
-        unmockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-            AndroidExtensionConfigurator,
-        )
     }
 
     @Test
     fun `Given configure is called with a Project and AntiBytesCoverageExtension, which indicates a KMP setup, it adds a multiplatform verification task, if verification tasks had been setup`() {
-        mockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-            AndroidExtensionConfigurator,
-        )
-
         // Given
+        val jacocoReportTaskConfigurator: JacocoReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val androidExtensionConfigurator: AndroidExtensionConfigurator = mockk()
+        val verificationTaskConfigurator: JacocoVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val extension: AntibytesCoveragePluginExtension = mockk()
@@ -273,10 +249,10 @@ class TaskControllerSpec {
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
-        every { JacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
-        every { JacocoVerificationTaskConfigurator.configure(any(), any(), any()) } returns jacocoVerificationTask
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
-        every { AndroidExtensionConfigurator.configure(any()) } just Runs
+        every { jacocoReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
+        every { verificationTaskConfigurator.configure(any(), any(), any()) } returns jacocoVerificationTask
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { androidExtensionConfigurator.configure(any()) } just Runs
 
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns true
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
@@ -289,19 +265,17 @@ class TaskControllerSpec {
         }
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            androidExtensionConfigurator = androidExtensionConfigurator,
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoReporterTaskConfigurator = jacocoReportTaskConfigurator,
+            jacocoVerificationTaskConfigurator = verificationTaskConfigurator,
+        ).configure(project, extension)
 
         // Then
         verify(exactly = 1) { kmpVerificationTask.group = "Verification" }
         verify(exactly = 1) { kmpVerificationTask.description = "Verifies the coverage for all platforms of multiplatform projects." }
         verify(exactly = 1) { kmpVerificationTask.dependsOn(listOf(jacocoVerificationTask)) }
-
-        unmockkObject(
-            JacocoReportTaskConfigurator,
-            JacocoVerificationTaskConfigurator,
-            JacocoExtensionConfigurator,
-            AndroidExtensionConfigurator,
-        )
     }
 
     @Test
@@ -322,19 +296,16 @@ class TaskControllerSpec {
         // Then
         assertFailsWith<CoverageError.UnknownPlatformConfiguration> {
             // When
-            TaskController.configure(project, extension)
+            TaskController().configure(project, extension)
         }
     }
 
     @Test
     fun `Given configure is called with a Project, which is the ProjectRoot and AntiBytesCoverageExtension, which contains a JacocoConfiguration it configures the coverage and verification task and extension`() {
-        mockkObject(
-            JacocoAggregationVerificationTaskConfigurator,
-            JacocoAggregationReportTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
-
         // Given
+        val jacocoAggregationReportTaskConfigurator: JacocoAggregationReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val aggregationVerification: JacocoAggregationVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val extension: AntibytesCoveragePluginExtension = mockk()
@@ -346,34 +317,29 @@ class TaskControllerSpec {
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
-        every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
-        every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returns mockk()
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { jacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returns mockk()
+        every { aggregationVerification.configure(any(), any(), any()) } returns mockk()
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoAggregationReportTaskConfigurator = jacocoAggregationReportTaskConfigurator,
+            jacocoAggregationVerificationTaskConfigurator = aggregationVerification,
+        ).configure(project, extension)
 
         // Then
-        verify(exactly = 1) { JacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration) }
-        verify(exactly = 1) { JacocoAggregationVerificationTaskConfigurator.configure(project, contextId, configuration) }
-        verify(exactly = 1) { JacocoExtensionConfigurator.configure(project, extension) }
-
-        unmockkObject(
-            JacocoAggregationVerificationTaskConfigurator,
-            JacocoAggregationReportTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
+        verify(exactly = 1) { jacocoAggregationReportTaskConfigurator.configure(project, contextId, configuration) }
+        verify(exactly = 1) { aggregationVerification.configure(project, contextId, configuration) }
+        verify(exactly = 1) { jacocoExtensionConfigurator.configure(project, extension) }
     }
 
     @Test
     fun `Given configure is called with a Project, which is the Root and AntiBytesCoverageExtension, it adds a multiplatform reporter task, if multiple contexts are present`() {
-        mockkObject(
-            JacocoAggregationVerificationTaskConfigurator,
-            JacocoAggregationReportTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
-
         // Given
+        val jacocoAggregationReportTaskConfigurator: JacocoAggregationReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val aggregationVerification: JacocoAggregationVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val contextId1: String = fixture()
         val contextId2: String = fixture()
@@ -396,12 +362,12 @@ class TaskControllerSpec {
                 contextId2 to configuration2,
             ),
         )
-        every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
+        every { jacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,
             task2,
         )
-        every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { aggregationVerification.configure(any(), any(), any()) } returns null
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
 
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
@@ -415,7 +381,11 @@ class TaskControllerSpec {
         every { kmpReporterTask.dependsOn(capture(dependencies)) } returns mockk()
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoAggregationReportTaskConfigurator = jacocoAggregationReportTaskConfigurator,
+            jacocoAggregationVerificationTaskConfigurator = aggregationVerification,
+        ).configure(project, extension)
 
         // Then
         verify(exactly = 1) { kmpReporterTask.group = "Verification" }
@@ -424,23 +394,14 @@ class TaskControllerSpec {
             actual = dependencies.captured,
             expected = setOf(task1, task2),
         )
-
-        unmockkObject(
-            JacocoAggregationVerificationTaskConfigurator,
-            JacocoAggregationReportTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
     }
 
     @Test
     fun `Given configure is called with a Project, which is the Root and AntiBytesCoverageExtension, it will not add a multiplatform verification task, if no verification tasks had been setup`() {
-        mockkObject(
-            JacocoAggregationVerificationTaskConfigurator,
-            JacocoAggregationReportTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
-
         // Given
+        val jacocoAggregationReportTaskConfigurator: JacocoAggregationReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val aggregationVerification: JacocoAggregationVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val tasks: TaskContainer = mockk()
         val contextId1: String = fixture()
@@ -466,12 +427,12 @@ class TaskControllerSpec {
                 contextId2 to configuration2,
             ),
         )
-        every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
+        every { jacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,
             task2,
         )
-        every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returns null
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { aggregationVerification.configure(any(), any(), any()) } returns null
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
 
         every { project.tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
@@ -485,27 +446,22 @@ class TaskControllerSpec {
         every { kmpReporterTask.dependsOn(capture(dependencies)) } returns mockk()
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoAggregationReportTaskConfigurator = jacocoAggregationReportTaskConfigurator,
+            jacocoAggregationVerificationTaskConfigurator = aggregationVerification,
+        ).configure(project, extension)
 
         // Then
         verify(exactly = 0) { tasks.create("multiplatformCoverageVerification", any<Action<Task>>()) }
-
-        unmockkObject(
-            JacocoAggregationVerificationTaskConfigurator,
-            JacocoAggregationReportTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
     }
 
     @Test
-    fun `Given configure is called with a Project, which is the Root  and AntiBytesCoverageExtension, it adds a multiplatform verification task, if verification tasks had been setup, if multiple contexts are present`() {
-        mockkObject(
-            JacocoAggregationVerificationTaskConfigurator,
-            JacocoAggregationReportTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
-
+    fun `Given configure is called with a Project, which is Root  it adds a multiplatform verification task if verification tasks had been setup and multiple contexts are present`() {
         // Given
+        val jacocoAggregationReportTaskConfigurator: JacocoAggregationReportTaskConfigurator = mockk()
+        val jacocoExtensionConfigurator: JacocoExtensionConfigurator = mockk()
+        val aggregationVerification: JacocoAggregationVerificationTaskConfigurator = mockk()
         val project: Project = mockk()
         val tasks: TaskContainer = mockk()
         val extension: AntibytesCoveragePluginExtension = mockk()
@@ -533,29 +489,27 @@ class TaskControllerSpec {
                 contextId2 to configuration2,
             ),
         )
-        every { JacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
+        every { jacocoAggregationReportTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
             task1,
             task2,
         )
-        every { JacocoAggregationVerificationTaskConfigurator.configure(any(), any(), any()) } returnsMany listOf(
+        every { aggregationVerification.configure(any(), any(), any()) } returnsMany listOf(
             verificationTask1,
             verificationTask2,
         )
-        every { JacocoExtensionConfigurator.configure(any(), any()) } just Runs
+        every { jacocoExtensionConfigurator.configure(any(), any()) } just Runs
 
         every { tasks.create(any(), any<Action<Task>>()) } returns mockk()
 
         // When
-        TaskController.configure(project, extension)
+        TaskController(
+            jacocoExtensionConfigurator = jacocoExtensionConfigurator,
+            jacocoAggregationReportTaskConfigurator = jacocoAggregationReportTaskConfigurator,
+            jacocoAggregationVerificationTaskConfigurator = aggregationVerification,
+        ).configure(project, extension)
 
         // Then
         // Please invokeGradleAction causes a Error, which is probably caused by mockk
         verify(exactly = 1) { tasks.create("multiplatformCoverageVerification", any<Action<Task>>()) }
-
-        unmockkObject(
-            JacocoAggregationVerificationTaskConfigurator,
-            JacocoAggregationReportTaskConfigurator,
-            JacocoExtensionConfigurator,
-        )
     }
 }

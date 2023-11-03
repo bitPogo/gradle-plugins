@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.dependency.node.catalog
 
+import java.util.Locale
 import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.Bridge
 import tech.antibytes.gradle.dependency.node.NodeDependencyTransformerContract.NodeDependencies
@@ -16,6 +17,22 @@ internal object VersionCatalogBridge : Bridge {
         DEVELOPMENT,
         PEER,
         OPTIONAL,
+    }
+
+    private fun String.capitalize(): String {
+        return replaceFirstChar {
+            if (it.isLowerCase()) {
+                it.titlecase(Locale.getDefault())
+            } else {
+                it.toString()
+            }
+        }
+    }
+
+    private fun String.decapitalize(): String {
+        return replaceFirstChar {
+            it.lowercase(Locale.getDefault())
+        }
     }
 
     private fun String.toPropertyName(): String {
@@ -31,7 +48,7 @@ internal object VersionCatalogBridge : Bridge {
     ) {
         library(
             "node-${moduleName.toPropertyName()}",
-            "node-${type.name.toLowerCase()}",
+            "node-${type.name.lowercase(Locale.getDefault())}",
             moduleName,
         ).version(version)
     }

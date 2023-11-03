@@ -46,6 +46,16 @@ internal object Vendor {
         val paparazzi = GradleBundleVersion(GradleVersions.paparazzi)
 
         /**
+         * [Roborazzi](https://github.com/takahirom/roborazzi)
+         */
+        val roborazzi = GradleBundleVersion(GradleVersions.roborazzi)
+
+        /**
+         * [Turbine](https://github.com/cashapp/turbine)
+         */
+        val turbine = GradleVersions.turbine
+
+        /**
          * [mockk](http://mockk.io)
          */
         const val mockk = GradleVersions.mockk

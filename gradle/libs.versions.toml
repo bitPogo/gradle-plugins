@@ -1,63 +1,64 @@
 [versions]
 # [Kotlin](https://kotlinlang.org/docs/releases.html)
-kotlin = "1.7.20"
+kotlin = "1.9.10"
 
-gradle = "7.5.1"
+# [Gradle](https://gradle.org/releases/)
+gradle = "8.4.0"
 
 # [GSON](https://github.com/google/gson)
-gson = "2.10"
+gson = "2.10.1"
 
 # [Gradle Shadow](https://github.com/johnrengelman/shadow/releases)
-fatJar = "7.1.2"
+fatJar = "8.1.1"
 
 ## Gradle
 # [Gradle Versions](https://github.com/ben-manes/gradle-versions-plugin)
-dependencyUpdate = "0.42.0"
+dependencyUpdate = "0.49.0"
 # [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
-owasp = "7.2.0"
+owasp = "8.4.2"
 # [Jacoco](https://github.com/jacoco/jacoco/releases)
-jacoco = "0.8.8"
+jacoco = "0.8.11"
 # [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
-publishing = "6.3.0.202209071007-r"
+publishing = "6.7.0.202309050840-r"
 # [gradle-git-version](https://github.com/palantir/gradle-git-version/releases)
-versioning = "0.15.0" # see: https://github.com/palantir/gradle-git-version/issues/353
+versioning = "3.0.0" # see: https://github.com/palantir/gradle-git-version/issues/353
 ## [AGP](https://developer.android.com/studio/releases/gradle-plugin)
 ## [AGP on Maven](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
-agp = "7.3.1"
+agp = "8.1.2"
 # [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
-spotless = "6.11.0"
+spotless = "6.22.0"
 # [KTLint](https://github.com/pinterest/ktlint)
-ktlint = "0.47.1"
+ktlint = "0.50.0"
 # [Detekt](https://github.com/detekt/detekt)
-detekt = "1.22.0"
+detekt = "1.23.3"
 # [Sonarqube](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle/)
-sonarqube = "3.3"
+sonarqube = "4.4.1.3373"
 # [Binary Compatibility](https://github.com/Kotlin/binary-compatibility-validator)
-stableApi = "0.12.1"
+stableApi = "0.13.2"
 # [maven-archeologist](https://github.com/square/maven-archeologist)
 mavenArtifacts = "0.0.10"
 # [dokka](https://github.com/Kotlin/dokka)
-dokka = "1.7.20"
+dokka = "1.9.10"
 # [Python for Gradle](https://github.com/xvik/gradle-use-python-plugin/blob/master/README.md)
 python = "3.0.0"
 
 ## Libs
 # [JFlex](https://jflex.de/)
-jflex = "1.8.2"
+jflex = "1.9.1"
 # [Turtle](https://github.com/lordcodes/turtle)
-turtle = "0.7.0"
+turtle = "0.8.0"
 # [Kotlin Poet](https://square.github.io/kotlinpoet/)
-kotlinPoet = "1.12.0"
+kotlinPoet = "1.14.2"
 
 ## Test
 # [JUnit](https://github.com/junit-team/junit5/)
-junit = "5.9.2"
+junit = "5.10.0"
 # [mockk](http://mockk.io)
-mockk = "1.13.3"
+mockk = "1.13.7"
 # [kotlinFixture](https://github.com/appmattus/kotlinfixture)
 jvmFixture = "1.2.0"
 # [JUnit Extensions](https://github.com/junit-pioneer/junit-pioneer/releases)
-junitExt = "2.0.0-RC1"
+junitExt = "2.1.0"
 
 [libraries]
 ## Gradle

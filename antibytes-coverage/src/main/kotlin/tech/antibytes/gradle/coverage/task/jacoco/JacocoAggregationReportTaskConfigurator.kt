@@ -11,8 +11,9 @@ import org.gradle.api.Task
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.task.TaskContract
+import tech.antibytes.gradle.util.capitalize
 
-internal object JacocoAggregationReportTaskConfigurator : TaskContract.ReportTaskConfigurator, JacocoAggregationBase() {
+internal class JacocoAggregationReportTaskConfigurator : TaskContract.ReportTaskConfigurator, JacocoAggregationBase() {
     private fun addReportTask(
         project: Project,
         contextId: String,

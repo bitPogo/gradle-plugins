@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.dependency.helper
 
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import java.util.Locale
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.named
 
@@ -47,8 +48,8 @@ internal object DependencyUpdate : DependencyContract.Update {
     ): Boolean {
         val indicator = resolveStabilityIndicator(
             configuration = configuration,
-            current = current.toUpperCase(),
-            candidate = candidate.toUpperCase(),
+            current = current.uppercase(Locale.getDefault()),
+            candidate = candidate.uppercase(Locale.getDefault()),
         )
 
         val versionRegex = configuration.versionRegex.get()

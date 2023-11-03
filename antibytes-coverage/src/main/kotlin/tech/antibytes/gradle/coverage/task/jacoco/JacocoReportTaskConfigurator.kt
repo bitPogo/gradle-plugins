@@ -11,8 +11,9 @@ import org.gradle.api.Task
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.task.TaskContract
+import tech.antibytes.gradle.util.capitalize
 
-internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurator, JacocoTaskBase() {
+internal class JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurator, JacocoTaskBase() {
     private fun addReportTask(
         project: Project,
         contextId: String,
@@ -69,11 +70,11 @@ internal object JacocoReportTaskConfigurator : TaskContract.ReportTaskConfigurat
         val testDependencies = if (configuration is CoverageApiContract.AndroidJacocoCoverageConfiguration) {
             determineProjectTestDependencies(
                 project,
-                configuration.testDependencies,
-                configuration.instrumentedTestDependencies,
+                configuration.test,
+                configuration.instrumentedTest,
             )
         } else {
-            determineProjectTestDependencies(project, configuration.testDependencies)
+            determineProjectTestDependencies(project, configuration.test)
         }
 
         return addReportTask(

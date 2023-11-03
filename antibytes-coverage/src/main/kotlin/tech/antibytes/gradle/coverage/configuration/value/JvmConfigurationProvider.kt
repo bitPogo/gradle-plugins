@@ -16,7 +16,9 @@ import tech.antibytes.gradle.coverage.source.SourceHelper
 import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import tech.antibytes.gradle.util.isKmp
 
-internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatformConfigurationProvider {
+internal class JvmConfigurationProvider(
+    private val sourceHelper: SourceHelper = SourceHelper(),
+) : ConfigurationContract.DefaultJvmConfigurationProvider {
     private fun resolveTestDependency(
         context: PlatformContext,
     ): Set<String> {
@@ -65,10 +67,10 @@ internal object JvmConfigurationProvider : ConfigurationContract.DefaultPlatform
     ): CoverageApiContract.JacocoCoverageConfiguration {
         return JvmJacocoConfiguration(
             reportSettings = JacocoReporterSettings(),
-            testDependencies = resolveTestDependency(context),
+            test = resolveTestDependency(context),
             classPattern = resolveClassPattern(context),
             classFilter = resolveClassFilter(context),
-            sources = SourceHelper.resolveSources(project, context),
+            sources = sourceHelper.resolveSources(project, context),
             additionalClasses = null,
             additionalSources = emptySet(),
             verificationRules = emptySet(),

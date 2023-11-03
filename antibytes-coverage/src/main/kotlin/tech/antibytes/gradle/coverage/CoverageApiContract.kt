@@ -66,7 +66,7 @@ interface CoverageApiContract {
 
     interface JacocoCoverageConfiguration : CoverageConfiguration, JacocoAgent {
         val reportSettings: JacocoReporterSettings
-        var testDependencies: Set<String>
+        var test: Set<String>
         var classPattern: Set<String>
         var classFilter: Set<String>
         var sources: Set<File>
@@ -102,7 +102,7 @@ interface CoverageApiContract {
     }
 
     interface AndroidJacocoCoverageConfiguration : JacocoCoverageConfiguration {
-        var instrumentedTestDependencies: Set<String>
+        var instrumentedTest: Set<String>
         var variant: String
         var flavour: String
     }

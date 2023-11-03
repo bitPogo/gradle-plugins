@@ -101,7 +101,6 @@ internal object DefaultAndroidLibraryConfigurationProvider :
         return AndroidLibraryConfiguration(
             compileSdkVersion = TARGET_SDK,
             minSdkVersion = MIN_SDK,
-            targetSdkVersion = TARGET_SDK,
             prefix = determinePrefix(project),
             publishVariants = determinePublishingVariants(contexts),
             compatibilityTargets = Compatibility(
