@@ -124,6 +124,8 @@ gradle-owasp-plugin = "8.4.2"
 gradle-publishing = "6.7.0.202309050840-r"
 gradle-spotless-dependency = "6.22.0"
 gradle-spotless-plugin = "6.22.0"
+gradle-toolchainResolver-dependency = "0.7.0"
+gradle-toolchainResolver-plugin = "0.7.0"
 gradle-versioning-dependency = "3.0.0"
 gradle-versioning-plugin = "3.0.0"
 jetbrains-compose-dependency = "1.5.10"
@@ -592,6 +594,7 @@ gradle-roborazzi = {group = "io.github.takahirom", name = "roborazzi-gradle-plug
 gradle-spotless = {group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "gradle-spotless-dependency" }
 gradle-square-sqldelight = {group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight-gradle" }
 gradle-test-antibytes-testUtils = {group = "tech.antibytes.gradle", name = "antibytes-gradle-test-utils", version.ref = "gradle-antibytes-testUtils" }
+gradle-toolchainResolver = {group = "org.gradle.toolchains", name = "foojay-resolver", version.ref = "gradle-toolchainResolver-dependency" }
 gradle-versioning = {group = "com.palantir.gradle.gitversion", name = "gradle-git-version", version.ref = "gradle-versioning-dependency" }
 iosarm32-koin-annotations = {group = "io.insert-koin", name = "koin-annotations-iosarm32", version.ref = "koin-annotations" }
 iosarm32-koin-core = {group = "io.insert-koin", name = "koin-core-iosarm32", version.ref = "koin-core" }
@@ -2085,6 +2088,7 @@ gradle-jacoco = {id = "jacoco", version.ref = "gradle-jacoco-plugin" }
 gradle-ksp-plugin = {id = "com.google.devtools.ksp", version.ref = "gradle-ksp-plugin-plugin" }
 gradle-owasp = {id = "org.owasp.dependencycheck", version.ref = "gradle-owasp-plugin" }
 gradle-spotless = {id = "com.diffplug.spotless", version.ref = "gradle-spotless-plugin" }
+gradle-toolchainResolver = {id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "gradle-toolchainResolver-plugin" }
 gradle-versioning = {id = "com.palantir.git-version", version.ref = "gradle-versioning-plugin" }
 jetbrains-compose = {id = "org.jetbrains.compose", version.ref = "jetbrains-compose-plugin" }
 kotlin-android = {id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android" }

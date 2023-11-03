@@ -3,6 +3,8 @@
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -19,7 +21,9 @@ dependencyResolutionManagement {
 }
 
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version("0.7.0")
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
 }
+
+rootProject.name = "runtime-configuration-local"
 
 include(":utils",)

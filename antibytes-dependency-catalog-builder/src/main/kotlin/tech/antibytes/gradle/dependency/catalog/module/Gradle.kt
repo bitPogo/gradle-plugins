@@ -46,6 +46,11 @@ internal object Gradle {
         group = "com.pinterest",
         id = "ktlint",
     )
+    val toolchainResolver = GradleBundle(
+        group = "org.gradle.toolchains",
+        id = "foojay-resolver",
+        plugin = "org.gradle.toolchains.foojay-resolver-convention",
+    )
     val ksp = KSP
     val antibytes = Antibytes
 }

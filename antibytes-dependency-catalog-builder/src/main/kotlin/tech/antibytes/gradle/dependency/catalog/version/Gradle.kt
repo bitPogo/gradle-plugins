@@ -57,6 +57,11 @@ internal object Gradle {
     const val ktlint = GradleVersions.ktlint
 
     /**
+     * [ToolChain Resolver](https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
+     */
+    val toolchainResolver = GradleBundleVersion(GradleVersions.toolchainResolver)
+
+    /**
      * [KSP](https://github.com/google/ksp)
      */
     /**
