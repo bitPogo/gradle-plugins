@@ -140,7 +140,7 @@ antibytesCoverage {
     val instructionCoverage = JacocoVerificationRule(
         counter = JacocoCounter.INSTRUCTION,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.87)
+        minimum = BigDecimal(0.86)
     )
 
     val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(

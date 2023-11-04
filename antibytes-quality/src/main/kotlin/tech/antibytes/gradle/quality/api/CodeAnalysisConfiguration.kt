@@ -23,7 +23,7 @@ data class DetektReport(
 ) : Report
 
 data class CodeAnalysisConfiguration(
-    override val jvmVersion: String = JavaVersion.VERSION_11.toString(),
+    override val jvmVersion: String = JavaVersion.VERSION_17.toString(),
     override val autoCorrection: Boolean = false,
     override val exclude: Set<String> = setOf(
         "**/.gradle/**",
@@ -68,7 +68,7 @@ data class CodeAnalysisConfiguration(
 ) : QualityApiContract.CodeAnalysisConfiguration {
     constructor(
         project: Project,
-        jvmVersion: String = JavaVersion.VERSION_11.toString(),
+        jvmVersion: String = JavaVersion.VERSION_17.toString(),
         autoCorrection: Boolean = false,
         exclude: Set<String> = setOf(
             "**/.gradle/**",

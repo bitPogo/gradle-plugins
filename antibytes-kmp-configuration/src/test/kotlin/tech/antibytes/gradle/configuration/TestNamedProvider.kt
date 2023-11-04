@@ -21,11 +21,11 @@ class TestNamedProvider<T>(
 
     override fun getOrElse(defaultValue: T): T = value ?: defaultValue
 
-    override fun <S : Any?> map(transformer: Transformer<out S, in T>): Provider<S> {
+    override fun <S : Any?> map(transformer: Transformer<out S?, in T>): Provider<S> {
         TODO("Not yet implemented")
     }
 
-    override fun <S : Any?> flatMap(transformer: Transformer<out Provider<out S>, in T>): Provider<S> {
+    override fun <S : Any?> flatMap(transformer: Transformer<out Provider<out S>?, in T>): Provider<S> {
         TODO("Not yet implemented")
     }
 
@@ -41,6 +41,7 @@ class TestNamedProvider<T>(
         TODO("Not yet implemented")
     }
 
+    @Deprecated("Deprecated in Java")
     override fun forUseAtConfigurationTime(): Provider<T> {
         TODO("Not yet implemented")
     }
