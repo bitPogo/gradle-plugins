@@ -10,7 +10,7 @@ danger(args) {
     onGitHub {
         val branchName = pullRequest.head.label.substringAfter(":")
         val isFeatureBranch =
-            "(?:feature\\/(?:add|change|remove|fix|bump|security)-[a-zA-Z0-9-.]*)"
+            "(?:feature\\/(?:add|update|change|remove|fix|bump|security)[a-zA-Z0-9-.]*)"
                 .toRegex()
                 .matches(branchName)
         val isReleaseBranch =
@@ -22,7 +22,7 @@ danger(args) {
                 .toRegex()
                 .matches(branchName)
         val isFeatureTitle =
-            "(?:(?:\\[[A-Z]{2,8}-\\d{1,6}\\]\\s)?(?:Add|Change|Remove|Fix|Bump|Security)\\s.*)"
+            "(?:(?:\\[[A-Z]{2,8}-\\d{1,6}\\]\\s)?(?:Add|Update|Change|Remove|Fix|Bump|Security)\\s.*)"
                 .toRegex()
                 .matches(pullRequest.title)
         val isReleaseTitle = "(?:(?:Prepare )?Release \\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
