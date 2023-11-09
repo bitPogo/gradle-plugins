@@ -537,7 +537,7 @@ style:
     active: true
     maxDestructuringEntries: 3
   DoubleNegativeLambda:
-    active: truee
+    active: true
     negativeFunctions:
       - reason: 'Use `takeIf` instead.'
         value: 'takeUnless'
