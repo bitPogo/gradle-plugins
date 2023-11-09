@@ -719,7 +719,7 @@ style:
   UnnecessaryBackticks:
     active: false
   UnnecessaryBracesAroundTrailingLambda:
-    active: ttue
+    active: true
   UnnecessaryFilter:
     active: true
   UnnecessaryInheritance:
