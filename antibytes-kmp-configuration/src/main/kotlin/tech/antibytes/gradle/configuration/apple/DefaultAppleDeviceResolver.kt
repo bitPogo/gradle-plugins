@@ -11,10 +11,12 @@ import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
 import tech.antibytes.gradle.configuration.AppleConfigurationApiContract.Companion.IOS_14
+import tech.antibytes.gradle.configuration.AppleConfigurationApiContract.Companion.IOS_15
 import tech.antibytes.gradle.configuration.AppleConfigurationApiContract.Companion.WATCH_7
 import tech.antibytes.gradle.configuration.VersionDescriptor
 
 private val THRESHOLD_IPHONE14 = VersionDescriptor(12, 6, 0)
+private val THRESHOLD_IPHONE15 = VersionDescriptor(14, 0, 0)
 
 private fun KotlinMultiplatformExtension.overrideAppleDevice(
     iPhoneVersion: String,
@@ -44,6 +46,10 @@ private fun KotlinMultiplatformExtension.ensureAppleDeviceCompatibility(
     when {
         customIos.isNotBlank() -> overrideAppleDevice(
             customIos,
+            WATCH_7,
+        )
+        version >= THRESHOLD_IPHONE15 -> overrideAppleDevice(
+            IOS_15,
             WATCH_7,
         )
         version >= THRESHOLD_IPHONE14 -> overrideAppleDevice(
