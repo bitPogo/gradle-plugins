@@ -16,12 +16,12 @@ constraintLayout-core = "1.0.4"
 ## [Overview](https://developer.android.com/jetpack/compose/setup)
 android-compose-animation = "1.5.4"
 android-compose-bom = "2023.10.01"
-android-compose-compiler = "1.5.3"
-android-compose-foundation = "1.5.2"
+android-compose-compiler = "1.5.5"
+android-compose-foundation = "1.5.4"
 android-compose-runtime = "1.5.4"
-android-compose-saveable = "1.5.2"
+android-compose-saveable = "1.5.4"
 android-compose-ui = "1.5.4"
-android-compose-ui-tooling = "1.5.1"
+android-compose-ui-tooling = "1.5.4"
 
 ## [AndroidX](https://developer.android.com/jetpack/androidx)
 ## [AndroidX Core](https://developer.android.com/kotlin/ktx)
