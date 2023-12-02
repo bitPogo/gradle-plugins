@@ -10,6 +10,7 @@ internal interface AppleConfigurationApiContract {
     companion object {
         // iOS
         const val IOS_14 = "iPhone 14"
+        const val IOS_15 = "iPhone 15"
 
         // watchOS
         const val WATCH_7 = "Apple Watch Series 7 (45mm)"
