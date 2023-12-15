@@ -1,7 +1,6 @@
 mkdocs-markdownextradata-plugin==0.2.5
 mkdocs-include-markdown-plugin==6.0.3
 mkdocs-kroki-plugin==0.6.1
-mkdocs-material==9.4.7
 mkdocs-minify-plugin==0.7.1
 mkdocs-redirects==1.2.1
 pygments==2.16.1

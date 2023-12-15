@@ -36,7 +36,6 @@ class AntibytesDocumentation : Plugin<Project> {
                 MainConfig.includeMarkdown,
                 MainConfig.kroki,
                 MainConfig.extraData,
-                MainConfig.material,
                 MainConfig.minify,
                 MainConfig.redirects,
                 MainConfig.pygments,

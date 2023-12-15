@@ -25,11 +25,6 @@ internal object MkDocs {
     const val extraData = PythonVersions.mkdocsMarkdownextradataPlugin
 
     /**
-     * [MkDocs Material](https://github.com/squidfunk/mkdocs-material/releases)
-     */
-    const val material = PythonVersions.mkdocsMaterial
-
-    /**
      * [MkDocs Minfier](https://pypi.org/project/mkdocs-minify-plugin/)
      */
     const val minify = PythonVersions.mkdocsMinifyPlugin
