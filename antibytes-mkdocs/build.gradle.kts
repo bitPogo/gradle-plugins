@@ -172,7 +172,6 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
             "includeMarkdown" to antibytes.python.mkdocs.includeMarkdown.asPythonPackage(),
             "kroki" to antibytes.python.mkdocs.kroki.asPythonPackage(),
             "extraData" to antibytes.python.mkdocs.extraData.asPythonPackage(),
-            "material" to antibytes.python.mkdocs.material.asPythonPackage(),
             "minify" to antibytes.python.mkdocs.minify.asPythonPackage(),
             "redirects" to antibytes.python.mkdocs.redirects.asPythonPackage(),
             "pygments" to antibytes.python.mkdocs.pygments.asPythonPackage(),

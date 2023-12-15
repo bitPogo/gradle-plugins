@@ -18,9 +18,6 @@ internal object MkDocs {
     val extraData = PythonArtifact(
         id = "mkdocs-markdownextradata-plugin",
     )
-    val material = PythonArtifact(
-        id = "mkdocs-material",
-    )
     val minify = PythonArtifact(
         id = "mkdocs-minify-plugin",
     )
