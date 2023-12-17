@@ -9,6 +9,7 @@ package tech.antibytes.gradle.versioning
 import com.appmattus.kotlinfixture.kotlinFixture
 import com.palantir.gradle.gitversion.VersionDetails
 import groovy.lang.Closure
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import kotlin.test.assertEquals
@@ -19,6 +20,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.kotlin.dsl.invoke
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.createClosure
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
@@ -27,13 +29,26 @@ import tech.antibytes.gradle.versioning.api.VersioningError
 class VersioningSpec {
     private val fixture = kotlinFixture()
     private val versionTestConfiguration = VersioningConfiguration(
-        releasePrefixes = listOf("xxx"),
-        featurePrefixes = listOf("xxx"),
+        releasePrefixes = listOf("x"),
+        featurePrefixes = listOf("xx"),
         dependencyBotPrefixes = listOf("xxx"),
         issuePattern = null,
         versionPrefix = "xxx",
         normalization = emptySet(),
     )
+
+    private val project: Project = mockk()
+    private val extensions: ExtensionContainer = mockk()
+    private val extraProperties: ExtraPropertiesExtension = mockk()
+    private val versionDetails: VersionDetails = mockk()
+
+    @BeforeEach
+    fun setup() {
+        clearMocks(project, extensions, extraProperties, versionDetails)
+
+        every { extensions.extraProperties } returns extraProperties
+        every { project.extensions } returns extensions
+    }
 
     @Test
     fun `It fulfils VersioningFactory`() {
@@ -45,19 +60,10 @@ class VersioningSpec {
     @Test
     fun `It fulfils Versioning`() {
         // Given
-        val project: Project = mockk()
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
 
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { versionDetails.branchName } returns fixture()
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -75,20 +81,9 @@ class VersioningSpec {
 
         val configuration = versionTestConfiguration.copy()
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { versionDetails.branchName } returns branchName
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
@@ -120,21 +115,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns false
@@ -167,21 +151,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns false
@@ -214,21 +187,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -262,21 +224,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -309,21 +260,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -357,21 +297,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -405,21 +334,10 @@ class VersioningSpec {
             useGitHashSnapshotSuffix = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns false
@@ -455,21 +373,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns false
@@ -491,6 +398,41 @@ class VersioningSpec {
     }
 
     @Test
+    fun `Given versionName is called, it renders the release version with an arbitrary path`() {
+        val branchName = "something/long/path/release/1.0"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            releasePrefixes = listOf("main", "release"),
+            versionPrefix = versionPrefix,
+        )
+
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 1
+
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration,
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-SNAPSHOT",
+        )
+    }
+
+    @Test
     fun `Given versionName is called, it renders the release version`() {
         val branchName = "main"
         val expected = "1.15.1"
@@ -502,21 +444,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -548,21 +479,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -594,21 +514,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -641,21 +550,46 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
 
-        every { extensions.extraProperties } returns extraProperties
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
 
-        every { project.extensions } returns extensions
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration,
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-bump-$branchAction-SNAPSHOT",
+        )
+    }
+
+    @Test
+    fun `Given versionName is called, it renders a dependencyBot branch with an arbitrary path`() {
+        val branchAction = "test"
+        val branchName = "some/long/path/dependabot/$branchAction"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            dependencyBotPrefixes = listOf("dependabot"),
+            versionPrefix = versionPrefix,
+        )
+
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -689,21 +623,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -736,21 +659,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -784,21 +696,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -832,21 +733,10 @@ class VersioningSpec {
             normalization = setOf("_", "?", "\$"),
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -886,21 +776,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -926,6 +805,43 @@ class VersioningSpec {
     }
 
     @Test
+    fun `Given versionName is called, it fails if there is no feature branch name`() {
+        val branchName = "feature/"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            featurePrefixes = listOf("feature", "newStuff"),
+            versionPrefix = versionPrefix,
+        )
+
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+
+        // When
+        val result = assertFailsWith<VersioningError> {
+            Versioning.getInstance(
+                project,
+                configuration,
+            ).versionName()
+        }
+
+        // Then
+        assertEquals(
+            actual = result.message,
+            expected = "Ill named branch name (feature/)! Please adjust it to match the project settings.",
+        )
+    }
+
+    @Test
     fun `Given versionName is called, it renders a feature branch`() {
         val branchAction = "test"
         val branchName = "feature/$branchAction"
@@ -938,21 +854,46 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
 
-        every { extensions.extraProperties } returns extraProperties
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
 
-        every { project.extensions } returns extensions
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration,
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-$branchAction-SNAPSHOT",
+        )
+    }
+
+    @Test
+    fun `Given versionName is called, it renders non prefixed branches as feature branches if no prefix is set`() {
+        val branchAction = "test"
+        val branchName = branchAction
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            featurePrefixes = emptyList(),
+            versionPrefix = versionPrefix,
+        )
+
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -986,21 +927,47 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
 
-        every { extensions.extraProperties } returns extraProperties
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
 
-        every { project.extensions } returns extensions
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration,
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-$branchAction",
+        )
+    }
+
+    @Test
+    fun `Given versionName is called, it renders a feature branch with a abritrary path`() {
+        val branchAction = "test"
+        val branchName = "something/not/interesting/feature/$branchAction"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            featurePrefixes = listOf("feature", "newStuff"),
+            versionPrefix = versionPrefix,
+            suppressSnapshot = true,
+        )
+
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1033,21 +1000,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1081,21 +1037,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1129,21 +1074,10 @@ class VersioningSpec {
             normalization = setOf("_", "?", "\$"),
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1183,21 +1117,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1237,21 +1160,10 @@ class VersioningSpec {
             useGitHashFeatureSuffix = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1288,21 +1200,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1337,21 +1238,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1386,21 +1276,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1436,21 +1315,10 @@ class VersioningSpec {
             useGitHashFeatureSuffix = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.gitHash } returns hash
         every { versionDetails.branchName } returns branchName
@@ -1488,21 +1356,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.gitHash } returns hash
         every { versionDetails.branchName } returns branchName
@@ -1537,21 +1394,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1586,21 +1432,10 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1635,21 +1470,10 @@ class VersioningSpec {
             normalization = setOf("_", "?", "\$"),
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1690,21 +1514,54 @@ class VersioningSpec {
             suppressSnapshot = true,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
 
-        every { extensions.extraProperties } returns extraProperties
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
 
-        every { project.extensions } returns extensions
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration,
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-${
+                branchAction
+                    .replace("_", "-")
+                    .replace("?", "-")
+                    .replace("\$", "-")
+            }",
+        )
+    }
+
+    @Test
+    fun `Given versionName is called, it renders and normalizes a feature branch with a issue number with an arbitrary path`() {
+        val branchAction = "test_abc?dfg\$asd"
+        val branchName = "some/long/shit/feature/issue-123/$branchAction"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            featurePrefixes = listOf("feature", "newStuff"),
+            issuePattern = "issue-[0-9]+/(.*)".toRegex(),
+            versionPrefix = versionPrefix,
+            normalization = setOf("_", "?", "\$"),
+            suppressSnapshot = true,
+        )
+
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true
@@ -1742,21 +1599,10 @@ class VersioningSpec {
             versionPrefix = versionPrefix,
         )
 
-        val project: Project = mockk()
-
-        val extensions: ExtensionContainer = mockk()
-        val extraProperties: ExtraPropertiesExtension = mockk()
-
-        val versionDetails: VersionDetails = mockk()
-
         val details: Closure<VersionDetails> = createClosure(versionDetails)
 
         every { extraProperties.has("versionDetails") } returns true
         every { extraProperties.get("versionDetails") } returns details
-
-        every { extensions.extraProperties } returns extraProperties
-
-        every { project.extensions } returns extensions
 
         every { versionDetails.branchName } returns branchName
         every { versionDetails.isCleanTag } returns true

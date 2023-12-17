@@ -16,6 +16,14 @@ import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfigurati
 import tech.antibytes.gradle.versioning.api.VersionInfo
 import tech.antibytes.gradle.versioning.api.VersioningError
 
+private fun<T> Boolean.ifElse(ifBranch: T, elseBranch: T): T {
+    return if (this) {
+        ifBranch
+    } else {
+        elseBranch
+    }
+}
+
 class Versioning private constructor(
     private val versionDetails: Closure<VersionDetails>,
     private val configuration: VersioningConfiguration,
@@ -94,7 +102,7 @@ class Versioning private constructor(
         }
     }
 
-    private fun normalize(name: String): String {
+    private fun normalizeVersionName(name: String): String {
         var normalized = name
 
         configuration.normalization.forEach { dangled ->
@@ -105,9 +113,13 @@ class Versioning private constructor(
     }
 
     private fun resolveSnapshotPattern(prefixes: List<String>): Regex {
-        val prefixPattern = prefixes.joinToString("|")
+        return if (prefixes.isEmpty()) {
+            "(.+)".toRegex()
+        } else {
+            val prefixPattern = prefixes.joinToString("|")
 
-        return "($prefixPattern)/(.*)".toRegex()
+            "($prefixPattern)/(.+)".toRegex()
+        }
     }
 
     private fun extractBranchName(
@@ -115,15 +127,19 @@ class Versioning private constructor(
         name: String,
     ): String {
         val pattern = resolveSnapshotPattern(prefixes)
+        val idx = prefixes.isEmpty().ifElse(1, 2)
 
-        return pattern.matchEntire(name)!!.groups[2]!!.value
+        return pattern.matchEntire(name)!!.groups[idx]!!.value
     }
 
-    private fun renderDependencyBotBranch(details: VersionDetails): String {
-        val infix = normalize(
+    private fun renderDependencyBotBranch(
+        normalizedBranchName: String,
+        details: VersionDetails,
+    ): String {
+        val infix = normalizeVersionName(
             extractBranchName(
                 configuration.dependencyBotPrefixes,
-                details.branchName,
+                normalizedBranchName,
             ),
         )
 
@@ -164,10 +180,14 @@ class Versioning private constructor(
         name: String,
     ): String = pattern.matchEntire(name)!!.groups[1]!!.value
 
-    private fun renderFeatureBranch(details: VersionDetails, useGitHash: Boolean): String {
+    private fun renderFeatureBranch(
+        normalizedBranchName: String,
+        details: VersionDetails,
+        useGitHash: Boolean,
+    ): String {
         var infix = extractBranchName(
             configuration.featurePrefixes,
-            details.branchName,
+            normalizedBranchName,
         )
 
         infix = if (configuration.issuePattern is Regex && configuration.issuePattern!!.matches(infix)) {
@@ -188,7 +208,7 @@ class Versioning private constructor(
                 details.version,
                 details.commitDistance,
             ),
-            normalize(infix),
+            normalizeVersionName(infix),
         )
     }
 
@@ -198,22 +218,45 @@ class Versioning private constructor(
         return "$branchNames/.*".toRegex()
     }
 
+    private fun normalizeBranchName(
+        configuration: VersioningConfiguration,
+        details: VersionDetails,
+    ): String? {
+        val delimiter = StringBuilder().run {
+            append(configuration.featurePrefixes.joinToString("|"))
+            append("|")
+            append(configuration.releasePrefixes.joinToString("|"))
+            append("|")
+            append(configuration.dependencyBotPrefixes.joinToString("|"))
+        }.trimStart('|').toString() + "/?"
+
+        val prefix = details.branchName?.run {
+            ".*($delimiter).*".toRegex().matchEntire(this)?.groups?.get(1)?.value
+        } ?: ""
+
+        return details.branchName?.run {
+            prefix + split(delimiter.toRegex()).last()
+        }
+    }
+
     private fun resolveVersionName(details: VersionDetails): String {
         val releaseBranchPattern = resolveReleaseBranchPattern(configuration.releasePrefixes)
         val dependencyBotPattern = resolveSnapshotPattern(configuration.dependencyBotPrefixes)
         val featureBranchPattern = resolveSnapshotPattern(configuration.featurePrefixes)
+        val branchName = normalizeBranchName(configuration, details)
 
         return when {
-            details.branchName == null -> renderReleaseOrSnapshotBranch(
+            branchName == null -> renderReleaseOrSnapshotBranch(
                 details,
                 configuration.useGitHashSnapshotSuffix,
             )
-            details.branchName.matches(releaseBranchPattern) -> renderReleaseOrSnapshotBranch(
+            branchName.matches(releaseBranchPattern) -> renderReleaseOrSnapshotBranch(
                 details,
                 configuration.useGitHashSnapshotSuffix,
             )
-            details.branchName.matches(dependencyBotPattern) -> renderDependencyBotBranch(details)
-            details.branchName.matches(featureBranchPattern) -> renderFeatureBranch(
+            branchName.matches(dependencyBotPattern) -> renderDependencyBotBranch(branchName, details)
+            branchName.matches(featureBranchPattern) -> renderFeatureBranch(
+                branchName,
                 details,
                 configuration.useGitHashFeatureSuffix,
             )

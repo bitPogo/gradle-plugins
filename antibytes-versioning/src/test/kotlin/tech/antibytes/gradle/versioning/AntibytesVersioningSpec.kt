@@ -6,7 +6,6 @@
 
 package tech.antibytes.gradle.versioning
 
-import com.appmattus.kotlinfixture.kotlinFixture
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -18,8 +17,6 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.test.createExtension
 
 class AntibytesVersioningSpec {
-    private val fixture = kotlinFixture()
-
     @Test
     fun `It fulfils Plugin`() {
         val plugin: Any = AntibytesVersioning()
