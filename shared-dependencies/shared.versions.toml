@@ -16,7 +16,7 @@ constraintLayout-core = "1.0.4"
 ## [Overview](https://developer.android.com/jetpack/compose/setup)
 android-compose-animation = "1.5.4"
 android-compose-bom = "2023.10.01"
-android-compose-compiler = "1.5.5"
+android-compose-compiler = "1.5.6"
 android-compose-foundation = "1.5.4"
 android-compose-runtime = "1.5.4"
 android-compose-saveable = "1.5.4"
@@ -89,20 +89,20 @@ junit4 = "4.13.2"
 
 
 ## (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
-kotlinx-atomicfu = "0.22.0"
+kotlinx-atomicfu = "0.23.1"
 ## [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 kotlinx-coroutines = "1.7.3"
 ## [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
-kotlinx-serialization = "1.6.0"
+kotlinx-serialization = "1.6.2"
 ## [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
-kotlinx-dateTime = "0.4.1"
+kotlinx-dateTime = "0.5.0"
 ## [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
 kotlinx-nodeJs = "0.0.7"
 ## [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers/releases)
-kotlin-wrappers = "1.0.0-pre.628"
+kotlin-wrappers = "1.0.0-pre.668"
 
 ## [Ktor](https://github.com/ktorio/ktor)
-ktor = "2.3.5"
+ktor = "2.3.7"
 
 ## [Koin](https://github.com/InsertKoinIO/koin)
 ## [Koin Annotations](https://github.com/InsertKoinIO/koin-annotations)
@@ -111,43 +111,43 @@ koin-core = "3.5.1"
 
 ## [KSP](https://github.com/google/ksp)
 ## [KSP DevTools on MavenCentral](https://mvnrepository.com/artifact/com.google.devtools.ksp/com.google.devtools.ksp.gradle.plugin)
-ksp = "1.9.20-1.0.14"
+ksp = "1.9.21-1.0.16"
 
-## [Compiler Test](https://github.com/tschuchortdev/kotlin-compile-testing)
-compilerTest = "0.3.2"
+## [Compiler Test](https://github.com/ZacSweers/kotlin-compile-testing)
+compilerTest = "0.4.0"
 
 ## [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
 mkDocs = "3.0.0"
 
 ## [Okio](https://square.github.io/okio/)
-square-okio = "3.5.0"
+square-okio = "3.7.0"
 ## [SQLDelight](https://github.com/cashapp/sqldelight/)
-square-sqldelight = "2.0.0"
+square-sqldelight = "2.0.1"
 ## [OkHttp](https://square.github.io/okhttp/)
-square-okhttp = "4.10.0"
+square-okhttp = "4.12.0"
 ## [KotlinPoet](https://github.com/square/kotlinpoet)
-square-kotlinPoet = "1.14.2"
+square-kotlinPoet = "1.15.3"
 
 ## [Turbine](https://github.com/cashapp/turbine/releases)
 turbine = "1.0.0"
 
 ## [Stately](https://github.com/touchlab/Stately)
-stately = "2.0.4"
+stately = "2.0.6"
 
 ## [SLF4J](http://www.slf4j.org/)
-slf4j = "2.0.0"
+slf4j = "2.0.9"
 
 ## [Paparazzi](https://github.com/cashapp/paparazzi)
 paparazzi = "1.3.1"
 
 ## [Roborazzi](https://github.com/takahirom/roborazzi/releases)
-roborazzi = "1.8.0-alpha-4"
+roborazzi = "1.9.0-alpha-1"
 
 ## [UUID](https://github.com/benasher44/uuid)
-uuidKmp = "0.8.1"
+uuidKmp = "0.8.2"
 
 ## [Multiplatform Compose](https://github.com/JetBrains/compose-jb/blob/master/CHANGELOG.md)
-compose-multiplaform = "1.5.10"
+compose-multiplaform = "1.5.11"
 
 [libraries]
 agp = {group = "com.android.tools.build", name = "gradle", version.ref = "agp" }

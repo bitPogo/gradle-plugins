@@ -29,5 +29,5 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
 }
 
-include("utils")
-include("helper")
+include("utils-quality")
+include("helper-quality")
