@@ -109,7 +109,7 @@ abstract class BasePublishingConfiguration(
     )
 
     val versioning = VersioningConfiguration(
-        featurePrefixes = listOf("feature"),
+        featurePrefixes = emptyList(),
     )
 
     val signing = MemorySigningConfiguration(

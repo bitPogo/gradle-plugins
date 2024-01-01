@@ -147,7 +147,7 @@ class BasePublishingConfigurationSpec {
         assertEquals(
             actual = config.versioning,
             expected = VersioningConfiguration(
-                featurePrefixes = listOf("feature"),
+                featurePrefixes = emptyList(),
             ),
         )
 
@@ -272,7 +272,7 @@ class BasePublishingConfigurationSpec {
         assertEquals(
             actual = config.versioning,
             expected = VersioningConfiguration(
-                featurePrefixes = listOf("feature"),
+                featurePrefixes = emptyList(),
             ),
         )
 

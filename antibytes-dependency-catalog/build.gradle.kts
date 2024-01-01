@@ -28,7 +28,7 @@ group = LibraryConfig.group
 antibytesPublishing {
     versioning.set(
         VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
+            featurePrefixes = emptyList(),
             suppressSnapshot = true
         )
     )

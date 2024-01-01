@@ -28,7 +28,7 @@ plugins {
 
 val pluginId = "${LibraryConfig.group}.dependency.node"
 val versioningConfiguration = VersioningConfiguration(
-    featurePrefixes = listOf("feature"),
+    featurePrefixes = emptyList(),
     suppressSnapshot = true
 )
 
