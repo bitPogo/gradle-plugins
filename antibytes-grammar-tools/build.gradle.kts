@@ -31,7 +31,7 @@ plugins {
 
 val pluginId = "${LibraryConfig.group}.grammar"
 val versioningConfiguration = VersioningConfiguration(
-    featurePrefixes = listOf("feature"),
+    featurePrefixes = emptyList(),
     suppressSnapshot = true
 )
 

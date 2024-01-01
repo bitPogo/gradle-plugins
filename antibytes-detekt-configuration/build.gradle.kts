@@ -49,7 +49,7 @@ antibytesCustomComponent {
 antibytesPublishing {
     versioning.set(
         VersioningConfiguration(
-            featurePrefixes = listOf("feature"),
+            featurePrefixes = emptyList(),
             suppressSnapshot = true,
         )
     )
