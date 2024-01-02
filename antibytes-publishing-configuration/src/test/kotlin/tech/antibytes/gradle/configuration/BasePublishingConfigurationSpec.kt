@@ -23,6 +23,7 @@ import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 
+@Suppress("PropertyName")
 private class TestConfig(
     project: Project,
     githubRepository: String,
@@ -47,7 +48,7 @@ class BasePublishingConfigurationSpec {
     fun `It sets the properties provided by the project or System Properties`() {
         // Given
         val project = ProjectBuilder.builder().build()
-        project.buildDir = File("/tmp/somewhere")
+        project.layout.buildDirectory.set(File("/tmp/somewhere"))
         val repository: String = fixture()
 
         // When
@@ -172,7 +173,7 @@ class BasePublishingConfigurationSpec {
     fun `It sets the properties if they are not provided by System Properties`() {
         // Given
         val project = ProjectBuilder.builder().build()
-        project.buildDir = File("/tmp/somewhere")
+        project.layout.buildDirectory.set(File("/tmp/somewhere"))
         val repository: String = fixture()
 
         // When

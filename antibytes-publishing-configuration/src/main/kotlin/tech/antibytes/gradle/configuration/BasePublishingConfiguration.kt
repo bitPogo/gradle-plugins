@@ -36,6 +36,7 @@ abstract class BasePublishingConfiguration(
     private val host = "github.com"
     private val path = "$githubOwner/$githubRepository"
 
+    @Suppress("MemberVisibilityCanBePrivate")
     protected val gitHubRepositoryPath = "$host/$path"
     private val gitHubOwnerPath = "$host/$githubOwner"
 
