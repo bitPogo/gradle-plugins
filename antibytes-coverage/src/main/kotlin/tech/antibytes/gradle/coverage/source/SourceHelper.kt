@@ -18,9 +18,7 @@ internal class SourceHelper : ConfigurationContract.SourceHelper {
         return File(makePath(this))
     }
 
-    private fun mapSourceFiles(source: File): Set<File> {
-        return source.walkBottomUp().toSet()
-    }
+    private fun mapSourceFiles(source: File): Set<File> = source.walkBottomUp().toSet()
 
     private fun resolveSourceFiles(sources: ConfigurationContract.SourceContainer): Set<File> {
         return mutableSetOf<File>()
@@ -42,20 +40,14 @@ internal class SourceHelper : ConfigurationContract.SourceHelper {
         return merged.toFile()
     }
 
-    private fun resolveCommon(platform: List<String>): File {
-        return mergeSource(platform, "commonMain")
-    }
+    private fun resolveCommon(platform: List<String>): File = mergeSource(platform, "commonMain")
 
-    private fun resolvePlatformSource(platform: List<String>): File {
-        return mergeSource(platform, "main")
-    }
+    private fun resolvePlatformSource(platform: List<String>): File = mergeSource(platform, "main")
 
     private fun resolvePlatformSourceKmp(
         context: PlatformContext,
         platform: List<String>,
-    ): File {
-        return mergeSource(platform, "${context.prefix}Main")
-    }
+    ): File = mergeSource(platform, "${context.prefix}Main")
 
     override fun resolveSources(
         project: Project,
