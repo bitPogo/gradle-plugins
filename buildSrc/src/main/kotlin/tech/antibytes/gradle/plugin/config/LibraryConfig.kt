@@ -24,8 +24,8 @@ object LibraryConfig {
         const val year = "2022"
 
         // URL
-        const val host = "github.com"
-        const val path = "$githubOwner/$githubRepository"
+        private const val host = "github.com"
+        private const val path = "$githubOwner/$githubRepository"
 
         const val url = "https://$host/$path"
 
@@ -41,8 +41,8 @@ object LibraryConfig {
         const val licenseDistribution = "repo"
 
         // SCM
-        const val scmUrl = "git://$host/$path.git"
-        const val scmConnection = "scm:$scmUrl"
+        private const val scmUrl = "git://$host/$path.git"
+        private const val scmConnection = "scm:$scmUrl"
         const val scmDeveloperConnection = scmConnection
     }
 }
