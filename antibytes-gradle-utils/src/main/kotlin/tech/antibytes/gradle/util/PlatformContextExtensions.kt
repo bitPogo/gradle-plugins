@@ -21,6 +21,4 @@ fun PlatformContext.isKmp(): Boolean {
     }
 }
 
-fun Set<PlatformContext>.hasAndroidLibrary(): Boolean {
-    return this.any { context -> context.isAndroidLibrary() }
-}
+fun Set<PlatformContext>.hasAndroidLibrary(): Boolean = this.any { context -> context.isAndroidLibrary() }
