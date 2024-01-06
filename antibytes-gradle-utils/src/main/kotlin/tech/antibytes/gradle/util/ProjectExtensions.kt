@@ -18,22 +18,14 @@ fun Project.applyIfNotExists(vararg pluginNames: String) {
     }
 }
 
-fun Project.isKmp(): Boolean {
-    return this.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
-}
+fun Project.isKmp(): Boolean = this.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
 
-fun Project.isAndroidLibrary(): Boolean {
-    return this.plugins.hasPlugin("com.android.library")
-}
+fun Project.isAndroidLibrary(): Boolean = this.plugins.hasPlugin("com.android.library")
 
-fun Project.isAndroidApplication(): Boolean {
-    return this.plugins.hasPlugin("com.android.application")
-}
+fun Project.isAndroidApplication(): Boolean = this.plugins.hasPlugin("com.android.application")
 
 fun Project.isAndroid(): Boolean {
     return this.plugins.hasPlugin("com.android.library") || this.plugins.hasPlugin("com.android.application")
 }
 
-fun Project.isJs(): Boolean {
-    return this.plugins.hasPlugin("org.jetbrains.kotlin.js")
-}
+fun Project.isJs(): Boolean = this.plugins.hasPlugin("org.jetbrains.kotlin.js")
