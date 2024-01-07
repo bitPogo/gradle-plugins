@@ -28,7 +28,6 @@ internal enum class Platform(val platform: String) {
     LINUX_ARM64("linuxArm64"),
     LINUX_ARM32_HFP("linuxArm32Hfp"),
     LINUX_MIPS32("linuxMips32"),
-    LINUX_MIPSEL32("linuxMipsel32"),
     LINUX_X64("linuxX64"),
     MACOS_ARM64("macosArm64"),
     MACOS_X64("macosX64"),
