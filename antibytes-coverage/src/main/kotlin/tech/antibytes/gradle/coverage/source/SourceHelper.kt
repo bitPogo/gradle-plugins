@@ -14,9 +14,7 @@ import tech.antibytes.gradle.util.GradleUtilApiContract.PlatformContext
 import tech.antibytes.gradle.util.isKmp
 
 internal class SourceHelper : ConfigurationContract.SourceHelper {
-    private fun List<String>.toFile(): File {
-        return File(makePath(this))
-    }
+    private fun List<String>.toFile(): File = File(makePath(this))
 
     private fun mapSourceFiles(source: File): Set<File> = source.walkBottomUp().toSet()
 
