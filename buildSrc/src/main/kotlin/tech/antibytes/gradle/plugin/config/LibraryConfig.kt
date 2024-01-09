@@ -41,8 +41,8 @@ object LibraryConfig {
         const val licenseDistribution = "repo"
 
         // SCM
-        private const val scmUrl = "git://$host/$path.git"
-        private const val scmConnection = "scm:$scmUrl"
+        const val scmUrl = "git://$host/$path.git"
+        const val scmConnection = "scm:$scmUrl"
         const val scmDeveloperConnection = scmConnection
     }
 }

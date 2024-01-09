@@ -45,15 +45,17 @@ internal class JacocoVerificationTaskConfigurator(
         }
     }
 
+    private fun CoverageApiContract.JacocoCoverageConfiguration.hasRules(): Boolean {
+        return this.verificationRules.any { rule -> rule.isValidRule() }
+    }
+
     override fun configure(
         project: Project,
         contextId: String,
         configuration: CoverageApiContract.CoverageConfiguration,
     ): Task? {
-        val rules = (configuration as CoverageApiContract.JacocoCoverageConfiguration).verificationRules
-            .filter { rule -> rule.isValidRule() }
-
-        return if (rules.isNotEmpty()) {
+        configuration as CoverageApiContract.JacocoCoverageConfiguration
+        return if (configuration.hasRules()) {
             addVerificationTask(project, contextId, configuration)
         } else {
             null
