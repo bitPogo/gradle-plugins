@@ -14,7 +14,7 @@ import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.util.capitalize
 
 internal class JacocoVerificationTaskConfigurator(
-    private val mapper: JacocoContract.JacocoVerificationRuleMapper = JacocoVerificationRuleMapper(),
+    private val mapper: JacocoContract.JacocoVerificationRuleExecutor = JacocoVerificationRuleExecutor(),
 ) : TaskContract.VerificationTaskConfigurator, JacocoTaskBase() {
     private fun addVerificationTask(
         project: Project,
@@ -40,7 +40,7 @@ internal class JacocoVerificationTaskConfigurator(
 
             violationRules {
                 isFailOnViolation = true
-                mapper.map(this, configuration.verificationRules)
+                mapper.apply(this, configuration.verificationRules)
             }
         }
     }

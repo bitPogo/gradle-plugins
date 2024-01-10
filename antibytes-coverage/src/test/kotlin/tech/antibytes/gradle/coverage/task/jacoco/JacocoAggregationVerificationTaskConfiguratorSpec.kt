@@ -321,7 +321,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
     @Test
     fun `Given configure is called with a Project, ContextId and Configuration it aggregates the Configurations from its Subprojects and adds a VerificationTask for Jvm`() {
         // Given
-        val mapper: JacocoVerificationRuleMapper = mockk()
+        val mapper: JacocoVerificationRuleExecutor = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val configuration = JvmJacocoAggregationConfiguration(
@@ -530,7 +530,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             jacocoTask.violationRules(probe)
         }
 
-        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.apply(violationRules, configuration.verificationRules) } just Runs
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
@@ -556,13 +556,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(setOf(executionFiles)) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
+        verify(exactly = 1) { mapper.apply(violationRules, configuration.verificationRules) }
     }
 
     @Test
     fun `Given configure is called with a Project, ContextId and Configuration it aggregates the Configurations from its Subprojects, while filtering additional Classes for Jvm`() {
         // Given
-        val mapper: JacocoVerificationRuleMapper = mockk()
+        val mapper: JacocoVerificationRuleExecutor = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val configuration = JvmJacocoAggregationConfiguration(
@@ -766,7 +766,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             jacocoTask.violationRules(probe)
         }
 
-        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.apply(violationRules, configuration.verificationRules) } just Runs
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
@@ -792,7 +792,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(setOf(executionFiles)) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
+        verify(exactly = 1) { mapper.apply(violationRules, configuration.verificationRules) }
     }
 
     @Test
@@ -1155,9 +1155,9 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             jacocoTask.violationRules(probe)
         }
 
-        val mapper: JacocoContract.JacocoVerificationRuleMapper = mockk {
+        val mapper: JacocoContract.JacocoVerificationRuleExecutor = mockk {
             every {
-                map(
+                apply(
                     violationRules,
                     configuration.verificationRules,
                 )
@@ -1188,13 +1188,13 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(setOf(executionFiles)) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
+        verify(exactly = 1) { mapper.apply(violationRules, configuration.verificationRules) }
     }
 
     @Test
     fun `Given configure is called with a Project, ContextId and Configuration it aggregates the Configurations while filtering additional Classes for Android`() {
         // Given
-        val mapper: JacocoVerificationRuleMapper = mockk()
+        val mapper: JacocoVerificationRuleExecutor = mockk()
         val project: Project = mockk()
         val contextId: String = fixture()
         val variant: String = fixture()
@@ -1430,7 +1430,7 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
             jacocoTask.violationRules(probe)
         }
 
-        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.apply(violationRules, configuration.verificationRules) } just Runs
 
         // When
         val verificator = JacocoAggregationVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
@@ -1456,6 +1456,6 @@ class JacocoAggregationVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(setOf(executionFiles)) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
+        verify(exactly = 1) { mapper.apply(violationRules, configuration.verificationRules) }
     }
 }

@@ -10,8 +10,8 @@ import org.gradle.testing.jacoco.tasks.rules.JacocoViolationRulesContainer
 import tech.antibytes.gradle.coverage.CoverageApiContract
 
 internal interface JacocoContract {
-    interface JacocoVerificationRuleMapper {
-        fun map(
+    interface JacocoVerificationRuleExecutor {
+        fun apply(
             generator: JacocoViolationRulesContainer,
             rules: Set<CoverageApiContract.JacocoVerificationRule>,
         )

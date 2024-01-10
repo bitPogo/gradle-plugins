@@ -19,31 +19,31 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 
-class JacocoVerificationRuleMapperSpec {
+class JacocoVerificationRuleExecutorSpec {
     private val fixture = kotlinFixture()
 
     @Test
     fun `It fulfils JacocoVerificationRuleMapper`() {
-        val mapper: Any = JacocoVerificationRuleMapper()
+        val mapper: Any = JacocoVerificationRuleExecutor()
 
-        assertTrue(mapper is JacocoContract.JacocoVerificationRuleMapper)
+        assertTrue(mapper is JacocoContract.JacocoVerificationRuleExecutor)
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and an empty Set of Rules, it returns a empty Set`() {
+    fun `Given apply is called with a JacocoRuleGenerator and an empty Set of Rules, it returns a empty Set`() {
         // Given
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = emptySet<CoverageApiContract.JacocoVerificationRule>()
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         verify(exactly = 0) { generator.rule(any()) }
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules and the rules contain no values, it returns a Set of default JacocoViolationRules`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules and the rules contain no values, it returns a Set of default JacocoViolationRules`() {
         // Given
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
@@ -57,7 +57,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual1
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -72,7 +72,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, which contains a Scope, it returns a set of JacocoViolationRules, with a customized Scope`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, which contains a Scope, it returns a set of JacocoViolationRules, with a customized Scope`() {
         // Given
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
@@ -86,7 +86,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -96,7 +96,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, which contains a Flag for enable the rule, it returns a set of JacocoViolationRules, with a customized Flag`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, which contains a Flag for enable the rule, it returns a set of JacocoViolationRules, with a customized Flag`() {
         // Given
         val enabled: Boolean = fixture()
 
@@ -112,7 +112,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -122,7 +122,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, which contains Path of included Files, it returns a set of JacocoViolationRules, with the given Includes`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, which contains Path of included Files, it returns a set of JacocoViolationRules, with the given Includes`() {
         // Given
         val included: Set<String> = fixture()
 
@@ -138,7 +138,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -148,7 +148,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, which contains Path of Excludes Files, it returns a set of JacocoViolationRules, with the given Excludes`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, which contains Path of Excludes Files, it returns a set of JacocoViolationRules, with the given Excludes`() {
         // Given
         val excludes: Set<String> = fixture()
 
@@ -164,7 +164,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -174,7 +174,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, it will not set a limit if no minimum or maximum are are present`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, it will not set a limit if no minimum or maximum are are present`() {
         // Given
         val generator: JacocoViolationRulesContainer = mockk()
         val rules = setOf(
@@ -188,7 +188,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -198,7 +198,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, which contain a Minimum, it sets the Minimum of the Limit`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, which contain a Minimum, it sets the Minimum of the Limit`() {
         // Given
         val minimum: BigDecimal = fixture()
 
@@ -214,7 +214,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -224,7 +224,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, which contain a Maximum, it sets the Maximum of the Limit`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, which contain a Maximum, it sets the Maximum of the Limit`() {
         // Given
         val maximum: BigDecimal = fixture()
 
@@ -240,7 +240,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -250,7 +250,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, which contain a Maximum and a Counter, it sets the Counter of the Limit`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, which contain a Maximum and a Counter, it sets the Counter of the Limit`() {
         // Given
         val maximum: BigDecimal = fixture()
 
@@ -267,7 +267,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(
@@ -277,7 +277,7 @@ class JacocoVerificationRuleMapperSpec {
     }
 
     @Test
-    fun `Given map is called with a JacocoRuleGenerator and a Set of Rules, which contain a Maximum and a Measurement, it sets the Measurement of the Limit`() {
+    fun `Given apply is called with a JacocoRuleGenerator and a Set of Rules, which contain a Maximum and a Measurement, it sets the Measurement of the Limit`() {
         // Given
         val maximum: BigDecimal = fixture()
 
@@ -294,7 +294,7 @@ class JacocoVerificationRuleMapperSpec {
         every { generator.rule(any()) } returns actual
 
         // When
-        JacocoVerificationRuleMapper().map(generator, rules)
+        JacocoVerificationRuleExecutor().apply(generator, rules)
 
         // Then
         assertEquals(

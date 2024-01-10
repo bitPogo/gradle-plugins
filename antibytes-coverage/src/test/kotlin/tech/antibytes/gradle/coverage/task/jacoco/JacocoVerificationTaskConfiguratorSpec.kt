@@ -42,7 +42,7 @@ import tech.antibytes.gradle.util.capitalize
 
 class JacocoVerificationTaskConfiguratorSpec {
     private val fixture = kotlinFixture()
-    private val mapper: JacocoVerificationRuleMapper = mockk()
+    private val mapper: JacocoVerificationRuleExecutor = mockk()
 
     @BeforeEach
     fun setup() {
@@ -207,7 +207,7 @@ class JacocoVerificationTaskConfiguratorSpec {
             mockk(),
         ) { probe -> jacocoTask.violationRules(probe) }
 
-        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.apply(violationRules, configuration.verificationRules) } just Runs
 
         // When
         val verificator = JacocoVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
@@ -238,7 +238,7 @@ class JacocoVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(executionFiles) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
+        verify(exactly = 1) { mapper.apply(violationRules, configuration.verificationRules) }
     }
 
     @Test
@@ -353,7 +353,7 @@ class JacocoVerificationTaskConfiguratorSpec {
             mockk(),
         ) { probe -> jacocoTask.violationRules(probe) }
 
-        every { mapper.map(violationRules, configuration.verificationRules) } just Runs
+        every { mapper.apply(violationRules, configuration.verificationRules) } just Runs
 
         // When
         val verificator = JacocoVerificationTaskConfigurator(mapper).configure(project, contextId, configuration)
@@ -384,6 +384,6 @@ class JacocoVerificationTaskConfiguratorSpec {
         verify(exactly = 1) { executionData.setFrom(executionFiles) }
 
         verify(exactly = 1) { violationRules.isFailOnViolation = true }
-        verify(exactly = 1) { mapper.map(violationRules, configuration.verificationRules) }
+        verify(exactly = 1) { mapper.apply(violationRules, configuration.verificationRules) }
     }
 }
