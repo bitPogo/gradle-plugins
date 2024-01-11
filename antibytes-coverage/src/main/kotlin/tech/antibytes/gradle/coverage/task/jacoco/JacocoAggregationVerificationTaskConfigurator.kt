@@ -43,13 +43,16 @@ internal class JacocoAggregationVerificationTaskConfigurator(
         }
     }
 
+    private fun CoverageApiContract.JacocoAggregationConfiguration.hasRules(): Boolean {
+        return this.verificationRules.any { rule -> rule.isValidRule() }
+    }
+
     override fun configure(
         project: Project,
         contextId: String,
         configuration: CoverageApiContract.CoverageConfiguration,
     ): Task? {
-        val rules = (configuration as CoverageApiContract.JacocoAggregationConfiguration).verificationRules
-            .filter { rule -> rule.isValidRule() }
+        configuration as CoverageApiContract.JacocoAggregationConfiguration
 
         val aggregator = aggregate(
             project,
@@ -57,7 +60,7 @@ internal class JacocoAggregationVerificationTaskConfigurator(
             configuration,
         )
 
-        return if (rules.isNotEmpty() && aggregator.dependencies.isNotEmpty()) {
+        return if (configuration.hasRules() && aggregator.dependencies.isNotEmpty()) {
             addVerificationTask(
                 project,
                 contextId,
