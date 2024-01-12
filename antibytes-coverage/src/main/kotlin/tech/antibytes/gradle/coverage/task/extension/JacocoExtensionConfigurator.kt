@@ -13,8 +13,8 @@ import tech.antibytes.gradle.coverage.task.TaskContract
 
 internal class JacocoExtensionConfigurator : TaskContract.JacocoExtensionConfigurator {
     override fun configure(project: Project, configuration: AntibytesCoveragePluginExtension) {
-        val extension = project.extensions.getByType(JacocoPluginExtension::class.java)
-
-        extension.toolVersion = configuration.jacocoVersion.get()
+        project.extensions.getByType(JacocoPluginExtension::class.java).apply {
+            toolVersion = configuration.jacocoVersion.get()
+        }
     }
 }
