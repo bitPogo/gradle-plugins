@@ -37,19 +37,22 @@ internal object AndroidLibraryConfigurator : ConfigurationContract.Configurator<
         }
 
         extension.sourceSets {
-            val main = getByName("main")
-            main.manifest.srcFile(configuration.mainSource.manifest)
-            main.java.setSrcDirs(configuration.mainSource.sourceDirectories)
-            main.res.setSrcDirs(configuration.mainSource.resourceDirectories)
+            getByName("main").apply {
+                manifest.srcFile(configuration.mainSource.manifest)
+                java.setSrcDirs(configuration.mainSource.sourceDirectories)
+                res.setSrcDirs(configuration.mainSource.resourceDirectories)
+            }
 
-            val test = getByName("test")
-            test.java.setSrcDirs(configuration.unitTestSource.sourceDirectories)
-            test.res.setSrcDirs(configuration.unitTestSource.resourceDirectories)
+            getByName("test").apply {
+                java.setSrcDirs(configuration.unitTestSource.sourceDirectories)
+                res.setSrcDirs(configuration.unitTestSource.resourceDirectories)
+            }
 
             if (configuration.androidTest is TestSource) {
-                val androidTest = getByName("androidTest")
-                androidTest.java.setSrcDirs(configuration.androidTest!!.sourceDirectories)
-                androidTest.res.setSrcDirs(configuration.androidTest!!.resourceDirectories)
+                getByName("androidTest").apply {
+                    java.setSrcDirs(configuration.androidTest!!.sourceDirectories)
+                    res.setSrcDirs(configuration.androidTest!!.resourceDirectories)
+                }
             }
         }
     }
