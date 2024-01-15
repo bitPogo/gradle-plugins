@@ -28,9 +28,7 @@ class Versioning private constructor(
     private val versionDetails: Closure<VersionDetails>,
     private val configuration: VersioningConfiguration,
 ) : VersioningContract.Versioning {
-    private fun removeVersionPrefix(version: String): String {
-        return version.substringAfter(configuration.versionPrefix)
-    }
+    private fun removeVersionPrefix(version: String): String = version.substringAfter(configuration.versionPrefix)
 
     private fun MutableList<String>.addSnapshotSuffix() {
         if (!configuration.suppressSnapshot) {
