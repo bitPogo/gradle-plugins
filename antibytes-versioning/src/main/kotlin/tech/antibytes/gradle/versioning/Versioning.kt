@@ -16,7 +16,7 @@ import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfigurati
 import tech.antibytes.gradle.versioning.api.VersionInfo
 import tech.antibytes.gradle.versioning.api.VersioningError
 
-private fun<T> Boolean.ifElse(ifBranch: T, elseBranch: T): T {
+private fun <T> Boolean.ifElse(ifBranch: T, elseBranch: T): T {
     return if (this) {
         ifBranch
     } else {
@@ -266,12 +266,7 @@ class Versioning private constructor(
 
     override fun versionName(): String = resolveVersionName(versionDetails())
 
-    override fun versionInfo(): VersionInfo {
-        return VersionInfo(
-            resolveVersionName(versionDetails()),
-            versionDetails(),
-        )
-    }
+    override fun versionInfo(): VersionInfo = VersionInfo(resolveVersionName(versionDetails()), versionDetails())
 
     companion object : VersioningContract.VersioningFactory {
         private const val SEPARATOR = "-"
