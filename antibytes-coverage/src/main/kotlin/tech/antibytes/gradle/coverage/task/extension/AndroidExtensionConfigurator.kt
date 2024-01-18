@@ -17,18 +17,19 @@ import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.util.decapitalize
 
 internal class AndroidExtensionConfigurator : TaskContract.AndroidExtensionConfigurator {
+    private fun <T: CommonExtension<*, *, *, *, *>> Project.configure(
+        extension:  Class<T>,
+        action: (T) -> Unit
+    ) = extensions.configure(extension, action)
+
     private fun resolveAndroidExtension(
         project: Project,
         action: (CommonExtension<*, *, *, *, *>) -> Unit,
     ) {
         if (project.plugins.findPlugin("com.android.application") is Plugin<*>) {
-            project.extensions.configure(ApplicationExtension::class.java) {
-                action(this)
-            }
+            project.configure(ApplicationExtension::class.java, action)
         } else {
-            project.extensions.configure(LibraryExtension::class.java) {
-                action(this)
-            }
+            project.configure(LibraryExtension::class.java, action)
         }
     }
 

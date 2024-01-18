@@ -6,7 +6,6 @@
 
 package tech.antibytes.gradle.quality.linter
 
-import com.diffplug.gradle.spotless.BaseKotlinExtension
 import com.diffplug.gradle.spotless.FormatExtension
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.gradle.api.Project
@@ -27,24 +26,25 @@ internal object Spotless : Configurator() {
         endWithNewline()
     }
 
-    private fun BaseKotlinExtension.configure(configuration: PartialConfiguration) {
-        configureFormat(configuration)
-        ktlint(ktlintVersion).apply {
-            if (configuration.disabledRules.isNotEmpty()) {
-                this.editorConfigOverride(configuration.disabledRules)
-            }
-        }
-    }
-
     private fun SpotlessExtension.configureCodeLinter(configuration: PartialConfiguration) {
         kotlin {
-            configure(configuration)
+            configureFormat(configuration)
+            ktlint(ktlintVersion).apply {
+                if (configuration.disabledRules.isNotEmpty()) {
+                    this.editorConfigOverride(configuration.disabledRules)
+                }
+            }
         }
     }
 
     private fun SpotlessExtension.configureGradleLinter(configuration: PartialConfiguration) {
         kotlinGradle {
-            configure(configuration)
+            configureFormat(configuration)
+            ktlint(ktlintVersion).apply {
+                if (configuration.disabledRules.isNotEmpty()) {
+                    this.editorConfigOverride(configuration.disabledRules)
+                }
+            }
         }
     }
 
