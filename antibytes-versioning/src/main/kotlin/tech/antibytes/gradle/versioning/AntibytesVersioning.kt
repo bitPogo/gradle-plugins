@@ -19,7 +19,7 @@ class AntibytesVersioning : Plugin<Project> {
 
     private fun Project.createExtension(): Extension = extensions.create(
         EXTENSION_ID,
-        AntiBytesVersioningPluginExtension::class.java
+        AntiBytesVersioningPluginExtension::class.java,
     )
 
     override fun apply(target: Project) {

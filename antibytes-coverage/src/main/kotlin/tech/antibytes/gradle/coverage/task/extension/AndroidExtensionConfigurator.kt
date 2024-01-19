@@ -17,9 +17,9 @@ import tech.antibytes.gradle.coverage.task.TaskContract
 import tech.antibytes.gradle.util.decapitalize
 
 internal class AndroidExtensionConfigurator : TaskContract.AndroidExtensionConfigurator {
-    private fun <T: CommonExtension<*, *, *, *, *>> Project.configure(
-        extension:  Class<T>,
-        action: (T) -> Unit
+    private fun <T : CommonExtension<*, *, *, *, *>> Project.configure(
+        extension: Class<T>,
+        action: (T) -> Unit,
     ) = extensions.configure(extension, action)
 
     private fun resolveAndroidExtension(

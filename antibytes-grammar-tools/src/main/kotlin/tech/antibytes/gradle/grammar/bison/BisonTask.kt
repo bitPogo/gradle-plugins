@@ -34,22 +34,23 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
         filePrefixMap.convention(emptyMap())
     }
 
+    private fun errorIf(
+        condition: Boolean,
+        logger: Logger,
+        message: String,
+        error: BisonTaskError,
+    ) {
+        if (condition) {
+            logger.error(message)
+            throw error
+        }
+    }
+
     @Throws(BisonTaskError::class)
     private fun checkRequiredParameter(logger: Logger) {
-        if (!executable.isPresent) {
-            logger.error(BisonTaskError.MISSING_BISON_EXEC)
-            throw BisonTaskError.MissingBisonExecError()
-        }
-
-        if (!grammarFile.isPresent) {
-            logger.error(BisonTaskError.MISSING_GRAMMAR_FILE)
-            throw BisonTaskError.MissingGrammarFileError()
-        }
-
-        if (!outputFile.isPresent) {
-            logger.error(BisonTaskError.MISSING_OUTPUT_FILE)
-            throw BisonTaskError.MissingOutputFileError()
-        }
+        errorIf(!executable.isPresent, logger, BisonTaskError.MISSING_BISON_EXEC, BisonTaskError.MissingBisonExecError())
+        errorIf(!grammarFile.isPresent, logger, BisonTaskError.MISSING_GRAMMAR_FILE, BisonTaskError.MissingGrammarFileError())
+        errorIf(!outputFile.isPresent, logger, BisonTaskError.MISSING_OUTPUT_FILE, BisonTaskError.MissingOutputFileError())
     }
 
     private fun addBooleanOptions(arguments: MutableList<String>) {
