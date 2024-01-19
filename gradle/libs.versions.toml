@@ -1,6 +1,6 @@
 [versions]
 # [Kotlin](https://kotlinlang.org/docs/releases.html)
-kotlin = "1.9.21"
+kotlin = "1.9.22"
 
 # [Gradle](https://gradle.org/releases/)
 gradle = "8.5.0"
@@ -24,7 +24,7 @@ publishing = "6.8.0.202311291450-r"
 versioning = "3.0.0" # see: https://github.com/palantir/gradle-git-version/issues/353
 ## [AGP](https://developer.android.com/studio/releases/gradle-plugin)
 ## [AGP on Maven](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
-agp = "8.2.0"
+agp = "8.2.1"
 # [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
 spotless = "6.23.3"
 # [KTLint](https://github.com/pinterest/ktlint)

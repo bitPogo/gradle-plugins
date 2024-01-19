@@ -1,6 +1,4 @@
 [versions]
-## [Android Gradle Plugin](https://developer.android.com/studio/releases/gradle-plugin)
-agp = "8.2.2"
 ## [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
 appCompact = "1.6.1"
 ## [Coil](https://github.com/coil-kt/coil)
