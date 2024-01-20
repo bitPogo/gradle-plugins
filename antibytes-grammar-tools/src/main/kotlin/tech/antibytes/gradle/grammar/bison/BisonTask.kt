@@ -79,30 +79,22 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
         }
     }
 
+    private fun MutableList<String>.addIf(
+        condition: Boolean,
+        value: String
+    ) {
+        if (condition) {
+            add(value)
+        }
+    }
+
     private fun addFileOptions(arguments: MutableList<String>) {
-        if (customSkeletonFile.isPresent) {
-            arguments.add("--skeleton=${customSkeletonFile.get().asFile.absolutePath}")
-        }
-
-        if (header.isPresent) {
-            arguments.add("--header=${header.get().asFile.absolutePath}")
-        }
-
-        if (reportFile.isPresent) {
-            arguments.add("--report-file=${reportFile.get().asFile.absolutePath}")
-        }
-
-        if (graphFile.isPresent) {
-            arguments.add("--graph=${graphFile.get().asFile.absolutePath}")
-        }
-
-        if (xmlReport.isPresent) {
-            arguments.add("--xml=${xmlReport.get().asFile.absolutePath}")
-        }
-
-        if (style.isPresent) {
-            arguments.add("--style=${style.get().asFile.absolutePath}")
-        }
+        arguments.addIf(customSkeletonFile.isPresent, "--skeleton=${customSkeletonFile.get().asFile.absolutePath}")
+        arguments.addIf(header.isPresent, "--header=${header.get().asFile.absolutePath}")
+        arguments.addIf(reportFile.isPresent, "--report-file=${reportFile.get().asFile.absolutePath}")
+        arguments.addIf(graphFile.isPresent, "--graph=${graphFile.get().asFile.absolutePath}")
+        arguments.addIf(xmlReport.isPresent, "--xml=${xmlReport.get().asFile.absolutePath}")
+        arguments.addIf(style.isPresent, "--style=${style.get().asFile.absolutePath}")
     }
 
     private fun addStringOptions(arguments: MutableList<String>) {
