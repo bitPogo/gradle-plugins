@@ -98,31 +98,22 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
     }
 
     private fun addStringOptions(arguments: MutableList<String>) {
-        if (namePrefix.isPresent) {
-            arguments.add("--name-prefix=${namePrefix.get()}")
-        }
-
-        if (filePrefix.isPresent) {
-            arguments.add("--file-prefix=${filePrefix.get()}")
-        }
+        arguments.addIf(namePrefix.isPresent, "--name-prefix=${namePrefix.get()}")
+        arguments.addIf(filePrefix.isPresent, "--file-prefix=${filePrefix.get()}")
 
         if (report.get().isNotEmpty()) {
             val reportOptions = report.get().map { option -> option.value }
             arguments.add("--report=${reportOptions.joinToString(",")}")
         }
 
-        if (language.isPresent) {
-            arguments.add("--language=${language.get()}")
-        }
+        arguments.addIf(language.isPresent, "--language=${language.get()}")
 
         if (features.get().isNotEmpty()) {
             val featureOptions = features.get().map { option -> option.value }
             arguments.add("--feature=${featureOptions.joinToString(",")}")
         }
 
-        if (color.isPresent) {
-            arguments.add("--color=${color.get().value}")
-        }
+        arguments.addIf(color.isPresent, "--color=${color.get().value}")
     }
 
     private fun concatenateMapOption(map: Map<String, String>): String {
