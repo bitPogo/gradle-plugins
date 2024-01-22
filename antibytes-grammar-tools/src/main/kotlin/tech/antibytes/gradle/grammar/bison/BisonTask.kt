@@ -123,17 +123,9 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
     }
 
     private fun addMapOptions(arguments: MutableList<String>) {
-        if (define.get().isNotEmpty()) {
-            arguments.add("--define=${concatenateMapOption(define.get())}")
-        }
-
-        if (forceDefine.get().isNotEmpty()) {
-            arguments.add("--force-define=${concatenateMapOption(forceDefine.get())}")
-        }
-
-        if (filePrefixMap.get().isNotEmpty()) {
-            arguments.add("--file-prefix-map=${concatenateMapOption(filePrefixMap.get())}")
-        }
+        arguments.addIf(define.get().isNotEmpty(), "--define=${concatenateMapOption(define.get())}")
+        arguments.addIf(forceDefine.get().isNotEmpty(), "--force-define=${concatenateMapOption(forceDefine.get())}")
+        arguments.addIf(filePrefixMap.get().isNotEmpty(), "--file-prefix-map=${concatenateMapOption(filePrefixMap.get())}")
     }
 
     private fun addErrorOptions(arguments: MutableList<String>) {
