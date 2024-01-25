@@ -182,12 +182,6 @@ internal object Client {
         id = "ktor-client-jetty",
     )
 
-    val json = MavenKmpArtifact(
-        group = group,
-        id = "ktor-client-encoding",
-        platforms = allPlatforms,
-    )
-
     val logging = MavenKmpArtifact(
         group = group,
         id = "ktor-client-logging",
