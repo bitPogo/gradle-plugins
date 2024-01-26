@@ -8,7 +8,7 @@ package tech.antibytes.gradle.quality
 
 internal abstract class Configurator : QualityContract.Configurator {
     protected fun <T : Any> T?.applyIfNotNull(action: (T) -> Unit) {
-        if (this != null) {
+        this?.run {
             action(this)
         }
     }
