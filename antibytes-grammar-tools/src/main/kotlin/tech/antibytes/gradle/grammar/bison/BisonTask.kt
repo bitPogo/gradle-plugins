@@ -81,7 +81,7 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
 
     private fun MutableList<String>.addIf(
         condition: Boolean,
-        value: String
+        value: String,
     ) {
         if (condition) {
             add(value)
