@@ -54,29 +54,12 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
     }
 
     private fun addBooleanOptions(arguments: MutableList<String>) {
-        if (debug.get()) {
-            arguments.add("--debug")
-        }
-
-        if (locations.get()) {
-            arguments.add("--locations")
-        }
-
-        if (noLines.get()) {
-            arguments.add("--no-lines")
-        }
-
-        if (update.get()) {
-            arguments.add("--update")
-        }
-
-        if (tokenTable.get()) {
-            arguments.add("--token-table")
-        }
-
-        if (verbose.get()) {
-            arguments.add("--verbose")
-        }
+        arguments.addIf(debug.get(), "--debug")
+        arguments.addIf(locations.get(), "--locations")
+        arguments.addIf(noLines.get(), "--no-lines")
+        arguments.addIf(update.get(), "--update")
+        arguments.addIf(tokenTable.get(), "--token-table")
+        arguments.addIf(verbose.get(), "--verbose")
     }
 
     private fun MutableList<String>.addIf(
