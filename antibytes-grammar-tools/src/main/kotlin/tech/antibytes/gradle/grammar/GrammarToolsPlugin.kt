@@ -10,7 +10,5 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 class GrammarToolsPlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        /* Do nothing */
-    }
+    override fun apply(target: Project) = Unit
 }
