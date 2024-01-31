@@ -16,23 +16,23 @@ android-compose-animation-graphics = "1.5.4"
 android-compose-animation-runtime = "1.5.4"
 android-compose-bom = "2022.11.00"
 android-compose-compiler = "1.3.2"
-android-compose-foundation-core = "1.5.2"
-android-compose-foundation-layout = "1.5.2"
+android-compose-foundation-core = "1.5.4"
+android-compose-foundation-layout = "1.5.4"
 android-compose-runtime = "1.2.1"
 android-compose-saveable = "1.2.1"
 android-compose-ui-core = "1.5.4"
 android-compose-ui-geometry = "1.5.4"
 android-compose-ui-graphics = "1.5.4"
 android-compose-ui-text = "1.5.4"
-android-compose-ui-tooling-core = "1.5.1"
-android-compose-ui-tooling-data = "1.5.1"
-android-compose-ui-tooling-preview = "1.5.1"
+android-compose-ui-tooling-core = "1.5.4"
+android-compose-ui-tooling-data = "1.5.4"
+android-compose-ui-tooling-preview = "1.5.4"
 android-compose-ui-unit = "1.5.4"
 android-compose-ui-util = "1.5.4"
 android-constraintLayout-compose = "1.0.1"
 android-constraintLayout-core = "1.0.4"
 android-constraintLayout-runtime = "2.1.4"
-android-desugar = "1.1.5"
+android-desugar = "2.0.4"
 android-hilt-compiler = "2.44"
 android-hilt-compose = "1.0.0"
 android-hilt-core = "2.44"
@@ -329,7 +329,6 @@ node-sqlJs = "1.8.0"
 python-mkdocs-extraData = "0.2.5"
 python-mkdocs-includeMarkdown = "6.0.3"
 python-mkdocs-kroki = "0.6.1"
-python-mkdocs-material = "9.4.7"
 python-mkdocs-minify = "0.7.1"
 python-mkdocs-pygments = "2.16.1"
 python-mkdocs-pymdown = "10.3.1"
@@ -495,7 +494,6 @@ common-ktor-client-darwin = {group = "io.ktor", name = "ktor-client-darwin", ver
 common-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy", version.ref = "ktor-client-darwinLegacy" }
 common-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding", version.ref = "ktor-client-encoding" }
 common-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios", version.ref = "ktor-client-ios" }
-common-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding", version.ref = "ktor-client-json" }
 common-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor-client-logging" }
 common-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor-client-resources" }
 common-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation", version.ref = "ktor-client-serialisation" }
@@ -615,7 +613,6 @@ iosarm32-ktor-client-darwin = {group = "io.ktor", name = "ktor-client-darwin-ios
 iosarm32-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-iosarm32", version.ref = "ktor-client-darwinLegacy" }
 iosarm32-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-iosarm32", version.ref = "ktor-client-encoding" }
 iosarm32-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-iosarm32", version.ref = "ktor-client-ios" }
-iosarm32-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-iosarm32", version.ref = "ktor-client-json" }
 iosarm32-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-iosarm32", version.ref = "ktor-client-logging" }
 iosarm32-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-iosarm32", version.ref = "ktor-client-resources" }
 iosarm32-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-iosarm32", version.ref = "ktor-client-serialisation" }
@@ -685,7 +682,6 @@ iosarm64-ktor-client-darwin = {group = "io.ktor", name = "ktor-client-darwin-ios
 iosarm64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-iosarm64", version.ref = "ktor-client-darwinLegacy" }
 iosarm64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-iosarm64", version.ref = "ktor-client-encoding" }
 iosarm64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-iosarm64", version.ref = "ktor-client-ios" }
-iosarm64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-iosarm64", version.ref = "ktor-client-json" }
 iosarm64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-iosarm64", version.ref = "ktor-client-logging" }
 iosarm64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-iosarm64", version.ref = "ktor-client-resources" }
 iosarm64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-iosarm64", version.ref = "ktor-client-serialisation" }
@@ -761,7 +757,6 @@ iossimulatorarm64-ktor-client-darwin = {group = "io.ktor", name = "ktor-client-d
 iossimulatorarm64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-iossimulatorarm64", version.ref = "ktor-client-darwinLegacy" }
 iossimulatorarm64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-iossimulatorarm64", version.ref = "ktor-client-encoding" }
 iossimulatorarm64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-iossimulatorarm64", version.ref = "ktor-client-ios" }
-iossimulatorarm64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-iossimulatorarm64", version.ref = "ktor-client-json" }
 iossimulatorarm64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-iossimulatorarm64", version.ref = "ktor-client-logging" }
 iossimulatorarm64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-iossimulatorarm64", version.ref = "ktor-client-resources" }
 iossimulatorarm64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-iossimulatorarm64", version.ref = "ktor-client-serialisation" }
@@ -837,7 +832,6 @@ iosx64-ktor-client-darwin = {group = "io.ktor", name = "ktor-client-darwin-iosx6
 iosx64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-iosx64", version.ref = "ktor-client-darwinLegacy" }
 iosx64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-iosx64", version.ref = "ktor-client-encoding" }
 iosx64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-iosx64", version.ref = "ktor-client-ios" }
-iosx64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-iosx64", version.ref = "ktor-client-json" }
 iosx64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-iosx64", version.ref = "ktor-client-logging" }
 iosx64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-iosx64", version.ref = "ktor-client-resources" }
 iosx64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-iosx64", version.ref = "ktor-client-serialisation" }
@@ -948,7 +942,6 @@ js-ktor-client-auth = {group = "io.ktor", name = "ktor-client-auth-js", version.
 js-ktor-client-contentNegotiation = {group = "io.ktor", name = "ktor-client-content-negotiation-js", version.ref = "ktor-client-contentNegotiation" }
 js-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-js", version.ref = "ktor-client-core" }
 js-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-js", version.ref = "ktor-client-encoding" }
-js-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-js", version.ref = "ktor-client-json" }
 js-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-js", version.ref = "ktor-client-logging" }
 js-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-js", version.ref = "ktor-client-resources" }
 js-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-js", version.ref = "ktor-client-serialisation" }
@@ -1025,7 +1018,6 @@ jvm-ktor-client-gson = {group = "io.ktor", name = "ktor-client-gson", version.re
 jvm-ktor-client-jackson = {group = "io.ktor", name = "ktor-client-jackson", version.ref = "ktor-client-jackson" }
 jvm-ktor-client-java = {group = "io.ktor", name = "ktor-client-java", version.ref = "ktor-client-java" }
 jvm-ktor-client-jetty = {group = "io.ktor", name = "ktor-client-jetty", version.ref = "ktor-client-jetty" }
-jvm-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-jvm", version.ref = "ktor-client-json" }
 jvm-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor-client-logging" }
 jvm-ktor-client-okhttp = {group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor-client-okhttp" }
 jvm-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-jvm", version.ref = "ktor-client-resources" }
@@ -1182,7 +1174,6 @@ linuxx64-ktor-client-contentNegotiation = {group = "io.ktor", name = "ktor-clien
 linuxx64-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-linuxx64", version.ref = "ktor-client-core" }
 linuxx64-ktor-client-curl = {group = "io.ktor", name = "ktor-client-curl-linuxx64", version.ref = "ktor-client-curl" }
 linuxx64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-linuxx64", version.ref = "ktor-client-encoding" }
-linuxx64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-linuxx64", version.ref = "ktor-client-json" }
 linuxx64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-linuxx64", version.ref = "ktor-client-logging" }
 linuxx64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-linuxx64", version.ref = "ktor-client-resources" }
 linuxx64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-linuxx64", version.ref = "ktor-client-serialisation" }
@@ -1258,7 +1249,6 @@ macosarm64-ktor-client-curl = {group = "io.ktor", name = "ktor-client-curl-macos
 macosarm64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-macosarm64", version.ref = "ktor-client-darwinLegacy" }
 macosarm64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-macosarm64", version.ref = "ktor-client-encoding" }
 macosarm64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-macosarm64", version.ref = "ktor-client-ios" }
-macosarm64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-macosarm64", version.ref = "ktor-client-json" }
 macosarm64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-macosarm64", version.ref = "ktor-client-logging" }
 macosarm64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-macosarm64", version.ref = "ktor-client-resources" }
 macosarm64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-macosarm64", version.ref = "ktor-client-serialisation" }
@@ -1333,7 +1323,6 @@ macosx64-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-macosx6
 macosx64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-macosx64", version.ref = "ktor-client-darwinLegacy" }
 macosx64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-macosx64", version.ref = "ktor-client-encoding" }
 macosx64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-macosx64", version.ref = "ktor-client-ios" }
-macosx64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-macosx64", version.ref = "ktor-client-json" }
 macosx64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-macosx64", version.ref = "ktor-client-logging" }
 macosx64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-macosx64", version.ref = "ktor-client-resources" }
 macosx64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-macosx64", version.ref = "ktor-client-serialisation" }
@@ -1407,7 +1396,6 @@ mingwx64-ktor-client-contentNegotiation = {group = "io.ktor", name = "ktor-clien
 mingwx64-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-mingwx64", version.ref = "ktor-client-core" }
 mingwx64-ktor-client-curl = {group = "io.ktor", name = "ktor-client-curl-mingwx64", version.ref = "ktor-client-curl" }
 mingwx64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-mingwx64", version.ref = "ktor-client-encoding" }
-mingwx64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-mingwx64", version.ref = "ktor-client-json" }
 mingwx64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-mingwx64", version.ref = "ktor-client-logging" }
 mingwx64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-mingwx64", version.ref = "ktor-client-resources" }
 mingwx64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-mingwx64", version.ref = "ktor-client-serialisation" }
@@ -1455,7 +1443,6 @@ node-sqlJs = {group = "node-production", name = "sql.js", version.ref = "node-sq
 python-mkdocs-extraData = {group = "python", name = "mkdocs-markdownextradata-plugin", version.ref = "python-mkdocs-extraData" }
 python-mkdocs-includeMarkdown = {group = "python", name = "mkdocs-include-markdown-plugin", version.ref = "python-mkdocs-includeMarkdown" }
 python-mkdocs-kroki = {group = "python", name = "mkdocs-kroki-plugin", version.ref = "python-mkdocs-kroki" }
-python-mkdocs-material = {group = "python", name = "mkdocs-material", version.ref = "python-mkdocs-material" }
 python-mkdocs-minify = {group = "python", name = "mkdocs-minify-plugin", version.ref = "python-mkdocs-minify" }
 python-mkdocs-pygments = {group = "python", name = "pygments", version.ref = "python-mkdocs-pygments" }
 python-mkdocs-pymdown = {group = "python", name = "pymdown-extensions", version.ref = "python-mkdocs-pymdown" }
@@ -1479,7 +1466,6 @@ tvosarm64-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-tvosar
 tvosarm64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-tvosarm64", version.ref = "ktor-client-darwinLegacy" }
 tvosarm64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-tvosarm64", version.ref = "ktor-client-encoding" }
 tvosarm64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-tvosarm64", version.ref = "ktor-client-ios" }
-tvosarm64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-tvosarm64", version.ref = "ktor-client-json" }
 tvosarm64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-tvosarm64", version.ref = "ktor-client-logging" }
 tvosarm64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-tvosarm64", version.ref = "ktor-client-resources" }
 tvosarm64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-tvosarm64", version.ref = "ktor-client-serialisation" }
@@ -1554,7 +1540,6 @@ tvossimulatorarm64-ktor-client-core = {group = "io.ktor", name = "ktor-client-co
 tvossimulatorarm64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-tvossimulatorarm64", version.ref = "ktor-client-darwinLegacy" }
 tvossimulatorarm64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-tvossimulatorarm64", version.ref = "ktor-client-encoding" }
 tvossimulatorarm64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-tvossimulatorarm64", version.ref = "ktor-client-ios" }
-tvossimulatorarm64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-tvossimulatorarm64", version.ref = "ktor-client-json" }
 tvossimulatorarm64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-tvossimulatorarm64", version.ref = "ktor-client-logging" }
 tvossimulatorarm64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-tvossimulatorarm64", version.ref = "ktor-client-resources" }
 tvossimulatorarm64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-tvossimulatorarm64", version.ref = "ktor-client-serialisation" }
@@ -1629,7 +1614,6 @@ tvosx64-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-tvosx64"
 tvosx64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-tvosx64", version.ref = "ktor-client-darwinLegacy" }
 tvosx64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-tvosx64", version.ref = "ktor-client-encoding" }
 tvosx64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-tvosx64", version.ref = "ktor-client-ios" }
-tvosx64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-tvosx64", version.ref = "ktor-client-json" }
 tvosx64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-tvosx64", version.ref = "ktor-client-logging" }
 tvosx64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-tvosx64", version.ref = "ktor-client-resources" }
 tvosx64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-tvosx64", version.ref = "ktor-client-serialisation" }
@@ -1710,7 +1694,6 @@ watchosarm32-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-wat
 watchosarm32-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-watchosarm32", version.ref = "ktor-client-darwinLegacy" }
 watchosarm32-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-watchosarm32", version.ref = "ktor-client-encoding" }
 watchosarm32-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-watchosarm32", version.ref = "ktor-client-ios" }
-watchosarm32-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-watchosarm32", version.ref = "ktor-client-json" }
 watchosarm32-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-watchosarm32", version.ref = "ktor-client-logging" }
 watchosarm32-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-watchosarm32", version.ref = "ktor-client-resources" }
 watchosarm32-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-watchosarm32", version.ref = "ktor-client-serialisation" }
@@ -1785,7 +1768,6 @@ watchosarm64-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-wat
 watchosarm64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-watchosarm64", version.ref = "ktor-client-darwinLegacy" }
 watchosarm64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-watchosarm64", version.ref = "ktor-client-encoding" }
 watchosarm64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-watchosarm64", version.ref = "ktor-client-ios" }
-watchosarm64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-watchosarm64", version.ref = "ktor-client-json" }
 watchosarm64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-watchosarm64", version.ref = "ktor-client-logging" }
 watchosarm64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-watchosarm64", version.ref = "ktor-client-resources" }
 watchosarm64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-watchosarm64", version.ref = "ktor-client-serialisation" }
@@ -1860,7 +1842,6 @@ watchossimulatorarm64-ktor-client-core = {group = "io.ktor", name = "ktor-client
 watchossimulatorarm64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-watchossimulatorarm64", version.ref = "ktor-client-darwinLegacy" }
 watchossimulatorarm64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-watchossimulatorarm64", version.ref = "ktor-client-encoding" }
 watchossimulatorarm64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-watchossimulatorarm64", version.ref = "ktor-client-ios" }
-watchossimulatorarm64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-watchossimulatorarm64", version.ref = "ktor-client-json" }
 watchossimulatorarm64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-watchossimulatorarm64", version.ref = "ktor-client-logging" }
 watchossimulatorarm64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-watchossimulatorarm64", version.ref = "ktor-client-resources" }
 watchossimulatorarm64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-watchossimulatorarm64", version.ref = "ktor-client-serialisation" }
@@ -1935,7 +1916,6 @@ watchosx64-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-watch
 watchosx64-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-watchosx64", version.ref = "ktor-client-darwinLegacy" }
 watchosx64-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-watchosx64", version.ref = "ktor-client-encoding" }
 watchosx64-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-watchosx64", version.ref = "ktor-client-ios" }
-watchosx64-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-watchosx64", version.ref = "ktor-client-json" }
 watchosx64-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-watchosx64", version.ref = "ktor-client-logging" }
 watchosx64-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-watchosx64", version.ref = "ktor-client-resources" }
 watchosx64-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-watchosx64", version.ref = "ktor-client-serialisation" }
@@ -2010,7 +1990,6 @@ watchosx86-ktor-client-core = {group = "io.ktor", name = "ktor-client-core-watch
 watchosx86-ktor-client-darwinLegacy = {group = "io.ktor", name = "ktor-client-darwin-legacy-watchosx86", version.ref = "ktor-client-darwinLegacy" }
 watchosx86-ktor-client-encoding = {group = "io.ktor", name = "ktor-client-encoding-watchosx86", version.ref = "ktor-client-encoding" }
 watchosx86-ktor-client-ios = {group = "io.ktor", name = "ktor-client-ios-watchosx86", version.ref = "ktor-client-ios" }
-watchosx86-ktor-client-json = {group = "io.ktor", name = "ktor-client-encoding-watchosx86", version.ref = "ktor-client-json" }
 watchosx86-ktor-client-logging = {group = "io.ktor", name = "ktor-client-logging-watchosx86", version.ref = "ktor-client-logging" }
 watchosx86-ktor-client-resources = {group = "io.ktor", name = "ktor-client-resources-watchosx86", version.ref = "ktor-client-resources" }
 watchosx86-ktor-client-serialisation = {group = "io.ktor", name = "ktor-client-serialisation-watchosx86", version.ref = "ktor-client-serialisation" }

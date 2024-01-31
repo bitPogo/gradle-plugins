@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
+ * Copyright (c) 2024 Matthias Geisler (bitPogo) / All rights reserved.
  *
- * Use of this source code is governed by Apache License, Version 2.0
+ * Use of this source code is governed by Apache v2.0
  */
 
 package tech.antibytes.gradle.local.writer
@@ -27,7 +27,13 @@ class DependencyWriterSpec {
     }
 
     private fun String.normalizeSource(): String {
-        return this.replace(Regex("[\t ]+"), "").replace(Regex("[\n]+"), "\n")
+        return this
+            .replace(Regex("^/\\*\n", RegexOption.MULTILINE), "")
+            .replace(Regex("^ +\\*.*", RegexOption.MULTILINE), "")
+            .replace(Regex("^\\*/", RegexOption.MULTILINE), "")
+            .trimStart()
+            .replace(Regex("[\t ]+"), "")
+            .replace(Regex("[\n]+"), "\n")
     }
 
     @Test

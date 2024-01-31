@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
+ * Copyright (c) 2024 Matthias Geisler (bitPogo) / All rights reserved.
  *
- * Use of this source code is governed by Apache License, Version 2.0
+ * Use of this source code is governed by Apache v2.0
  */
 
 package tech.antibytes.gradle.grammar.bison
@@ -117,7 +117,7 @@ abstract class BisonTask : BisonTaskContract, DefaultTask() {
     private fun addMapOptions(arguments: MutableList<String>) {
         arguments.addIf(define.get().isNotEmpty()) { "--define=${concatenateMapOption(define.get())}" }
         arguments.addIf(forceDefine.get().isNotEmpty()) { "--force-define=${concatenateMapOption(forceDefine.get())}" }
-        arguments.addIf(filePrefixMap.get().isNotEmpty()) {"--file-prefix-map=${concatenateMapOption(filePrefixMap.get())}" }
+        arguments.addIf(filePrefixMap.get().isNotEmpty()) { "--file-prefix-map=${concatenateMapOption(filePrefixMap.get())}" }
     }
 
     private fun addErrorOptions(arguments: MutableList<String>) {
