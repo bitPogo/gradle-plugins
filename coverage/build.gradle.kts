@@ -35,7 +35,7 @@ java {
 dependencies {
     implementation(libs.agp)
     implementation(libs.jacoco)
-    implementation(project(":utils"))
+    implementation(projects.utils)
 }
 
 configure<SourceSetContainer> {

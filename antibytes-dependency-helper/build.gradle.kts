@@ -116,14 +116,14 @@ dependencies {
     implementation(libs.dependencyUpdate)
     implementation(libs.owasp)
     implementation(libs.mavenArtifacts)
-    implementation(project(":antibytes-gradle-utils"))
+    implementation(projects.antibytesGradleUtils)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
 }
 
 gradlePlugin {

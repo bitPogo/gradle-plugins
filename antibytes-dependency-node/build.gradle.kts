@@ -116,7 +116,7 @@ dependencies {
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
 }
 
 antibytesCoverage {

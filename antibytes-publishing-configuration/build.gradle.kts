@@ -135,7 +135,7 @@ antibytesCoverage {
 }
 
 dependencies {
-    implementation(project(":antibytes-publishing"))
+    implementation(projects.antibytesPublishing)
 
     testImplementation(libs.junitExt)
     testImplementation(libs.kotlinTest)
@@ -143,7 +143,7 @@ dependencies {
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
 }
 
 tasks.test {

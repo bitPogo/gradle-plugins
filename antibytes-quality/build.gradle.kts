@@ -119,15 +119,15 @@ dependencies {
     implementation(libs.detekt)
     api(libs.sonarqube)
     implementation(libs.stableApi)
-    implementation(project(":antibytes-gradle-utils"))
-    implementation(project(":antibytes-dependency-helper"))
+    implementation(projects.antibytesGradleUtils)
+    implementation(projects.antibytesDependencyHelper)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
 }
 
 gradlePlugin {

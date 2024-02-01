@@ -108,7 +108,7 @@ antibytesPublishing {
 dependencies {
     implementation(libs.gson)
     implementation(libs.kotlinPoet)
-    implementation(project(":antibytes-gradle-utils"))
+    implementation(projects.antibytesGradleUtils)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))

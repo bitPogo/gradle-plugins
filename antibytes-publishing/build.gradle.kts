@@ -139,15 +139,15 @@ dependencies {
     implementation(libs.kotlin)
     implementation(libs.publishing)
     implementation(libs.versioning)
-    implementation(project(":antibytes-gradle-utils"))
-    api(project(":antibytes-versioning"))
+    implementation(projects.antibytesGradleUtils)
+    api(projects.antibytesVersioning)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
 }
 
 java {

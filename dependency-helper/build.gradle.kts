@@ -37,7 +37,7 @@ dependencies {
     implementation(libs.dependencyUpdate)
     implementation(libs.owasp)
     implementation(libs.mavenArtifacts)
-    implementation(project(":utils"))
+    implementation(projects.utils)
 }
 
 configure<SourceSetContainer> {

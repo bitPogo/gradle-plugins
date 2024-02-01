@@ -32,12 +32,12 @@ data class LinterConfiguration(
     ),
     override val gradle: PartialConfiguration = PartialLinterConfiguration(
         include = setOf("*.gradle.kts"),
-        exclude = emptySet(),
+        exclude = setOf("**/build/**/*"),
         disabledRules = emptyMap(),
     ),
     override val misc: PartialConfiguration = PartialLinterConfiguration(
         include = setOf("**/*.adoc", "**/*.md", "**/.gitignore", ".java-version"),
-        exclude = emptySet(),
+        exclude = setOf("**/build/**/*"),
         disabledRules = emptyMap(),
     ),
 ) : QualityApiContract.LinterConfiguration

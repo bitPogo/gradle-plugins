@@ -107,7 +107,7 @@ antibytesPublishing {
 
 dependencies {
     implementation(libs.kotlin)
-    implementation(project(":antibytes-gradle-utils"))
+    implementation(projects.antibytesGradleUtils)
     implementation(libs.kotlinPoet)
 
     testImplementation(libs.kotlinTest)
@@ -115,7 +115,7 @@ dependencies {
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
 }
 
 tasks.test {

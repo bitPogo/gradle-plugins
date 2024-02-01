@@ -116,15 +116,15 @@ dependencies {
     implementation(libs.kotlin)
     implementation(libs.python)
     implementation(antibytes.gradle.mkdocs)
-    api(project(":antibytes-versioning"))
-    implementation(project(":antibytes-gradle-utils"))
+    api(projects.antibytesVersioning)
+    implementation(projects.antibytesGradleUtils)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
 }
 
 gradlePlugin {

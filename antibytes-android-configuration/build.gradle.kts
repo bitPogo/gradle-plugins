@@ -28,7 +28,7 @@ plugins {
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.agp)
-    implementation(project(":antibytes-gradle-utils"))
+    implementation(projects.antibytesGradleUtils)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
@@ -36,7 +36,7 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.mockkInstumented)
     testImplementation(libs.jvmFixture)
-    testImplementation(project(":antibytes-gradle-test-utils"))
+    testImplementation(projects.antibytesGradleTestUtils)
 }
 
 antibytesCoverage {
