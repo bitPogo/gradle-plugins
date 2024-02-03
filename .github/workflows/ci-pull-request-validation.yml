@@ -24,25 +24,42 @@ jobs:
       PACKAGE_REGISTRY_UPLOAD_TOKEN: ${{ secrets.PACKAGE_REGISTRY_UPLOAD_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
-      - uses: actions/setup-java@v2
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
+
+      - name: Setup gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          cache-read-only: true
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Restore BuildCache
+        uses: actions/cache/restore@v4
+        with:
+          path: '**/.gradle/build-cache/**'
+          key: ${{ runner.os }}-build-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ github.sha }}
+            ${{ runner.os }}-build-
+
       - name: Install Bison
         shell: bash
         run: sudo apt-get install -y bison
       - name: Validate Plugins
         run: ./gradlew validatePlugins
-      - name: Cleanup
-        run: ./gradlew clean
       - name: Build
         run: ./gradlew build
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v3
+        uses: mikepenz/action-junit-report@v4
         if: always()
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
