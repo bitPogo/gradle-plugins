@@ -27,6 +27,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
 
     init {
         packageName.convention(null)
+        sourceSetPrefix.convention(null)
 
         stringFields.convention(emptyMap<String, String>())
         integerFields.convention(emptyMap<String, Int>())
@@ -63,6 +64,20 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
         if (!packageName.isPresent) {
             throw StopExecutionException("Missing Package declaration!")
         }
+    }
+
+    protected fun determineSourceSet(): String = sourceSetPrefix.orNull ?: "common"
+
+    protected fun createDirectory(target: String): File {
+        val buildDir = project.layout.buildDirectory.asFile.get()
+
+        if (!buildDir.exists()) {
+            buildDir.mkdir()
+        }
+
+        return File(
+            "${buildDir.absolutePath.trimEnd('/')}/generated/antibytes/$target/kotlin",
+        )
     }
 
     @TaskAction

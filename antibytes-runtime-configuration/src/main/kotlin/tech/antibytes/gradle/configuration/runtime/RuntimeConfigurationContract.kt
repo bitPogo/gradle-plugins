@@ -9,6 +9,7 @@ package tech.antibytes.gradle.configuration.runtime
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
 
@@ -20,6 +21,14 @@ internal interface RuntimeConfigurationContract {
          */
         @get:Input
         val packageName: Property<String>
+
+        /**
+         * other than common sourceSet prefix for KMP
+         * Optional
+         */
+        @get:Input
+        @get:Optional
+        abstract val sourceSetPrefix: Property<String>
 
         /**
          * Fields and their string values which the output Configuration must contain

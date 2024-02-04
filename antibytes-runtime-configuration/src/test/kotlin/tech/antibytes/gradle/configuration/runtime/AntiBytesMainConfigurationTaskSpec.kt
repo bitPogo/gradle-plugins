@@ -21,7 +21,6 @@ import org.junit.jupiter.api.io.TempDir
 class AntiBytesMainConfigurationTaskSpec {
     @TempDir
     private lateinit var buildDir: File
-    private lateinit var file: File
     private lateinit var project: Project
     private val fixtureRoot = "/generated"
 
@@ -116,6 +115,103 @@ class AntiBytesMainConfigurationTaskSpec {
         )
 
         assertTrue(pointer?.absolutePath?.contains("generated/antibytes/main/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile in main if a prefix is set`() {
+        // Given
+        val packageName = "test.config"
+        val task: AntiBytesMainConfigurationTask = project.tasks.create("sut", AntiBytesMainConfigurationTask::class.java) {}
+        val expected = loadResource("/MainConfigEmptyExpected.kt")
+
+        // When
+        task.packageName.set(packageName)
+        task.sourceSetPrefix.set("somewhere")
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("MainConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/main/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile in commonMain`() {
+        // Given
+        val packageName = "test.config"
+        project.plugins.apply("org.jetbrains.kotlin.multiplatform")
+
+        val task: AntiBytesMainConfigurationTask = project.tasks.create("sut", AntiBytesMainConfigurationTask::class.java) {}
+        val expected = loadResource("/MainConfigEmptyExpected.kt")
+
+        // When
+        task.packageName.set(packageName)
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("MainConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/commonMain/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile with the given prefix`() {
+        // Given
+        val packageName = "test.config"
+        val prefix = "somewhere"
+        val expected = loadResource("/MainConfigEmptyExpected.kt")
+
+        // When
+        project.plugins.apply("org.jetbrains.kotlin.multiplatform")
+
+        val task: AntiBytesMainConfigurationTask = project.tasks.create("sut", AntiBytesMainConfigurationTask::class.java) {}
+        task.sourceSetPrefix.set(prefix)
+        task.packageName.set(packageName)
+
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("MainConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        println(pointer)
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/${prefix}Main/kotlin") ?: false)
     }
 
     @Test
