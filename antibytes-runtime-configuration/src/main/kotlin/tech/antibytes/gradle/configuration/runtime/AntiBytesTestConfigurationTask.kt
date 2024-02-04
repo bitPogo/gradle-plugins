@@ -11,23 +11,13 @@ import tech.antibytes.gradle.util.isKmp
 
 abstract class AntiBytesTestConfigurationTask : AntiBytesRuntimeConfigurationTask() {
     override val fileName: String = "TestConfig"
-    override val outputDirectory: File = determinePath()
+    override val outputDirectory: File by lazy { createDirectory(determinePath()) }
 
-    private fun determinePath(): File {
-        val target = if (project.isKmp()) {
-            "commonTest"
+    private fun determinePath(): String {
+        return if (project.isKmp()) {
+            "${determineSourceSet()}Test"
         } else {
             "test"
         }
-
-        val buildDir = project.layout.buildDirectory.asFile.get()
-
-        if (!buildDir.exists()) {
-            buildDir.mkdir()
-        }
-
-        return File(
-            "${buildDir.absolutePath.trimEnd('/')}/generated/antibytes/$target/kotlin",
-        )
     }
 }

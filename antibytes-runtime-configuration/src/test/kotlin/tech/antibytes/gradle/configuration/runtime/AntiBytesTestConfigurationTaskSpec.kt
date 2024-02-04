@@ -21,7 +21,6 @@ import org.junit.jupiter.api.io.TempDir
 class AntiBytesTestConfigurationTaskSpec {
     @TempDir
     private lateinit var buildDir: File
-    private lateinit var file: File
     private lateinit var project: Project
     private val fixtureRoot = "/generated"
 
@@ -90,7 +89,7 @@ class AntiBytesTestConfigurationTaskSpec {
     }
 
     @Test
-    fun `Given the task is executed it generates a OutputFile in main`() {
+    fun `Given the task is executed it generates a OutputFile in test`() {
         // Given
         val packageName = "test.config"
         val task: AntiBytesTestConfigurationTask = project.tasks.create("sut", AntiBytesTestConfigurationTask::class.java) {}
@@ -116,6 +115,101 @@ class AntiBytesTestConfigurationTaskSpec {
         )
 
         assertTrue(pointer?.absolutePath?.contains("generated/antibytes/test/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile in test while having a custom prefix`() {
+        // Given
+        val packageName = "test.config"
+        val sourceSet = "somewhere"
+        val task: AntiBytesTestConfigurationTask = project.tasks.create("sut", AntiBytesTestConfigurationTask::class.java) {}
+        val expected = loadResource("/TestConfigEmptyExpected.kt")
+
+        // When
+        task.packageName.set(packageName)
+        task.sourceSetPrefix.set(sourceSet)
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("TestConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/test/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile in commonTest`() {
+        // Given
+        val packageName = "test.config"
+        project.plugins.apply("org.jetbrains.kotlin.multiplatform")
+
+        val task: AntiBytesTestConfigurationTask = project.tasks.create("sut", AntiBytesTestConfigurationTask::class.java) {}
+        val expected = loadResource("/TestConfigEmptyExpected.kt")
+
+        // When
+        task.packageName.set(packageName)
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("TestConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/commonTest/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile with a custom sourceSet`() {
+        // Given
+        val packageName = "test.config"
+        val sourceSet = "somewhere"
+        val expected = loadResource("/TestConfigEmptyExpected.kt")
+
+        // When
+        project.plugins.apply("org.jetbrains.kotlin.multiplatform")
+
+        val task: AntiBytesTestConfigurationTask = project.tasks.create("sut", AntiBytesTestConfigurationTask::class.java) {}
+        task.packageName.set(packageName)
+        task.sourceSetPrefix.set(sourceSet)
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("TestConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/${sourceSet}Test/kotlin") ?: false)
     }
 
     @Test
