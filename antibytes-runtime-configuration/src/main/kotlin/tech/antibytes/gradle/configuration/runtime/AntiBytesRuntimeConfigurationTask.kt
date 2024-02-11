@@ -31,6 +31,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
 
         stringFields.convention(emptyMap<String, String>())
         integerFields.convention(emptyMap<String, Int>())
+        booleanFields.convention(emptyMap<String, Boolean>())
     }
 
     private fun addField(name: String, type: KClass<*>, value: Any): PropertySpec {
@@ -56,6 +57,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
         implementation.addModifiers(KModifier.INTERNAL)
         implementation.addProperties(addFields(stringFields.get()))
         implementation.addProperties(addFields(integerFields.get()))
+        implementation.addProperties(addFields(booleanFields.get()))
 
         return implementation.build()
     }

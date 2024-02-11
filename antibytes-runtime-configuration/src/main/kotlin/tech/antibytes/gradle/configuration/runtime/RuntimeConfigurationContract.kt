@@ -28,19 +28,31 @@ internal interface RuntimeConfigurationContract {
          */
         @get:Input
         @get:Optional
-        abstract val sourceSetPrefix: Property<String>
+        val sourceSetPrefix: Property<String>
 
         /**
          * Fields and their string values which the output Configuration must contain
+         * Optional
          */
         @get:Input
+        @get:Optional
         val stringFields: MapProperty<String, String>
 
         /**
          * Fields and their integer values which the output Configuration must contain
+         * Optional
          */
         @get:Input
+        @get:Optional
         val integerFields: MapProperty<String, Int>
+
+        /**
+         * Fields and their integer values which the output Configuration must contain
+         * Optional
+         */
+        @get:Input
+        @get:Optional
+        val booleanFields: MapProperty<String, Boolean>
 
         /**
          * Generates a RuntimeConfig file with the given parameter
