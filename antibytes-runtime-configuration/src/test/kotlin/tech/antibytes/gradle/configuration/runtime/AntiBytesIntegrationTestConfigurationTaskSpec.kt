@@ -275,4 +275,36 @@ class AntiBytesIntegrationTestConfigurationTaskSpec {
             expected = expected.normalizeSource(),
         )
     }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile in main with BooleanFields`() {
+        // Given
+        val packageName = "test.config"
+        val task: AntiBytesIntegrationTestConfigurationTask = project.tasks.create("sut", AntiBytesIntegrationTestConfigurationTask::class.java) {}
+        val expected = loadResource("/IntegrationTestConfigBooleanExpected.kt")
+
+        // When
+        task.packageName.set(packageName)
+        task.booleanFields.set(
+            mapOf(
+                "test" to true,
+                "test1" to false,
+            ),
+        )
+
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("IntegrationTestConfig.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+    }
 }

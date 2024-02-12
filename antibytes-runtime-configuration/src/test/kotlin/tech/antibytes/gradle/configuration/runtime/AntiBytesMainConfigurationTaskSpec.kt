@@ -277,4 +277,36 @@ class AntiBytesMainConfigurationTaskSpec {
             expected.normalizeSource(),
         )
     }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile in main with BooleanFields`() {
+        // Given
+        val packageName = "test.config"
+        val task: AntiBytesMainConfigurationTask = project.tasks.create("sut", AntiBytesMainConfigurationTask::class.java) {}
+        val expected = loadResource("/MainConfigBooleanExpected.kt")
+
+        // When
+        task.packageName.set(packageName)
+        task.booleanFields.set(
+            mapOf(
+                "test" to true,
+                "test1" to false,
+            ),
+        )
+
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("MainConfig.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+    }
 }
