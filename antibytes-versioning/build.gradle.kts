@@ -4,6 +4,11 @@
  * Use of this source code is governed by Apache v2.0
  */
 
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.configuration.runtime.AntiBytesIntegrationTestConfigurationTask
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
+import tech.antibytes.gradle.configuration.runtime.AntiBytesTestConfigurationTask
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
@@ -18,11 +23,14 @@ import tech.antibytes.gradle.publishing.PublishingApiContract.Type
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
+import tech.antibytes.gradle.versioning.Versioning
 
 plugins {
     `kotlin-dsl`
     `java-library`
 
+    id("com.palantir.git-version")
+    id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
 }
@@ -110,8 +118,25 @@ antibytesPublishing {
     )
 }
 
+sourceSets {
+    create("integrationTest") {
+        compileClasspath += sourceSets["main"].output
+        runtimeClasspath += sourceSets["main"].output
+
+        java.srcDirs(
+            "src/integrationTest/kotlin",
+            "build/generated/antibytes/integrationTest/kotlin",
+        )
+        resources.srcDir("src/integrationTest/resources")
+    }
+}
+
+fun DependencyHandler.integrationTestImplementation(dependencyNotation: Any): Dependency? =
+    add("integrationTestImplementation", dependencyNotation)
+
 dependencies {
     implementation(libs.versioning)
+    implementation(libs.turtle)
 
     testImplementation(libs.kotlinTest)
     testImplementation(platform(libs.junit))
@@ -119,6 +144,11 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
     testImplementation(projects.antibytesGradleTestUtils)
+
+    integrationTestImplementation(libs.kotlinTest5)
+    integrationTestImplementation(platform(libs.junit))
+    integrationTestImplementation(libs.jupiter)
+    integrationTestImplementation(gradleTestKit())
 }
 
 antibytesCoverage {
@@ -147,14 +177,53 @@ antibytesCoverage {
     )
 }
 
-tasks.test {
-    useJUnitPlatform()
+val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
+val details = versionDetails()
+
+val provideConfig: AntiBytesIntegrationTestConfigurationTask by tasks.creating(AntiBytesIntegrationTestConfigurationTask::class.java) {
+    mustRunAfter("clean")
+
+    packageName.set("tech.antibytes.gradle.versioning")
+    stringFields.set(
+        mapOf(
+            "lastTag" to details.lastTag,
+            "gitHash" to details.gitHash,
+            "gitHashFull" to details.gitHashFull,
+            "branchName" to details.branchName
+        )
+    )
+    integerFields.set(
+        mapOf(
+            "commitDistance" to details.commitDistance,
+        )
+    )
+    booleanFields.set(
+        mapOf(
+            "isCleanTag" to details.isCleanTag
+        )
+    )
+}
+
+val integrationTests by tasks.creating(Test::class.java) {
+    description = "Run integration tests"
+    group = "Verification"
+
+    dependsOn(provideConfig)
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
 }
 
 tasks.check {
-    dependsOn("jvmCoverageVerification")
+    dependsOn(integrationTests, "jvmCoverageVerification")
 }
 
+tasks.withType(Test::class.java) {
+    useJUnitPlatform()
+
+    testLogging {
+        events(TestLogEvent.FAILED)
+    }
+}
 
 gradlePlugin {
     plugins.create(pluginId) {
@@ -163,4 +232,5 @@ gradlePlugin {
         displayName = "Setup for Antibytes Versioning."
         description = "Setup for Antibytes Versioning."
     }
+    testSourceSets(sourceSets.getByName("integrationTest"))
 }

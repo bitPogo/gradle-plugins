@@ -13,7 +13,6 @@ import org.gradle.testkit.runner.TaskOutcome
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import tech.antibytes.gradle.grammar.jflex.JFlexTasksIntegration
 
 class PostConverterIntegration {
     @TempDir
@@ -30,7 +29,7 @@ class PostConverterIntegration {
 
         outputDir = File(testProjectDir, "output").also { it.mkdir() }
 
-        val settingsFileContent = JFlexTasksIntegration::class.java.getResource(
+        val settingsFileContent = PostConverterIntegration::class.java.getResource(
             "/sample.settings.gradle.kts.txt",
         )?.readText()
 
@@ -43,7 +42,7 @@ class PostConverterIntegration {
         val file = File(testProjectDir, "dirtyFile.txt")
         file.writeText("abcTestabc")
 
-        val buildFileContent = JFlexTasksIntegration::class.java.getResource("/sample.build.postprocess.gradle.kts.txt")?.readText()!!
+        val buildFileContent = PostConverterIntegration::class.java.getResource("/sample.build.postprocess.gradle.kts.txt")?.readText()!!
 
         buildFile.writeText(
             buildFileContent.replace(
