@@ -32,8 +32,8 @@ dependencies {
     implementation(libs.kotlin)
     implementation(libs.publishing)
     implementation(libs.versioning)
-    implementation(projects.utils)
-    implementation(projects.versioning)
+    implementation(projects.utilsPublishing)
+    implementation(projects.versioningPublishing)
 }
 
 gradlePlugin {

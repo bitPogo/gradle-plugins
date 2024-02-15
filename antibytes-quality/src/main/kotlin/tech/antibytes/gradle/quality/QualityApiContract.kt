@@ -14,7 +14,7 @@ interface QualityApiContract {
         interface PartialConfiguration {
             val include: Set<String>
             val exclude: Set<String>
-            val disabledRules: Map<String, String>
+            val rules: Map<String, String>
         }
 
         val code: PartialConfiguration

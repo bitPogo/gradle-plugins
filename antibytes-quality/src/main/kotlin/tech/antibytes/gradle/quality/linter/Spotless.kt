@@ -30,8 +30,8 @@ internal object Spotless : Configurator() {
         kotlin {
             configureFormat(configuration)
             ktlint(ktlintVersion).apply {
-                if (configuration.disabledRules.isNotEmpty()) {
-                    this.editorConfigOverride(configuration.disabledRules)
+                if (configuration.rules.isNotEmpty()) {
+                    editorConfigOverride(configuration.rules)
                 }
             }
         }
@@ -41,8 +41,8 @@ internal object Spotless : Configurator() {
         kotlinGradle {
             configureFormat(configuration)
             ktlint(ktlintVersion).apply {
-                if (configuration.disabledRules.isNotEmpty()) {
-                    this.editorConfigOverride(configuration.disabledRules)
+                if (configuration.rules.isNotEmpty()) {
+                    editorConfigOverride(configuration.rules)
                 }
             }
         }

@@ -33,13 +33,15 @@ class SourceHooksIosSpec {
         val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
-        val iosSimulator: KotlinSourceSet = mockk(relaxed = true)
-        val ios: KotlinSourceSet = mockk()
+        val iosX: KotlinSourceSet = mockk(relaxed = true)
+        val iosXSet: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.getByName(any()) } returns ios
-        invokeGradleAction(iosSimulator, mockk()) { sourceSet ->
+        every { sourceSets.maybeCreate(any()) } returns iosX
+        every { sourceSets.getByName(any()) } returns common
+        invokeGradleAction(iosXSet, mockk()) { sourceSet ->
             sourceSets.getByName(any(), sourceSet)
         }
         every { (extension as ExtensionAware).extensions } returns extensions
@@ -51,85 +53,24 @@ class SourceHooksIosSpec {
         extension.iosx(prefix, configuration)
 
         // Then
-        verify(exactly = 1) { extension.ios(prefix, configuration) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
+
+        verify(exactly = 1) { extension.iosX64("${prefix}iosX64", configuration) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Test", any<Action<KotlinSourceSet>>()) }
+
+        verify(exactly = 1) { extension.iosArm64("${prefix}iosArm64", configuration) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Test", any<Action<KotlinSourceSet>>()) }
+
         verify(exactly = 1) { extension.iosSimulatorArm64("${prefix}SimulatorArm64", configuration) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Main", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Test", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 2) { iosSimulator.dependsOn(ios) }
-    }
+        verify(exactly = 6) { iosXSet.dependsOn(iosX) }
 
-    @Test
-    fun `Given legacyIos is called it delegates the given parameter to the KMP configuration`() {
-        // Given
-
-        val extension: KotlinMultiplatformExtension = mockk(
-            relaxed = true,
-            moreInterfaces = arrayOf(ExtensionAware::class),
-        )
-        val extensions: ExtensionContainer = mockk()
-        val prefix: String = fixture()
-        val configuration: KotlinNativeTarget.() -> Unit = { }
-        val iosArm32: KotlinSourceSet = mockk(relaxed = true)
-        val ios: KotlinSourceSet = mockk()
-        val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
-
-        every { extension.sourceSets } returns sourceSets
-        every { sourceSets.getByName(any()) } returns ios
-        invokeGradleAction(iosArm32, mockk()) { sourceSet ->
-            sourceSets.getByName(any(), sourceSet)
-        }
-        every { (extension as ExtensionAware).extensions } returns extensions
-        invokeGradleAction(sourceSets) { sources ->
-            extensions.configure("sourceSets", sources)
-        }
-
-        // When
-        extension.iosWithLegacy(prefix, configuration)
-
-        // Then
-        verify(exactly = 1) { extension.ios(prefix, configuration) }
-        verify(exactly = 1) { extension.iosArm32("${prefix}Arm32", configuration) }
-        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32Main", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32Test", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 2) { iosArm32.dependsOn(ios) }
-    }
-
-    @Test
-    fun `Given iosxLegacy is called it delegates the given parameter to the KMP configuration`() {
-        // Given
-
-        val extension: KotlinMultiplatformExtension = mockk(
-            relaxed = true,
-            moreInterfaces = arrayOf(ExtensionAware::class),
-        )
-        val extensions: ExtensionContainer = mockk()
-        val prefix: String = fixture()
-        val configuration: KotlinNativeTarget.() -> Unit = {}
-        val iosMix: KotlinSourceSet = mockk(relaxed = true)
-        val ios: KotlinSourceSet = mockk()
-        val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
-
-        every { extension.sourceSets } returns sourceSets
-        every { sourceSets.getByName(any()) } returns ios
-        invokeGradleAction(iosMix, mockk()) { sourceSet ->
-            sourceSets.getByName(any(), sourceSet)
-        }
-        every { (extension as ExtensionAware).extensions } returns extensions
-        invokeGradleAction(sourceSets) { sources ->
-            extensions.configure("sourceSets", sources)
-        }
-
-        // When
-        extension.iosxWithLegacy(prefix, configuration)
-
-        // Then
-        verify(exactly = 1) { extension.ios(prefix, configuration) }
-        verify(exactly = 1) { extension.iosArm32("${prefix}Arm32", configuration) }
-        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32Main", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32Test", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { extension.iosSimulatorArm64("${prefix}SimulatorArm64", configuration) }
-        verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Main", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Test", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 4) { iosMix.dependsOn(ios) }
+        verify(exactly = 2) { iosX.dependsOn(common) }
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
     }
 }

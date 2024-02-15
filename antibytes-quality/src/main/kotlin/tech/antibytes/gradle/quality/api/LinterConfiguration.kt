@@ -12,7 +12,7 @@ import tech.antibytes.gradle.quality.QualityApiContract.LinterConfiguration.Part
 data class PartialLinterConfiguration(
     override val include: Set<String>,
     override val exclude: Set<String>,
-    override val disabledRules: Map<String, String>,
+    override val rules: Map<String, String>,
 ) : PartialConfiguration
 
 data class LinterConfiguration(
@@ -24,20 +24,22 @@ data class LinterConfiguration(
             "**/src/test/resources/**/*.kt",
             "**/build/**/*.kt",
         ),
-        disabledRules = mapOf(
+        rules = mapOf(
             "ij_kotlin_imports_layout" to "*",
             "ij_kotlin_allow_trailing_comma" to "true",
             "ij_kotlin_allow_trailing_comma_on_call_site" to "true",
+            "ktlint_standard_property-naming" to "disabled",
+            "ktlint_standard_discouraged-comment-location" to "disabled",
         ),
     ),
     override val gradle: PartialConfiguration = PartialLinterConfiguration(
         include = setOf("*.gradle.kts"),
         exclude = setOf("**/build/**/*"),
-        disabledRules = emptyMap(),
+        rules = emptyMap(),
     ),
     override val misc: PartialConfiguration = PartialLinterConfiguration(
         include = setOf("**/*.adoc", "**/*.md", "**/.gitignore", ".java-version"),
         exclude = setOf("**/build/**/*"),
-        disabledRules = emptyMap(),
+        rules = emptyMap(),
     ),
 ) : QualityApiContract.LinterConfiguration

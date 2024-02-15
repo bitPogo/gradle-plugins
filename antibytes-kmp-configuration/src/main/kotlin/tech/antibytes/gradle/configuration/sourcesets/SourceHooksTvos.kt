@@ -13,8 +13,22 @@ fun KotlinMultiplatformExtension.tvosx(
     namePrefix: String = "tvos",
     configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
+    tvosArm64("${namePrefix}Arm64", configuration)
+    tvosX64("${namePrefix}X64", configuration)
     tvosSimulatorArm64("${namePrefix}SimulatorArm64", configuration)
-    tvos(namePrefix, configuration)
 
-    depends(setOf("${namePrefix}SimulatorArm64"), namePrefix)
+    val tvosMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val tvosTest = sourceSets.maybeCreate("${namePrefix}Test")
+
+    val targets = setOf(
+        "${namePrefix}X64",
+        "${namePrefix}Arm64",
+        "${namePrefix}SimulatorArm64",
+    )
+
+    wireDependencies(
+        main = tvosMain,
+        test = tvosTest,
+        targets = targets,
+    )
 }

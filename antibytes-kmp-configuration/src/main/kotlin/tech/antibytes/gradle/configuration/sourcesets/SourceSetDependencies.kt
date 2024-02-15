@@ -34,6 +34,7 @@ internal fun KotlinMultiplatformExtension.depends(
     sourceSets {
         targets.forEach { target ->
             getByName("${target}Main") {
+                println(this)
                 dependsOn(mainDependency)
             }
 

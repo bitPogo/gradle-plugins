@@ -29,7 +29,7 @@ java {
 
 dependencies {
     implementation(libs.kotlin)
-    implementation(projects.utils)
+    implementation(projects.utilsRuntimeConfig)
     implementation(libs.kotlinPoet)
 }
 
