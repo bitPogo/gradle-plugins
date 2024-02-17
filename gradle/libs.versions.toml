@@ -3,7 +3,7 @@
 kotlin = "1.9.22"
 
 # [Gradle](https://gradle.org/releases/)
-gradle = "8.5.0"
+gradle = "8.6.0"
 
 # [GSON](https://github.com/google/gson)
 gson = "2.10.1"
