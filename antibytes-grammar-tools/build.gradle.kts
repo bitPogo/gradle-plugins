@@ -196,7 +196,7 @@ antibytesCoverage {
 val provideBisonExec by tasks.creating(Task::class.java) {
     doFirst {
         val exec = project.findProperty("bison.exec")
-        val bisonExec = File("${projectDir.absolutePath.trimEnd('/')}/src/integration/resources/bisonExec")
+        val bisonExec = File("${project.layout.projectDirectory.asFile.absolutePath.trimEnd('/')}/src/integration/resources/bisonExec")
         if (!bisonExec.exists()) {
             bisonExec.createNewFile()
         }
