@@ -32,7 +32,7 @@ plugins {
 
 val pluginId = "${LibraryConfig.group}.quality"
 val versioningConfiguration = VersioningConfiguration(
-    featurePrefixes = listOf("feature"),
+    featurePrefixes = emptyList(),
     suppressSnapshot = true
 )
 
