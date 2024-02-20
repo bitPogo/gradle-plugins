@@ -23,6 +23,7 @@ plugins {
     `java-gradle-plugin`
 
     id("tech.antibytes.gradle.coverage.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 dependencies {

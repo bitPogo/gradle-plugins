@@ -99,5 +99,6 @@ internal object Gradle {
         val customComponent = GradleBundleVersion(version)
         const val detektConfiguration = version
         val mkDocs = GradleBundleVersion(version)
+        val javaConfiguration = GradleBundleVersion(version)
     }
 }

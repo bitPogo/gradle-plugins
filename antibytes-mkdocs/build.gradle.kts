@@ -28,6 +28,7 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
     id("tech.antibytes.gradle.runtime.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 val pluginId = "${LibraryConfig.group}.mkdocs"
@@ -115,7 +116,7 @@ antibytesPublishing {
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.python)
-    implementation(antibytes.gradle.mkdocs)
+    implementation(libs.mkDocs)
     api(projects.antibytesVersioning)
     implementation(projects.antibytesGradleUtils)
 

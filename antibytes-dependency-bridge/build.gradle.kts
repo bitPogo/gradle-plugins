@@ -25,6 +25,7 @@ plugins {
 
     id("tech.antibytes.gradle.publishing.local")
     id("tech.antibytes.gradle.coverage.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 // To make it available as direct dependency

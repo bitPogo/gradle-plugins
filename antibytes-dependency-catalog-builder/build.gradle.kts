@@ -22,6 +22,7 @@ plugins {
     id("tech.antibytes.gradle.dependency.local")
     id("tech.antibytes.gradle.versioning.local")
     id("tech.antibytes.gradle.coverage.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesDependencyVersionTask::class.java) {

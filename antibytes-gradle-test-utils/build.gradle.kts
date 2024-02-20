@@ -25,6 +25,7 @@ plugins {
 
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 // To make it available as direct dependency
@@ -146,13 +147,4 @@ tasks.test {
 
 tasks.check {
     dependsOn("jvmCoverageVerification")
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(libs.versions.java.get()).toString()))
-    }
-
-    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
 }

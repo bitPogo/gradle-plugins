@@ -24,6 +24,7 @@ plugins {
 
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 val pluginId = "${LibraryConfig.group}.custom-component"

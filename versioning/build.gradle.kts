@@ -6,6 +6,8 @@
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
+
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 repositories {
@@ -16,15 +18,6 @@ repositories {
 
 dependencies {
     implementation(libs.versioning)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(libs.versions.java.get()).toString()))
-    }
-
-    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
 }
 
 gradlePlugin {

@@ -12,6 +12,7 @@ plugins {
     `java-gradle-plugin`
 
     id("tech.antibytes.gradle.runtime.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 allprojects {
@@ -20,15 +21,6 @@ allprojects {
         mavenCentral()
         google()
     }
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(libs.versions.java.get()).toString()))
-    }
-
-    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
 }
 
 dependencies {

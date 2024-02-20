@@ -59,7 +59,7 @@ val provideConfig: Task by tasks.creating {
         val template = File(layout.projectDirectory.asFile, "template/MainConfig.tmpl")
         val configDir = File(
             layout.buildDirectory.asFile.get(),
-            "generated/antibytes/main/${packaqe.replace('.', '/')}"
+            "generated/antibytes/main/kotlin/${packaqe.replace('.', '/')}"
         )
 
         if (!configDir.exists()) {
