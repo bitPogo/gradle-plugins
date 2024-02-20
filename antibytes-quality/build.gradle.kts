@@ -195,6 +195,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     packageName.set("tech.antibytes.gradle.quality.config")
     stringFields.set(
         mapOf(
+            "javaVersion" to libs.versions.java.get(),
             "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
             "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.let { provider ->

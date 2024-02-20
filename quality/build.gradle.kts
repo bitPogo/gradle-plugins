@@ -25,11 +25,11 @@ allprojects {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(libs.versions.java.get()).toString()))
     }
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+    targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
 }
 
 dependencies {
@@ -64,8 +64,10 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     mustRunAfter("clean")
 
     packageName.set("tech.antibytes.gradle.quality.config")
+
     stringFields.set(
         mapOf(
+            "javaVersion" to libs.versions.java.get(),
             "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
             "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.get().toString(),

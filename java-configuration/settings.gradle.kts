@@ -3,6 +3,8 @@
  *
  * Use of this source code is governed by Apache License, Version 2.0
  */
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -18,8 +20,12 @@ dependencyResolutionManagement {
     }
 }
 
+rootProject.name = "java-configuration-local"
+
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
-rootProject.name = "dependency-bridge-local"
+include(
+    ":utils-java-configuration",
+)
