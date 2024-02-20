@@ -59,7 +59,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
             "antibytes" to Versioning.getInstance(
                 project = project,
                 configuration = VersioningConfiguration(
-                    featurePrefixes = listOf("feature"),
+                    featurePrefixes = emptyList(),
                     suppressSnapshot = true,
                 )
             ).versionName(),
