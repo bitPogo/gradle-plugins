@@ -28,7 +28,6 @@ internal class JacocoAggregationVerificationTaskConfigurator(
         ) {
             group = "Verification"
             description = "Verifies the aggregated coverage reports against a given set of rules for ${contextId.capitalize()}."
-            println(aggregation.dependencies)
             setDependsOn(aggregation.dependencies)
 
             configureJacocoAggregationBase(

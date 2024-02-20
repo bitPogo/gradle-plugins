@@ -48,4 +48,4 @@ jobs:
       - name: Build
         run: ./gradlew build -x check
       - name: Publish to Release Repository
-        run: ./gradlew publishRelease --no-configuration-cache
+        run: ./gradlew publishRelease --no-configuration-cache --no-parallel
