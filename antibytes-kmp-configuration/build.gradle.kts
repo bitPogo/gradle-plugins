@@ -46,7 +46,7 @@ antibytesPublishing {
             groupId = pluginId,
             pom = PomConfiguration(
                 name = name,
-                description = "SourceSet Configuration Plugin for Antibytes projects.",
+                description = "KMP Configuration Plugin for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
             ),
@@ -124,9 +124,9 @@ dependencies {
 gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
-        displayName = "SourceSet Configuration Plugin for Antibytes projects."
+        displayName = "KMP Configuration Plugin for Antibytes projects."
         implementationClass = "tech.antibytes.gradle.configuration.AntibytesSourceSetConfiguration"
-        description = "SourceSet Configuration Plugin for Antibytes projects."
+        description = "KMP Configuration Plugin for Antibytes projects."
     }
 }
 
