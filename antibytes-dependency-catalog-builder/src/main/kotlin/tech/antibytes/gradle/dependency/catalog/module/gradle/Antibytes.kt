@@ -62,6 +62,11 @@ internal object Antibytes {
         id = "antibytes-kmp-configuration",
         plugin = "tech.antibytes.gradle.configuration.kmp",
     )
+    val javaConfiguration = GradleBundle(
+        group = "$group.configuration.kmp",
+        id = "antibytes-java-configuration",
+        plugin = "tech.antibytes.gradle.configuration.java",
+    )
 
     val quality = GradleBundle(
         group = "$group.quality",

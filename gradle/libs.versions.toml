@@ -1,4 +1,6 @@
 [versions]
+java = "17"
+
 # [Kotlin](https://kotlinlang.org/docs/releases.html)
 kotlin = "1.9.22"
 

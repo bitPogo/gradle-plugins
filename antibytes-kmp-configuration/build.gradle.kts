@@ -26,7 +26,7 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
 }
 
-val pluginId = "${LibraryConfig.group}.configuration.sourceSet"
+val pluginId = "${LibraryConfig.group}.configuration.kmp"
 val versioningConfiguration = VersioningConfiguration(
     featurePrefixes = emptyList(),
     suppressSnapshot = true

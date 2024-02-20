@@ -40,6 +40,7 @@ include(
     ":antibytes-android-library-configuration",
     ":antibytes-dokka-configuration",
     ":antibytes-kmp-configuration",
+    ":antibytes-java-configuration",
     ":antibytes-coverage",
     ":antibytes-gradle-utils",
     ":antibytes-gradle-test-utils",

@@ -26,7 +26,6 @@ allprojects {
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
-        vendor.set(JvmVendorSpec.ADOPTIUM)
     }
 
     sourceCompatibility = JavaVersion.VERSION_17

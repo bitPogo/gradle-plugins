@@ -4,6 +4,9 @@
  * Use of this source code is governed by Apache v2.0
  */
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
+import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
@@ -15,19 +18,19 @@ import tech.antibytes.gradle.publishing.api.DeveloperConfiguration
 import tech.antibytes.gradle.publishing.api.LicenseConfiguration
 import tech.antibytes.gradle.publishing.api.SourceControlConfiguration
 import tech.antibytes.gradle.publishing.api.GitRepositoryConfiguration
-import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
+import tech.antibytes.gradle.versioning.Versioning
 
 plugins {
     `kotlin-dsl`
-    `java-library`
     `java-gradle-plugin`
 
-    id("tech.antibytes.gradle.coverage.local")
+    id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.publishing.local")
+    id("tech.antibytes.gradle.coverage.local")
 }
 
-val pluginId = "${LibraryConfig.group}.publishing"
+val pluginId = "${LibraryConfig.group}.configuration.java"
 val versioningConfiguration = VersioningConfiguration(
     featurePrefixes = emptyList(),
     suppressSnapshot = true
@@ -47,7 +50,7 @@ antibytesPublishing {
             groupId = pluginId,
             pom = PomConfiguration(
                 name = name,
-                description = "Publishing tasks for Antibytes projects.",
+                description = "Java Configuration Plugin for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
             ),
@@ -109,11 +112,32 @@ antibytesPublishing {
     )
 }
 
+dependencies {
+    implementation(libs.kotlin)
+    implementation(projects.antibytesGradleUtils)
+
+    testImplementation(libs.kotlinTest5)
+    testImplementation(platform(libs.junit))
+    testImplementation(libs.jupiter)
+    testImplementation(libs.mockk)
+    testImplementation(libs.jvmFixture)
+    testImplementation(projects.antibytesGradleTestUtils)
+}
+
+gradlePlugin {
+    plugins.create(pluginId) {
+        id = pluginId
+        displayName = "Java Configuration Plugin for Antibytes projects."
+        implementationClass = "tech.antibytes.gradle.configuration.AntibytesJavaConfiguration"
+        description = "Java Configuration Plugin for Antibytes projects."
+    }
+}
+
 antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,
         measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.98)
+        minimum = BigDecimal(0.95)
     )
 
     val instructionCoverage = JacocoVerificationRule(
@@ -135,37 +159,28 @@ antibytesCoverage {
     )
 }
 
-dependencies {
-    implementation(libs.kotlin)
-    implementation(libs.publishing)
-    implementation(libs.versioning)
-    implementation(projects.antibytesGradleUtils)
-    api(projects.antibytesVersioning)
-
-    testImplementation(libs.kotlinTest)
-    testImplementation(platform(libs.junit))
-    testImplementation(libs.jupiter)
-    testImplementation(libs.mockk)
-    testImplementation(libs.jvmFixture)
-    testImplementation(projects.antibytesGradleTestUtils)
+configure<SourceSetContainer> {
+    main {
+        java.srcDirs(
+            "src/main/kotlin",
+            "build/generated/antibytes/main/kotlin"
+        )
+    }
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
-    }
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    packageName.set("tech.antibytes.gradle.configuration.config")
+    stringFields.set(
+        mapOf(
+            "javaVersion" to libs.versions.java.get(),
+        )
+    )
 }
 
-gradlePlugin {
-    plugins.create(pluginId) {
-        id = pluginId
-        displayName = "Publishing setup for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.publishing.AntibytesPublishing"
-        description = "Publishing setup for Antibytes projects."
-    }
+tasks.withType<KotlinCompile> {
+    dependsOn(provideConfig)
 }
 
 tasks.test {
