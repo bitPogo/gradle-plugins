@@ -13,9 +13,9 @@ fatJar = "8.1.1"
 
 ## Gradle
 # [Gradle Versions](https://github.com/ben-manes/gradle-versions-plugin)
-dependencyUpdate = "0.50.0"
+dependencyUpdate = "0.51.0"
 # [OWASP](https://plugins.gradle.org/plugin/org.owasp.dependencycheck)
-owasp = "9.0.7"
+owasp = "9.0.9"
 # [Jacoco](https://github.com/jacoco/jacoco/releases)
 jacoco = "0.8.11"
 # [JGit Core](https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit)
@@ -24,17 +24,17 @@ publishing = "6.8.0.202311291450-r"
 versioning = "3.0.0" # see: https://github.com/palantir/gradle-git-version/issues/353
 ## [AGP](https://developer.android.com/studio/releases/gradle-plugin)
 ## [AGP on Maven](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
-agp = "8.2.1"
+agp = "8.2.2"
 # [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
-spotless = "6.23.3"
+spotless = "6.25.0"
 # [KTLint](https://github.com/pinterest/ktlint)
-ktlint = "1.0.1"
+ktlint = "1.1.1"
 # [Detekt](https://github.com/detekt/detekt)
-detekt = "1.23.4"
+detekt = "1.23.5"
 # [Sonarqube](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle/)
 sonarqube = "4.4.1.3373"
 # [Binary Compatibility](https://github.com/Kotlin/binary-compatibility-validator)
-stableApi = "0.13.2"
+stableApi = "0.14.0"
 # [maven-archeologist](https://github.com/square/maven-archeologist)
 mavenArtifacts = "0.0.10"
 # [dokka](https://github.com/Kotlin/dokka)
@@ -42,7 +42,7 @@ dokka = "1.9.10"
 # [Python for Gradle](https://github.com/xvik/gradle-use-python-plugin/blob/master/README.md)
 python = "3.0.0"
 ## [Toolchains resolver](https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention)
-toolchainResolver = "0.7.0"
+toolchainResolver = "0.8.0"
 
 ## Libs
 # [JFlex](https://jflex.de/)
@@ -50,13 +50,13 @@ jflex = "1.9.1"
 # [Turtle](https://github.com/lordcodes/turtle)
 turtle = "0.9.0"
 # [Kotlin Poet](https://square.github.io/kotlinpoet/)
-kotlinPoet = "1.15.3"
+kotlinPoet = "1.16.0"
 
 ## Test
 # [JUnit](https://github.com/junit-team/junit5/)
-junit = "5.10.1"
+junit = "5.10.2"
 # [mockk](http://mockk.io)
-mockk = "1.13.8"
+mockk = "1.13.9"
 # [kotlinFixture](https://github.com/appmattus/kotlinfixture)
 jvmFixture = "1.2.0"
 # [JUnit Extensions](https://github.com/junit-pioneer/junit-pioneer/releases)

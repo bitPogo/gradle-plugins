@@ -2,7 +2,7 @@
 ## [AppCompact](https://developer.android.com/jetpack/androidx/releases/appcompat)
 appCompact = "1.6.1"
 ## [Coil](https://github.com/coil-kt/coil)
-coil = "2.4.0"
+coil = "2.5.0"
 ## [Constrain Layout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)
 constraintLayout = "2.1.4"
 constraintLayout-compose = "1.0.1"
@@ -12,53 +12,53 @@ constraintLayout-core = "1.0.4"
 ## [Release Notes](https://developer.android.com/jetpack/androidx/versions/all-channel)
 ## [Compatibility Notes](https://developer.android.com/jetpack/androidx/releases/compose-kotlin)
 ## [Overview](https://developer.android.com/jetpack/compose/setup)
-android-compose-animation = "1.5.4"
-android-compose-bom = "2023.10.01"
-android-compose-compiler = "1.5.6"
-android-compose-foundation = "1.5.4"
-android-compose-runtime = "1.5.4"
-android-compose-saveable = "1.5.4"
-android-compose-ui = "1.5.4"
-android-compose-ui-tooling = "1.5.4"
+android-compose-animation = "1.6.1"
+android-compose-bom = "2024.02.00"
+android-compose-compiler = "1.5.9"
+android-compose-foundation = "1.6.1"
+android-compose-runtime = "1.6.1"
+android-compose-saveable = "1.6.1"
+android-compose-ui = "1.6.1"
+android-compose-ui-tooling = "1.6.1"
 
 ## [AndroidX](https://developer.android.com/jetpack/androidx)
 ## [AndroidX Core](https://developer.android.com/kotlin/ktx)
 android-ktx-core = "1.12.0"
-android-ktx-activity = "1.8.0"
+android-ktx-activity = "1.8.2"
 ## [Annotation](https://developer.android.com/jetpack/androidx/releases/annotation)
-android-ktx-annotation = "1.6.0"
-android-ktx-collections = "1.2.0"
-android-ktx-fragment = "1.6.1"
-android-ktx-lifecycle = "2.6.2"
-android-ktx-navigation = "2.7.3"
+android-ktx-annotation = "1.7.1"
+android-ktx-collections = "1.4.0"
+android-ktx-fragment = "1.6.2"
+android-ktx-lifecycle = "2.7.0"
+android-ktx-navigation = "2.7.7"
 android-ktx-palette = "1.0.0"
 ## [Androidx Pageing](https://developer.android.com/jetpack/androidx/releases/paging)
 android-ktx-paging-compose = "3.2.1"
 android-ktx-paging-core = "3.2.1"
-android-ktx-viewmodel = "2.6.2"
-android-ktx-workmanager = "2.8.1"
+android-ktx-viewmodel = "2.7.0"
+android-ktx-workmanager = "2.9.0"
 
 ## [Android Splashscreen](https://developer.android.com/develop/ui/views/launch/splash-screen/migrate)
 android-ktx-splashscreen = "1.0.0-beta02"
 
 ## [Material Android](https://github.com/material-components/material-components-android)
-android-material = "1.10.0-rc01"
+android-material = "1.11.0"
 ## [Material Compose](https://developer.android.com/jetpack/androidx/releases/compose-material)
-android-material-compose = "1.5.4"
+android-material-compose = "1.6.1"
 ## [Material3 Compose](https://developer.android.com/jetpack/androidx/releases/compose-material3)
-android-material3 = "1.1.2"
+android-material3 = "1.2.0"
 
 ## [Jetpack Compose](https://developer.android.com/jetpack/androidx/releases/compose)
 ## [Release Notes](https://developer.android.com/jetpack/androidx/versions/all-channel)
 ## [Compatibility Notes](https://developer.android.com/jetpack/androidx/releases/compose-kotlin)
 ## [Overview](https://developer.android.com/jetpack/compose/setup)
-android-test-compose = "1.5.1"
+android-test-compose = "1.6.1"
 
 ## [Android Testing](https://developer.android.com/testing)
 ## [Android Testing Releases](https://developer.android.com/jetpack/androidx/releases/test)
 android-test-core = "1.5.0"
 android-test-ktx = "1.5.0"
-android-test-orchestrator = "1.4.1"
+android-test-orchestrator = "1.4.2"
 android-test-rules = "1.5.0"
 android-test-runner = "1.5.2"
 
@@ -79,7 +79,7 @@ desugar = "2.0.4"
 ## [Google Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 hilt = "2.44"
 ## [Google Hilt Compose](https://developer.android.com/jetpack/androidx/releases/hilt)
-hilt-compose = "1.0.0"
+hilt-compose = "1.1.0"
 
 
 ## [JUnit4](https://github.com/junit-team/junit4/)
@@ -87,29 +87,29 @@ junit4 = "4.13.2"
 
 
 ## (AtomicFu)(https://github.com/Kotlin/kotlinx.atomicfu)
-kotlinx-atomicfu = "0.23.1"
+kotlinx-atomicfu = "0.23.2"
 ## [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
-kotlinx-coroutines = "1.7.3"
+kotlinx-coroutines = "1.8.0"
 ## [Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization)
-kotlinx-serialization = "1.6.2"
+kotlinx-serialization = "1.6.3"
 ## [Kotlin DateTime](https://github.com/Kotlin/kotlinx-datetime)
 kotlinx-dateTime = "0.5.0"
 ## [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
 kotlinx-nodeJs = "0.0.7"
 ## [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers/releases)
-kotlin-wrappers = "1.0.0-pre.668"
+kotlin-wrappers = "1.0.0-pre.669"
 
 ## [Ktor](https://github.com/ktorio/ktor)
-ktor = "2.3.7"
+ktor = "2.3.8"
 
 ## [Koin](https://github.com/InsertKoinIO/koin)
 ## [Koin Annotations](https://github.com/InsertKoinIO/koin-annotations)
-koin-annotations = "1.3.0"
-koin-core = "3.5.1"
+koin-annotations = "1.3.1"
+koin-core = "3.5.3"
 
 ## [KSP](https://github.com/google/ksp)
 ## [KSP DevTools on MavenCentral](https://mvnrepository.com/artifact/com.google.devtools.ksp/com.google.devtools.ksp.gradle.plugin)
-ksp = "1.9.21-1.0.16"
+ksp = "1.9.22-1.0.17"
 
 ## [Compiler Test](https://github.com/ZacSweers/kotlin-compile-testing)
 compilerTest = "0.4.0"
@@ -118,13 +118,11 @@ compilerTest = "0.4.0"
 mkDocs = "3.0.0"
 
 ## [Okio](https://square.github.io/okio/)
-square-okio = "3.7.0"
+square-okio = "3.8.0"
 ## [SQLDelight](https://github.com/cashapp/sqldelight/)
 square-sqldelight = "2.0.1"
 ## [OkHttp](https://square.github.io/okhttp/)
 square-okhttp = "4.12.0"
-## [KotlinPoet](https://github.com/square/kotlinpoet)
-square-kotlinPoet = "1.15.3"
 
 ## [Turbine](https://github.com/cashapp/turbine/releases)
 turbine = "1.0.0"
@@ -133,19 +131,19 @@ turbine = "1.0.0"
 stately = "2.0.6"
 
 ## [SLF4J](http://www.slf4j.org/)
-slf4j = "2.0.9"
+slf4j = "2.1.0"
 
 ## [Paparazzi](https://github.com/cashapp/paparazzi)
-paparazzi = "1.3.1"
+paparazzi = "1.3.2"
 
 ## [Roborazzi](https://github.com/takahirom/roborazzi/releases)
-roborazzi = "1.9.0-alpha-1"
+roborazzi = "1.10.1"
 
 ## [UUID](https://github.com/benasher44/uuid)
 uuidKmp = "0.8.2"
 
 ## [Multiplatform Compose](https://github.com/JetBrains/compose-jb/blob/master/CHANGELOG.md)
-compose-multiplaform = "1.5.11"
+compose-multiplaform = "1.6.0-rc02"
 
 [libraries]
 agp = {group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -234,7 +232,6 @@ mkDocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref = "mkD
 square-okio-core = {group = "com.squareup.okio", name = "okio", version.ref = "square-okio" }
 square-sqldelight = {group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight" }
 square-okhttp = {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "square-okhttp" }
-square-kotlinPoet = {group = "com.squareup", name = "kotlinpoet", version.ref = "square-kotlinPoet" }
 
 
 stately-collections = {group = "co.touchlab", name = "stately-iso-collections-jvm", version.ref = "stately" }

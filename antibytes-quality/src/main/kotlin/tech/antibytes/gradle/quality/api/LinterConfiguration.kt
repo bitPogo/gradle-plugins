@@ -30,6 +30,7 @@ data class LinterConfiguration(
             "ij_kotlin_allow_trailing_comma_on_call_site" to "true",
             "ktlint_standard_property-naming" to "disabled",
             "ktlint_standard_discouraged-comment-location" to "disabled",
+            "ktlint_standard_value-argument-comment" to "disabled",
         ),
     ),
     override val gradle: PartialConfiguration = PartialLinterConfiguration(
