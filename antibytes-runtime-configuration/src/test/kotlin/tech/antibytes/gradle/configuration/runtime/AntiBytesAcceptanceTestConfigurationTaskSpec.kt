@@ -17,6 +17,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
+import tech.antibytes.gradle.util.capitalize
 
 class AntiBytesAcceptanceTestConfigurationTaskSpec {
     @TempDir
@@ -210,6 +211,38 @@ class AntiBytesAcceptanceTestConfigurationTaskSpec {
         )
 
         assertTrue(pointer?.absolutePath?.contains("generated/antibytes/${sourceSet}AcceptanceTest/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile with the given prefix for the File`() {
+        // Given
+        val packageName = "test.config"
+        val prefix = "somewhere"
+        val expected = loadResource("/AcceptanceTestConfigEmptyExpected.kt")
+
+        // When
+        val task: AntiBytesAcceptanceTestConfigurationTask = project.tasks.create("sut", AntiBytesAcceptanceTestConfigurationTask::class.java) {}
+        task.configurationFilePrefix.set(prefix)
+        task.packageName.set(packageName)
+
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("${File.separator}${prefix.capitalize()}AcceptanceTestConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/acceptanceTest/kotlin") ?: false)
     }
 
     @Test

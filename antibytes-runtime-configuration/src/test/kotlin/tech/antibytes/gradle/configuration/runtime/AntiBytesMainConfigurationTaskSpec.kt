@@ -17,6 +17,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
+import tech.antibytes.gradle.util.capitalize
 
 class AntiBytesMainConfigurationTaskSpec {
     @TempDir
@@ -179,7 +180,7 @@ class AntiBytesMainConfigurationTaskSpec {
     }
 
     @Test
-    fun `Given the task is executed it generates a OutputFile with the given prefix`() {
+    fun `Given the task is executed it generates a OutputFile with the given prefix for the SourceSet`() {
         // Given
         val packageName = "test.config"
         val prefix = "somewhere"
@@ -210,6 +211,38 @@ class AntiBytesMainConfigurationTaskSpec {
         )
 
         assertTrue(pointer?.absolutePath?.contains("generated/antibytes/${prefix}Main/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile with the given prefix for the File`() {
+        // Given
+        val packageName = "test.config"
+        val prefix = "somewhere"
+        val expected = loadResource("/MainConfigEmptyExpected.kt")
+
+        // When
+        val task: AntiBytesMainConfigurationTask = project.tasks.create("sut", AntiBytesMainConfigurationTask::class.java) {}
+        task.configurationFilePrefix.set(prefix)
+        task.packageName.set(packageName)
+
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("${File.separator}${prefix.capitalize()}MainConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/main/kotlin") ?: false)
     }
 
     @Test

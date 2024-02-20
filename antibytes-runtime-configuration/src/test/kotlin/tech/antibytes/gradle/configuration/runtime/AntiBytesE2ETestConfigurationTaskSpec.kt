@@ -17,6 +17,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
+import tech.antibytes.gradle.util.capitalize
 
 class AntiBytesE2ETestConfigurationTaskSpec {
     @TempDir
@@ -118,7 +119,7 @@ class AntiBytesE2ETestConfigurationTaskSpec {
     }
 
     @Test
-    fun `Given the task is executed it generates a OutputFile in test while having a custom prefix`() {
+    fun `Given the task is executed it generates a OutputFile in e2etest while having a custom prefix for source sets`() {
         // Given
         val packageName = "test.config"
         val sourceSet = "somewhere"
@@ -149,7 +150,7 @@ class AntiBytesE2ETestConfigurationTaskSpec {
     }
 
     @Test
-    fun `Given the task is executed it generates a OutputFile in commonTest`() {
+    fun `Given the task is executed it generates a OutputFile in commonE2ETest`() {
         // Given
         val packageName = "test.config"
         project.plugins.apply("org.jetbrains.kotlin.multiplatform")
@@ -210,6 +211,38 @@ class AntiBytesE2ETestConfigurationTaskSpec {
         )
 
         assertTrue(pointer?.absolutePath?.contains("generated/antibytes/${sourceSet}E2ETest/kotlin") ?: false)
+    }
+
+    @Test
+    fun `Given the task is executed it generates a OutputFile with the given prefix for the File`() {
+        // Given
+        val packageName = "test.config"
+        val prefix = "somewhere"
+        val expected = loadResource("/E2ETestConfigEmptyExpected.kt")
+
+        // When
+        val task: AntiBytesE2ETestConfigurationTask = project.tasks.create("sut", AntiBytesE2ETestConfigurationTask::class.java) {}
+        task.configurationFilePrefix.set(prefix)
+        task.packageName.set(packageName)
+
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("${File.separator}${prefix.capitalize()}E2ETestConfig.kt")) {
+                fileValue = file.readText()
+                pointer = file
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+
+        assertTrue(pointer?.absolutePath?.contains("generated/antibytes/e2eTest/kotlin") ?: false)
     }
 
     @Test
