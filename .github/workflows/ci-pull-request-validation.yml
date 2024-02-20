@@ -64,4 +64,4 @@ jobs:
         with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
       - name: Publish to Development Repository
-        run: ./gradlew publishDevelopment
+        run: ./gradlew publishDevelopment --no-configuration-cache --no-parallel

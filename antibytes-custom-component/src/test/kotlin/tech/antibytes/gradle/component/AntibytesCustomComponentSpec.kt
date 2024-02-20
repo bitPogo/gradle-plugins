@@ -99,7 +99,7 @@ class AntibytesCustomComponentSpec {
         every { project.components.add(any()) } returns fixture()
 
         every { project.configurations.create(any()) } returns componentConfiguration
-        every { project.configurations.named(any()) } returns mockk {
+        every { project.configurations.named(any<String>()) } returns mockk {
             every { get() } returns componentConfiguration
         }
         every { componentConfiguration.artifacts.add(capture(capturedArtifact)) } returns fixture()

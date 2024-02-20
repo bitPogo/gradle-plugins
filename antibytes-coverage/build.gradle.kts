@@ -31,7 +31,7 @@ plugins {
 
 val pluginId = "${LibraryConfig.group}.coverage"
 val versioningConfiguration = VersioningConfiguration(
-    featurePrefixes = emptyList(),
+    featurePrefixes = listOf("feature"),
     suppressSnapshot = true
 )
 

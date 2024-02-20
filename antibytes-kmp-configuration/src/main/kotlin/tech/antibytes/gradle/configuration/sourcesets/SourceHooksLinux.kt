@@ -14,36 +14,12 @@ fun KotlinMultiplatformExtension.linuxArm(
     configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     linuxArm64("${namePrefix}64", configuration)
-    linuxArm32Hfp("${namePrefix}32Hfp", configuration)
 
     val linuxMain = sourceSets.maybeCreate("${namePrefix}Main")
     val linuxTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}64",
-        "${namePrefix}32Hfp",
-    )
-
-    wireDependencies(
-        main = linuxMain,
-        test = linuxTest,
-        targets = targets,
-    )
-}
-
-fun KotlinMultiplatformExtension.linuxMips(
-    namePrefix: String = "linuxMips",
-    configuration: KotlinNativeTarget.() -> Unit = { },
-) {
-    linuxMips32("${namePrefix}32", configuration)
-    linuxMipsel32("${namePrefix}el32", configuration)
-
-    val linuxMain = sourceSets.maybeCreate("${namePrefix}Main")
-    val linuxTest = sourceSets.maybeCreate("${namePrefix}Test")
-
-    val targets = setOf(
-        "${namePrefix}32",
-        "${namePrefix}el32",
     )
 
     wireDependencies(
@@ -58,7 +34,6 @@ fun KotlinMultiplatformExtension.linux(
     configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     linuxX64("${namePrefix}X64", configuration)
-    linuxMips("${namePrefix}Mips", configuration)
     linuxArm("${namePrefix}Arm", configuration)
 
     val linuxMain = sourceSets.maybeCreate("${namePrefix}Main")

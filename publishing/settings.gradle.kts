@@ -27,6 +27,6 @@ plugins {
 }
 
 include(
-    ":versioning",
-    ":utils",
+    ":versioning-publishing",
+    ":utils-publishing",
 )

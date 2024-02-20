@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.quality.linter
 
 import com.appmattus.kotlinfixture.kotlinFixture
+import com.diffplug.gradle.spotless.BaseKotlinExtension
 import com.diffplug.gradle.spotless.FormatExtension
 import com.diffplug.gradle.spotless.KotlinExtension
 import com.diffplug.gradle.spotless.KotlinGradleExtension
@@ -63,7 +64,7 @@ class SpotlessSpec {
                 code = PartialLinterConfiguration(
                     include = includes,
                     exclude = emptySet(),
-                    disabledRules = emptyMap(),
+                    rules = emptyMap(),
                 ),
             ),
         )
@@ -96,7 +97,7 @@ class SpotlessSpec {
         assertTrue { kotlin.useTrimTrailingWhitespace }
         assertEquals(
             actual = kotlin.version,
-            expected = "0.50.0",
+            expected = "1.1.1",
         )
         verify(exactly = 1) { project.plugins.apply("com.diffplug.spotless") }
     }
@@ -117,7 +118,7 @@ class SpotlessSpec {
                 code = PartialLinterConfiguration(
                     include = includes,
                     exclude = excludes,
-                    disabledRules = emptyMap(),
+                    rules = emptyMap(),
                 ),
             ),
         )
@@ -160,7 +161,7 @@ class SpotlessSpec {
 
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
-        val rules: KotlinExtension.KotlinFormatExtension = mockk()
+        val rules: BaseKotlinExtension.KtlintConfig = mockk()
         val kotlin = KotlinExtensionFake(spotless, rules)
 
         val disabled = slot<Map<String, String>>()
@@ -170,7 +171,7 @@ class SpotlessSpec {
                 code = PartialLinterConfiguration(
                     include = includes,
                     exclude = emptySet(),
-                    disabledRules = disable,
+                    rules = disable,
                 ),
             ),
         )
@@ -218,7 +219,7 @@ class SpotlessSpec {
                 gradle = PartialLinterConfiguration(
                     include = includes,
                     exclude = emptySet(),
-                    disabledRules = emptyMap(),
+                    rules = emptyMap(),
                 ),
             ),
         )
@@ -256,7 +257,7 @@ class SpotlessSpec {
             expected = includes,
         )
         verify(exactly = 1) { project.plugins.apply("com.diffplug.spotless") }
-        verify(exactly = 1) { gradle.ktlint("0.50.0") }
+        verify(exactly = 1) { gradle.ktlint("1.1.1") }
         verify(exactly = 1) { gradle.trimTrailingWhitespace() }
         verify(exactly = 1) { gradle.indentWithSpaces() }
         verify(exactly = 1) { gradle.endWithNewline() }
@@ -280,7 +281,7 @@ class SpotlessSpec {
                 gradle = PartialLinterConfiguration(
                     include = includes,
                     exclude = excludes,
-                    disabledRules = emptyMap(),
+                    rules = emptyMap(),
                 ),
             ),
         )
@@ -329,7 +330,7 @@ class SpotlessSpec {
         val project: Project = mockk()
         val spotless: SpotlessExtension = mockk(relaxed = true)
         val gradle: KotlinGradleExtension = mockk(relaxed = true)
-        val rules: KotlinGradleExtension.KotlinFormatExtension = mockk()
+        val rules: BaseKotlinExtension.KtlintConfig = mockk()
 
         val disabled = slot<Map<String, String>>()
 
@@ -338,7 +339,7 @@ class SpotlessSpec {
                 gradle = PartialLinterConfiguration(
                     include = includes,
                     exclude = emptySet(),
-                    disabledRules = disable,
+                    rules = disable,
                 ),
             ),
         )
@@ -386,7 +387,7 @@ class SpotlessSpec {
                 misc = PartialLinterConfiguration(
                     include = includes,
                     exclude = emptySet(),
-                    disabledRules = emptyMap(),
+                    rules = emptyMap(),
                 ),
             ),
         )
@@ -446,7 +447,7 @@ class SpotlessSpec {
                 misc = PartialLinterConfiguration(
                     include = includes,
                     exclude = excludes,
-                    disabledRules = emptyMap(),
+                    rules = emptyMap(),
                 ),
             ),
         )
@@ -486,7 +487,7 @@ class SpotlessSpec {
 
     private class KotlinExtensionFake(
         spotlessExtension: SpotlessExtension,
-        private val formatExtension: KotlinFormatExtension,
+        private val formatExtension: BaseKotlinExtension.KtlintConfig,
     ) : KotlinExtension(spotlessExtension) {
         var targetArguments: Array<out Any?> = emptyArray()
         var excluded: Array<out Any?> = emptyArray()
@@ -503,7 +504,7 @@ class SpotlessSpec {
             excluded = targets
         }
 
-        override fun ktlint(version: String?): KotlinFormatExtension {
+        override fun ktlint(version: String?): KtlintConfig {
             this.version = version
 
             return formatExtension

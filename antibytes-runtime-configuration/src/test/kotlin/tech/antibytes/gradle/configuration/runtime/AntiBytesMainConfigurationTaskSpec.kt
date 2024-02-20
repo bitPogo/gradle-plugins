@@ -209,8 +209,6 @@ class AntiBytesMainConfigurationTaskSpec {
             expected.normalizeSource(),
         )
 
-        println(pointer)
-
         assertTrue(pointer?.absolutePath?.contains("generated/antibytes/${prefix}Main/kotlin") ?: false)
     }
 

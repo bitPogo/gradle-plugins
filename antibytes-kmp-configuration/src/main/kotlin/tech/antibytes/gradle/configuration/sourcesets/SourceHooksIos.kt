@@ -13,29 +13,22 @@ fun KotlinMultiplatformExtension.iosx(
     namePrefix: String = "ios",
     configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
-    ios(namePrefix, configuration)
+    iosX64("${namePrefix}iosX64", configuration)
+    iosArm64("${namePrefix}iosArm64", configuration)
     iosSimulatorArm64("${namePrefix}SimulatorArm64", configuration)
 
-    depends(setOf("${namePrefix}SimulatorArm64"), namePrefix)
+    val iosMain = sourceSets.maybeCreate("${namePrefix}Main")
+    val iosTest = sourceSets.maybeCreate("${namePrefix}Test")
+
+    val targets = setOf(
+        "${namePrefix}X64",
+        "${namePrefix}Arm64",
+        "${namePrefix}SimulatorArm64",
+    )
+
+    wireDependencies(
+        main = iosMain,
+        test = iosTest,
+        targets = targets,
+    )
 }
-
-private fun KotlinMultiplatformExtension.legacyIos(
-    namePrefix: String,
-    configuration: KotlinNativeTarget.() -> Unit,
-    provider: KotlinMultiplatformExtension.() -> Unit,
-) {
-    iosArm32("${namePrefix}Arm32", configuration)
-    provider()
-
-    depends(setOf("${namePrefix}Arm32"), namePrefix)
-}
-
-fun KotlinMultiplatformExtension.iosWithLegacy(
-    namePrefix: String = "ios",
-    configuration: KotlinNativeTarget.() -> Unit = { },
-) = legacyIos(namePrefix, configuration) { ios(namePrefix, configuration) }
-
-fun KotlinMultiplatformExtension.iosxWithLegacy(
-    namePrefix: String = "ios",
-    configuration: KotlinNativeTarget.() -> Unit = { },
-) = legacyIos(namePrefix, configuration) { iosx(namePrefix, configuration) }

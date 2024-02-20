@@ -14,14 +14,12 @@ fun KotlinMultiplatformExtension.mingw(
     configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
     mingwX64("${namePrefix}X64", configuration)
-    mingwX86("${namePrefix}X86", configuration)
 
     val windowsMain = sourceSets.maybeCreate("${namePrefix}Main")
     val windowsTest = sourceSets.maybeCreate("${namePrefix}Test")
 
     val targets = setOf(
         "${namePrefix}X64",
-        "${namePrefix}X86",
     )
 
     wireDependencies(

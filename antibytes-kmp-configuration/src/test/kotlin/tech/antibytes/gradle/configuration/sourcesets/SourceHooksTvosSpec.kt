@@ -33,13 +33,15 @@ class SourceHooksTvosSpec {
         val extensions: ExtensionContainer = mockk()
         val prefix: String = fixture()
         val configuration: KotlinNativeTarget.() -> Unit = { }
-        val tvosSimulator: KotlinSourceSet = mockk(relaxed = true)
-        val tvos: KotlinSourceSet = mockk()
+        val tvosX: KotlinSourceSet = mockk(relaxed = true)
+        val tvosXSet: KotlinSourceSet = mockk(relaxed = true)
+        val common: KotlinSourceSet = mockk(relaxed = true)
         val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk()
 
         every { extension.sourceSets } returns sourceSets
-        every { sourceSets.getByName(any()) } returns tvos
-        invokeGradleAction(tvosSimulator, mockk()) { sourceSet ->
+        every { sourceSets.maybeCreate(any()) } returns tvosX
+        every { sourceSets.getByName(any()) } returns common
+        invokeGradleAction(tvosXSet, mockk()) { sourceSet ->
             sourceSets.getByName(any(), sourceSet)
         }
         every { (extension as ExtensionAware).extensions } returns extensions
@@ -51,10 +53,24 @@ class SourceHooksTvosSpec {
         extension.tvosx(prefix, configuration)
 
         // Then
-        verify(exactly = 1) { extension.tvos(prefix, configuration) }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
+        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
+
+        verify(exactly = 1) { extension.tvosX64("${prefix}X64", configuration) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}X64Test", any<Action<KotlinSourceSet>>()) }
+
+        verify(exactly = 1) { extension.tvosArm64("${prefix}Arm64", configuration) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Main", any<Action<KotlinSourceSet>>()) }
+        verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Test", any<Action<KotlinSourceSet>>()) }
+
         verify(exactly = 1) { extension.tvosSimulatorArm64("${prefix}SimulatorArm64", configuration) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Main", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Test", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 2) { tvosSimulator.dependsOn(tvos) }
+        verify(exactly = 6) { tvosXSet.dependsOn(tvosX) }
+
+        verify(exactly = 2) { tvosX.dependsOn(common) }
+        verify(exactly = 1) { sourceSets.getByName("commonMain") }
+        verify(exactly = 1) { sourceSets.getByName("commonTest") }
     }
 }

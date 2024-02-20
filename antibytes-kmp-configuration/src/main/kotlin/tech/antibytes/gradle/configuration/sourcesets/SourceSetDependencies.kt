@@ -44,23 +44,6 @@ internal fun KotlinMultiplatformExtension.depends(
     }
 }
 
-internal fun KotlinMultiplatformExtension.depends(
-    targets: Set<String>,
-    dependency: String,
-) {
-    sourceSets {
-        targets.forEach { target ->
-            getByName("${target}Main") {
-                dependsOn(this@sourceSets.getByName("${dependency}Main"))
-            }
-
-            getByName("${target}Test") {
-                dependsOn(this@sourceSets.getByName("${dependency}Test"))
-            }
-        }
-    }
-}
-
 internal fun KotlinMultiplatformExtension.wireDependencies(
     main: KotlinSourceSet,
     test: KotlinSourceSet,

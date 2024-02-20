@@ -40,8 +40,8 @@ dependencies {
     implementation(libs.detekt)
     implementation(libs.sonarqube)
     implementation(libs.stableApi)
-    implementation(projects.utils)
-    implementation(projects.helper)
+    implementation(projects.utilsQuality)
+    implementation(projects.helperQuality)
 }
 
 gradlePlugin {

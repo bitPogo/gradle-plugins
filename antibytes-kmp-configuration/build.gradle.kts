@@ -26,9 +26,9 @@ plugins {
     id("tech.antibytes.gradle.coverage.local")
 }
 
-val pluginId = "${LibraryConfig.group}.configuration.kmp"
+val pluginId = "${LibraryConfig.group}.configuration.sourceSet"
 val versioningConfiguration = VersioningConfiguration(
-    featurePrefixes = emptyList(),
+    featurePrefixes = listOf("feature"),
     suppressSnapshot = true
 )
 
@@ -46,7 +46,7 @@ antibytesPublishing {
             groupId = pluginId,
             pom = PomConfiguration(
                 name = name,
-                description = "KMP Configuration for Antibytes projects.",
+                description = "KMP Configuration Plugin for Antibytes projects.",
                 year = 2022,
                 url = LibraryConfig.publishing.url,
             ),
@@ -124,9 +124,9 @@ dependencies {
 gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
-        displayName = "Configuration Plugin for Antibytes KMP projects."
+        displayName = "KMP Configuration Plugin for Antibytes projects."
         implementationClass = "tech.antibytes.gradle.configuration.AntibytesKmpConfiguration"
-        description = "KMP Configuration for Antibytes projects."
+        description = "KMP Configuration Plugin for Antibytes projects."
     }
 }
 

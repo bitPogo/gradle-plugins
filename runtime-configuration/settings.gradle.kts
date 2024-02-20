@@ -26,4 +26,4 @@ plugins {
 
 rootProject.name = "runtime-configuration-local"
 
-include(":utils",)
+include(":utils-runtime-config",)

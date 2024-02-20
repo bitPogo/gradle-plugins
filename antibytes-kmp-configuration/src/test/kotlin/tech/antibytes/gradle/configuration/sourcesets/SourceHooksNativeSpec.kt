@@ -35,7 +35,6 @@ class SourceHooksNativeSpec {
         mockkStatic(
             KotlinMultiplatformExtension::androidNative,
             KotlinMultiplatformExtension::apple,
-            KotlinMultiplatformExtension::appleWithLegacy,
             KotlinMultiplatformExtension::linux,
             KotlinMultiplatformExtension::mingw,
         )
@@ -46,7 +45,6 @@ class SourceHooksNativeSpec {
         unmockkStatic(
             KotlinMultiplatformExtension::androidNative,
             KotlinMultiplatformExtension::apple,
-            KotlinMultiplatformExtension::appleWithLegacy,
             KotlinMultiplatformExtension::linux,
             KotlinMultiplatformExtension::mingw,
         )
@@ -68,7 +66,6 @@ class SourceHooksNativeSpec {
         val common: KotlinSourceSet = mockk(relaxed = true)
 
         every { extension.sourceSets } returns sourceSets
-        every { extension.wasm32(any(), any<KotlinNativeTarget.() -> Unit>()) } returns mockk()
         every { sourceSets.getByName(any()) } returns nativeSubset
         every { sourceSets.maybeCreate(any()) } returns native
         invokeGradleAction(nativeSubset, mockk()) { sourceSet ->
@@ -96,7 +93,6 @@ class SourceHooksNativeSpec {
         verify(exactly = 1) { extension.apple(configuration = configuration) }
         verify(exactly = 1) { extension.linux(configuration = configuration) }
         // Note here is something off with mockk
-        verify(exactly = 1) { extension.wasm32(any<Action<KotlinNativeTarget>>()) } // (configure = configuration) }
         verify(exactly = 1) { extension.mingw(configuration = configuration) }
 
         verify(exactly = 1) { sourceSets.getByName("androidNativeMain", any<Action<KotlinSourceSet>>()) }
@@ -107,213 +103,6 @@ class SourceHooksNativeSpec {
 
         verify(exactly = 1) { sourceSets.getByName("linuxMain", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("linuxTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("wasm32Main", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("wasm32Test", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("mingwMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("mingwTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 10) { nativeSubset.dependsOn(native) }
-
-        verify(exactly = 1) { sourceSets.getByName("commonMain") }
-        verify(exactly = 1) { sourceSets.getByName("commonTest") }
-        verify(exactly = 2) { native.dependsOn(common) }
-    }
-
-    @Test
-    fun `Given nativeLegacy is called it delegates the given parameter to the KMP configuration`() {
-        // Given
-        val extension: KotlinMultiplatformExtension = mockk(
-            relaxed = true,
-            moreInterfaces = arrayOf(ExtensionAware::class),
-        )
-        val extensions: ExtensionContainer = mockk()
-        val name: String = fixture()
-        val configuration: KotlinNativeTarget.() -> Unit = { }
-        val native: KotlinSourceSet = mockk(relaxed = true)
-        val nativeSubset: KotlinSourceSet = mockk(relaxed = true)
-        val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk(relaxed = true)
-        val common: KotlinSourceSet = mockk(relaxed = true)
-
-        every { extension.sourceSets } returns sourceSets
-        every { sourceSets.getByName(any()) } returns nativeSubset
-        every { sourceSets.maybeCreate(any()) } returns native
-        invokeGradleAction(nativeSubset, mockk()) { sourceSet ->
-            sourceSets.getByName(any(), sourceSet)
-        }
-        every { sourceSets.getByName("commonMain") } returns common
-        every { sourceSets.getByName("commonTest") } returns common
-        every { (extension as ExtensionAware).extensions } returns extensions
-        invokeGradleAction(sourceSets) { sources ->
-            extensions.configure("sourceSets", sources)
-        }
-        every { extension.androidNative(any(), any()) } just Runs
-        every { extension.appleWithLegacy(any(), any()) } just Runs
-        every { extension.linux(any(), any()) } just Runs
-        every { extension.mingw(any(), any()) } just Runs
-
-        // When
-        extension.nativeWithLegacy(name, configuration)
-
-        // Then
-        verify(exactly = 1) { sourceSets.maybeCreate("${name}Main") }
-        verify(exactly = 1) { sourceSets.maybeCreate("${name}Test") }
-
-        verify(exactly = 1) { extension.androidNative(configuration = configuration) }
-        verify(exactly = 1) { extension.appleWithLegacy(configuration = configuration) }
-        verify(exactly = 1) { extension.linux(configuration = configuration) }
-        // Note here is something off with mockk
-        verify(exactly = 1) { extension.wasm32(any<Action<KotlinNativeTarget>>()) }
-        verify(exactly = 1) { extension.mingw(configuration = configuration) }
-
-        verify(exactly = 1) { sourceSets.getByName("androidNativeMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("androidNativeTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("appleMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("appleTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("linuxMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("linuxTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("wasm32Main", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("wasm32Test", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("mingwMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("mingwTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 10) { nativeSubset.dependsOn(native) }
-
-        verify(exactly = 1) { sourceSets.getByName("commonMain") }
-        verify(exactly = 1) { sourceSets.getByName("commonTest") }
-        verify(exactly = 2) { native.dependsOn(common) }
-    }
-
-    @Test
-    fun `Given nativeWithoutWasm is called it delegates the given parameter to the KMP configuration`() {
-        // Given
-        val extension: KotlinMultiplatformExtension = mockk(
-            relaxed = true,
-            moreInterfaces = arrayOf(ExtensionAware::class),
-        )
-        val extensions: ExtensionContainer = mockk()
-        val name: String = fixture()
-        val configuration: KotlinNativeTarget.() -> Unit = { }
-        val native: KotlinSourceSet = mockk(relaxed = true)
-        val nativeSubset: KotlinSourceSet = mockk(relaxed = true)
-        val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk(relaxed = true)
-        val common: KotlinSourceSet = mockk(relaxed = true)
-
-        every { extension.sourceSets } returns sourceSets
-        every { sourceSets.getByName(any()) } returns nativeSubset
-        every { sourceSets.maybeCreate(any()) } returns native
-        invokeGradleAction(nativeSubset, mockk()) { sourceSet ->
-            sourceSets.getByName(any(), sourceSet)
-        }
-        every { sourceSets.getByName("commonMain") } returns common
-        every { sourceSets.getByName("commonTest") } returns common
-        every { (extension as ExtensionAware).extensions } returns extensions
-        invokeGradleAction(sourceSets) { sources ->
-            extensions.configure("sourceSets", sources)
-        }
-        every { extension.androidNative(any(), any()) } just Runs
-        every { extension.apple(any(), any()) } just Runs
-        every { extension.linux(any(), any()) } just Runs
-        every { extension.mingw(any(), any()) } just Runs
-
-        // When
-        extension.nativeWithoutWasm(name, configuration)
-
-        // Then
-        verify(exactly = 1) { sourceSets.maybeCreate("${name}Main") }
-        verify(exactly = 1) { sourceSets.maybeCreate("${name}Test") }
-
-        verify(exactly = 1) { extension.androidNative(configuration = configuration) }
-        verify(exactly = 1) { extension.apple(configuration = configuration) }
-        verify(exactly = 1) { extension.linux(configuration = configuration) }
-        // Note here is something off with mockk
-        verify(exactly = 0) { extension.wasm32(any<Action<KotlinNativeTarget>>()) }
-        verify(exactly = 1) { extension.mingw(configuration = configuration) }
-
-        verify(exactly = 1) { sourceSets.getByName("androidNativeMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("androidNativeTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("appleMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("appleTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("linuxMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("linuxTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 0) { sourceSets.getByName("wasm32Main", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 0) { sourceSets.getByName("wasm32Test", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("mingwMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("mingwTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 8) { nativeSubset.dependsOn(native) }
-
-        verify(exactly = 1) { sourceSets.getByName("commonMain") }
-        verify(exactly = 1) { sourceSets.getByName("commonTest") }
-        verify(exactly = 2) { native.dependsOn(common) }
-    }
-
-    @Test
-    fun `Given nativeWithoutWasmWithLegacy is called it delegates the given parameter to the KMP configuration`() {
-        // Given
-        val extension: KotlinMultiplatformExtension = mockk(
-            relaxed = true,
-            moreInterfaces = arrayOf(ExtensionAware::class),
-        )
-        val extensions: ExtensionContainer = mockk()
-        val name: String = fixture()
-        val configuration: KotlinNativeTarget.() -> Unit = { }
-        val native: KotlinSourceSet = mockk(relaxed = true)
-        val nativeSubset: KotlinSourceSet = mockk(relaxed = true)
-        val sourceSets: NamedDomainObjectContainer<KotlinSourceSet> = mockk(relaxed = true)
-        val common: KotlinSourceSet = mockk(relaxed = true)
-
-        every { extension.sourceSets } returns sourceSets
-        every { sourceSets.getByName(any()) } returns nativeSubset
-        every { sourceSets.maybeCreate(any()) } returns native
-        invokeGradleAction(nativeSubset, mockk()) { sourceSet ->
-            sourceSets.getByName(any(), sourceSet)
-        }
-        every { sourceSets.getByName("commonMain") } returns common
-        every { sourceSets.getByName("commonTest") } returns common
-        every { (extension as ExtensionAware).extensions } returns extensions
-        invokeGradleAction(sourceSets) { sources ->
-            extensions.configure("sourceSets", sources)
-        }
-        every { extension.androidNative(any(), any()) } just Runs
-        every { extension.appleWithLegacy(any(), any()) } just Runs
-        every { extension.linux(any(), any()) } just Runs
-        every { extension.mingw(any(), any()) } just Runs
-
-        // When
-        extension.nativeWithoutWasmWithLegacy(name, configuration)
-
-        // Then
-        verify(exactly = 1) { sourceSets.maybeCreate("${name}Main") }
-        verify(exactly = 1) { sourceSets.maybeCreate("${name}Test") }
-
-        verify(exactly = 1) { extension.androidNative(configuration = configuration) }
-        verify(exactly = 1) { extension.appleWithLegacy(configuration = configuration) }
-        verify(exactly = 1) { extension.linux(configuration = configuration) }
-        // Note here is something off with mockk
-        verify(exactly = 0) { extension.wasm32(any<Action<KotlinNativeTarget>>()) }
-        verify(exactly = 1) { extension.mingw(configuration = configuration) }
-
-        verify(exactly = 1) { sourceSets.getByName("androidNativeMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("androidNativeTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("appleMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("appleTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 1) { sourceSets.getByName("linuxMain", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("linuxTest", any<Action<KotlinSourceSet>>()) }
-
-        verify(exactly = 0) { sourceSets.getByName("wasm32Main", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 0) { sourceSets.getByName("wasm32Test", any<Action<KotlinSourceSet>>()) }
 
         verify(exactly = 1) { sourceSets.getByName("mingwMain", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("mingwTest", any<Action<KotlinSourceSet>>()) }
@@ -352,7 +141,7 @@ class SourceHooksNativeSpec {
         invokeGradleAction(sourceSets) { sources ->
             extensions.configure("sourceSets", sources)
         }
-        every { extension.appleWithLegacy(any(), any()) } just Runs
+        every { extension.apple(any(), any()) } just Runs
 
         // When
         extension.nativeCoroutine(name, configuration)
@@ -361,7 +150,7 @@ class SourceHooksNativeSpec {
         verify(exactly = 1) { sourceSets.maybeCreate("${name}Main") }
         verify(exactly = 1) { sourceSets.maybeCreate("${name}Test") }
 
-        verify(exactly = 1) { extension.appleWithLegacy(configuration = configuration) }
+        verify(exactly = 1) { extension.apple(configuration = configuration) }
         // Note here is something off with mockk
         verify(exactly = 1) { extension.linuxX64(any<Action<KotlinNativeTargetWithHostTests>>()) }
         verify(exactly = 1) { extension.mingwX64(any<Action<KotlinNativeTargetWithHostTests>>()) }

@@ -26,6 +26,6 @@ plugins {
 
 includeBuild("../runtime-configuration")
 
-include(":utils")
+include(":utils-dependency-helper")
 
 rootProject.name = "dependency-helper-local"

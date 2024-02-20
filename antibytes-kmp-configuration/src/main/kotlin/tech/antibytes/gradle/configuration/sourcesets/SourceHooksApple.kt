@@ -34,29 +34,3 @@ fun KotlinMultiplatformExtension.apple(
         targets = targets,
     )
 }
-
-fun KotlinMultiplatformExtension.appleWithLegacy(
-    name: String = "apple",
-    configuration: KotlinNativeTarget.() -> Unit = { },
-) {
-    iosxWithLegacy(configuration = configuration)
-    macos(configuration = configuration)
-    tvosx(configuration = configuration)
-    watchosxWithLegacy(configuration = configuration)
-
-    val appleMain = sourceSets.maybeCreate("${name}Main")
-    val appleTest = sourceSets.maybeCreate("${name}Test")
-
-    val targets = setOf(
-        "ios",
-        "macos",
-        "tvos",
-        "watchos",
-    )
-
-    wireDependencies(
-        main = appleMain,
-        test = appleTest,
-        targets = targets,
-    )
-}

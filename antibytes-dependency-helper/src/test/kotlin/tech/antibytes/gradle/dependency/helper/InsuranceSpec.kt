@@ -122,7 +122,7 @@ class InsuranceSpec {
             project.ensureKotlinVersion()
         }
         // Then
-        verify(exactly = toEnsure.size) { selector.useVersion("1.9.10") }
+        verify(exactly = toEnsure.size) { selector.useVersion("1.9.22") }
         verify(exactly = toEnsure.size) { selector.because("Avoid resolution conflicts") }
     }
 

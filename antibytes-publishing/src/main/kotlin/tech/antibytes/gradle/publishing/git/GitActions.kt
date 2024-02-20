@@ -71,7 +71,7 @@ internal object GitActions : GitContract.GitActions {
         project: Project,
         repository: RepositoryConfiguration<String>,
     ) {
-        val targetDirectory = File("${project.rootProject.layout.buildDirectory.asFile.get().absolutePath}/${repository.name}")
+        val targetDirectory = File("${project.rootProject.layout.buildDirectory.asFile.get().absolutePath}${File.separator}${repository.name}")
 
         try {
             updateAndReset(targetDirectory, repository)

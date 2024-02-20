@@ -26,6 +26,6 @@ plugins {
 
 includeBuild("../runtime-configuration")
 
-include(":utils")
+include(":utils-coverage")
 
 rootProject.name = "coverage-local"

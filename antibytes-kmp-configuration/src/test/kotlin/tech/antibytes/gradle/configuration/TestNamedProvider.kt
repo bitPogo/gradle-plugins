@@ -11,6 +11,7 @@ import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectProvider
 import org.gradle.api.Transformer
 import org.gradle.api.provider.Provider
+import org.gradle.api.specs.Spec
 
 class TestNamedProvider<T>(
     private val value: T?,
@@ -18,6 +19,10 @@ class TestNamedProvider<T>(
     override fun get(): T = value!!
 
     override fun getOrNull(): T? = value
+
+    override fun filter(spec: Spec<in T>): Provider<T> {
+        TODO("Not yet implemented")
+    }
 
     override fun getOrElse(defaultValue: T): T = value ?: defaultValue
 

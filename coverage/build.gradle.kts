@@ -35,7 +35,7 @@ java {
 dependencies {
     implementation(libs.agp)
     implementation(libs.jacoco)
-    implementation(projects.utils)
+    implementation(projects.utilsCoverage)
 }
 
 configure<SourceSetContainer> {

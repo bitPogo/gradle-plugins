@@ -21,7 +21,7 @@ dependencyResolutionManagement {
 }
 
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
 includeBuild("runtime-configuration")
@@ -61,9 +61,16 @@ include(
 )
 
 buildCache {
+    val isGithub = System.getenv("GITHUB")?.let { true } ?: false
     local {
-        isEnabled = true
+        isEnabled = !isGithub
         directory = File(rootDir, "build-cache")
+        removeUnusedEntriesAfterDays = 10
+    }
+
+    local {
+        isEnabled = isGithub
+        directory = File(rootDir, ".gradle/build-cache")
         removeUnusedEntriesAfterDays = 10
     }
 }

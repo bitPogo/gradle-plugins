@@ -21,13 +21,13 @@ fun BuildCacheConfiguration.localGithub() {
     }
 }
 
-fun BuildCacheConfiguration.ciCache() {
+fun BuildCacheConfiguration.ciCache(rootDir: File) {
     local {
         isEnabled = isGitHub() || isAzureDevops()
         directory = File(
-            ".gradle",
-            "build-cache",
+            rootDir,
+            ".gradle${File.separator}build-cache",
         )
-        removeUnusedEntriesAfterDays = 3
+        removeUnusedEntriesAfterDays = 10
     }
 }

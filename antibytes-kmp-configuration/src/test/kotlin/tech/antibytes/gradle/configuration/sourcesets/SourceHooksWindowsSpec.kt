@@ -54,14 +54,11 @@ class SourceHooksWindowsSpec {
 
         // Then
         verify(exactly = 1) { extension.mingwX64("${prefix}X64", configuration) }
-        verify(exactly = 1) { extension.mingwX86("${prefix}X86", configuration) }
         verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
         verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
         verify(exactly = 1) { sourceSets.getByName("${prefix}X64Main", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}X64Test", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Main", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 1) { sourceSets.getByName("${prefix}X86Test", any<Action<KotlinSourceSet>>()) }
-        verify(exactly = 4) { windowsSets.dependsOn(windows) }
+        verify(exactly = 2) { windowsSets.dependsOn(windows) }
 
         verify(exactly = 1) { sourceSets.getByName("commonMain") }
         verify(exactly = 1) { sourceSets.getByName("commonTest") }

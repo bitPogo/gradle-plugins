@@ -135,7 +135,6 @@ class JacocoReportTaskConfiguratorSpec {
             fileTreeClassFiles,
             classFiles,
         ) { probe ->
-            println(projectDir)
             project.fileTree(projectDir, probe)
         }
 
@@ -146,7 +145,6 @@ class JacocoReportTaskConfiguratorSpec {
             fileTreeExecutionFiles,
             executionFiles,
         ) { probe ->
-            println(buildDir)
             project.fileTree(buildDir, probe)
         }
         every {
