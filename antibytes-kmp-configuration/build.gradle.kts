@@ -28,7 +28,7 @@ plugins {
 
 val pluginId = "${LibraryConfig.group}.configuration.sourceSet"
 val versioningConfiguration = VersioningConfiguration(
-    featurePrefixes = emptyList(),
+    featurePrefixes = listOf("feature"),
     suppressSnapshot = true
 )
 
@@ -125,7 +125,7 @@ gradlePlugin {
     plugins.create(pluginId) {
         id = pluginId
         displayName = "KMP Configuration Plugin for Antibytes projects."
-        implementationClass = "tech.antibytes.gradle.configuration.AntibytesSourceSetConfiguration"
+        implementationClass = "tech.antibytes.gradle.configuration.AntibytesKmpConfiguration"
         description = "KMP Configuration Plugin for Antibytes projects."
     }
 }

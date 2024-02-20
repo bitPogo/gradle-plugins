@@ -21,7 +21,7 @@ plugins {
 antibytesPublishing {
     versioning.set(
         VersioningConfiguration(
-            featurePrefixes = emptyList(),
+            featurePrefixes = listOf("feature"),
             suppressSnapshot = true,
         ),
     )
