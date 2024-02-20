@@ -61,14 +61,15 @@ include(
 )
 
 buildCache {
+    val isGithub = System.getenv("GITHUB")?.let { true } ?: false
     local {
-        isEnabled = true
+        isEnabled = !isGithub
         directory = File(rootDir, "build-cache")
         removeUnusedEntriesAfterDays = 10
     }
 
     local {
-        isEnabled = System.getenv("GITHUB")?.let { true } ?: false
+        isEnabled = isGithub
         directory = File(rootDir, ".gradle/build-cache")
         removeUnusedEntriesAfterDays = 10
     }

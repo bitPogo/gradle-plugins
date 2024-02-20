@@ -16,11 +16,11 @@ import org.junitpioneer.jupiter.ClearEnvironmentVariable
 import org.junitpioneer.jupiter.SetEnvironmentVariable
 import tech.antibytes.gradle.test.invokeGradleAction
 
-class CICacheSpec {
+class LocalSpec {
     @Test
     @ClearEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT")
     @SetEnvironmentVariable(key = "GITHUB", value = "/User/runner/worker/...")
-    fun `Given ciCache is called it configures the BuildCacheConfiguration for GitHub`() {
+    fun `Given localCache is called it disables the BuildCacheConfiguration if a GITHUB Env was found`() {
         // Given
         val buildCache: BuildCacheConfiguration = mockk()
         val gitHubCache: DirectoryBuildCache = mockk(relaxed = true)
@@ -30,40 +30,14 @@ class CICacheSpec {
             buildCache.local(localCache)
         }
         // When
-        buildCache.ciCache(root)
-
-        // Then
-        verify(exactly = 1) { gitHubCache.isEnabled = true }
-        verify(exactly = 1) {
-            gitHubCache.directory = File(
-                root,
-                ".gradle${File.separator}build-cache",
-            )
-        }
-        verify(exactly = 1) { gitHubCache.removeUnusedEntriesAfterDays = 10 }
-    }
-
-    @Test
-    @ClearEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT")
-    @ClearEnvironmentVariable(key = "GITHUB")
-    fun `Given ciCache is called it disables the BuildCacheConfiguration if no GITHUB or AZURE_HTTP_USER_AGENT Env was found`() {
-        // Given
-        val buildCache: BuildCacheConfiguration = mockk()
-        val gitHubCache: DirectoryBuildCache = mockk(relaxed = true)
-        val root = File("somewhere")
-
-        invokeGradleAction(gitHubCache) { localCache ->
-            buildCache.local(localCache)
-        }
-        // When
-        buildCache.ciCache(root)
+        buildCache.localCache(root)
 
         // Then
         verify(exactly = 1) { gitHubCache.isEnabled = false }
         verify(exactly = 1) {
             gitHubCache.directory = File(
                 root,
-                ".gradle${File.separator}build-cache",
+                "build-cache",
             )
         }
         verify(exactly = 1) { gitHubCache.removeUnusedEntriesAfterDays = 10 }
@@ -72,7 +46,7 @@ class CICacheSpec {
     @Test
     @ClearEnvironmentVariable(key = "GITHUB")
     @SetEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT", value = "whatever the value is")
-    fun `Given ciCache is called it configures the BuildCacheConfiguration for AzureDevops`() {
+    fun `Given localCache is called it configures the BuildCacheConfiguration for AzureDevops`() {
         // Given
         val buildCache: BuildCacheConfiguration = mockk()
         val azureCache: DirectoryBuildCache = mockk(relaxed = true)
@@ -82,14 +56,40 @@ class CICacheSpec {
             buildCache.local(localCache)
         }
         // When
-        buildCache.ciCache(root)
+        buildCache.localCache(root)
+
+        // Then
+        verify(exactly = 1) { azureCache.isEnabled = false }
+        verify(exactly = 1) {
+            azureCache.directory = File(
+                root,
+                "build-cache",
+            )
+        }
+        verify(exactly = 1) { azureCache.removeUnusedEntriesAfterDays = 10 }
+    }
+
+    @ClearEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT")
+    @ClearEnvironmentVariable(key = "GITHUB")
+    @Test
+    fun `Given localCache is called it enables the BuildCacheConfiguration if neither AZURE_HTTP_USER_AGENT nor GITHUB was found`() {
+        // Given
+        val buildCache: BuildCacheConfiguration = mockk()
+        val azureCache: DirectoryBuildCache = mockk(relaxed = true)
+        val root = File("somewhere")
+
+        invokeGradleAction(azureCache) { localCache ->
+            buildCache.local(localCache)
+        }
+        // When
+        buildCache.localCache(root)
 
         // Then
         verify(exactly = 1) { azureCache.isEnabled = true }
         verify(exactly = 1) {
             azureCache.directory = File(
                 root,
-                ".gradle${File.separator}build-cache",
+                "build-cache",
             )
         }
         verify(exactly = 1) { azureCache.removeUnusedEntriesAfterDays = 10 }
