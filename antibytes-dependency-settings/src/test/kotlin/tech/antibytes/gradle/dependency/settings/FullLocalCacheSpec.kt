@@ -16,11 +16,11 @@ import org.junitpioneer.jupiter.ClearEnvironmentVariable
 import org.junitpioneer.jupiter.SetEnvironmentVariable
 import tech.antibytes.gradle.test.invokeGradleAction
 
-class LocalSpec {
+class FullLocalCacheSpec {
     @Test
     @ClearEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT")
     @SetEnvironmentVariable(key = "GITHUB", value = "/User/runner/worker/...")
-    fun `Given localCache is called it disables the BuildCacheConfiguration if a GITHUB Env was found`() {
+    fun `Given ciCache is called it configures the BuildCacheConfiguration for GitHub`() {
         // Given
         val buildCache: BuildCacheConfiguration = mockk()
         val gitHubCache: DirectoryBuildCache = mockk(relaxed = true)
@@ -30,14 +30,14 @@ class LocalSpec {
             buildCache.local(localCache)
         }
         // When
-        buildCache.localCache(root)
+        buildCache.fullCache(root)
 
         // Then
-        verify(exactly = 1) { gitHubCache.isEnabled = false }
+        verify(exactly = 1) { gitHubCache.isEnabled = true }
         verify(exactly = 1) {
             gitHubCache.directory = File(
                 root,
-                "build-cache",
+                ".gradle${File.separator}build-cache",
             )
         }
         verify(exactly = 1) { gitHubCache.removeUnusedEntriesAfterDays = 10 }
@@ -46,7 +46,7 @@ class LocalSpec {
     @Test
     @ClearEnvironmentVariable(key = "GITHUB")
     @SetEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT", value = "whatever the value is")
-    fun `Given localCache is called it configures the BuildCacheConfiguration for AzureDevops`() {
+    fun `Given ciCache is called it configures the BuildCacheConfiguration for AzureDevops`() {
         // Given
         val buildCache: BuildCacheConfiguration = mockk()
         val azureCache: DirectoryBuildCache = mockk(relaxed = true)
@@ -56,14 +56,14 @@ class LocalSpec {
             buildCache.local(localCache)
         }
         // When
-        buildCache.localCache(root)
+        buildCache.fullCache(root)
 
         // Then
-        verify(exactly = 1) { azureCache.isEnabled = false }
+        verify(exactly = 1) { azureCache.isEnabled = true }
         verify(exactly = 1) {
             azureCache.directory = File(
                 root,
-                "build-cache",
+                ".gradle${File.separator}build-cache",
             )
         }
         verify(exactly = 1) { azureCache.removeUnusedEntriesAfterDays = 10 }
@@ -82,7 +82,7 @@ class LocalSpec {
             buildCache.local(localCache)
         }
         // When
-        buildCache.localCache(root)
+        buildCache.fullCache(root)
 
         // Then
         verify(exactly = 1) { azureCache.isEnabled = true }
