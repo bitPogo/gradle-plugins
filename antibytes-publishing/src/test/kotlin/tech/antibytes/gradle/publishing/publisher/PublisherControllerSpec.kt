@@ -25,6 +25,7 @@ import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.api.DocumentationConfiguration
 import tech.antibytes.gradle.publishing.doc.DocumentationController
+import tech.antibytes.gradle.publishing.signing.SigningController
 import tech.antibytes.gradle.publishing.version.VersionController
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
 import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
@@ -44,6 +45,7 @@ class PublisherControllerSpec {
             PublisherRootProjectController,
             PublisherSubProjectController,
             PublisherStandaloneController,
+            SigningController,
         )
     }
 
@@ -55,6 +57,7 @@ class PublisherControllerSpec {
             PublisherRootProjectController,
             PublisherSubProjectController,
             PublisherStandaloneController,
+            SigningController,
         )
     }
 
@@ -95,6 +98,7 @@ class PublisherControllerSpec {
 
         every { VersionController.configure(any(), any()) } returns version
         every { DocumentationController.configure(any(), any()) } returns documentationTask
+        every { SigningController.configure(any(), any()) } just Runs
 
         every { PublisherStandaloneController.configure(any(), any(), any(), any()) } just Runs
         every { PublisherRootProjectController.configure(any(), any(), any(), any()) } just Runs
@@ -113,6 +117,7 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { VersionController.configure(project, config) }
         verify(exactly = 1) { DocumentationController.configure(project, config) }
+        verify(exactly = 1) { SigningController.configure(project, config) }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), version, any(), any()) }
         verify(exactly = 0) { PublisherRootProjectController.configure(any(), version, any(), any()) }
@@ -148,6 +153,7 @@ class PublisherControllerSpec {
 
         every { VersionController.configure(any(), any()) } returns version
         every { DocumentationController.configure(any(), any()) } returns documentationTask
+        every { SigningController.configure(any(), any()) } just Runs
 
         every { PublisherStandaloneController.configure(any(), any(), any(), any()) } just Runs
         every { PublisherRootProjectController.configure(any(), any(), any(), any()) } just Runs
@@ -166,6 +172,7 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { VersionController.configure(project, config) }
         verify(exactly = 1) { DocumentationController.configure(project, config) }
+        verify(exactly = 1) { SigningController.configure(project, config) }
 
         verify(exactly = 1) { PublisherStandaloneController.configure(project, version, null, config) }
         verify(exactly = 0) { PublisherRootProjectController.configure(any(), any(), any(), any()) }
@@ -209,6 +216,7 @@ class PublisherControllerSpec {
 
         every { VersionController.configure(any(), any()) } returns version
         every { DocumentationController.configure(any(), any()) } returns documentationTask
+        every { SigningController.configure(any(), any()) } just Runs
 
         every { PublisherStandaloneController.configure(any(), any(), any(), any()) } just Runs
         every { PublisherRootProjectController.configure(any(), any(), any(), any()) } just Runs
@@ -230,6 +238,7 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { VersionController.configure(project, config) }
         verify(exactly = 1) { DocumentationController.configure(project, config) }
+        verify(exactly = 1) { SigningController.configure(project, config) }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any(), any()) }
         verify(exactly = 1) { PublisherSubProjectController.configure(project, version, documentationTask, config) }
@@ -265,6 +274,7 @@ class PublisherControllerSpec {
 
         every { VersionController.configure(any(), any()) } returns version
         every { DocumentationController.configure(any(), any()) } returns documentationTask
+        every { SigningController.configure(any(), any()) } just Runs
 
         every { PublisherStandaloneController.configure(any(), any(), any(), any()) } just Runs
         every { PublisherRootProjectController.configure(any(), any(), any(), any()) } just Runs
@@ -283,6 +293,7 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { VersionController.configure(project, config) }
         verify(exactly = 1) { DocumentationController.configure(project, config) }
+        verify(exactly = 1) { SigningController.configure(project, config) }
 
         verify(exactly = 1) { project.evaluationDependsOnChildren() }
     }
@@ -323,6 +334,7 @@ class PublisherControllerSpec {
 
         every { VersionController.configure(any(), any()) } returns version
         every { DocumentationController.configure(any(), any()) } returns documentationTask
+        every { SigningController.configure(any(), any()) } just Runs
 
         every { PublisherStandaloneController.configure(any(), any(), any(), any()) } just Runs
         every { PublisherRootProjectController.configure(project, version, any(), config) } just Runs
@@ -344,6 +356,7 @@ class PublisherControllerSpec {
         // Then
         verify(exactly = 1) { VersionController.configure(project, config) }
         verify(exactly = 1) { DocumentationController.configure(project, config) }
+        verify(exactly = 1) { SigningController.configure(project, config) }
 
         verify(exactly = 0) { PublisherStandaloneController.configure(any(), any(), any(), any()) }
         verify(exactly = 0) { PublisherSubProjectController.configure(any(), any(), any(), any()) }

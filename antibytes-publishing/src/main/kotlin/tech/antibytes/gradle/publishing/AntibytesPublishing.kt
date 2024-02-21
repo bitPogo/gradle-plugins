@@ -11,7 +11,6 @@ import org.gradle.api.Project
 import tech.antibytes.gradle.publishing.PublishingContract.Companion.DEPENDENCIES
 import tech.antibytes.gradle.publishing.PublishingContract.Companion.EXTENSION_ID
 import tech.antibytes.gradle.publishing.publisher.PublisherController
-import tech.antibytes.gradle.publishing.signing.SigningController
 import tech.antibytes.gradle.util.applyIfNotExists
 import tech.antibytes.gradle.versioning.AntibytesVersioning
 
@@ -26,6 +25,5 @@ class AntibytesPublishing : Plugin<Project> {
         AntibytesVersioning().apply(target)
 
         PublisherController.configure(project = target, extension = extension)
-        SigningController.configure(project = target, extension = extension)
     }
 }

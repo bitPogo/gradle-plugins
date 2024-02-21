@@ -7,6 +7,8 @@
 package tech.antibytes.gradle.publishing.signing
 
 import org.gradle.api.Project
+import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
+import org.gradle.plugins.signing.Sign
 import tech.antibytes.gradle.publishing.PublishingApiContract
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.publishing.PublishingContract.SigningController
@@ -23,12 +25,21 @@ internal object SigningController : SigningController {
         return extension != null && extension.allowsSigning(name)
     }
 
+    private fun Project.forceSigningBeforePublishing() {
+        val signingTasks = tasks.withType(Sign::class.java).toTypedArray()
+
+        tasks.withType(AbstractPublishToMaven::class.java) {
+            mustRunAfter(*signingTasks)
+        }
+    }
+
     private fun Project.applySigningConfiguration(
         signingConfig: PublishingApiContract.MemorySigning?,
     ) {
         if (signingConfig != null) {
             CommonSignature.configure(this)
             MemorySignature.configure(this, signingConfig)
+            forceSigningBeforePublishing()
         }
     }
 
@@ -49,15 +60,9 @@ internal object SigningController : SigningController {
         extension: PublishingPluginExtension,
     ) {
         if (project.isRoot()) {
-            project.evaluationDependsOnChildren()
-        }
-
-        project.afterEvaluate {
-            if (project.isRoot()) {
-                project.configureSubprojects(extension)
-            } else {
-                project.applySigningConfiguration(extension.signing.orNull)
-            }
+            project.configureSubprojects(extension)
+        } else {
+            project.applySigningConfiguration(extension.signing.orNull)
         }
     }
 }
