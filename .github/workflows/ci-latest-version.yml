@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: '**/.gradle/build-cache/**'
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: ${{ runner.os }}-build-
           restore-keys: |
             ${{ runner.os }}-build-${{ github.sha }}
             ${{ runner.os }}-build-

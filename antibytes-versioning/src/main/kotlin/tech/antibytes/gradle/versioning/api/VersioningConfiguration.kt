@@ -10,7 +10,7 @@ import tech.antibytes.gradle.versioning.VersioningContract
 
 data class VersioningConfiguration(
     override val releasePrefixes: List<String> = listOf("main", "release"),
-    override val featurePrefixes: List<String> = listOf("feature"),
+    override val featurePrefixes: List<String> = emptyList(),
     override val dependencyBotPrefixes: List<String> = listOf("dependabot"),
     override val issuePattern: Regex? = null,
     override val useGitHashFeatureSuffix: Boolean = false,

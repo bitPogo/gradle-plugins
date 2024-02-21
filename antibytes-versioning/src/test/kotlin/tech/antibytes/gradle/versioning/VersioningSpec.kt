@@ -1543,6 +1543,50 @@ class VersioningSpec {
     }
 
     @Test
+    fun `Given versionName is called, it renders and normalizes a feature branch with a issue number and without a prefix`() {
+        val branchAction = "test_abc?dfg\$asd"
+        val branchName = "issue-123/$branchAction"
+        val expected = "1.15.1"
+        val versionPrefix = "v"
+        val version = "$versionPrefix$expected"
+
+        val configuration = versionTestConfiguration.copy(
+            featurePrefixes = emptyList(),
+            issuePattern = "issue-[0-9]+/(.*)".toRegex(),
+            versionPrefix = versionPrefix,
+            normalization = setOf("_", "?", "\$"),
+            suppressSnapshot = true,
+        )
+
+        val details: Closure<VersionDetails> = createClosure(versionDetails)
+
+        every { extraProperties.has("versionDetails") } returns true
+        every { extraProperties.get("versionDetails") } returns details
+
+        every { versionDetails.branchName } returns branchName
+        every { versionDetails.isCleanTag } returns true
+        every { versionDetails.version } returns version
+        every { versionDetails.commitDistance } returns 0
+
+        // When
+        val result = Versioning.getInstance(
+            project,
+            configuration,
+        ).versionName()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = "$expected-${
+                branchAction
+                    .replace("_", "-")
+                    .replace("?", "-")
+                    .replace("\$", "-")
+            }",
+        )
+    }
+
+    @Test
     fun `Given versionName is called, it renders and normalizes a feature branch with a issue number with an arbitrary path`() {
         val branchAction = "test_abc?dfg\$asd"
         val branchName = "some/long/shit/feature/issue-123/$branchAction"

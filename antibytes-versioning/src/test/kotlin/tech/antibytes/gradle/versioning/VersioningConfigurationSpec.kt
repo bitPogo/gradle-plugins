@@ -38,7 +38,7 @@ class VersioningConfigurationSpec {
 
         assertEquals(
             actual = VersioningConfiguration().featurePrefixes,
-            expected = listOf("feature"),
+            expected = emptyList(),
         )
 
         assertEquals(
