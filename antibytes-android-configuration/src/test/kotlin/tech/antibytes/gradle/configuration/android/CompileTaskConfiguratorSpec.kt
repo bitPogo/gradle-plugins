@@ -27,7 +27,7 @@ class CompileTaskConfiguratorSpec {
     fun `It fulfils Configurator`() {
         val configurator: Any = CompileTaskConfigurator
 
-        assertTrue(configurator is ConfigurationContract.Configurator<*>)
+        assertTrue(configurator is ConfigurationContract.ParameterlessConfigurator)
     }
 
     @Test
@@ -48,7 +48,7 @@ class CompileTaskConfiguratorSpec {
         }
 
         // When
-        CompileTaskConfigurator.configure(project, Unit)
+        CompileTaskConfigurator.configure(project)
 
         // Then
         lambdaExec.captured.invoke(options)
@@ -73,7 +73,7 @@ class CompileTaskConfiguratorSpec {
         }
 
         // When
-        CompileTaskConfigurator.configure(project, Unit)
+        CompileTaskConfigurator.configure(project)
 
         // Then
         assertFalse(lambdaExec.isCaptured)

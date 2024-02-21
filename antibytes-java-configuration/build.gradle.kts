@@ -172,10 +172,10 @@ configure<SourceSetContainer> {
 val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
     mustRunAfter("clean")
 
-    packageName.set("tech.antibytes.gradle.configuration.config")
+    packageName.set("tech.antibytes.gradle.configuration.jvm.config")
     stringFields.set(
         mapOf(
-            "javaVersion" to libs.versions.java.get(),
+            "javaVersion" to libs.versions.java.jvm.get(),
         )
     )
 }

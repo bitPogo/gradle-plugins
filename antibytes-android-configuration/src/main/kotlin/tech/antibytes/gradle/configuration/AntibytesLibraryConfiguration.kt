@@ -11,6 +11,7 @@ import org.gradle.api.Project
 import tech.antibytes.gradle.configuration.android.AndroidLibraryConfigurator
 import tech.antibytes.gradle.configuration.android.CompileTaskConfigurator
 import tech.antibytes.gradle.configuration.android.DefaultAndroidLibraryConfigurationProvider
+import tech.antibytes.gradle.configuration.android.ToolChainConfigurator
 import tech.antibytes.gradle.util.applyIfNotExists
 
 class AntibytesLibraryConfiguration : Plugin<Project> {
@@ -22,6 +23,7 @@ class AntibytesLibraryConfiguration : Plugin<Project> {
             DefaultAndroidLibraryConfigurationProvider.createDefaultConfiguration(target),
         )
 
-        CompileTaskConfigurator.configure(target, Unit)
+        CompileTaskConfigurator.configure(target)
+        ToolChainConfigurator.configure(target)
     }
 }

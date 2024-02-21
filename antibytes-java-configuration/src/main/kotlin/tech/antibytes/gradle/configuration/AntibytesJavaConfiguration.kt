@@ -11,7 +11,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.jvm.toolchain.JavaLanguageVersion
-import tech.antibytes.gradle.configuration.config.MainConfig
+import tech.antibytes.gradle.configuration.jvm.config.MainConfig
 
 class AntibytesJavaConfiguration : Plugin<Project> {
     override fun apply(target: Project) {

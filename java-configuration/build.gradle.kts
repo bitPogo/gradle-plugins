@@ -20,11 +20,11 @@ allprojects {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(libs.versions.java.get()).toString()))
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(libs.versions.java.jvm.get()).toString()))
     }
 
-    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.jvm.get())
+    targetCompatibility = JavaVersion.toVersion(libs.versions.java.jvm.get())
 }
 
 dependencies {
@@ -55,7 +55,7 @@ val provideConfig: Task by tasks.creating {
     mustRunAfter("clean")
 
     doFirst {
-        val packaqe = "tech.antibytes.gradle.configuration.config"
+        val packaqe = "tech.antibytes.gradle.configuration.jvm.config"
         val template = File(layout.projectDirectory.asFile, "template/MainConfig.tmpl")
         val configDir = File(
             layout.buildDirectory.asFile.get(),
@@ -71,7 +71,7 @@ val provideConfig: Task by tasks.creating {
         val config = template
             .readText()
             .replace("PACKAGE", packaqe)
-            .replace("JAVA_VERSION", libs.versions.java.get())
+            .replace("JAVA_VERSION", libs.versions.java.jvm.get())
 
         File(configDir, "MainConfig.kt").writeText(config)
     }

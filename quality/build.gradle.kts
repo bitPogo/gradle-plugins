@@ -52,6 +52,7 @@ configure<SourceSetContainer> {
     }
 }
 
+
 val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
     mustRunAfter("clean")
 
@@ -59,7 +60,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
 
     stringFields.set(
         mapOf(
-            "javaVersion" to libs.versions.java.get(),
+            "javaVersion" to libs.versions.java.jvm.get(),
             "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
             "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.get().toString(),

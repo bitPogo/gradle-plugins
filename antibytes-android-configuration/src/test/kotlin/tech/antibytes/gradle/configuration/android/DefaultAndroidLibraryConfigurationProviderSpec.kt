@@ -62,7 +62,7 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
         assertEquals(
             actual = result,
             expected = AndroidLibraryConfiguration(
-                compileSdkVersion = 33,
+                compileSdkVersion = 34,
                 minSdkVersion = 23,
                 prefix = "antibytes_${projectName.replace("-", "_")}_",
                 publishVariants = emptySet(),
@@ -117,7 +117,7 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
         assertEquals(
             actual = result,
             expected = AndroidLibraryConfiguration(
-                compileSdkVersion = 33,
+                compileSdkVersion = 34,
                 minSdkVersion = 23,
                 publishVariants = setOf("release"),
                 prefix = "antibytes_${projectName.replace("-", "_")}_",

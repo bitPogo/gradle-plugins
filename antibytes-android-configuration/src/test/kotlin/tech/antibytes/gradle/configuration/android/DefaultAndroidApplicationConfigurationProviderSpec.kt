@@ -62,9 +62,9 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
         assertEquals(
             actual = result,
             expected = AndroidApplicationConfiguration(
-                compileSdkVersion = 33,
+                compileSdkVersion = 34,
                 minSdkVersion = 23,
-                targetSdkVersion = 33,
+                targetSdkVersion = 34,
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
                     source = JavaVersion.VERSION_1_8,
@@ -116,9 +116,9 @@ class DefaultAndroidApplicationConfigurationProviderSpec {
         assertEquals(
             actual = result,
             expected = AndroidApplicationConfiguration(
-                compileSdkVersion = 33,
+                compileSdkVersion = 34,
                 minSdkVersion = 23,
-                targetSdkVersion = 33,
+                targetSdkVersion = 34,
                 compatibilityTargets = Compatibility(
                     target = JavaVersion.VERSION_1_8,
                     source = JavaVersion.VERSION_1_8,

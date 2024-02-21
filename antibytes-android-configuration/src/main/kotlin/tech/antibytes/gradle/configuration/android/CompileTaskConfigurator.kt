@@ -11,13 +11,14 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.configuration.ConfigurationContract
+import tech.antibytes.gradle.configuration.android.config.MainConfig
 
-internal object CompileTaskConfigurator : ConfigurationContract.Configurator<Unit> {
-    override fun configure(project: Project, configuration: Unit) {
+internal object CompileTaskConfigurator : ConfigurationContract.ParameterlessConfigurator {
+    override fun configure(project: Project) {
         project.tasks.withType<KotlinCompile> {
             if (name.endsWith("Android")) {
                 kotlinOptions {
-                    jvmTarget = JavaVersion.VERSION_1_8.toString()
+                    jvmTarget = JavaVersion.toVersion(MainConfig.javaVersion).toString()
                 }
             }
         }

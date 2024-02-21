@@ -29,7 +29,7 @@ private fun BuildCacheConfiguration.configureCache(
 fun BuildCacheConfiguration.localGithub() {
     local {
         isEnabled = isGitHub()
-        directory = File(localTargetDirectory)
+        directory = File(ciTargetDirectory)
         removeUnusedEntriesAfterDays = 3
     }
 }

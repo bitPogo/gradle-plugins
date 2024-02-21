@@ -18,7 +18,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JavaToolchainSpec
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.configuration.config.MainConfig
+import tech.antibytes.gradle.configuration.jvm.config.MainConfig
 
 class AntibytesJavaConfigurationSpec {
     @Test

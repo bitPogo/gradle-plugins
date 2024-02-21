@@ -35,8 +35,7 @@ class GitHubLocalCacheSpec {
         verify(exactly = 1) { gitHubCache.isEnabled = true }
         verify(exactly = 1) {
             gitHubCache.directory = File(
-                ".gradle",
-                "build-cache",
+                ".gradle${File.separator}build-cache",
             )
         }
         verify(exactly = 1) { gitHubCache.removeUnusedEntriesAfterDays = 3 }
@@ -60,8 +59,7 @@ class GitHubLocalCacheSpec {
         verify(exactly = 1) { gitHubCache.isEnabled = false }
         verify(exactly = 1) {
             gitHubCache.directory = File(
-                ".gradle",
-                "build-cache",
+                ".gradle${File.separator}build-cache",
             )
         }
         verify(exactly = 1) { gitHubCache.removeUnusedEntriesAfterDays = 3 }

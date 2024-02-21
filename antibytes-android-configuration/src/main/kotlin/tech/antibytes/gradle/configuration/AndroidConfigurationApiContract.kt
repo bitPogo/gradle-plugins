@@ -7,6 +7,7 @@
 package tech.antibytes.gradle.configuration
 
 import org.gradle.api.JavaVersion
+import tech.antibytes.gradle.configuration.android.config.MainConfig
 
 internal interface AndroidConfigurationApiContract {
     interface TestSource {
@@ -64,10 +65,10 @@ internal interface AndroidConfigurationApiContract {
     companion object {
         const val ANDROID_PREFIX = "antibytes"
         const val ANDROID_PREFIX_SEPARATOR = "_"
-        const val TARGET_SDK = 33
+        const val TARGET_SDK = 34
         const val MIN_SDK = 23
         val FALLBACKS = mapOf("debug" to setOf("release"))
-        val COMPATIBILITY_TARGETS = JavaVersion.VERSION_1_8
+        val COMPATIBILITY_TARGETS = JavaVersion.toVersion(MainConfig.javaVersion)
         const val TEST_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
         val TEST_RUNNER_ARGUMENTS = mapOf("clearPackageData" to "true")
     }

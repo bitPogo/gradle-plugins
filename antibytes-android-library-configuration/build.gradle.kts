@@ -4,6 +4,8 @@
  * Use of this source code is governed by Apache v2.0
  */
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
 import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
@@ -25,6 +27,7 @@ plugins {
     id("tech.antibytes.gradle.publishing.local")
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.configuration.java.local")
+    id("tech.antibytes.gradle.runtime.local")
 }
 
 val pluginId = "${LibraryConfig.group}.configuration.android.library"
@@ -132,36 +135,26 @@ gradlePlugin {
     }
 }
 
-antibytesCoverage {
-    val branchCoverage = JacocoVerificationRule(
-        counter = JacocoCounter.BRANCH,
-        measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.98)
-    )
+configure<SourceSetContainer> {
+    main {
+        java.srcDirs(
+            "src/main/kotlin",
+            "build/generated/antibytes/main/kotlin"
+        )
+    }
+}
 
-    val instructionCoverage = JacocoVerificationRule(
-        counter = JacocoCounter.INSTRUCTION,
-        measurement = JacocoMeasurement.COVERED_RATIO,
-        minimum = BigDecimal(0.98)
-    )
+val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
+    mustRunAfter("clean")
 
-    val jvmCoverage = JvmJacocoConfiguration.createJvmOnlyConfiguration(
-        project,
-        verificationRules = setOf(
-            branchCoverage,
-            instructionCoverage
+    packageName.set("tech.antibytes.gradle.configuration.android.config")
+    stringFields.set(
+        mapOf(
+            "javaVersion" to libs.versions.java.android.get(),
         )
     )
-
-    configurations.set(
-        mapOf("jvm" to jvmCoverage)
-    )
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.check {
-    dependsOn("jvmCoverageVerification")
+tasks.withType<KotlinCompile> {
+    dependsOn(provideConfig)
 }

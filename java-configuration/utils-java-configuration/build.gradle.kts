@@ -15,9 +15,9 @@ dependencies {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(libs.versions.java.get()).toString()))
+        languageVersion.set(JavaLanguageVersion.of(JavaVersion.toVersion(libs.versions.java.jvm.get()).toString()))
     }
 
-    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-    targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
+    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.jvm.get())
+    targetCompatibility = JavaVersion.toVersion(libs.versions.java.jvm.get())
 }
