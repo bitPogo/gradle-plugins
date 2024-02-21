@@ -107,7 +107,7 @@ class SourceHooksLinuxSpec {
         verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Main", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Test", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 8) { linuxSets.dependsOn(linux) }
+        verify(exactly = 6) { linuxSets.dependsOn(linux) }
 
         verify(exactly = 2) { sourceSets.getByName("commonMain") }
         verify(exactly = 2) { sourceSets.getByName("commonTest") }

@@ -42,7 +42,6 @@ fun KotlinMultiplatformExtension.linux(
     val targets = setOf(
         "${namePrefix}X64",
         "${namePrefix}Arm",
-        "${namePrefix}Mips",
     )
 
     wireDependencies(
