@@ -64,8 +64,6 @@ class SourceHooksWatchosSpec {
         // Then
         verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
         verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
-        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}DeviceMain") }
-        verify(exactly = 1) { sourceSets.maybeCreate("${prefix}DeviceTest") }
 
         verify(exactly = 1) { extension.watchosArm32("${prefix}Arm32", configuration) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}Arm32Main", any<Action<KotlinSourceSet>>()) }
@@ -84,12 +82,6 @@ class SourceHooksWatchosSpec {
         verify(exactly = 1) { sourceSets.getByName("${prefix}SimulatorArm64Test", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 8) { watchosXSet.dependsOn(watchosX) }
 
-        every { device32.compilations.getByName("main").defaultSourceSet }
-        every { device32.compilations.getByName("test").defaultSourceSet }
-        every { device64.compilations.getByName("main").defaultSourceSet }
-        every { device64.compilations.getByName("test").defaultSourceSet }
-
-        verify(exactly = 4) { watchosX.dependsOn(device) }
         verify(exactly = 1) { sourceSets.getByName("commonMain") }
         verify(exactly = 1) { sourceSets.getByName("commonTest") }
         verify(exactly = 2) { watchosX.dependsOn(common) }
