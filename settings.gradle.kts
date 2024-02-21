@@ -64,7 +64,7 @@ include(
 )
 
 buildCache {
-    val isGithub = System.getenv("GITHUB")?.let { true } ?: false
+    val isGithub = System.getenv("GITHUB_REPOSITORY")?.let { true } ?: false
     val target = if (isGithub) {
         ".gradle/build-cache"
     } else {

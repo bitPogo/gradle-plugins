@@ -19,7 +19,7 @@ import tech.antibytes.gradle.test.invokeGradleAction
 class CICacheSpec {
     @Test
     @ClearEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT")
-    @SetEnvironmentVariable(key = "GITHUB", value = "/User/runner/worker/...")
+    @SetEnvironmentVariable(key = "GITHUB_REPOSITORY", value = "/User/runner/worker/...")
     fun `Given ciCache is called it configures the BuildCacheConfiguration for GitHub`() {
         // Given
         val buildCache: BuildCacheConfiguration = mockk()
@@ -45,7 +45,7 @@ class CICacheSpec {
 
     @Test
     @ClearEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT")
-    @ClearEnvironmentVariable(key = "GITHUB")
+    @ClearEnvironmentVariable(key = "GITHUB_REPOSITORY")
     fun `Given ciCache is called it disables the BuildCacheConfiguration if no GITHUB or AZURE_HTTP_USER_AGENT Env was found`() {
         // Given
         val buildCache: BuildCacheConfiguration = mockk()
@@ -70,7 +70,7 @@ class CICacheSpec {
     }
 
     @Test
-    @ClearEnvironmentVariable(key = "GITHUB")
+    @ClearEnvironmentVariable(key = "GITHUB_REPOSITORY")
     @SetEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT", value = "whatever the value is")
     fun `Given ciCache is called it configures the BuildCacheConfiguration for AzureDevops`() {
         // Given

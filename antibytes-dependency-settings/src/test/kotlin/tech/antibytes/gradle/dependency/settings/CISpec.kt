@@ -14,7 +14,7 @@ import org.junitpioneer.jupiter.SetEnvironmentVariable
 
 class CISpec {
     @Test
-    @ClearEnvironmentVariable(key = "GITHUB")
+    @ClearEnvironmentVariable(key = "GITHUB_REPOSITORY")
     fun `Given isGitHub is called it returns false if the Github Environment Variable is not present`() {
         // When
         val actual = isGitHub()
@@ -24,7 +24,7 @@ class CISpec {
     }
 
     @Test
-    @SetEnvironmentVariable(key = "GITHUB", value = "any")
+    @SetEnvironmentVariable(key = "GITHUB_REPOSITORY", value = "any")
     fun `Given isGitHub is called it returns true if the Github Environment Variable is present`() {
         // When
         val actual = isGitHub()

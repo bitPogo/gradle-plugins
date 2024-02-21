@@ -7,7 +7,7 @@
 package tech.antibytes.gradle.dependency.settings
 
 fun gitHubHomeDir(): String {
-    val workdir = System.getenv("GITHUB") ?: ""
+    val workdir = System.getenv("GITHUB_REPOSITORY") ?: ""
 
     return workdir.split("work")[0]
 }

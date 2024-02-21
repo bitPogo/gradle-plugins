@@ -13,7 +13,7 @@ import org.junitpioneer.jupiter.SetEnvironmentVariable
 
 class GitHubHomeDirSpec {
     @Test
-    @ClearEnvironmentVariable(key = "GITHUB")
+    @ClearEnvironmentVariable(key = "GITHUB_REPOSITORY")
     fun `Given gitHubHomeDir it returns an empty String if no homeDir was found`() {
         // When
         val actual = gitHubHomeDir()
@@ -26,7 +26,7 @@ class GitHubHomeDirSpec {
     }
 
     @Test
-    @SetEnvironmentVariable(key = "GITHUB", value = "/User/runner/worker/...")
+    @SetEnvironmentVariable(key = "GITHUB_REPOSITORY", value = "/User/runner/worker/...")
     fun `Given gitHubHomeDir it returns the path to the homeDir if homeDir was found`() {
         // When
         val actual = gitHubHomeDir()

@@ -19,7 +19,7 @@ import tech.antibytes.gradle.test.invokeGradleAction
 class LocalCacheSpec {
     @Test
     @ClearEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT")
-    @SetEnvironmentVariable(key = "GITHUB", value = "/User/runner/worker/...")
+    @SetEnvironmentVariable(key = "GITHUB_REPOSITORY", value = "/User/runner/worker/...")
     fun `Given localCache is called it disables the BuildCacheConfiguration if a GITHUB Env was found`() {
         // Given
         val buildCache: BuildCacheConfiguration = mockk()
@@ -44,7 +44,7 @@ class LocalCacheSpec {
     }
 
     @Test
-    @ClearEnvironmentVariable(key = "GITHUB")
+    @ClearEnvironmentVariable(key = "GITHUB_REPOSITORY")
     @SetEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT", value = "whatever the value is")
     fun `Given localCache is called it configures the BuildCacheConfiguration for AzureDevops`() {
         // Given
@@ -70,7 +70,7 @@ class LocalCacheSpec {
     }
 
     @ClearEnvironmentVariable(key = "AZURE_HTTP_USER_AGENT")
-    @ClearEnvironmentVariable(key = "GITHUB")
+    @ClearEnvironmentVariable(key = "GITHUB_REPOSITORY")
     @Test
     fun `Given localCache is called it enables the BuildCacheConfiguration if neither AZURE_HTTP_USER_AGENT nor GITHUB was found`() {
         // Given
