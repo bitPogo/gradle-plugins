@@ -35,6 +35,30 @@ fun KotlinMultiplatformExtension.native(
     )
 }
 
+fun KotlinMultiplatformExtension.nativeWithoutAndroid(
+    name: String = "native",
+    configuration: KotlinNativeTarget.() -> Unit = { },
+) {
+    apple(configuration = configuration)
+    linux(configuration = configuration)
+    mingw(configuration = configuration)
+
+    val nativeMain = sourceSets.maybeCreate("${name}Main")
+    val nativeTest = sourceSets.maybeCreate("${name}Test")
+
+    val targets = setOf(
+        "apple",
+        "linux",
+        "mingw",
+    )
+
+    wireDependencies(
+        main = nativeMain,
+        test = nativeTest,
+        targets = targets,
+    )
+}
+
 fun KotlinMultiplatformExtension.nativeCoroutine(
     name: String = "native",
     configuration: KotlinNativeTarget.() -> Unit = { },
