@@ -52,7 +52,6 @@ configure<SourceSetContainer> {
     }
 }
 
-
 val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMainConfigurationTask::class.java) {
     mustRunAfter("clean")
 
