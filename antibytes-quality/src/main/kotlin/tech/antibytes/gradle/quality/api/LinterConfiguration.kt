@@ -31,12 +31,15 @@ data class LinterConfiguration(
             "ktlint_standard_property-naming" to "disabled",
             "ktlint_standard_discouraged-comment-location" to "disabled",
             "ktlint_standard_value-argument-comment" to "disabled",
+            "ktlint_standardl_multiline-expression-wrappin" to "disabled",
         ),
     ),
     override val gradle: PartialConfiguration = PartialLinterConfiguration(
         include = setOf("*.gradle.kts"),
         exclude = setOf("**/build/**/*"),
-        rules = emptyMap(),
+        rules = mapOf(
+            "ktlint_standardl_multiline-expression-wrappin" to "disabled",
+        ),
     ),
     override val misc: PartialConfiguration = PartialLinterConfiguration(
         include = setOf("**/*.adoc", "**/*.md", "**/.gitignore", ".java-version"),

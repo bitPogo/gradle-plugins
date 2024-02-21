@@ -65,12 +65,15 @@ include(
 
 buildCache {
     val isGithub = System.getenv("GITHUB")?.let { true } ?: false
-    val target =
-        if (isGithub) {
-            ".gradle/build-cache"
-        } else {
-            "build-cache"
-        }
+    System.getenv().forEach{ env ->
+        println(env.key)
+    }
+
+    val target = if (isGithub) {
+        ".gradle/build-cache"
+    } else {
+        "build-cache"
+    }
 
     local {
         isEnabled = true
