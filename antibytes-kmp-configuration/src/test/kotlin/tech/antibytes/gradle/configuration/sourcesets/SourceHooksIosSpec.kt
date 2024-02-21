@@ -56,11 +56,11 @@ class SourceHooksIosSpec {
         verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Main") }
         verify(exactly = 1) { sourceSets.maybeCreate("${prefix}Test") }
 
-        verify(exactly = 1) { extension.iosX64("${prefix}iosX64", configuration) }
+        verify(exactly = 1) { extension.iosX64("${prefix}X64", configuration) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}X64Main", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}X64Test", any<Action<KotlinSourceSet>>()) }
 
-        verify(exactly = 1) { extension.iosArm64("${prefix}iosArm64", configuration) }
+        verify(exactly = 1) { extension.iosArm64("${prefix}Arm64", configuration) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Main", any<Action<KotlinSourceSet>>()) }
         verify(exactly = 1) { sourceSets.getByName("${prefix}Arm64Test", any<Action<KotlinSourceSet>>()) }
 

@@ -13,8 +13,8 @@ fun KotlinMultiplatformExtension.iosx(
     namePrefix: String = "ios",
     configuration: KotlinNativeTarget.() -> Unit = { },
 ) {
-    iosX64("${namePrefix}iosX64", configuration)
-    iosArm64("${namePrefix}iosArm64", configuration)
+    iosX64("${namePrefix}X64", configuration)
+    iosArm64("${namePrefix}Arm64", configuration)
     iosSimulatorArm64("${namePrefix}SimulatorArm64", configuration)
 
     val iosMain = sourceSets.maybeCreate("${namePrefix}Main")
