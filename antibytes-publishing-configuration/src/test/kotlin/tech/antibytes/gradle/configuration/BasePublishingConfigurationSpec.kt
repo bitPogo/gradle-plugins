@@ -87,13 +87,6 @@ class BasePublishingConfigurationSpec {
         )
 
         assertEquals(
-            actual = config.additionalPublishingTasks,
-            expected = mapOf(
-                "linuxMips" to setOf("linuxMips32", "linuxMipsel32"),
-            ),
-        )
-
-        assertEquals(
             actual = config.documentation,
             expected = DocumentationConfiguration(
                 tasks = setOf("dokkaHtml"),
@@ -216,13 +209,6 @@ class BasePublishingConfigurationSpec {
             expected = DocumentationConfiguration(
                 tasks = setOf("dokkaHtml"),
                 outputDir = project.layout.buildDirectory.get().asFile.resolve("dokka"),
-            ),
-        )
-
-        assertEquals(
-            actual = config.additionalPublishingTasks,
-            expected = mapOf(
-                "linuxMips" to setOf("linuxMips32", "linuxMipsel32"),
             ),
         )
 

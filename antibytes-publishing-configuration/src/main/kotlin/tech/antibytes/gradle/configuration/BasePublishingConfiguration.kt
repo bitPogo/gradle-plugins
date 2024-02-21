@@ -64,10 +64,6 @@ abstract class BasePublishingConfiguration(
         developerConnection = "scm:git://$gitHubRepositoryPath.git",
     )
 
-    val additionalPublishingTasks = mapOf(
-        "linuxMips" to setOf("linuxMips32", "linuxMipsel32"),
-    )
-
     val repositories = setOf(
         MavenRepositoryConfiguration(
             name = "MavenCentral",
