@@ -39,9 +39,17 @@ internal object DefaultAndroidLibraryConfigurationProvider :
 
     private fun determineInstrumentedTestSource(contexts: Set<PlatformContext>): TestSource {
         return if (isAndroidKmpLibrary(contexts)) {
-            determineTestSource("androidAndroidTest")
+            determineTestSource("androidInstrumentedTest")
         } else {
             determineTestSource("androidTest")
+        }
+    }
+
+    private fun determineTestSource(contexts: Set<PlatformContext>): TestSource {
+        return if (isAndroidKmpLibrary(contexts)) {
+            determineTestSource("androidUnitTest")
+        } else {
+            determineTestSource("test")
         }
     }
 
@@ -76,14 +84,6 @@ internal object DefaultAndroidLibraryConfigurationProvider :
                     "src/main/resources",
                 ),
             )
-        }
-    }
-
-    private fun determineTestSource(contexts: Set<PlatformContext>): TestSource {
-        return if (isAndroidKmpLibrary(contexts)) {
-            determineTestSource("androidTest")
-        } else {
-            determineTestSource("test")
         }
     }
 

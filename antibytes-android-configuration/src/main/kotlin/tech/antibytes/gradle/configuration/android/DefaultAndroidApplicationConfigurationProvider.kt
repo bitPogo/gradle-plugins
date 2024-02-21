@@ -63,7 +63,7 @@ internal object DefaultAndroidApplicationConfigurationProvider :
 
     private fun determineTestSource(contexts: Set<PlatformContext>): TestSource {
         return if (isAndroidKmpApp(contexts)) {
-            determineTestSource("androidTest")
+            determineTestSource("androidUnitTest")
         } else {
             determineTestSource("test")
         }
@@ -71,7 +71,7 @@ internal object DefaultAndroidApplicationConfigurationProvider :
 
     private fun determineInstrumentedTestSource(contexts: Set<PlatformContext>): TestSource {
         return if (isAndroidKmpApp(contexts)) {
-            determineTestSource("androidAndroidTest")
+            determineTestSource("androidInstrumentedTest")
         } else {
             determineTestSource("androidTest")
         }

@@ -135,17 +135,17 @@ class DefaultAndroidLibraryConfigurationProviderSpec {
                     ),
                 ),
                 unitTestSource = TestSource(
-                    sourceDirectories = setOf("src/androidTest/kotlin"),
+                    sourceDirectories = setOf("src/androidUnitTest/kotlin"),
                     resourceDirectories = setOf(
-                        "src/androidTest/res",
-                        "src/androidTest/resources",
+                        "src/androidUnitTest/res",
+                        "src/androidUnitTest/resources",
                     ),
                 ),
                 androidTest = TestSource(
-                    sourceDirectories = setOf("src/androidAndroidTest/kotlin"),
+                    sourceDirectories = setOf("src/androidInstrumentedTest/kotlin"),
                     resourceDirectories = setOf(
-                        "src/androidAndroidTest/res",
-                        "src/androidAndroidTest/resources",
+                        "src/androidInstrumentedTest/res",
+                        "src/androidInstrumentedTest/resources",
                     ),
                 ),
                 testRunner = TestRunner(
