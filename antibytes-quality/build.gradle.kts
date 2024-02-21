@@ -28,6 +28,7 @@ plugins {
     id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 val pluginId = "${LibraryConfig.group}.quality"
@@ -195,6 +196,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     packageName.set("tech.antibytes.gradle.quality.config")
     stringFields.set(
         mapOf(
+            "javaVersion" to libs.versions.java.jvm.get(),
             "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
             "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.let { provider ->

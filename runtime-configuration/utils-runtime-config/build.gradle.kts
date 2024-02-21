@@ -7,18 +7,10 @@
 plugins {
     `kotlin-dsl`
     `java-library`
+
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 dependencies {
     implementation(libs.kotlin)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
-        vendor.set(JvmVendorSpec.ADOPTIUM)
-    }
-
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }

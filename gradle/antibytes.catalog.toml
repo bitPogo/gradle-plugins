@@ -96,6 +96,8 @@ gradle-antibytes-dokkaConfiguration-dependency = "xxx"
 gradle-antibytes-dokkaConfiguration-plugin = "xxx"
 gradle-antibytes-grammarTools-dependency = "xxx"
 gradle-antibytes-grammarTools-plugin = "xxx"
+gradle-antibytes-javaConfiguration-dependency = "xxx"
+gradle-antibytes-javaConfiguration-plugin = "xxx"
 gradle-antibytes-kmpConfiguration-dependency = "xxx"
 gradle-antibytes-kmpConfiguration-plugin = "xxx"
 gradle-antibytes-mkDocs-dependency = "xxx"
@@ -113,6 +115,7 @@ gradle-antibytes-versioning-dependency = "xxx"
 gradle-antibytes-versioning-plugin = "xxx"
 gradle-dependencyUpdate-dependency = "0.51.0"
 gradle-dependencyUpdate-plugin = "0.51.0"
+gradle-gradle = "8.6.0"
 gradle-jacoco-dependency = "0.8.11"
 gradle-jacoco-plugin = "0.8.11"
 gradle-ksp-plugin-dependency = "1.9.22-1.0.17"
@@ -563,6 +566,7 @@ gradle-antibytes-dependencyHelper = {group = "tech.antibytes.gradle.dependency.h
 gradle-antibytes-detektConfiguration = {group = "tech.antibytes.gradle", name = "antibytes-detekt-configuration", version.ref = "gradle-antibytes-detektConfiguration" }
 gradle-antibytes-dokkaConfiguration = {group = "tech.antibytes.gradle.configuration.dokka", name = "antibytes-dokka-configuration", version.ref = "gradle-antibytes-dokkaConfiguration-dependency" }
 gradle-antibytes-grammarTools = {group = "tech.antibytes.gradle.grammar", name = "antibytes-grammar-tools", version.ref = "gradle-antibytes-grammarTools-dependency" }
+gradle-antibytes-javaConfiguration = {group = "tech.antibytes.gradle.configuration.java", name = "antibytes-java-configuration", version.ref = "gradle-antibytes-javaConfiguration-dependency" }
 gradle-antibytes-kmpConfiguration = {group = "tech.antibytes.gradle.configuration.kmp", name = "antibytes-kmp-configuration", version.ref = "gradle-antibytes-kmpConfiguration-dependency" }
 gradle-antibytes-mkDocs = {group = "tech.antibytes.gradle.mkdocs", name = "antibytes-mkdocs", version.ref = "gradle-antibytes-mkDocs-dependency" }
 gradle-antibytes-nodeHelper = {group = "tech.antibytes.gradle.dependency.node", name = "antibytes-dependency-node", version.ref = "gradle-antibytes-nodeHelper" }
@@ -2057,6 +2061,7 @@ gradle-antibytes-customComponent = {id = "tech.antibytes.gradle.component", vers
 gradle-antibytes-dependencyHelper = {id = "tech.antibytes.gradle.dependency.helper", version.ref = "gradle-antibytes-dependencyHelper-plugin" }
 gradle-antibytes-dokkaConfiguration = {id = "tech.antibytes.gradle.configuration.dokka", version.ref = "gradle-antibytes-dokkaConfiguration-plugin" }
 gradle-antibytes-grammarTools = {id = "tech.antibytes.gradle.grammar", version.ref = "gradle-antibytes-grammarTools-plugin" }
+gradle-antibytes-javaConfiguration = {id = "tech.antibytes.gradle.configuration.java", version.ref = "gradle-antibytes-javaConfiguration-plugin" }
 gradle-antibytes-kmpConfiguration = {id = "tech.antibytes.gradle.configuration.kmp", version.ref = "gradle-antibytes-kmpConfiguration-plugin" }
 gradle-antibytes-mkDocs = {id = "tech.antibytes.gradle.mkdocs", version.ref = "gradle-antibytes-mkDocs-plugin" }
 gradle-antibytes-publishing = {id = "tech.antibytes.gradle.publishing", version.ref = "gradle-antibytes-publishing-plugin" }

@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.configuration.android.AndroidApplicationConfigurator
 import tech.antibytes.gradle.configuration.android.CompileTaskConfigurator
 import tech.antibytes.gradle.configuration.android.DefaultAndroidApplicationConfigurationProvider
+import tech.antibytes.gradle.configuration.android.ToolChainConfigurator
 
 class AntibytesApplicationConfigurationSpec {
     @BeforeEach
@@ -31,6 +32,7 @@ class AntibytesApplicationConfigurationSpec {
             AndroidApplicationConfigurator,
             DefaultAndroidApplicationConfigurationProvider,
             CompileTaskConfigurator,
+            ToolChainConfigurator,
         )
     }
 
@@ -40,6 +42,7 @@ class AntibytesApplicationConfigurationSpec {
             AndroidApplicationConfigurator,
             DefaultAndroidApplicationConfigurationProvider,
             CompileTaskConfigurator,
+            ToolChainConfigurator,
         )
     }
 
@@ -63,7 +66,8 @@ class AntibytesApplicationConfigurationSpec {
 
         every { AndroidApplicationConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
-        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
+        every { CompileTaskConfigurator.configure(any()) } just Runs
+        every { ToolChainConfigurator.configure(any()) } just Runs
 
         // When
         AntibytesApplicationConfiguration().apply(project)
@@ -84,7 +88,8 @@ class AntibytesApplicationConfigurationSpec {
 
         every { AndroidApplicationConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(any()) } returns mockk()
-        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
+        every { CompileTaskConfigurator.configure(any()) } just Runs
+        every { ToolChainConfigurator.configure(any()) } just Runs
 
         // When
         AntibytesApplicationConfiguration().apply(project)
@@ -107,7 +112,8 @@ class AntibytesApplicationConfigurationSpec {
 
         every { AndroidApplicationConfigurator.configure(any(), any()) } just Runs
         every { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(any()) } returns androidConfig
-        every { CompileTaskConfigurator.configure(project, Unit) } just Runs
+        every { CompileTaskConfigurator.configure(any()) } just Runs
+        every { ToolChainConfigurator.configure(any()) } just Runs
 
         // When
         AntibytesApplicationConfiguration().apply(project)
@@ -115,6 +121,7 @@ class AntibytesApplicationConfigurationSpec {
         // Then
         verify(exactly = 1) { DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(project) }
         verify(exactly = 1) { AndroidApplicationConfigurator.configure(project, androidConfig) }
-        verify(exactly = 1) { CompileTaskConfigurator.configure(project, Unit) }
+        verify(exactly = 1) { CompileTaskConfigurator.configure(project) }
+        verify(exactly = 1) { ToolChainConfigurator.configure(project) }
     }
 }

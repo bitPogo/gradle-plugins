@@ -56,6 +56,8 @@ internal object Gradle {
      */
     const val ktlint = GradleVersions.ktlint
 
+    const val gradle = GradleVersions.gradle
+
     /**
      * [ToolChain Resolver](https://plugins.gradle.org/plugin/org.gradle.toolchains.foojay-resolver-convention
      */
@@ -97,5 +99,6 @@ internal object Gradle {
         val customComponent = GradleBundleVersion(version)
         const val detektConfiguration = version
         val mkDocs = GradleBundleVersion(version)
+        val javaConfiguration = GradleBundleVersion(version)
     }
 }

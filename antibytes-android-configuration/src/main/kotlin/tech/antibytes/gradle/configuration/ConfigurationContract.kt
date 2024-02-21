@@ -19,4 +19,8 @@ internal interface ConfigurationContract {
             configuration: T,
         )
     }
+
+    fun interface ParameterlessConfigurator {
+        fun configure(project: Project)
+    }
 }

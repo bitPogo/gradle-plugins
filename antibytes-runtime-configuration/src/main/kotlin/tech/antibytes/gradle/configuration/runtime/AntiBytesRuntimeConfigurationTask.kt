@@ -17,6 +17,7 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
 import tech.antibytes.gradle.configuration.runtime.RuntimeConfigurationContract.RuntimeConfigurationTask
+import tech.antibytes.gradle.util.capitalize
 
 abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigurationTask {
     @get:Internal
@@ -26,6 +27,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
     protected abstract val outputDirectory: File
 
     init {
+        configurationFilePrefix.convention(null)
         packageName.convention(null)
         sourceSetPrefix.convention(null)
 
@@ -82,13 +84,15 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
         )
     }
 
+    private fun deterimeFilePrefix(): String = configurationFilePrefix.orNull?.capitalize() ?: ""
+
     @TaskAction
     override fun generate() {
         guardExecution()
 
         val file = FileSpec.builder(
             packageName.get(),
-            fileName,
+            "${deterimeFilePrefix()}$fileName",
         )
 
         file.addType(addConfiguration(fileName))

@@ -11,6 +11,7 @@ import org.gradle.api.Project
 import tech.antibytes.gradle.configuration.android.AndroidApplicationConfigurator
 import tech.antibytes.gradle.configuration.android.CompileTaskConfigurator
 import tech.antibytes.gradle.configuration.android.DefaultAndroidApplicationConfigurationProvider
+import tech.antibytes.gradle.configuration.android.ToolChainConfigurator
 import tech.antibytes.gradle.util.applyIfNotExists
 
 class AntibytesApplicationConfiguration : Plugin<Project> {
@@ -22,6 +23,7 @@ class AntibytesApplicationConfiguration : Plugin<Project> {
             DefaultAndroidApplicationConfigurationProvider.createDefaultConfiguration(target),
         )
 
-        CompileTaskConfigurator.configure(target, Unit)
+        CompileTaskConfigurator.configure(target)
+        ToolChainConfigurator.configure(target)
     }
 }

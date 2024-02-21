@@ -13,6 +13,7 @@ plugins {
     `java-gradle-plugin`
 
     id("tech.antibytes.gradle.runtime.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 allprojects {
@@ -21,16 +22,6 @@ allprojects {
         mavenCentral()
         google()
     }
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
-        vendor.set(JvmVendorSpec.ADOPTIUM)
-    }
-
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
@@ -65,8 +56,10 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
     mustRunAfter("clean")
 
     packageName.set("tech.antibytes.gradle.quality.config")
+
     stringFields.set(
         mapOf(
+            "javaVersion" to libs.versions.java.jvm.get(),
             "detektVersion" to libs.versions.detekt.get(),
             "ktlintVersion" to libs.versions.ktlint.get(),
             "remoteDetektConfig" to antibytes.gradle.antibytes.detektConfiguration.get().toString(),

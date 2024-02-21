@@ -1,4 +1,7 @@
 [versions]
+java-jvm = "17"
+java-android = "8"
+
 # [Kotlin](https://kotlinlang.org/docs/releases.html)
 kotlin = "1.9.22"
 
@@ -51,6 +54,8 @@ jflex = "1.9.1"
 turtle = "0.9.0"
 # [Kotlin Poet](https://square.github.io/kotlinpoet/)
 kotlinPoet = "1.16.0"
+## [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
+mkDocs = "3.0.0"
 
 ## Test
 # [JUnit](https://github.com/junit-team/junit5/)
@@ -89,6 +94,7 @@ kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
 fatJar = { module = "gradle.plugin.com.github.jengelman.gradle.plugins:shadow", version.ref = "fatJar" }
 toolchainsResolver = { group = "org.gradle.toolchains", name = "foojay-resolver", version.ref = "toolchainResolver"}
+mkDocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref = "mkDocs" }
 
 ## Test
 kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }

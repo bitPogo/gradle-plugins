@@ -114,9 +114,6 @@ ksp = "1.9.22-1.0.17"
 ## [Compiler Test](https://github.com/ZacSweers/kotlin-compile-testing)
 compilerTest = "0.4.0"
 
-## [MkDocs](https://plugins.gradle.org/plugin/ru.vyarus.mkdocs)
-mkDocs = "3.0.0"
-
 ## [Okio](https://square.github.io/okio/)
 square-okio = "3.8.0"
 ## [SQLDelight](https://github.com/cashapp/sqldelight/)
@@ -224,9 +221,6 @@ compilerTest = {group = "dev.zacsweers.kctfork", name = "core", version.ref = "c
 
 
 ktor-client-core = {group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
-
-
-mkDocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref = "mkDocs" }
 
 
 square-okio-core = {group = "com.squareup.okio", name = "okio", version.ref = "square-okio" }

@@ -18,6 +18,7 @@ plugins {
     id("tech.antibytes.gradle.runtime.local")
     id("tech.antibytes.gradle.dependency.local")
     id("tech.antibytes.gradle.versioning.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 repositories {
@@ -28,16 +29,6 @@ repositories {
 
 dependencies {
     implementation(libs.kotlin)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
-        vendor.set(JvmVendorSpec.ADOPTIUM)
-    }
-
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }
 
 configure<SourceSetContainer> {

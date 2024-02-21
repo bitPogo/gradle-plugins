@@ -25,6 +25,7 @@ plugins {
 
     id("tech.antibytes.gradle.coverage.local")
     id("tech.antibytes.gradle.publishing.local")
+    id("tech.antibytes.gradle.configuration.java.local")
 }
 
 val pluginId = "${LibraryConfig.group}.publishing"
@@ -148,16 +149,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.jvmFixture)
     testImplementation(projects.antibytesGradleTestUtils)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_17.toString()))
-        vendor.set(JvmVendorSpec.ADOPTIUM)
-    }
-
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }
 
 gradlePlugin {

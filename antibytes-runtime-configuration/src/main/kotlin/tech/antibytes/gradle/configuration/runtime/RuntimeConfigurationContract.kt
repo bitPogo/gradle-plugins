@@ -16,6 +16,13 @@ import org.gradle.api.tasks.TaskAction
 internal interface RuntimeConfigurationContract {
     interface RuntimeConfigurationTask {
         /**
+         *
+         */
+        @get:Input
+        @get:Optional
+        val configurationFilePrefix: Property<String>
+
+        /**
          * Namespace where the generated File lives under
          * This property is required
          */
