@@ -227,8 +227,6 @@ tasks.check {
 }
 
 tasks.withType(Test::class.java) {
-    useJUnitPlatform()
-
     testLogging {
         events(TestLogEvent.FAILED)
     }

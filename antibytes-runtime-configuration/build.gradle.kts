@@ -119,10 +119,6 @@ dependencies {
     testImplementation(projects.antibytesGradleTestUtils)
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 antibytesCoverage {
     val branchCoverage = JacocoVerificationRule(
         counter = JacocoCounter.BRANCH,

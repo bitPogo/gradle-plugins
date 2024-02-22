@@ -10,6 +10,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.tasks.testing.Test
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import tech.antibytes.gradle.configuration.jvm.config.MainConfig
 
@@ -22,6 +23,13 @@ class AntibytesJavaConfiguration : Plugin<Project> {
 
             sourceCompatibility = version
             targetCompatibility = version
+
+            withJavadocJar()
+            withSourcesJar()
+
+            target.tasks.withType(Test::class.java) {
+                useJUnitPlatform()
+            }
         }
     }
 }

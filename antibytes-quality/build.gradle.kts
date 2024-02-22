@@ -167,7 +167,6 @@ antibytesCoverage {
 }
 
 tasks.test {
-    useJUnitPlatform()
     jvmArgs = listOf(
         jvmArgs ?: emptyList(),
         listOf(

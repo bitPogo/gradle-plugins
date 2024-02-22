@@ -141,10 +141,6 @@ antibytesCoverage {
     )
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.check {
     dependsOn("jvmCoverageVerification")
 }

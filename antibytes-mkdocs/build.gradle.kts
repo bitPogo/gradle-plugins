@@ -197,10 +197,6 @@ tasks.withType<KotlinCompile> {
     )
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.check {
     dependsOn("jvmCoverageVerification")
 }

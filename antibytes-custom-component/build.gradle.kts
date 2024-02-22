@@ -147,10 +147,6 @@ gradlePlugin {
     }
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.check {
     dependsOn("jvmCoverageVerification")
 }
