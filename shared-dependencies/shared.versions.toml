@@ -143,7 +143,6 @@ uuidKmp = "0.8.2"
 compose-multiplaform = "1.6.0-rc02"
 
 [libraries]
-agp = {group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 appCompact = {group = "androidx.appcompat", name = "appcompat", version.ref = "appCompact" }
 coil = {group = "io.coil-kt", name = "coil", version.ref = "coil" }
 
