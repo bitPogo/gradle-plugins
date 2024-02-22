@@ -83,6 +83,7 @@ class AntibytesDocumentationSpec {
                 MainConfig.redirects,
                 MainConfig.pygments,
                 MainConfig.pymdown,
+                MainConfig.material,
             )
         }
     }
@@ -118,6 +119,7 @@ class AntibytesDocumentationSpec {
                 MainConfig.redirects,
                 MainConfig.pygments,
                 MainConfig.pymdown,
+                MainConfig.material,
             )
         }
     }
@@ -157,6 +159,7 @@ class AntibytesDocumentationSpec {
                 MainConfig.redirects,
                 MainConfig.pygments,
                 MainConfig.pymdown,
+                MainConfig.material,
             )
         }
     }
@@ -196,6 +199,7 @@ class AntibytesDocumentationSpec {
                 MainConfig.redirects,
                 MainConfig.pygments,
                 MainConfig.pymdown,
+                MainConfig.material,
             )
         }
     }

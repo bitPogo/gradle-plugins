@@ -43,4 +43,9 @@ internal object MkDocs {
      * (PyMdown)(https://github.com/facelessuser/pymdown-extensions/releases)
      */
     const val pymdown = PythonVersions.pymdownExtensions
+
+    /**
+     * (Material)(https://github.com/squidfunk/mkdocs-material/releases)
+     */
+    const val material = PythonVersions.mkdocsMaterial
 }

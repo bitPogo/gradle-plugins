@@ -40,6 +40,7 @@ class AntibytesDocumentation : Plugin<Project> {
                 MainConfig.redirects,
                 MainConfig.pygments,
                 MainConfig.pymdown,
+                MainConfig.material,
             )
         }
 

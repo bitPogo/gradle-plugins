@@ -177,6 +177,7 @@ val provideConfig: AntiBytesMainConfigurationTask by tasks.creating(AntiBytesMai
             "redirects" to antibytes.python.mkdocs.redirects.asPythonPackage(),
             "pygments" to antibytes.python.mkdocs.pygments.asPythonPackage(),
             "pymdown" to antibytes.python.mkdocs.pymdown.asPythonPackage(),
+            "material" to antibytes.python.mkdocs.material.asPythonPackage(),
         )
     )
 }

@@ -3,5 +3,6 @@ mkdocs-include-markdown-plugin==6.0.3
 mkdocs-kroki-plugin==0.6.1
 mkdocs-minify-plugin==0.7.1
 mkdocs-redirects==1.2.1
+mkdocs-material==9.5.10
 pygments==2.16.1
 pymdown-extensions==10.3.1

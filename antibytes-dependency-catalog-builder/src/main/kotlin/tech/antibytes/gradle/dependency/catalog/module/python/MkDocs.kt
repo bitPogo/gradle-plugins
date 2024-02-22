@@ -30,4 +30,7 @@ internal object MkDocs {
     val pymdown = PythonArtifact(
         id = "pymdown-extensions",
     )
+    val material = PythonArtifact(
+        id = "mkdocs-material",
+    )
 }

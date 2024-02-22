@@ -332,6 +332,7 @@ node-sqlJs = "1.8.0"
 python-mkdocs-extraData = "0.2.5"
 python-mkdocs-includeMarkdown = "6.0.3"
 python-mkdocs-kroki = "0.6.1"
+python-mkdocs-material = "9.5.10"
 python-mkdocs-minify = "0.7.1"
 python-mkdocs-pygments = "2.16.1"
 python-mkdocs-pymdown = "10.3.1"
@@ -1447,6 +1448,7 @@ node-sqlJs = {group = "node-production", name = "sql.js", version.ref = "node-sq
 python-mkdocs-extraData = {group = "python", name = "mkdocs-markdownextradata-plugin", version.ref = "python-mkdocs-extraData" }
 python-mkdocs-includeMarkdown = {group = "python", name = "mkdocs-include-markdown-plugin", version.ref = "python-mkdocs-includeMarkdown" }
 python-mkdocs-kroki = {group = "python", name = "mkdocs-kroki-plugin", version.ref = "python-mkdocs-kroki" }
+python-mkdocs-material = {group = "python", name = "mkdocs-material", version.ref = "python-mkdocs-material" }
 python-mkdocs-minify = {group = "python", name = "mkdocs-minify-plugin", version.ref = "python-mkdocs-minify" }
 python-mkdocs-pygments = {group = "python", name = "pygments", version.ref = "python-mkdocs-pygments" }
 python-mkdocs-pymdown = {group = "python", name = "pymdown-extensions", version.ref = "python-mkdocs-pymdown" }
