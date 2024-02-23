@@ -33,7 +33,7 @@ val provideVersions: AntibytesDependencyVersionTask by tasks.creating(AntibytesD
     pythonDirectory.set(externalDependencies)
     nodeDirectory.set(externalDependencies)
     gradleDirectory.set(
-        listOf(externalDependencies, internalDependencies).flatten()
+        listOf(internalDependencies, externalDependencies).flatten()
     )
 }
 
