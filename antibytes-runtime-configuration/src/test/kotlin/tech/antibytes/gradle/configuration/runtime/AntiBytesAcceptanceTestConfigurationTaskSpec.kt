@@ -310,6 +310,38 @@ class AntiBytesAcceptanceTestConfigurationTaskSpec {
     }
 
     @Test
+    fun `Given the task is executed it generates a OutputFile in main with LongFields`() {
+        // Given
+        val packageName = "test.config"
+        val task: AntiBytesAcceptanceTestConfigurationTask = project.tasks.create("sut", AntiBytesAcceptanceTestConfigurationTask::class.java) {}
+        val expected = loadResource("/AcceptanceTestConfigLongExpected.kt")
+
+        // When
+        task.packageName.set(packageName)
+        task.longFields.set(
+            mapOf(
+                "test" to 23,
+                "test1" to 42,
+            ),
+        )
+
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("AcceptanceTestConfig.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            actual = fileValue.normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
     fun `Given the task is executed it generates a OutputFile in main with BooleanFields`() {
         // Given
         val packageName = "test.config"

@@ -33,6 +33,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
 
         stringFields.convention(emptyMap<String, String>())
         integerFields.convention(emptyMap<String, Int>())
+        longFields.convention(emptyMap<String, Long>())
         booleanFields.convention(emptyMap<String, Boolean>())
     }
 
@@ -59,6 +60,7 @@ abstract class AntiBytesRuntimeConfigurationTask : DefaultTask(), RuntimeConfigu
         implementation.addModifiers(KModifier.INTERNAL)
         implementation.addProperties(addFields(stringFields.get()))
         implementation.addProperties(addFields(integerFields.get()))
+        implementation.addProperties(addFields(longFields.get()))
         implementation.addProperties(addFields(booleanFields.get()))
 
         return implementation.build()

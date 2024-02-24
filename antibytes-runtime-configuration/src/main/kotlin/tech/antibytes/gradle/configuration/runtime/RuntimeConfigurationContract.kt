@@ -54,6 +54,14 @@ internal interface RuntimeConfigurationContract {
         val integerFields: MapProperty<String, Int>
 
         /**
+         * Fields and their long values which the output Configuration must contain
+         * Optional
+         */
+        @get:Input
+        @get:Optional
+        val longFields: MapProperty<String, Long>
+
+        /**
          * Fields and their integer values which the output Configuration must contain
          * Optional
          */

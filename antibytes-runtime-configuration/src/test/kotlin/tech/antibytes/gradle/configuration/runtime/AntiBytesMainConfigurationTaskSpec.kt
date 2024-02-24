@@ -310,6 +310,38 @@ class AntiBytesMainConfigurationTaskSpec {
     }
 
     @Test
+    fun `Given the task is executed it generates a OutputFile in main with LongFields`() {
+        // Given
+        val packageName = "test.config"
+        val task: AntiBytesMainConfigurationTask = project.tasks.create("sut", AntiBytesMainConfigurationTask::class.java) {}
+        val expected = loadResource("/MainConfigLongExpected.kt")
+
+        // When
+        task.packageName.set(packageName)
+        task.longFields.set(
+            mapOf(
+                "test" to 23,
+                "test1" to 42,
+            ),
+        )
+
+        task.generate()
+
+        // Then
+        var fileValue = ""
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("MainConfig.kt")) {
+                fileValue = file.readText()
+            }
+        }
+
+        assertEquals(
+            fileValue.normalizeSource(),
+            expected.normalizeSource(),
+        )
+    }
+
+    @Test
     fun `Given the task is executed it generates a OutputFile in main with BooleanFields`() {
         // Given
         val packageName = "test.config"
