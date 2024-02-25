@@ -24,4 +24,9 @@ internal object Node {
      * [SQL Js](https://github.com/sql-js/sql.js/)
      */
     const val sqlJs = NodeProductionVersions.sqlJs
+
+    /**
+     * [Square SQLJs Worker](https://www.npmjs.com/package/@cashapp/sqldelight-sqljs-worker)
+     */
+    const val sqlJsWorker = NodeProductionVersions.cashappSqldelightSqljsWorker
 }

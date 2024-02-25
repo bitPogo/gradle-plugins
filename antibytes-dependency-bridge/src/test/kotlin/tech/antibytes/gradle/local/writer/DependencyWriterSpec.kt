@@ -102,9 +102,9 @@ class DependencyWriterSpec {
     fun `Given writePythonDependencies is called it writes complex named key-value pairs`() {
         // Given
         val versions = mapOf(
-            "test-with-strange-name" to "1",
-            "test-with-strange-name-a" to "2",
-            "test-with-strange-name-b" to "3",
+            "@test-with-strange-name" to "1",
+            "test.with-strange-name-a" to "2",
+            "test-with-strange/name-b" to "3",
         )
         val packageName = "com.test.python"
         val expected = loadResource("/ComplexPython.kt")
@@ -186,9 +186,9 @@ class DependencyWriterSpec {
     fun `Given writeGradleDependencies is called it writes complex named key-value pairs`() {
         // Given
         val versions = mapOf(
-            "test-with-strange-name" to "1",
-            "test-with-strange-name-a" to "2",
-            "test-with-strange-name-b" to "3",
+            "@test-with-strange-name" to "1",
+            "test.with-strange-name-a" to "2",
+            "test-with-strange/name-b" to "3",
         )
         val packageName = "com.test.gradle"
         val expected = loadResource("/ComplexGradle.kt")
@@ -284,9 +284,9 @@ class DependencyWriterSpec {
     fun `Given writeNodeDependencies is called it writes complex named key-value pairs for production dependencies`() {
         // Given
         val versions = mapOf(
-            "test-with-strange-name" to "1",
-            "test-with-strange-name-a" to "2",
-            "test-with-strange-name-b" to "3",
+            "@test-with-strange-name" to "1",
+            "test.with-strange-name-a" to "2",
+            "test-with-strange/name-b" to "3",
         )
         val packageName = "com.test.node"
         val expected = loadResource("/ComplexNodeProduction.kt")
@@ -389,9 +389,9 @@ class DependencyWriterSpec {
     fun `Given writeNodeDependencies is called it writes complex named key-value pairs for development dependencies`() {
         // Given
         val versions = mapOf(
-            "test-with-strange-name" to "1",
-            "test-with-strange-name-a" to "2",
-            "test-with-strange-name-b" to "3",
+            "@test-with-strange-name" to "1",
+            "test.with-strange-name-a" to "2",
+            "test-with-strange/name-b" to "3",
         )
         val packageName = "com.test.node"
         val expected = loadResource("/ComplexNodeDevelopment.kt")
@@ -494,9 +494,9 @@ class DependencyWriterSpec {
     fun `Given writeNodeDependencies is called it writes complex named key-value pairs for peer dependencies`() {
         // Given
         val versions = mapOf(
-            "test-with-strange-name" to "1",
-            "test-with-strange-name-a" to "2",
-            "test-with-strange-name-b" to "3",
+            "@test-with-strange-name" to "1",
+            "test.with-strange-name-a" to "2",
+            "test-with-strange/name-b" to "3",
         )
         val packageName = "com.test.node"
         val expected = loadResource("/ComplexNodePeer.kt")

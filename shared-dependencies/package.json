@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "axios": "1.6.0",
-    "sql.js": "1.8.0"
+    "sql.js": "1.8.0",
+    "@cashapp/sqldelight-sqljs-worker": "2.0.1"
+
   },
   "peerDependencies": {},
   "optionalDependencies": {}

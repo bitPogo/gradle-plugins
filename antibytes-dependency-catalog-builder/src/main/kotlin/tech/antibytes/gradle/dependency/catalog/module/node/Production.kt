@@ -11,4 +11,5 @@ import tech.antibytes.gradle.dependency.catalog.NodeArtifact
 internal object Production {
     val axios = NodeArtifact(id = "axios")
     val sqlJs = NodeArtifact(id = "sql.js")
+    val sqlJsWorker = NodeArtifact(id = "@cashapp/sqldelight-sqljs-worker")
 }
