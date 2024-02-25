@@ -84,6 +84,14 @@ internal object SqlDelight {
         ),
     )
 
+    val primitiveAdapters = MavenKmpArtifact(
+        group = group,
+        id = "primitive-adapters",
+        platforms = listOf(
+            Platform.COMMON,
+        ),
+    )
+
     val gradle = GradleArtifact(
         group = group,
         id = "gradle-plugin",

@@ -39,6 +39,7 @@ internal object Square {
             const val native = version
         }
 
+        const val primitiveAdapters = version
         const val coroutines = version
         const val gradle = version
         const val plugin = version
