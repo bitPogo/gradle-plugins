@@ -223,7 +223,7 @@ ktor-client-core = {group = "io.ktor", name = "ktor-client-core", version.ref = 
 
 
 square-okio-core = {group = "com.squareup.okio", name = "okio", version.ref = "square-okio" }
-square-sqldelight = {group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight" }
+square-sqldelight = {group = "app.cash.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight" }
 square-okhttp = {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "square-okhttp" }
 
 

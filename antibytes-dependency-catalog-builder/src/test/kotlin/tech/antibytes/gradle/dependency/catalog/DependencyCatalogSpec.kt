@@ -577,14 +577,14 @@ class DependencyCatalogSpec {
         verify(exactly = 1) {
             catalog.library(
                 "common-square-sqldelight-driver-native",
-                "com.squareup.sqldelight",
+                "app.cash.sqldelight",
                 "native-driver",
             )
         }
         verify(exactly = 1) {
             catalog.library(
                 "iosarm64-square-sqldelight-driver-native",
-                "com.squareup.sqldelight",
+                "app.cash.sqldelight",
                 "native-driver-iosarm64",
             )
         }
@@ -609,14 +609,14 @@ class DependencyCatalogSpec {
         verify(exactly = 1) {
             catalog.library(
                 "common-square-sqldelight-coroutines",
-                "com.squareup.sqldelight",
+                "app.cash.sqldelight",
                 "coroutines-extensions",
             )
         }
         verify(exactly = 1) {
             catalog.library(
                 "js-square-sqldelight-coroutines",
-                "com.squareup.sqldelight",
+                "app.cash.sqldelight",
                 "coroutines-extensions-js",
             )
         }
@@ -642,7 +642,7 @@ class DependencyCatalogSpec {
         verify(exactly = 1) {
             catalog.plugin(
                 "square-sqldelight",
-                "com.squareup.sqldelight",
+                "app.cash.sqldelight",
             )
         }
 

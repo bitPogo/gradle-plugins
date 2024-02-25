@@ -11,10 +11,9 @@ import tech.antibytes.gradle.dependency.catalog.GradlePlugin
 import tech.antibytes.gradle.dependency.catalog.MavenArtifact
 import tech.antibytes.gradle.dependency.catalog.MavenKmpArtifact
 import tech.antibytes.gradle.dependency.catalog.Platform
-import tech.antibytes.gradle.dependency.catalog.module.Square
 
 internal object SqlDelight {
-    private const val group = "${Square.domain}.sqldelight"
+    private const val group = "app.cash.sqldelight"
     val driver = Driver
 
     internal object Driver {
@@ -33,7 +32,7 @@ internal object SqlDelight {
         )
         val js = MavenArtifact(
             group = group,
-            id = "sqljs-driver",
+            id = "web-worker-driver",
             platform = Platform.JS,
         )
         val native = MavenKmpArtifact(
@@ -91,6 +90,6 @@ internal object SqlDelight {
     )
 
     val plugin = GradlePlugin(
-        id = "com.squareup.sqldelight",
+        id = "app.cash.sqldelight",
     )
 }
