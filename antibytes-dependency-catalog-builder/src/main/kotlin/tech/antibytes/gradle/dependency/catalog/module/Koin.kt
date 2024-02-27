@@ -130,4 +130,9 @@ internal object Koin {
         id = "koin-androidx-compose",
         platform = Platform.ANDROID,
     )
+    val androidTest = MavenTestArtifact(
+        group = group,
+        id = "koin-android-test",
+        platform = Platform.ANDROID,
+    )
 }

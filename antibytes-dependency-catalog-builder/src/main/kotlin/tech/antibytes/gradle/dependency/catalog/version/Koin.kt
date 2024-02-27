@@ -24,4 +24,5 @@ internal object Koin {
     const val androidBinding = version
     const val appCompat = version
     const val compose = version
+    const val androidTest = version
 }
