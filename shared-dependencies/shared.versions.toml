@@ -52,7 +52,7 @@ android-material3 = "1.2.0"
 ## [Release Notes](https://developer.android.com/jetpack/androidx/versions/all-channel)
 ## [Compatibility Notes](https://developer.android.com/jetpack/androidx/releases/compose-kotlin)
 ## [Overview](https://developer.android.com/jetpack/compose/setup)
-android-test-compose = "1.6.1"
+android-test-compose = "1.6.2"
 
 ## [Android Testing](https://developer.android.com/testing)
 ## [Android Testing Releases](https://developer.android.com/jetpack/androidx/releases/test)
@@ -180,7 +180,8 @@ android-material = {group = "com.google.android.material", name = "material", ve
 android-material-compose = {group = "androidx.compose.material", name = "material", version.ref = "android-material-compose" }
 android-material3 = {group = "androidx.compose.material3", name = "material3", version.ref = "android-material3" }
 
-android-test-compose = {group = "androidx.compose.ui", name = "ui-test", version.ref = "android-test-compose" }
+android-test-compose-junit4 = {group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "android-test-compose"}
+android-test-compose-core = {group = "androidx.compose.ui", name = "ui-test", version.ref = "android-test-compose" }
 android-test-core = {group = "androidx.test", name = "core", version.ref = "android-test-core" }
 android-test-espresso = {group = "androidx.test.espresso", name = "espresso-core", version.ref = "android-test-espresso" }
 android-test-junit = {group = "androidx.test.ext", name = "junit", version.ref = "android-test-junit" }

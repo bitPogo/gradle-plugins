@@ -246,6 +246,7 @@ internal object Android {
             const val core = version
             const val manifest = version
             const val junit4 = version
+            const val junit4Rule = version
         }
 
         /**

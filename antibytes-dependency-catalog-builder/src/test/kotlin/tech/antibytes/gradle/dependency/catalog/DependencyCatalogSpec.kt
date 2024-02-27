@@ -1801,7 +1801,7 @@ class DependencyCatalogSpec {
         verify(exactly = 1) {
             catalog.library(
                 "android-test-roborazzi-core",
-                "io.github.takahirom",
+                "io.github.takahirom.roborazzi",
                 "roborazzi",
             )
         }

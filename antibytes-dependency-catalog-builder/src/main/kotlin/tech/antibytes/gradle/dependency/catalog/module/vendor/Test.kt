@@ -31,7 +31,7 @@ internal object Test {
 
     val roborazzi = Roborazzi
     object Roborazzi {
-        private val group = "io.github.takahirom"
+        private val group = "io.github.takahirom.roborazzi"
         val gradle = GradleBundle(
             group = group,
             id = "roborazzi-gradle-plugin",

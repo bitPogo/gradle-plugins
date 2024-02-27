@@ -63,6 +63,11 @@ internal object Test {
             id = "ui-test-junit4",
             platform = Platform.ANDROID,
         )
+        val junit4Rule = MavenTestArtifact(
+            group = group,
+            id = "ui-test-junit4-android",
+            platform = Platform.ANDROID,
+        )
     }
 
     val espresso = Espresso
