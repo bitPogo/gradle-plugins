@@ -115,4 +115,19 @@ internal object Koin {
         group = group,
         id = "koin-test-junit5",
     )
+    val androidBinding = MavenArtifact(
+        group = group,
+        id = "koin-android",
+        platform = Platform.ANDROID,
+    )
+    val appCompat = MavenArtifact(
+        group = group,
+        id = "koin-android-compat",
+        platform = Platform.ANDROID,
+    )
+    val compose = MavenArtifact(
+        group = group,
+        id = "koin-androidx-compose",
+        platform = Platform.ANDROID,
+    )
 }
