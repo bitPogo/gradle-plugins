@@ -32,6 +32,7 @@ data class LinterConfiguration(
             "ktlint_standard_discouraged-comment-location" to "disabled",
             "ktlint_standard_value-argument-comment" to "disabled",
             "ktlint_standard_multiline-expression-wrapping" to "disabled",
+            "ktlint_function_naming_ignore_when_annotated_with" to "Composable",
         ),
     ),
     override val gradle: PartialConfiguration = PartialLinterConfiguration(
