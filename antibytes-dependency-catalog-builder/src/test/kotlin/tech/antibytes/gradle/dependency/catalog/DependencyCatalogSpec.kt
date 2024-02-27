@@ -1783,4 +1783,31 @@ class DependencyCatalogSpec {
             module.versionRef("jetbrains-compose-dependency")
         }
     }
+
+    @Test
+    fun `It contains Roborazzi Compose`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "android-test-roborazzi-core",
+                "io.github.takahirom",
+                "roborazzi",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("test-roborazzi-core")
+        }
+    }
 }

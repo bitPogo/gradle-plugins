@@ -29,11 +29,30 @@ internal object Test {
         plugin = "app.cash.paparazzi",
     )
 
-    val roborazzi = GradleBundle(
-        group = "io.github.takahirom",
-        id = "roborazzi-gradle-plugin",
-        plugin = "io.github.takahirom.roborazzi",
-    )
+    val roborazzi = Roborazzi
+    object Roborazzi {
+        private val group = "io.github.takahirom"
+        val gradle = GradleBundle(
+            group = group,
+            id = "roborazzi-gradle-plugin",
+            plugin = "io.github.takahirom.roborazzi",
+        )
+        val compose = MavenTestArtifact(
+            group = group,
+            id = "roborazzi-compose",
+            platform = Platform.ANDROID,
+        )
+        val junit = MavenTestArtifact(
+            group = group,
+            id = "roborazzi-junit-rule",
+            platform = Platform.ANDROID,
+        )
+        val core = MavenTestArtifact(
+            group = group,
+            id = "roborazzi",
+            platform = Platform.ANDROID,
+        )
+    }
 
     val turbine = MavenKmpTestArtifact(
         group = "app.cash.turbine",

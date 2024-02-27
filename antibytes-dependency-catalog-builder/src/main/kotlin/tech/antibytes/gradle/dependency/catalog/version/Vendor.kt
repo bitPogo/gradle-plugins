@@ -48,7 +48,13 @@ internal object Vendor {
         /**
          * [Roborazzi](https://github.com/takahirom/roborazzi)
          */
-        val roborazzi = GradleBundleVersion(GradleVersions.roborazzi)
+        val roborazzi = Roborazzi
+        object Roborazzi {
+            val gradle = GradleBundleVersion(GradleVersions.roborazzi)
+            val compose = GradleVersions.roborazzi
+            val junit = GradleVersions.roborazzi
+            val core = GradleVersions.roborazzi
+        }
 
         /**
          * [Turbine](https://github.com/cashapp/turbine)
