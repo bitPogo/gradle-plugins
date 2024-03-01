@@ -8,10 +8,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tech.antibytes.gradle.configuration.runtime.AntiBytesMainConfigurationTask
 import tech.antibytes.gradle.versioning.api.VersioningConfiguration
 import tech.antibytes.gradle.plugin.config.LibraryConfig
-import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
-import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
-import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoCounter
-import tech.antibytes.gradle.coverage.CoverageApiContract.JacocoMeasurement
 import tech.antibytes.gradle.publishing.api.PackageConfiguration
 import tech.antibytes.gradle.publishing.api.PomConfiguration
 import tech.antibytes.gradle.publishing.api.DeveloperConfiguration

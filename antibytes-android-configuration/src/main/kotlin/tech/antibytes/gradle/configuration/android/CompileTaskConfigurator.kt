@@ -16,7 +16,7 @@ import tech.antibytes.gradle.configuration.android.config.MainConfig
 internal object CompileTaskConfigurator : ConfigurationContract.ParameterlessConfigurator {
     override fun configure(project: Project) {
         project.tasks.withType<KotlinCompile> {
-            if (name.endsWith("Android")) {
+            if (name.endsWith("Kotlin") || name.endsWith("KotlinAndroid")) {
                 kotlinOptions {
                     jvmTarget = JavaVersion.toVersion(MainConfig.javaVersion).toString()
                 }

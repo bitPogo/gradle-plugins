@@ -31,6 +31,56 @@ class CompileTaskConfiguratorSpec {
     }
 
     @Test
+    fun `Given configure is called it ignores compile task for non Android`() {
+        // Given
+        val project: Project = mockk()
+        val tasks: TaskContainer = mockk()
+        val task: KotlinCompile = mockk()
+        val lambdaExec = slot<KotlinJvmOptions.() -> Unit>()
+        val options: KotlinJvmOptions = mockk(relaxed = true)
+
+        every { project.tasks } returns tasks
+        every { task.name } returns "releaseKotlinJvm"
+        every { task.kotlinOptions(capture(lambdaExec)) } just Runs
+
+        invokeGradleAction(task, mockk()) { action ->
+            tasks.withType(KotlinCompile::class.java, action)
+        }
+
+        // When
+        CompileTaskConfigurator.configure(project)
+
+        // Then
+        assertFalse(lambdaExec.isCaptured)
+    }
+
+    @Test
+    fun `Given configure is called it adjust the compile task for Android in KMP`() {
+        // Given
+        val project: Project = mockk()
+        val tasks: TaskContainer = mockk()
+        val task: KotlinCompile = mockk()
+        val lambdaExec = slot<KotlinJvmOptions.() -> Unit>()
+        val options: KotlinJvmOptions = mockk(relaxed = true)
+
+        every { project.tasks } returns tasks
+        every { task.name } returns "releaseKotlinAndroid"
+        every { task.kotlinOptions(capture(lambdaExec)) } just Runs
+
+        invokeGradleAction(task, mockk()) { action ->
+            tasks.withType(KotlinCompile::class.java, action)
+        }
+
+        // When
+        CompileTaskConfigurator.configure(project)
+
+        // Then
+        lambdaExec.captured.invoke(options)
+
+        verify(exactly = 1) { options.jvmTarget = "1.8" }
+    }
+
+    @Test
     fun `Given configure is called it adjust the compile task for Android`() {
         // Given
         val project: Project = mockk()
@@ -40,7 +90,7 @@ class CompileTaskConfiguratorSpec {
         val options: KotlinJvmOptions = mockk(relaxed = true)
 
         every { project.tasks } returns tasks
-        every { task.name } returns "releaseAndroid"
+        every { task.name } returns "releaseAndroidKotlin"
         every { task.kotlinOptions(capture(lambdaExec)) } just Runs
 
         invokeGradleAction(task, mockk()) { action ->
