@@ -27,7 +27,7 @@ publishing = "6.8.0.202311291450-r"
 versioning = "3.0.0" # see: https://github.com/palantir/gradle-git-version/issues/353
 ## [AGP](https://developer.android.com/studio/releases/gradle-plugin)
 ## [AGP on Maven](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
-agp = "8.2.2"
+agp = "8.3.0"
 # [Spotless](https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless)
 spotless = "6.25.0"
 # [KTLint](https://github.com/pinterest/ktlint)

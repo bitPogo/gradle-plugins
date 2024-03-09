@@ -5,10 +5,10 @@
 format.version = "1.1"
 
 [versions]
-android-agp = "8.2.2"
+android-agp = "8.3.0"
 android-appCompact-core = "1.6.1"
 android-appCompact-resources = "1.6.1"
-android-application = "8.2.2"
+android-application = "8.3.0"
 android-coil-compose = "2.5.0"
 android-coil-core = "2.5.0"
 android-compose-animation-core = "1.6.1"
@@ -58,7 +58,7 @@ android-ktx-viewmodel-compose = "2.7.0"
 android-ktx-viewmodel-core = "2.7.0"
 android-ktx-viewmodel-saver = "2.7.0"
 android-ktx-workmanager = "2.9.0"
-android-library = "8.2.2"
+android-library = "8.3.0"
 android-material-compose-core = "1.6.1"
 android-material-compose-extendedIcons = "1.6.1"
 android-material-compose-icons = "1.6.1"
@@ -66,9 +66,10 @@ android-material-compose-ripple = "1.6.1"
 android-material-core = "1.11.0"
 android-material3-core = "1.2.0"
 android-material3-windowSize = "1.2.0"
-android-test-compose-core = "1.6.1"
-android-test-compose-junit4 = "1.6.1"
-android-test-compose-manifest = "1.6.1"
+android-test-compose-core = "1.6.2"
+android-test-compose-junit4 = "1.6.2"
+android-test-compose-junit4Rule = "1.6.2"
+android-test-compose-manifest = "1.6.2"
 android-test-core = "1.5.0"
 android-test-espresso-core = "3.5.1"
 android-test-espresso-intents = "3.5.1"
@@ -118,9 +119,9 @@ gradle-dependencyUpdate-plugin = "0.51.0"
 gradle-gradle = "8.6.0"
 gradle-jacoco-dependency = "0.8.11"
 gradle-jacoco-plugin = "0.8.11"
-gradle-ksp-plugin-dependency = "1.9.22-1.0.17"
-gradle-ksp-plugin-plugin = "1.9.22-1.0.17"
-gradle-ksp-runtime = "1.9.22-1.0.17"
+gradle-ksp-plugin-dependency = "1.9.23-1.0.17"
+gradle-ksp-plugin-plugin = "1.9.23-1.0.17"
+gradle-ksp-runtime = "1.9.23-1.0.17"
 gradle-ktlint = "1.1.1"
 gradle-owasp-dependency = "9.0.9"
 gradle-owasp-plugin = "9.0.9"
@@ -133,47 +134,51 @@ gradle-versioning-dependency = "3.0.0"
 gradle-versioning-plugin = "3.0.0"
 jetbrains-compose-dependency = "1.6.0-rc02"
 jetbrains-compose-plugin = "1.6.0-rc02"
+koin-androidBinding = "3.5.3"
+koin-androidTest = "3.5.3"
 koin-annotations = "1.3.1"
+koin-appCompat = "3.5.3"
+koin-compose = "3.5.3"
 koin-core = "3.5.3"
 koin-junit4 = "3.5.3"
 koin-junit5 = "3.5.3"
 koin-ktor = "3.5.3"
 koin-slf4j = "3.5.3"
 koin-test = "3.5.3"
-kotlin-android = "1.9.22"
-kotlin-bom = "1.9.22"
-kotlin-js = "1.9.22"
-kotlin-jvm = "1.9.22"
-kotlin-kapt = "1.9.22"
-kotlin-kotlin-dependency = "1.9.22"
-kotlin-kotlin-plugin = "1.9.22"
-kotlin-language = "1.9.22"
-kotlin-multiplatform = "1.9.22"
-kotlin-parcelize-dependency = "1.9.22"
-kotlin-parcelize-plugin = "1.9.22"
-kotlin-reflect = "1.9.22"
-kotlin-scripting-common = "1.9.22"
-kotlin-scripting-core = "1.9.22"
-kotlin-scripting-dependencies = "1.9.22"
-kotlin-scripting-dependenciesMaven = "1.9.22"
-kotlin-scripting-jsr223 = "1.9.22"
-kotlin-scripting-jsr223Unshaded = "1.9.22"
-kotlin-scripting-jvm = "1.9.22"
-kotlin-scripting-jvmHostUnshaded = "1.9.22"
-kotlin-stdlib-common = "1.9.22"
-kotlin-stdlib-jdk = "1.9.22"
-kotlin-stdlib-jdk7 = "1.9.22"
-kotlin-stdlib-jdk8 = "1.9.22"
-kotlin-stdlib-js = "1.9.22"
-kotlin-stdlib-wasm = "1.9.22"
-kotlin-test-annotations = "1.9.22"
-kotlin-test-core-common = "1.9.22"
-kotlin-test-core-js = "1.9.22"
-kotlin-test-core-jvm = "1.9.22"
-kotlin-test-core-wasm = "1.9.22"
-kotlin-test-junit4 = "1.9.22"
-kotlin-test-junit5 = "1.9.22"
-kotlin-test-testng = "1.9.22"
+kotlin-android = "1.9.23"
+kotlin-bom = "1.9.23"
+kotlin-js = "1.9.23"
+kotlin-jvm = "1.9.23"
+kotlin-kapt = "1.9.23"
+kotlin-kotlin-dependency = "1.9.23"
+kotlin-kotlin-plugin = "1.9.23"
+kotlin-language = "1.9.23"
+kotlin-multiplatform = "1.9.23"
+kotlin-parcelize-dependency = "1.9.23"
+kotlin-parcelize-plugin = "1.9.23"
+kotlin-reflect = "1.9.23"
+kotlin-scripting-common = "1.9.23"
+kotlin-scripting-core = "1.9.23"
+kotlin-scripting-dependencies = "1.9.23"
+kotlin-scripting-dependenciesMaven = "1.9.23"
+kotlin-scripting-jsr223 = "1.9.23"
+kotlin-scripting-jsr223Unshaded = "1.9.23"
+kotlin-scripting-jvm = "1.9.23"
+kotlin-scripting-jvmHostUnshaded = "1.9.23"
+kotlin-stdlib-common = "1.9.23"
+kotlin-stdlib-jdk = "1.9.23"
+kotlin-stdlib-jdk7 = "1.9.23"
+kotlin-stdlib-jdk8 = "1.9.23"
+kotlin-stdlib-js = "1.9.23"
+kotlin-stdlib-wasm = "1.9.23"
+kotlin-test-annotations = "1.9.23"
+kotlin-test-core-common = "1.9.23"
+kotlin-test-core-js = "1.9.23"
+kotlin-test-core-jvm = "1.9.23"
+kotlin-test-core-wasm = "1.9.23"
+kotlin-test-junit4 = "1.9.23"
+kotlin-test-junit5 = "1.9.23"
+kotlin-test-testng = "1.9.23"
 kotlin-wrappers-bom = "1.0.0-pre.669"
 kotlin-wrappers-browser = "1.0.0-pre.669"
 kotlin-wrappers-cesium = "1.0.0-pre.669"
@@ -228,11 +233,11 @@ kotlinx-nodeJs = "0.0.7"
 kotlinx-serialization-bom = "1.6.3"
 kotlinx-serialization-cbor = "1.6.3"
 kotlinx-serialization-core = "1.6.3"
-kotlinx-serialization-gradle = "1.9.22"
+kotlinx-serialization-gradle = "1.9.23"
 kotlinx-serialization-hocon = "1.6.3"
 kotlinx-serialization-json = "1.6.3"
 kotlinx-serialization-jsonOkio = "1.6.3"
-kotlinx-serialization-plugin = "1.9.22"
+kotlinx-serialization-plugin = "1.9.23"
 kotlinx-serialization-properties = "1.6.3"
 kotlinx-serialization-protobuf = "1.6.3"
 ktor-client-android = "2.3.8"
@@ -325,10 +330,11 @@ ktor-websocketSerialization = "2.3.8"
 ktor-websockets = "2.3.8"
 mkdocs-dependency = "3.0.0"
 mkdocs-plugin = "3.0.0"
-node = "21.1.0"
+node = "21.7.1"
 node-axios = "1.6.0"
 node-copyWebpackPlugin = "11.0.0"
 node-sqlJs = "1.8.0"
+node-sqlJsWorker = "2.0.1"
 python-mkdocs-extraData = "0.2.5"
 python-mkdocs-includeMarkdown = "6.0.3"
 python-mkdocs-kroki = "0.6.1"
@@ -366,6 +372,7 @@ square-sqldelight-driver-jvm = "2.0.1"
 square-sqldelight-driver-native = "2.0.1"
 square-sqldelight-gradle = "2.0.1"
 square-sqldelight-plugin = "2.0.1"
+square-sqldelight-primitiveAdapters = "2.0.1"
 stately-collections = "2.0.6"
 stately-concurrency = "2.0.6"
 stately-freeze = "2.0.6"
@@ -380,8 +387,11 @@ test-junit-parameterized = "5.10.2"
 test-mockk = "1.13.9"
 test-paparazzi-dependency = "1.3.2"
 test-paparazzi-plugin = "1.3.2"
-test-roborazzi-dependency = "1.10.1"
-test-roborazzi-plugin = "1.10.1"
+test-roborazzi-compose = "1.10.1"
+test-roborazzi-core = "1.10.1"
+test-roborazzi-gradle-dependency = "1.10.1"
+test-roborazzi-gradle-plugin = "1.10.1"
+test-roborazzi-junit = "1.10.1"
 test-turbine = "1.0.0"
 uuid = "0.8.2"
 
@@ -415,6 +425,9 @@ android-desugar = {group = "com.android.tools", name = "desugar_jdk_libs", versi
 android-hilt-compiler = {group = "com.google.dagger", name = "hilt-compiler", version.ref = "android-hilt-compiler" }
 android-hilt-compose = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "android-hilt-compose" }
 android-hilt-core = {group = "com.google.dagger", name = "hilt-android", version.ref = "android-hilt-core" }
+android-koin-androidBinding = {group = "io.insert-koin", name = "koin-android", version.ref = "koin-androidBinding" }
+android-koin-appCompat = {group = "io.insert-koin", name = "koin-android-compat", version.ref = "koin-appCompat" }
+android-koin-compose = {group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin-compose" }
 android-kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
 android-ktor-client = {group = "io.ktor", name = "ktor-client-android", version.ref = "ktor-client-android" }
 android-ktx-activity-compose = {group = "androidx.activity", name = "activity-compose", version.ref = "android-ktx-activity-compose" }
@@ -443,9 +456,10 @@ android-material-compose-ripple = {group = "androidx.compose.material", name = "
 android-material-core = {group = "com.google.android.material", name = "material", version.ref = "android-material-core" }
 android-material3-core = {group = "androidx.compose.material3", name = "material3", version.ref = "android-material3-core" }
 android-material3-windowSize = {group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "android-material3-windowSize" }
-android-square-sqldelight-driver = {group = "com.squareup.sqldelight", name = "android-driver", version.ref = "square-sqldelight-driver-android" }
+android-square-sqldelight-driver = {group = "app.cash.sqldelight", name = "android-driver", version.ref = "square-sqldelight-driver-android" }
 android-test-compose-core = {group = "androidx.compose.ui", name = "ui-test", version.ref = "android-test-compose-core" }
 android-test-compose-junit4 = {group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "android-test-compose-junit4" }
+android-test-compose-junit4Rule = {group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "android-test-compose-junit4Rule" }
 android-test-compose-manifest = {group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "android-test-compose-manifest" }
 android-test-core = {group = "androidx.test", name = "core", version.ref = "android-test-core" }
 android-test-espresso-core = {group = "androidx.test.espresso", name = "espresso-core", version.ref = "android-test-espresso-core" }
@@ -454,9 +468,13 @@ android-test-espresso-web = {group = "androidx.test.espresso", name = "espresso-
 android-test-hilt = {group = "com.google.dagger", name = "hilt-android-testing", version.ref = "android-hilt-test" }
 android-test-junit-core = {group = "androidx.test.ext", name = "junit", version.ref = "android-test-junit-core" }
 android-test-junit-ktx = {group = "androidx.test.ext", name = "junit-ktx", version.ref = "android-test-junit-ktx" }
+android-test-koin-androidTest = {group = "io.insert-koin", name = "koin-android-test", version.ref = "koin-androidTest" }
 android-test-ktx = {group = "androidx.test", name = "core-ktx", version.ref = "android-test-ktx" }
 android-test-mockk = {group = "io.mockk", name = "mockk-android", version.ref = "test-mockk" }
 android-test-robolectric = {group = "org.robolectric", name = "robolectric", version.ref = "android-test-robolectric" }
+android-test-roborazzi-compose = {group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "test-roborazzi-compose" }
+android-test-roborazzi-core = {group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "test-roborazzi-core" }
+android-test-roborazzi-junit = {group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "test-roborazzi-junit" }
 android-test-rules = {group = "androidx.test", name = "rules", version.ref = "android-test-rules" }
 android-test-runner = {group = "androidx.test", name = "runner", version.ref = "android-test-runner" }
 android-test-uiAutomator = {group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "android-test-uiAutomator" }
@@ -542,8 +560,9 @@ common-ktor-websockets = {group = "io.ktor", name = "ktor-websockets", version.r
 common-square-okhttp-coroutines = {group = "com.squareup.okhttp3", name = "okhttp-coroutines", version.ref = "square-okhttp-coroutines" }
 common-square-okio-bom = {group = "com.squareup.okio", name = "okio-bom", version.ref = "square-okio-bom" }
 common-square-okio-core = {group = "com.squareup.okio", name = "okio", version.ref = "square-okio-core" }
-common-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions", version.ref = "square-sqldelight-coroutines" }
-common-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver", version.ref = "square-sqldelight-driver-native" }
+common-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "square-sqldelight-coroutines" }
+common-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver", version.ref = "square-sqldelight-driver-native" }
+common-square-sqldelight-primitiveAdapters = {group = "app.cash.sqldelight", name = "primitive-adapters", version.ref = "square-sqldelight-primitiveAdapters" }
 common-stately-collections = {group = "co.touchlab", name = "stately-iso-collections", version.ref = "stately-collections" }
 common-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency", version.ref = "stately-concurrency" }
 common-stately-freeze = {group = "co.touchlab", name = "stately-common", version.ref = "stately-freeze" }
@@ -593,9 +612,9 @@ gradle-mkdocs = {group = "ru.vyarus", name = "gradle-mkdocs-plugin", version.ref
 gradle-owasp = {group = "org.owasp", name = "dependency-check-gradle", version.ref = "gradle-owasp-dependency" }
 gradle-paparazzi = {group = "app.cash.paparazzi", name = "paparazzi-gradle-plugin", version.ref = "test-paparazzi-dependency" }
 gradle-publishing = {group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "gradle-publishing" }
-gradle-roborazzi = {group = "io.github.takahirom", name = "roborazzi-gradle-plugin", version.ref = "test-roborazzi-dependency" }
+gradle-roborazzi-gradle = {group = "io.github.takahirom.roborazzi", name = "roborazzi-gradle-plugin", version.ref = "test-roborazzi-gradle-dependency" }
 gradle-spotless = {group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "gradle-spotless-dependency" }
-gradle-square-sqldelight = {group = "com.squareup.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight-gradle" }
+gradle-square-sqldelight = {group = "app.cash.sqldelight", name = "gradle-plugin", version.ref = "square-sqldelight-gradle" }
 gradle-test-antibytes-testUtils = {group = "tech.antibytes.gradle", name = "antibytes-gradle-test-utils", version.ref = "gradle-antibytes-testUtils" }
 gradle-toolchainResolver = {group = "org.gradle.toolchains", name = "foojay-resolver", version.ref = "gradle-toolchainResolver-dependency" }
 gradle-versioning = {group = "com.palantir.gradle.gitversion", name = "gradle-git-version", version.ref = "gradle-versioning-dependency" }
@@ -655,8 +674,8 @@ iosarm32-ktor-server-websockets = {group = "io.ktor", name = "ktor-server-websoc
 iosarm32-ktor-utils = {group = "io.ktor", name = "ktor-utils-iosarm32", version.ref = "ktor-utils" }
 iosarm32-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-iosarm32", version.ref = "ktor-websocketSerialization" }
 iosarm32-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-iosarm32", version.ref = "ktor-websockets" }
-iosarm32-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-iosarm32", version.ref = "square-sqldelight-coroutines" }
-iosarm32-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-iosarm32", version.ref = "square-sqldelight-driver-native" }
+iosarm32-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-iosarm32", version.ref = "square-sqldelight-coroutines" }
+iosarm32-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-iosarm32", version.ref = "square-sqldelight-driver-native" }
 iosarm32-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-iosarm32", version.ref = "stately-collections" }
 iosarm32-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-iosarm32", version.ref = "stately-concurrency" }
 iosarm32-stately-freeze = {group = "co.touchlab", name = "stately-common-iosarm32", version.ref = "stately-freeze" }
@@ -729,8 +748,8 @@ iosarm64-ktor-utils = {group = "io.ktor", name = "ktor-utils-iosarm64", version.
 iosarm64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-iosarm64", version.ref = "ktor-websocketSerialization" }
 iosarm64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-iosarm64", version.ref = "ktor-websockets" }
 iosarm64-square-okio-core = {group = "com.squareup.okio", name = "okio-iosarm64", version.ref = "square-okio-core" }
-iosarm64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-iosarm64", version.ref = "square-sqldelight-coroutines" }
-iosarm64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-iosarm64", version.ref = "square-sqldelight-driver-native" }
+iosarm64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-iosarm64", version.ref = "square-sqldelight-coroutines" }
+iosarm64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-iosarm64", version.ref = "square-sqldelight-driver-native" }
 iosarm64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-iosarm64", version.ref = "stately-collections" }
 iosarm64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-iosarm64", version.ref = "stately-concurrency" }
 iosarm64-stately-freeze = {group = "co.touchlab", name = "stately-common-iosarm64", version.ref = "stately-freeze" }
@@ -804,8 +823,8 @@ iossimulatorarm64-ktor-utils = {group = "io.ktor", name = "ktor-utils-iossimulat
 iossimulatorarm64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-iossimulatorarm64", version.ref = "ktor-websocketSerialization" }
 iossimulatorarm64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-iossimulatorarm64", version.ref = "ktor-websockets" }
 iossimulatorarm64-square-okio-core = {group = "com.squareup.okio", name = "okio-iossimulatorarm64", version.ref = "square-okio-core" }
-iossimulatorarm64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-iossimulatorarm64", version.ref = "square-sqldelight-coroutines" }
-iossimulatorarm64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-iossimulatorarm64", version.ref = "square-sqldelight-driver-native" }
+iossimulatorarm64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-iossimulatorarm64", version.ref = "square-sqldelight-coroutines" }
+iossimulatorarm64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-iossimulatorarm64", version.ref = "square-sqldelight-driver-native" }
 iossimulatorarm64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-iossimulatorarm64", version.ref = "stately-collections" }
 iossimulatorarm64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-iossimulatorarm64", version.ref = "stately-concurrency" }
 iossimulatorarm64-stately-freeze = {group = "co.touchlab", name = "stately-common-iossimulatorarm64", version.ref = "stately-freeze" }
@@ -879,8 +898,8 @@ iosx64-ktor-utils = {group = "io.ktor", name = "ktor-utils-iosx64", version.ref 
 iosx64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-iosx64", version.ref = "ktor-websocketSerialization" }
 iosx64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-iosx64", version.ref = "ktor-websockets" }
 iosx64-square-okio-core = {group = "com.squareup.okio", name = "okio-iosx64", version.ref = "square-okio-core" }
-iosx64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-iosx64", version.ref = "square-sqldelight-coroutines" }
-iosx64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-iosx64", version.ref = "square-sqldelight-driver-native" }
+iosx64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-iosx64", version.ref = "square-sqldelight-coroutines" }
+iosx64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-iosx64", version.ref = "square-sqldelight-driver-native" }
 iosx64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-iosx64", version.ref = "stately-collections" }
 iosx64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-iosx64", version.ref = "stately-concurrency" }
 iosx64-stately-freeze = {group = "co.touchlab", name = "stately-common-iosx64", version.ref = "stately-freeze" }
@@ -967,8 +986,8 @@ js-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-js", version.re
 js-square-okhttp-coroutines = {group = "com.squareup.okhttp3", name = "okhttp-coroutines-js", version.ref = "square-okhttp-coroutines" }
 js-square-okio-core = {group = "com.squareup.okio", name = "okio-js", version.ref = "square-okio-core" }
 js-square-okio-nodefilesystem = {group = "com.squareup.okio", name = "okio-nodefilesystem", version.ref = "square-okio-nodefilesystem" }
-js-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-js", version.ref = "square-sqldelight-coroutines" }
-js-square-sqldelight-driver = {group = "com.squareup.sqldelight", name = "sqljs-driver", version.ref = "square-sqldelight-driver-js" }
+js-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-js", version.ref = "square-sqldelight-coroutines" }
+js-square-sqldelight-driver = {group = "app.cash.sqldelight", name = "web-worker-driver", version.ref = "square-sqldelight-driver-js" }
 js-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-js", version.ref = "stately-collections" }
 js-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-js", version.ref = "stately-concurrency" }
 js-stately-freeze = {group = "co.touchlab", name = "stately-common-js", version.ref = "stately-freeze" }
@@ -1107,9 +1126,9 @@ jvm-square-okhttp-sse = {group = "com.squareup.okhttp3", name = "okhttp-sse", ve
 jvm-square-okhttp-tls = {group = "com.squareup.okhttp3", name = "okhttp-tls", version.ref = "square-okhttp-tls" }
 jvm-square-okhttp-urlConnection = {group = "com.squareup.okhttp3", name = "okhttp-urlconnection", version.ref = "square-okhttp-urlConnection" }
 jvm-square-okio-core = {group = "com.squareup.okio", name = "okio-jvm", version.ref = "square-okio-core" }
-jvm-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-jvm", version.ref = "square-sqldelight-coroutines" }
-jvm-square-sqldelight-driver = {group = "com.squareup.sqldelight", name = "sqlite-driver", version.ref = "square-sqldelight-driver-jvm" }
-jvm-square-sqldelight-driver-jdbc = {group = "com.squareup.sqldelight", name = "jdbc-driver", version.ref = "square-sqldelight-driver-jdbc" }
+jvm-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-jvm", version.ref = "square-sqldelight-coroutines" }
+jvm-square-sqldelight-driver = {group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "square-sqldelight-driver-jvm" }
+jvm-square-sqldelight-driver-jdbc = {group = "app.cash.sqldelight", name = "jdbc-driver", version.ref = "square-sqldelight-driver-jdbc" }
 jvm-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-jvm", version.ref = "stately-collections" }
 jvm-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-jvm", version.ref = "stately-concurrency" }
 jvm-stately-freeze = {group = "co.touchlab", name = "stately-common-jvm", version.ref = "stately-freeze" }
@@ -1221,8 +1240,8 @@ linuxx64-ktor-utils = {group = "io.ktor", name = "ktor-utils-linuxx64", version.
 linuxx64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-linuxx64", version.ref = "ktor-websocketSerialization" }
 linuxx64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-linuxx64", version.ref = "ktor-websockets" }
 linuxx64-square-okio-core = {group = "com.squareup.okio", name = "okio-linuxx64", version.ref = "square-okio-core" }
-linuxx64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-linuxx64", version.ref = "square-sqldelight-coroutines" }
-linuxx64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-linuxx64", version.ref = "square-sqldelight-driver-native" }
+linuxx64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-linuxx64", version.ref = "square-sqldelight-coroutines" }
+linuxx64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-linuxx64", version.ref = "square-sqldelight-driver-native" }
 linuxx64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-linuxx64", version.ref = "stately-collections" }
 linuxx64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-linuxx64", version.ref = "stately-concurrency" }
 linuxx64-stately-freeze = {group = "co.touchlab", name = "stately-common-linuxx64", version.ref = "stately-freeze" }
@@ -1296,8 +1315,8 @@ macosarm64-ktor-utils = {group = "io.ktor", name = "ktor-utils-macosarm64", vers
 macosarm64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-macosarm64", version.ref = "ktor-websocketSerialization" }
 macosarm64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-macosarm64", version.ref = "ktor-websockets" }
 macosarm64-square-okio-core = {group = "com.squareup.okio", name = "okio-macosarm64", version.ref = "square-okio-core" }
-macosarm64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-macosarm64", version.ref = "square-sqldelight-coroutines" }
-macosarm64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-macosarm64", version.ref = "square-sqldelight-driver-native" }
+macosarm64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-macosarm64", version.ref = "square-sqldelight-coroutines" }
+macosarm64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-macosarm64", version.ref = "square-sqldelight-driver-native" }
 macosarm64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-macosarm64", version.ref = "stately-collections" }
 macosarm64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-macosarm64", version.ref = "stately-concurrency" }
 macosarm64-stately-freeze = {group = "co.touchlab", name = "stately-common-macosarm64", version.ref = "stately-freeze" }
@@ -1370,8 +1389,8 @@ macosx64-ktor-utils = {group = "io.ktor", name = "ktor-utils-macosx64", version.
 macosx64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-macosx64", version.ref = "ktor-websocketSerialization" }
 macosx64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-macosx64", version.ref = "ktor-websockets" }
 macosx64-square-okio-core = {group = "com.squareup.okio", name = "okio-macosx64", version.ref = "square-okio-core" }
-macosx64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-macosx64", version.ref = "square-sqldelight-coroutines" }
-macosx64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-macosx64", version.ref = "square-sqldelight-driver-native" }
+macosx64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-macosx64", version.ref = "square-sqldelight-coroutines" }
+macosx64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-macosx64", version.ref = "square-sqldelight-driver-native" }
 macosx64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-macosx64", version.ref = "stately-collections" }
 macosx64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-macosx64", version.ref = "stately-concurrency" }
 macosx64-stately-freeze = {group = "co.touchlab", name = "stately-common-macosx64", version.ref = "stately-freeze" }
@@ -1445,6 +1464,7 @@ mingwx86-test-koin = {group = "io.insert-koin", name = "koin-test-mingwx86", ver
 node-axios = {group = "node-production", name = "axios", version.ref = "node-axios" }
 node-copyWebpackPlugin = {group = "node-development", name = "copy-webpack-plugin", version.ref = "node-copyWebpackPlugin" }
 node-sqlJs = {group = "node-production", name = "sql.js", version.ref = "node-sqlJs" }
+node-sqlJsWorker = {group = "node-production", name = "@cashapp/sqldelight-sqljs-worker", version.ref = "node-sqlJsWorker" }
 python-mkdocs-extraData = {group = "python", name = "mkdocs-markdownextradata-plugin", version.ref = "python-mkdocs-extraData" }
 python-mkdocs-includeMarkdown = {group = "python", name = "mkdocs-include-markdown-plugin", version.ref = "python-mkdocs-includeMarkdown" }
 python-mkdocs-kroki = {group = "python", name = "mkdocs-kroki-plugin", version.ref = "python-mkdocs-kroki" }
@@ -1514,8 +1534,8 @@ tvosarm64-ktor-utils = {group = "io.ktor", name = "ktor-utils-tvosarm64", versio
 tvosarm64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-tvosarm64", version.ref = "ktor-websocketSerialization" }
 tvosarm64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-tvosarm64", version.ref = "ktor-websockets" }
 tvosarm64-square-okio-core = {group = "com.squareup.okio", name = "okio-tvosarm64", version.ref = "square-okio-core" }
-tvosarm64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-tvosarm64", version.ref = "square-sqldelight-coroutines" }
-tvosarm64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-tvosarm64", version.ref = "square-sqldelight-driver-native" }
+tvosarm64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-tvosarm64", version.ref = "square-sqldelight-coroutines" }
+tvosarm64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-tvosarm64", version.ref = "square-sqldelight-driver-native" }
 tvosarm64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-tvosarm64", version.ref = "stately-collections" }
 tvosarm64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-tvosarm64", version.ref = "stately-concurrency" }
 tvosarm64-stately-freeze = {group = "co.touchlab", name = "stately-common-tvosarm64", version.ref = "stately-freeze" }
@@ -1588,8 +1608,8 @@ tvossimulatorarm64-ktor-utils = {group = "io.ktor", name = "ktor-utils-tvossimul
 tvossimulatorarm64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-tvossimulatorarm64", version.ref = "ktor-websocketSerialization" }
 tvossimulatorarm64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-tvossimulatorarm64", version.ref = "ktor-websockets" }
 tvossimulatorarm64-square-okio-core = {group = "com.squareup.okio", name = "okio-tvossimulatorarm64", version.ref = "square-okio-core" }
-tvossimulatorarm64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-tvossimulatorarm64", version.ref = "square-sqldelight-coroutines" }
-tvossimulatorarm64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-tvossimulatorarm64", version.ref = "square-sqldelight-driver-native" }
+tvossimulatorarm64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-tvossimulatorarm64", version.ref = "square-sqldelight-coroutines" }
+tvossimulatorarm64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-tvossimulatorarm64", version.ref = "square-sqldelight-driver-native" }
 tvossimulatorarm64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-tvossimulatorarm64", version.ref = "stately-collections" }
 tvossimulatorarm64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-tvossimulatorarm64", version.ref = "stately-concurrency" }
 tvossimulatorarm64-stately-freeze = {group = "co.touchlab", name = "stately-common-tvossimulatorarm64", version.ref = "stately-freeze" }
@@ -1662,8 +1682,8 @@ tvosx64-ktor-utils = {group = "io.ktor", name = "ktor-utils-tvosx64", version.re
 tvosx64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-tvosx64", version.ref = "ktor-websocketSerialization" }
 tvosx64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-tvosx64", version.ref = "ktor-websockets" }
 tvosx64-square-okio-core = {group = "com.squareup.okio", name = "okio-tvosx64", version.ref = "square-okio-core" }
-tvosx64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-tvosx64", version.ref = "square-sqldelight-coroutines" }
-tvosx64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-tvosx64", version.ref = "square-sqldelight-driver-native" }
+tvosx64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-tvosx64", version.ref = "square-sqldelight-coroutines" }
+tvosx64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-tvosx64", version.ref = "square-sqldelight-driver-native" }
 tvosx64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-tvosx64", version.ref = "stately-collections" }
 tvosx64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-tvosx64", version.ref = "stately-concurrency" }
 tvosx64-stately-freeze = {group = "co.touchlab", name = "stately-common-tvosx64", version.ref = "stately-freeze" }
@@ -1742,8 +1762,8 @@ watchosarm32-ktor-utils = {group = "io.ktor", name = "ktor-utils-watchosarm32", 
 watchosarm32-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-watchosarm32", version.ref = "ktor-websocketSerialization" }
 watchosarm32-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-watchosarm32", version.ref = "ktor-websockets" }
 watchosarm32-square-okio-core = {group = "com.squareup.okio", name = "okio-watchosarm32", version.ref = "square-okio-core" }
-watchosarm32-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-watchosarm32", version.ref = "square-sqldelight-coroutines" }
-watchosarm32-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-watchosarm32", version.ref = "square-sqldelight-driver-native" }
+watchosarm32-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-watchosarm32", version.ref = "square-sqldelight-coroutines" }
+watchosarm32-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-watchosarm32", version.ref = "square-sqldelight-driver-native" }
 watchosarm32-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-watchosarm32", version.ref = "stately-collections" }
 watchosarm32-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-watchosarm32", version.ref = "stately-concurrency" }
 watchosarm32-stately-freeze = {group = "co.touchlab", name = "stately-common-watchosarm32", version.ref = "stately-freeze" }
@@ -1816,8 +1836,8 @@ watchosarm64-ktor-utils = {group = "io.ktor", name = "ktor-utils-watchosarm64", 
 watchosarm64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-watchosarm64", version.ref = "ktor-websocketSerialization" }
 watchosarm64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-watchosarm64", version.ref = "ktor-websockets" }
 watchosarm64-square-okio-core = {group = "com.squareup.okio", name = "okio-watchosarm64", version.ref = "square-okio-core" }
-watchosarm64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-watchosarm64", version.ref = "square-sqldelight-coroutines" }
-watchosarm64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-watchosarm64", version.ref = "square-sqldelight-driver-native" }
+watchosarm64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-watchosarm64", version.ref = "square-sqldelight-coroutines" }
+watchosarm64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-watchosarm64", version.ref = "square-sqldelight-driver-native" }
 watchosarm64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-watchosarm64", version.ref = "stately-collections" }
 watchosarm64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-watchosarm64", version.ref = "stately-concurrency" }
 watchosarm64-stately-freeze = {group = "co.touchlab", name = "stately-common-watchosarm64", version.ref = "stately-freeze" }
@@ -1890,8 +1910,8 @@ watchossimulatorarm64-ktor-utils = {group = "io.ktor", name = "ktor-utils-watcho
 watchossimulatorarm64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-watchossimulatorarm64", version.ref = "ktor-websocketSerialization" }
 watchossimulatorarm64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-watchossimulatorarm64", version.ref = "ktor-websockets" }
 watchossimulatorarm64-square-okio-core = {group = "com.squareup.okio", name = "okio-watchossimulatorarm64", version.ref = "square-okio-core" }
-watchossimulatorarm64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-watchossimulatorarm64", version.ref = "square-sqldelight-coroutines" }
-watchossimulatorarm64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-watchossimulatorarm64", version.ref = "square-sqldelight-driver-native" }
+watchossimulatorarm64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-watchossimulatorarm64", version.ref = "square-sqldelight-coroutines" }
+watchossimulatorarm64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-watchossimulatorarm64", version.ref = "square-sqldelight-driver-native" }
 watchossimulatorarm64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-watchossimulatorarm64", version.ref = "stately-collections" }
 watchossimulatorarm64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-watchossimulatorarm64", version.ref = "stately-concurrency" }
 watchossimulatorarm64-stately-freeze = {group = "co.touchlab", name = "stately-common-watchossimulatorarm64", version.ref = "stately-freeze" }
@@ -1964,8 +1984,8 @@ watchosx64-ktor-utils = {group = "io.ktor", name = "ktor-utils-watchosx64", vers
 watchosx64-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-watchosx64", version.ref = "ktor-websocketSerialization" }
 watchosx64-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-watchosx64", version.ref = "ktor-websockets" }
 watchosx64-square-okio-core = {group = "com.squareup.okio", name = "okio-watchosx64", version.ref = "square-okio-core" }
-watchosx64-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-watchosx64", version.ref = "square-sqldelight-coroutines" }
-watchosx64-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-watchosx64", version.ref = "square-sqldelight-driver-native" }
+watchosx64-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-watchosx64", version.ref = "square-sqldelight-coroutines" }
+watchosx64-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-watchosx64", version.ref = "square-sqldelight-driver-native" }
 watchosx64-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-watchosx64", version.ref = "stately-collections" }
 watchosx64-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-watchosx64", version.ref = "stately-concurrency" }
 watchosx64-stately-freeze = {group = "co.touchlab", name = "stately-common-watchosx64", version.ref = "stately-freeze" }
@@ -2038,8 +2058,8 @@ watchosx86-ktor-utils = {group = "io.ktor", name = "ktor-utils-watchosx86", vers
 watchosx86-ktor-websocketSerialization = {group = "io.ktor", name = "ktor-websocket-serialization-watchosx86", version.ref = "ktor-websocketSerialization" }
 watchosx86-ktor-websockets = {group = "io.ktor", name = "ktor-websockets-watchosx86", version.ref = "ktor-websockets" }
 watchosx86-square-okio-core = {group = "com.squareup.okio", name = "okio-watchosx86", version.ref = "square-okio-core" }
-watchosx86-square-sqldelight-coroutines = {group = "com.squareup.sqldelight", name = "coroutines-extensions-watchosx86", version.ref = "square-sqldelight-coroutines" }
-watchosx86-square-sqldelight-driver-native = {group = "com.squareup.sqldelight", name = "native-driver-watchosx86", version.ref = "square-sqldelight-driver-native" }
+watchosx86-square-sqldelight-coroutines = {group = "app.cash.sqldelight", name = "coroutines-extensions-watchosx86", version.ref = "square-sqldelight-coroutines" }
+watchosx86-square-sqldelight-driver-native = {group = "app.cash.sqldelight", name = "native-driver-watchosx86", version.ref = "square-sqldelight-driver-native" }
 watchosx86-stately-collections = {group = "co.touchlab", name = "stately-iso-collections-watchosx86", version.ref = "stately-collections" }
 watchosx86-stately-concurrency = {group = "co.touchlab", name = "stately-concurrency-watchosx86", version.ref = "stately-concurrency" }
 watchosx86-stately-freeze = {group = "co.touchlab", name = "stately-common-watchosx86", version.ref = "stately-freeze" }
@@ -2088,7 +2108,7 @@ kotlinx-atomicfu = {id = "kotlinx-atomicfu", version.ref = "kotlinx-atomicfu-plu
 kotlinx-serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization-plugin" }
 ktor-plugin = {id = "io.ktor.plugin.gradle.plugin", version.ref = "ktor-plugin-plugin" }
 mkdocs = {id = "ru.vyarus.mkdocs", version.ref = "mkdocs-plugin" }
-square-sqldelight = {id = "com.squareup.sqldelight", version.ref = "square-sqldelight-plugin" }
+square-sqldelight = {id = "app.cash.sqldelight", version.ref = "square-sqldelight-plugin" }
 test-paparazzi = {id = "app.cash.paparazzi", version.ref = "test-paparazzi-plugin" }
-test-roborazzi = {id = "io.github.takahirom.roborazzi", version.ref = "test-roborazzi-plugin" }
+test-roborazzi-gradle = {id = "io.github.takahirom.roborazzi", version.ref = "test-roborazzi-gradle-plugin" }
 
