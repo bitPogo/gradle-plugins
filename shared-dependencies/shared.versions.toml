@@ -140,7 +140,7 @@ roborazzi = "1.10.1"
 uuidKmp = "0.8.2"
 
 ## [Multiplatform Compose](https://github.com/JetBrains/compose-jb/blob/master/CHANGELOG.md)
-compose-multiplaform = "1.6.0-rc02"
+compose-multiplaform = "1.6.0"
 
 [libraries]
 appCompact = {group = "androidx.appcompat", name = "appcompat", version.ref = "appCompact" }
