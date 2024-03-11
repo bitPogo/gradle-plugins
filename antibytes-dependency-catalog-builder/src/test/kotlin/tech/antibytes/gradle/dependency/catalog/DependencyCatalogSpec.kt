@@ -1665,14 +1665,14 @@ class DependencyCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.library(
-                "js-kotlin-wrappers-popper",
+                "js-kotlinx-wrappers-popper",
                 "org.jetbrains.kotlin-wrappers",
                 "kotlin-popper",
             )
         }
 
         verify(atLeast = 1) {
-            module.versionRef("kotlin-wrappers-popper")
+            module.versionRef("kotlinx-wrappers-popper")
         }
     }
 
@@ -1692,14 +1692,41 @@ class DependencyCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.library(
-                "js-kotlin-wrappers-react-popper",
+                "js-kotlinx-wrappers-react-popper",
                 "org.jetbrains.kotlin-wrappers",
                 "kotlin-react-popper",
             )
         }
 
         verify(atLeast = 1) {
-            module.versionRef("kotlin-wrappers-react-popper")
+            module.versionRef("kotlinx-wrappers-react-popper")
+        }
+    }
+
+    @Test
+    fun `It contains Wrappers mui Dependencies`() {
+        // Given
+        val module: VersionCatalogBuilder.LibraryAliasBuilder = mockk(relaxed = true)
+        val plugin: VersionCatalogBuilder.PluginAliasBuilder = mockk(relaxed = true)
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.library(any(), any()) } just Runs
+        every { catalog.library(any(), any(), any()) } returns module
+        every { catalog.plugin(any(), any()) } returns plugin
+
+        // When
+        catalog.addDependencies()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.library(
+                "js-kotlinx-wrappers-mui-material",
+                "org.jetbrains.kotlin-wrappers",
+                "kotlin-mui-material",
+            )
+        }
+
+        verify(atLeast = 1) {
+            module.versionRef("kotlinx-wrappers-mui-material")
         }
     }
 
@@ -1719,14 +1746,14 @@ class DependencyCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.library(
-                "js-kotlin-wrappers-tanstack-queryCore",
+                "js-kotlinx-wrappers-tanstack-queryCore",
                 "org.jetbrains.kotlin-wrappers",
                 "kotlin-tanstack-query-core",
             )
         }
 
         verify(atLeast = 1) {
-            module.versionRef("kotlin-wrappers-tanstack-queryCore")
+            module.versionRef("kotlinx-wrappers-tanstack-queryCore")
         }
     }
 
@@ -1746,14 +1773,14 @@ class DependencyCatalogSpec {
         // Then
         verify(exactly = 1) {
             catalog.library(
-                "js-kotlin-wrappers-tanstack-react-query",
+                "js-kotlinx-wrappers-tanstack-react-query",
                 "org.jetbrains.kotlin-wrappers",
                 "kotlin-tanstack-react-query",
             )
         }
 
         verify(atLeast = 1) {
-            module.versionRef("kotlin-wrappers-tanstack-react-query")
+            module.versionRef("kotlinx-wrappers-tanstack-react-query")
         }
     }
 

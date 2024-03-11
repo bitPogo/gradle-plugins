@@ -4,7 +4,7 @@
  * Use of this source code is governed by Apache v2.0
  */
 
-package tech.antibytes.gradle.dependency.catalog.module.kotlin
+package tech.antibytes.gradle.dependency.catalog.module.kotlinx
 
 import tech.antibytes.gradle.dependency.catalog.MavenArtifact
 import tech.antibytes.gradle.dependency.catalog.MavenTestArtifact
@@ -12,7 +12,11 @@ import tech.antibytes.gradle.dependency.catalog.Platform
 
 internal object Wrappers {
     private const val group = "org.jetbrains.kotlin-wrappers"
-
+    val actionsKit = MavenArtifact(
+        group = group,
+        id = "kotlin-actions-kit",
+        platform = Platform.JS,
+    )
     val browser = MavenArtifact(
         group = group,
         id = "kotlin-browser",
@@ -43,24 +47,9 @@ internal object Wrappers {
         id = "kotlin-extensions",
         platform = Platform.JS,
     )
-    val history = MavenArtifact(
-        group = group,
-        id = "kotlin-history",
-        platform = Platform.JS,
-    )
     val js = MavenArtifact(
         group = group,
         id = "kotlin-js",
-        platform = Platform.JS,
-    )
-    val mui = MavenArtifact(
-        group = group,
-        id = "kotlin-mui",
-        platform = Platform.JS,
-    )
-    val muiIcons = MavenArtifact(
-        group = group,
-        id = "kotlin-mui-icons",
         platform = Platform.JS,
     )
     val node = MavenArtifact(
@@ -175,6 +164,46 @@ internal object Wrappers {
         val use = MavenArtifact(
             group = group,
             id = "kotlin-react-use",
+            platform = Platform.JS,
+        )
+    }
+
+    val mui = Mui
+
+    object Mui {
+        val base = MavenArtifact(
+            group = group,
+            id = "kotlin-mui-base",
+            platform = Platform.JS,
+        )
+        val material = MavenArtifact(
+            group = group,
+            id = "kotlin-mui-material",
+            platform = Platform.JS,
+        )
+        val icons = MavenArtifact(
+            group = group,
+            id = "kotlin-mui-icons-material",
+            platform = Platform.JS,
+        )
+        val lab = MavenArtifact(
+            group = group,
+            id = "kotlin-mui-lab",
+            platform = Platform.JS,
+        )
+        val system = MavenArtifact(
+            group = group,
+            id = "kotlin-mui-system",
+            platform = Platform.JS,
+        )
+        val dataPicker = MavenArtifact(
+            group = group,
+            id = "kotlin-muix-date-pickers",
+            platform = Platform.JS,
+        )
+        val treeView = MavenArtifact(
+            group = group,
+            id = "kotlin-muix-tree-view",
             platform = Platform.JS,
         )
     }

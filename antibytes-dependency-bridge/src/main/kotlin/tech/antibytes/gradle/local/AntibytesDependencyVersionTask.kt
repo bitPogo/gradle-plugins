@@ -50,7 +50,7 @@ abstract class AntibytesDependencyVersionTask : DefaultTask(), DependencyVersion
     ) {
         dependencyFiles.sort()
         dependencyFiles.forEach { file ->
-            if (file.name.endsWith(indicator)) {
+            if (file.name.endsWith(indicator) && !file.name.contains("antibytes.catalog")) {
                 putAll(reader(file).extractVersions())
             }
         }

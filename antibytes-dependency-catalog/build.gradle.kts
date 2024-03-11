@@ -104,6 +104,7 @@ catalog {
     addSharedAntibytesConfiguration()
 }
 
+
 val addSharedConfiguration by tasks.creating(Copy::class.java) {
     dependsOn("generateCatalogAsToml")
     mustRunAfter("clean")

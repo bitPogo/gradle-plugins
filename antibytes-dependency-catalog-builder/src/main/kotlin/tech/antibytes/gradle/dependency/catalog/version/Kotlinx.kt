@@ -68,4 +68,77 @@ internal object Kotlinx {
      * [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
      */
     const val nodeJs = GradleVersions.kotlinxNodeJs
+
+    /**
+     * [Kotlinx Wrappers](https://github.com/JetBrains/kotlin-wrappers/releases)
+     */
+    val wrappers = Wrappers
+
+    object Wrappers {
+        const val actionsKit = GradleVersions.kotlinxWrappersActionsKit
+        const val bom = GradleVersions.kotlinxWrappersBom
+        const val web = GradleVersions.kotlinxWrappersWeb
+        const val typescript = GradleVersions.kotlinxWrappersTypescript
+        const val popper = GradleVersions.kotlinxWrappersPopper
+        const val node = GradleVersions.kotlinxWrappersNode
+        const val js = GradleVersions.kotlinxWrappersJs
+        const val extensions = GradleVersions.kotlinxWrappersExtensions
+        const val emotion = GradleVersions.kotlinxWrappersEmotion
+        const val cssType = GradleVersions.kotlinxWrappersCssType
+        const val css = GradleVersions.kotlinxWrappersCss
+        const val cesium = GradleVersions.kotlinxWrappersCesium
+        const val browser = GradleVersions.kotlinxWrappersBrowser
+
+        val mui = Mui
+
+        object Mui {
+            const val base = GradleVersions.kotlinxWrappersMuiBase
+            const val material = GradleVersions.kotlinxWrappersMuiMaterial
+            const val icons = GradleVersions.kotlinxWrappersMuiIcons
+            const val lab = GradleVersions.kotlinxWrappersMuiLab
+            const val system = GradleVersions.kotlinxWrappersMuiSystem
+            const val dataPicker = GradleVersions.kotlinxWrappersMuiDataPicker
+            const val treeView = GradleVersions.kotlinxWrappersMuiTreeView
+        }
+
+        val tanstack = Tanstack
+
+        object Tanstack {
+            const val virtualCore = GradleVersions.kotlinxWrappersTanstackVirtualCore
+            const val queryCore = GradleVersions.kotlinxWrappersTanstackQueryCore
+            const val tableCore = GradleVersions.kotlinxWrappersTanstackTableCore
+
+            val react = React
+
+            object React {
+                const val query = GradleVersions.kotlinxWrappersTanstackReactQuery
+                const val queryDevtools = GradleVersions.kotlinxWrappersTanstackReactQueryDevtools
+                const val table = GradleVersions.kotlinxWrappersTanstackReactTable
+                const val virtual = GradleVersions.kotlinxWrappersTanstackReactVirtual
+            }
+        }
+
+        const val styledNext = GradleVersions.kotlinxWrappersStyledNext
+        const val ringUi = GradleVersions.kotlinxWrappersRingUi
+        const val remixRunRouter = GradleVersions.kotlinxWrappersRemixRunRouter
+        const val redux = GradleVersions.kotlinxWrappersRedux
+
+        val react = React
+
+        object React {
+            const val main = GradleVersions.kotlinxWrappersReactMain
+            const val beautifulDnD = GradleVersions.kotlinxWrappersReactBeautifulDnD
+            const val core = GradleVersions.kotlinxWrappersReactCore
+            const val dom = GradleVersions.kotlinxWrappersReactDom
+            const val legacyDom = GradleVersions.kotlinxWrappersReactLegacyDom
+            const val domTestUtils = GradleVersions.kotlinxWrappersReactDomTestUtils
+            const val legacy = GradleVersions.kotlinxWrappersReactLegacy
+            const val redux = GradleVersions.kotlinxWrappersReactRedux
+            const val router = GradleVersions.kotlinxWrappersReactRouter
+            const val routerDom = GradleVersions.kotlinxWrappersReactRouterDom
+            const val popper = GradleVersions.kotlinxWrappersReactPopper
+            const val select = GradleVersions.kotlinxWrappersReactSelect
+            const val use = GradleVersions.kotlinxWrappersReactUse
+        }
+    }
 }

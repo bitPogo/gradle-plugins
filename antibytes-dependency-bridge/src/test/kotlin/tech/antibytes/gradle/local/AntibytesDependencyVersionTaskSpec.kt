@@ -325,6 +325,50 @@ class AntibytesDependencyVersionTaskSpec {
     }
 
     @Test
+    fun `Given the task is executed it writes the content of a multiple toml files in different folders for gradle while filtering out the anitbytesCatalog`() {
+        // Given
+        val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}
+        val dependencyDir1 = File(root, "A")
+        dependencyDir1.mkdir()
+
+        val dependencyDir2 = File(root, "B")
+        dependencyDir2.mkdir()
+
+        val firstDependencies = File(dependencyDir1, "dependencies.toml")
+        firstDependencies.createNewFile().also {
+            firstDependencies.writeText(loadResource("/gradle/versions.toml"))
+        }
+
+        val secondDependencies = File(dependencyDir2, "antibytes.catalog.toml")
+        secondDependencies.createNewFile().also {
+            secondDependencies.writeText(loadResource("/gradle/antibytes.catalog.toml"))
+        }
+
+        val expected = loadResource("/task/SingleGradle.kt")
+
+        // When
+        task.packageName.set("some.name.test")
+        task.gradleDirectory.set(
+            listOf(dependencyDir1, dependencyDir2),
+        )
+        task.generate()
+
+        // Then
+        var pointer: File? = null
+        buildDir.walkBottomUp().toList().forEach { file ->
+            if (file.absolutePath.endsWith("GradleVersions.kt")) {
+                pointer = file
+            }
+        }
+
+        assertNotNull(pointer)
+        assertEquals(
+            actual = pointer!!.readText().normalizeSource(),
+            expected = expected.normalizeSource(),
+        )
+    }
+
+    @Test
     fun `Given the task is executed it writes the content of a single package json file for node`() {
         // Given
         val task = project.tasks.create("sut", AntibytesDependencyVersionTask::class.java) {}

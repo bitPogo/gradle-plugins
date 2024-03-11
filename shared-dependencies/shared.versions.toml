@@ -96,8 +96,51 @@ kotlinx-serialization = "1.6.3"
 kotlinx-dateTime = "0.5.0"
 ## [KotlinNodeJS](https://github.com/Kotlin/kotlinx-nodejs)
 kotlinx-nodeJs = "0.0.7"
-## [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers/releases)
-kotlin-wrappers = "1.0.0-pre.669"
+## [Kotlinx  Wrappers](https://github.com/JetBrains/kotlin-wrappers)
+kotlinx-wrappers-actionsKit = "0.0.1-pre712"
+kotlinx-wrappers-bom = "1.0.0-pre712"
+kotlinx-wrappers-browser = "1.0.0-pre712"
+kotlinx-wrappers-cesium = "8.0.0-pre712"
+kotlinx-wrappers-css = "1.0.0-pre712"
+kotlinx-wrappers-cssType = "3.1.3-pre712"
+kotlinx-wrappers-emotion = "11.11.4-pre712"
+kotlinx-wrappers-extensions = "1.0.1-pre712"
+kotlinx-wrappers-js = "1.0.0-pre712"
+kotlinx-wrappers-mui-base = "5.0.0.beta37-pre712"
+kotlinx-wrappers-mui-dataPicker = "5.0.20-pre712"
+kotlinx-wrappers-mui-icons = "5.15.11-pre712"
+kotlinx-wrappers-mui-lab = "5.0.0.alpha166-pre712"
+kotlinx-wrappers-mui-material = "5.15.11-pre712"
+kotlinx-wrappers-mui-system = "5.15.11-pre712"
+kotlinx-wrappers-mui-treeView = "6.17.0-pre712"
+kotlinx-wrappers-node = "20.11.5-pre712"
+kotlinx-wrappers-popper = "2.11.8-pre712"
+kotlinx-wrappers-react-beautifulDnD = "13.1.1-pre712"
+kotlinx-wrappers-react-core = "18.2.0-pre712"
+kotlinx-wrappers-react-dom = "18.2.0-pre712"
+kotlinx-wrappers-react-domTestUtils = "18.2.0-pre712"
+kotlinx-wrappers-react-legacy = "18.2.0-pre712"
+kotlinx-wrappers-react-legacyDom = "18.2.0-pre712"
+kotlinx-wrappers-react-main = "18.2.0-pre712"
+kotlinx-wrappers-react-popper = "2.3.0-pre712"
+kotlinx-wrappers-react-redux = "7.2.6-pre712"
+kotlinx-wrappers-react-router = "6.22.1-pre712"
+kotlinx-wrappers-react-routerDom = "6.22.1-pre712"
+kotlinx-wrappers-react-select = "5.8.0-pre712"
+kotlinx-wrappers-react-use = "17.4.0-pre712"
+kotlinx-wrappers-redux = "4.1.2-pre712"
+kotlinx-wrappers-remixRunRouter = "1.15.1-pre712"
+kotlinx-wrappers-ringUi = "4.1.5-pre712"
+kotlinx-wrappers-styledNext = "1.2.4-pre712"
+kotlinx-wrappers-tanstack-queryCore = "5.24.4-pre712"
+kotlinx-wrappers-tanstack-react-query = "5.24.4-pre712"
+kotlinx-wrappers-tanstack-react-queryDevtools = "5.24.4-pre712"
+kotlinx-wrappers-tanstack-react-table = "8.13.2-pre712"
+kotlinx-wrappers-tanstack-react-virtual = "3.1.3-pre712"
+kotlinx-wrappers-tanstack-tableCore = "8.13.2-pre712"
+kotlinx-wrappers-tanstack-virtualCore = "3.1.3-pre712"
+kotlinx-wrappers-typescript = "5.4.2-pre712"
+kotlinx-wrappers-web = "1.0.0-pre712"
 
 ## [Ktor](https://github.com/ktorio/ktor)
 ktor = "2.3.8"
@@ -207,7 +250,49 @@ kotlinx-coroutines = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutine
 kotlinx-serialization-bom = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-bom", version.ref = "kotlinx-serialization" }
 kotlinx-dateTime = {group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-dateTime" }
 kotlinx-nodeJs = {group = "org.jetbrains.kotlinx", name = "kotlinx-nodejs", version.ref = "kotlinx-nodeJs" }
-kotlin-wrappers = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-wrappers-bom", version.ref = "kotlin-wrappers" }
+kotlinx-wrappers = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-js", version.ref = "kotlinx-wrappers-js" }
+kotlinx-wrappers-actionsKit = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-actions-kit", version.ref = "kotlinx-wrappers-actionsKit" }
+kotlinx-wrappers-bom = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-wrappers-bom", version.ref = "kotlinx-wrappers-bom" }
+kotlinx-wrappers-browser = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-browser", version.ref = "kotlinx-wrappers-browser" }
+kotlinx-wrappers-cesium = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-cesium", version.ref = "kotlinx-wrappers-cesium" }
+kotlinx-wrappers-css = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-css", version.ref = "kotlinx-wrappers-css" }
+kotlinx-wrappers-cssType = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-csstype", version.ref = "kotlinx-wrappers-cssType" }
+kotlinx-wrappers-emotion = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-emotion", version.ref = "kotlinx-wrappers-emotion" }
+kotlinx-wrappers-extensions = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-extensions", version.ref = "kotlinx-wrappers-extensions" }
+kotlinx-wrappers-mui-base = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-mui-base", version.ref = "kotlinx-wrappers-mui-base" }
+kotlinx-wrappers-mui-dataPicker = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-muix-date-pickers", version.ref = "kotlinx-wrappers-mui-dataPicker" }
+kotlinx-wrappers-mui-icons = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-mui-icons-material", version.ref = "kotlinx-wrappers-mui-icons" }
+kotlinx-wrappers-mui-lab = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-mui-lab", version.ref = "kotlinx-wrappers-mui-lab" }
+kotlinx-wrappers-mui-material = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-mui-material", version.ref = "kotlinx-wrappers-mui-material" }
+kotlinx-wrappers-mui-system = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-mui-system", version.ref = "kotlinx-wrappers-mui-system" }
+kotlinx-wrappers-mui-treeView = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-muix-tree-view", version.ref = "kotlinx-wrappers-mui-treeView" }
+kotlinx-wrappers-node = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-node", version.ref = "kotlinx-wrappers-node" }
+kotlinx-wrappers-popper = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-popper", version.ref = "kotlinx-wrappers-popper" }
+kotlinx-wrappers-react-beautifulDnD = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-beautiful-dnd", version.ref = "kotlinx-wrappers-react-beautifulDnD" }
+kotlinx-wrappers-react-core = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-core", version.ref = "kotlinx-wrappers-react-core" }
+kotlinx-wrappers-react-dom = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-dom", version.ref = "kotlinx-wrappers-react-dom" }
+kotlinx-wrappers-react-legacy = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-legacy", version.ref = "kotlinx-wrappers-react-legacy" }
+kotlinx-wrappers-react-legacyDom = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-dom-legacy", version.ref = "kotlinx-wrappers-react-legacyDom" }
+kotlinx-wrappers-react-main = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react", version.ref = "kotlinx-wrappers-react-main" }
+kotlinx-wrappers-react-popper = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-popper", version.ref = "kotlinx-wrappers-react-popper" }
+kotlinx-wrappers-react-redux = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-redux", version.ref = "kotlinx-wrappers-react-redux" }
+kotlinx-wrappers-react-router = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-router", version.ref = "kotlinx-wrappers-react-router" }
+kotlinx-wrappers-react-routerDom = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-router-dom", version.ref = "kotlinx-wrappers-react-routerDom" }
+kotlinx-wrappers-react-select = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-select", version.ref = "kotlinx-wrappers-react-select" }
+kotlinx-wrappers-react-use = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-react-use", version.ref = "kotlinx-wrappers-react-use" }
+kotlinx-wrappers-redux = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-redux", version.ref = "kotlinx-wrappers-redux" }
+kotlinx-wrappers-remixRunRouter = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-remix-run-router", version.ref = "kotlinx-wrappers-remixRunRouter" }
+kotlinx-wrappers-ringUi = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-ring-ui", version.ref = "kotlinx-wrappers-ringUi" }
+kotlinx-wrappers-styledNext = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-styled-next", version.ref = "kotlinx-wrappers-styledNext" }
+kotlinx-wrappers-tanstack-queryCore = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-query-core", version.ref = "kotlinx-wrappers-tanstack-queryCore" }
+kotlinx-wrappers-tanstack-react-query = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-react-query", version.ref = "kotlinx-wrappers-tanstack-react-query" }
+kotlinx-wrappers-tanstack-react-queryDevtools = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-react-query-devtools", version.ref = "kotlinx-wrappers-tanstack-react-queryDevtools" }
+kotlinx-wrappers-tanstack-react-table = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-react-table", version.ref = "kotlinx-wrappers-tanstack-react-table" }
+kotlinx-wrappers-tanstack-react-virtual = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-react-virtual", version.ref = "kotlinx-wrappers-tanstack-react-virtual" }
+kotlinx-wrappers-tanstack-tableCore = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-table-core", version.ref = "kotlinx-wrappers-tanstack-tableCore" }
+kotlinx-wrappers-tanstack-virtualCore = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-tanstack-virtual-core", version.ref = "kotlinx-wrappers-tanstack-virtualCore" }
+kotlinx-wrappers-typescript = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-typescript", version.ref = "kotlinx-wrappers-typescript" }
+kotlinx-wrappers-web = {group = "org.jetbrains.kotlin-wrappers", name = "kotlin-web", version.ref = "kotlinx-wrappers-web" }
 
 compose-multiplaform = {group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose-multiplaform" }
 

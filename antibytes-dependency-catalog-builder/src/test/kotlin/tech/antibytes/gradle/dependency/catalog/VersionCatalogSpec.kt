@@ -796,7 +796,22 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("kotlin-wrappers-bom", any<String>())
+            catalog.version("kotlinx-wrappers-bom", any<String>())
+        }
+    }
+
+    @Test
+    fun `It contains Wrappers mui Versions`() {
+        // Given
+        val catalog: VersionCatalogBuilder = mockk()
+        every { catalog.version(any(), any<String>()) } returns "any"
+
+        // When
+        catalog.addVersions()
+
+        // Then
+        verify(exactly = 1) {
+            catalog.version("kotlinx-wrappers-mui-base", any<String>())
         }
     }
 
@@ -811,7 +826,7 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("kotlin-wrappers-react-main", any<String>())
+            catalog.version("kotlinx-wrappers-react-main", any<String>())
         }
     }
 
@@ -826,7 +841,7 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("kotlin-wrappers-tanstack-virtualCore", any<String>())
+            catalog.version("kotlinx-wrappers-tanstack-virtualCore", any<String>())
         }
     }
 
@@ -841,7 +856,7 @@ class VersionCatalogSpec {
 
         // Then
         verify(exactly = 1) {
-            catalog.version("kotlin-wrappers-tanstack-react-query", any<String>())
+            catalog.version("kotlinx-wrappers-tanstack-react-query", any<String>())
         }
     }
 
