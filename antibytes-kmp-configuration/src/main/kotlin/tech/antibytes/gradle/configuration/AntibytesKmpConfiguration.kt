@@ -13,5 +13,7 @@ import tech.antibytes.gradle.util.applyIfNotExists
 class AntibytesKmpConfiguration : Plugin<Project> {
     override fun apply(target: Project) {
         target.applyIfNotExists("org.jetbrains.kotlin.multiplatform")
+
+        ToolChainConfigurator.configure(target)
     }
 }

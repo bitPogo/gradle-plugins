@@ -6,8 +6,12 @@
 
 package tech.antibytes.gradle.configuration
 
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
 import io.mockk.verify
 import kotlin.test.assertTrue
 import org.gradle.api.Plugin
@@ -55,5 +59,26 @@ class AntibytesKmpConfigurationSpec {
 
         // Then
         verify(exactly = 0) { pluginContainer.apply("org.jetbrains.kotlin.multiplatform") }
+    }
+
+    @Test
+    fun `Given apply is called with a Project, it configures the ToolChain`() {
+        mockkObject(ToolChainConfigurator)
+        // Given
+        val pluginContainer: PluginContainer = mockk(relaxed = true) {
+            every { hasPlugin(any<String>()) } returns true
+        }
+        val project: Project = mockk(relaxed = true) {
+            every { plugins } returns pluginContainer
+        }
+        every { ToolChainConfigurator.configure(any()) } just Runs
+
+        // When
+        AntibytesKmpConfiguration().apply(project)
+
+        // Then
+        verify(exactly = 1) { ToolChainConfigurator.configure(project) }
+
+        unmockkObject(ToolChainConfigurator)
     }
 }
