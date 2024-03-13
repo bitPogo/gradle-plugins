@@ -39,7 +39,7 @@ import tech.antibytes.gradle.coverage.api.JacocoVerificationRule
 import tech.antibytes.gradle.coverage.api.JvmJacocoAggregationConfiguration
 import tech.antibytes.gradle.coverage.api.JvmJacocoConfiguration
 import tech.antibytes.gradle.coverage.task.TaskContract
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeMapProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.util.capitalize
 

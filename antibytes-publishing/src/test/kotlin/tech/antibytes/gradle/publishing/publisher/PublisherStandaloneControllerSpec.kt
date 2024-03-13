@@ -32,9 +32,9 @@ import tech.antibytes.gradle.publishing.api.MavenRepositoryConfiguration
 import tech.antibytes.gradle.publishing.git.GitRepository
 import tech.antibytes.gradle.publishing.maven.MavenPublisher
 import tech.antibytes.gradle.publishing.maven.MavenRepository
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeMapProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.util.capitalize
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration

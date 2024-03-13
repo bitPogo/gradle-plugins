@@ -43,9 +43,9 @@ import tech.antibytes.gradle.publishing.PublishingContract
 import tech.antibytes.gradle.publishing.PublishingContract.PublishingPluginExtension
 import tech.antibytes.gradle.publishing.api.MemorySigningConfiguration
 import tech.antibytes.gradle.publishing.publisher.TestConfig
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeMapProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeSetProperty
 import tech.antibytes.gradle.test.createExtension
 import tech.antibytes.gradle.versioning.VersioningContract
 

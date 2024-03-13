@@ -33,7 +33,7 @@ import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationReportTaskCon
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoAggregationVerificationTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoReportTaskConfigurator
 import tech.antibytes.gradle.coverage.task.jacoco.JacocoVerificationTaskConfigurator
-import tech.antibytes.gradle.test.GradlePropertyBuilder
+import tech.antibytes.gradle.test.GradlePropertyFactory
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class TaskControllerSpec {
@@ -54,7 +54,7 @@ class TaskControllerSpec {
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
         every { project.rootProject } returns mockk()
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf("unknown" to configuration),
@@ -81,7 +81,7 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns mockk()
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
@@ -117,7 +117,7 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns mockk()
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
@@ -157,7 +157,7 @@ class TaskControllerSpec {
         val kmpReporterTask: Task = mockk(relaxed = true)
 
         every { project.rootProject } returns mockk()
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
@@ -205,7 +205,7 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns mockk()
         every { project.tasks } returns tasks
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
@@ -245,7 +245,7 @@ class TaskControllerSpec {
         val kmpVerificationTask: Task = mockk(relaxed = true)
 
         every { project.rootProject } returns mockk()
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
@@ -286,7 +286,7 @@ class TaskControllerSpec {
         val configuration: CoverageApiContract.CoverageConfiguration = mockk()
 
         every { project.rootProject } returns project
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf("unknown" to configuration),
@@ -313,7 +313,7 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns project
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java, mutableMapOf(contextId to configuration),
         )
@@ -354,7 +354,7 @@ class TaskControllerSpec {
 
         every { project.rootProject } returns project
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(
@@ -419,7 +419,7 @@ class TaskControllerSpec {
         every { project.rootProject } returns project
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { project.tasks } returns tasks
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(
@@ -481,7 +481,7 @@ class TaskControllerSpec {
         every { project.rootProject } returns project
         every { project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") } returns false
         every { project.tasks } returns tasks
-        every { extension.configurations } returns GradlePropertyBuilder.makeMapProperty(
+        every { extension.configurations } returns GradlePropertyFactory.makeMapProperty(
             String::class.java,
             CoverageApiContract.CoverageConfiguration::class.java,
             mutableMapOf(

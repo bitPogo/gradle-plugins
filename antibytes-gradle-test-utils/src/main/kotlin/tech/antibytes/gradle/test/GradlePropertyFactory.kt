@@ -15,7 +15,7 @@ import org.gradle.testfixtures.ProjectBuilder
 /**
  * Helper for GradleProperties
  */
-object GradlePropertyBuilder {
+object GradlePropertyFactory {
     private val project = ProjectBuilder.builder().build()
 
     /**

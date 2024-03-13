@@ -27,9 +27,9 @@ import tech.antibytes.gradle.publishing.api.DocumentationConfiguration
 import tech.antibytes.gradle.publishing.doc.DocumentationController
 import tech.antibytes.gradle.publishing.signing.SigningController
 import tech.antibytes.gradle.publishing.version.VersionController
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeSetProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeMapProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeSetProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 

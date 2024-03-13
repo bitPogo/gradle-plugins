@@ -18,7 +18,7 @@ import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.AntibytesCoveragePluginExtension
 import tech.antibytes.gradle.coverage.task.TaskContract
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
 
 class JacocoExtensionConfiguratorSpec {
     private val fixture = kotlinFixture()

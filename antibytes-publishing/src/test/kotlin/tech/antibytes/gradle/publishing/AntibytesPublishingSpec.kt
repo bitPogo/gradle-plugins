@@ -21,7 +21,7 @@ import org.gradle.api.plugins.PluginContainer
 import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.publishing.publisher.PublisherController
 import tech.antibytes.gradle.publishing.signing.SigningController
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
 import tech.antibytes.gradle.versioning.AntiBytesVersioningPluginExtension
 
 class AntibytesPublishingSpec {

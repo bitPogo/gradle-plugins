@@ -14,7 +14,7 @@ import tech.antibytes.gradle.publishing.PublishingApiContract.MemorySigning
 import tech.antibytes.gradle.publishing.PublishingApiContract.PackageConfiguration
 import tech.antibytes.gradle.publishing.PublishingApiContract.RepositoryConfiguration
 import tech.antibytes.gradle.publishing.PublishingContract
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
 import tech.antibytes.gradle.versioning.VersioningContract.VersioningConfiguration
 
 data class TestConfig(

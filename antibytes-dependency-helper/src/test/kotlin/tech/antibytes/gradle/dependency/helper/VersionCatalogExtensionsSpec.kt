@@ -15,7 +15,7 @@ import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
 
 class VersionCatalogExtensionsSpec {
     private val fixture = kotlinFixture()

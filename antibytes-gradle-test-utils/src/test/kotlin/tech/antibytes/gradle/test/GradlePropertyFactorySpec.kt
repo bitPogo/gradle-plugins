@@ -15,7 +15,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.junit.jupiter.api.Test
 
-class GradlePropertyBuilderSpec {
+class GradlePropertyFactorySpec {
     private val fixture = kotlinFixture()
 
     @Test
@@ -24,7 +24,7 @@ class GradlePropertyBuilderSpec {
         val value: String = fixture()
 
         // When
-        val result: Any = GradlePropertyBuilder.makeProperty(String::class.java, value)
+        val result: Any = GradlePropertyFactory.makeProperty(String::class.java, value)
 
         // Then
         assertTrue(result is Property<*>)
@@ -40,7 +40,7 @@ class GradlePropertyBuilderSpec {
         val value: String = fixture()
 
         // When
-        val result: Any = GradlePropertyBuilder.makeListProperty(String::class.java, listOf(value))
+        val result: Any = GradlePropertyFactory.makeListProperty(String::class.java, listOf(value))
 
         // Then
         assertTrue(result is ListProperty<*>)
@@ -56,7 +56,7 @@ class GradlePropertyBuilderSpec {
         val value: String = fixture()
 
         // When
-        val result: Any = GradlePropertyBuilder.makeSetProperty(String::class.java, setOf(value))
+        val result: Any = GradlePropertyFactory.makeSetProperty(String::class.java, setOf(value))
 
         // Then
         assertTrue(result is SetProperty<*>)
@@ -72,7 +72,7 @@ class GradlePropertyBuilderSpec {
         val value: Map<String, String> = fixture()
 
         // When
-        val result: Any = GradlePropertyBuilder.makeMapProperty(String::class.java, String::class.java, value)
+        val result: Any = GradlePropertyFactory.makeMapProperty(String::class.java, String::class.java, value)
 
         // Then
         assertTrue(result is MapProperty<*, *>)

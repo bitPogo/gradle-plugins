@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test
 import tech.antibytes.gradle.coverage.CoverageApiContract.CoverageConfiguration
 import tech.antibytes.gradle.coverage.configuration.DefaultConfigurationProvider
 import tech.antibytes.gradle.coverage.task.TaskController
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeMapProperty
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeMapProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class AntibytesCoverageSpec {

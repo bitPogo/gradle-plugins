@@ -22,7 +22,7 @@ import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.TaskProvider
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.test.GradlePropertyBuilder
+import tech.antibytes.gradle.test.GradlePropertyFactory
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class DependencyUpdateSpec {
@@ -40,11 +40,11 @@ class DependencyUpdateSpec {
         val candidateVersion = "lmp-X"
 
         val config = object : DependencyContract.DependencyPluginExtension {
-            override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
+            override val keywords: SetProperty<String> = GradlePropertyFactory.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C"),
             )
-            override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
+            override val versionRegex: Property<Regex> = GradlePropertyFactory.makeProperty(
                 Regex::class.java,
                 "xyz.*".toRegex(),
             )
@@ -111,11 +111,11 @@ class DependencyUpdateSpec {
         val candidateVersion = "xyz-Y"
 
         val config = object : DependencyContract.DependencyPluginExtension {
-            override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
+            override val keywords: SetProperty<String> = GradlePropertyFactory.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C"),
             )
-            override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
+            override val versionRegex: Property<Regex> = GradlePropertyFactory.makeProperty(
                 Regex::class.java,
                 "xyz.*".toRegex(),
             )
@@ -182,11 +182,11 @@ class DependencyUpdateSpec {
         val candidateVersion = "xyz-B"
 
         val config = object : DependencyContract.DependencyPluginExtension {
-            override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
+            override val keywords: SetProperty<String> = GradlePropertyFactory.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C"),
             )
-            override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
+            override val versionRegex: Property<Regex> = GradlePropertyFactory.makeProperty(
                 Regex::class.java,
                 "xyz.*".toRegex(),
             )
@@ -253,11 +253,11 @@ class DependencyUpdateSpec {
         val candidateVersion = "lmp-Y"
 
         val config = object : DependencyContract.DependencyPluginExtension {
-            override val keywords: SetProperty<String> = GradlePropertyBuilder.makeSetProperty(
+            override val keywords: SetProperty<String> = GradlePropertyFactory.makeSetProperty(
                 String::class.java,
                 setOf("A", "B", "C"),
             )
-            override val versionRegex: Property<Regex> = GradlePropertyBuilder.makeProperty(
+            override val versionRegex: Property<Regex> = GradlePropertyFactory.makeProperty(
                 Regex::class.java,
                 "xyz.*".toRegex(),
             )

@@ -15,7 +15,7 @@ import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.DependencyResolveDetails
 import org.gradle.api.artifacts.ResolutionStrategy
 import org.junit.jupiter.api.Test
-import tech.antibytes.gradle.test.GradlePropertyBuilder.makeProperty
+import tech.antibytes.gradle.test.GradlePropertyFactory.makeProperty
 import tech.antibytes.gradle.test.invokeGradleAction
 
 class InsuranceSpec {
