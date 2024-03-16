@@ -21,17 +21,6 @@ object GradleProviderFactory {
     inline fun <reified T : Task> createTaskProvider(
         name: String,
         value: KClass<T>,
-        configure: T.() -> Unit = { /* Do Nothing */ },
-    ): TaskProvider<T> {
-        val project = ProjectBuilder.builder().build()
-        project.tasks.create(name, value.java).apply(configure)
-
-        return project.tasks.withType(T::class.java).named(name)
-    }
-
-    inline fun <reified T : Task> createTaskProvider(
-        name: String,
-        value: KClass<T>,
         vararg parameter: Any?,
         configure: T.() -> Unit = { /* Do Nothing */ },
     ): TaskProvider<T> {

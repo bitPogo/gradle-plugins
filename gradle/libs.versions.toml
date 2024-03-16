@@ -3,7 +3,7 @@ java-jvm = "17"
 java-android = "8"
 
 # [Kotlin](https://kotlinlang.org/docs/releases.html)
-kotlin = "1.9.23"
+kotlin = "1.9.22"
 
 # [Gradle](https://gradle.org/releases/)
 gradle = "8.6.0"
