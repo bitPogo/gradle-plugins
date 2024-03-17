@@ -6,6 +6,7 @@
 
 package tech.antibytes.gradle.test
 
+import org.gradle.api.Project
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
@@ -16,7 +17,8 @@ import org.gradle.testfixtures.ProjectBuilder
  * Helper for GradleProperties
  */
 object GradlePropertyFactory {
-    private val project = ProjectBuilder.builder().build()
+    private val project: Project
+        get() = ProjectBuilder.builder().build()
 
     /**
      * Creates a Property

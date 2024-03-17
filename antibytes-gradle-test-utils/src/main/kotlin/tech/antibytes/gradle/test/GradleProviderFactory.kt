@@ -14,7 +14,8 @@ import org.gradle.api.tasks.TaskProvider
 import org.gradle.testfixtures.ProjectBuilder
 
 object GradleProviderFactory {
-    private val project = ProjectBuilder.builder().build()
+    private val project: Project
+        get() = ProjectBuilder.builder().build()
 
     fun <T> createProvider(value: T): Provider<T> = project.provider { value }
 

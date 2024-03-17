@@ -12,9 +12,6 @@ import org.gradle.kotlin.dsl.container
 import org.gradle.testfixtures.ProjectBuilder
 
 object GradleNamedContainerFactory {
-    @PublishedApi
-    internal val project = ProjectBuilder.builder().build()
-
     /**
      * Creates a NamedDomainObjectContainer
      * @param Class<T>: type of the Object which will be wrapped by the resulting NamedDomainObjectContainer
@@ -23,6 +20,8 @@ object GradleNamedContainerFactory {
     inline fun <reified T : Named> createNamedContainer(
         values: Collection<T>,
     ): NamedDomainObjectContainer<T> {
+        val project = ProjectBuilder.builder().build()
+
         @Suppress("UNCHECKED_CAST")
         return project.container(T::class.java).apply {
             addAll(values)

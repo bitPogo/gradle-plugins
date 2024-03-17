@@ -120,7 +120,6 @@ dependencies {
     testImplementation(platform(libs.junit))
     testImplementation(libs.jupiter)
     testImplementation(libs.mockk)
-    testImplementation(libs.mockkInstumented)
     testImplementation(libs.jvmFixture)
     testImplementation(projects.antibytesGradleTestUtils)
 }
