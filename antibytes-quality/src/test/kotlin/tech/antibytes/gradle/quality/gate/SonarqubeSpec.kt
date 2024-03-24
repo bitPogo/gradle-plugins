@@ -83,7 +83,7 @@ class SonarqubeSpec {
         // When
         Sonarqube.configure(project, extension)
         verify(exactly = 1) { sonarProperties.property("sonar.projectKey", config.projectKey) }
-        verify(exactly = 1) { sonarProperties.property("sonar.organization", "antibytes") }
+        verify(exactly = 1) { sonarProperties.property("sonar.organization", config.organization) }
         verify(exactly = 1) { sonarProperties.property("sonar.host.url", config.host) }
 
         verify(exactly = 1) { sonarProperties.property("sonar.sourceEncoding", config.encoding) }

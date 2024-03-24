@@ -17,7 +17,7 @@ internal object Sonarqube : Configurator() {
         extensions.configure(SonarExtension::class.java) {
             properties {
                 property("sonar.projectKey", configuration.projectKey)
-                property("sonar.organization", "antibytes")
+                property("sonar.organization", configuration.organization)
                 property("sonar.host.url", configuration.host)
 
                 property("sonar.sourceEncoding", configuration.encoding)
