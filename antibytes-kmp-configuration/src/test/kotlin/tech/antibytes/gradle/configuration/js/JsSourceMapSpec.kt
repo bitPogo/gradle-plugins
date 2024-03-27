@@ -21,7 +21,7 @@ import tech.antibytes.gradle.test.GradleNamedContainerFactory
 
 class JsSourceMapSpec {
     @Test
-    @Disabled // Does run for GradleWTF
+    @Disabled // Gradle WTF just hangs here for no reason...it cannot work with its own Project Builder
     fun `Given enableSourceMaps is called it configures the usages of SourceMaps`() {
         // Given
         val main: Kotlin2JsCompile = mockk(relaxed = true)
