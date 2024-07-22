@@ -28,4 +28,4 @@ rootProject.name = "versioncatalog-builder-local"
 
 includeBuild("../runtime-configuration")
 includeBuild("../dependency-bridge")
-includeBuild("../versioning")
+includeBuild("../convention")

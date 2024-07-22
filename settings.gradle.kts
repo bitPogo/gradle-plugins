@@ -33,7 +33,7 @@ includeBuild("custom-component")
 includeBuild("shared-version-catalog")
 includeBuild("coverage")
 includeBuild("publishing")
-includeBuild("versioning")
+includeBuild("convention")
 includeBuild("quality")
 
 include(
