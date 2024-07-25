@@ -1,0 +1,1 @@
+../../../../../../../../../antibytes-java-configuration/src/main/kotlin/tech/antibytes/gradle/configuration/AntibytesJavaConfiguration.kt

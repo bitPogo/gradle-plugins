@@ -1,8 +1,5 @@
-/*
- * Copyright (c) 2022 Matthias Geisler (bitPogo) / All rights reserved.
- *
- * Use of this source code is governed by Apache License, Version 2.0
- */
+@file:Suppress("UnstableApiUsage")
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -17,11 +14,19 @@ dependencyResolutionManagement {
         create("libs") {
             from(files("../gradle/libs.versions.toml"))
         }
+        create("antibytes") {
+            from(files("../gradle/antibytes.catalog.toml"))
+        }
     }
 }
-
-rootProject.name = "versioning-local"
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
+
+
+includeBuild("atomic")
+
+include("composit")
+
+rootProject.name = "convention"
