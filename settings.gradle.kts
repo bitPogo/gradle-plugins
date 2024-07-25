@@ -24,17 +24,8 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
-// Order is important
-includeBuild("java-configuration")
-includeBuild("runtime-configuration")
-includeBuild("dependency-helper")
-includeBuild("dependency-bridge")
-includeBuild("custom-component")
+includeBuild("convention")
 includeBuild("shared-version-catalog")
-includeBuild("coverage")
-includeBuild("publishing")
-includeBuild("versioning")
-includeBuild("quality")
 
 include(
     ":antibytes-android-configuration",
